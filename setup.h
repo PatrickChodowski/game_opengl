@@ -6,10 +6,6 @@
 #include <iostream> // adds std::cout, std::endl
 #include <SDL2/SDL.h> // SDL is needed to initialize Opengl context on any platform
 
-// Components
-#include "opengl/camera.h"
-
-
 
 // Globals (big rule - they cant be modified anywhere)
 int TILE_DIM = 96;
@@ -33,6 +29,12 @@ int LOGGING = 0;
 Uint32 flags = SDL_WINDOW_OPENGL;
 const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
+
+
+// Components
+#include "opengl/camera.h"
+#include "opengl/events.h"
+
 
 
 // Program setup, but has to be inside a function, called from main.cpp

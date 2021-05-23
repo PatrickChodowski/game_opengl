@@ -16,5 +16,12 @@ int main()
 
   std::cout << "hello" << std::endl;
 
+  // main game loop
+  while(RUNNING)
+  {
+    SDL_Event event;
+    events::handle_events(event);
+  }
+
   return 0;
 }
