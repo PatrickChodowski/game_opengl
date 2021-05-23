@@ -5,6 +5,21 @@
 // Packages
 #include <iostream> // adds std::cout, std::endl
 #include <SDL2/SDL.h> // SDL is needed to initialize Opengl context on any platform
+#include <string>
+#include <vector>
+#include <map>
+
+// Opengl packages
+#include <GL/glew.h> 
+#ifdef TARGET_OS_MAC
+    #include <OpenGL/gl.h>
+    #include <OpenGL/glu.h>
+#endif
+
+#ifdef __linux__
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
 
 
 // Globals (big rule - they cant be modified anywhere)
@@ -34,6 +49,7 @@ bool RUNNING = true;
 // Components
 #include "opengl/camera.h"
 #include "opengl/events.h"
+#include "opengl/shaders.h"
 
 
 

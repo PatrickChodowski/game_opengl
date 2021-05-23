@@ -12,10 +12,6 @@ int main()
                                         WINDOW_HEIGHT,
                                         flags);
 
-
-
-  std::cout << "hello" << std::endl;
-
   // main game loop
   while(RUNNING)
   {
