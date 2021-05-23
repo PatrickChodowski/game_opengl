@@ -86,13 +86,7 @@ namespace shaders
     {
       srclens[i] = (GLsizei)strlen(sources[i]);
     }
-
-    std::cout << type << std::endl;
-
-    //logg::print("function compile_shader:: glCreateShader " + type, 0);
     shader = glCreateShader(type);
-
-
     glShaderSource(shader, nsources, sources, srclens);
     glCompileShader(shader);
 
@@ -114,7 +108,7 @@ namespace shaders
     return shader;
   }
 
-    // loads a shader from file and returns the compiled shader
+  // loads a shader from file and returns the compiled shader
   GLuint get_shader(GLenum eShaderType, const char *filename)
   {
     const char *shaderSource = read_file(filename);
@@ -147,11 +141,11 @@ namespace shaders
     glDeleteShader(fragmentShader);
 
     if (status == GL_FALSE){
-      logg::print("CustomShaderException: Shader status is FALSE",0);
+      logger::print("CustomShaderException: Shader status is FALSE", 2);
       return 0;
     };
 
-    logg::print("Shading program before return: " + std::to_string(shading_program),0);
+    logger::print("Shading program before return: " + std::to_string(shading_program), 1);
     return shading_program;
   }
 

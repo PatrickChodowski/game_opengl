@@ -47,6 +47,8 @@ bool RUNNING = true;
 
 
 // Components
+#include "utils/logger.h"
+
 #include "opengl/camera.h"
 #include "opengl/events.h"
 #include "opengl/shaders.h"
