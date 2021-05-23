@@ -51,9 +51,14 @@ bool RUNNING = true;
 
 #include "opengl/camera.h"
 #include "opengl/events.h"
+// #include "opengl/textures.h"
 #include "opengl/shaders.h"
 
-#include "opengl/quads.h"
+// #include "opengl/quads.h"
+
+#include "dependencies/json.hpp"
+
+using json nlohmann::json;
 
 // Program setup, but has to be inside a function, called from main.cpp
 void initialize_opengl_context()
