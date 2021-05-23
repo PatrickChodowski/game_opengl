@@ -1,7 +1,7 @@
 #ifndef SHADERS_H
 #define SHADERS_H
 
-namespace shaders
+namespace shaders   
 {
   GLuint shading_program;
 

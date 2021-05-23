@@ -53,7 +53,7 @@ bool RUNNING = true;
 #include "opengl/events.h"
 #include "opengl/shaders.h"
 
-
+#include "opengl/quads.h"
 
 // Program setup, but has to be inside a function, called from main.cpp
 void initialize_opengl_context()
