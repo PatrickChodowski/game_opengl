@@ -4,16 +4,18 @@
 
 namespace textures
 {
-  // struct Frame
-  // {
-  //   std::string type; //object, tile, entity?
-  //   int x;
-  //   int y;
-  //   int w;
-  //   int h;
-  // };
+  struct Frame
+  {
+    int frame_id;
+    int x;
+    int y;
+    int w;
+    int h;
+    int is_solid;
 
-  // std::map<std::string,struct Frame> tile_frames_catalog;
+    JS_OBJ(frame_id, x, y, w, h, is_solid);
+  };
+
 
   struct TextureData
   {
@@ -22,8 +24,9 @@ namespace textures
     std::string name;
     int width;
     int height;
+    std::vector<Frame> frames;
 
-    JS_OBJ(id, type, name, width, height);
+    JS_OBJ(id, type, name, width, height, frames);
   };
 
   std::string read_text_file(std::string path)
@@ -46,7 +49,15 @@ namespace textures
     if(LOGGING == 0)
     {
       std::cout << "Read-in texture id: " << TD.id << ", type: " << TD.type << ", name: " <<
-       TD.name << ", width: " << TD.width << ", height: " << TD.height << std::endl;
+       TD.name << ", width: " << TD.width << ", height: " << TD.height << ",  frames count: " << TD.frames.size() << std::endl;
+
+      for(int f=0; f<TD.frames.size(); f++)
+      {
+       std::cout <<  "frame_id: " << TD.frames[f].frame_id << ", x: " 
+       <<  TD.frames[f].x << ", y: "<< TD.frames[f].y << ", w: " 
+       << TD.frames[f].w << ", h: "<< TD.frames[f].h << ", is_solid: " << TD.frames[f].is_solid << std::endl;
+      }
+
     }
 
   }

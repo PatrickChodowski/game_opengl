@@ -3,5 +3,10 @@
   "type": "tiles",
   "name": "dungeon",
   "width": 196,
-  "height": 64
+  "height": 64,
+  "frames": [
+    {"frame_id": 0, "x": 0, "y": 0, "w": 64, "h": 64, "is_solid": 0},
+    {"frame_id": 1, "x": 65, "y": 0, "w": 64, "h": 64, "is_solid": 0},
+    {"frame_id": 2, "x": 129, "y": 0, "w": 64, "h": 64, "is_solid": 1}
+  ]}
 }
