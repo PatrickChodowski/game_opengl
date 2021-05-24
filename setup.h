@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <fstream> // for reading in the json files
+#include <sstream> // for reading in the json files
 
 // Opengl packages
 #include <GL/glew.h> 
@@ -45,20 +47,19 @@ Uint32 flags = SDL_WINDOW_OPENGL;
 const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
 
+//https://github.com/jorgen/json_struct
+#include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
+
 
 // Components
 #include "utils/logger.h"
 
 #include "opengl/camera.h"
 #include "opengl/events.h"
-// #include "opengl/textures.h"
+#include "opengl/textures.h"
 #include "opengl/shaders.h"
 
 // #include "opengl/quads.h"
-
-#include "dependencies/json.hpp"
-
-using json nlohmann::json;
 
 // Program setup, but has to be inside a function, called from main.cpp
 void initialize_opengl_context()

@@ -11,6 +11,9 @@ int main()
                                         WINDOW_WIDTH,
                                         WINDOW_HEIGHT,
                                         flags);
+  // loading level part:
+  textures::read_texture("dungeon");
+
 
   // main game loop
   while(RUNNING)
