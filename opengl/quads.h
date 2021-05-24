@@ -28,7 +28,7 @@ namespace quads
     double b_col;
     double a_col;
 
-    double tile_type;
+    double frame_id;
     double tex_coord_x;
     double tex_coord_y;
     double texture_id;
@@ -54,7 +54,6 @@ namespace quads
     int id;
     int x;
     int y;
-    int type;
     bool solid;
 
     // vertex IDS:
@@ -87,6 +86,28 @@ namespace quads
   };
 
 
+    void print_out_quads(std::vector<Quad> quads)
+    {
+      for(int t=0; t<quads.size(); t++)
+    //for(int t=0; t<2; t++)
+      {
+        std::cout << "Quad: " << quads[t].id << " - "<< quads[t].frame_id << std::endl << 
+        quads[t].x  << "," << quads[t].y << std::endl <<
+    
+        "Vertices positions:"  << std::endl <<
+        quads[t].a << " " << quads[t].v_a.x_pos << "," << quads[t].v_a.y_pos << std::endl <<
+        quads[t].b << " " << quads[t].v_b.x_pos << "," << quads[t].v_b.y_pos << std::endl <<
+        quads[t].c << " " << quads[t].v_c.x_pos << "," << quads[t].v_c.y_pos << std::endl <<
+        quads[t].d << " " << quads[t].v_d.x_pos << "," << quads[t].v_d.y_pos << std::endl <<
+
+        "Vindices:" << std::endl <<
+        quads[t].i_left.a << " " << quads[t].i_left.b << " " << quads[t].i_left.c << std::endl <<
+        quads[t].i_right.a << " " << quads[t].i_right.b << " " << quads[t].i_right.c << std::endl;
+      }
+    }
+
+
+
   std::vector<Quad> assign_vertices(std::vector<Quad> quads)
   {
     for(int i = 0; i < quads.size(); i++)
@@ -107,7 +128,7 @@ namespace quads
       // create vertex struct - A
       quads[i].v_a.vertex_id = quads[i].a;
       quads[i].v_a.tile_id = quads[i].id;
-      quads[i].v_a.tile_type = quads[i].type;
+      quads[i].v_a.frame_id = quads[i].frame_id;
       quads[i].v_a.x_pos = (float)quads[i].x;
       quads[i].v_a.y_pos = (float)quads[i].y;
       quads[i].v_a.z_pos = 0.0f;
@@ -122,7 +143,7 @@ namespace quads
       // create vertex struct - B
       quads[i].v_b.vertex_id = quads[i].b;
       quads[i].v_b.tile_id = quads[i].id;
-      quads[i].v_b.tile_type = quads[i].type;
+      quads[i].v_b.frame_id = quads[i].frame_id;
       quads[i].v_b.x_pos = (float)quads[i].x + (float)TILE_DIM  - (float)VERTEX_OFFSET;
       quads[i].v_b.y_pos = (float)quads[i].y;
       quads[i].v_b.z_pos = 0.0f;
@@ -138,7 +159,7 @@ namespace quads
       // create vertex struct - C
       quads[i].v_c.vertex_id = quads[i].c;
       quads[i].v_c.tile_id = quads[i].id;
-      quads[i].v_c.tile_type = quads[i].type;
+      quads[i].v_c.frame_id = quads[i].frame_id;
       quads[i].v_c.x_pos = (float)quads[i].x;
       quads[i].v_c.y_pos = (float)quads[i].y + (float)TILE_DIM - (float)VERTEX_OFFSET;
       quads[i].v_c.z_pos = 0.0f;
@@ -154,7 +175,7 @@ namespace quads
       // create vertex struct - D
       quads[i].v_d.vertex_id = quads[i].d;
       quads[i].v_d.tile_id = quads[i].id;
-      quads[i].v_d.tile_type = quads[i].type;
+      quads[i].v_d.frame_id = quads[i].frame_id;
       quads[i].v_d.x_pos = (float)quads[i].x + (float)TILE_DIM  - (float)VERTEX_OFFSET;
       quads[i].v_d.y_pos = (float)quads[i].y + (float)TILE_DIM - (float)VERTEX_OFFSET;
       quads[i].v_d.z_pos = 0.0f;
@@ -176,8 +197,15 @@ namespace quads
       quads[i].i_right.b = quads[i].c;
       quads[i].i_right.c = quads[i].d;
     }
+
+    if(LOGGING==0)
+    {
+      print_out_quads(quads);
+    }
+
     return quads;
   }
+
 
 
 }

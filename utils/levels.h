@@ -61,10 +61,12 @@ namespace levels
   void load(int map_id, int player_x, int player_y)
   {
     // Load quads for the map first
-    std::vector<quads::Quad> quads = load_map_from_file(maps::Catalog[map_id].name, 
+    std::vector<quads::Quad> level_quads = load_map_from_file(maps::Catalog[map_id].name, 
                                                         maps::Catalog[map_id].vertex_width, 
                                                         maps::Catalog[map_id].vertex_height, 
                                                         maps::Catalog[map_id].texture_id);
+
+    std::vector<quads::Quad> quads = quads::assign_vertices(level_quads);
   }
 
 

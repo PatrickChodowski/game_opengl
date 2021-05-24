@@ -8,8 +8,8 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <fstream> // for reading in the json files
-#include <sstream> // for reading in the json files
+#include <fstream>  // for reading in the json files
+#include <sstream>  // for reading in the json files
 #include <dirent.h> // filesystem, listing files
 
 
@@ -74,6 +74,4 @@ void initialize_opengl_context()
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-
-
 }
