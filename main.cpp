@@ -11,9 +11,10 @@ int main()
                                         WINDOW_WIDTH,
                                         WINDOW_HEIGHT,
                                         flags);
-  // reads-in all textures data into a catalog
+                                        
+  // reads-in all textures and maps data into catalogs
   textures::init();
-
+  maps::init();
 
   // main game loop
   while(RUNNING)

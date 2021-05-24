@@ -5,34 +5,6 @@
 namespace textures
 { 
 
-  bool has_ending (std::string const &fullString, std::string const &ending) {
-    if (fullString.length() >= ending.length()) {
-        return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
-    } else {
-        return false;
-    }
-  }
-
-
-  // list all textures that have metadata created, default path
-  std::vector<std::string> list_textures(std::string path="assets/data/")
-  {
-    std::vector<std::string> list_of_textures = {};
-    struct dirent *entry;
-    DIR *dir = opendir(path.c_str());
-    while ((entry = readdir(dir)) != NULL) {
-      if(has_ending (entry->d_name, ".json")){
-        std::string str = entry->d_name;
-        std::string clean_str = str.replace(str.end()-5, str.end(), "");
-        logger::print(clean_str);
-        list_of_textures.push_back(clean_str);  
-      }
-    }
-    closedir(dir);
-    return list_of_textures;
-  };  
-
-
   // Single frame information
   struct Frame
   {
@@ -61,23 +33,13 @@ namespace textures
 
   // Creating catalog of all textures data 
   std::map<int, TextureData> Catalog = {};
-
-  // Reading in text files (may be moved later to utils if needed)
-  std::string read_text_file(std::string path)
-  {
-    std::ifstream json_file(path);
-    std::ostringstream tmp;
-    tmp << json_file.rdbuf();
-    std::string s = tmp.str();
-    return s;
-  } 
   
   // Read-in all json files
   void read_texture_data(std::string name)
   {
     TextureData TD;
     std::string data_path = "./assets/data/"+name+".json";
-    std::string json_data = read_text_file(data_path);
+    std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(TD);
 
@@ -103,7 +65,8 @@ namespace textures
   // reads-in all possible textures into a catalog
   void init()
   {
-    std::vector<std::string> texture_list = list_textures();
+    logger::print("READING TEXTURES");
+    std::vector<std::string> texture_list = utils::list_files("assets/data/");
     for(int t=0; t < texture_list.size(); t++)
     {
       read_texture_data(texture_list[t]);

@@ -56,7 +56,8 @@ bool RUNNING = true;
 
 // Utils
 #include "utils/logger.h"
-
+#include "utils/utils.h"
+#include "utils/maps.h"
 
 // OpenGL
 #include "opengl/camera.h"
