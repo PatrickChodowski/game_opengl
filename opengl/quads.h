@@ -80,7 +80,9 @@ namespace quads
     //   b
     // c d
 
-    std::string sheet_name;
+    // for assigning texture and frame in assign_vertices:
+    int texture_id;
+    int frame_id;
 
   };
 
@@ -96,6 +98,12 @@ namespace quads
       quads[i].c = j+2;
       quads[i].d = j+3;
 
+      float norm_x_start = (float)textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].x/
+      (float)textures::Catalog[quads[i].texture_id].width;
+
+      float norm_x_end =  (float)(textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].x + TILE_DIM)/
+      (float)textures::Catalog[quads[i].texture_id].width;
+
       // create vertex struct - A
       quads[i].v_a.vertex_id = quads[i].a;
       quads[i].v_a.tile_id = quads[i].id;
@@ -107,9 +115,9 @@ namespace quads
       quads[i].v_a.g_col = 0.0f;
       quads[i].v_a.b_col = 0.0f;
       quads[i].v_a.a_col = 1.0f;
-      quads[i].v_a.tex_coord_x = textures::tile_frames_catalog[quads[i].sheet_name][quads[i].type].norm_x_start;
+      quads[i].v_a.tex_coord_x = norm_x_start;
       quads[i].v_a.tex_coord_y = 0.0f;
-      quads[i].v_a.texture_id = textures::tile_frames_catalog[quads[i].sheet_name][quads[i].type].texture_id;
+      quads[i].v_a.texture_id = textures::Catalog[quads[i].texture_id].id;
 
       // create vertex struct - B
       quads[i].v_b.vertex_id = quads[i].b;
@@ -122,9 +130,9 @@ namespace quads
       quads[i].v_b.g_col = 0.0f;
       quads[i].v_b.b_col = 0.0f;
       quads[i].v_b.a_col = 1.0f;
-      quads[i].v_b.tex_coord_x = textures::tile_frames_catalog[quads[i].sheet_name][quads[i].type].norm_x_end;
+      quads[i].v_b.tex_coord_x = norm_x_end;
       quads[i].v_b.tex_coord_y = 0.0f;
-      quads[i].v_b.texture_id = textures::tile_frames_catalog[quads[i].sheet_name][quads[i].type].texture_id;
+      quads[i].v_b.texture_id = textures::Catalog[quads[i].texture_id].id;
 
 
       // create vertex struct - C
@@ -138,9 +146,9 @@ namespace quads
       quads[i].v_c.g_col = 0.0f;
       quads[i].v_c.b_col = 0.0f;
       quads[i].v_c.a_col = 1.0f;
-      quads[i].v_c.tex_coord_x = textures::tile_frames_catalog[quads[i].sheet_name][quads[i].type].norm_x_start;
+      quads[i].v_c.tex_coord_x = norm_x_start;
       quads[i].v_c.tex_coord_y = 1.0f;
-      quads[i].v_c.texture_id = textures::tile_frames_catalog[quads[i].sheet_name][quads[i].type].texture_id;
+      quads[i].v_c.texture_id = textures::Catalog[quads[i].texture_id].id;
 
 
       // create vertex struct - D
@@ -154,9 +162,9 @@ namespace quads
       quads[i].v_d.g_col = 0.0f;
       quads[i].v_d.b_col = 0.0f;
       quads[i].v_d.a_col = 1.0f;
-      quads[i].v_d.tex_coord_x = textures::tile_frames_catalog[quads[i].sheet_name][quads[i].type].norm_x_end;
+      quads[i].v_d.tex_coord_x = norm_x_end;
       quads[i].v_d.tex_coord_y = 1.0f;
-      quads[i].v_d.texture_id = textures::tile_frames_catalog[quads[i].sheet_name][quads[i].type].texture_id;
+      quads[i].v_d.texture_id = textures::Catalog[quads[i].texture_id].id;
 
 
       // create vindices 

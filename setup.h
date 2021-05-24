@@ -35,12 +35,6 @@ int WINDOW_VERTEX_HEIGHT = 8;
 int WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
 int WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
 
-// Global for now, but I think it should depend on map
-int MAP_VERTEX_WIDTH = 20;
-int MAP_VERTEX_HEIGHT = 16;
-int MAP_WIDTH = TILE_DIM * MAP_VERTEX_WIDTH;
-int MAP_HEIGHT = TILE_DIM * MAP_VERTEX_HEIGHT;
-
 // logging level
 int LOGGING = 0;
 
@@ -52,8 +46,6 @@ bool RUNNING = true;
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
 
-
-
 // Utils
 #include "utils/logger.h"
 #include "utils/utils.h"
@@ -64,8 +56,16 @@ bool RUNNING = true;
 #include "opengl/events.h"
 #include "opengl/textures.h"
 #include "opengl/shaders.h"
+#include "opengl/quads.h"
 
-// #include "opengl/quads.h"
+// game components
+#include "components/items.h"
+#include "components/mobs.h"
+#include "components/hero.h"
+
+
+#include "utils/levels.h"
+
 
 // Program setup, but has to be inside a function, called from main.cpp
 void initialize_opengl_context()

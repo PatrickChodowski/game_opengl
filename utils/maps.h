@@ -23,19 +23,13 @@ namespace maps
     std::string name;
     int vertex_width;
     int vertex_height;
-    int tile_texture_id;
+    int texture_id;
     int default_player_x;
     int default_player_y;
     std::vector<Door> doors;
 
-    JS_OBJ(id, name, vertex_width, vertex_height, tile_texture_id, default_player_x, default_player_y, doors);
+    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors);
   };
-
-
-
-  // map_id
-  // default player x, y
-
 
   std::map<int, MapData> Catalog = {};
   void read_map_data(std::string name)
@@ -53,7 +47,7 @@ namespace maps
     if(LOGGING == 0)
     { 
       std::cout << "Read-in map id: " << MD.id << ", name: " << MD.name << ", vertex_width: " <<
-       MD.vertex_width << ", vertex_height: " << MD.vertex_height << ", tile_texture_id: " << MD.tile_texture_id << 
+       MD.vertex_width << ", vertex_height: " << MD.vertex_height << ", texture_id: " << MD.texture_id << 
        ", default_player_x: " << MD.default_player_x << ", default_player_y: " << MD.default_player_y << 
        ",  door count: " << MD.doors.size() << std::endl;
 
@@ -76,25 +70,6 @@ namespace maps
       read_map_data(maps_list[m]);
     }
   }
-
-  
-  // map_id
-  // default player x, y
-  void load(int map_id, int player_x = 200, int player_y=200)
-  {
-
-
-
-
-  }
-
-
-
-  void unload()
-  {
-
-  }
-
 }
 
 #endif
