@@ -10,6 +10,8 @@
 #include <map>
 #include <fstream> // for reading in the json files
 #include <sstream> // for reading in the json files
+#include <dirent.h> // filesystem, listing files
+
 
 // Opengl packages
 #include <GL/glew.h> 
@@ -51,9 +53,12 @@ bool RUNNING = true;
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
 
 
-// Components
+
+// Utils
 #include "utils/logger.h"
 
+
+// OpenGL
 #include "opengl/camera.h"
 #include "opengl/events.h"
 #include "opengl/textures.h"

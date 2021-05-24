@@ -3,7 +3,37 @@
 
 
 namespace textures
-{
+{ 
+
+  bool has_ending (std::string const &fullString, std::string const &ending) {
+    if (fullString.length() >= ending.length()) {
+        return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
+    } else {
+        return false;
+    }
+  }
+
+
+  // list all textures that have metadata created, default path
+  std::vector<std::string> list_textures(std::string path="assets/data/")
+  {
+    std::vector<std::string> list_of_textures = {};
+    struct dirent *entry;
+    DIR *dir = opendir(path.c_str());
+    while ((entry = readdir(dir)) != NULL) {
+      if(has_ending (entry->d_name, ".json")){
+        std::string str = entry->d_name;
+        std::string clean_str = str.replace(str.end()-5, str.end(), "");
+        logger::print(clean_str);
+        list_of_textures.push_back(clean_str);  
+      }
+    }
+    closedir(dir);
+    return list_of_textures;
+  };  
+
+
+  // Single frame information
   struct Frame
   {
     int frame_id;
@@ -16,7 +46,7 @@ namespace textures
     JS_OBJ(frame_id, x, y, w, h, is_solid);
   };
 
-
+  // General texture information
   struct TextureData
   {
     int id;
@@ -29,6 +59,10 @@ namespace textures
     JS_OBJ(id, type, name, width, height, frames);
   };
 
+  // Creating catalog of all textures data 
+  std::map<int, TextureData> Catalog = {};
+
+  // Reading in text files (may be moved later to utils if needed)
   std::string read_text_file(std::string path)
   {
     std::ifstream json_file(path);
@@ -36,15 +70,19 @@ namespace textures
     tmp << json_file.rdbuf();
     std::string s = tmp.str();
     return s;
-  }
-
-  void read_texture(std::string name)
+  } 
+  
+  // Read-in all json files
+  void read_texture_data(std::string name)
   {
     TextureData TD;
     std::string data_path = "./assets/data/"+name+".json";
     std::string json_data = read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(TD);
+
+    // add to catalog
+    Catalog.insert({TD.id, TD});
 
     if(LOGGING == 0)
     {
@@ -57,68 +95,20 @@ namespace textures
        <<  TD.frames[f].x << ", y: "<< TD.frames[f].y << ", w: " 
        << TD.frames[f].w << ", h: "<< TD.frames[f].h << ", is_solid: " << TD.frames[f].is_solid << std::endl;
       }
-
     }
 
   }
 
 
-
-
-
-
-
-  // std::map<int, struct Frame> read_texture_spritesheet(const char *img_json_path, std::string type)
-  // {
-  //   std::ifstream json_file(img_json_path);
-  //   std::ostringstream tmp;
-  //   tmp << json_file.rdbuf();
-  //   std::string s = tmp.str();
-
-  //   std::regex e("\\{(.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*)\\}");
-  //   std::regex e2(": .([0-9])*");
-  //   std::regex_token_iterator<std::string::iterator> rend;
-  //   std::regex_token_iterator<std::string::iterator> a(s.begin(), s.end(), e);
-  //   std::map<int, struct TileFrame> frames;
-
-  //   while (a != rend)
-  //   {
-
-  //     struct TileFrame f;
-  //     std::string s(*a++);
-  //     std::regex_token_iterator<std::string::iterator> numbers(s.begin(), s.end(), e2);
-  //     std::vector<int> numbers_v = {};
-  //     while (numbers != rend)
-  //     {
-  //       std::string number_string(*numbers++);
-  //       std::string number_clean;
-  //       number_clean = number_string.replace(0, 2, "");
-  //       numbers_v.push_back(std::stoi(number_clean));
-  //     }
-
-  //     f.x = numbers_v[0];
-  //     f.y = numbers_v[1];
-  //     f.w = numbers_v[2];
-  //     f.h = numbers_v[3];
-  //     f.type = numbers_v[4];
-  //     f.solid = numbers_v[5];
-  //     f.x_end = numbers_v[6];
-  //     f.texture_id = (float)numbers_v[7];
-
-  //     f.norm_x_start =  (float)f.x/196.0;
-  //     f.norm_x_end =  (float)f.x_end/196.0;
-      
-
-  //     frames.insert({f.type, f});
-  //   }
-  //   return frames;
-  // }
-
-
-
-
-
-
+  // reads-in all possible textures into a catalog
+  void init()
+  {
+    std::vector<std::string> texture_list = list_textures();
+    for(int t=0; t < texture_list.size(); t++)
+    {
+      read_texture_data(texture_list[t]);
+    }
+  }
 
 }
 
