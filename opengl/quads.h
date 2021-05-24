@@ -198,14 +198,13 @@ namespace quads
       quads[i].i_right.c = quads[i].d;
     }
 
-    if(LOGGING==0)
+    if(LOGGING==-1)
     {
       print_out_quads(quads);
     }
 
     return quads;
   }
-
 
 
 }

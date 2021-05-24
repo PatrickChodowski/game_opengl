@@ -67,6 +67,7 @@ namespace levels
                                                         maps::Catalog[map_id].texture_id);
 
     std::vector<quads::Quad> quads = quads::assign_vertices(level_quads);
+    buffer::init(quads);
   }
 
 

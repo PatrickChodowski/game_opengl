@@ -4,6 +4,7 @@
 
 int main()
 {
+  // Window, OpenGL, SDL initiatlization
   initialize_opengl_context();
   SDL_Window *WINDOW = SDL_CreateWindow("Pogromcy Karaluchow",
                                         SDL_WINDOWPOS_CENTERED,
@@ -11,10 +12,19 @@ int main()
                                         WINDOW_WIDTH,
                                         WINDOW_HEIGHT,
                                         flags);
+  SDL_GLContext GLCONTEXT = SDL_GL_CreateContext(WINDOW);
+  Uint32 current_sdl_gl = SDL_GL_MakeCurrent(WINDOW, GLCONTEXT);
+  SDL_GL_SetSwapInterval(1);
+  glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+  GLenum err = glewInit();
+  utils::check_glew(err);
 
-  // reads-in all textures and maps data into catalogs
+
+
+  // Init data for Maps, Textures etc.
   textures::init();
   maps::init();
+  shaders::init();
 
   // temporary, want to load level
   // if new level then
@@ -23,7 +33,6 @@ int main()
   {
     int MAP_ID = 0;
     levels::load(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
-    
   }
   // finish temporary
 
@@ -35,7 +44,16 @@ int main()
   {
     SDL_Event event;
     events::handle_events(event);
+
+
+
   }
 
+
+  shaders::drop();
+  buffer::drop();
+  SDL_GL_DeleteContext(GLCONTEXT); 
+  SDL_DestroyWindow(WINDOW);
+  SDL_Quit();
   return 0;
 }

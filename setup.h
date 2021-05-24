@@ -42,6 +42,7 @@ int LOGGING = 0;
 Uint32 flags = SDL_WINDOW_OPENGL;
 const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
+int CURRENT_SHADER_ID = 0;
 
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
@@ -57,6 +58,7 @@ bool RUNNING = true;
 #include "opengl/textures.h"
 #include "opengl/shaders.h"
 #include "opengl/quads.h"
+#include "opengl/buffer.h"
 
 // game components
 #include "components/items.h"

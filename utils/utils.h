@@ -41,6 +41,19 @@ namespace utils
     return list_of_files;
   };  
 
+    void check_glew(GLenum err)
+  {
+
+    if (err != GLEW_OK){
+        exit(1); // or handle the error in a nicer way
+    }
+
+    if (!GLEW_VERSION_2_1){  // check that the machine supports the 2.1 API.
+      exit(1); // or handle the error in a nicer way
+    }
+  }
+
+
 
 }
 

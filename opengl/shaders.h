@@ -5,19 +5,6 @@ namespace shaders
 {
   GLuint shading_program;
 
-  void check_glew(GLenum err)
-  {
-
-    if (err != GLEW_OK){
-        exit(1); // or handle the error in a nicer way
-    }
-
-    if (!GLEW_VERSION_2_1){  // check that the machine supports the 2.1 API.
-      exit(1); // or handle the error in a nicer way
-    }
-  }
-
-
   const char *read_file(const char *filename)
   {
     long length = 0;
@@ -149,11 +136,54 @@ namespace shaders
     return shading_program;
   }
 
-  std::map<std::string, GLuint> shader_map;
+  struct ShaderData
+  {
+    int id;
+    std::string name;
+    GLuint gl_shader_id;
+
+    JS_OBJ(id, name, gl_shader_id);
+  };
+  std::map<int, ShaderData> Catalog = {};
+
+  void read_shaders_data(std::string name)
+  {
+    ShaderData SD;
+    std::string data_path = "./shaders/data/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(SD);
+
+    // add to catalog
+    Catalog.insert({SD.id, SD});
+
+    if(LOGGING == 0)
+    {
+      std::cout << "Read-in shader id: " << SD.id << ", name: " << SD.name << ", gl_shader_id: " << SD.gl_shader_id << std::endl;
+    }
+  }
+
+
+  void init()
+  {
+    logger::print("READING SHADERS");
+    std::vector<std::string> shaders_list = utils::list_files("shaders/data/");
+    for(int s=0; s < shaders_list.size(); s++)
+    {
+      read_shaders_data(shaders_list[s]);
+    };
+    for(int s=0; s < shaders_list.size(); s++)
+    {
+      shaders::Catalog[s].gl_shader_id = shaders::custom_shaders(shaders_list[s].c_str());
+    }
+    glReleaseShaderCompiler();
+  }
+
+
 
   void drop()
   {
-    glDeleteProgram(shaders::shader_map["base"]);
+    glDeleteProgram(shaders::Catalog[0].gl_shader_id);
   }
 
 }
