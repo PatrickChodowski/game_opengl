@@ -23,6 +23,8 @@ int main()
 
   // Init data for Maps, Textures etc.
   textures::init();
+
+
   maps::init();
   shaders::init();
 
@@ -35,6 +37,9 @@ int main()
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   // finish temporary
+
+  textures::bind(0, 0);
+  textures::bind(1, 1);
 
 
 

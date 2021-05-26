@@ -110,6 +110,13 @@ namespace textures
   }
 
 
+  void bind(unsigned int texture_id, unsigned int slot)
+  {
+    GlCall(glActiveTexture(GL_TEXTURE0 + slot));
+    GlCall(glBindTexture(GL_TEXTURE_2D, texture_id));
+  };
+
+
 
 
 
@@ -124,6 +131,18 @@ namespace textures
       read_texture_data(texture_list[t]);
     }
   }
+
+  /// atuomate 
+
+  void drop(unsigned int texture_id)
+  {
+    GlCall(glDeleteTextures(1, &texture_id));
+  };
+
+  void unbind()
+  {
+    GlCall(glBindTexture(GL_TEXTURE_2D, 0));
+  };
 
 }
 
