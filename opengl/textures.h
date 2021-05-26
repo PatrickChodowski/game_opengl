@@ -33,7 +33,54 @@ namespace textures
 
   // Creating catalog of all textures data 
   std::map<int, TextureData> Catalog = {};
+  std::vector<int> BoundTextures = {};
   
+  
+  // loads single texture into memory
+  unsigned int load(int texture_id)
+  {
+    stbi_set_flip_vertically_on_load(false);  
+    std::string texture_path = "assets/"+textures::Catalog[texture_id].name+".png";
+
+    // this reads texture information 
+    unsigned char *image_data = stbi_load(texture_path.c_str(),
+                                         &textures::Catalog[texture_id].width, 
+                                         &textures::Catalog[texture_id].height, 4, 4); 
+
+    // generate texture names (number of textures, array in which the generated texture will be stored)
+    GlCall(glGenTextures(1, &texture_id)); 
+    GlCall(glBindTexture(GL_TEXTURE_2D, texture_id));
+
+    // set those parameters everytime
+    GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));	
+    GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+    GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+    // specify 2 dimmensional texture image
+    GlCall((glTexImage2D(GL_TEXTURE_2D, //target 
+                          0, //level, 0 is base image
+                          GL_RGBA, //internalformat
+                          textures::Catalog[texture_id].width,
+                          textures::Catalog[texture_id].height,  
+                          0,  // border
+                          GL_RGBA,  // format
+                          GL_UNSIGNED_BYTE,  // type
+                          image_data))); // data
+
+    //  bind a named texture to a texturing target
+    GlCall(glBindTexture(GL_TEXTURE_2D, 0));
+    stbi_image_free(image_data);
+
+    return texture_id;
+
+  }
+
+
+
+
+
+
   // Read-in all json files
   void read_texture_data(std::string name)
   {
@@ -45,7 +92,9 @@ namespace textures
 
     // add to catalog
     Catalog.insert({TD.id, TD});
-
+    unsigned int texture_id = textures::load(TD.id);
+    textures::BoundTextures.push_back(texture_id);
+ 
     if(LOGGING == 0)
     {
       std::cout << "Read-in texture id: " << TD.id << ", type: " << TD.type << ", name: " <<
@@ -58,11 +107,14 @@ namespace textures
        << TD.frames[f].w << ", h: "<< TD.frames[f].h << ", is_solid: " << TD.frames[f].is_solid << std::endl;
       }
     }
-
   }
 
 
+
+
+
   // reads-in all possible textures into a catalog
+  // reads also the textures themselves
   void init()
   {
     logger::print("READING TEXTURES");

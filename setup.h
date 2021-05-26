@@ -46,6 +46,7 @@ int CURRENT_SHADER_ID = 0;
 
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
+#include "dependencies/stb_image.h"  // for reading-in images 
 
 // glm includes
 #include "dependencies/glm/glm.hpp"
