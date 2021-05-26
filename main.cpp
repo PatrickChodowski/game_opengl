@@ -24,11 +24,6 @@ int main()
   // Init data for Maps, Textures etc.
   textures::init();
   maps::init();
-
-  // const char* frag_test = shaders::read_file_as_string("shaders/base.frag");
-
-
-
   shaders::init();
 
   // temporary, want to load level
@@ -37,7 +32,7 @@ int main()
   if(NEW_GAME)
   {
     int MAP_ID = 0;
-    levels::load(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
+    levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   // finish temporary
 
@@ -51,6 +46,7 @@ int main()
     events::handle_events(event);
 
     // buffer update here
+    levels::update();
 
 
     SDL_GL_SwapWindow(WINDOW);
