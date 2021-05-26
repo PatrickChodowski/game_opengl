@@ -24,6 +24,11 @@ int main()
   // Init data for Maps, Textures etc.
   textures::init();
   maps::init();
+
+  // const char* frag_test = shaders::read_file_as_string("shaders/base.frag");
+
+
+
   shaders::init();
 
   // temporary, want to load level

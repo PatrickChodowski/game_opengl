@@ -4,38 +4,18 @@
 namespace shaders   
 {
   GLuint shading_program;
-
-  const char *read_file(const char *filename)
+  std::string read_file_as_string(const char *filename)
   {
-    long length = 0;
-    char *result = NULL;
-    FILE *file = fopen(filename, "r");
-    if (file)
-    {
-      int status = fseek(file, 0, SEEK_END);
-      if (status != 0)
-      {
-        fclose(file);
-        return NULL;
-      }
-      length = ftell(file);
-      status = fseek(file, 0, SEEK_SET);
-      if (status != 0)
-      {
-        fclose(file);
-        return NULL;
-      }
-      result = (char*)malloc((length + 1) * sizeof(char));
-      if (result)
-      {
-        size_t actual_length = fread(result, sizeof(char), length, file);
-        result[actual_length++] = '\0';
-      }
-      fclose(file);
-      return result;
-    }
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Couldn't read %s", filename);
-    return NULL;
+    #ifdef TARGET_OS_MAC
+      std::string shaders_intro = "#version 330 core \n";
+    #endif
+
+    #ifdef __linux__
+      std::string shaders_intro = "#version 460 core \n";
+    #endif
+      
+    std::string shader_source = utils::read_text_file(filename);
+    return shaders_intro+shader_source;
   }
 
   GLuint program_check(GLuint program)
@@ -98,8 +78,8 @@ namespace shaders
   // loads a shader from file and returns the compiled shader
   GLuint get_shader(GLenum eShaderType, const char *filename)
   {
-    const char *shaderSource = read_file(filename);
-    std::cout << eShaderType << std::endl;
+    std::string shader_string = read_file_as_string(filename);
+    const char *shaderSource = shader_string.c_str();
     GLuint shader = compile_shader(eShaderType, 1, &shaderSource);
     return shader;
   }

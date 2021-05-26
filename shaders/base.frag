@@ -1,4 +1,4 @@
-#version 460 core
+
 in vec4 out_color;
 in vec2 out_tex_coord;
 in float out_texture_id;
