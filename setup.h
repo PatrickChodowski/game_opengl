@@ -11,7 +11,7 @@
 #include <fstream>  // for reading in the json files
 #include <sstream>  // for reading in the json files
 #include <dirent.h> // filesystem, listing files
-
+#include <signal.h> // for the GlCall, in opengl utils
 
 // Opengl packages
 #include <GL/glew.h> 
@@ -46,7 +46,10 @@ int CURRENT_SHADER_ID = 0;
 
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
-#include "dependencies/stb_image.h"  // for reading-in images 
+#define STB_IMAGE_IMPLEMENTATION
+#include "dependencies/stb_image.h" // for reading-in images 
+
+
 
 // glm includes
 #include "dependencies/glm/glm.hpp"
@@ -62,6 +65,7 @@ int CURRENT_SHADER_ID = 0;
 #include "utils/maps.h"
 
 // OpenGL
+#include "opengl/utils.h"
 #include "opengl/camera.h"
 #include "opengl/events.h"
 #include "opengl/textures.h"

@@ -87,11 +87,11 @@ namespace levels
 
     glClear(GL_COLOR_BUFFER_BIT);
     std::vector<int> sampler_v = make_texture_sampler();
-    double* sampler = &sampler_v[0];
+    int* sampler = &sampler_v[0];
     //glUniform2f(glGetUniformLocation(shaders::Catalog[0], "LightCoord"), light_coords[0], light_coords[1]);
 
     // send texture sampler to shader
-    glUniform1iv(glGetUniformLocation(shaders::Catalog[0], "textures"), 2, sampler);
+    glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), 2, sampler);
 
     glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
     glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));

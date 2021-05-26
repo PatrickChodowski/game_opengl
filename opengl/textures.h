@@ -37,15 +37,15 @@ namespace textures
   
   
   // loads single texture into memory
-  unsigned int load(int texture_id)
+  unsigned int load(unsigned int texture_id)
   {
     stbi_set_flip_vertically_on_load(false);  
     std::string texture_path = "assets/"+textures::Catalog[texture_id].name+".png";
-
+    int n_channels = 4;
     // this reads texture information 
     unsigned char *image_data = stbi_load(texture_path.c_str(),
                                          &textures::Catalog[texture_id].width, 
-                                         &textures::Catalog[texture_id].height, 4, 4); 
+                                         &textures::Catalog[texture_id].height, &n_channels, 4); 
 
     // generate texture names (number of textures, array in which the generated texture will be stored)
     GlCall(glGenTextures(1, &texture_id)); 
