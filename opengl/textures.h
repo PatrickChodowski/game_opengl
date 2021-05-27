@@ -123,12 +123,6 @@ namespace textures
   }
 
 
-  void bind(unsigned int texture_id, unsigned int slot)
-  {
-    GlCall(glActiveTexture(GL_TEXTURE0 + slot));
-    GlCall(glBindTexture(GL_TEXTURE_2D, texture_id));
-  };
-
 
   void bind_all()
   {
@@ -155,12 +149,14 @@ namespace textures
     }
   }
 
-  /// atuomate 
-
-  void drop(unsigned int texture_id)
+  void drop()
   {
-    GlCall(glDeleteTextures(1, &texture_id));
-  };
+    // for(int t=0; t<textures::BoundTextures.size(); t++)
+    // {
+    //     GlCall(glDeleteTextures(1, &textures::BoundTextures[t]));
+    // } 
+    // textures::BoundTextures.clear();
+  }
 
   void unbind()
   {

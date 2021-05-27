@@ -79,19 +79,10 @@ namespace levels
     buffer::update(quads);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // binding here
-    // glActiveTexture(GL_TEXTURE0);
-    // glBindTexture(GL_TEXTURE_2D, texture0);
     textures::bind_all();
     int sampler[textures::BoundTextures.size()];
-    for(int t=0; t<textures::BoundTextures.size(); t++)
-    {
-      sampler[t] = textures::BoundTextures[t];
-    }
-
+    for(int t=0; t<textures::BoundTextures.size(); t++){sampler[t] = t;}
     glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), textures::BoundTextures.size(), sampler);
-    glUniform1f(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "red_color"), 0.3f);
-    glUniform1i(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "texture0"), 0);
 
     glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
     glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));
