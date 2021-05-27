@@ -25,6 +25,7 @@ int main()
   
   maps::init();
   shaders::init();
+  textures::init();
 
   // temporary, want to load level
   // if new level then
@@ -35,28 +36,18 @@ int main()
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   // finish temporary
-  // problems seems to be on texture reading
-  // is it not bound
-
-    textures::init();
-    textures::bind(0,0);
-
-
 
   // main game loop
   while(RUNNING)
   {
     SDL_Event event;
     events::handle_events(event);
-    // buffer update here
     levels::update();
-
-
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000 / 60);
   }
 
-  textures::drop(0);
+  textures::drop();
   shaders::drop();
   buffer::drop();
   SDL_GL_DeleteContext(GLCONTEXT); 

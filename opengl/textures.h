@@ -130,6 +130,15 @@ namespace textures
   };
 
 
+  void bind_all()
+  {
+    for(int t=0; t<textures::BoundTextures.size(); t++)
+    {
+      GlCall(glActiveTexture(GL_TEXTURE0 + t));
+      GlCall(glBindTexture(GL_TEXTURE_2D, textures::BoundTextures[t]));
+    } 
+  }
+
 
 
 
