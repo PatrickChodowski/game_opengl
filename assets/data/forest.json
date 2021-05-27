@@ -6,13 +6,6 @@
   "height": 256,
   "frames_list": [
     {"frame_id": 10, "x": 0, "y": 0, "w": 64, "h": 64, "is_solid": 0},
-    {"frame_id": 11, "x": 65, "y": 0, "w": 64, "h": 64, "is_solid": 0},
-    {"frame_id": 12, "x": 129, "y": 0, "w": 64, "h": 64, "is_solid": 1},
-    {"frame_id": 13, "x": 0, "y": 0, "w": 64, "h": 64, "is_solid": 0},
-    {"frame_id": 14, "x": 65, "y": 0, "w": 64, "h": 64, "is_solid": 0},
-    {"frame_id": 15, "x": 129, "y": 0, "w": 64, "h": 64, "is_solid": 1},
-    {"frame_id": 16, "x": 0, "y": 0, "w": 64, "h": 64, "is_solid": 0},
-    {"frame_id": 17, "x": 65, "y": 0, "w": 64, "h": 64, "is_solid": 0},
-    {"frame_id": 18, "x": 129, "y": 0, "w": 64, "h": 64, "is_solid": 1}
+    {"frame_id": 12, "x": 65, "y": 0, "w": 64, "h": 64, "is_solid": 0}
   ]}
 }
