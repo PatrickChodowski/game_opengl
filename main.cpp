@@ -22,9 +22,7 @@ int main()
 
 
   // Init data for Maps, Textures etc.
-  textures::init();
-
-
+  
   maps::init();
   shaders::init();
 
@@ -37,10 +35,11 @@ int main()
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   // finish temporary
+  // problems seems to be on texture reading
+  // is it not bound
 
-  textures::bind(0, 0);
-  textures::bind(1, 1);
-
+    textures::init();
+    textures::bind(0,0);
 
 
 
@@ -49,7 +48,6 @@ int main()
   {
     SDL_Event event;
     events::handle_events(event);
-
     // buffer update here
     levels::update();
 
@@ -58,7 +56,7 @@ int main()
     SDL_Delay(1000 / 60);
   }
 
-
+  textures::drop(0);
   shaders::drop();
   buffer::drop();
   SDL_GL_DeleteContext(GLCONTEXT); 

@@ -124,7 +124,7 @@ namespace buffer
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, quads::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1); // enable this attribute at the end
 
-    // tile_type attribute
+    // frame_id attribute
     glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, quads::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(7 * sizeof(float)));
     glEnableVertexAttribArray(2); // enable this attribute at the end
 

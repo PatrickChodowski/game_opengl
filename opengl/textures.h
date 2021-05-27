@@ -26,9 +26,10 @@ namespace textures
     std::string name;
     int width;
     int height;
-    std::vector<Frame> frames;
+    std::vector<Frame> frames_list;
+    std::map<int, Frame> frames;
 
-    JS_OBJ(id, type, name, width, height, frames);
+    JS_OBJ(id, type, name, width, height, frames_list);
   };
 
   // Creating catalog of all textures data 
@@ -37,15 +38,20 @@ namespace textures
   
   
   // loads single texture into memory
-  unsigned int load(unsigned int texture_id)
+  unsigned int load(unsigned int texture_id, int width, int height, int n_channels, std::string name)
   {
     stbi_set_flip_vertically_on_load(false);  
-    std::string texture_path = "assets/"+textures::Catalog[texture_id].name+".png";
-    int n_channels = 4;
+    std::string texture_path = "assets/"+name+".png";
+    std::cout << "Texture id: " << texture_id << " path: " << texture_path << std::endl;
+
     // this reads texture information 
     unsigned char *image_data = stbi_load(texture_path.c_str(),
-                                         &textures::Catalog[texture_id].width, 
-                                         &textures::Catalog[texture_id].height, &n_channels, 4); 
+                                         &width, 
+                                         &height, &n_channels, 4); 
+
+    if (image_data == NULL){logger::print("Cannot load texture from path "+texture_path);};
+
+
 
     // generate texture names (number of textures, array in which the generated texture will be stored)
     GlCall(glGenTextures(1, &texture_id)); 
@@ -61,8 +67,8 @@ namespace textures
     GlCall((glTexImage2D(GL_TEXTURE_2D, //target 
                           0, //level, 0 is base image
                           GL_RGBA, //internalformat
-                          textures::Catalog[texture_id].width,
-                          textures::Catalog[texture_id].height,  
+                          width,
+                          height,  
                           0,  // border
                           GL_RGBA,  // format
                           GL_UNSIGNED_BYTE,  // type
@@ -90,9 +96,15 @@ namespace textures
     JS::ParseContext context(json_data);
     context.parseTo(TD);
 
+    // propagate TD.frames(map) from frames_list(vector)
+    for(int f=0; f < TD.frames_list.size(); f++)
+    {
+      TD.frames.insert({TD.frames_list[f].frame_id, TD.frames_list[f]}); 
+    }
+
     // add to catalog
     Catalog.insert({TD.id, TD});
-    unsigned int texture_id = textures::load(TD.id);
+    unsigned int texture_id = textures::load(TD.id, TD.width, TD.height, 4, TD.name);
     textures::BoundTextures.push_back(texture_id);
  
     if(LOGGING == 0)
@@ -100,13 +112,14 @@ namespace textures
       std::cout << "Read-in texture id: " << TD.id << ", type: " << TD.type << ", name: " <<
        TD.name << ", width: " << TD.width << ", height: " << TD.height << ",  frames count: " << TD.frames.size() << std::endl;
 
-      for(int f=0; f<TD.frames.size(); f++)
+      for(int f=0; f<TD.frames_list.size(); f++)
       {
-       std::cout <<  "frame_id: " << TD.frames[f].frame_id << ", x: " 
-       <<  TD.frames[f].x << ", y: "<< TD.frames[f].y << ", w: " 
-       << TD.frames[f].w << ", h: "<< TD.frames[f].h << ", is_solid: " << TD.frames[f].is_solid << std::endl;
+       std::cout <<  "frame_id: " << TD.frames_list[f].frame_id << ", x: " 
+       <<  TD.frames_list[f].x << ", y: "<< TD.frames_list[f].y << ", w: " 
+       << TD.frames_list[f].w << ", h: "<< TD.frames_list[f].h << ", is_solid: " << TD.frames_list[f].is_solid << std::endl;
       }
     }
+    TD.frames_list.clear();
   }
 
 
@@ -128,6 +141,7 @@ namespace textures
     std::vector<std::string> texture_list = utils::list_files("assets/data/");
     for(int t=0; t < texture_list.size(); t++)
     {
+      logger::print("reading texture named: " + texture_list[t]);
       read_texture_data(texture_list[t]);
     }
   }

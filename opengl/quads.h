@@ -91,7 +91,7 @@ namespace quads
       for(int t=0; t<quads.size(); t++)
     //for(int t=0; t<2; t++)
       {
-        std::cout << "Quad: " << quads[t].id << " - "<< quads[t].frame_id << std::endl << 
+        std::cout << "Quad: " << quads[t].id << " - " << quads[t].texture_id <<  " - " << quads[t].frame_id << std::endl << 
         quads[t].x  << "," << quads[t].y << std::endl <<
     
         "Vertices positions:"  << std::endl <<
@@ -122,7 +122,8 @@ namespace quads
       float norm_x_start = (float)textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].x/
       (float)textures::Catalog[quads[i].texture_id].width;
 
-      float norm_x_end =  (float)(textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].x + TILE_DIM)/
+      float norm_x_end =  (float)(textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].x + 
+      textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].w)/
       (float)textures::Catalog[quads[i].texture_id].width;
 
       // create vertex struct - A
@@ -179,9 +180,9 @@ namespace quads
       quads[i].v_d.x_pos = (float)quads[i].x + (float)TILE_DIM  - (float)VERTEX_OFFSET;
       quads[i].v_d.y_pos = (float)quads[i].y + (float)TILE_DIM - (float)VERTEX_OFFSET;
       quads[i].v_d.z_pos = 0.0f;
-      quads[i].v_d.r_col = 0.0f;
-      quads[i].v_d.g_col = 0.0f;
-      quads[i].v_d.b_col = 0.0f;
+      quads[i].v_d.r_col = 1.0f;
+      quads[i].v_d.g_col = 1.0f;
+      quads[i].v_d.b_col = 1.0f;
       quads[i].v_d.a_col = 1.0f;
       quads[i].v_d.tex_coord_x = norm_x_end;
       quads[i].v_d.tex_coord_y = 1.0f;
