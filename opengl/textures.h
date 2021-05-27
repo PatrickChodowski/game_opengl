@@ -34,7 +34,7 @@ namespace textures
 
   // Creating catalog of all textures data 
   std::map<int, TextureData> Catalog = {};
-  std::vector<int> BoundTextures = {};
+  std::vector<unsigned int> BoundTextures = {};
   
   
   // loads single texture into memory
@@ -151,11 +151,11 @@ namespace textures
 
   void drop()
   {
-    // for(int t=0; t<textures::BoundTextures.size(); t++)
-    // {
-    //     GlCall(glDeleteTextures(1, &textures::BoundTextures[t]));
-    // } 
-    // textures::BoundTextures.clear();
+    for(int t=0; t<textures::BoundTextures.size(); t++)
+    {
+        GlCall(glDeleteTextures(1, &textures::BoundTextures[t]));
+    } 
+    textures::BoundTextures.clear();
   }
 
   void unbind()
