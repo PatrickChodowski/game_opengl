@@ -12,6 +12,8 @@
 #include <sstream>  // for reading in the json files
 #include <dirent.h> // filesystem, listing files
 #include <signal.h> // for the GlCall, in opengl utils
+#include <chrono>   // time/clock
+#include <ctime>    // time/clock
 
 // Opengl packages
 #include <GL/glew.h> 
@@ -63,6 +65,7 @@ int CURRENT_SHADER_ID = 0;
 #include "utils/logger.h"
 #include "utils/utils.h"
 #include "utils/maps.h"
+#include "utils/timer.h"
 
 // OpenGL
 #include "opengl/utils.h"
@@ -90,3 +93,4 @@ void initialize_opengl_context()
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 }
+

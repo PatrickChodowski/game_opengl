@@ -37,14 +37,21 @@ int main()
   }
   // finish temporary
 
+
   // main game loop
   while(RUNNING)
   {
+    auto game_loop_start_time = std::chrono::system_clock::now();
+
+
     SDL_Event event;
     events::handle_events(event);
     levels::update();
     SDL_GL_SwapWindow(WINDOW);
-    SDL_Delay(1000 / 60);
+    SDL_Delay(1000/60);
+
+
+    timer::print_elapsed_time(game_loop_start_time, "Game Loop duration:");
   }
 
   textures::drop();
