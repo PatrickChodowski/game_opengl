@@ -19,6 +19,11 @@ namespace events
           if(event.wheel.y > 0) {camera::zoom += camera::zoom_speed;}
           else if(event.wheel.y < 0){camera::zoom -= camera::zoom_speed;}
           break;
+        
+        case SDL_MOUSEBUTTONDOWN:
+          mouse::handle_mouse(event.motion, event.button);
+        break;
+
         case SDL_QUIT:
           RUNNING = false;
           break;
