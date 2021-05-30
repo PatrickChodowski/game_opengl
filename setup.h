@@ -14,6 +14,7 @@
 #include <signal.h> // for the GlCall, in opengl utils
 #include <chrono>   // time/clock
 #include <ctime>    // time/clock
+#include <regex>    // for shader parameters
 
 // Opengl packages
 #include <GL/glew.h> 

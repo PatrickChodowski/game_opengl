@@ -7,15 +7,21 @@ namespace shaders
   std::string read_file_as_string(const char *filename)
   {
     #ifdef TARGET_OS_MAC
-      std::string shaders_intro = "#version 330 core \n";
+      std::string version = "330";
+      std::string slots = "16";
     #endif
 
     #ifdef __linux__
-      std::string shaders_intro = "#version 460 core \n";
+      std::string version = "460";
+      std::string slots = "32";
     #endif
       
     std::string shader_source = utils::read_text_file(filename);
-    return shaders_intro+shader_source;
+
+    shader_source = std::regex_replace(shader_source, std::regex("\\$version"), version);
+    shader_source = std::regex_replace(shader_source, std::regex("\\$slots"), slots);
+
+    return shader_source;
   }
 
   GLuint program_check(GLuint program)

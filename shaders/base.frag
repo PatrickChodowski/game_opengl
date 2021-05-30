@@ -1,3 +1,4 @@
+#version $version core
 
 in vec4 out_color;
 in vec2 out_tex_coord;
@@ -6,7 +7,7 @@ out vec4 frag_color;
 
 
 // one texture only as uniform
-uniform sampler2D textures[32];
+uniform sampler2D textures[$slots];
 
 void main()
 {
