@@ -67,16 +67,18 @@ int CURRENT_SHADER_ID = 0;
 #include "utils/utils.h"
 #include "utils/maps.h"
 #include "utils/timer.h"
-#include "utils/mouse.h"
+
 
 // OpenGL
 #include "opengl/utils.h"
 #include "opengl/camera.h"
-#include "opengl/events.h"
 #include "opengl/textures.h"
 #include "opengl/shaders.h"
 #include "opengl/quads.h"
 #include "opengl/buffer.h"
+#include "utils/mouse.h"
+#include "opengl/events.h"
+
 
 // game components
 #include "components/items.h"
@@ -85,6 +87,7 @@ int CURRENT_SHADER_ID = 0;
 
 
 #include "utils/levels.h"
+
 
 
 // Program setup, but has to be inside a function, called from main.cpp

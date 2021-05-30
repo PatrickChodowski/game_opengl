@@ -3,6 +3,21 @@
 
 namespace mouse
 {
+  void query_quads(int x, int y, std::vector<quads::Quad> v)
+  {
+    int quad_id;
+    logger::print("projected tile dim: " + std::to_string(camera::projected_tile_dim));
+    for(auto q : v)
+    {
+
+      if((q.x <= x) & (x < q.x+camera::projected_tile_dim) & (y >= q.y & y < q.y + camera::projected_tile_dim))
+      {
+          logger::print("Clicked tile_id: " + std::to_string(q.id)); 
+      }
+    };
+    //return quad_id;
+  }
+
   
 
   struct Mouse
@@ -27,12 +42,13 @@ namespace mouse
               << std::endl;
   }
 
-  void handle_mouse(SDL_MouseMotionEvent e,  SDL_MouseButtonEvent b)
+  void handle_mouse(SDL_MouseMotionEvent e,  SDL_MouseButtonEvent b, std::vector<quads::Quad> v)
   {
     switch (b.button)
     {
       case SDL_BUTTON_LEFT:
         print_mouse(e, "Left");
+        query_quads(e.x, e.y, v);
       break;
 
       case SDL_BUTTON_RIGHT:
@@ -42,15 +58,11 @@ namespace mouse
       case SDL_BUTTON_MIDDLE:
         print_mouse(e, "Middle");
       break;
-
-      case SDL_BUTTON_X1:
-        print_mouse(e, "X1");
-      break;
-
-      case SDL_BUTTON_X2:
-        print_mouse(e, "X2");
-      break;
     }
+
+
+
+
   }
 
 

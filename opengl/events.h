@@ -5,7 +5,7 @@
 namespace events
 {
   
-  void handle_events(SDL_Event event)
+  void handle_events(SDL_Event event, std::vector<quads::Quad> v)
   // subsystem for handling players input
   {
 
@@ -21,7 +21,7 @@ namespace events
           break;
         
         case SDL_MOUSEBUTTONDOWN:
-          mouse::handle_mouse(event.motion, event.button);
+          mouse::handle_mouse(event.motion, event.button, v);
         break;
 
         case SDL_QUIT:
@@ -61,13 +61,6 @@ namespace events
     } 
 
   }
-
-
-
-
-
-
-
 
 }
 

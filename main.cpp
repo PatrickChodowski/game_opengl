@@ -45,7 +45,7 @@ int main()
 
 
     SDL_Event event;
-    events::handle_events(event);
+    events::handle_events(event, levels::LevelQuads);
     levels::update();
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
