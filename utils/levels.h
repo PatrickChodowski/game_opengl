@@ -22,7 +22,7 @@ namespace levels
   std::vector<quads::Quad> load_map_from_file(std::string map_name, 
                                               int vertex_width, 
                                               int vertex_height, 
-                                              int map_texture_id)
+                                              int texture_id)
   {
     std::vector<quads::Quad> tile_map = {};
     std::string file_path = "maps/" + map_name;
@@ -44,7 +44,7 @@ namespace levels
             quad.y = r * TILE_DIM;
             in_file >> quad.frame_id;
             quad.id = TILE_COUNTER;
-            quad.texture_id = map_texture_id;
+            quad.texture_id = texture_id;
             tile_map.push_back(quad);
             TILE_COUNTER += 1;
           };
@@ -84,29 +84,23 @@ namespace levels
 
   void update()
   {
+    textures::bind_all();
     std::vector<quads::Quad> quads = quads::assign_vertices(LevelQuads);
     buffer::update(quads);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    textures::bind_all();
-    int sampler_size = textures::BoundTextures.size();
-    int sampler[sampler_size];
-
-    std::cout << "Bound texture size: " << textures::BoundTextures.size() << std::endl;
-    for(int t=0; t < sampler_size; t++){
-      sampler[t] = textures::BoundTextures[t];
-      //sampler[t] = t;
+    // sampler array creation
+    int sampler_size = (textures::BoundTextures.size() + 1); //3
+    int sampler[sampler_size]; 
+    sampler[0] = 0;
+    for (int i = 0; i < textures::BoundTextures.size(); i++) {
+      sampler[(i+1)] = textures::BoundTextures[i];
     }
+    //logger::print("sampler:");
+    //std::cout << sampler[0] << ", " << sampler[1] <<  ", " << sampler[2] <<  ", " << sampler[3] << std::endl;
 
-    logger::print_vector(textures::BoundTextures);
-    logger::print("sampler:");
-    std::cout << sampler[0] << ", " << sampler[1] << ", " << sampler[2] << std::endl;
-
-    // logger::print("texture id for t=3");
-    // logger::print(textures::BoundTextures[3]);
-
-
-    glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), textures::BoundTextures.size(), sampler);
+    // set uniforms
+    glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), sampler_size, sampler);
     glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
     glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));
     

@@ -155,7 +155,11 @@ namespace textures
       // which texture slot we are actually binding 
       // first slot -> GL_TEXTURE0
       // Max 32, but depends on platform
+
+      //  Select active texture
       GlCall(glActiveTexture(GL_TEXTURE0 + textures::BoundTextures[t]));
+
+      // bind the active texture
       GlCall(glBindTexture(GL_TEXTURE_2D, textures::BoundTextures[t]));
     } 
   }

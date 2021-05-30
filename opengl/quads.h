@@ -139,7 +139,7 @@ namespace quads
       quads[i].v_a.a_col = 1.0f;
       quads[i].v_a.tex_coord_x = norm_x_start;
       quads[i].v_a.tex_coord_y = 0.0f;
-      quads[i].v_a.texture_id = textures::Catalog[quads[i].texture_id].id;
+      quads[i].v_a.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
 
       // create vertex struct - B
       quads[i].v_b.vertex_id = quads[i].b;
@@ -154,7 +154,7 @@ namespace quads
       quads[i].v_b.a_col = 1.0f;
       quads[i].v_b.tex_coord_x = norm_x_end;
       quads[i].v_b.tex_coord_y = 0.0f;
-      quads[i].v_b.texture_id = textures::Catalog[quads[i].texture_id].id;
+      quads[i].v_b.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
 
 
       // create vertex struct - C
@@ -170,7 +170,7 @@ namespace quads
       quads[i].v_c.a_col = 1.0f;
       quads[i].v_c.tex_coord_x = norm_x_start;
       quads[i].v_c.tex_coord_y = 1.0f;
-      quads[i].v_c.texture_id = textures::Catalog[quads[i].texture_id].id;
+      quads[i].v_c.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
 
 
       // create vertex struct - D
@@ -186,7 +186,7 @@ namespace quads
       quads[i].v_d.a_col = 1.0f;
       quads[i].v_d.tex_coord_x = norm_x_end;
       quads[i].v_d.tex_coord_y = 1.0f;
-      quads[i].v_d.texture_id = textures::Catalog[quads[i].texture_id].id;
+      quads[i].v_d.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
 
 
       // create vindices 
