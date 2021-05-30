@@ -96,16 +96,20 @@ namespace levels
     for (int i = 0; i < textures::BoundTextures.size(); i++) {
       sampler[(i+1)] = textures::BoundTextures[i];
     }
-    //logger::print("sampler:");
-    //std::cout << sampler[0] << ", " << sampler[1] <<  ", " << sampler[2] <<  ", " << sampler[3] << std::endl;
+
+    // react to camera changes
+    camera::scale(camera::zoom);
+    glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), sampler_size, sampler);
-    glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
     glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));
     
+    // set shader
     glUseProgram(shaders::Catalog[0].gl_shader_id);
+    // bind buffer
     glBindVertexArray(buffer::VAO); 
+    // draw 
     glDrawElements(GL_TRIANGLES, quads.size()*6, GL_UNSIGNED_INT, nullptr);
 
   }

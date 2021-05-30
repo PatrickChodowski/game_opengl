@@ -6,11 +6,12 @@ namespace mouse
   void query_quads(int x, int y, std::vector<quads::Quad> v)
   {
     int quad_id;
-    logger::print("projected tile dim: " + std::to_string(camera::projected_tile_dim));
+    logger::print("projected tile dim width: " + std::to_string(camera::scaled_tile_dim_width));
+    logger::print("projected tile dim height: " + std::to_string(camera::scaled_tile_dim_height));
     for(auto q : v)
     {
 
-      if((q.x <= x) & (x < q.x+camera::projected_tile_dim) & (y >= q.y & y < q.y + camera::projected_tile_dim))
+      if((q.x <= x) & (x < q.x+camera::scaled_tile_dim_width) & (y >= q.y & y < q.y + camera::scaled_tile_dim_height))
       {
           logger::print("Clicked tile_id: " + std::to_string(q.id)); 
       }
