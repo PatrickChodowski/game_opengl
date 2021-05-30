@@ -16,6 +16,15 @@ namespace logger
     }
   }
 
+  template<typename T>
+  void print_vector(std::vector<T> v, std::string message="")
+  {
+    for(int i=0; i<v.size(); i++)
+    {
+      std::cout << message << " id: " << i << " value: " << v[i] << std::endl;
+    }
+  }
+
 }
 
 

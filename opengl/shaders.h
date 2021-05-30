@@ -111,8 +111,6 @@ namespace shaders
       logger::print("CustomShaderException: Shader status is FALSE", 2);
       return 0;
     };
-
-    logger::print("Shading program before return: " + std::to_string(shading_program), 1);
     return shading_program;
   }
 

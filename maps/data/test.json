@@ -3,7 +3,7 @@
   "name": "test",
   "vertex_width": 20,
   "vertex_height": 16,
-  "texture_id": 0,
+  "texture_id": 1,
   "default_player_x": 200,
   "default_player_y": 200,
   "doors": [

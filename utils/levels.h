@@ -19,7 +19,10 @@ namespace levels
    std::vector<int> required_textures;
   };
 
-  std::vector<quads::Quad> load_map_from_file(std::string map_name, int vertex_width, int vertex_height, int map_texture_id)
+  std::vector<quads::Quad> load_map_from_file(std::string map_name, 
+                                              int vertex_width, 
+                                              int vertex_height, 
+                                              int map_texture_id)
   {
     std::vector<quads::Quad> tile_map = {};
     std::string file_path = "maps/" + map_name;
@@ -63,6 +66,12 @@ namespace levels
   void init(int map_id, int player_x, int player_y)
   {
     // Load quads for the map first
+    std::cout << "Initializing map id: " << map_id
+              << " Map name: " << maps::Catalog[map_id].name
+              << " Vertex width: " << maps::Catalog[map_id].vertex_width
+              << " Vertex height: " << maps::Catalog[map_id].vertex_height
+              << " Map texture id: " << maps::Catalog[map_id].texture_id << std::endl;
+
     LevelQuads = load_map_from_file(maps::Catalog[map_id].name, 
                                     maps::Catalog[map_id].vertex_width, 
                                     maps::Catalog[map_id].vertex_height, 
@@ -80,14 +89,28 @@ namespace levels
     glClear(GL_COLOR_BUFFER_BIT);
 
     textures::bind_all();
-    int sampler[textures::BoundTextures.size()];
-    for(int t=0; t<textures::BoundTextures.size(); t++){sampler[t] = t;}
-    glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), textures::BoundTextures.size(), sampler);
+    int sampler_size = textures::BoundTextures.size();
+    int sampler[sampler_size];
 
+    std::cout << "Bound texture size: " << textures::BoundTextures.size() << std::endl;
+    for(int t=0; t < sampler_size; t++){
+      sampler[t] = textures::BoundTextures[t];
+      //sampler[t] = t;
+    }
+
+    logger::print_vector(textures::BoundTextures);
+    logger::print("sampler:");
+    std::cout << sampler[0] << ", " << sampler[1] << ", " << sampler[2] << std::endl;
+
+    // logger::print("texture id for t=3");
+    // logger::print(textures::BoundTextures[3]);
+
+
+    glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), textures::BoundTextures.size(), sampler);
     glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
     glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));
+    
     glUseProgram(shaders::Catalog[0].gl_shader_id);
-
     glBindVertexArray(buffer::VAO); 
     glDrawElements(GL_TRIANGLES, quads.size()*6, GL_UNSIGNED_INT, nullptr);
 
