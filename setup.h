@@ -67,6 +67,7 @@ int CURRENT_SHADER_ID = 0;
 #include "utils/utils.h"
 #include "utils/maps.h"
 #include "utils/timer.h"
+#include "utils/mouse.h"
 
 // OpenGL
 #include "opengl/utils.h"
