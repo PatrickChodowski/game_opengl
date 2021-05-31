@@ -5,7 +5,7 @@
 namespace events
 {
   
-  void handle_events(SDL_Event event, std::vector<quads::Quad> v)
+  void handle_events(SDL_Event event, std::vector<camera::ScaledQuad> v)
   // subsystem for handling players input
   {
 

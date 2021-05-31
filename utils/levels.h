@@ -7,6 +7,7 @@ namespace levels
 {
 
   std::vector<quads::Quad> LevelQuads;
+  std::vector<camera::ScaledQuad> ScaledLevelQuads;
 
 
   struct LevelCache
@@ -40,8 +41,10 @@ namespace levels
           for (int c = 0; c < vertex_width; c++)
           {
             struct quads::Quad quad;
-            quad.x = c * TILE_DIM;
-            quad.y = r * TILE_DIM;
+            quad.x = c * camera::tile_dim;
+            quad.y = r * camera::tile_dim;
+            quad.w = camera::tile_dim;
+            quad.h = camera::tile_dim;
             in_file >> quad.frame_id;
             quad.id = TILE_COUNTER;
             quad.texture_id = texture_id;
@@ -98,8 +101,8 @@ namespace levels
     }
 
     // react to camera changes
-    camera::scale(camera::zoom);
     glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
+    ScaledLevelQuads = camera::scale_move_quads(levels::LevelQuads, -camera::x, camera::y);
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), sampler_size, sampler);

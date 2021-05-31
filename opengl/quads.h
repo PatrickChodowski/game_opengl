@@ -54,6 +54,8 @@ namespace quads
     int id;
     int x;
     int y;
+    int w;
+    int h;
     bool solid;
 
     // vertex IDS:
@@ -93,6 +95,7 @@ namespace quads
       {
         std::cout << "Quad: " << quads[t].id << " - " << quads[t].texture_id <<  " - " << quads[t].frame_id << std::endl << 
         quads[t].x  << "," << quads[t].y << std::endl <<
+        quads[t].w  << "," << quads[t].h << std::endl <<
     
         "Vertices positions:"  << std::endl <<
         quads[t].a << " " << quads[t].v_a.x_pos << "," << quads[t].v_a.y_pos << std::endl <<
