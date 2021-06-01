@@ -27,18 +27,19 @@ namespace camera
 
 
   // for mouse events usage
-  //void scale(float zoom, int camera_move_x, int camera_move_y, std::vector<quads::Quad> level_quads)
   std::vector<ScaledQuad> scale_move_quads(std::vector<quads::Quad> level_quads, int camera_move_x=0, int camera_move_y=0)
   {
     camera::tile_dim = (float)TILE_DIM*float(camera::zoom);
     std::vector<ScaledQuad> scaled_level_quads = {};
+    float scale_factor = (1.0f/float(camera::zoom));
+
     for(int q=0; q<level_quads.size(); q++)
     {
       ScaledQuad sq;
-      sq.x = ((float)level_quads[q].x*(1.0f/float(camera::zoom))) + (float)camera_move_x;
-      sq.y = ((float)level_quads[q].y*(1.0f/float(camera::zoom))) + (float)camera_move_y;
-      sq.h = (float)level_quads[q].h*(1.0f/float(camera::zoom));
-      sq.w = (float)level_quads[q].w*(1.0f/float(camera::zoom));
+      sq.x = ((float)level_quads[q].x + (float)camera_move_x)*scale_factor;
+      sq.y = ((float)level_quads[q].y + (float)camera_move_y)*scale_factor;
+      sq.h = (float)level_quads[q].h*scale_factor;
+      sq.w = (float)level_quads[q].w*scale_factor;
       sq.id = level_quads[q].id;
       scaled_level_quads.push_back(sq);
 
