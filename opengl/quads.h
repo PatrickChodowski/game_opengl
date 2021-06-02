@@ -6,87 +6,9 @@
 
 namespace quads
 {
-  // vertex index
-  struct Vindex
-  {  
-    int a; 
-    int b;
-    int c;
-  };
 
-
-  // Vertex information
-  struct Vertex
-  {  
-    // info send to GPU:
-    double x_pos; 
-    double y_pos;
-    double z_pos;
-
-    double r_col;
-    double g_col;
-    double b_col;
-    double a_col;
-
-    double frame_id;
-    double tex_coord_x;
-    double tex_coord_y;
-    double texture_id;
-
-    /// not counted as VERTEX ATTRIBUTES - yet
-    int tile_id;
-    int vertex_id;
-  };
-
-  int COUNT_VERTEX_ATTRIBUTES = 11;
+  int COUNT_VERTEX_ATTRIBUTES = 12;
   int VERTEX_OFFSET = 1;
-
-
-  // Quad will contain information about:
-  // - original position (x,y of top left corner)
-  // - type, solid, id
-  // - vertex ids for a,b,c,d
-  // - Vindices with vertex ids
-  // - actual vertex information
-
-  struct Quad
-  {
-    int id;
-    int x;
-    int y;
-    int w;
-    int h;
-    bool solid;
-
-    // vertex IDS:
-    int a;
-    int b;
-    int c;
-    int d;
-
-    // a b
-    // c d
-
-    // Vertex information
-    Vertex v_a;
-    Vertex v_b;
-    Vertex v_c;
-    Vertex v_d;
-
-    // vindices
-    struct Vindex i_left;
-    // a b
-    // c
-    struct Vindex i_right;
-    //   b
-    // c d
-
-    // for assigning texture and frame in assign_vertices:
-    int texture_id;
-    int frame_id;
-
-  };
-
 
     void print_out_quads(std::vector<Quad> quads)
     {
@@ -143,6 +65,7 @@ namespace quads
       quads[i].v_a.tex_coord_x = norm_x_start;
       quads[i].v_a.tex_coord_y = 0.0f;
       quads[i].v_a.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
+      quads[i].v_a.is_clicked = (float)quads[i].is_clicked;
 
       // create vertex struct - B
       quads[i].v_b.vertex_id = quads[i].b;
@@ -158,7 +81,7 @@ namespace quads
       quads[i].v_b.tex_coord_x = norm_x_end;
       quads[i].v_b.tex_coord_y = 0.0f;
       quads[i].v_b.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
-
+      quads[i].v_b.is_clicked = (float)quads[i].is_clicked;
 
       // create vertex struct - C
       quads[i].v_c.vertex_id = quads[i].c;
@@ -174,6 +97,7 @@ namespace quads
       quads[i].v_c.tex_coord_x = norm_x_start;
       quads[i].v_c.tex_coord_y = 1.0f;
       quads[i].v_c.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
+      quads[i].v_c.is_clicked = (float)quads[i].is_clicked;
 
 
       // create vertex struct - D
@@ -190,7 +114,7 @@ namespace quads
       quads[i].v_d.tex_coord_x = norm_x_end;
       quads[i].v_d.tex_coord_y = 1.0f;
       quads[i].v_d.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
-
+      quads[i].v_d.is_clicked = (float)quads[i].is_clicked;
 
       // create vindices 
       quads[i].i_left.a = quads[i].a;

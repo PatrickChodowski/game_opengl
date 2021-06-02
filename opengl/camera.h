@@ -16,26 +16,16 @@ namespace camera
   bool centric = true;
   int tile_dim = TILE_DIM;
 
-  struct ScaledQuad
-  {
-    int id;
-    float x;
-    float y;
-    float w;
-    float h;
-  };
-
-
   // for mouse events usage
-  std::vector<ScaledQuad> scale_move_quads(std::vector<quads::Quad> level_quads, int camera_move_x=0, int camera_move_y=0)
+  std::vector<quads::ScaledQuad> scale_move_quads(std::vector<quads::Quad> level_quads, int camera_move_x=0, int camera_move_y=0)
   {
     camera::tile_dim = (float)TILE_DIM*float(camera::zoom);
-    std::vector<ScaledQuad> scaled_level_quads = {};
+    std::vector<quads::ScaledQuad> scaled_level_quads = {};
     float scale_factor = (1.0f/float(camera::zoom));
 
     for(int q=0; q<level_quads.size(); q++)
     {
-      ScaledQuad sq;
+      quads::ScaledQuad sq;
       sq.x = ((float)level_quads[q].x + (float)camera_move_x)*scale_factor;
       sq.y = ((float)level_quads[q].y + (float)camera_move_y)*scale_factor;
       sq.h = (float)level_quads[q].h*scale_factor;

@@ -62,6 +62,10 @@ int CURRENT_SHADER_ID = 0;
 #include "dependencies/glm/gtc/type_ptr.hpp"
 #include "dependencies/glm/gtx/string_cast.hpp"
 
+// Variables
+// ALE ZAJEBISTY HACK!!!
+// definicje structow i self-globalnych zbiorow tutaj, ponizej funkcje
+#include "variables.h"
 
 // Utils
 #include "utils/logger.h"

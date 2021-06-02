@@ -5,11 +5,13 @@ layout (location = 1) in vec4 in_color;
 layout (location = 2) in float in_tile_type;
 layout (location = 3) in vec2 in_tex_coord;
 layout (location = 4) in float in_texture_id;
+layout (location = 5) in float in_is_clicked;
 
 out vec4 out_color;
 out float out_tile_type;
 out vec2 out_tex_coord;
 out float out_texture_id;
+out float out_is_clicked;
 
 
 uniform mat4 mvp;
@@ -20,4 +22,5 @@ void main(void) {
     out_tile_type = in_tile_type;
     out_tex_coord = vec2(in_tex_coord);
     out_texture_id = in_texture_id;
+    out_is_clicked = in_is_clicked;
 }

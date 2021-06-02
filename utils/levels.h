@@ -5,11 +5,6 @@
 
 namespace levels
 {
-
-  std::vector<quads::Quad> LevelQuads;
-  std::vector<camera::ScaledQuad> ScaledLevelQuads;
-
-
   struct LevelCache
   {
    int level_id;
@@ -48,6 +43,7 @@ namespace levels
             in_file >> quad.frame_id;
             quad.id = TILE_COUNTER;
             quad.texture_id = texture_id;
+            quad.is_clicked = false;
             tile_map.push_back(quad);
             TILE_COUNTER += 1;
           };
