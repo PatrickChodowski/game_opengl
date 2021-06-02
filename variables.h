@@ -36,7 +36,7 @@ namespace quads
 
     double is_clicked;
 
-    /// not counted as VERTEX ATTRIBUTES - yet
+    /// not counted as VERTEX ATTRIBUTES
     int tile_id;
     int vertex_id;
   };

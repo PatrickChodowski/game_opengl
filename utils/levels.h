@@ -101,11 +101,11 @@ namespace levels
     ScaledLevelQuads = camera::scale_move_quads(levels::LevelQuads, -camera::x, camera::y);
 
     // set uniforms
-    glUniform1iv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "textures"), sampler_size, sampler);
-    glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[0].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));
+    glUniform1iv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
+    glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));
     
     // set shader
-    glUseProgram(shaders::Catalog[0].gl_shader_id);
+    glUseProgram(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id);
     // bind buffer
     glBindVertexArray(buffer::VAO); 
     // draw 

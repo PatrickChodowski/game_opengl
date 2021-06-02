@@ -46,6 +46,7 @@ Uint32 flags = SDL_WINDOW_OPENGL;
 const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
 int CURRENT_SHADER_ID = 0;
+bool START_WITH_MENU = true;
 
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
@@ -90,7 +91,7 @@ int CURRENT_SHADER_ID = 0;
 #include "components/mobs.h"
 #include "components/hero.h"
 
-
+#include "menu/menu.h"
 #include "utils/levels.h"
 
 

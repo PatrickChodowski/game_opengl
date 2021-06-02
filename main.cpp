@@ -29,6 +29,12 @@ int main()
 
   // temporary, want to load level
   // if new level then
+  if(START_WITH_MENU)
+  {
+    logger::print("here will be menu init + render");
+    menu::init();
+  }
+
   int NEW_GAME = true;
   if(NEW_GAME)
   {
