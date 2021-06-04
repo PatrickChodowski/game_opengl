@@ -5,5 +5,9 @@
   "w": 200,
   "h": 100,
   "label": "Load Game",
-  "name": "main_load" 
+  "name": "main_load",
+  "r_col": 0.5,
+  "g_col": 0.5,
+  "b_col": 0.5,
+  "a_col": 0.5
  }

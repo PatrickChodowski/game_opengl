@@ -94,6 +94,7 @@ bool START_WITH_MENU = true;
 #include "menu/menu.h"
 #include "utils/levels.h"
 
+#include "game.h"
 
 
 // Program setup, but has to be inside a function, called from main.cpp

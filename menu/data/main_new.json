@@ -5,5 +5,9 @@
  "w": 200,
  "h": 100,
  "label": "New Game",
- "name": "main_new" 
+ "name": "main_new",
+ "r_col": 0.5,
+ "g_col": 0.5,
+ "b_col": 0.5,
+ "a_col": 0.5
 }

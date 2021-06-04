@@ -89,6 +89,10 @@ namespace quads
     int frame_id;
 
     // for passing colors
+    float r_col;
+    float g_col;
+    float b_col;
+    float a_col;
 
   };
 

@@ -81,11 +81,16 @@ namespace levels
   }
 
 
-  void update()
+  void update(std::vector<quads::Quad> quads_vector)
   {
     textures::bind_all();
-    std::vector<quads::Quad> quads = quads::assign_vertices(LevelQuads);
-    buffer::update(quads);
+    // just test::
+    //std::vector<quads::Quad> quads = quads::assign_vertices(quads_vector);
+    std::vector<quads::Quad> quads = quads_vector;
+    buffer::update(quads_vector);
+    // test finish
+
+
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
@@ -98,7 +103,7 @@ namespace levels
 
     // react to camera changes
     glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
-    ScaledLevelQuads = camera::scale_move_quads(levels::LevelQuads, -camera::x, camera::y);
+    ScaledLevelQuads = camera::scale_move_quads(quads_vector, -camera::x, camera::y);
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);

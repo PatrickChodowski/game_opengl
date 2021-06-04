@@ -35,7 +35,8 @@ int main()
     menu::init();
   }
 
-  int NEW_GAME = true;
+  int NEW_GAME = false;
+  int MAIN_MENU_ON = true;
   if(NEW_GAME)
   {
     int MAP_ID = 0;
@@ -49,10 +50,15 @@ int main()
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
 
+    if(MAIN_MENU_ON)
+    {
+      levels::update(menu::MenuQuads);
+    }
 
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
-    levels::update();
+
+    // levels::update(levels::LevelQuads);
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
 
@@ -60,6 +66,7 @@ int main()
     timer::print_elapsed_time(game_loop_start_time, "Game Loop duration:");
   }
 
+  // cleanup after the game
   textures::drop();
   shaders::drop();
   buffer::drop();

@@ -23,7 +23,12 @@ struct ButtonData
   std::string label;
   std::string name;
 
-  JS_OBJ(id, x, y, w, h, label, name);
+  float r_col;
+  float g_col;
+  float b_col;
+  float a_col;
+
+  JS_OBJ(id, x, y, w, h, label, name, r_col, g_col, b_col, a_col);
 };
 
 std::map<int, ButtonData> Catalog = {};
@@ -38,8 +43,8 @@ std::vector<std::string> list_saves()
 }
 
 
-
-std::vector<quads::Quad> load_menu_quads(std::vector<int> button_list)
+// function for generating quads for buttons
+std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
 {
   // use color to draw background and buttons for now
   // no clue how to add text yet lol
@@ -57,19 +62,24 @@ std::vector<quads::Quad> load_menu_quads(std::vector<int> button_list)
     quad.y = menu::Catalog[button_id].y;
     quad.w = menu::Catalog[button_id].w;    
     quad.h = menu::Catalog[button_id].h;
-
+    quad.r_col = menu::Catalog[button_id].r_col;
+    quad.g_col = menu::Catalog[button_id].g_col;
+    quad.b_col = menu::Catalog[button_id].b_col;
+    quad.a_col = menu::Catalog[button_id].a_col;
     button_quads.push_back(quad);
   } 
+  // tu powinno byc cos lepszego
+  button_quads = quads::assign_vertices_no_texture(button_quads);
   return button_quads;
 }
 
 
-
+// function for loading main menu
 void load_main_menu()
 {
   // button ids
   std::vector<int> main_menu_buttons = {0,1,2,3};
-  MenuQuads = load_menu_quads(main_menu_buttons);
+  MenuQuads = load_button_quads(main_menu_buttons);
 
 }
 
@@ -91,7 +101,9 @@ void read_button_data(std::string name)
   { 
     std::cout << "Read-in button id: " << BD.id << ", name: " << BD.name << std::endl
     << " label: " << BD.label << std::endl << " position: " << BD.x << "," << BD.y << std::endl
-    << " width: " << BD.w << " height: " << BD.h << std::endl;
+    << " width: " << BD.w << " height: " << BD.h << std::endl
+    << " colors: "<< BD.r_col << "," << BD.b_col << "," << BD.g_col << "," << BD.a_col << std::endl;
+    
   }
 }
 
@@ -105,9 +117,20 @@ void init()
     read_button_data(button_list[b]);
   }
 
+  load_main_menu();
   std::vector<std::string> saves = menu::list_saves();
   hero::Hero hero = hero::load_from_save(saves[0]);  
+
+  
+  buffer::init(menu::MenuQuads);
 }
+
+// closes the menu
+void drop()
+{
+  buffer::drop();
+}
+
 
 
 

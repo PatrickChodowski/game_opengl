@@ -135,7 +135,7 @@ namespace quads
   }
 
 
-
+  // szczerze to mam wrazenie ze to kiepski pomysl
   std::vector<Quad> assign_vertices_no_texture(std::vector<Quad> quads)
   {
     for(int i = 0; i < quads.size(); i++)
@@ -154,10 +154,10 @@ namespace quads
       quads[i].v_a.x_pos = (float)quads[i].x;
       quads[i].v_a.y_pos = (float)quads[i].y;
       quads[i].v_a.z_pos = 0.0f;
-      quads[i].v_a.r_col = 0.0f;
-      quads[i].v_a.g_col = 0.0f;
-      quads[i].v_a.b_col = 0.0f;
-      quads[i].v_a.a_col = 1.0f;
+      quads[i].v_a.r_col = quads[i].r_col;
+      quads[i].v_a.g_col = quads[i].g_col;
+      quads[i].v_a.b_col = quads[i].b_col;
+      quads[i].v_a.a_col = quads[i].a_col;
       quads[i].v_a.tex_coord_x = 0.0f;
       quads[i].v_a.tex_coord_y = 0.0f;
       quads[i].v_a.texture_id = 0;
@@ -167,13 +167,13 @@ namespace quads
       quads[i].v_b.vertex_id = quads[i].b;
       quads[i].v_b.tile_id = quads[i].id;
       quads[i].v_b.frame_id = 0;
-      quads[i].v_b.x_pos = (float)quads[i].x + (float)TILE_DIM  - (float)VERTEX_OFFSET;
+      quads[i].v_b.x_pos = (float)quads[i].x + (float)quads[i].w;
       quads[i].v_b.y_pos = (float)quads[i].y;
       quads[i].v_b.z_pos = 0.0f;
-      quads[i].v_b.r_col = 0.0f;
-      quads[i].v_b.g_col = 0.0f;
-      quads[i].v_b.b_col = 0.0f;
-      quads[i].v_b.a_col = 1.0f;
+      quads[i].v_b.r_col = quads[i].r_col;
+      quads[i].v_b.g_col = quads[i].g_col;
+      quads[i].v_b.b_col = quads[i].b_col;
+      quads[i].v_b.a_col = quads[i].a_col;
       quads[i].v_b.tex_coord_x = 0.0f;
       quads[i].v_b.tex_coord_y = 0.0f;
       quads[i].v_b.texture_id = 0;
@@ -184,12 +184,12 @@ namespace quads
       quads[i].v_c.tile_id = quads[i].id;
       quads[i].v_c.frame_id = 0;
       quads[i].v_c.x_pos = (float)quads[i].x;
-      quads[i].v_c.y_pos = (float)quads[i].y + (float)TILE_DIM - (float)VERTEX_OFFSET;
+      quads[i].v_c.y_pos = (float)quads[i].y  + (float)quads[i].h;
       quads[i].v_c.z_pos = 0.0f;
-      quads[i].v_c.r_col = 0.0f;
-      quads[i].v_c.g_col = 0.0f;
-      quads[i].v_c.b_col = 0.0f;
-      quads[i].v_c.a_col = 1.0f;
+      quads[i].v_c.r_col = quads[i].r_col;
+      quads[i].v_c.g_col = quads[i].g_col;
+      quads[i].v_c.b_col = quads[i].b_col;
+      quads[i].v_c.a_col = quads[i].a_col;
       quads[i].v_c.tex_coord_x = 0.0f;
       quads[i].v_c.tex_coord_y = 0.0f;
       quads[i].v_c.texture_id = 0;
@@ -200,13 +200,13 @@ namespace quads
       quads[i].v_d.vertex_id = quads[i].d;
       quads[i].v_d.tile_id = quads[i].id;
       quads[i].v_d.frame_id = 0;
-      quads[i].v_d.x_pos = (float)quads[i].x + (float)TILE_DIM  - (float)VERTEX_OFFSET;
-      quads[i].v_d.y_pos = (float)quads[i].y + (float)TILE_DIM - (float)VERTEX_OFFSET;
+      quads[i].v_d.x_pos = (float)quads[i].x + (float)quads[i].w;
+      quads[i].v_d.y_pos = (float)quads[i].y + (float)quads[i].h;
       quads[i].v_d.z_pos = 0.0f;
-      quads[i].v_d.r_col = 1.0f;
-      quads[i].v_d.g_col = 1.0f;
-      quads[i].v_d.b_col = 1.0f;
-      quads[i].v_d.a_col = 1.0f;
+      quads[i].v_d.r_col = quads[i].r_col;
+      quads[i].v_d.g_col = quads[i].g_col;
+      quads[i].v_d.b_col = quads[i].b_col;
+      quads[i].v_d.a_col = quads[i].a_col;
       quads[i].v_d.tex_coord_x = 0.0f;
       quads[i].v_d.tex_coord_y = 0.0f;
       quads[i].v_d.texture_id = 0;
