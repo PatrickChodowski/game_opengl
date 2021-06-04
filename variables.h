@@ -88,6 +88,8 @@ namespace quads
     int texture_id;
     int frame_id;
 
+    // for passing colors
+
   };
 
   struct ScaledQuad

@@ -1,0 +1,9 @@
+{
+  "id": 2,
+  "x": 200,
+  "y": 600,
+  "w": 200,
+  "h": 100,
+  "label": "Settings",
+  "name": "main_settings" 
+ }
