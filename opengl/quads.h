@@ -31,6 +31,15 @@ namespace quads
       }
     }
 
+    void print_out_quad_map(std::map<int, quads::Quad> quad_map)
+    {
+        for (auto const& x : quad_map)
+        {
+            std::cout << "Quad id : " << x.first << x.second.id << " - " << x.second.texture_id <<  " - " << x.second.frame_id << std::endl << 
+              x.second.x  << "," << x.second.y << std::endl <<
+              x.second.w  << "," << x.second.h << std::endl;
+        }
+    }
 
 
   std::vector<Quad> assign_vertices(std::vector<Quad> quads)

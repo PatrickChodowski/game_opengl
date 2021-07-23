@@ -57,7 +57,8 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
   {
     struct quads::Quad quad;
     int button_id = button_list[b];
-    quad.id = menu::Catalog[button_id].id;
+    // quad.id = menu::Catalog[button_id].id;
+    quad.id = qm::gen_quad_id();
     quad.x = menu::Catalog[button_id].x;
     quad.y = menu::Catalog[button_id].y;
     quad.w = menu::Catalog[button_id].w;    
@@ -66,7 +67,10 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     quad.g_col = menu::Catalog[button_id].g_col;
     quad.b_col = menu::Catalog[button_id].b_col;
     quad.a_col = menu::Catalog[button_id].a_col;
+    quad.is_clicked = 0.0f;
     button_quads.push_back(quad);
+    std::cout << "menu quad id:" << std::endl;
+    std::cout << quad.id << std::endl;
   } 
   // tu powinno byc cos lepszego
   button_quads = quads::assign_vertices_no_texture(button_quads);

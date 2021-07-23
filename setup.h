@@ -85,6 +85,9 @@ bool START_WITH_MENU = true;
 #include "utils/mouse.h"
 #include "opengl/events.h"
 
+// i dont know
+#include "utils/quads_manager.h"
+
 
 // game components
 #include "components/items.h"

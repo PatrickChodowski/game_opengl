@@ -1,3 +1,4 @@
+
 #include "setup.h"
 
 
@@ -49,7 +50,7 @@ int main()
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
-
+    qm::accumulate(menu::MenuQuads, levels::LevelQuads);
     if(MAIN_MENU_ON)
     {
       levels::update(menu::MenuQuads);

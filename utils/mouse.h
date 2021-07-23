@@ -5,17 +5,19 @@
 namespace mouse
 {
   // temporarily here?
-  void click_quad(int quad_id)
+  void click_quad(int clicked_quad_id)
   {
-    logger::print("Clicking on " + std::to_string(quad_id) + 
-    " is clicked value: " + 
-    std::to_string(levels::LevelQuads[(quad_id-1)].is_clicked) + " double check quad id: " + std::to_string(levels::LevelQuads[(quad_id-1)].id));
+    logger::print("Quad ID: " + std::to_string(clicked_quad_id));
 
-    if(levels::LevelQuads[(quad_id-1)].is_clicked == 0.0f)
+    logger::print("Clicking on " + std::to_string(clicked_quad_id) + 
+    " is clicked value: " + 
+    std::to_string(qm::all_quads[clicked_quad_id].is_clicked) + " double check quad id: " + std::to_string(qm::all_quads[clicked_quad_id].id));
+
+    if(qm::all_quads[clicked_quad_id].is_clicked == 0.0f)
     {
-      levels::LevelQuads[(quad_id-1)].is_clicked = 1.0f;
+      qm::all_quads[clicked_quad_id].is_clicked = 1.0f;
     } else {
-      levels::LevelQuads[(quad_id-1)].is_clicked = 0.0f;
+      qm::all_quads[clicked_quad_id].is_clicked = 0.0f;
     }
     ;
   }

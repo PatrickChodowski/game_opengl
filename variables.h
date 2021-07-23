@@ -4,6 +4,8 @@
 
 // file for defining variables that should be accessible by multiple files 
 
+
+
 namespace quads
 {
   
@@ -114,6 +116,21 @@ namespace levels
   std::vector<quads::Quad> LevelQuads;
   std::vector<quads::ScaledQuad> ScaledLevelQuads;
 }
+
+
+namespace qm 
+{
+  // map containing all quads at the same time
+  // quad_id, quad
+  std::map<int, quads::Quad> all_quads;
+
+  // quads sizes in per type (menu, level etc.)
+  std::map<std::string, int> quads_sizes;
+
+  // next quad id to assign, should start from 0, but the next function call will return 1;
+  int next_quad_id = 0;
+}
+
 
 
 

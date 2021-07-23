@@ -26,7 +26,7 @@ namespace levels
     in_file.open(file_path.c_str());
 
     int n_tiles = vertex_width*vertex_height;
-    int TILE_COUNTER = 1;
+    // int TILE_COUNTER = 1; // old version, need to use get_next_quad_id
 
       // read in the tile info
     if (in_file.is_open())
@@ -41,11 +41,11 @@ namespace levels
             quad.w = camera::tile_dim;
             quad.h = camera::tile_dim;
             in_file >> quad.frame_id;
-            quad.id = TILE_COUNTER;
+            //quad.id = TILE_COUNTER;
+            quad.id = qm::gen_quad_id();
             quad.texture_id = texture_id;
-            quad.is_clicked = false;
+            quad.is_clicked = 0.0;
             tile_map.push_back(quad);
-            TILE_COUNTER += 1;
           };
         } 
     }
