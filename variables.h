@@ -127,7 +127,7 @@ namespace qm
 {
   // map containing all quads at the same time
   // quad_id, quad
-  std::map<int, quads::Quad> all_quads;
+  std::map<int, quads::Quad> AllQuads;
 
   // quads sizes in per type (menu, level etc.)
   std::map<std::string, int> quads_sizes;

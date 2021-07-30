@@ -89,6 +89,8 @@ namespace fonts
   void load_text_quads(std::string text, float x, float y, float scale, float r = 0.5, float g = 0.5, float b = 0.5)
   {
     // iterate through all characters
+    std::vector<quads::Quad> text_quads;
+
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++)
     {
@@ -111,9 +113,16 @@ namespace fonts
         quad.a_col = 1.0f;
 
         quad.is_clicked = 0.0f;
-        TextQuads.push_back(quad);
+        text_quads.push_back(quad);
         std::cout << "text quad id:" << std::endl;
         std::cout << quad.id << std::endl;
+    }
+    text_quads = quads::assign_vertices_no_texture(text_quads);
+
+    // add new text to all texts
+    for(int l=0; l < text_quads.size(); l++)
+    {
+      fonts::TextQuads.push_back(text_quads[l]);
     }
   }
 

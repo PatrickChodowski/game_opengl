@@ -47,17 +47,20 @@ int main()
   }
   // finish temporary
 
-  fonts::load_text_quads("Test tekst", 200, 300, 1.0, 1.0, 1.0, 1.0);
+  fonts::load_text_quads("Test tekst", 200, 300, 1, 0.5, 0.5, 0.5);
   // main game loop
   while(RUNNING)
   {
     // clearing all texts before assigning new ones
-    fonts::clear_text();
+    //fonts::clear_text();
     auto game_loop_start_time = std::chrono::system_clock::now();
     qm::accumulate(menu::MenuQuads, levels::LevelQuads, fonts::TextQuads);
     if(MAIN_MENU_ON)
     {
-      levels::update(menu::MenuQuads);
+      //levels::update(fonts::TextQuads);
+      // qm::update(qm::AllQuads);
+      // levels::update(levels::LevelQuads);
+      levels::update(fonts::TextQuads);
     }
 
     SDL_Event event;
