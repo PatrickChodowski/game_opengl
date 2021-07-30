@@ -63,6 +63,12 @@ bool START_WITH_MENU = true;
 #include "dependencies/glm/gtc/type_ptr.hpp"
 #include "dependencies/glm/gtx/string_cast.hpp"
 
+
+// freetype includes
+#include <ft2build.h>
+#include FT_FREETYPE_H  
+
+
 // Variables
 // ALE ZAJEBISTY HACK!!!
 // definicje structow i self-globalnych zbiorow tutaj, ponizej funkcje
