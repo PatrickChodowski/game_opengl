@@ -12,7 +12,8 @@ namespace qm
 {
 
   void accumulate(std::vector<quads::Quad> menu_quads,
-                  std::vector<quads::Quad> level_quads)
+                  std::vector<quads::Quad> level_quads,
+                  std::vector<quads::Quad> text_quads)
   {
     all_quads.clear(); // resetting map
 
@@ -33,9 +34,18 @@ namespace qm
       }
     }
 
+    // assign text quads
+    if(text_quads.size() > 0){
+      for(int l=0; l < text_quads.size(); l++)
+      {
+        all_quads[text_quads[l].id] = text_quads[l];
+      }
+    }
+
     //quads::print_out_quad_map(all_quads);
     quads_sizes["menu"] = menu_quads.size();
     quads_sizes["level"] = level_quads.size();
+    quads_sizes["text"] = text_quads.size();
 
   }
 

@@ -68,7 +68,6 @@ bool START_WITH_MENU = true;
 #include <ft2build.h>
 #include FT_FREETYPE_H  
 
-
 // Variables
 // ALE ZAJEBISTY HACK!!!
 // definicje structow i self-globalnych zbiorow tutaj, ponizej funkcje
@@ -100,8 +99,11 @@ bool START_WITH_MENU = true;
 #include "components/mobs.h"
 #include "components/hero.h"
 
+// quads dependent
 #include "menu/menu.h"
 #include "utils/levels.h"
+#include "opengl/fonts.h"
+
 
 #include "game.h"
 
