@@ -1,6 +1,4 @@
-
 #include "setup.h"
-
 
 
 int main()
@@ -20,25 +18,27 @@ int main()
   GLenum err = glewInit();
   utils::check_glew(err);
 
-
-
   // Init data for Maps, Textures etc.
-  
   maps::init();
   shaders::init();
   textures::init();
-  fonts::init_font();
-  fonts::no_idea();
+
+  // adding font texture to texture catalog
+  // GLuint font_texture_id = fonts::init();
+  // textures::TextureData font_td;
+  // textures::Catalog.insert({font_texture_id, font_td});
+
+
 
   // temporary, want to load level
   // if new level then
-  if(START_WITH_MENU)
-  {
-    logger::print("here will be menu init + render");
-    menu::init();
-  }
+  // if(START_WITH_MENU)
+  // {
+  //   logger::print("here will be menu init + render");
+  //   menu::init();
+  // }
 
-  int NEW_GAME = false;
+  int NEW_GAME = true;
   int MAIN_MENU_ON = true;
   if(NEW_GAME)
   {
@@ -46,27 +46,22 @@ int main()
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   // finish temporary
-
-  fonts::load_text_quads("Test tekst", 200, 300, 1, 0.5, 0.5, 0.5);
-  // main game loop
   while(RUNNING)
   {
-    // clearing all texts before assigning new ones
-    //fonts::clear_text();
     auto game_loop_start_time = std::chrono::system_clock::now();
     qm::accumulate(menu::MenuQuads, levels::LevelQuads, fonts::TextQuads);
-    if(MAIN_MENU_ON)
-    {
-      //levels::update(fonts::TextQuads);
-      // qm::update(qm::AllQuads);
-      // levels::update(levels::LevelQuads);
-      levels::update(fonts::TextQuads);
-    }
-
+    // if(MAIN_MENU_ON)
+    // {
+    //   //levels::update(fonts::TextQuads);
+    //   // qm::update(qm::AllQuads);
+    //   // levels::update(levels::LevelQuads);
+    //   levels::update(fonts::TextQuads);
+    // }
+    // std::vector<quads::Quad> text_quads = fonts::render_text("chuj", 200, 300);
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
-
-    // levels::update(levels::LevelQuads);
+    levels::update(levels::LevelQuads);
+    //levels::update(menu::MenuQuads);
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
 

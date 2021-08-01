@@ -89,8 +89,7 @@ namespace textures
     stbi_image_free(image_data);
 
     // returns new texture_id
-    logger::print("Opengl texture id");
-    logger::print(texture_id);
+    logger::print("Opengl texture id: " + std::to_string(texture_id));
     return texture_id;
 
   }

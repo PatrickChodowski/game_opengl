@@ -15,6 +15,7 @@
 #include <chrono>   // time/clock
 #include <ctime>    // time/clock
 #include <regex>    // for shader parameters
+#include <algorithm>
 
 // Opengl packages
 #include <GL/glew.h> 

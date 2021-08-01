@@ -109,6 +109,11 @@ namespace quads
 }
 
 
+namespace fonts
+{
+  std::vector<quads::Quad> TextQuads;
+}
+
 
 
 namespace levels
@@ -116,12 +121,6 @@ namespace levels
   std::vector<quads::Quad> LevelQuads;
   std::vector<quads::ScaledQuad> ScaledLevelQuads;
 }
-
-namespace fonts
-{
-  std::vector<quads::Quad> TextQuads;
-}
-
 
 namespace qm 
 {

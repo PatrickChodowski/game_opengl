@@ -113,7 +113,7 @@ namespace buffer
       // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_array), vertices_array, GL_STATIC_DRAW);
 
       // dynamic approach:
-      glBufferData(GL_ARRAY_BUFFER, sizeof(quads::Vertex)*2000, nullptr, GL_DYNAMIC_DRAW);
+      glBufferData(GL_ARRAY_BUFFER, sizeof(quads::Vertex)*4000, nullptr, GL_DYNAMIC_DRAW);
 
       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
       glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);

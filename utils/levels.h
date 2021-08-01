@@ -92,6 +92,11 @@ namespace levels
 
 
     glClear(GL_COLOR_BUFFER_BIT);
+    // for(int t=0; t<textures::BoundTextures.size(); t++)
+    // {
+    //   std::cout << "bound texture id" << textures::BoundTextures[t] << std::endl;
+    // }
+
 
     // sampler array creation
     int sampler_size = (textures::BoundTextures.size() + 1); //3

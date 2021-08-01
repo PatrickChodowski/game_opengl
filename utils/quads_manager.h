@@ -55,7 +55,7 @@ namespace qm
     // is supposed to return new quad id based on qm.next_quad_id
     // yes, kinda updates namespace's global variable
     qm::next_quad_id += 1;
-    logger::print("Next Quad ID: "+std::to_string(qm::next_quad_id));
+    // logger::print("Next Quad ID: "+std::to_string(qm::next_quad_id));
     return qm::next_quad_id;
   }
 
