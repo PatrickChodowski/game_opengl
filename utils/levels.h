@@ -85,9 +85,9 @@ namespace levels
   {
     textures::bind_all();
     // just test::
-    //std::vector<quads::Quad> quads = quads::assign_vertices(quads_vector);
-    std::vector<quads::Quad> quads = quads_vector;
-    buffer::update(quads_vector);
+    std::vector<quads::Quad> quads = quads::assign_vertices(quads_vector);
+    // std::vector<quads::Quad> quads = quads_vector;
+    buffer::update(quads);
     // test finish
 
 
