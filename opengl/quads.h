@@ -6,8 +6,7 @@
 
 namespace quads
 {
-
-  int COUNT_VERTEX_ATTRIBUTES = 12;
+  int COUNT_VERTEX_ATTRIBUTES = 13;
   int VERTEX_OFFSET = 1;
 
     void print_out_quads(std::vector<Quad> quads)
@@ -22,6 +21,7 @@ namespace quads
         std::cout << "Y: " << quads[t].y << std::endl; 
         std::cout << "Width: " << quads[t].w << std::endl; 
         std::cout << "Height: " << quads[t].h << std::endl; 
+        std::cout << "Type: " << quads[t].type_id << std::endl; 
 
         std::cout << "Vertices positions:"  << std::endl;
         std::cout << "Vertex ID: " << quads[t].a << " X:" << quads[t].v_a.x_pos << ", Y:" << quads[t].v_a.y_pos << ", tcX:" << quads[t].v_a.tex_coord_x << ", tcY:" << quads[t].v_a.tex_coord_y << std::endl;
@@ -79,6 +79,7 @@ namespace quads
       quads[i].v_a.tex_coord_y = 0.0f;
       quads[i].v_a.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
       quads[i].v_a.is_clicked = (float)quads[i].is_clicked;
+      quads[i].v_a.type_id = (float)quads[i].type_id;
 
       // create vertex struct - B
       quads[i].v_b.vertex_id = quads[i].b;
@@ -95,6 +96,7 @@ namespace quads
       quads[i].v_b.tex_coord_y = 0.0f;
       quads[i].v_b.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
       quads[i].v_b.is_clicked = (float)quads[i].is_clicked;
+      quads[i].v_b.type_id = (float)quads[i].type_id;
 
       // create vertex struct - C
       quads[i].v_c.vertex_id = quads[i].c;
@@ -111,6 +113,7 @@ namespace quads
       quads[i].v_c.tex_coord_y = 1.0f;
       quads[i].v_c.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
       quads[i].v_c.is_clicked = (float)quads[i].is_clicked;
+      quads[i].v_c.type_id = (float)quads[i].type_id;
 
 
       // create vertex struct - D
@@ -128,6 +131,7 @@ namespace quads
       quads[i].v_d.tex_coord_y = 1.0f;
       quads[i].v_d.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
       quads[i].v_d.is_clicked = (float)quads[i].is_clicked;
+      quads[i].v_d.type_id = (float)quads[i].type_id;
 
       // create vindices 
       quads[i].i_left.a = quads[i].a;
@@ -175,6 +179,7 @@ namespace quads
       quads[i].v_a.tex_coord_y = 0.0f;
       quads[i].v_a.texture_id = 0;
       quads[i].v_a.is_clicked = (float)quads[i].is_clicked;
+      quads[i].v_a.type_id = (float)quads[i].type_id;
 
       // create vertex struct - B
       quads[i].v_b.vertex_id = quads[i].b;
@@ -191,6 +196,7 @@ namespace quads
       quads[i].v_b.tex_coord_y = 0.0f;
       quads[i].v_b.texture_id = 0;
       quads[i].v_b.is_clicked = (float)quads[i].is_clicked;
+      quads[i].v_b.type_id = (float)quads[i].type_id;
 
       // create vertex struct - C
       quads[i].v_c.vertex_id = quads[i].c;
@@ -207,6 +213,7 @@ namespace quads
       quads[i].v_c.tex_coord_y = 0.0f;
       quads[i].v_c.texture_id = 0;
       quads[i].v_c.is_clicked = (float)quads[i].is_clicked;
+      quads[i].v_c.type_id = (float)quads[i].type_id;
 
 
       // create vertex struct - D
@@ -224,6 +231,7 @@ namespace quads
       quads[i].v_d.tex_coord_y = 0.0f;
       quads[i].v_d.texture_id = 0;
       quads[i].v_d.is_clicked = (float)quads[i].is_clicked;
+      quads[i].v_d.type_id = (float)quads[i].type_id;
 
       // create vindices 
       quads[i].i_left.a = quads[i].a;

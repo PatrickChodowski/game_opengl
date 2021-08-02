@@ -8,6 +8,12 @@
 
 namespace quads
 {
+
+  #define QUAD_TYPE_LEVEL 0.0f
+  #define QUAD_TYPE_MENU 1.0f
+  #define QUAD_TYPE_TEXT 2.0f
+
+
   
   // vertex index
   struct Vindex
@@ -37,6 +43,8 @@ namespace quads
     double texture_id;
 
     double is_clicked;
+
+    double type_id;
 
     /// not counted as VERTEX ATTRIBUTES
     int tile_id;
@@ -95,6 +103,10 @@ namespace quads
     float g_col;
     float b_col;
     float a_col;
+    
+    // for different shader calls:
+    float type_id; // 0 - level, 1 - menu, 2 - text
+
 
   };
 

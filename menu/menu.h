@@ -68,6 +68,7 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     quad.b_col = menu::Catalog[button_id].b_col;
     quad.a_col = menu::Catalog[button_id].a_col;
     quad.is_clicked = 0.0f;
+    quad.type_id = QUAD_TYPE_MENU;
     button_quads.push_back(quad);
     std::cout << "menu quad id:" << std::endl;
     std::cout << quad.id << std::endl;

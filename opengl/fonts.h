@@ -83,7 +83,15 @@ namespace fonts
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, atlas_width, atlas_height, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
+    glTexImage2D(GL_TEXTURE_2D, //target
+                 0, //level 
+                 GL_RED, //internal format
+                 atlas_width,  // width
+                 atlas_height,  // height
+                 0,  // border
+                 GL_RED,  // format
+                 GL_UNSIGNED_BYTE,  // type
+                 0); // data
 
     // fill out empty texture id
     int x = 0;
@@ -105,12 +113,12 @@ namespace fonts
       character.texture_id = (int)texture_id;
       character_map.insert(std::pair<GLchar, Character>(i, character));
 
-      std::cout << "Character: " << i << std::endl;
-      std::cout << "Advance: X: " << character.advance_x << ", Y: " << character.advance_y  << std::endl;
-      std::cout << "Bitmap: Width: " << character.bitmap_width << ", Height: " << character.bitmap_height << std::endl;
-      std::cout << "Bitmap: Left: " << character.bitmap_left << ", Top: " << character.bitmap_top << std::endl;
-      std::cout << "Offset: " << character.offset << std::endl;
-      std::cout << "Texture id: " << character.texture_id << std::endl;
+      // std::cout << "Character: " << i << std::endl;
+      // std::cout << "Advance: X: " << character.advance_x << ", Y: " << character.advance_y  << std::endl;
+      // std::cout << "Bitmap: Width: " << character.bitmap_width << ", Height: " << character.bitmap_height << std::endl;
+      // std::cout << "Bitmap: Left: " << character.bitmap_left << ", Top: " << character.bitmap_top << std::endl;
+      // std::cout << "Offset: " << character.offset << std::endl;
+      // std::cout << "Texture id: " << character.texture_id << std::endl;
 
       glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
       x += g->bitmap.width;
@@ -177,6 +185,7 @@ namespace fonts
       quad.g_col = g_col;
       quad.b_col = b_col;
       quad.a_col = a_col;
+      quad.type_id = QUAD_TYPE_TEXT;
 
 
       std::cout << "Rendering character: " << *p << std::endl;
@@ -202,6 +211,7 @@ namespace fonts
       quad.v_a.a_col = quad.a_col;
       quad.v_a.tex_coord_x = offset;
       quad.v_a.tex_coord_y = 0.0f;
+      quad.v_a.type_id = (double)quad.type_id;
 
       //quad.v_a.tex_coord_x = 0.0f;
       //quad.v_a.tex_coord_y = 0.0f;
@@ -220,6 +230,7 @@ namespace fonts
       quad.v_b.a_col = quad.a_col;
       quad.v_b.tex_coord_x = offset+((float)bitmap_width/(float)atlas_width);
       quad.v_b.tex_coord_y = 0.0f;
+      quad.v_b.type_id = (double)quad.type_id;
 
       // quad.v_b.tex_coord_x = 1.0f;
       // quad.v_b.tex_coord_y = 0.0f;
@@ -238,6 +249,7 @@ namespace fonts
       quad.v_c.a_col = quad.a_col;
       quad.v_c.tex_coord_x = offset;
       quad.v_c.tex_coord_y = 1.0f;
+      quad.v_c.type_id = (double)quad.type_id;
       //quad.v_c.tex_coord_x = 0.0f;
       //quad.v_c.tex_coord_y = 1.0f;
 
@@ -256,6 +268,7 @@ namespace fonts
       quad.v_d.a_col = quad.a_col;
       quad.v_d.tex_coord_x = offset + ((float)bitmap_width/(float)atlas_width);
       quad.v_d.tex_coord_y = 1.0f;
+      quad.v_d.type_id = (double)quad.type_id;
 
       //quad.v_d.tex_coord_x = 1.0f;
       //quad.v_d.tex_coord_y = 1.0f;

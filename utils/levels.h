@@ -45,6 +45,7 @@ namespace levels
             quad.id = qm::gen_quad_id();
             quad.texture_id = texture_id;
             quad.is_clicked = 0.0;
+            quad.type_id = QUAD_TYPE_LEVEL;
             tile_map.push_back(quad);
           };
         } 
@@ -87,8 +88,8 @@ namespace levels
     buffer::update(quads);
 
     // glClear(GL_COLOR_BUFFER_BIT); // black by default
-    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    // glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
