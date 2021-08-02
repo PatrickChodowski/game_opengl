@@ -171,7 +171,6 @@ namespace fonts
       quad.h = character_map[*p].bitmap_height * scale;
       quad.frame_id = character_map[*p].frame_id;
       quad.texture_id = character_map[*p].texture_id;
-      //quad.texture_id = 4;
       quad.solid = 0.0f;
       quad.is_clicked = 0.0f;
       quad.r_col = r_col;
@@ -274,7 +273,7 @@ namespace fonts
 
 
       // push new x for next character
-      x += character_map[*p].bitmap_width * scale;
+      x += ((character_map[*p].bitmap_width * scale)+5);
       text_quads.push_back(quad);
     }
     quads::print_out_quads(text_quads);
