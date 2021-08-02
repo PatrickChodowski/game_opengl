@@ -15,10 +15,14 @@ void main()
 {
   int texture_index = int(out_texture_id);
 
-  frag_color = texture(textures[texture_index], out_tex_coord);
-  frag_color.r = (1-out_is_clicked)*frag_color.r; // for clicking 
-
+  //frag_color = texture(textures[texture_index], out_tex_coord);
+  //frag_color.r = (1-out_is_clicked)*frag_color.r; // for clicking 
 
   //frag_color = texture(textures[texture_index], out_tex_coord);
-  //frag_color = vec4((texture_index/4.0f), (texture_index/4.0f), (texture_index/4.0f), 1.0f);
+
+  frag_color = texture(textures[texture_index], out_tex_coord);
+  frag_color.a = 0.5f;
+  // 1,1,1,1 for white
+  // 0,0,0,1 for black
+  // frag_color = vec4((texture_index/4.0f), (texture_index/4.0f), (texture_index/4.0f), 1.0f);
 }

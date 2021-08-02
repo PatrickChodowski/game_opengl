@@ -156,6 +156,9 @@ namespace textures
       // Max 32, but depends on platform
 
       //  Select active texture
+
+      // logger::print("Binding texture :" + std::to_string(textures::BoundTextures[t]));
+
       GlCall(glActiveTexture(GL_TEXTURE0 + textures::BoundTextures[t]));
 
       // bind the active texture

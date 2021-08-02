@@ -27,7 +27,7 @@ namespace fonts
 
   std::map<char, Character> character_map;
 
-  GLuint init()
+  textures::TextureData init()
   {
     // initialize library
     FT_Library ft;
@@ -67,6 +67,10 @@ namespace fonts
     int atlas_width = w;
     int atlas_height = h;
 
+    std::cout << "ATLAS WIDTH: " << atlas_width << std::endl;
+    std::cout << "ATLAS HEIGHT: " << atlas_height << std::endl;
+
+
     // Generate texture - adds new texture id, based on what was generated before
     GLuint texture_id;
     glGenTextures(1, &texture_id);
@@ -79,7 +83,7 @@ namespace fonts
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, w, h, 0, GL_ALPHA, GL_UNSIGNED_BYTE, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, atlas_width, atlas_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 
     // fill out empty texture id
     int x = 0;
@@ -96,12 +100,19 @@ namespace fonts
       character.bitmap_height = g->bitmap.rows;
       character.bitmap_left = g->bitmap_left;
       character.bitmap_top = g->bitmap_top;
-      character.offset = (float)x/w;
+      character.offset = ((float)x/ (float)atlas_width);
       character.frame_id = c_id;
       character.texture_id = (int)texture_id;
       character_map.insert(std::pair<GLchar, Character>(i, character));
 
-      glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+      std::cout << "Character: " << i << std::endl;
+      std::cout << "Advance: X: " << character.advance_x << ", Y: " << character.advance_y  << std::endl;
+      std::cout << "Bitmap: Width: " << character.bitmap_width << ", Height: " << character.bitmap_height << std::endl;
+      std::cout << "Bitmap: Left: " << character.bitmap_left << ", Top: " << character.bitmap_top << std::endl;
+      std::cout << "Offset: " << character.offset << std::endl;
+      std::cout << "Texture id: " << character.texture_id << std::endl;
+
+      glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RGBA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
       x += g->bitmap.width;
       c_id += 1;
     }
@@ -110,13 +121,25 @@ namespace fonts
     logger::print("Fonts texture id: " + std::to_string(texture_id));
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
-    return texture_id;
+
+
+    textures::TextureData TD;
+    TD.id = texture_id;
+    TD.type = "font";
+    TD.name = "font";
+    TD.width = atlas_width;
+    TD.height = atlas_height;
+    TD.opengl_texture_id = texture_id;
+
+
+    return TD;
   }
 
 
   std::vector<quads::Quad> render_text(const char *text, 
                                        int x, 
                                        int y, 
+                                       textures::TextureData FontTD,
                                        float scale = 1.0,
                                        float r_col = 0.5, 
                                        float g_col = 0.5, 
@@ -135,22 +158,32 @@ namespace fonts
       float offset = character_map[*p].offset;
       float bitmap_width = character_map[*p].bitmap_width;
       float bitmap_height = character_map[*p].bitmap_height;
+      float atlas_width = FontTD.width;
+      float atlas_height = FontTD.height;
+
 
       // create quad here
       struct quads::Quad quad;
       quad.id = qm::gen_quad_id();
-      quad.x = x + character_map[*p].bitmap_left * scale;;
-      quad.y = -y - character_map[*p].bitmap_top * scale;
+      quad.x = x + character_map[*p].bitmap_left * scale;
+      quad.y = y - character_map[*p].bitmap_top * scale;
       quad.w = character_map[*p].bitmap_width * scale;
       quad.h = character_map[*p].bitmap_height * scale;
       quad.frame_id = character_map[*p].frame_id;
       quad.texture_id = character_map[*p].texture_id;
+      //quad.texture_id = 4;
       quad.solid = 0.0f;
       quad.is_clicked = 0.0f;
       quad.r_col = r_col;
       quad.g_col = g_col;
       quad.b_col = b_col;
       quad.a_col = a_col;
+
+
+      std::cout << "Rendering character: " << *p << std::endl;
+      std::cout << "X: " << quad.x << std::endl;
+      std::cout << "Y: " << quad.y << std::endl;
+
 
       // assign vertices
       quad.a = stoi(std::to_string(quad.id) + "001");
@@ -170,6 +203,9 @@ namespace fonts
       quad.v_a.a_col = quad.a_col;
       quad.v_a.tex_coord_x = offset;
       quad.v_a.tex_coord_y = 0.0f;
+
+      //quad.v_a.tex_coord_x = 0.0f;
+      //quad.v_a.tex_coord_y = 0.0f;
       quad.v_a.texture_id = quad.texture_id;
       quad.v_a.is_clicked = (float)quad.is_clicked;
 
@@ -183,8 +219,11 @@ namespace fonts
       quad.v_b.g_col = quad.g_col;
       quad.v_b.b_col = quad.b_col;
       quad.v_b.a_col = quad.a_col;
-      quad.v_b.tex_coord_x = offset+bitmap_width;
+      quad.v_b.tex_coord_x = offset+((float)bitmap_width/(float)atlas_width);
       quad.v_b.tex_coord_y = 0.0f;
+
+      // quad.v_b.tex_coord_x = 1.0f;
+      // quad.v_b.tex_coord_y = 0.0f;
       quad.v_b.texture_id = quad.texture_id;
       quad.v_b.is_clicked = (float)quad.is_clicked;
 
@@ -199,7 +238,10 @@ namespace fonts
       quad.v_c.b_col = quad.b_col;
       quad.v_c.a_col = quad.a_col;
       quad.v_c.tex_coord_x = offset;
-      quad.v_c.tex_coord_y = 0.0f + bitmap_height;
+      quad.v_c.tex_coord_y = 1.0f;
+      //quad.v_c.tex_coord_x = 0.0f;
+      //quad.v_c.tex_coord_y = 1.0f;
+
       quad.v_c.texture_id = quad.texture_id;
       quad.v_c.is_clicked = (float)quad.is_clicked;
 
@@ -213,8 +255,11 @@ namespace fonts
       quad.v_d.g_col = quad.g_col;
       quad.v_d.b_col = quad.b_col;
       quad.v_d.a_col = quad.a_col;
-      quad.v_d.tex_coord_x = offset + bitmap_width;
-      quad.v_d.tex_coord_y = 0.0f + bitmap_height;
+      quad.v_d.tex_coord_x = offset + ((float)bitmap_width/(float)atlas_width);
+      quad.v_d.tex_coord_y = 1.0f;
+
+      //quad.v_d.tex_coord_x = 1.0f;
+      //quad.v_d.tex_coord_y = 1.0f;
       quad.v_d.texture_id = quad.texture_id;
       quad.v_d.is_clicked = (float)quad.is_clicked;
 
@@ -228,13 +273,11 @@ namespace fonts
       quad.i_right.c = quad.d;
 
 
-      // push new x and y for next character
-      x += character_map[*p].advance_x * scale;
-      y += character_map[*p].advance_y * scale;
-
+      // push new x for next character
+      x += character_map[*p].bitmap_width * scale;
       text_quads.push_back(quad);
     }
-
+    quads::print_out_quads(text_quads);
     return text_quads;
   }
 

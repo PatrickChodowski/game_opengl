@@ -24,11 +24,9 @@ int main()
   textures::init();
 
   // adding font texture to texture catalog
-  GLuint font_texture_id = fonts::init();
-  textures::TextureData font_td;
-  textures::Catalog.insert({font_texture_id, font_td});
-
-
+  textures::TextureData FontTD = fonts::init();
+  textures::Catalog.insert({FontTD.opengl_texture_id, FontTD});
+  textures::BoundTextures.push_back(FontTD.opengl_texture_id);
 
   int NEW_GAME = true;
   int MAIN_MENU_ON = true;
@@ -37,6 +35,8 @@ int main()
     int MAP_ID = 0;
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
+  levels::LevelQuads = quads::assign_vertices(levels::LevelQuads);
+  std::vector<quads::Quad> text_quads = fonts::render_text("chuj", 200, 300, FontTD);
   // finish temporary
   while(RUNNING)
   {
@@ -49,11 +49,12 @@ int main()
     //   // levels::update(levels::LevelQuads);
     //   levels::update(fonts::TextQuads);
     // }
-    std::vector<quads::Quad> text_quads = fonts::render_text("chuj", 200, 300);
+
+    
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
-    levels::update(levels::LevelQuads);
-    // levels::update(menu::MenuQuads);
+    // levels::update(levels::LevelQuads);
+    levels::update(text_quads);
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
 

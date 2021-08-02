@@ -61,52 +61,6 @@ namespace qm
 
 
 
-  // void update(std::map<int, quads::Quad> all_quads)
-  // {
-  //   textures::bind_all();
-  //   // just test::
-  //   //std::vector<quads::Quad> quads = quads::assign_vertices(quads_vector);
-  //   std::vector<quads::Quad> quads = quads_vector;
-  //   buffer::update(quads_vector);
-  //   // test finish
-
-
-  //   glClear(GL_COLOR_BUFFER_BIT);
-
-  //   // sampler array creation
-  //   int sampler_size = (textures::BoundTextures.size() + 1); //3
-  //   int sampler[sampler_size]; 
-  //   sampler[0] = 0;
-  //   for (int i = 0; i < textures::BoundTextures.size(); i++) {
-  //     sampler[(i+1)] = textures::BoundTextures[i];
-  //   }
-
-  //   // react to camera changes
-  //   glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
-  //   ScaledLevelQuads = camera::scale_move_quads(quads_vector, -camera::x, camera::y);
-
-  //   // set uniforms
-  //   glUniform1iv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
-  //   glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));
-    
-  //   // set shader
-  //   glUseProgram(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id);
-  //   // bind buffer
-  //   glBindVertexArray(buffer::VAO); 
-  //   // draw 
-  //   glDrawElements(GL_TRIANGLES, quads.size()*6, GL_UNSIGNED_INT, nullptr);
-
-
-
-
-
-
-  // }
-
-
-
-
-
 
 
 
