@@ -36,7 +36,7 @@ int main()
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   levels::LevelQuads = quads::assign_vertices(levels::LevelQuads);
-  std::vector<quads::Quad> text_quads = fonts::render_text("hello", 200, 300, FontTD);
+  std::vector<quads::Quad> text_quads = fonts::render_text("hello", 200, 300, FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
   // finish temporary
   while(RUNNING)
   {
