@@ -36,7 +36,7 @@ int main()
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   levels::LevelQuads = quads::assign_vertices(levels::LevelQuads);
-  std::vector<quads::Quad> text_quads = fonts::render_text("chuj", 200, 300, FontTD);
+  std::vector<quads::Quad> text_quads = fonts::render_text("chuuuj", 200, 300, FontTD);
   // finish temporary
   while(RUNNING)
   {
@@ -50,7 +50,7 @@ int main()
     //   levels::update(fonts::TextQuads);
     // }
 
-    
+
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
     // levels::update(levels::LevelQuads);

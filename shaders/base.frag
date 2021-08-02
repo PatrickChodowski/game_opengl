@@ -21,7 +21,6 @@ void main()
   //frag_color = texture(textures[texture_index], out_tex_coord);
 
   frag_color = texture(textures[texture_index], out_tex_coord);
-  frag_color.a = 0.5f;
   // 1,1,1,1 for white
   // 0,0,0,1 for black
   // frag_color = vec4((texture_index/4.0f), (texture_index/4.0f), (texture_index/4.0f), 1.0f);
