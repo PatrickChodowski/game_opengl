@@ -23,10 +23,15 @@ void main()
   // when type is text:
   else if (out_type_id == 2.0)
   {
-    // frag_color = texture(textures[texture_index], out_tex_coord);
-
+    // frag_color.a = 1;
+    // frag_color.r = out_color.r;
+    // frag_color.g = out_color.g;
+    // frag_color.b = out_color.b;
     frag_color = texture(textures[texture_index], out_tex_coord);
-    frag_color.gb = out_color.gb;
+    frag_color.a = 0.5f;
+
+    // frag_color.gb = out_color.gb;
+    // frag_color = vec4(texture2D(textures[texture_index], out_tex_coord).r, out_color.gba);
 
   }
 

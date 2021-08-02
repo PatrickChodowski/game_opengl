@@ -97,8 +97,8 @@ namespace buffer
       vindices_array[(start_position+5)] = quads[t].i_right.c;
     }
     // dont get this part now
-    // GlCall(glEnable(GL_BLEND));
-    // GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+    GlCall(glEnable(GL_BLEND));
+    GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 
   // vertex is not position, vertex can have much more than the position - so we pass a lot of data in vertices
@@ -244,6 +244,7 @@ namespace buffer
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     // buffer, and then the offset (so maybe some of the vertices can stay the same! - interesting idea, for example keep the map always the same!)
     // buffer, offset, size of data, data)
+
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float)*vertices_array_size, vertices_array);
   }
 
