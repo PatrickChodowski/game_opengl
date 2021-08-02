@@ -53,8 +53,8 @@ int main()
 
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
-    // levels::update(levels::LevelQuads);
-    levels::update(text_quads);
+    levels::update(levels::LevelQuads);
+    // levels::update(text_quads);
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
 
