@@ -134,14 +134,21 @@ namespace levels
   std::vector<quads::ScaledQuad> ScaledLevelQuads;
 }
 
+namespace menu
+{
+  std::vector<quads::Quad> MenuQuads;
+}
+
 namespace qm 
 {
-  // map containing all quads at the same time
-  // quad_id, quad
-  std::map<int, quads::Quad> AllQuads;
+  /*
+    AllQuads will be a vector containing all quads to be sent to buffer on each iteration.
+    It gathers levels::LevelQuads, menu::MenuQuads, fonts::TextQuads into one chunk of information to be send on the update buffer
 
-  // quads sizes in per type (menu, level etc.)
-  std::map<std::string, int> quads_sizes;
+    Meta information about quads sent will be stored in map Quads Summary - currently only name of the type and size
+  */
+  std::vector<quads::Quad> AllQuads;
+  std::map<std::string, int> QuadsSummary;
 
   // next quad id to assign, should start from 0, but the next function call will return 1;
   int next_quad_id = 0;

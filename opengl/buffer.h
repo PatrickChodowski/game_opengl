@@ -10,16 +10,26 @@ namespace buffer
   {
     // generate vertices array out of tiles struct
     int n_quads = quads.size();
-    //n_tiles = 3;
     int n_vertices = n_quads*4;
-    int vertices_array_size = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
-    float vertices_array[vertices_array_size];
+    int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
+    float vertices_array[vertices_array_count];
+    int buffer_size = sizeof(quads::Vertex)*100;
+
+    std::cout << "Vertices array count: " << vertices_array_count << std::endl;
+    std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
+    std::cout << "Vertices array size: " << sizeof(quads::Vertex)*n_vertices << std::endl;
+    std::cout << "Vertices array size (float based) " << sizeof(float)*vertices_array_count << std::endl;
+
+    std::cout << "Quads count: " << n_quads << std::endl;
+    std::cout << "Vertex count: " << n_vertices << std::endl;
+    std::cout << "Buffer size: " << buffer_size << std::endl;
+
 
 
     for(int t=0; t<n_quads; t++)
     {
       int start_position = t*quads::COUNT_VERTEX_ATTRIBUTES*4;
-      int cva = quads::COUNT_VERTEX_ATTRIBUTES; // 11
+      int cva = quads::COUNT_VERTEX_ATTRIBUTES;
 
       vertices_array[(start_position)] = quads[t].v_a.x_pos;
       vertices_array[(start_position+1)] = quads[t].v_a.y_pos;
@@ -77,9 +87,6 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 11)] = quads[t].v_d.is_clicked;
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
     }
-    std::cout << "Vertices array size: " << vertices_array_size << std::endl;
-    std::cout << "Quads size: " << n_quads << std::endl;
-
     // generate indices array out of vector of Indices:
     int n_vindices = n_quads*2;
     int vindices_array_size = 3*n_vindices; // its always 3 as it is a triangle
@@ -117,7 +124,7 @@ namespace buffer
       // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_array), vertices_array, GL_STATIC_DRAW);
 
       // dynamic approach:
-      glBufferData(GL_ARRAY_BUFFER, sizeof(quads::Vertex)*4000, nullptr, GL_DYNAMIC_DRAW);
+      glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_DYNAMIC_DRAW);
 
       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
       glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
@@ -170,16 +177,14 @@ namespace buffer
   void update(std::vector<quads::Quad> quads)
   {
     int n_quads = quads.size();
-    //n_tiles = 3;
     int n_vertices = n_quads*4;
-    int vertices_array_size = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
-    float vertices_array[vertices_array_size];
-
+    int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
+    float vertices_array[vertices_array_count];
 
     for(int t=0; t<n_quads; t++)
     {
       int start_position = t*quads::COUNT_VERTEX_ATTRIBUTES*4;
-      int cva = quads::COUNT_VERTEX_ATTRIBUTES; // 11
+      int cva = quads::COUNT_VERTEX_ATTRIBUTES; 
 
       vertices_array[(start_position)] = quads[t].v_a.x_pos;
       vertices_array[(start_position+1)] = quads[t].v_a.y_pos;
@@ -240,12 +245,11 @@ namespace buffer
     // std::cout << "Vertices array size: " << vertices_array_size << std::endl;
     // std::cout << "Quads size: " << n_quads << std::endl;
 
-    // update dynamic buffer
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // buffer, and then the offset (so maybe some of the vertices can stay the same! - interesting idea, for example keep the map always the same!)
-    // buffer, offset, size of data, data)
+  // Vertices array size: 676
+  // Quads size: 13
 
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float)*vertices_array_size, vertices_array);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float)*vertices_array_count, vertices_array);
   }
 
 

@@ -11,42 +11,30 @@
 namespace qm
 {
 
-  void accumulate(std::vector<quads::Quad> menu_quads,
-                  std::vector<quads::Quad> level_quads,
-                  std::vector<quads::Quad> text_quads)
+  void accumulate()
+
   {
-    AllQuads.clear(); // resetting map
-
-    // assign menu quads
-    if(menu_quads.size() > 0){
-
-      for(int m=0; m < menu_quads.size(); m++)
-      {
-        AllQuads[menu_quads[m].id] = menu_quads[m];
-      }
-    }
+    qm::AllQuads.clear(); // resetting map
 
     // assign level quads
-    if(level_quads.size() > 0){
-      for(int l=0; l < level_quads.size(); l++)
-      {
-        AllQuads[level_quads[l].id] = level_quads[l];
-      }
+    if(levels::LevelQuads.size() > 0){
+      qm::AllQuads.insert(qm::AllQuads.end(), levels::LevelQuads.begin(), levels::LevelQuads.end());
+    }
+
+    // assign menu quads
+    if(menu::MenuQuads.size() > 0){
+      qm::AllQuads.insert(qm::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
     }
 
     // assign text quads
-    if(text_quads.size() > 0){
-      for(int l=0; l < text_quads.size(); l++)
-      {
-        AllQuads[text_quads[l].id] = text_quads[l];
-      }
+    if(fonts::TextQuads.size() > 0){
+      qm::AllQuads.insert(qm::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
     }
 
-    //quads::print_out_quad_map(all_quads);
-    quads_sizes["menu"] = menu_quads.size();
-    quads_sizes["level"] = level_quads.size();
-    quads_sizes["text"] = text_quads.size();
-
+    //quads::print_out_quads(qm::AllQuads);
+    qm::QuadsSummary["level"] = levels::LevelQuads.size();
+    qm::QuadsSummary["menu"] = menu::MenuQuads.size();
+    qm::QuadsSummary["text"] = fonts::TextQuads.size();
   }
 
 

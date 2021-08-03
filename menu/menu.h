@@ -32,7 +32,6 @@ struct ButtonData
 };
 
 std::map<int, ButtonData> Catalog = {};
-std::vector<quads::Quad> MenuQuads; 
 
 std::vector<std::string> list_saves()
 {

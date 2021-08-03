@@ -24,7 +24,7 @@ int main()
   textures::init();
 
   // adding font texture to texture catalog
-  textures::TextureData FontTD = fonts::init();
+  textures::TextureData FontTD = fonts::init(FONT_NAME);
   textures::Catalog.insert({FontTD.opengl_texture_id, FontTD});
   textures::BoundTextures.push_back(FontTD.opengl_texture_id);
 
@@ -32,16 +32,19 @@ int main()
   int MAIN_MENU_ON = true;
   if(NEW_GAME)
   {
-    int MAP_ID = 0;
+    int MAP_ID = 2;
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
-  levels::LevelQuads = quads::assign_vertices(levels::LevelQuads);
-  std::vector<quads::Quad> text_quads = fonts::render_text("hello", 200, 300, FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
+  fonts::render_text("hello", 400, 100, FontTD, 1.0f, 1.0f, 1.0f, 1.0f);
+  qm::accumulate();
+  buffer::init(qm::AllQuads);
+
+
   // finish temporary
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
-    qm::accumulate(menu::MenuQuads, levels::LevelQuads, fonts::TextQuads);
+    qm::accumulate();
     // if(MAIN_MENU_ON)
     // {
     //   //levels::update(fonts::TextQuads);
@@ -53,8 +56,9 @@ int main()
 
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
-    levels::update(levels::LevelQuads);
-    // levels::update(text_quads);
+    // levels::update(fonts::TextQuads);
+    // levels::update(levels::LevelQuads);
+    levels::update(qm::AllQuads);
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
 

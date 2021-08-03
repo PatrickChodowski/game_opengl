@@ -77,8 +77,7 @@ namespace levels
                                     maps::Catalog[map_id].vertex_height, 
                                     maps::Catalog[map_id].texture_id);
 
-    std::vector<quads::Quad> quads = quads::assign_vertices(LevelQuads);
-    buffer::init(quads);
+    levels::LevelQuads = quads::assign_vertices(LevelQuads);
   }
 
 
@@ -88,12 +87,12 @@ namespace levels
     buffer::update(quads);
 
     // glClear(GL_COLOR_BUFFER_BIT); // black by default
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    //glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
-    int sampler_size = (textures::BoundTextures.size() + 1); //3
+    int sampler_size = (textures::BoundTextures.size() + 1);
     int sampler[sampler_size]; 
     sampler[0] = 0;
     for (int i = 0; i < textures::BoundTextures.size(); i++) {

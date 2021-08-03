@@ -1,14 +1,13 @@
 #ifndef FONTS_H
 #define FONTS_H
 
+/*
+  Component for creating font atlas (added to textures) and rendering texts
+*/
+
 
 namespace fonts
 {
-  FT_Face face;
-  FT_Library ft;
-  int COUNT_VERTEX_ATTRIBUTES = 12;
-  int VERTEX_OFFSET = 1;
-
   struct Character 
   {
     int texture_id;
@@ -27,16 +26,28 @@ namespace fonts
 
   std::map<char, Character> character_map;
 
-  textures::TextureData init()
+  textures::TextureData init(std::string font_name = "OpenSans")
   {
+    /*
+      Init opens font file .ttf and reads-in all character glyphs into character map and texture that will be later sent to OpenGL 
+
+      :params:
+      font_name: Font name (filename from ./fonts)
+
+      :returns:
+      textures::TextureData  Font Texture Data containing atlas parameters and texture id
+    */
+
     // initialize library
+    FT_Face face;
     FT_Library ft;
     if(FT_Init_FreeType(&ft)) 
     {
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
     };
 
-    if(FT_New_Face(ft, "fonts/OpenSans.ttf", 0, &face))
+    std::string font_path = "fonts/"+font_name+".ttf";
+    if(FT_New_Face(ft, font_path.c_str(), 0, &face))
     {
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;  
     };
@@ -144,16 +155,32 @@ namespace fonts
   }
 
 
-  std::vector<quads::Quad> render_text(const char *text, 
-                                       int x, 
-                                       int y, 
-                                       textures::TextureData FontTD,
-                                       float scale = 1.0,
-                                       float r_col = 0.5, 
-                                       float g_col = 0.5, 
-                                       float b_col = 0.5,
-                                       float a_col = 1.0)
+  void render_text(const char *text, 
+                   int x, 
+                   int y, 
+                   textures::TextureData FontTD,
+                   float scale = 1.0,
+                   float r_col = 0.5, 
+                   float g_col = 0.5, 
+                   float b_col = 0.5)
   {
+    /*
+      Render text will create quads based on the text, position, atlas, scale and color information.
+      text_quads object will be merged with fonts::TextQuads on every iteration
+      
+      :params:
+      :text: Text to be rendered
+      :x: X position on the screen
+      :y: Y position on the screen
+      :FontTD: Texture data information about current font. Passed from main.cpp currently
+      :scale: Default 1.0 - scale of the font
+      :r_col, g_col, b_col: RGB of the text
+      
+      :returns:
+      void (sends its text_quads to fonts::TextQuads)
+    */
+
+
     std::vector<quads::Quad> text_quads;
 
    // render given text at position x, y
@@ -169,7 +196,6 @@ namespace fonts
       float atlas_width = FontTD.width;
       float atlas_height = FontTD.height;
 
-
       // create quad here
       struct quads::Quad quad;
       quad.id = qm::gen_quad_id();
@@ -184,14 +210,12 @@ namespace fonts
       quad.r_col = r_col;
       quad.g_col = g_col;
       quad.b_col = b_col;
-      quad.a_col = a_col;
+      quad.a_col = 1.0f;
       quad.type_id = QUAD_TYPE_TEXT;
 
-
-      std::cout << "Rendering character: " << *p << std::endl;
-      std::cout << "X: " << quad.x << std::endl;
-      std::cout << "Y: " << quad.y << std::endl;
-
+      // std::cout << "Rendering character: " << *p << std::endl;
+      // std::cout << "X: " << quad.x << std::endl;
+      // std::cout << "Y: " << quad.y << std::endl;
 
       // assign vertices
       quad.a = stoi(std::to_string(quad.id) + "001");
@@ -211,12 +235,9 @@ namespace fonts
       quad.v_a.a_col = quad.a_col;
       quad.v_a.tex_coord_x = offset;
       quad.v_a.tex_coord_y = 0.0f;
-      quad.v_a.type_id = (double)quad.type_id;
-
-      //quad.v_a.tex_coord_x = 0.0f;
-      //quad.v_a.tex_coord_y = 0.0f;
       quad.v_a.texture_id = quad.texture_id;
       quad.v_a.is_clicked = (float)quad.is_clicked;
+      quad.v_a.type_id = (double)quad.type_id;
 
       quad.v_b.vertex_id = quad.b;
       quad.v_b.tile_id = quad.id;
@@ -230,12 +251,9 @@ namespace fonts
       quad.v_b.a_col = quad.a_col;
       quad.v_b.tex_coord_x = offset+((float)bitmap_width/(float)atlas_width);
       quad.v_b.tex_coord_y = 0.0f;
-      quad.v_b.type_id = (double)quad.type_id;
-
-      // quad.v_b.tex_coord_x = 1.0f;
-      // quad.v_b.tex_coord_y = 0.0f;
       quad.v_b.texture_id = quad.texture_id;
       quad.v_b.is_clicked = (float)quad.is_clicked;
+      quad.v_b.type_id = (double)quad.type_id;
 
       quad.v_c.vertex_id = quad.c;
       quad.v_c.tile_id = quad.id;
@@ -249,12 +267,9 @@ namespace fonts
       quad.v_c.a_col = quad.a_col;
       quad.v_c.tex_coord_x = offset;
       quad.v_c.tex_coord_y = 1.0f;
-      quad.v_c.type_id = (double)quad.type_id;
-      //quad.v_c.tex_coord_x = 0.0f;
-      //quad.v_c.tex_coord_y = 1.0f;
-
       quad.v_c.texture_id = quad.texture_id;
       quad.v_c.is_clicked = (float)quad.is_clicked;
+      quad.v_c.type_id = (double)quad.type_id;
 
       quad.v_d.vertex_id = quad.d;
       quad.v_d.tile_id = quad.id;
@@ -268,13 +283,9 @@ namespace fonts
       quad.v_d.a_col = quad.a_col;
       quad.v_d.tex_coord_x = offset + ((float)bitmap_width/(float)atlas_width);
       quad.v_d.tex_coord_y = 1.0f;
-      quad.v_d.type_id = (double)quad.type_id;
-
-      //quad.v_d.tex_coord_x = 1.0f;
-      //quad.v_d.tex_coord_y = 1.0f;
       quad.v_d.texture_id = quad.texture_id;
       quad.v_d.is_clicked = (float)quad.is_clicked;
-
+      quad.v_d.type_id = (double)quad.type_id;
 
       // create vindices 
       quad.i_left.a = quad.a;
@@ -284,13 +295,17 @@ namespace fonts
       quad.i_right.b = quad.c;
       quad.i_right.c = quad.d;
 
-
       // push new x for next character
       x += ((character_map[*p].bitmap_width * scale)+5);
       text_quads.push_back(quad);
     }
-    quads::print_out_quads(text_quads);
-    return text_quads;
+    // quads::print_out_quads(text_quads);
+    // return text_quads;
+
+    // insert to the main TextQuads
+    if(text_quads.size() > 0){
+      fonts::TextQuads.insert(fonts::TextQuads.end(), text_quads.begin(), text_quads.end());
+    }
   }
 
 
