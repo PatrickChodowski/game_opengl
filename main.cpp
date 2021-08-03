@@ -32,7 +32,7 @@ int main()
   int MAIN_MENU_ON = true;
   if(NEW_GAME)
   {
-    int MAP_ID = 2;
+    int MAP_ID = 0;
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   fonts::render_text("hello", 400, 100, FontTD, 1.0f, 0.5f, 0.5f, 0.5f);

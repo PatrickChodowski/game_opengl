@@ -13,7 +13,7 @@ namespace buffer
     int n_vertices = n_quads*4;
     int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
     float vertices_array[vertices_array_count];
-    int buffer_size = sizeof(quads::Vertex)*100;
+    int buffer_size = sizeof(quads::Vertex)*2000;
 
     std::cout << "Vertices array count: " << vertices_array_count << std::endl;
     std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
