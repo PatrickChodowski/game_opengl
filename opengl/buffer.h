@@ -87,10 +87,12 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 11)] = quads[t].v_d.is_clicked;
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
     }
+    utils::array_to_file("buffer_init_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
+
     // generate indices array out of vector of Indices:
     int n_vindices = n_quads*2;
-    int vindices_array_size = 3*n_vindices; // its always 3 as it is a triangle
-    unsigned int vindices_array[vindices_array_size];
+    int vindices_array_count = 3*n_vindices; // its always 3 as it is a triangle
+    unsigned int vindices_array[vindices_array_count];
 
     for(int t=0; t<n_quads; t++)
     {
@@ -242,11 +244,12 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 11)] = quads[t].v_d.is_clicked;
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
     }
-    // std::cout << "Vertices array size: " << vertices_array_size << std::endl;
+    // std::cout << "Vertices array count: " << vertices_array_count << std::endl;
     // std::cout << "Quads size: " << n_quads << std::endl;
 
-  // Vertices array size: 676
-  // Quads size: 13
+    // Vertices array size: 676
+    // Quads size: 13
+    utils::array_to_file("buffer_update_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float)*vertices_array_count, vertices_array);

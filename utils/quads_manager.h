@@ -31,7 +31,8 @@ namespace qm
       qm::AllQuads.insert(qm::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
     }
 
-    //quads::print_out_quads(qm::AllQuads);
+    // quads::print_out_quads(qm::AllQuads);
+    
     qm::QuadsSummary["level"] = levels::LevelQuads.size();
     qm::QuadsSummary["menu"] = menu::MenuQuads.size();
     qm::QuadsSummary["text"] = fonts::TextQuads.size();

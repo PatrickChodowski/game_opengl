@@ -43,7 +43,6 @@ namespace quads
     double texture_id;
 
     double is_clicked;
-
     double type_id;
 
     /// not counted as VERTEX ATTRIBUTES

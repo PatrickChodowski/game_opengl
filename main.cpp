@@ -35,7 +35,7 @@ int main()
     int MAP_ID = 2;
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
-  fonts::render_text("hello", 400, 100, FontTD, 1.0f, 1.0f, 1.0f, 1.0f);
+  fonts::render_text("hello", 400, 100, FontTD, 1.0f, 0.5f, 0.5f, 0.5f);
   qm::accumulate();
   buffer::init(qm::AllQuads);
 

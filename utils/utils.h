@@ -54,6 +54,22 @@ namespace utils
   }
 
 
+  void array_to_file(std::string file_name, float *array_pointer, int array_size, int new_line_count){
+    std::string file_path = "./logs/"+file_name + ".txt";
+    std::ofstream array_file (file_path.c_str());
+    if (array_file.is_open())
+    {
+      for(int i = 0; i < array_size; i ++){
+          array_file << array_pointer[i] << " " ;
+          if(((i+1) % new_line_count == 0) && (i>0)){
+            array_file << "\n";
+          }
+      }
+      array_file.close();
+    }
+  }
+
+
 
 }
 
