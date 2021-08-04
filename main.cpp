@@ -1,5 +1,7 @@
 #include "setup.h"
+  #include <thread>
 
+// https://dokipen.com/page/2/
 
 int main()
 {
@@ -32,19 +34,19 @@ int main()
   int MAIN_MENU_ON = true;
   if(NEW_GAME)
   {
-    int MAP_ID = 0;
+    int MAP_ID = 1;
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
-  fonts::render_text("hello", 400, 100, FontTD, 1.0f, 0.5f, 0.5f, 0.5f);
+  fonts::render_text("hello", 1000, 100, FontTD, 1.0f, 0.5f, 0.5f, 0.5f);
   qm::accumulate();
   buffer::init(qm::AllQuads);
-
+  // std::this_thread::sleep_for(std::chrono::seconds(3));
 
   // finish temporary
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
-    qm::accumulate();
+    /// qm::accumulate();
     // if(MAIN_MENU_ON)
     // {
     //   //levels::update(fonts::TextQuads);
@@ -56,9 +58,10 @@ int main()
 
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
-    // levels::update(fonts::TextQuads);
+    //levels::update(fonts::TextQuads);
     // levels::update(levels::LevelQuads);
     levels::update(qm::AllQuads);
+    // std::this_thread::sleep_for(std::chrono::seconds(3));
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
 

@@ -34,7 +34,9 @@ namespace maps
   std::map<int, MapData> Catalog = {};
   void read_map_data(std::string name)
   {
-    
+    /*
+      Read map data reads the json data by map name and stores it inside maps::Catalog
+    */    
     MapData MD;
     std::string data_path = "./maps/data/"+name+".json";
     std::string json_data = utils::read_text_file(data_path);
@@ -60,10 +62,15 @@ namespace maps
     }
   }
 
-  // reads-in all possible textures into a catalog
   void init()
   { 
-    logger::print("READING MAPS");
+    /*
+      Maps init just reads the list of maps from maps/data/ and for each map there
+      performs read_map_data function - which means reading the json file into the 
+      MapData object and store it inside maps::Catalog
+    */
+
+    logger::print("maps::init(): READING MAPS");
     std::vector<std::string> maps_list = utils::list_files("maps/data/");
     for(int m=0; m < maps_list.size(); m++)
     {
