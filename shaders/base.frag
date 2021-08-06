@@ -20,6 +20,10 @@ void main()
   {
     frag_color = texture(textures[texture_index], out_tex_coord);
   }
+  else if (out_type_id == 1.0)
+  {
+    frag_color = out_color.rgba;
+  }
   // when type is text:
   else if (out_type_id == 2.0)
   {

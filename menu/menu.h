@@ -71,9 +71,95 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     button_quads.push_back(quad);
     std::cout << "menu quad id:" << std::endl;
     std::cout << quad.id << std::endl;
-  } 
-  // tu powinno byc cos lepszego
-  button_quads = quads::assign_vertices_no_texture(button_quads);
+  }
+
+  for(int i = 0; i < button_quads.size(); i++)
+  { 
+    // add vertex ids
+    button_quads[i].a = qm::gen_vertex_id();
+    button_quads[i].b = qm::gen_vertex_id();
+    button_quads[i].c = qm::gen_vertex_id();
+    button_quads[i].d = qm::gen_vertex_id();
+
+    // create vertex struct - A
+    button_quads[i].v_a.vertex_id = button_quads[i].a;
+    button_quads[i].v_a.tile_id = button_quads[i].id;
+    button_quads[i].v_a.frame_id = 0;
+    button_quads[i].v_a.x_pos = (float)button_quads[i].x;
+    button_quads[i].v_a.y_pos = (float)button_quads[i].y;
+    button_quads[i].v_a.z_pos = 0.0f;
+    button_quads[i].v_a.r_col = button_quads[i].r_col;
+    button_quads[i].v_a.g_col = button_quads[i].g_col;
+    button_quads[i].v_a.b_col = button_quads[i].b_col;
+    button_quads[i].v_a.a_col = button_quads[i].a_col;
+    button_quads[i].v_a.tex_coord_x = 0.0f;
+    button_quads[i].v_a.tex_coord_y = 0.0f;
+    button_quads[i].v_a.texture_id = 0;
+    button_quads[i].v_a.is_clicked = (float)button_quads[i].is_clicked;
+    button_quads[i].v_a.type_id = (float)button_quads[i].type_id;
+
+    // create vertex struct - B
+    button_quads[i].v_b.vertex_id = button_quads[i].b;
+    button_quads[i].v_b.tile_id = button_quads[i].id;
+    button_quads[i].v_b.frame_id = 0;
+    button_quads[i].v_b.x_pos = (float)button_quads[i].x + (float)button_quads[i].w;
+    button_quads[i].v_b.y_pos = (float)button_quads[i].y;
+    button_quads[i].v_b.z_pos = 0.0f;
+    button_quads[i].v_b.r_col = button_quads[i].r_col;
+    button_quads[i].v_b.g_col = button_quads[i].g_col;
+    button_quads[i].v_b.b_col = button_quads[i].b_col;
+    button_quads[i].v_b.a_col = button_quads[i].a_col;
+    button_quads[i].v_b.tex_coord_x = 0.0f;
+    button_quads[i].v_b.tex_coord_y = 0.0f;
+    button_quads[i].v_b.texture_id = 0;
+    button_quads[i].v_b.is_clicked = (float)button_quads[i].is_clicked;
+    button_quads[i].v_b.type_id = (float)button_quads[i].type_id;
+
+    // create vertex struct - C
+    button_quads[i].v_c.vertex_id = button_quads[i].c;
+    button_quads[i].v_c.tile_id = button_quads[i].id;
+    button_quads[i].v_c.frame_id = 0;
+    button_quads[i].v_c.x_pos = (float)button_quads[i].x;
+    button_quads[i].v_c.y_pos = (float)button_quads[i].y  + (float)button_quads[i].h;
+    button_quads[i].v_c.z_pos = 0.0f;
+    button_quads[i].v_c.r_col = button_quads[i].r_col;
+    button_quads[i].v_c.g_col = button_quads[i].g_col;
+    button_quads[i].v_c.b_col = button_quads[i].b_col;
+    button_quads[i].v_c.a_col = button_quads[i].a_col;
+    button_quads[i].v_c.tex_coord_x = 0.0f;
+    button_quads[i].v_c.tex_coord_y = 0.0f;
+    button_quads[i].v_c.texture_id = 0;
+    button_quads[i].v_c.is_clicked = (float)button_quads[i].is_clicked;
+    button_quads[i].v_c.type_id = (float)button_quads[i].type_id;
+
+
+    // create vertex struct - D
+    button_quads[i].v_d.vertex_id = button_quads[i].d;
+    button_quads[i].v_d.tile_id = button_quads[i].id;
+    button_quads[i].v_d.frame_id = 0;
+    button_quads[i].v_d.x_pos = (float)button_quads[i].x + (float)button_quads[i].w;
+    button_quads[i].v_d.y_pos = (float)button_quads[i].y + (float)button_quads[i].h;
+    button_quads[i].v_d.z_pos = 0.0f;
+    button_quads[i].v_d.r_col = button_quads[i].r_col;
+    button_quads[i].v_d.g_col = button_quads[i].g_col;
+    button_quads[i].v_d.b_col = button_quads[i].b_col;
+    button_quads[i].v_d.a_col = button_quads[i].a_col;
+    button_quads[i].v_d.tex_coord_x = 0.0f;
+    button_quads[i].v_d.tex_coord_y = 0.0f;
+    button_quads[i].v_d.texture_id = 0;
+    button_quads[i].v_d.is_clicked = (float)button_quads[i].is_clicked;
+    button_quads[i].v_d.type_id = (float)button_quads[i].type_id;
+
+    // create vindices 
+    button_quads[i].i_left.a = button_quads[i].a;
+    button_quads[i].i_left.b = button_quads[i].b;
+    button_quads[i].i_left.c = button_quads[i].c;
+
+    button_quads[i].i_right.a = button_quads[i].b;
+    button_quads[i].i_right.b = button_quads[i].c;
+    button_quads[i].i_right.c = button_quads[i].d;
+  }
+
   return button_quads;
 }
 
