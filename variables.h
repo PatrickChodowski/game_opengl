@@ -151,6 +151,20 @@ namespace qm
 
   // next quad id to assign, should start from 0, but the next function call will return 1;
   int next_quad_id = 0;
+  int next_vertex_id = -1; // first vertex id should be 0, so starting count from -1
+
+  std::vector<int> UsedQuadIds = {};
+  std::vector<int> UsedVertexIds = {};
+
+    int gen_vertex_id()
+  {
+    // is supposed to return new vertex id based on qm.next_vertex_id
+    // yes, kinda updates namespace's global variable
+
+    qm::next_vertex_id += 1;
+    qm::UsedVertexIds.push_back(next_vertex_id);
+    return qm::next_vertex_id;
+  }
 }
 
 

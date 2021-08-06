@@ -38,12 +38,10 @@ namespace quads
   {
     for(int i = 0; i < quads.size(); i++)
     { 
-      // add vertex ids
-      int j = i * 4;
-      quads[i].a = j;
-      quads[i].b = j+1;
-      quads[i].c = j+2;
-      quads[i].d = j+3;
+      quads[i].a = qm::gen_vertex_id();
+      quads[i].b = qm::gen_vertex_id();
+      quads[i].c = qm::gen_vertex_id();
+      quads[i].d = qm::gen_vertex_id();
 
       float norm_x_start = (float)textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].x/
       (float)textures::Catalog[quads[i].texture_id].width;

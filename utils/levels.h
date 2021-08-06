@@ -19,7 +19,15 @@ namespace levels
                                               int vertex_width, 
                                               int vertex_height, 
                                               int texture_id)
+
   {
+    /*
+      Loads map quads from map file
+
+      
+    */
+
+
     std::vector<quads::Quad> tile_map = {};
     std::string file_path = "maps/" + map_name;
     std::ifstream in_file;
@@ -85,7 +93,6 @@ namespace levels
   {
     textures::bind_all();
     buffer::update(quads);
-    // glBindVertexArray(0); unbinds vao
 
     // glClear(GL_COLOR_BUFFER_BIT); // black by default
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -112,10 +119,7 @@ namespace levels
     
     // set shader
     glUseProgram(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id);
-    // bind buffer
-    // glBindVertexArray(buffer::VAO);  binds vao
     // draw 
-    // std::cout << "quads size in buffer update: " << quads.size() << std::endl;
     glDrawElements(GL_TRIANGLES, quads.size()*6, GL_UNSIGNED_INT, nullptr);
 
   }

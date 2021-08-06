@@ -214,20 +214,10 @@ namespace fonts
       quad.a_col = 1.0f;
       quad.type_id = QUAD_TYPE_TEXT;
 
-      // std::cout << "Rendering character: " << *p << std::endl;
-      // std::cout << "X: " << quad.x << std::endl;
-      // std::cout << "Y: " << quad.y << std::endl;
-
-      // assign vertices
-      // temporary
-      // 321, 322, 323, 324 
-      // 325, 326, 327, 328
-      // 
-      int base = 319;
-      quad.a = base + count_base + 1;
-      quad.b = base + count_base + 2;
-      quad.c = base + count_base + 3;
-      quad.d = base + count_base + 4;
+      quad.a = qm::gen_vertex_id();
+      quad.b = qm::gen_vertex_id();
+      quad.c = qm::gen_vertex_id();
+      quad.d = qm::gen_vertex_id();
 
       quad.v_a.vertex_id = quad.a;
       quad.v_a.tile_id = quad.id;
