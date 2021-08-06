@@ -43,6 +43,13 @@ namespace events
         case SDLK_DOWN:
           camera::move_y -= camera::speed;
           break;
+        
+        case SDLK_m:
+          if (MAIN_MENU_ON)
+            {MAIN_MENU_ON = false;}
+          else {MAIN_MENU_ON = true;}
+          break;
+
         // case SDLK_l:
         //   CURRENT_SHADER = "light_radius_shading_program";
         //   break;

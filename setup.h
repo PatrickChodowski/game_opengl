@@ -47,7 +47,7 @@ Uint32 flags = SDL_WINDOW_OPENGL;
 const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
 int CURRENT_SHADER_ID = 0;
-bool START_WITH_MENU = true;
+bool MAIN_MENU_ON = false;
 std::string FONT_NAME = "OpenSans";
 
 //https://github.com/jorgen/json_struct

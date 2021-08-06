@@ -24,6 +24,7 @@ int main()
   maps::init();
   shaders::init();
   textures::init();
+  menu::init();
 
   // adding font texture to texture catalog
   textures::TextureData FontTD = fonts::init(FONT_NAME);
@@ -31,7 +32,7 @@ int main()
   textures::BoundTextures.push_back(FontTD.opengl_texture_id);
 
   int NEW_GAME = true;
-  int MAIN_MENU_ON = true;
+
   if(NEW_GAME)
   {
     int MAP_ID = 1;
@@ -46,18 +47,19 @@ int main()
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
     /// qm::accumulate();
-    // if(MAIN_MENU_ON)
-    // {
-    //   //levels::update(fonts::TextQuads);
-    //   // qm::update(qm::AllQuads);
-    //   // levels::update(levels::LevelQuads);
-    //   levels::update(fonts::TextQuads);
-    // }
-
 
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
-    levels::update(qm::AllQuads);
+
+    if(MAIN_MENU_ON)
+    {
+      //levels::update(fonts::TextQuads);
+      // qm::update(qm::AllQuads);
+      // levels::update(levels::LevelQuads);
+      levels::update(menu::MenuQuads);
+    } else {
+      levels::update(qm::AllQuads);
+    }
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
 
