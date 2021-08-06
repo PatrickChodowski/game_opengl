@@ -183,6 +183,7 @@ namespace fonts
 
     std::vector<quads::Quad> text_quads;
 
+    int count_base = 0;
    // render given text at position x, y
     for(const char *p = text; *p; p++) 
     { 
@@ -218,10 +219,15 @@ namespace fonts
       // std::cout << "Y: " << quad.y << std::endl;
 
       // assign vertices
-      quad.a = stoi(std::to_string(quad.id) + "001");
-      quad.b = stoi(std::to_string(quad.id) + "002");
-      quad.c = stoi(std::to_string(quad.id) + "003");
-      quad.d = stoi(std::to_string(quad.id) + "004");
+      // temporary
+      // 321, 322, 323, 324 
+      // 325, 326, 327, 328
+      // 
+      int base = 319;
+      quad.a = base + count_base + 1;
+      quad.b = base + count_base + 2;
+      quad.c = base + count_base + 3;
+      quad.d = base + count_base + 4;
 
       quad.v_a.vertex_id = quad.a;
       quad.v_a.tile_id = quad.id;
@@ -295,6 +301,7 @@ namespace fonts
       quad.i_right.b = quad.c;
       quad.i_right.c = quad.d;
 
+      count_base += 4;
       // push new x for next character
       x += ((character_map[*p].bitmap_width * scale)+5);
       text_quads.push_back(quad);

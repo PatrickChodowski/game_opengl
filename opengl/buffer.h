@@ -13,7 +13,7 @@ namespace buffer
     int n_vertices = n_quads*4;
     int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
     float vertices_array[vertices_array_count];
-    int buffer_size = sizeof(quads::Vertex)*2000;
+    int buffer_size = sizeof(quads::Vertex)*4000;
 
     std::cout << "Vertices array count: " << vertices_array_count << std::endl;
     std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
@@ -105,6 +105,9 @@ namespace buffer
       vindices_array[(start_position+4)] = quads[t].i_right.b;
       vindices_array[(start_position+5)] = quads[t].i_right.c;
     }
+
+    utils::array_to_file("buffer_init_index_array", vindices_array, vindices_array_count, 3);
+
     // dont get this part now
     GlCall(glEnable(GL_BLEND));
     GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
@@ -128,11 +131,11 @@ namespace buffer
       // dynamic approach:
       glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_DYNAMIC_DRAW);
 
-      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-      glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
-
       // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-      // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
+      // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
+
+      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+      glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
 
 
     // new version:
@@ -188,9 +191,9 @@ namespace buffer
 
     for(int t=0; t<n_quads; t++)
     {
-      std::cout << "buffering quad" << quads[t].id << std::endl;
-      std::cout << t << std::endl;
-      std::cout << ""
+      // std::cout << "buffering quad" << quads[t].id << std::endl;
+      // std::cout << t << std::endl;
+      // std::cout << "" << std::endl;
 
       int start_position = t*quads::COUNT_VERTEX_ATTRIBUTES*4;
       int cva = quads::COUNT_VERTEX_ATTRIBUTES; 
@@ -263,24 +266,24 @@ namespace buffer
 
 
 
-    // int n_vindices = n_quads*2;
-    // int vindices_array_count = 3*n_vindices; // its always 3 as it is a triangle
-    // unsigned int vindices_array[vindices_array_count];
+    int n_vindices = n_quads*2;
+    int vindices_array_count = 3*n_vindices; // its always 3 as it is a triangle
+    unsigned int vindices_array[vindices_array_count];
 
-    // for(int t=0; t<n_quads; t++)
-    // {
-    //   int start_position = t*3*2;
-    //   vindices_array[(start_position+0)] = quads[t].i_left.a;
-    //   vindices_array[(start_position+1)] = quads[t].i_left.b;
-    //   vindices_array[(start_position+2)] = quads[t].i_left.c;
+    for(int t=0; t<n_quads; t++)
+    {
+      int start_position = t*3*2;
+      vindices_array[(start_position+0)] = quads[t].i_left.a;
+      vindices_array[(start_position+1)] = quads[t].i_left.b;
+      vindices_array[(start_position+2)] = quads[t].i_left.c;
 
-    //   vindices_array[(start_position+3)] = quads[t].i_right.a;
-    //   vindices_array[(start_position+4)] = quads[t].i_right.b;
-    //   vindices_array[(start_position+5)] = quads[t].i_right.c;
-    // }
+      vindices_array[(start_position+3)] = quads[t].i_right.a;
+      vindices_array[(start_position+4)] = quads[t].i_right.b;
+      vindices_array[(start_position+5)] = quads[t].i_right.c;
+    }
 
-    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    // glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float)*vindices_array_count, vindices_array);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float)*vindices_array_count, vindices_array);
 
   }
 

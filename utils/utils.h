@@ -53,8 +53,8 @@ namespace utils
     }
   }
 
-
-  void array_to_file(std::string file_name, float *array_pointer, int array_size, int new_line_count){
+  template<typename T>
+  void array_to_file(std::string file_name, T *array_pointer, int array_size, int new_line_count){
     std::string file_path = "./logs/"+file_name + ".txt";
     std::ofstream array_file (file_path.c_str());
     if (array_file.is_open())
