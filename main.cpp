@@ -35,10 +35,10 @@ int main()
 
   if(NEW_GAME)
   {
-    int MAP_ID = 1;
+    int MAP_ID = 0;
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
-  fonts::render_text("chuj", 950, 150, FontTD, 1.0f, 0.5f, 0.5f, 0.5f);
+  fonts::render_text("OpenGl Game Demo", 500, 100, FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
   qm::accumulate();
   buffer::init(qm::AllQuads);
 
@@ -46,24 +46,17 @@ int main()
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
-    /// qm::accumulate();
-
     SDL_Event event;
     events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
 
     if(MAIN_MENU_ON)
     {
-      //levels::update(fonts::TextQuads);
-      // qm::update(qm::AllQuads);
-      // levels::update(levels::LevelQuads);
       levels::update(menu::MenuQuads);
     } else {
       levels::update(qm::AllQuads);
     }
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
-
-
     timer::print_elapsed_time(game_loop_start_time, "Game Loop duration:");
   }
 
