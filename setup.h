@@ -86,14 +86,11 @@ std::string FONT_NAME = "OpenSans";
 #include "opengl/utils.h"
 #include "opengl/textures.h"
 #include "opengl/shaders.h"
-#include "opengl/quads.h"
+#include "opengl/quads_manager.h"
 #include "opengl/camera.h"
 #include "opengl/buffer.h"
 #include "utils/mouse.h"
 #include "opengl/events.h"
-
-// i dont know
-#include "utils/quads_manager.h"
 
 
 // game components

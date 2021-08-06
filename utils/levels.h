@@ -80,12 +80,109 @@ namespace levels
               << " Vertex height: " << maps::Catalog[map_id].vertex_height
               << " Map texture id: " << maps::Catalog[map_id].texture_id << std::endl;
 
-    LevelQuads = load_map_from_file(maps::Catalog[map_id].name, 
+    levels::LevelQuads = load_map_from_file(maps::Catalog[map_id].name, 
                                     maps::Catalog[map_id].vertex_width, 
                                     maps::Catalog[map_id].vertex_height, 
                                     maps::Catalog[map_id].texture_id);
 
-    levels::LevelQuads = quads::assign_vertices(LevelQuads);
+    for(int i = 0; i < levels::LevelQuads.size(); i++)
+    { 
+      levels::LevelQuads[i].a = qm::gen_vertex_id();
+      levels::LevelQuads[i].b = qm::gen_vertex_id();
+      levels::LevelQuads[i].c = qm::gen_vertex_id();
+      levels::LevelQuads[i].d = qm::gen_vertex_id();
+
+      float norm_x_start = (float)textures::Catalog[levels::LevelQuads[i].texture_id].frames[levels::LevelQuads[i].frame_id].x/
+      (float)textures::Catalog[levels::LevelQuads[i].texture_id].width;
+
+      float norm_x_end =  (float)(textures::Catalog[levels::LevelQuads[i].texture_id].frames[levels::LevelQuads[i].frame_id].x + 
+      textures::Catalog[levels::LevelQuads[i].texture_id].frames[levels::LevelQuads[i].frame_id].w)/
+      (float)textures::Catalog[levels::LevelQuads[i].texture_id].width;
+
+      // create vertex struct - A
+      levels::LevelQuads[i].v_a.vertex_id = levels::LevelQuads[i].a;
+      levels::LevelQuads[i].v_a.tile_id = levels::LevelQuads[i].id;
+      levels::LevelQuads[i].v_a.frame_id = levels::LevelQuads[i].frame_id;
+      levels::LevelQuads[i].v_a.x_pos = (float)levels::LevelQuads[i].x;
+      levels::LevelQuads[i].v_a.y_pos = (float)levels::LevelQuads[i].y;
+      levels::LevelQuads[i].v_a.z_pos = 0.0f;
+      levels::LevelQuads[i].v_a.r_col = 0.0f;
+      levels::LevelQuads[i].v_a.g_col = 0.0f;
+      levels::LevelQuads[i].v_a.b_col = 0.0f;
+      levels::LevelQuads[i].v_a.a_col = 1.0f;
+      levels::LevelQuads[i].v_a.tex_coord_x = norm_x_start;
+      levels::LevelQuads[i].v_a.tex_coord_y = 0.0f;
+      levels::LevelQuads[i].v_a.texture_id = textures::Catalog[levels::LevelQuads[i].texture_id].opengl_texture_id;
+      levels::LevelQuads[i].v_a.is_clicked = (float)levels::LevelQuads[i].is_clicked;
+      levels::LevelQuads[i].v_a.type_id = (float)levels::LevelQuads[i].type_id;
+
+      // create vertex struct - B
+      levels::LevelQuads[i].v_b.vertex_id = levels::LevelQuads[i].b;
+      levels::LevelQuads[i].v_b.tile_id = levels::LevelQuads[i].id;
+      levels::LevelQuads[i].v_b.frame_id = levels::LevelQuads[i].frame_id;
+      levels::LevelQuads[i].v_b.x_pos = (float)levels::LevelQuads[i].x + (float)TILE_DIM  - (float)quads::VERTEX_OFFSET;
+      levels::LevelQuads[i].v_b.y_pos = (float)levels::LevelQuads[i].y;
+      levels::LevelQuads[i].v_b.z_pos = 0.0f;
+      levels::LevelQuads[i].v_b.r_col = 0.0f;
+      levels::LevelQuads[i].v_b.g_col = 0.0f;
+      levels::LevelQuads[i].v_b.b_col = 0.0f;
+      levels::LevelQuads[i].v_b.a_col = 1.0f;
+      levels::LevelQuads[i].v_b.tex_coord_x = norm_x_end;
+      levels::LevelQuads[i].v_b.tex_coord_y = 0.0f;
+      levels::LevelQuads[i].v_b.texture_id = textures::Catalog[levels::LevelQuads[i].texture_id].opengl_texture_id;
+      levels::LevelQuads[i].v_b.is_clicked = (float)levels::LevelQuads[i].is_clicked;
+      levels::LevelQuads[i].v_b.type_id = (float)levels::LevelQuads[i].type_id;
+
+      // create vertex struct - C
+      levels::LevelQuads[i].v_c.vertex_id = levels::LevelQuads[i].c;
+      levels::LevelQuads[i].v_c.tile_id = levels::LevelQuads[i].id;
+      levels::LevelQuads[i].v_c.frame_id = levels::LevelQuads[i].frame_id;
+      levels::LevelQuads[i].v_c.x_pos = (float)levels::LevelQuads[i].x;
+      levels::LevelQuads[i].v_c.y_pos = (float)levels::LevelQuads[i].y + (float)TILE_DIM - (float)quads::VERTEX_OFFSET;
+      levels::LevelQuads[i].v_c.z_pos = 0.0f;
+      levels::LevelQuads[i].v_c.r_col = 0.0f;
+      levels::LevelQuads[i].v_c.g_col = 0.0f;
+      levels::LevelQuads[i].v_c.b_col = 0.0f;
+      levels::LevelQuads[i].v_c.a_col = 1.0f;
+      levels::LevelQuads[i].v_c.tex_coord_x = norm_x_start;
+      levels::LevelQuads[i].v_c.tex_coord_y = 1.0f;
+      levels::LevelQuads[i].v_c.texture_id = textures::Catalog[levels::LevelQuads[i].texture_id].opengl_texture_id;
+      levels::LevelQuads[i].v_c.is_clicked = (float)levels::LevelQuads[i].is_clicked;
+      levels::LevelQuads[i].v_c.type_id = (float)levels::LevelQuads[i].type_id;
+
+
+      // create vertex struct - D
+      levels::LevelQuads[i].v_d.vertex_id = levels::LevelQuads[i].d;
+      levels::LevelQuads[i].v_d.tile_id = levels::LevelQuads[i].id;
+      levels::LevelQuads[i].v_d.frame_id = levels::LevelQuads[i].frame_id;
+      levels::LevelQuads[i].v_d.x_pos = (float)levels::LevelQuads[i].x + (float)TILE_DIM  - (float)quads::VERTEX_OFFSET;
+      levels::LevelQuads[i].v_d.y_pos = (float)levels::LevelQuads[i].y + (float)TILE_DIM - (float)quads::VERTEX_OFFSET;
+      levels::LevelQuads[i].v_d.z_pos = 0.0f;
+      levels::LevelQuads[i].v_d.r_col = 1.0f;
+      levels::LevelQuads[i].v_d.g_col = 1.0f;
+      levels::LevelQuads[i].v_d.b_col = 1.0f;
+      levels::LevelQuads[i].v_d.a_col = 1.0f;
+      levels::LevelQuads[i].v_d.tex_coord_x = norm_x_end;
+      levels::LevelQuads[i].v_d.tex_coord_y = 1.0f;
+      levels::LevelQuads[i].v_d.texture_id = textures::Catalog[levels::LevelQuads[i].texture_id].opengl_texture_id;
+      levels::LevelQuads[i].v_d.is_clicked = (float)levels::LevelQuads[i].is_clicked;
+      levels::LevelQuads[i].v_d.type_id = (float)levels::LevelQuads[i].type_id;
+
+      // create vindices 
+      levels::LevelQuads[i].i_left.a = levels::LevelQuads[i].a;
+      levels::LevelQuads[i].i_left.b = levels::LevelQuads[i].b;
+      levels::LevelQuads[i].i_left.c = levels::LevelQuads[i].c;
+
+      levels::LevelQuads[i].i_right.a = levels::LevelQuads[i].b;
+      levels::LevelQuads[i].i_right.b = levels::LevelQuads[i].c;
+      levels::LevelQuads[i].i_right.c = levels::LevelQuads[i].d;
+  }
+
+    if(LOGGING==-1)
+    {
+      print_out_quads(levels::LevelQuads);
+    }
+
   }
 
 

@@ -13,6 +13,10 @@ namespace quads
   #define QUAD_TYPE_MENU 1.0f
   #define QUAD_TYPE_TEXT 2.0f
 
+  int COUNT_VERTEX_ATTRIBUTES = 13;
+  int VERTEX_OFFSET = 1;
+
+
 
   
   // vertex index
@@ -117,6 +121,32 @@ namespace quads
     float w;
     float h;
   };
+
+
+  void print_out_quads(std::vector<Quad> quads)
+  {
+    for(int t=0; t<quads.size(); t++)
+    {
+      std::cout << "Quad ID: " << quads[t].id << std::endl; 
+      std::cout << "Texture ID: " << quads[t].texture_id << std::endl;
+      std::cout << "Frame ID: " << quads[t].frame_id << std::endl;
+      std::cout << "X: " << quads[t].x << std::endl; 
+      std::cout << "Y: " << quads[t].y << std::endl; 
+      std::cout << "Width: " << quads[t].w << std::endl; 
+      std::cout << "Height: " << quads[t].h << std::endl; 
+      std::cout << "Type: " << quads[t].type_id << std::endl; 
+
+      std::cout << "Vertices positions:"  << std::endl;
+      std::cout << "Vertex ID: " << quads[t].a << " X:" << quads[t].v_a.x_pos << ", Y:" << quads[t].v_a.y_pos << ", tcX:" << quads[t].v_a.tex_coord_x << ", tcY:" << quads[t].v_a.tex_coord_y << std::endl;
+      std::cout << "Vertex ID: " << quads[t].b << " X:" << quads[t].v_b.x_pos << ", Y:" << quads[t].v_b.y_pos << ", tcX:" << quads[t].v_b.tex_coord_x << ", tcY:" << quads[t].v_b.tex_coord_y << std::endl;
+      std::cout << "Vertex ID: " << quads[t].c << " X:" << quads[t].v_c.x_pos << ", Y:" << quads[t].v_c.y_pos << ", tcX:" << quads[t].v_c.tex_coord_x << ", tcY:" << quads[t].v_c.tex_coord_y << std::endl;
+      std::cout << "Vertex ID: " << quads[t].d << " X:" << quads[t].v_d.x_pos << ", Y:" << quads[t].v_d.y_pos << ", tcX:" << quads[t].v_d.tex_coord_x << ", tcY:" << quads[t].v_d.tex_coord_y << std::endl;
+
+      std::cout << "Vindices:" << std::endl <<
+      quads[t].i_left.a << " " << quads[t].i_left.b << " " << quads[t].i_left.c << std::endl <<
+      quads[t].i_right.a << " " << quads[t].i_right.b << " " << quads[t].i_right.c << std::endl;
+    }
+  }
 }
 
 
