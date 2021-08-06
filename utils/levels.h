@@ -24,7 +24,7 @@ namespace levels
     /*
       Loads map quads from map file
 
-      
+
     */
 
 
@@ -49,7 +49,7 @@ namespace levels
             quad.w = camera::tile_dim;
             quad.h = camera::tile_dim;
             in_file >> quad.frame_id;
-            //quad.id = TILE_COUNTER;
+
             quad.id = qm::gen_quad_id();
             quad.texture_id = texture_id;
             quad.is_clicked = 0.0;
@@ -128,7 +128,24 @@ namespace levels
 
   void drop()
   {
+    /*
+      Drops current level
 
+      - needs to remove quads
+      - what if next level will be bigger?
+
+      - dont know
+    */
+
+    for(int q = 0; q < levels::LevelQuads.size(); q++)
+    {
+      qm::delete_quad_id(levels::LevelQuads[q].id);
+      qm::delete_vertex_id(levels::LevelQuads[q].a);
+      qm::delete_vertex_id(levels::LevelQuads[q].b);
+      qm::delete_vertex_id(levels::LevelQuads[q].c);
+      qm::delete_vertex_id(levels::LevelQuads[q].d);
+    }
+    levels::LevelQuads.clear();
   }
 
 

@@ -148,22 +148,62 @@ namespace qm
   */
   std::vector<quads::Quad> AllQuads;
   std::map<std::string, int> QuadsSummary;
-
-  // next quad id to assign, should start from 0, but the next function call will return 1;
-  int next_quad_id = 0;
-  int next_vertex_id = -1; // first vertex id should be 0, so starting count from -1
-
   std::vector<int> UsedQuadIds = {};
   std::vector<int> UsedVertexIds = {};
 
-    int gen_vertex_id()
+  int find_next_quad_id()
   {
-    // is supposed to return new vertex id based on qm.next_vertex_id
-    // yes, kinda updates namespace's global variable
+    /*
+      Algorithm to find next available quad id 
+    */
+    
+    int n = qm::UsedQuadIds.size();
+    bool found = false;
 
-    qm::next_vertex_id += 1;
+    // for whole vector, find value that would be bigger than (index + 1)
+    for (int i = 0; i < n; i++)
+    {
+      if (qm::UsedQuadIds[i] > (i+1)){
+        return i+1;
+      }
+    }
+    return n+1;
+  }
+
+  int find_next_vertex_id()
+  {
+    /*
+      Algorithm to find next available vertex id 
+    */
+    
+    int n = qm::UsedVertexIds.size();
+    bool found = false;
+
+    // for whole vector, find value that would be bigger than (index + 1)
+    for (int i = 0; i < n; i++)
+    {
+      if (qm::UsedVertexIds[i] > i){
+        return i;
+      }
+    }
+    return n;
+  }
+
+
+  int gen_quad_id()
+  {
+    int next_quad_id = qm::find_next_quad_id();
+    std::cout << "Next Quad id: " << next_quad_id << std::endl;
+    qm::UsedQuadIds.push_back(next_quad_id);
+    return next_quad_id;
+  }
+
+   int gen_vertex_id()
+  {
+    int next_vertex_id = qm::find_next_vertex_id();
+    std::cout << "Next vertex id: " << next_vertex_id << std::endl;
     qm::UsedVertexIds.push_back(next_vertex_id);
-    return qm::next_vertex_id;
+    return next_vertex_id;
   }
 }
 

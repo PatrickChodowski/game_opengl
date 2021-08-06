@@ -37,16 +37,25 @@ namespace qm
     qm::QuadsSummary["text"] = fonts::TextQuads.size();
   }
 
-
-  int gen_quad_id()
+  void delete_quad_id(int quad_id)
   {
-    // is supposed to return new quad id based on qm.next_quad_id
-    // yes, kinda updates namespace's global variable
-    qm::next_quad_id += 1;
-    qm::UsedQuadIds.push_back(next_quad_id);
-    return qm::next_quad_id;
+    std::cout << "Removing " << quad_id << " from used quads" << std::endl;
+    qm::UsedQuadIds.erase(std::remove(qm::UsedQuadIds.begin(), 
+                                      qm::UsedQuadIds.end(), quad_id), 
+                                      qm::UsedQuadIds.end());
+
+    std::cout << "Used quads size: " << qm::UsedQuadIds.size() << std::endl;
   }
 
+  void delete_vertex_id(int vertex_id)
+  {
+    std::cout << "Removing " << vertex_id << " from used vertexes" << std::endl;
+    qm::UsedVertexIds.erase(std::remove(qm::UsedVertexIds.begin(), 
+                                        qm::UsedVertexIds.end(), vertex_id), 
+                                        qm::UsedVertexIds.end());
+
+    std::cout << "Used Vertexes size: " << qm::UsedVertexIds.size() << std::endl;
+  }
 
 
 

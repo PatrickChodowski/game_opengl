@@ -37,7 +37,6 @@ int main()
     int MAP_ID = 1;
     levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
-  fonts::render_text("hello! this is working text", 1000, 100, FontTD, 1.0f, 0.5f, 0.5f, 0.5f);
   fonts::render_text("chuj", 950, 150, FontTD, 1.0f, 0.5f, 0.5f, 0.5f);
   qm::accumulate();
   buffer::init(qm::AllQuads);
@@ -70,6 +69,7 @@ int main()
   textures::drop();
   shaders::drop();
   buffer::drop();
+  levels::drop();
   SDL_GL_DeleteContext(GLCONTEXT); 
   SDL_DestroyWindow(WINDOW);
   SDL_Quit();
