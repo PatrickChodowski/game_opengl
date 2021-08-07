@@ -69,13 +69,13 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     quad.is_clicked = 0.0f;
     quad.type_id = QUAD_TYPE_MENU;
     button_quads.push_back(quad);
-    std::cout << "menu quad id:" << std::endl;
-    std::cout << quad.id << std::endl;
+    // std::cout << "menu quad id:" << std::endl;
+    // std::cout << quad.id << std::endl;
 
-    // fonts::render_text(menu::Catalog[button_id].label.c_str(), 
-    //                   (menu::Catalog[button_id].x + 20), 
-    //                   (menu::Catalog[button_id].y + 50), 
-    //                   textures::FontTD, 0.7f, 0.0f, 0.0f, 0.0f);
+    fonts::render_text(menu::Catalog[button_id].label.c_str(), 
+                      (menu::Catalog[button_id].x + 20), 
+                      (menu::Catalog[button_id].y + 50), 
+                      textures::FontTD, 0.7f, 0.0f, 0.0f, 0.0f);
   }
 
   for(int i = 0; i < button_quads.size(); i++)

@@ -6,6 +6,21 @@
 namespace game
 {
 
+  void init()
+  {
+    // Init data for Maps, Textures etc.
+    maps::init();
+    shaders::init();
+    textures::init();
+    menu::init();
+    
+    // adding font texture to texture catalog
+    textures::FontTD = fonts::init(FONT_NAME);
+    textures::Catalog.insert({textures::FontTD.opengl_texture_id, textures::FontTD});
+    textures::BoundTextures.push_back(textures::FontTD.opengl_texture_id);
+  }
+
+
   void update(std::vector<quads::Quad> quads)
   {
     textures::bind_all();
