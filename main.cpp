@@ -28,7 +28,6 @@ int main()
     fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
     NEW_GAME = false;
   }
-  fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
   quads::accumulate();
   buffer::init(quads::AllQuads);
 

@@ -83,7 +83,7 @@ int MAP_ID = 0;
 // OpenGL
 #include "opengl/utils.h"
 #include "opengl/textures.h"
-#include "opengl/shaders.h"
+#include "shaders/shaders.h"
 #include "opengl/quads.h"
 #include "opengl/camera.h"
 #include "opengl/buffer.h"
