@@ -27,6 +27,8 @@ int main()
     maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
     fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
     NEW_GAME = false;
+  } else {
+    menu::load_main_menu();
   }
   quads::accumulate();
   buffer::init(quads::AllQuads);

@@ -13,7 +13,9 @@ namespace buffer
     int n_vertices = n_quads*4;
     int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
     float vertices_array[vertices_array_count];
-    int buffer_size = sizeof(quads::Vertex)*4000;
+
+    int buffer_size = MAX_QUADS*sizeof(quads::Vertex)*4;
+    int index_buffer_size = 4000; //MAX_QUADS*6*sizeof(float);
 
     std::cout << "Vertices array count: " << vertices_array_count << std::endl;
     std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
@@ -23,6 +25,7 @@ namespace buffer
     std::cout << "Quads count: " << n_quads << std::endl;
     std::cout << "Vertex count: " << n_vertices << std::endl;
     std::cout << "Buffer size: " << buffer_size << std::endl;
+    std::cout << "Index Buffer size: " << index_buffer_size << std::endl;
 
 
 
@@ -129,14 +132,16 @@ namespace buffer
       // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_array), vertices_array, GL_STATIC_DRAW);
 
       // dynamic approach:
-      glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_DYNAMIC_DRAW);
 
+
+      glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_DYNAMIC_DRAW);
       // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
       // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
 
       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-      glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
+      //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
 
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
 
     // new version:
     // position attribute:
@@ -191,6 +196,10 @@ namespace buffer
 
     for(int t=0; t<n_quads; t++)
     {
+      // std::cout << "buffering quad" << quads[t].id << std::endl;
+      // std::cout << t << std::endl;
+      // std::cout << "" << std::endl;
+
       int start_position = t*quads::COUNT_VERTEX_ATTRIBUTES*4;
       int cva = quads::COUNT_VERTEX_ATTRIBUTES; 
 

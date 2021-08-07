@@ -5,7 +5,8 @@
 
 namespace camera
 {
-
+  float base_zoom = 1.0f;
+  int base_speed = 20;
   int speed = 20;
   int x = 0;
   int y = 0;
@@ -32,14 +33,6 @@ namespace camera
       sq.w = (float)level_quads[q].w*scale_factor;
       sq.id = level_quads[q].id;
       scaled_level_quads.push_back(sq);
-
-      // if(level_quads[q].id == 2){
-      //   std::cout << "camera zoom:" << camera::zoom <<std::endl;
-      //   std::cout << "scaled x: " << sq.x << " normal x: " <<  level_quads[q].x << std::endl;
-      //   std::cout << "scaled y: " << sq.y << " normal y: " <<  level_quads[q].y << std::endl;
-      //   std::cout << "scaled w: " << sq.w << " normal w: " <<  level_quads[q].w << std::endl;
-      //   std::cout << "scaled h: " << sq.h << " normal h: " <<  level_quads[q].h << std::endl;
-      // }
     }
     return scaled_level_quads;
   };
@@ -58,6 +51,24 @@ namespace camera
     return mvp;
   }
 
+  glm::mat4 generate_menu_mvp()
+  {
+    glm::mat4 proj = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 mvp = proj*view*model;
+    return mvp;
+  }
+
+
+  void reset()
+  {
+
+
+    
+  }
+
+  
 
     
 

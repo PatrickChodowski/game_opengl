@@ -16,8 +16,10 @@ namespace events
       switch (event.type)
       {
         case SDL_MOUSEWHEEL:
-          if(event.wheel.y > 0) {camera::zoom += camera::zoom_speed;}
-          else if(event.wheel.y < 0){camera::zoom -= camera::zoom_speed;}
+          if (MAIN_MENU_ON == false){
+            if(event.wheel.y > 0) {camera::zoom += camera::zoom_speed;}
+            else if(event.wheel.y < 0){camera::zoom -= camera::zoom_speed;}
+          }
           break;
         
         case SDL_MOUSEBUTTONDOWN:
@@ -45,13 +47,16 @@ namespace events
           break;
         
         case SDLK_m:
+            camera::zoom = camera::base_zoom;
           if (MAIN_MENU_ON){
               MAIN_MENU_ON = false;
+              camera::speed = camera::base_speed;
               menu::drop();
               fonts::drop_texts();
               maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           } else {
             MAIN_MENU_ON = true;
+            camera::speed = 0;
             maps::drop_map();
             fonts::drop_texts();
             menu::load_main_menu();
