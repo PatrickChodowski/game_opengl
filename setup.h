@@ -86,7 +86,7 @@ std::string FONT_NAME = "OpenSans";
 #include "opengl/quads_manager.h"
 #include "opengl/camera.h"
 #include "opengl/buffer.h"
-#include "utils/mouse.h"
+#include "opengl/mouse.h"
 #include "opengl/events.h"
 
 
