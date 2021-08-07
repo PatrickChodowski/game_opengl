@@ -17,9 +17,9 @@ namespace quads
     quads::AllQuads.clear(); // resetting vector
 
     // assign menu quads
-    if(menu::MenuQuads.size() > 0){
-      quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
-    }
+    // if(menu::MenuQuads.size() > 0){
+    //   quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
+    // }
 
         // assign level quads
     if(maps::MapQuads.size() > 0){

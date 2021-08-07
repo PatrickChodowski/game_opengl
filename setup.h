@@ -49,6 +49,7 @@ bool RUNNING = true;
 int CURRENT_SHADER_ID = 0;
 bool MAIN_MENU_ON = false;
 std::string FONT_NAME = "OpenSans";
+int MAP_ID = 0;
 
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
@@ -87,7 +88,7 @@ std::string FONT_NAME = "OpenSans";
 #include "opengl/camera.h"
 #include "opengl/buffer.h"
 #include "opengl/mouse.h"
-#include "opengl/events.h"
+
 
 
 // game components
@@ -99,6 +100,8 @@ std::string FONT_NAME = "OpenSans";
 #include "fonts/fonts.h"
 #include "menu/menu.h"
 #include "maps/maps.h"
+
+#include "opengl/events.h"
 
 #include "game.h"
 

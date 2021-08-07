@@ -23,19 +23,19 @@ int main()
   maps::init();
   shaders::init();
   textures::init();
+  menu::init();
   
   // adding font texture to texture catalog
   textures::FontTD = fonts::init(FONT_NAME);
   textures::Catalog.insert({textures::FontTD.opengl_texture_id, textures::FontTD});
   textures::BoundTextures.push_back(textures::FontTD.opengl_texture_id);
 
-  menu::init();
   int NEW_GAME = true;
 
   if(NEW_GAME)
   {
-    int MAP_ID = 0;
     maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
+    NEW_GAME = false;
   }
   fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
   quads::accumulate();

@@ -14,12 +14,13 @@ uniform sampler2D textures[$slots];
 
 void main()
 {
-  // if type is level, use texture
+  // if type is maps, use texture
   int texture_index = int(out_texture_id);
   if(out_type_id == 0.0)
   {
     frag_color = texture(textures[texture_index], out_tex_coord);
   }
+  // when type is menu:
   else if (out_type_id == 1.0)
   {
     frag_color = out_color.rgba;

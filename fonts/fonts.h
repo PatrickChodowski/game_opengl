@@ -307,6 +307,21 @@ namespace fonts
 
 
 
+  void drop_texts()
+  {
+    for (int q = 0; q < fonts::TextQuads.size(); q++)
+    {
+      quads::delete_quad_id(fonts::TextQuads[q].id);
+      quads::delete_vertex_id(fonts::TextQuads[q].a);
+      quads::delete_vertex_id(fonts::TextQuads[q].b);
+      quads::delete_vertex_id(fonts::TextQuads[q].c);
+      quads::delete_vertex_id(fonts::TextQuads[q].d);
+    }
+    fonts::TextQuads.clear();
+  }
+
+
+
 
 
 

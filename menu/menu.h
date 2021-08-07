@@ -72,10 +72,10 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     std::cout << "menu quad id:" << std::endl;
     std::cout << quad.id << std::endl;
 
-    fonts::render_text(menu::Catalog[button_id].label.c_str(), 
-                      (menu::Catalog[button_id].x + 20), 
-                      (menu::Catalog[button_id].y + 50), 
-                      textures::FontTD, 0.7f, 0.0f, 0.0f, 0.0f);
+    // fonts::render_text(menu::Catalog[button_id].label.c_str(), 
+    //                   (menu::Catalog[button_id].x + 20), 
+    //                   (menu::Catalog[button_id].y + 50), 
+    //                   textures::FontTD, 0.7f, 0.0f, 0.0f, 0.0f);
   }
 
   for(int i = 0; i < button_quads.size(); i++)
@@ -191,14 +191,12 @@ void read_button_data(std::string name)
 
   // add to catalog
   menu::Catalog.insert({BD.id, BD});
-
   if(LOGGING == 0)
   { 
     std::cout << "Read-in button id: " << BD.id << ", name: " << BD.name << std::endl
     << " label: " << BD.label << std::endl << " position: " << BD.x << "," << BD.y << std::endl
     << " width: " << BD.w << " height: " << BD.h << std::endl
     << " colors: "<< BD.r_col << "," << BD.b_col << "," << BD.g_col << "," << BD.a_col << std::endl;
-    
   }
 }
 
@@ -212,18 +210,24 @@ void init()
     read_button_data(button_list[b]);
   }
 
-  load_main_menu();
+  // load_main_menu();
   std::vector<std::string> saves = menu::list_saves();
   hero::Hero hero = hero::load_from_save(saves[0]);  
-
-  
-  buffer::init(menu::MenuQuads);
 }
 
 // closes the menu
 void drop()
 {
-  buffer::drop();
+  for (int q = 0; q < menu::MenuQuads.size(); q++)
+  {
+    quads::delete_quad_id(menu::MenuQuads[q].id);
+    quads::delete_vertex_id(menu::MenuQuads[q].a);
+    quads::delete_vertex_id(menu::MenuQuads[q].b);
+    quads::delete_vertex_id(menu::MenuQuads[q].c);
+    quads::delete_vertex_id(menu::MenuQuads[q].d);
+  }
+  menu::MenuQuads.clear();
+  
 }
 
 

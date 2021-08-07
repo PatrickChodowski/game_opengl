@@ -45,9 +45,16 @@ namespace events
           break;
         
         case SDLK_m:
-          if (MAIN_MENU_ON)
-            {MAIN_MENU_ON = false;}
-          else {MAIN_MENU_ON = true;}
+          if (MAIN_MENU_ON){
+              MAIN_MENU_ON = false;
+              menu::drop();
+              maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
+          } else {
+            MAIN_MENU_ON = true;
+            maps::drop_map();
+            fonts::drop_texts();
+            menu::load_main_menu();
+          }
           break;
 
         // case SDLK_l:

@@ -191,10 +191,6 @@ namespace buffer
 
     for(int t=0; t<n_quads; t++)
     {
-      // std::cout << "buffering quad" << quads[t].id << std::endl;
-      // std::cout << t << std::endl;
-      // std::cout << "" << std::endl;
-
       int start_position = t*quads::COUNT_VERTEX_ATTRIBUTES*4;
       int cva = quads::COUNT_VERTEX_ATTRIBUTES; 
 

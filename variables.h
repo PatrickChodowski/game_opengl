@@ -199,7 +199,7 @@ namespace quads
   int gen_quad_id()
   {
     int next_quad_id = quads::find_next_quad_id();
-    std::cout << "Next Quad id: " << next_quad_id << std::endl;
+    // std::cout << "Next Quad id: " << next_quad_id << std::endl;
     quads::UsedQuadIds.push_back(next_quad_id);
     return next_quad_id;
   }
@@ -207,7 +207,7 @@ namespace quads
    int gen_vertex_id()
   {
     int next_vertex_id = quads::find_next_vertex_id();
-    std::cout << "Next vertex id: " << next_vertex_id << std::endl;
+    // std::cout << "Next vertex id: " << next_vertex_id << std::endl;
     quads::UsedVertexIds.push_back(next_vertex_id);
     return next_vertex_id;
   }
