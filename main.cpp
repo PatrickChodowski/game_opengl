@@ -38,21 +38,21 @@ int main()
     maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
   fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
-  qm::accumulate();
-  buffer::init(qm::AllQuads);
+  quads::accumulate();
+  buffer::init(quads::AllQuads);
 
   // finish temporary
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
     SDL_Event event;
-    events::handle_events(event, qm::ScaledAllQuads, qm::AllQuads);
+    events::handle_events(event, quads::ScaledAllQuads, quads::AllQuads);
 
     if(MAIN_MENU_ON)
     {
       game::update(menu::MenuQuads);
     } else {
-      game::update(qm::AllQuads);
+      game::update(quads::AllQuads);
     }
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);

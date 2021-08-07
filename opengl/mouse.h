@@ -11,15 +11,15 @@ namespace mouse
 
     logger::print("Clicking on " + std::to_string(clicked_quad_id) + 
     " is clicked value: " + 
-    std::to_string(qm::AllQuads[clicked_quad_id].is_clicked) + 
+    std::to_string(quads::AllQuads[clicked_quad_id].is_clicked) + 
     " double check quad id: " + 
-    std::to_string(qm::AllQuads[clicked_quad_id].id));
+    std::to_string(quads::AllQuads[clicked_quad_id].id));
 
-    if(qm::AllQuads[clicked_quad_id].is_clicked == 0.0f)
+    if(quads::AllQuads[clicked_quad_id].is_clicked == 0.0f)
     {
-      qm::AllQuads[clicked_quad_id].is_clicked = 1.0f;
+      quads::AllQuads[clicked_quad_id].is_clicked = 1.0f;
     } else {
-      qm::AllQuads[clicked_quad_id].is_clicked = 0.0f;
+      quads::AllQuads[clicked_quad_id].is_clicked = 0.0f;
     }
     ;
   }

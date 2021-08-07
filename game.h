@@ -28,7 +28,7 @@ namespace game
     glm::mat4 MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
 
     // this should react to map quads only ?
-    qm::ScaledAllQuads = camera::scale_move_quads(quads, -camera::x, camera::y);
+    quads::ScaledAllQuads = camera::scale_move_quads(quads, -camera::x, camera::y);
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);

@@ -124,7 +124,7 @@ namespace maps
             quad.h = camera::tile_dim;
             in_file >> quad.frame_id;
 
-            quad.id = qm::gen_quad_id();
+            quad.id = quads::gen_quad_id();
             quad.texture_id = texture_id;
             quad.is_clicked = 0.0;
             quad.type_id = QUAD_TYPE_MAP;
@@ -158,10 +158,10 @@ namespace maps
 
     for(int i = 0; i < maps::MapQuads.size(); i++)
     { 
-      maps::MapQuads[i].a = qm::gen_vertex_id();
-      maps::MapQuads[i].b = qm::gen_vertex_id();
-      maps::MapQuads[i].c = qm::gen_vertex_id();
-      maps::MapQuads[i].d = qm::gen_vertex_id();
+      maps::MapQuads[i].a = quads::gen_vertex_id();
+      maps::MapQuads[i].b = quads::gen_vertex_id();
+      maps::MapQuads[i].c = quads::gen_vertex_id();
+      maps::MapQuads[i].d = quads::gen_vertex_id();
 
       float norm_x_start = (float)textures::Catalog[maps::MapQuads[i].texture_id].frames[maps::MapQuads[i].frame_id].x/
       (float)textures::Catalog[maps::MapQuads[i].texture_id].width;
@@ -269,11 +269,11 @@ namespace maps
 
     for(int q = 0; q < maps::MapQuads.size(); q++)
     {
-      qm::delete_quad_id(maps::MapQuads[q].id);
-      qm::delete_vertex_id(maps::MapQuads[q].a);
-      qm::delete_vertex_id(maps::MapQuads[q].b);
-      qm::delete_vertex_id(maps::MapQuads[q].c);
-      qm::delete_vertex_id(maps::MapQuads[q].d);
+      quads::delete_quad_id(maps::MapQuads[q].id);
+      quads::delete_vertex_id(maps::MapQuads[q].a);
+      quads::delete_vertex_id(maps::MapQuads[q].b);
+      quads::delete_vertex_id(maps::MapQuads[q].c);
+      quads::delete_vertex_id(maps::MapQuads[q].d);
     }
     maps::MapQuads.clear();
   }

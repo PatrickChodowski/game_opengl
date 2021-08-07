@@ -57,7 +57,7 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     struct quads::Quad quad;
     int button_id = button_list[b];
     // quad.id = menu::Catalog[button_id].id;
-    quad.id = qm::gen_quad_id();
+    quad.id = quads::gen_quad_id();
     quad.x = menu::Catalog[button_id].x;
     quad.y = menu::Catalog[button_id].y;
     quad.w = menu::Catalog[button_id].w;    
@@ -81,10 +81,10 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
   for(int i = 0; i < button_quads.size(); i++)
   { 
     // add vertex ids
-    button_quads[i].a = qm::gen_vertex_id();
-    button_quads[i].b = qm::gen_vertex_id();
-    button_quads[i].c = qm::gen_vertex_id();
-    button_quads[i].d = qm::gen_vertex_id();
+    button_quads[i].a = quads::gen_vertex_id();
+    button_quads[i].b = quads::gen_vertex_id();
+    button_quads[i].c = quads::gen_vertex_id();
+    button_quads[i].d = quads::gen_vertex_id();
 
     // create vertex struct - A
     button_quads[i].v_a.vertex_id = button_quads[i].a;

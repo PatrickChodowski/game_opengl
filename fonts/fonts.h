@@ -199,7 +199,7 @@ namespace fonts
 
       // create quad here
       struct quads::Quad quad;
-      quad.id = qm::gen_quad_id();
+      quad.id = quads::gen_quad_id();
       quad.x = x + character_map[*p].bitmap_left * scale;
       quad.y = y - character_map[*p].bitmap_top * scale;
       quad.w = character_map[*p].bitmap_width * scale;
@@ -214,10 +214,10 @@ namespace fonts
       quad.a_col = 1.0f;
       quad.type_id = QUAD_TYPE_TEXT;
 
-      quad.a = qm::gen_vertex_id();
-      quad.b = qm::gen_vertex_id();
-      quad.c = qm::gen_vertex_id();
-      quad.d = qm::gen_vertex_id();
+      quad.a = quads::gen_vertex_id();
+      quad.b = quads::gen_vertex_id();
+      quad.c = quads::gen_vertex_id();
+      quad.d = quads::gen_vertex_id();
 
       quad.v_a.vertex_id = quad.a;
       quad.v_a.tile_id = quad.id;

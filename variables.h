@@ -145,26 +145,7 @@ namespace quads
       quads[t].i_right.a << " " << quads[t].i_right.b << " " << quads[t].i_right.c << std::endl;
     }
   }
-}
 
-namespace fonts
-{
-  std::vector<quads::Quad> TextQuads;
-}
-
-namespace maps
-{
-  std::vector<quads::Quad> MapQuads;
-  std::vector<quads::ScaledQuad> ScaledMapQuads;
-}
-
-namespace menu
-{
-  std::vector<quads::Quad> MenuQuads;
-}
-
-namespace qm 
-{
   /*
     AllQuads will be a vector containing all quads to be sent to buffer on each iteration.
     It gathers levels::LevelQuads, menu::MenuQuads, fonts::TextQuads into one chunk of information to be send on the update buffer
@@ -183,13 +164,13 @@ namespace qm
       Algorithm to find next available quad id 
     */
     
-    int n = qm::UsedQuadIds.size();
+    int n = quads::UsedQuadIds.size();
     bool found = false;
 
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
-      if (qm::UsedQuadIds[i] > (i+1)){
+      if (quads::UsedQuadIds[i] > (i+1)){
         return i+1;
       }
     }
@@ -202,13 +183,13 @@ namespace qm
       Algorithm to find next available vertex id 
     */
     
-    int n = qm::UsedVertexIds.size();
+    int n = quads::UsedVertexIds.size();
     bool found = false;
 
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
-      if (qm::UsedVertexIds[i] > i){
+      if (quads::UsedVertexIds[i] > i){
         return i;
       }
     }
@@ -217,19 +198,35 @@ namespace qm
 
   int gen_quad_id()
   {
-    int next_quad_id = qm::find_next_quad_id();
+    int next_quad_id = quads::find_next_quad_id();
     std::cout << "Next Quad id: " << next_quad_id << std::endl;
-    qm::UsedQuadIds.push_back(next_quad_id);
+    quads::UsedQuadIds.push_back(next_quad_id);
     return next_quad_id;
   }
 
    int gen_vertex_id()
   {
-    int next_vertex_id = qm::find_next_vertex_id();
+    int next_vertex_id = quads::find_next_vertex_id();
     std::cout << "Next vertex id: " << next_vertex_id << std::endl;
-    qm::UsedVertexIds.push_back(next_vertex_id);
+    quads::UsedVertexIds.push_back(next_vertex_id);
     return next_vertex_id;
   }
+}
+
+namespace fonts
+{
+  std::vector<quads::Quad> TextQuads;
+}
+
+namespace maps
+{
+  std::vector<quads::Quad> MapQuads;
+  std::vector<quads::ScaledQuad> ScaledMapQuads;
+}
+
+namespace menu
+{
+  std::vector<quads::Quad> MenuQuads;
 }
 
 namespace textures 
