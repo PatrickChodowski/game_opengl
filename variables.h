@@ -4,12 +4,10 @@
 
 // file for defining variables that should be accessible by multiple files 
 
-
-
 namespace quads
 {
 
-  #define QUAD_TYPE_LEVEL 0.0f
+  #define QUAD_TYPE_MAP 0.0f
   #define QUAD_TYPE_MENU 1.0f
   #define QUAD_TYPE_TEXT 2.0f
 
@@ -149,18 +147,15 @@ namespace quads
   }
 }
 
-
 namespace fonts
 {
   std::vector<quads::Quad> TextQuads;
 }
 
-
-
-namespace levels
+namespace maps
 {
-  std::vector<quads::Quad> LevelQuads;
-  std::vector<quads::ScaledQuad> ScaledLevelQuads;
+  std::vector<quads::Quad> MapQuads;
+  std::vector<quads::ScaledQuad> ScaledMapQuads;
 }
 
 namespace menu
@@ -178,6 +173,7 @@ namespace qm
   */
   std::vector<quads::Quad> AllQuads;
   std::map<std::string, int> QuadsSummary;
+  std::vector<quads::ScaledQuad> ScaledAllQuads;
   std::vector<int> UsedQuadIds = {};
   std::vector<int> UsedVertexIds = {};
 
@@ -219,7 +215,6 @@ namespace qm
     return n;
   }
 
-
   int gen_quad_id()
   {
     int next_quad_id = qm::find_next_quad_id();
@@ -237,8 +232,41 @@ namespace qm
   }
 }
 
+namespace textures 
+{
+    struct Frame
+  {
+    int frame_id;
+    int x;
+    int y;
+    int w;
+    int h;
+    int is_solid;
 
+    JS_OBJ(frame_id, x, y, w, h, is_solid);
+  };
 
+  // General texture information
+  struct TextureData
+  {
+    int id;
+    std::string type;
+    std::string name;
+    int width;
+    int height;
+    std::vector<Frame> frames_list;
+    std::map<int, Frame> frames;
+
+    unsigned int opengl_texture_id;
+
+    JS_OBJ(id, type, name, width, height, frames_list);
+  };
+
+  // Creating catalog of all textures data 
+  std::map<int, TextureData> Catalog = {};
+  std::vector<unsigned int> BoundTextures = {};
+  textures::TextureData FontTD;
+}
 
 
 #endif

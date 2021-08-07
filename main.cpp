@@ -1,5 +1,4 @@
 #include "setup.h"
-  #include <thread>
 
 // https://dokipen.com/page/2/
 
@@ -24,21 +23,21 @@ int main()
   maps::init();
   shaders::init();
   textures::init();
-  menu::init();
-
+  
   // adding font texture to texture catalog
-  textures::TextureData FontTD = fonts::init(FONT_NAME);
-  textures::Catalog.insert({FontTD.opengl_texture_id, FontTD});
-  textures::BoundTextures.push_back(FontTD.opengl_texture_id);
+  textures::FontTD = fonts::init(FONT_NAME);
+  textures::Catalog.insert({textures::FontTD.opengl_texture_id, textures::FontTD});
+  textures::BoundTextures.push_back(textures::FontTD.opengl_texture_id);
 
+  menu::init();
   int NEW_GAME = true;
 
   if(NEW_GAME)
   {
     int MAP_ID = 0;
-    levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
+    maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   }
-  fonts::render_text("OpenGl Game Demo", 500, 100, FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
+  fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
   qm::accumulate();
   buffer::init(qm::AllQuads);
 
@@ -47,13 +46,13 @@ int main()
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
     SDL_Event event;
-    events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
+    events::handle_events(event, qm::ScaledAllQuads, qm::AllQuads);
 
     if(MAIN_MENU_ON)
     {
-      levels::update(menu::MenuQuads);
+      game::update(menu::MenuQuads);
     } else {
-      levels::update(qm::AllQuads);
+      game::update(qm::AllQuads);
     }
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
@@ -64,7 +63,7 @@ int main()
   textures::drop();
   shaders::drop();
   buffer::drop();
-  levels::drop();
+  maps::drop_map();
   SDL_GL_DeleteContext(GLCONTEXT); 
   SDL_DestroyWindow(WINDOW);
   SDL_Quit();

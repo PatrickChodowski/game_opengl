@@ -3,7 +3,7 @@
 
 // To have all quads managed in one space
 // Menu Quads
-// Level Quads
+// Map Quads
 // Entity quads 
 // etc.
 
@@ -22,8 +22,8 @@ namespace qm
     }
 
         // assign level quads
-    if(levels::LevelQuads.size() > 0){
-      qm::AllQuads.insert(qm::AllQuads.end(), levels::LevelQuads.begin(), levels::LevelQuads.end());
+    if(maps::MapQuads.size() > 0){
+      qm::AllQuads.insert(qm::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
     }
 
     // assign text quads
@@ -32,7 +32,7 @@ namespace qm
     }
 
     // quads::print_out_quads(qm::AllQuads);
-    qm::QuadsSummary["level"] = levels::LevelQuads.size();
+    qm::QuadsSummary["map"] = maps::MapQuads.size();
     qm::QuadsSummary["menu"] = menu::MenuQuads.size();
     qm::QuadsSummary["text"] = fonts::TextQuads.size();
   }

@@ -3,42 +3,7 @@
 
 
 namespace textures
-{ 
-
-  // Single frame information
-  struct Frame
-  {
-    int frame_id;
-    int x;
-    int y;
-    int w;
-    int h;
-    int is_solid;
-
-    JS_OBJ(frame_id, x, y, w, h, is_solid);
-  };
-
-  // General texture information
-  struct TextureData
-  {
-    int id;
-    std::string type;
-    std::string name;
-    int width;
-    int height;
-    std::vector<Frame> frames_list;
-    std::map<int, Frame> frames;
-
-    unsigned int opengl_texture_id;
-
-    JS_OBJ(id, type, name, width, height, frames_list);
-  };
-
-  // Creating catalog of all textures data 
-  std::map<int, TextureData> Catalog = {};
-  std::vector<unsigned int> BoundTextures = {};
-  
-  
+{   
   // loads single texture into memory
   unsigned int load_to_opengl(unsigned int texture_id, 
                                        int width, 

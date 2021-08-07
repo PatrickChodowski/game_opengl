@@ -71,14 +71,11 @@ std::string FONT_NAME = "OpenSans";
 #include FT_FREETYPE_H  
 
 // Variables
-// ALE ZAJEBISTY HACK!!!
-// definicje structow i self-globalnych zbiorow tutaj, ponizej funkcje
 #include "variables.h"
 
 // Utils
 #include "utils/logger.h"
 #include "utils/utils.h"
-#include "utils/maps.h"
 #include "utils/timer.h"
 
 
@@ -99,10 +96,9 @@ std::string FONT_NAME = "OpenSans";
 #include "components/hero.h"
 
 // quads dependent
+#include "fonts/fonts.h"
 #include "menu/menu.h"
-#include "utils/levels.h"
-#include "opengl/fonts.h"
-
+#include "maps/maps.h"
 
 #include "game.h"
 
