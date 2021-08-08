@@ -15,7 +15,7 @@ namespace buffer
     float vertices_array[vertices_array_count];
 
     int buffer_size = MAX_QUADS*sizeof(quads::Vertex)*4;
-    int index_buffer_size = 4000; //MAX_QUADS*6*sizeof(float);
+    int index_buffer_size = 10200; //MAX_QUADS*6*sizeof(float);
 
     std::cout << "Vertices array count: " << vertices_array_count << std::endl;
     std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
@@ -116,32 +116,30 @@ namespace buffer
     GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 
-  // vertex is not position, vertex can have much more than the position - so we pass a lot of data in vertices
-  // then we generate buffer, bind it and add data ( vertices data)
-  // they are all attributes
+    // vertex is not position, vertex can have much more than the position - so we pass a lot of data in vertices
+    // then we generate buffer, bind it and add data ( vertices data)
+    // they are all attributes
 
-      // buffers are based in GPU (vram)
-      glGenVertexArrays(1, &VAO);
-      glGenBuffers(1, &VBO);
-      glGenBuffers(1, &EBO);
+      
+    // buffers are based in GPU (vram)
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
 
-      glBindVertexArray(VAO);
-      glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-      // static approach:
-      // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_array), vertices_array, GL_STATIC_DRAW);
+    // static approach:
+    // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_array), vertices_array, GL_STATIC_DRAW);
 
-      // dynamic approach:
+    // dynamic approach:
+    glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_DYNAMIC_DRAW);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
 
-
-      glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_DYNAMIC_DRAW);
-      // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-      // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
-
-      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-      //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
-
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_size, vindices_array, GL_DYNAMIC_DRAW);
+    //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
 
     // new version:
     // position attribute:
@@ -267,6 +265,12 @@ namespace buffer
     utils::array_to_file("buffer_update_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    // GLint size = 0;
+    // glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
+    // // 896000 -- 66560
+    // std::cout << "size of data: " << sizeof(float)*vertices_array_count << std::endl;
+
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float)*vertices_array_count, vertices_array);
 
 
@@ -286,8 +290,15 @@ namespace buffer
       vindices_array[(start_position+4)] = quads[t].i_right.b;
       vindices_array[(start_position+5)] = quads[t].i_right.c;
     }
+    utils::array_to_file("buffer_update_index_array", vindices_array, vindices_array_count, 3);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+    // GLint size_ebo = 0;
+    // glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size_ebo);
+    // std::cout << "size ebo: " << size_ebo << std::endl;
+    // std::cout << "size of ebo data: " << sizeof(int)*vindices_array_count << std::endl;
+
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float)*vindices_array_count, vindices_array);
 
   }

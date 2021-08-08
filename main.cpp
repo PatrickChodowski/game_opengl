@@ -21,14 +21,15 @@ int main()
 
 
   game::init();
-  int NEW_GAME = true;
+  int NEW_GAME = false;
   if(NEW_GAME)
   {
     maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
-    fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
+    // fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
     NEW_GAME = false;
   } else {
     menu::load_main_menu();
+    MAIN_MENU_ON = true;
   }
   quads::accumulate();
   buffer::init(quads::AllQuads);
