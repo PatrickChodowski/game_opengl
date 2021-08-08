@@ -44,18 +44,11 @@ std::vector<std::string> list_saves()
 // function for generating quads for buttons
 std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
 {
-  // use color to draw background and buttons for now
-  // no clue how to add text yet lol
-
-  // vertex data:
-  // use - x,y,z  r,g,b,a   , is_clicked, 
-
   std::vector<quads::Quad> button_quads;
   for(int b = 0; b < button_list.size(); b++)
   {
     struct quads::Quad quad;
     int button_id = button_list[b];
-    // quad.id = menu::Catalog[button_id].id;
     quad.id = quads::gen_quad_id();
     quad.x = menu::Catalog[button_id].x;
     quad.y = menu::Catalog[button_id].y;
@@ -68,8 +61,6 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     quad.is_clicked = 0.0f;
     quad.type_id = QUAD_TYPE_MENU;
     button_quads.push_back(quad);
-    // std::cout << "menu quad id:" << std::endl;
-    // std::cout << quad.id << std::endl;
     fonts::render_text(menu::Catalog[button_id].label.c_str(), 
                       (menu::Catalog[button_id].x + 20), 
                       (menu::Catalog[button_id].y + 50), 
@@ -228,19 +219,6 @@ void drop()
   menu::MenuQuads.clear();
   
 }
-
-
-
-
-
-// pause menu
-  
-
-
-
-
-
-
 }
 
 #endif

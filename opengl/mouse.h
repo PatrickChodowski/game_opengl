@@ -35,7 +35,6 @@ namespace mouse
       {
         RUNNING = false;
       }
-
     }
   }
 
@@ -92,22 +91,7 @@ namespace mouse
         print_mouse(e, "Middle");
       break;
     }
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
 }
-
 
 #endif
