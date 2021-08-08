@@ -41,7 +41,7 @@ namespace game
 
     glm::mat4 MVP;
     // react to camera changes
-    if(MAIN_MENU_ON){
+    if(game::GAME_STATE["MAIN_MENU"]){
       MVP = camera::generate_menu_mvp();
     } else {
       MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);

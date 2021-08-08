@@ -47,7 +47,6 @@ Uint32 flags = SDL_WINDOW_OPENGL;
 const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
 int CURRENT_SHADER_ID = 0;
-bool MAIN_MENU_ON = false;
 std::string FONT_NAME = "OpenSans";
 int MAP_ID = 0;
 int MAX_QUADS = 2000;

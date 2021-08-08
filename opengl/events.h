@@ -16,7 +16,7 @@ namespace events
       switch (event.type)
       {
         case SDL_MOUSEWHEEL:
-          if (MAIN_MENU_ON == false){
+          if (game::GAME_STATE["MAIN_MENU"] == false){
             if(event.wheel.y > 0) {camera::zoom += camera::zoom_speed;}
             else if(event.wheel.y < 0){camera::zoom -= camera::zoom_speed;}
           }
@@ -48,14 +48,14 @@ namespace events
         
         case SDLK_m:
             camera::zoom = camera::base_zoom;
-          if (MAIN_MENU_ON){
-              MAIN_MENU_ON = false;
+          if (game::GAME_STATE["MAIN_MENU"]){
+              game::set_state("GAME_ON");
               camera::speed = camera::base_speed;
               menu::drop();
               fonts::drop_texts();
               maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           } else {
-            MAIN_MENU_ON = true;
+            game::set_state("MAIN_MENU");
             camera::speed = 0;
             maps::drop_map();
             fonts::drop_texts();

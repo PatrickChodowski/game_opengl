@@ -289,8 +289,36 @@ namespace game
   void set_state(std::string state_name)
   {
     GAME_STATE[state_name] = true;
-    
+    for(int s = 0; s < GAME_STATE_LIST.size(); s++)
+    {
+      if(GAME_STATE_LIST[s] != state_name){
+        GAME_STATE[GAME_STATE_LIST[s]] = false;
+      }
+    }
+     std::cout << "Set the game state to " << state_name << std::endl;
+  }
 
+  std::string get_state()
+  {
+    std::string current_state;
+    for(int s = 0; s < GAME_STATE_LIST.size(); s++)
+    {
+      if(GAME_STATE[GAME_STATE_LIST[s]])
+      {
+        current_state = GAME_STATE_LIST[s];
+        break;
+      }
+    }
+    std::cout << "Current state: " << current_state << std::endl;
+    return current_state;
+  }
+
+  void print_game_states()
+  {
+    for (auto const& x : GAME_STATE)
+    {
+      std::cout << x.first << ':' << x.second << std::endl;
+    }
   }
 
 
