@@ -25,6 +25,7 @@ void main()
   else if (out_type_id == 1.0)
   {
     frag_color = out_color.rgba;
+    frag_color.r = (1-out_is_clicked)*out_color.r;
   }
   // when type is text:
   else if (out_type_id == 2.0)

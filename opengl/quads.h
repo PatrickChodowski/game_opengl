@@ -80,11 +80,17 @@ namespace quads
       int index = find_quad_id(quad_id, maps::MapQuads);
       if(maps::MapQuads[index].is_clicked == 0.0f)
       {
-        // logger::print("clicking");
         maps::MapQuads[index].is_clicked = 1.0f;
+        maps::MapQuads[index].v_a.is_clicked = 1.0f;
+        maps::MapQuads[index].v_b.is_clicked = 1.0f;
+        maps::MapQuads[index].v_c.is_clicked = 1.0f;
+        maps::MapQuads[index].v_d.is_clicked = 1.0f;
       } else {
-        // logger::print("unclicking");
         maps::MapQuads[index].is_clicked = 0.0f;
+        maps::MapQuads[index].v_a.is_clicked = 0.0f;
+        maps::MapQuads[index].v_b.is_clicked = 0.0f;
+        maps::MapQuads[index].v_c.is_clicked = 0.0f;
+        maps::MapQuads[index].v_d.is_clicked = 0.0f;
       }
     } else if (quad_type_id == 1){
        // menu
@@ -93,9 +99,17 @@ namespace quads
       {
         // logger::print("clicking");
         menu::MenuQuads[index].is_clicked = 1.0f;
+        menu::MenuQuads[index].v_a.is_clicked = 1.0f;
+        menu::MenuQuads[index].v_b.is_clicked = 1.0f;
+        menu::MenuQuads[index].v_c.is_clicked = 1.0f;
+        menu::MenuQuads[index].v_d.is_clicked = 1.0f;
       } else {
         // logger::print("unclicking");
         menu::MenuQuads[index].is_clicked = 0.0f;
+        menu::MenuQuads[index].v_a.is_clicked = 0.0f;
+        menu::MenuQuads[index].v_b.is_clicked = 0.0f;
+        menu::MenuQuads[index].v_c.is_clicked = 0.0f;
+        menu::MenuQuads[index].v_d.is_clicked = 0.0f;
       }
     }
   }
