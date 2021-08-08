@@ -18,23 +18,31 @@ namespace camera
   int tile_dim = TILE_DIM;
 
   // for mouse events usage
-  std::vector<quads::ScaledQuad> scale_move_quads(std::vector<quads::Quad> level_quads, int camera_move_x=0, int camera_move_y=0)
+  std::vector<quads::ScaledQuad> scale_move_quads(std::vector<quads::Quad> quads, int camera_move_x=0, int camera_move_y=0)
   {
     camera::tile_dim = (float)TILE_DIM*float(camera::zoom);
-    std::vector<quads::ScaledQuad> scaled_level_quads = {};
+    std::vector<quads::ScaledQuad> scaled_quads = {};
     float scale_factor = (1.0f/float(camera::zoom));
 
-    for(int q=0; q<level_quads.size(); q++)
+    for(int q=0; q<quads.size(); q++)
     {
       quads::ScaledQuad sq;
-      sq.x = ((float)level_quads[q].x + (float)camera_move_x)*scale_factor;
-      sq.y = ((float)level_quads[q].y + (float)camera_move_y)*scale_factor;
-      sq.h = (float)level_quads[q].h*scale_factor;
-      sq.w = (float)level_quads[q].w*scale_factor;
-      sq.id = level_quads[q].id;
-      scaled_level_quads.push_back(sq);
+      if (quads[q].type_id != 1){
+        sq.x = ((float)quads[q].x + (float)camera_move_x)*scale_factor;
+        sq.y = ((float)quads[q].y + (float)camera_move_y)*scale_factor;
+        sq.h = (float)quads[q].h*scale_factor;
+        sq.w = (float)quads[q].w*scale_factor;
+      } else {
+        // menu:
+        sq.x = (float)quads[q].x;
+        sq.y = (float)quads[q].y;
+        sq.h = (float)quads[q].h;
+        sq.w = (float)quads[q].w;
+      }
+      sq.id = quads[q].id;
+      scaled_quads.push_back(sq);
     }
-    return scaled_level_quads;
+    return scaled_quads;
   };
 
   

@@ -19,8 +19,11 @@ int main()
   GLenum err = glewInit();
   utils::check_glew(err);
 
-
+  game::init_game_states();
   game::init();
+
+
+
   int NEW_GAME = false;
   if(NEW_GAME)
   {

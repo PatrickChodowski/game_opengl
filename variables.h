@@ -265,5 +265,35 @@ namespace textures
   textures::TextureData FontTD;
 }
 
+namespace game 
+{
+
+  // starts with menu on:
+  std::map<std::string, bool> GAME_STATE;
+  std::vector<std::string> GAME_STATE_LIST = {"GAME_ON",
+                                              "NEW_GAME",
+                                              "MAIN_MENU",
+                                              "NEW_GAME_MENU",
+                                              "LOAD_GAME_MENU",
+                                              "SETTINGS_MENU"};
+  void init_game_states()
+  {
+    GAME_STATE.insert(std::pair<std::string, bool>("GAME_ON", false));
+    GAME_STATE.insert(std::pair<std::string, bool>("NEW_GAME", false));
+    GAME_STATE.insert(std::pair<std::string, bool>("MAIN_MENU", true));
+    GAME_STATE.insert(std::pair<std::string, bool>("NEW_GAME_MENU", false));
+    GAME_STATE.insert(std::pair<std::string, bool>("LOAD_GAME_MENU", false));
+    GAME_STATE.insert(std::pair<std::string, bool>("SETTINGS_MENU", false));
+  }
+
+  void set_state(std::string state_name)
+  {
+    GAME_STATE[state_name] = true;
+    
+
+  }
+
+
+}
 
 #endif

@@ -52,7 +52,6 @@ std::string FONT_NAME = "OpenSans";
 int MAP_ID = 0;
 int MAX_QUADS = 2000;
 
-
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
 #define STB_IMAGE_IMPLEMENTATION
