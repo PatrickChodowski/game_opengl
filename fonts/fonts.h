@@ -182,8 +182,6 @@ namespace fonts
 
 
     std::vector<quads::Quad> text_quads;
-
-    int count_base = 0;
    // render given text at position x, y
     for(const char *p = text; *p; p++) 
     { 
@@ -291,7 +289,6 @@ namespace fonts
       quad.i_right.b = quad.c;
       quad.i_right.c = quad.d;
 
-      count_base += 4;
       // push new x for next character
       x += ((character_map[*p].bitmap_width * scale)+5);
       text_quads.push_back(quad);

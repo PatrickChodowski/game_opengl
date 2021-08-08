@@ -74,7 +74,11 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     fonts::render_text(menu::Catalog[button_id].label.c_str(), 
                       (menu::Catalog[button_id].x + 20), 
                       (menu::Catalog[button_id].y + 50), 
-                      textures::FontTD, 0.7f, 0.1f, 0.1f, 0.1f);
+                      textures::FontTD, 
+                      0.7, 
+                      0.5, 
+                      0.5, 
+                      0.5); 
   }
 
   for(int i = 0; i < button_quads.size(); i++)
