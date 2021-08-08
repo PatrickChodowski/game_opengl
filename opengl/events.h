@@ -59,7 +59,7 @@ namespace events
             camera::speed = 0;
             maps::drop_map();
             fonts::drop_texts();
-            menu::load_main_menu();
+            menu::load_menu({0,1,2,3});
           }
           break;
 

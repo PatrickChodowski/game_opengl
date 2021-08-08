@@ -173,15 +173,10 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
 
 
 // function for loading main menu
-void load_main_menu()
+void load_menu(std::vector<int> menu_buttons)
 {
-  // button ids
-  std::vector<int> main_menu_buttons = {0,1,2,3};
-  MenuQuads = load_button_quads(main_menu_buttons);
-
+  MenuQuads = load_button_quads(menu_buttons);
 }
-
-
 
 // Reads data in jsons to catalog
 void read_button_data(std::string name)
@@ -212,8 +207,6 @@ void init()
   {
     read_button_data(button_list[b]);
   }
-
-  // load_main_menu();
   std::vector<std::string> saves = menu::list_saves();
   hero::Hero hero = hero::load_from_save(saves[0]);  
 }

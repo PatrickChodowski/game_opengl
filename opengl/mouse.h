@@ -7,21 +7,18 @@ namespace mouse
   // temporarily here?
   void click_quad(int clicked_quad_id)
   {
-    logger::print("Quad ID: " + std::to_string(clicked_quad_id));
+    int quad_index = quads::find_quad_id(clicked_quad_id, quads::AllQuads);
+    // logger::print("Quad index: " + std::to_string(quad_index));
+    if(quad_index != -1){
+      int quad_type_id = quads::AllQuads[quad_index].type_id;
 
-    logger::print("Clicking on " + std::to_string(clicked_quad_id) + 
-    " is clicked value: " + 
-    std::to_string(quads::AllQuads[clicked_quad_id].is_clicked) + 
-    " double check quad id: " + 
-    std::to_string(quads::AllQuads[clicked_quad_id].id));
+      logger::print("Clicking on " + std::to_string(clicked_quad_id));
+      logger::print("Is clicked " + std::to_string(quads::AllQuads[quad_index].is_clicked));
+      logger::print("Double check quad id:" + std::to_string(quads::AllQuads[quad_index].id));
+      logger::print("Quad Type ID:" + std::to_string(quad_type_id));
 
-    if(quads::AllQuads[clicked_quad_id].is_clicked == 0.0f)
-    {
-      quads::AllQuads[clicked_quad_id].is_clicked = 1.0f;
-    } else {
-      quads::AllQuads[clicked_quad_id].is_clicked = 0.0f;
+      quads::click(clicked_quad_id, quad_type_id);
     }
-    ;
   }
 
 
@@ -57,7 +54,10 @@ namespace mouse
               << std::endl;
   }
 
-  void handle_mouse(SDL_MouseMotionEvent e,  SDL_MouseButtonEvent b, std::vector<quads::ScaledQuad> v, std::vector<quads::Quad> lv)
+  void handle_mouse(SDL_MouseMotionEvent e,  
+                    SDL_MouseButtonEvent b, 
+                    std::vector<quads::ScaledQuad> v, 
+                    std::vector<quads::Quad> lv)
   {
     switch (b.button)
     {

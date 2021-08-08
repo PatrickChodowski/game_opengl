@@ -28,7 +28,7 @@ int main()
     // fonts::render_text("OpenGl Game Demo", 500, 100, textures::FontTD, 1.0f, 0.0f, 0.0f, 0.0f);
     NEW_GAME = false;
   } else {
-    menu::load_main_menu();
+    menu::load_menu({0,1,2,3});
     MAIN_MENU_ON = true;
   }
   quads::accumulate();

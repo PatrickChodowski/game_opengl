@@ -57,10 +57,49 @@ namespace quads
     //std::cout << "Used Vertexes size: " << quads::UsedVertexIds.size() << std::endl;
   }
 
+  int find_quad_id(int quad_id, std::vector<quads::Quad> quads)
+  {
+    int quad_index = -1;
+    /*Will return the index of quad id*/
+    for(int q = 0; q < quads.size(); q++)
+    {
+      if(quad_id == quads[q].id)
+      {
+        quad_index = q;
+        break;
+      }
+    }
+    return quad_index;
+  }
 
+  void click(int quad_id, int quad_type_id)
+  {
 
+    if(quad_type_id == 0){
+      // map
+      int index = find_quad_id(quad_id, maps::MapQuads);
+      if(maps::MapQuads[index].is_clicked == 0.0f)
+      {
+        // logger::print("clicking");
+        maps::MapQuads[index].is_clicked = 1.0f;
+      } else {
+        // logger::print("unclicking");
+        maps::MapQuads[index].is_clicked = 0.0f;
+      }
+    } else if (quad_type_id == 1){
+       // menu
+      int index = find_quad_id(quad_id, menu::MenuQuads);
+      if(menu::MenuQuads[index].is_clicked == 0.0f)
+      {
+        // logger::print("clicking");
+        menu::MenuQuads[index].is_clicked = 1.0f;
+      } else {
+        // logger::print("unclicking");
+        menu::MenuQuads[index].is_clicked = 0.0f;
+      }
+    }
+  }
 }
 
 
-
-  #endif
+#endif
