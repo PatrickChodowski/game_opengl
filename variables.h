@@ -107,8 +107,6 @@ namespace quads
     
     // for different shader calls:
     float type_id; // 0 - level, 1 - menu, 2 - text
-
-
   };
 
   struct ScaledQuad
@@ -227,6 +225,8 @@ namespace maps
 namespace menu
 {
   std::vector<quads::Quad> MenuQuads;
+  // Current Menu buttons store name and quad id
+  std::map<int, std::string> CurrentMenuButtons;
 }
 
 namespace textures 

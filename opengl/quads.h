@@ -95,16 +95,16 @@ namespace quads
     } else if (quad_type_id == 1){
        // menu
       int index = find_quad_id(quad_id, menu::MenuQuads);
+
+      std::cout << "Clicked button: " << menu::CurrentMenuButtons[quad_id] << std::endl;
       if(menu::MenuQuads[index].is_clicked == 0.0f)
       {
-        // logger::print("clicking");
         menu::MenuQuads[index].is_clicked = 1.0f;
         menu::MenuQuads[index].v_a.is_clicked = 1.0f;
         menu::MenuQuads[index].v_b.is_clicked = 1.0f;
         menu::MenuQuads[index].v_c.is_clicked = 1.0f;
         menu::MenuQuads[index].v_d.is_clicked = 1.0f;
       } else {
-        // logger::print("unclicking");
         menu::MenuQuads[index].is_clicked = 0.0f;
         menu::MenuQuads[index].v_a.is_clicked = 0.0f;
         menu::MenuQuads[index].v_b.is_clicked = 0.0f;

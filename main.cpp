@@ -21,16 +21,14 @@ int main()
 
   game::init_game_states();
   game::init();
-  game::print_game_states();
 
   if(game::GAME_STATE["NEW_GAME_MENU"])
   {
-    maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
     game::set_state("GAME_ON");
+    maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
   } else {
     game::set_state("MAIN_MENU");
     menu::load_menu({0,1,2,3});
-    game::print_game_states();
   }
   quads::accumulate();
   buffer::init(quads::AllQuads);

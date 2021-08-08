@@ -12,7 +12,6 @@ namespace menu
 // should render one massive quad as background photo and then additional quads as buttons
 
 // main menu
-
 struct ButtonData
 {
   int id;
@@ -79,6 +78,9 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
                       0.5, 
                       0.5, 
                       0.5); 
+
+    // insert name and quad id
+    CurrentMenuButtons.insert(std::pair<int, std::string>(quad.id, menu::Catalog[button_id].name));
   }
 
   for(int i = 0; i < button_quads.size(); i++)
@@ -214,6 +216,7 @@ void init()
 // closes the menu
 void drop()
 {
+  CurrentMenuButtons.clear();
   for (int q = 0; q < menu::MenuQuads.size(); q++)
   {
     quads::delete_quad_id(menu::MenuQuads[q].id);
