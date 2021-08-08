@@ -95,8 +95,6 @@ namespace quads
     } else if (quad_type_id == 1){
        // menu
       int index = find_quad_id(quad_id, menu::MenuQuads);
-
-      std::cout << "Clicked button: " << menu::CurrentMenuButtons[quad_id] << std::endl;
       if(menu::MenuQuads[index].is_clicked == 0.0f)
       {
         menu::MenuQuads[index].is_clicked = 1.0f;

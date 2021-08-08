@@ -21,6 +21,36 @@ namespace game
   }
 
 
+  void handle_game_state()
+  {
+   if(CHANGE_STATE_TRIGGER){ 
+      if(GAME_STATE["MAIN_MENU"])
+      {
+        camera::speed = 0;
+        menu::drop();
+        maps::drop_map();
+        fonts::drop_texts();
+        menu::load_menu({0,1,2,3});
+      } else if(GAME_STATE["NEW_GAME_MENU"]){
+        camera::speed = 0;
+        menu::drop();
+        maps::drop_map();
+        fonts::drop_texts();
+        menu::load_menu({4,5});
+      } else if(GAME_STATE["GAME_ON"]){
+        camera::speed = camera::base_speed;
+        menu::drop();
+        maps::drop_map();
+        fonts::drop_texts();
+        maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
+      }
+
+    CHANGE_STATE_TRIGGER = false;
+   }
+  }
+
+
+
   void update(std::vector<quads::Quad> quads)
   {
     textures::bind_all();
@@ -41,10 +71,10 @@ namespace game
 
     glm::mat4 MVP;
     // react to camera changes
-    if(game::GAME_STATE["MAIN_MENU"]){
-      MVP = camera::generate_menu_mvp();
-    } else {
+    if(game::GAME_STATE["GAME_ON"]){
       MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
+    } else {
+      MVP = camera::generate_menu_mvp();
     }
 
     // this should react to map quads only ?

@@ -1,7 +1,5 @@
 #include "setup.h"
 
-// https://dokipen.com/page/2/
-
 int main()
 {
   // Window, OpenGL, SDL initiatlization
@@ -22,23 +20,18 @@ int main()
   game::init_game_states();
   game::init();
 
-  if(game::GAME_STATE["NEW_GAME_MENU"])
-  {
-    game::set_state("GAME_ON");
-    maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
-  } else {
-    game::set_state("MAIN_MENU");
-    menu::load_menu({0,1,2,3});
-  }
+  game::set_state("MAIN_MENU");
+  menu::load_menu({0,1,2,3});
   quads::accumulate();
   buffer::init(quads::AllQuads);
 
-  // finish temporary
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
     SDL_Event event;
     events::handle_events(event, quads::ScaledAllQuads, quads::AllQuads);
+
+    game::handle_game_state();
     quads::accumulate();
     game::update(quads::AllQuads);
     

@@ -270,6 +270,7 @@ namespace game
 
   // starts with menu on:
   std::map<std::string, bool> GAME_STATE;
+  bool CHANGE_STATE_TRIGGER = false;
   std::vector<std::string> GAME_STATE_LIST = {"GAME_ON",
                                               "NEW_GAME",
                                               "MAIN_MENU",
@@ -286,18 +287,6 @@ namespace game
     GAME_STATE.insert(std::pair<std::string, bool>("SETTINGS_MENU", false));
   }
 
-  void set_state(std::string state_name)
-  {
-    GAME_STATE[state_name] = true;
-    for(int s = 0; s < GAME_STATE_LIST.size(); s++)
-    {
-      if(GAME_STATE_LIST[s] != state_name){
-        GAME_STATE[GAME_STATE_LIST[s]] = false;
-      }
-    }
-     std::cout << "Set the game state to " << state_name << std::endl;
-  }
-
   std::string get_state()
   {
     std::string current_state;
@@ -312,6 +301,23 @@ namespace game
     std::cout << "Current state: " << current_state << std::endl;
     return current_state;
   }
+
+  void set_state(std::string state_name)
+  {
+    std::string old_state = get_state();
+    if(old_state != state_name){
+      GAME_STATE[state_name] = true;
+      for(int s = 0; s < GAME_STATE_LIST.size(); s++)
+      {
+        if(GAME_STATE_LIST[s] != state_name){
+          GAME_STATE[GAME_STATE_LIST[s]] = false;
+        }
+      }
+      std::cout << "Set the game state to " << state_name << std::endl;
+      CHANGE_STATE_TRIGGER = true;
+    }
+  }
+
 
   void print_game_states()
   {

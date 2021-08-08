@@ -16,7 +16,7 @@ namespace events
       switch (event.type)
       {
         case SDL_MOUSEWHEEL:
-          if (game::GAME_STATE["MAIN_MENU"] == false){
+          if (game::GAME_STATE["GAME_ON"]){
             if(event.wheel.y > 0) {camera::zoom += camera::zoom_speed;}
             else if(event.wheel.y < 0){camera::zoom -= camera::zoom_speed;}
           }
@@ -45,23 +45,10 @@ namespace events
         case SDLK_DOWN:
           camera::move_y -= camera::speed;
           break;
-        
         case SDLK_m:
             camera::zoom = camera::base_zoom;
-          if (game::GAME_STATE["MAIN_MENU"]){
-              game::set_state("GAME_ON");
-              camera::speed = camera::base_speed;
-              menu::drop();
-              fonts::drop_texts();
-              maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
-          } else {
             game::set_state("MAIN_MENU");
-            camera::speed = 0;
-            maps::drop_map();
-            fonts::drop_texts();
-            menu::load_menu({0,1,2,3});
-          }
-          break;
+            break;
 
         // case SDLK_l:
         //   CURRENT_SHADER = "light_radius_shading_program";

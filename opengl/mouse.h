@@ -18,6 +18,24 @@ namespace mouse
       logger::print("Quad Type ID:" + std::to_string(quad_type_id));
 
       quads::click(clicked_quad_id, quad_type_id);
+
+      std::cout << "Clicked button: " << menu::CurrentMenuButtons[clicked_quad_id] << std::endl;
+      if(menu::CurrentMenuButtons[clicked_quad_id] == "main_new")
+      {
+        game::set_state("NEW_GAME_MENU");
+      } else if (menu::CurrentMenuButtons[clicked_quad_id] == "new_game_name")
+      {
+        game::set_state("GAME_ON");
+      }
+      else if (menu::CurrentMenuButtons[clicked_quad_id] == "back_to_main")
+      {
+        game::set_state("MAIN_MENU");
+      }
+      else if (menu::CurrentMenuButtons[clicked_quad_id] == "main_exit")
+      {
+        RUNNING = false;
+      }
+
     }
   }
 
