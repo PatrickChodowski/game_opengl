@@ -87,8 +87,11 @@ namespace events
       case SDL_TEXTINPUT:
         if(game::GAME_STATE["NEW_GAME_MENU"])
         {
-          menu::NewGameName += event.text.text;
-          game::CHANGE_STATE_TRIGGER = true;
+          if(menu::validate_input(event.text.text) && menu::NewGameName.size() < 8)
+          {
+            menu::NewGameName += event.text.text;
+            game::CHANGE_STATE_TRIGGER = true;
+          }
           break;
         }
         break;

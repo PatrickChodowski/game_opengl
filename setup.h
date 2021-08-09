@@ -71,13 +71,14 @@ int MAX_QUADS = 2000;
 #include <ft2build.h>
 #include FT_FREETYPE_H  
 
-// Variables
-#include "variables.h"
 
 // Utils
 #include "utils/logger.h"
 #include "utils/utils.h"
 #include "utils/timer.h"
+
+// Variables
+#include "variables.h"
 
 
 // OpenGL

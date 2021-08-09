@@ -32,15 +32,6 @@ struct ButtonData
 
 std::map<int, ButtonData> Catalog = {};
 
-std::vector<std::string> list_saves()
-{
-  std::vector<std::string> saves = {};
-  saves = utils::list_files("saves");
-  logger::print_vector(saves);
-  return saves;
-}
-
-
 // function for generating quads for buttons
 std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
 {
@@ -176,60 +167,69 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
 }
 
 
-// function for loading main menu
-void load_menu(std::vector<int> menu_buttons)
-{
-  MenuQuads = load_button_quads(menu_buttons);
-}
-
-// Reads data in jsons to catalog
-void read_button_data(std::string name)
-{
-  ButtonData BD;
-  std::string data_path = "./menu/data/"+name+".json";
-  std::string json_data = utils::read_text_file(data_path);
-  JS::ParseContext context(json_data);
-  context.parseTo(BD);
-
-  // add to catalog
-  menu::Catalog.insert({BD.id, BD});
-  if(LOGGING == 0)
-  { 
-    std::cout << "Read-in button id: " << BD.id << ", name: " << BD.name << std::endl
-    << " label: " << BD.label << std::endl << " position: " << BD.x << "," << BD.y << std::endl
-    << " width: " << BD.w << " height: " << BD.h << std::endl
-    << " colors: "<< BD.r_col << "," << BD.b_col << "," << BD.g_col << "," << BD.a_col << std::endl;
-  }
-}
-
-void init()
-{
-  // for now just debugging different options on runtime 
-  logger::print("READING BUTTONS");
-  std::vector<std::string> button_list = utils::list_files("menu/data/");
-  for(int b=0; b < button_list.size(); b++)
+  // function for loading main menu
+  void load_menu(std::vector<int> menu_buttons)
   {
-    read_button_data(button_list[b]);
+    MenuQuads = load_button_quads(menu_buttons);
   }
-  std::vector<std::string> saves = menu::list_saves();
-  hero::Hero hero = hero::load_from_save(saves[0]);  
-}
 
-// closes the menu
-void drop()
-{
-  CurrentMenuButtons.clear();
-  for (int q = 0; q < menu::MenuQuads.size(); q++)
+  // Reads data in jsons to catalog
+  void read_button_data(std::string name)
   {
-    quads::delete_quad_id(menu::MenuQuads[q].id);
-    quads::delete_vertex_id(menu::MenuQuads[q].a);
-    quads::delete_vertex_id(menu::MenuQuads[q].b);
-    quads::delete_vertex_id(menu::MenuQuads[q].c);
-    quads::delete_vertex_id(menu::MenuQuads[q].d);
+    ButtonData BD;
+    std::string data_path = "./menu/data/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(BD);
+
+    // add to catalog
+    menu::Catalog.insert({BD.id, BD});
+    if(LOGGING == 0)
+    { 
+      std::cout << "Read-in button id: " << BD.id << ", name: " << BD.name << std::endl
+      << " label: " << BD.label << std::endl << " position: " << BD.x << "," << BD.y << std::endl
+      << " width: " << BD.w << " height: " << BD.h << std::endl
+      << " colors: "<< BD.r_col << "," << BD.b_col << "," << BD.g_col << "," << BD.a_col << std::endl;
+    }
   }
-  menu::MenuQuads.clear();
-  
-}
+
+  void init()
+  {
+    // for now just debugging different options on runtime 
+    logger::print("READING BUTTONS");
+    std::vector<std::string> button_list = utils::list_files("menu/data/");
+    for(int b=0; b < button_list.size(); b++)
+    {
+      read_button_data(button_list[b]);
+    }
+    std::vector<std::string> saves = menu::list_saves();
+    hero::Hero hero = hero::load_from_save(saves[0]);  
+  }
+
+  // closes the menu
+  void drop()
+  {
+    CurrentMenuButtons.clear();
+    for (int q = 0; q < menu::MenuQuads.size(); q++)
+    {
+      quads::delete_quad_id(menu::MenuQuads[q].id);
+      quads::delete_vertex_id(menu::MenuQuads[q].a);
+      quads::delete_vertex_id(menu::MenuQuads[q].b);
+      quads::delete_vertex_id(menu::MenuQuads[q].c);
+      quads::delete_vertex_id(menu::MenuQuads[q].d);
+    }
+    menu::MenuQuads.clear();
+  }
+
+  std::string allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
+  bool validate_input(std::string input)
+  {
+    bool good = false;
+    if (menu::allowed_input.find(input) != std::string::npos) {
+      good = true;
+    }
+    return good;
+  }
 }
 
 #endif

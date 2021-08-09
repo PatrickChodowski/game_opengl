@@ -228,6 +228,35 @@ namespace menu
   std::vector<quads::Quad> MenuQuads;
   // Current Menu buttons store name and quad id
   std::map<int, std::string> CurrentMenuButtons;
+
+
+std::vector<std::string> list_saves()
+{
+  std::vector<std::string> saves = {};
+  saves = utils::list_files("saves");
+  // logger::print_vector(saves);
+  return saves;
+}
+
+  bool validate_name()
+  {
+    bool good = false;
+    // check if doesnt exist in saves
+    // check if has more than 0 characters
+
+    if(menu::NewGameName.size() > 0)
+    {
+      std::vector<std::string> saves = menu::list_saves();
+      for(int s = 0; s<saves.size(); s++)
+      {
+        if(menu::NewGameName == saves[s]){
+          return good;
+        }
+      }
+      good = true;
+    }
+    return good;
+  }
 }
 
 namespace textures 

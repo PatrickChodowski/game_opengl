@@ -25,7 +25,9 @@ namespace mouse
         game::set_state("NEW_GAME_MENU");
       } else if (menu::CurrentMenuButtons[clicked_quad_id] == "new_game_name")
       {
-        game::set_state("GAME_ON");
+        if(menu::validate_name()){
+          game::set_state("GAME_ON");
+        }
       }
       else if (menu::CurrentMenuButtons[clicked_quad_id] == "back_to_main")
       {
