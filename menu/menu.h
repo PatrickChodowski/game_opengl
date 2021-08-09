@@ -199,7 +199,9 @@ std::vector<quads::Quad> load_saves_buttons()
                       0.5); 
     
     // insert name and quad id
-    CurrentMenuButtons.insert(std::pair<int, std::string>(quad.id, saves[b]));
+    // CurrentMenuButtons.insert(std::pair<int, std::string>(quad.id, saves[b]));
+    LoadSaveButtons.insert(std::pair<int, std::string>(quad.id, saves[b]));
+    CurrentMenuButtons.insert(std::pair<int, std::string>(quad.id, menu::Catalog[button_id].name));
   }
 
   for(int i = 0; i < button_quads.size(); i++)
@@ -349,6 +351,7 @@ std::vector<quads::Quad> load_saves_buttons()
   void drop()
   {
     CurrentMenuButtons.clear();
+    LoadSaveButtons.clear();
     for (int q = 0; q < menu::MenuQuads.size(); q++)
     {
       quads::delete_quad_id(menu::MenuQuads[q].id);

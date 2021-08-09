@@ -26,6 +26,7 @@ namespace mouse
       } else if (menu::CurrentMenuButtons[clicked_quad_id] == "new_game_name")
       {
         if(menu::validate_name()){
+          CAMPAIGN_NAME = menu::NewGameName;
           game::set_state("GAME_ON");
         }
       }
@@ -36,6 +37,11 @@ namespace mouse
       else if (menu::CurrentMenuButtons[clicked_quad_id] == "main_load")
       {
         game::set_state("LOAD_GAME_MENU");
+      }
+      else if (menu::CurrentMenuButtons[clicked_quad_id] == "load_save")
+      {
+        CAMPAIGN_NAME = menu::LoadSaveButtons[clicked_quad_id];
+        game::set_state("GAME_ON");
       }
       else if (menu::CurrentMenuButtons[clicked_quad_id] == "main_exit")
       {

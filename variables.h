@@ -228,6 +228,7 @@ namespace menu
   std::vector<quads::Quad> MenuQuads;
   // Current Menu buttons store name and quad id
   std::map<int, std::string> CurrentMenuButtons;
+  std::map<int, std::string> LoadSaveButtons;
 
 
 std::vector<std::string> list_saves()

@@ -43,7 +43,7 @@ namespace game
         maps::drop_map();
         fonts::drop_texts();
         maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
-      
+        fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5);
       } else if(GAME_STATE["LOAD_GAME_MENU"]){
         camera::speed = 0;
         menu::drop();
@@ -51,8 +51,6 @@ namespace game
         fonts::drop_texts();
         menu::load_menu({6, 1});
       }
-
-
     CHANGE_STATE_TRIGGER = false;
    }
   }
