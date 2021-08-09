@@ -1,238 +1,123 @@
-
 #ifndef QUADS_H
 #define QUADS_H
 
-// everything regarding rendering quads - levels, objects, entities etc.
+// To have all quads managed in one space
+// Menu Quads
+// Map Quads
+// Entity quads 
+// etc.
+
 
 namespace quads
 {
 
-  int COUNT_VERTEX_ATTRIBUTES = 12;
-  int VERTEX_OFFSET = 1;
+  void accumulate()
 
-    void print_out_quads(std::vector<Quad> quads)
+  {
+    quads::AllQuads.clear(); // resetting vector
+
+    // assign menu quads
+    if(menu::MenuQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
+    }
+
+        // assign level quads
+    if(maps::MapQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
+    }
+
+    // assign text quads
+    if(fonts::TextQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
+    }
+
+    // assign entity quads
+    if(ent::EntityQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), ent::EntityQuads.begin(), ent::EntityQuads.end());
+    }
+
+    // quads::print_out_quads(quads::AllQuads);
+    quads::QuadsSummary["map"] = maps::MapQuads.size();
+    quads::QuadsSummary["menu"] = menu::MenuQuads.size();
+    quads::QuadsSummary["text"] = fonts::TextQuads.size();
+    quads::QuadsSummary["entity"] = fonts::TextQuads.size();
+  }
+
+  void delete_quad_id(int quad_id)
+  {
+    //std::cout << "Removing " << quad_id << " from used quads" << std::endl;
+    quads::UsedQuadIds.erase(std::remove(quads::UsedQuadIds.begin(), 
+                                         quads::UsedQuadIds.end(), quad_id), 
+                                         quads::UsedQuadIds.end());
+
+    //std::cout << "Used quads size: " << quads::UsedQuadIds.size() << std::endl;
+  }
+
+  void delete_vertex_id(int vertex_id)
+  {
+    //std::cout << "Removing " << vertex_id << " from used vertexes" << std::endl;
+    quads::UsedVertexIds.erase(std::remove(quads::UsedVertexIds.begin(), 
+                                           quads::UsedVertexIds.end(), vertex_id), 
+                                           quads::UsedVertexIds.end());
+
+    //std::cout << "Used Vertexes size: " << quads::UsedVertexIds.size() << std::endl;
+  }
+
+  int find_quad_id(int quad_id, std::vector<quads::Quad> quads)
+  {
+    int quad_index = -1;
+    /*Will return the index of quad id*/
+    for(int q = 0; q < quads.size(); q++)
     {
-      for(int t=0; t<quads.size(); t++)
-    //for(int t=0; t<2; t++)
+      if(quad_id == quads[q].id)
       {
-        std::cout << "Quad: " << quads[t].id << " - " << quads[t].texture_id <<  " - " << quads[t].frame_id << std::endl << 
-        quads[t].x  << "," << quads[t].y << std::endl <<
-        quads[t].w  << "," << quads[t].h << std::endl <<
-    
-        "Vertices positions:"  << std::endl <<
-        quads[t].a << " " << quads[t].v_a.x_pos << "," << quads[t].v_a.y_pos << std::endl <<
-        quads[t].b << " " << quads[t].v_b.x_pos << "," << quads[t].v_b.y_pos << std::endl <<
-        quads[t].c << " " << quads[t].v_c.x_pos << "," << quads[t].v_c.y_pos << std::endl <<
-        quads[t].d << " " << quads[t].v_d.x_pos << "," << quads[t].v_d.y_pos << std::endl <<
-
-        "Vindices:" << std::endl <<
-        quads[t].i_left.a << " " << quads[t].i_left.b << " " << quads[t].i_left.c << std::endl <<
-        quads[t].i_right.a << " " << quads[t].i_right.b << " " << quads[t].i_right.c << std::endl;
+        quad_index = q;
+        break;
       }
     }
-
-
-
-  std::vector<Quad> assign_vertices(std::vector<Quad> quads)
-  {
-    for(int i = 0; i < quads.size(); i++)
-    { 
-      // add vertex ids
-      int j = i * 4;
-      quads[i].a = j;
-      quads[i].b = j+1;
-      quads[i].c = j+2;
-      quads[i].d = j+3;
-
-      float norm_x_start = (float)textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].x/
-      (float)textures::Catalog[quads[i].texture_id].width;
-
-      float norm_x_end =  (float)(textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].x + 
-      textures::Catalog[quads[i].texture_id].frames[quads[i].frame_id].w)/
-      (float)textures::Catalog[quads[i].texture_id].width;
-
-      // create vertex struct - A
-      quads[i].v_a.vertex_id = quads[i].a;
-      quads[i].v_a.tile_id = quads[i].id;
-      quads[i].v_a.frame_id = quads[i].frame_id;
-      quads[i].v_a.x_pos = (float)quads[i].x;
-      quads[i].v_a.y_pos = (float)quads[i].y;
-      quads[i].v_a.z_pos = 0.0f;
-      quads[i].v_a.r_col = 0.0f;
-      quads[i].v_a.g_col = 0.0f;
-      quads[i].v_a.b_col = 0.0f;
-      quads[i].v_a.a_col = 1.0f;
-      quads[i].v_a.tex_coord_x = norm_x_start;
-      quads[i].v_a.tex_coord_y = 0.0f;
-      quads[i].v_a.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
-      quads[i].v_a.is_clicked = (float)quads[i].is_clicked;
-
-      // create vertex struct - B
-      quads[i].v_b.vertex_id = quads[i].b;
-      quads[i].v_b.tile_id = quads[i].id;
-      quads[i].v_b.frame_id = quads[i].frame_id;
-      quads[i].v_b.x_pos = (float)quads[i].x + (float)TILE_DIM  - (float)VERTEX_OFFSET;
-      quads[i].v_b.y_pos = (float)quads[i].y;
-      quads[i].v_b.z_pos = 0.0f;
-      quads[i].v_b.r_col = 0.0f;
-      quads[i].v_b.g_col = 0.0f;
-      quads[i].v_b.b_col = 0.0f;
-      quads[i].v_b.a_col = 1.0f;
-      quads[i].v_b.tex_coord_x = norm_x_end;
-      quads[i].v_b.tex_coord_y = 0.0f;
-      quads[i].v_b.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
-      quads[i].v_b.is_clicked = (float)quads[i].is_clicked;
-
-      // create vertex struct - C
-      quads[i].v_c.vertex_id = quads[i].c;
-      quads[i].v_c.tile_id = quads[i].id;
-      quads[i].v_c.frame_id = quads[i].frame_id;
-      quads[i].v_c.x_pos = (float)quads[i].x;
-      quads[i].v_c.y_pos = (float)quads[i].y + (float)TILE_DIM - (float)VERTEX_OFFSET;
-      quads[i].v_c.z_pos = 0.0f;
-      quads[i].v_c.r_col = 0.0f;
-      quads[i].v_c.g_col = 0.0f;
-      quads[i].v_c.b_col = 0.0f;
-      quads[i].v_c.a_col = 1.0f;
-      quads[i].v_c.tex_coord_x = norm_x_start;
-      quads[i].v_c.tex_coord_y = 1.0f;
-      quads[i].v_c.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
-      quads[i].v_c.is_clicked = (float)quads[i].is_clicked;
-
-
-      // create vertex struct - D
-      quads[i].v_d.vertex_id = quads[i].d;
-      quads[i].v_d.tile_id = quads[i].id;
-      quads[i].v_d.frame_id = quads[i].frame_id;
-      quads[i].v_d.x_pos = (float)quads[i].x + (float)TILE_DIM  - (float)VERTEX_OFFSET;
-      quads[i].v_d.y_pos = (float)quads[i].y + (float)TILE_DIM - (float)VERTEX_OFFSET;
-      quads[i].v_d.z_pos = 0.0f;
-      quads[i].v_d.r_col = 1.0f;
-      quads[i].v_d.g_col = 1.0f;
-      quads[i].v_d.b_col = 1.0f;
-      quads[i].v_d.a_col = 1.0f;
-      quads[i].v_d.tex_coord_x = norm_x_end;
-      quads[i].v_d.tex_coord_y = 1.0f;
-      quads[i].v_d.texture_id = textures::Catalog[quads[i].texture_id].opengl_texture_id;
-      quads[i].v_d.is_clicked = (float)quads[i].is_clicked;
-
-      // create vindices 
-      quads[i].i_left.a = quads[i].a;
-      quads[i].i_left.b = quads[i].b;
-      quads[i].i_left.c = quads[i].c;
-
-      quads[i].i_right.a = quads[i].b;
-      quads[i].i_right.b = quads[i].c;
-      quads[i].i_right.c = quads[i].d;
-    }
-
-    if(LOGGING==-1)
-    {
-      print_out_quads(quads);
-    }
-
-    return quads;
+    return quad_index;
   }
 
-
-  // szczerze to mam wrazenie ze to kiepski pomysl
-  std::vector<Quad> assign_vertices_no_texture(std::vector<Quad> quads)
+  void click(int quad_id, int quad_type_id)
   {
-    for(int i = 0; i < quads.size(); i++)
-    { 
-      // add vertex ids
-      int j = i * 4;
-      quads[i].a = j;
-      quads[i].b = j+1;
-      quads[i].c = j+2;
-      quads[i].d = j+3;
 
-      // create vertex struct - A
-      quads[i].v_a.vertex_id = quads[i].a;
-      quads[i].v_a.tile_id = quads[i].id;
-      quads[i].v_a.frame_id = 0;
-      quads[i].v_a.x_pos = (float)quads[i].x;
-      quads[i].v_a.y_pos = (float)quads[i].y;
-      quads[i].v_a.z_pos = 0.0f;
-      quads[i].v_a.r_col = quads[i].r_col;
-      quads[i].v_a.g_col = quads[i].g_col;
-      quads[i].v_a.b_col = quads[i].b_col;
-      quads[i].v_a.a_col = quads[i].a_col;
-      quads[i].v_a.tex_coord_x = 0.0f;
-      quads[i].v_a.tex_coord_y = 0.0f;
-      quads[i].v_a.texture_id = 0;
-      quads[i].v_a.is_clicked = (float)quads[i].is_clicked;
-
-      // create vertex struct - B
-      quads[i].v_b.vertex_id = quads[i].b;
-      quads[i].v_b.tile_id = quads[i].id;
-      quads[i].v_b.frame_id = 0;
-      quads[i].v_b.x_pos = (float)quads[i].x + (float)quads[i].w;
-      quads[i].v_b.y_pos = (float)quads[i].y;
-      quads[i].v_b.z_pos = 0.0f;
-      quads[i].v_b.r_col = quads[i].r_col;
-      quads[i].v_b.g_col = quads[i].g_col;
-      quads[i].v_b.b_col = quads[i].b_col;
-      quads[i].v_b.a_col = quads[i].a_col;
-      quads[i].v_b.tex_coord_x = 0.0f;
-      quads[i].v_b.tex_coord_y = 0.0f;
-      quads[i].v_b.texture_id = 0;
-      quads[i].v_b.is_clicked = (float)quads[i].is_clicked;
-
-      // create vertex struct - C
-      quads[i].v_c.vertex_id = quads[i].c;
-      quads[i].v_c.tile_id = quads[i].id;
-      quads[i].v_c.frame_id = 0;
-      quads[i].v_c.x_pos = (float)quads[i].x;
-      quads[i].v_c.y_pos = (float)quads[i].y  + (float)quads[i].h;
-      quads[i].v_c.z_pos = 0.0f;
-      quads[i].v_c.r_col = quads[i].r_col;
-      quads[i].v_c.g_col = quads[i].g_col;
-      quads[i].v_c.b_col = quads[i].b_col;
-      quads[i].v_c.a_col = quads[i].a_col;
-      quads[i].v_c.tex_coord_x = 0.0f;
-      quads[i].v_c.tex_coord_y = 0.0f;
-      quads[i].v_c.texture_id = 0;
-      quads[i].v_c.is_clicked = (float)quads[i].is_clicked;
-
-
-      // create vertex struct - D
-      quads[i].v_d.vertex_id = quads[i].d;
-      quads[i].v_d.tile_id = quads[i].id;
-      quads[i].v_d.frame_id = 0;
-      quads[i].v_d.x_pos = (float)quads[i].x + (float)quads[i].w;
-      quads[i].v_d.y_pos = (float)quads[i].y + (float)quads[i].h;
-      quads[i].v_d.z_pos = 0.0f;
-      quads[i].v_d.r_col = quads[i].r_col;
-      quads[i].v_d.g_col = quads[i].g_col;
-      quads[i].v_d.b_col = quads[i].b_col;
-      quads[i].v_d.a_col = quads[i].a_col;
-      quads[i].v_d.tex_coord_x = 0.0f;
-      quads[i].v_d.tex_coord_y = 0.0f;
-      quads[i].v_d.texture_id = 0;
-      quads[i].v_d.is_clicked = (float)quads[i].is_clicked;
-
-      // create vindices 
-      quads[i].i_left.a = quads[i].a;
-      quads[i].i_left.b = quads[i].b;
-      quads[i].i_left.c = quads[i].c;
-
-      quads[i].i_right.a = quads[i].b;
-      quads[i].i_right.b = quads[i].c;
-      quads[i].i_right.c = quads[i].d;
+    if(quad_type_id == 0){
+      // map
+      int index = find_quad_id(quad_id, maps::MapQuads);
+      if(maps::MapQuads[index].is_clicked == 0.0f)
+      {
+        maps::MapQuads[index].is_clicked = 1.0f;
+        maps::MapQuads[index].v_a.is_clicked = 1.0f;
+        maps::MapQuads[index].v_b.is_clicked = 1.0f;
+        maps::MapQuads[index].v_c.is_clicked = 1.0f;
+        maps::MapQuads[index].v_d.is_clicked = 1.0f;
+      } else {
+        maps::MapQuads[index].is_clicked = 0.0f;
+        maps::MapQuads[index].v_a.is_clicked = 0.0f;
+        maps::MapQuads[index].v_b.is_clicked = 0.0f;
+        maps::MapQuads[index].v_c.is_clicked = 0.0f;
+        maps::MapQuads[index].v_d.is_clicked = 0.0f;
+      }
+    } else if (quad_type_id == 1){
+       // menu
+      int index = find_quad_id(quad_id, menu::MenuQuads);
+      if(menu::MenuQuads[index].is_clicked == 0.0f)
+      {
+        menu::MenuQuads[index].is_clicked = 1.0f;
+        menu::MenuQuads[index].v_a.is_clicked = 1.0f;
+        menu::MenuQuads[index].v_b.is_clicked = 1.0f;
+        menu::MenuQuads[index].v_c.is_clicked = 1.0f;
+        menu::MenuQuads[index].v_d.is_clicked = 1.0f;
+      } else {
+        menu::MenuQuads[index].is_clicked = 0.0f;
+        menu::MenuQuads[index].v_a.is_clicked = 0.0f;
+        menu::MenuQuads[index].v_b.is_clicked = 0.0f;
+        menu::MenuQuads[index].v_c.is_clicked = 0.0f;
+        menu::MenuQuads[index].v_d.is_clicked = 0.0f;
+      }
     }
-
-    if(LOGGING==-1)
-    {
-      print_out_quads(quads);
-    }
-
-    return quads;
   }
-
-
 }
 
 
 #endif
-

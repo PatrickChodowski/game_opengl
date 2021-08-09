@@ -15,6 +15,7 @@
 #include <chrono>   // time/clock
 #include <ctime>    // time/clock
 #include <regex>    // for shader parameters
+#include <algorithm>
 
 // Opengl packages
 #include <GL/glew.h> 
@@ -38,6 +39,7 @@ int WINDOW_VERTEX_HEIGHT = 8;
 int WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
 int WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
 
+
 // logging level
 int LOGGING = 0;
 
@@ -46,7 +48,10 @@ Uint32 flags = SDL_WINDOW_OPENGL;
 const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
 int CURRENT_SHADER_ID = 0;
-bool START_WITH_MENU = true;
+std::string FONT_NAME = "OpenSans";
+int MAP_ID = 0;
+int MAX_QUADS = 2000;
+std::string CAMPAIGN_NAME;
 
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
@@ -63,36 +68,45 @@ bool START_WITH_MENU = true;
 #include "dependencies/glm/gtc/type_ptr.hpp"
 #include "dependencies/glm/gtx/string_cast.hpp"
 
-// Variables
-// ALE ZAJEBISTY HACK!!!
-// definicje structow i self-globalnych zbiorow tutaj, ponizej funkcje
-#include "variables.h"
+
+// freetype includes
+#include <ft2build.h>
+#include FT_FREETYPE_H  
+
 
 // Utils
 #include "utils/logger.h"
 #include "utils/utils.h"
-#include "utils/maps.h"
 #include "utils/timer.h"
+
+// Variables
+#include "variables.h"
 
 
 // OpenGL
 #include "opengl/utils.h"
 #include "opengl/textures.h"
-#include "opengl/shaders.h"
+#include "shaders/shaders.h"
 #include "opengl/quads.h"
 #include "opengl/camera.h"
 #include "opengl/buffer.h"
-#include "utils/mouse.h"
-#include "opengl/events.h"
+#include "opengl/mouse.h"
+
 
 
 // game components
+#include "components/entity.h"
+
 #include "components/items.h"
 #include "components/mobs.h"
 #include "components/hero.h"
 
+// quads dependent
+#include "fonts/fonts.h"
 #include "menu/menu.h"
-#include "utils/levels.h"
+#include "maps/maps.h"
+
+#include "opengl/events.h"
 
 #include "game.h"
 

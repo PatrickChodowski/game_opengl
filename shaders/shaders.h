@@ -167,7 +167,7 @@ namespace shaders
 
   void drop()
   {
-    glDeleteProgram(shaders::Catalog[0].gl_shader_id);
+    glDeleteProgram(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id);
   }
 
 }

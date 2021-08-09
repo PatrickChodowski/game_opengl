@@ -3,42 +3,7 @@
 
 
 namespace textures
-{ 
-
-  // Single frame information
-  struct Frame
-  {
-    int frame_id;
-    int x;
-    int y;
-    int w;
-    int h;
-    int is_solid;
-
-    JS_OBJ(frame_id, x, y, w, h, is_solid);
-  };
-
-  // General texture information
-  struct TextureData
-  {
-    int id;
-    std::string type;
-    std::string name;
-    int width;
-    int height;
-    std::vector<Frame> frames_list;
-    std::map<int, Frame> frames;
-
-    unsigned int opengl_texture_id;
-
-    JS_OBJ(id, type, name, width, height, frames_list);
-  };
-
-  // Creating catalog of all textures data 
-  std::map<int, TextureData> Catalog = {};
-  std::vector<unsigned int> BoundTextures = {};
-  
-  
+{   
   // loads single texture into memory
   unsigned int load_to_opengl(unsigned int texture_id, 
                                        int width, 
@@ -89,8 +54,7 @@ namespace textures
     stbi_image_free(image_data);
 
     // returns new texture_id
-    logger::print("Opengl texture id");
-    logger::print(texture_id);
+    logger::print("Opengl texture id: " + std::to_string(texture_id));
     return texture_id;
 
   }
@@ -157,6 +121,9 @@ namespace textures
       // Max 32, but depends on platform
 
       //  Select active texture
+
+      // logger::print("Binding texture :" + std::to_string(textures::BoundTextures[t]));
+
       GlCall(glActiveTexture(GL_TEXTURE0 + textures::BoundTextures[t]));
 
       // bind the active texture

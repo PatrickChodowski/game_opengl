@@ -1,7 +1,5 @@
 #include "setup.h"
 
-
-
 int main()
 {
   // Window, OpenGL, SDL initiatlization
@@ -19,50 +17,26 @@ int main()
   GLenum err = glewInit();
   utils::check_glew(err);
 
+  game::init_game_states();
+  game::init();
 
+  game::set_state("MAIN_MENU");
+  menu::load_menu({0,1,2,3});
+  quads::accumulate();
+  buffer::init(quads::AllQuads);
 
-  // Init data for Maps, Textures etc.
-  
-  maps::init();
-  shaders::init();
-  textures::init();
-
-  // temporary, want to load level
-  // if new level then
-  if(START_WITH_MENU)
-  {
-    logger::print("here will be menu init + render");
-    menu::init();
-  }
-
-  int NEW_GAME = false;
-  int MAIN_MENU_ON = true;
-  if(NEW_GAME)
-  {
-    int MAP_ID = 0;
-    levels::init(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
-  }
-  // finish temporary
-
-
-  // main game loop
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
-
-    if(MAIN_MENU_ON)
-    {
-      levels::update(menu::MenuQuads);
-    }
-
     SDL_Event event;
-    events::handle_events(event, levels::ScaledLevelQuads, levels::LevelQuads);
+    events::handle_events(event, quads::ScaledAllQuads, quads::AllQuads);
 
-    // levels::update(levels::LevelQuads);
+    game::handle_game_state();
+    quads::accumulate();
+    game::update(quads::AllQuads);
+    
     SDL_GL_SwapWindow(WINDOW);
     SDL_Delay(1000/60);
-
-
     timer::print_elapsed_time(game_loop_start_time, "Game Loop duration:");
   }
 
@@ -70,6 +44,7 @@ int main()
   textures::drop();
   shaders::drop();
   buffer::drop();
+  maps::drop_map();
   SDL_GL_DeleteContext(GLCONTEXT); 
   SDL_DestroyWindow(WINDOW);
   SDL_Quit();
