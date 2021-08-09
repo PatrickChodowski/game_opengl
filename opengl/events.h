@@ -88,7 +88,6 @@ namespace events
         if(game::GAME_STATE["NEW_GAME_MENU"])
         {
           menu::NewGameName += event.text.text;
-          // std::cout << menu::NewGameName << std::endl;
           game::CHANGE_STATE_TRIGGER = true;
           break;
         }
