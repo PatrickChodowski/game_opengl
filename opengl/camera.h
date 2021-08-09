@@ -5,7 +5,8 @@
 
 namespace camera
 {
-
+  float base_zoom = 1.0f;
+  int base_speed = 20;
   int speed = 20;
   int x = 0;
   int y = 0;
@@ -17,35 +18,35 @@ namespace camera
   int tile_dim = TILE_DIM;
 
   // for mouse events usage
-  std::vector<quads::ScaledQuad> scale_move_quads(std::vector<quads::Quad> level_quads, int camera_move_x=0, int camera_move_y=0)
+  std::vector<quads::ScaledQuad> scale_move_quads(std::vector<quads::Quad> quads, int camera_move_x=0, int camera_move_y=0)
   {
     camera::tile_dim = (float)TILE_DIM*float(camera::zoom);
-    std::vector<quads::ScaledQuad> scaled_level_quads = {};
+    std::vector<quads::ScaledQuad> scaled_quads = {};
     float scale_factor = (1.0f/float(camera::zoom));
 
-    for(int q=0; q<level_quads.size(); q++)
+    for(int q=0; q<quads.size(); q++)
     {
       quads::ScaledQuad sq;
-      sq.x = ((float)level_quads[q].x + (float)camera_move_x)*scale_factor;
-      sq.y = ((float)level_quads[q].y + (float)camera_move_y)*scale_factor;
-      sq.h = (float)level_quads[q].h*scale_factor;
-      sq.w = (float)level_quads[q].w*scale_factor;
-      sq.id = level_quads[q].id;
-      scaled_level_quads.push_back(sq);
-
-      // if(level_quads[q].id == 2){
-      //   std::cout << "camera zoom:" << camera::zoom <<std::endl;
-      //   std::cout << "scaled x: " << sq.x << " normal x: " <<  level_quads[q].x << std::endl;
-      //   std::cout << "scaled y: " << sq.y << " normal y: " <<  level_quads[q].y << std::endl;
-      //   std::cout << "scaled w: " << sq.w << " normal w: " <<  level_quads[q].w << std::endl;
-      //   std::cout << "scaled h: " << sq.h << " normal h: " <<  level_quads[q].h << std::endl;
-      // }
+      if (quads[q].type_id != 1){
+        sq.x = ((float)quads[q].x + (float)camera_move_x)*scale_factor;
+        sq.y = ((float)quads[q].y + (float)camera_move_y)*scale_factor;
+        sq.h = (float)quads[q].h*scale_factor;
+        sq.w = (float)quads[q].w*scale_factor;
+      } else {
+        // menu:
+        sq.x = (float)quads[q].x;
+        sq.y = (float)quads[q].y;
+        sq.h = (float)quads[q].h;
+        sq.w = (float)quads[q].w;
+      }
+      sq.id = quads[q].id;
+      scaled_quads.push_back(sq);
     }
-    return scaled_level_quads;
+    return scaled_quads;
   };
 
   
-  glm::mat4 generate_mvp(float zoom, int camera_move_x=0, int camera_move_y=0)
+  glm::mat4 generate_dynamic_mvp(float zoom, int camera_move_x=0, int camera_move_y=0)
   {
     float z_window_width = (float)WINDOW_WIDTH * (float)zoom;
     float z_window_height = (float)WINDOW_HEIGHT * (float)zoom;
@@ -58,6 +59,35 @@ namespace camera
     return mvp;
   }
 
+  glm::mat4 generate_static_mvp()
+  {
+    glm::mat4 proj = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 mvp = proj*view*model;
+    return mvp;
+  }
+
+    glm::mat4 generate_zoom_only_mvp(float zoom)
+  {
+    float z_window_width = (float)WINDOW_WIDTH * (float)zoom;
+    float z_window_height = (float)WINDOW_HEIGHT * (float)zoom;
+    glm::mat4 proj = glm::ortho(0.0f, z_window_width, z_window_height, 0.0f, -1.0f, 1.0f);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 mvp = proj*view*model;
+    return mvp;
+  }
+
+
+  void reset()
+  {
+
+
+    
+  }
+
+  
 
     
 

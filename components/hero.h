@@ -5,6 +5,11 @@
 // will be a bluebrint for other renderable entities
 namespace hero
 {
+
+  float HERO_X = ((float)WINDOW_WIDTH)/2 - (70/2);
+  float HERO_Y = ((float)WINDOW_HEIGHT)/2 - (90/2) ;
+
+
   struct Hero
   {
     // position
