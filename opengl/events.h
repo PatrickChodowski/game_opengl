@@ -14,24 +14,25 @@ namespace events
 {
   void handle_game_on_controls(SDL_Keycode key)
   {
+    if(KEYBOARD[SDL_SCANCODE_LEFT]){
+      camera::move_x -= camera::speed;
+      hero::update_frame(MOVE_LEFT);
+    } 
+    if(KEYBOARD[SDL_SCANCODE_RIGHT]){
+      camera::move_x += camera::speed;
+      hero::update_frame(MOVE_RIGHT);
+    }
+    if(KEYBOARD[SDL_SCANCODE_UP]){
+      camera::move_y += camera::speed;
+      hero::update_frame(MOVE_UP);
+    }
+    if(KEYBOARD[SDL_SCANCODE_DOWN]){
+      camera::move_y -= camera::speed;
+      hero::update_frame(MOVE_DOWN);
+    }
+
     switch (key)
     { 
-      case SDLK_LEFT:
-        camera::move_x -= camera::speed;
-        hero::update_frame(MOVE_LEFT);
-        break;
-      case SDLK_RIGHT:
-        camera::move_x += camera::speed;
-        hero::update_frame(MOVE_RIGHT);
-        break;
-      case SDLK_UP:
-        camera::move_y += camera::speed;
-        hero::update_frame(MOVE_UP);
-        break;
-      case SDLK_DOWN:
-        camera::move_y -= camera::speed;
-        hero::update_frame(MOVE_DOWN);
-        break;
       case SDLK_ESCAPE:
           game::set_state("MAIN_MENU");
         break;
@@ -105,14 +106,14 @@ namespace events
           RUNNING = false;
           break;
 
-      case SDL_KEYDOWN:
+      case SDL_KEYDOWN: // has to remove camera/hero move from here in order to run smoothly
         if(game::GAME_STATE["GAME_ON"])
         {
           handle_game_on_controls(event.key.keysym.sym);
-        } else if (game::GAME_STATE["NEW_GAME_MENU"])
+        } else if(game::GAME_STATE["NEW_GAME_MENU"])
         {
           handle_new_game_name_input(event.key.keysym.sym);
-        } else if (game::GAME_STATE["LOAD_GAME_MENU"])
+        } else if(game::GAME_STATE["LOAD_GAME_MENU"])
         {
           handle_load_game_menu_input(event.key.keysym.sym);
         }
