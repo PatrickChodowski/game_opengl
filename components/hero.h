@@ -1,15 +1,41 @@
 #ifndef HERO_H
 #define HERO_H
 
+// event ids:
+#define MOVE_LEFT 0
+#define MOVE_RIGHT 1
+#define MOVE_UP 2
+#define MOVE_DOWN 3
+#define STAND_STILL 4
+#define ATTACK 5
+
+// frame names
+#define FRAME_STAND_1 0
+#define FRAME_LEFT_1 7
+#define FRAME_LEFT_2 5
+#define FRAME_LEFT_3 6
+#define FRAME_RIGHT_1 8
+#define FRAME_RIGHT_2 9
+#define FRAME_RIGHT_3 10
+#define FRAME_DOWN_1 4
+#define FRAME_DOWN_2 3
+#define FRAME_UP_1 12
+#define FRAME_UP_2 13
+#define FRAME_ATTACK_1 14
+#define FRAME_ATTACK_2 15
+#define FRAME_ATTACK_3 16
+
+#define FRAME_DELAY 0.2
+#define FRAME_DELAY_SHORT 0.08
+
+
 /// how to render hero and also how to update only the correct part of the buffer?
 // will be a bluebrint for other renderable entities
 namespace hero
 {
-
   float HERO_X = ((float)WINDOW_WIDTH)/2 - (70/2);
   float HERO_Y = ((float)WINDOW_HEIGHT)/2 - (90/2);
   int current_frame = 0;
-  float frame_delay = 0.2;
   auto frame_update_time = std::chrono::system_clock::now();
 
 
@@ -61,123 +87,68 @@ namespace hero
 
     return hero;
   }
-
+  void set_current_frame(int frame_id)
+  {
+    hero::current_frame = frame_id;
+    hero::frame_update_time = std::chrono::system_clock::now();
+  }
 
   void update_frame(int event_id)
   {
-    // camera movement will update the hero frame_id (updated in events.h -> handle_game_on_controls)
-    // logic based on current_frame_id and new_frame_id
-    // basic frame_id -> 0
-    // events:
-    // #define MOVE_LEFT 0
-    // #define MOVE_RIGHT 1
-    // #define MOVE_UP 2
-    // #define MOVE_DOWN 3
-    // #define STAND_STILL 4
-    // #define ATTACK 5
     float time_since_last_update = timer::get_elapsed_time(hero::frame_update_time);
-    if(time_since_last_update >= hero::frame_delay){
-      switch(current_frame)
+    if(event_id == MOVE_LEFT){
+      if(current_frame == FRAME_LEFT_1 && time_since_last_update >= FRAME_DELAY)
       {
-        // standing still
-        case 0: 
-        case 1:
-        case 2:
-          switch(event_id)
-          {
-            case 0: current_frame = 7; break;
-            case 1: current_frame = 10; break;
-            case 2: current_frame = 11; break;
-            case 3: current_frame = 3; break;
-          }
-          break;
+        hero::set_current_frame(FRAME_LEFT_3);
+      } else if(current_frame == FRAME_LEFT_3 && time_since_last_update >= FRAME_DELAY)
+      {
+        hero::set_current_frame(FRAME_LEFT_1);
+      } else if (time_since_last_update >= FRAME_DELAY_SHORT && 
+                current_frame != FRAME_LEFT_3 && 
+                current_frame != FRAME_LEFT_1)
+      {
+        hero::set_current_frame(FRAME_LEFT_1);
+      }
+    } else if(event_id == MOVE_RIGHT){
+      if(current_frame == FRAME_RIGHT_1 && time_since_last_update >= FRAME_DELAY)
+      {
+        hero::set_current_frame(FRAME_RIGHT_3);
+      } else if(current_frame == FRAME_RIGHT_3 && time_since_last_update >= FRAME_DELAY)
+      {
+        hero::set_current_frame(FRAME_RIGHT_1);
 
-        // facing left
-        case 7:
-          switch(event_id)
-          {
-            case 0: current_frame = 6; break;
-            case 1: current_frame = 9; break;
-            case 2: current_frame = 11; break;
-            case 3: current_frame = 3; break;
-          }
-          break;
-
-        // facing left
-        case 6:
-          switch(event_id)
-          {
-            case 0: current_frame = 7; break;
-            case 1: current_frame = 9; break;
-            case 2: current_frame = 11; break;
-            case 3: current_frame = 3; break;
-          }
-          break;
-
-        // facing right
-        case 9:
-          switch(event_id)
-          {
-            case 0: current_frame = 6; break;
-            case 1: current_frame = 10; break;
-            case 2: current_frame = 11; break;
-            case 3: current_frame = 3; break;
-          }
-          break;
-
-        // facing right
-        case 10:
-          switch(event_id)
-          {
-            case 0: current_frame = 7; break;
-            case 1: current_frame = 9; break;
-            case 2: current_frame = 11; break;
-            case 3: current_frame = 3; break;
-          }
-          break;
-
-        // facing down
-        case 3:
-          switch(event_id)
-          {
-            case 0: current_frame = 7; break;
-            case 1: current_frame = 9; break;
-            case 2: current_frame = 11; break;
-            case 3: current_frame = 4; break;
-          }
-          break;
-        // facing down
-        case 4:
-          switch(event_id)
-          {
-            case 0: current_frame = 7; break;
-            case 1: current_frame = 9; break;
-            case 2: current_frame = 11; break;
-            case 3: current_frame = 3; break;
-          }
-          break;
-        // facing up
-        case 11:
-          switch(event_id)
-          {
-            case 0: current_frame = 7; break;
-            case 1: current_frame = 9; break;
-            case 2: current_frame = 12; break;
-            case 3: current_frame = 4; break;
-          }
-          break;
-        // facing up
-        case 12:
-          switch(event_id)
-          {
-            case 0: current_frame = 7; break;
-            case 1: current_frame = 9; break;
-            case 2: current_frame = 11; break;
-            case 3: current_frame = 3; break;
-          }
-          break;
-      } 
-      hero::frame_update_time = std::chrono::system_clock::now();
+      } else if (time_since_last_update >= FRAME_DELAY_SHORT && 
+                current_frame != FRAME_RIGHT_3 && 
+                current_frame != FRAME_RIGHT_1)
+      {
+        hero::set_current_frame(FRAME_RIGHT_1);
+      }
+    } else if(event_id == MOVE_UP){
+      if(current_frame == FRAME_UP_1 && time_since_last_update >= FRAME_DELAY)
+      {
+        hero::set_current_frame(FRAME_UP_2);
+      } else if(current_frame == FRAME_UP_2 && time_since_last_update >= FRAME_DELAY)
+      {
+        hero::set_current_frame(FRAME_UP_1);
+      } else if (time_since_last_update >= FRAME_DELAY_SHORT &&
+                current_frame != FRAME_UP_2 && 
+                current_frame != FRAME_UP_1)
+      {
+        hero::set_current_frame(FRAME_UP_1);
+      }
+    } else if(event_id == MOVE_DOWN){
+      if(current_frame == FRAME_DOWN_1 && time_since_last_update >= FRAME_DELAY)
+      {
+         hero::set_current_frame(FRAME_DOWN_2);
+      } else if(current_frame == FRAME_DOWN_2 && time_since_last_update >= FRAME_DELAY)
+      {
+         hero::set_current_frame(FRAME_DOWN_1);
+      } else if (time_since_last_update >= FRAME_DELAY_SHORT &&
+                current_frame != FRAME_DOWN_2 && 
+                current_frame != FRAME_DOWN_1)
+      {
+        hero::set_current_frame(FRAME_DOWN_1);
+      }
     }
   }
 }

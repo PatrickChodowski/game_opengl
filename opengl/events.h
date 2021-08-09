@@ -1,17 +1,17 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
+// event ids:
+#define MOVE_LEFT 0
+#define MOVE_RIGHT 1
+#define MOVE_UP 2
+#define MOVE_DOWN 3
+#define STAND_STILL 4
+#define ATTACK 5
+
 
 namespace events
 {
-  // event ids:
-  #define MOVE_LEFT 0
-  #define MOVE_RIGHT 1
-  #define MOVE_UP 2
-  #define MOVE_DOWN 3
-  #define STAND_STILL 4
-  #define ATTACK 5
-
   void handle_game_on_controls(SDL_Keycode key)
   {
     switch (key)
@@ -68,7 +68,7 @@ namespace events
     }
   }
 
-    void handle_load_game_menu_input(SDL_Keycode key)
+  void handle_load_game_menu_input(SDL_Keycode key)
   {
     switch (key)
     {
