@@ -128,6 +128,7 @@ namespace maps
             quad.texture_id = texture_id;
             quad.is_clicked = 0.0;
             quad.type_id = QUAD_TYPE_MAP;
+            quad.is_static = 0.0f;
             tile_map.push_back(quad);
           };
         } 
@@ -186,6 +187,7 @@ namespace maps
       maps::MapQuads[i].v_a.texture_id = textures::Catalog[maps::MapQuads[i].texture_id].opengl_texture_id;
       maps::MapQuads[i].v_a.is_clicked = (float)maps::MapQuads[i].is_clicked;
       maps::MapQuads[i].v_a.type_id = (float)maps::MapQuads[i].type_id;
+      maps::MapQuads[i].v_a.is_static = (float)maps::MapQuads[i].is_static;
 
       // create vertex struct - B
       maps::MapQuads[i].v_b.vertex_id = maps::MapQuads[i].b;
@@ -203,6 +205,7 @@ namespace maps
       maps::MapQuads[i].v_b.texture_id = textures::Catalog[maps::MapQuads[i].texture_id].opengl_texture_id;
       maps::MapQuads[i].v_b.is_clicked = (float)maps::MapQuads[i].is_clicked;
       maps::MapQuads[i].v_b.type_id = (float)maps::MapQuads[i].type_id;
+      maps::MapQuads[i].v_b.is_static = (float)maps::MapQuads[i].is_static;
 
       // create vertex struct - C
       maps::MapQuads[i].v_c.vertex_id = maps::MapQuads[i].c;
@@ -220,6 +223,7 @@ namespace maps
       maps::MapQuads[i].v_c.texture_id = textures::Catalog[maps::MapQuads[i].texture_id].opengl_texture_id;
       maps::MapQuads[i].v_c.is_clicked = (float)maps::MapQuads[i].is_clicked;
       maps::MapQuads[i].v_c.type_id = (float)maps::MapQuads[i].type_id;
+      maps::MapQuads[i].v_c.is_static = (float)maps::MapQuads[i].is_static;
 
 
       // create vertex struct - D
@@ -238,6 +242,7 @@ namespace maps
       maps::MapQuads[i].v_d.texture_id = textures::Catalog[maps::MapQuads[i].texture_id].opengl_texture_id;
       maps::MapQuads[i].v_d.is_clicked = (float)maps::MapQuads[i].is_clicked;
       maps::MapQuads[i].v_d.type_id = (float)maps::MapQuads[i].type_id;
+      maps::MapQuads[i].v_d.is_static = (float)maps::MapQuads[i].is_static;
 
       // create vindices 
       maps::MapQuads[i].i_left.a = maps::MapQuads[i].a;

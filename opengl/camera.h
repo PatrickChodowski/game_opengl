@@ -46,7 +46,7 @@ namespace camera
   };
 
   
-  glm::mat4 generate_mvp(float zoom, int camera_move_x=0, int camera_move_y=0)
+  glm::mat4 generate_dynamic_mvp(float zoom, int camera_move_x=0, int camera_move_y=0)
   {
     float z_window_width = (float)WINDOW_WIDTH * (float)zoom;
     float z_window_height = (float)WINDOW_HEIGHT * (float)zoom;
@@ -59,9 +59,20 @@ namespace camera
     return mvp;
   }
 
-  glm::mat4 generate_menu_mvp()
+  glm::mat4 generate_static_mvp()
   {
     glm::mat4 proj = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 mvp = proj*view*model;
+    return mvp;
+  }
+
+    glm::mat4 generate_zoom_only_mvp(float zoom)
+  {
+    float z_window_width = (float)WINDOW_WIDTH * (float)zoom;
+    float z_window_height = (float)WINDOW_HEIGHT * (float)zoom;
+    glm::mat4 proj = glm::ortho(0.0f, z_window_width, z_window_height, 0.0f, -1.0f, 1.0f);
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
     glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
     glm::mat4 mvp = proj*view*model;

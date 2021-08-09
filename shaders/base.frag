@@ -5,6 +5,7 @@ in vec2 out_tex_coord;
 in float out_texture_id;
 in float out_is_clicked;
 in float out_type_id;
+in float out_is_static;
 
 out vec4 frag_color;
 

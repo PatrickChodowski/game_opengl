@@ -6,6 +6,11 @@
 namespace game
 {
 
+  glm::mat4 STATIC_MVP;
+  glm::mat4 DYNAMIC_MVP;
+  glm::mat4 ZOOM_MVP;
+
+
   void init()
   {
     // Init data for Maps, Textures etc.
@@ -24,37 +29,26 @@ namespace game
   void handle_game_state()
   {
    if(CHANGE_STATE_TRIGGER){ 
+      camera::zoom = 1.0;
+      menu::drop();
+      maps::drop_map();
+      ent::drop_entities();
+      fonts::drop_texts();
       if(GAME_STATE["MAIN_MENU"])
       {
         camera::speed = 0;
-        menu::drop();
-        maps::drop_map();
-        ent::drop_entities();
-        fonts::drop_texts();
         menu::load_menu({0,1,2,3});
       } else if(GAME_STATE["NEW_GAME_MENU"]){
         camera::speed = 0;
-        menu::drop();
-        ent::drop_entities();
-        maps::drop_map();
-        fonts::drop_texts();
         menu::load_menu({4,5});
       } else if(GAME_STATE["GAME_ON"]){
         camera::speed = camera::base_speed;
-        menu::drop();
-        maps::drop_map();
-        ent::drop_entities();
-        fonts::drop_texts();
         maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
-        fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5);
-        quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, 90, 70, textures::FontTD);
+        fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
+        quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, 90, 70, 2.0f,textures::FontTD);
         ent::EntityQuads.push_back(hero);
       } else if(GAME_STATE["LOAD_GAME_MENU"]){
         camera::speed = 0;
-        menu::drop();
-        ent::drop_entities();
-        maps::drop_map();
-        fonts::drop_texts();
         menu::load_menu({6, 1});
       }
     CHANGE_STATE_TRIGGER = false;
@@ -81,20 +75,24 @@ namespace game
       sampler[(i+1)] = textures::BoundTextures[i];
     }
 
-    glm::mat4 MVP;
     // react to camera changes
-    if(game::GAME_STATE["GAME_ON"]){
-      MVP = camera::generate_mvp(camera::zoom, -camera::x, camera::y);
-    } else {
-      MVP = camera::generate_menu_mvp();
-    }
+    DYNAMIC_MVP = camera::generate_dynamic_mvp(camera::zoom, -camera::x, camera::y);
+
+    // independent of camera moving
+    STATIC_MVP = camera::generate_static_mvp();
+
+    // zoom only for hero?
+    ZOOM_MVP = camera::generate_zoom_only_mvp(camera::zoom);
+    
 
     // this should react to map quads only ?
     quads::ScaledAllQuads = camera::scale_move_quads(quads::AllQuads, -camera::x, camera::y);
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
-    glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "mvp"), 1, GL_FALSE, glm::value_ptr(MVP));
+    glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "static_mvp"), 1, GL_FALSE, glm::value_ptr(STATIC_MVP));
+    glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "dynamic_mvp"), 1, GL_FALSE, glm::value_ptr(DYNAMIC_MVP));
+    glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "zoom_mvp"), 1, GL_FALSE, glm::value_ptr(ZOOM_MVP));
     
     // set shader
     glUseProgram(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id);

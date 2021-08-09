@@ -51,6 +51,7 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     quad.a_col = menu::Catalog[button_id].a_col;
     quad.is_clicked = 0.0f;
     quad.type_id = QUAD_TYPE_MENU;
+    quad.is_static = 1.0f;
     button_quads.push_back(quad);
 
     if(menu::Catalog[button_id].name != "new_game_name"){
@@ -61,7 +62,8 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
                         0.7, 
                         0.5, 
                         0.5, 
-                        0.5); 
+                        0.5,
+                        1.0); 
     } else {
       fonts::render_text(menu::NewGameName.c_str(), 
                         (menu::Catalog[button_id].x + 20), 
@@ -70,7 +72,8 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
                         0.7, 
                         0.5, 
                         0.5, 
-                        0.5); 
+                        0.5,
+                        1.0); 
     }
     // insert name and quad id
     CurrentMenuButtons.insert(std::pair<int, std::string>(quad.id, menu::Catalog[button_id].name));
@@ -100,6 +103,7 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     button_quads[i].v_a.texture_id = 0;
     button_quads[i].v_a.is_clicked = (float)button_quads[i].is_clicked;
     button_quads[i].v_a.type_id = (float)button_quads[i].type_id;
+    button_quads[i].v_a.is_static = (float)button_quads[i].is_static;
 
     // create vertex struct - B
     button_quads[i].v_b.vertex_id = button_quads[i].b;
@@ -117,6 +121,7 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     button_quads[i].v_b.texture_id = 0;
     button_quads[i].v_b.is_clicked = (float)button_quads[i].is_clicked;
     button_quads[i].v_b.type_id = (float)button_quads[i].type_id;
+    button_quads[i].v_b.is_static = (float)button_quads[i].is_static;
 
     // create vertex struct - C
     button_quads[i].v_c.vertex_id = button_quads[i].c;
@@ -134,6 +139,7 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     button_quads[i].v_c.texture_id = 0;
     button_quads[i].v_c.is_clicked = (float)button_quads[i].is_clicked;
     button_quads[i].v_c.type_id = (float)button_quads[i].type_id;
+    button_quads[i].v_c.is_static = (float)button_quads[i].is_static;
 
 
     // create vertex struct - D
@@ -152,6 +158,7 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     button_quads[i].v_d.texture_id = 0;
     button_quads[i].v_d.is_clicked = (float)button_quads[i].is_clicked;
     button_quads[i].v_d.type_id = (float)button_quads[i].type_id;
+    button_quads[i].v_d.is_static = (float)button_quads[i].is_static;
 
     // create vindices 
     button_quads[i].i_left.a = button_quads[i].a;
@@ -187,6 +194,7 @@ std::vector<quads::Quad> load_saves_buttons()
     quad.a_col = menu::Catalog[button_id].a_col;
     quad.is_clicked = 0.0f;
     quad.type_id = QUAD_TYPE_MENU;
+    quad.is_static = 1.0f;
     button_quads.push_back(quad);
 
     fonts::render_text(saves[b].c_str(), 
@@ -196,7 +204,8 @@ std::vector<quads::Quad> load_saves_buttons()
                       0.7, 
                       0.5, 
                       0.5, 
-                      0.5); 
+                      0.5,
+                      1.0); 
     
     // insert name and quad id
     // CurrentMenuButtons.insert(std::pair<int, std::string>(quad.id, saves[b]));
@@ -228,6 +237,7 @@ std::vector<quads::Quad> load_saves_buttons()
     button_quads[i].v_a.texture_id = 0;
     button_quads[i].v_a.is_clicked = (float)button_quads[i].is_clicked;
     button_quads[i].v_a.type_id = (float)button_quads[i].type_id;
+    button_quads[i].v_a.is_static = (float)button_quads[i].is_static;
 
     // create vertex struct - B
     button_quads[i].v_b.vertex_id = button_quads[i].b;
@@ -245,6 +255,7 @@ std::vector<quads::Quad> load_saves_buttons()
     button_quads[i].v_b.texture_id = 0;
     button_quads[i].v_b.is_clicked = (float)button_quads[i].is_clicked;
     button_quads[i].v_b.type_id = (float)button_quads[i].type_id;
+    button_quads[i].v_b.is_static = (float)button_quads[i].is_static;
 
     // create vertex struct - C
     button_quads[i].v_c.vertex_id = button_quads[i].c;
@@ -262,6 +273,7 @@ std::vector<quads::Quad> load_saves_buttons()
     button_quads[i].v_c.texture_id = 0;
     button_quads[i].v_c.is_clicked = (float)button_quads[i].is_clicked;
     button_quads[i].v_c.type_id = (float)button_quads[i].type_id;
+    button_quads[i].v_c.is_static = (float)button_quads[i].is_static;
 
 
     // create vertex struct - D
@@ -280,6 +292,7 @@ std::vector<quads::Quad> load_saves_buttons()
     button_quads[i].v_d.texture_id = 0;
     button_quads[i].v_d.is_clicked = (float)button_quads[i].is_clicked;
     button_quads[i].v_d.type_id = (float)button_quads[i].type_id;
+    button_quads[i].v_d.is_static = (float)button_quads[i].is_static;
 
     // create vindices 
     button_quads[i].i_left.a = button_quads[i].a;

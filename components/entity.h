@@ -13,6 +13,7 @@ namespace ent
                      float y,
                      int h, 
                      int w, 
+                     float is_static,
                      textures::TextureData FontTD
                      )
   {
@@ -40,6 +41,7 @@ namespace ent
     quad.b_col = 0.5f;
     quad.a_col = 1.0f;
     quad.type_id = QUAD_TYPE_ENTITY;
+    quad.is_static = is_static;
 
     quad.a = quads::gen_vertex_id();
     quad.b = quads::gen_vertex_id();
@@ -61,6 +63,7 @@ namespace ent
     quad.v_a.texture_id = quad.texture_id;
     quad.v_a.is_clicked = (float)quad.is_clicked;
     quad.v_a.type_id = (double)quad.type_id;
+    quad.v_a.is_static = (float)quad.is_static;
 
     quad.v_b.vertex_id = quad.b;
     quad.v_b.tile_id = quad.id;
@@ -77,6 +80,7 @@ namespace ent
     quad.v_b.texture_id = quad.texture_id;
     quad.v_b.is_clicked = (float)quad.is_clicked;
     quad.v_b.type_id = (double)quad.type_id;
+    quad.v_b.is_static = (float)quad.is_static;
 
     quad.v_c.vertex_id = quad.c;
     quad.v_c.tile_id = quad.id;
@@ -93,6 +97,7 @@ namespace ent
     quad.v_c.texture_id = quad.texture_id;
     quad.v_c.is_clicked = (float)quad.is_clicked;
     quad.v_c.type_id = (double)quad.type_id;
+    quad.v_c.is_static = (float)quad.is_static;
 
     quad.v_d.vertex_id = quad.d;
     quad.v_d.tile_id = quad.id;
@@ -109,6 +114,7 @@ namespace ent
     quad.v_d.texture_id = quad.texture_id;
     quad.v_d.is_clicked = (float)quad.is_clicked;
     quad.v_d.type_id = (double)quad.type_id;
+    quad.v_d.is_static = (float)quad.is_static;
 
     // create vindices 
     quad.i_left.a = quad.a;

@@ -47,6 +47,7 @@ namespace buffer
       vertices_array[(start_position+10)] = quads[t].v_a.texture_id;
       vertices_array[(start_position+11)] = quads[t].v_a.is_clicked;
       vertices_array[(start_position+12)] = quads[t].v_a.type_id;
+      vertices_array[(start_position+13)] = quads[t].v_a.is_static;
 
       vertices_array[(start_position+cva)] = quads[t].v_b.x_pos;
       vertices_array[(start_position+(cva+1))] = quads[t].v_b.y_pos;
@@ -61,6 +62,7 @@ namespace buffer
       vertices_array[(start_position+(cva+10))] = quads[t].v_b.texture_id;
       vertices_array[(start_position+(cva+11))] = quads[t].v_b.is_clicked;
       vertices_array[(start_position+(cva+12))] = quads[t].v_b.type_id;
+      vertices_array[(start_position+(cva+13))] = quads[t].v_b.is_static;
 
       vertices_array[(start_position+(cva*2))] = quads[t].v_c.x_pos;
       vertices_array[(start_position+(cva*2) + 1)] = quads[t].v_c.y_pos;
@@ -75,6 +77,7 @@ namespace buffer
       vertices_array[(start_position+(cva*2) + 10)] = quads[t].v_c.texture_id;
       vertices_array[(start_position+(cva*2) + 11)] = quads[t].v_c.is_clicked;
       vertices_array[(start_position+(cva*2) + 12)] = quads[t].v_c.type_id;
+      vertices_array[(start_position+(cva*2) + 13)] = quads[t].v_c.is_static;
 
       vertices_array[(start_position+(cva*3))] = quads[t].v_d.x_pos;
       vertices_array[(start_position+(cva*3) + 1)] = quads[t].v_d.y_pos;
@@ -89,6 +92,7 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 10)] = quads[t].v_d.texture_id;
       vertices_array[(start_position+(cva*3) + 11)] = quads[t].v_d.is_clicked;
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
+      vertices_array[(start_position+(cva*3) + 13)] = quads[t].v_d.is_static;
     }
     utils::array_to_file("buffer_init_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
 
@@ -170,6 +174,10 @@ namespace buffer
     glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, quads::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
     glEnableVertexAttribArray(6); // enable this attribute at the end
 
+    // is_static attribute
+    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, quads::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
+    glEnableVertexAttribArray(7); // enable this attribute at the end
+
 
 
     // position attribute
@@ -214,6 +222,7 @@ namespace buffer
       vertices_array[(start_position+10)] = quads[t].v_a.texture_id;
       vertices_array[(start_position+11)] = quads[t].v_a.is_clicked;
       vertices_array[(start_position+12)] = quads[t].v_a.type_id;
+      vertices_array[(start_position+13)] = quads[t].v_a.is_static;
 
       vertices_array[(start_position+cva)] = quads[t].v_b.x_pos;
       vertices_array[(start_position+(cva+1))] = quads[t].v_b.y_pos;
@@ -228,6 +237,7 @@ namespace buffer
       vertices_array[(start_position+(cva+10))] = quads[t].v_b.texture_id;
       vertices_array[(start_position+(cva+11))] = quads[t].v_b.is_clicked;
       vertices_array[(start_position+(cva+12))] = quads[t].v_b.type_id;
+      vertices_array[(start_position+(cva+13))] = quads[t].v_b.is_static;
 
       vertices_array[(start_position+(cva*2))] = quads[t].v_c.x_pos;
       vertices_array[(start_position+(cva*2) + 1)] = quads[t].v_c.y_pos;
@@ -242,6 +252,7 @@ namespace buffer
       vertices_array[(start_position+(cva*2) + 10)] = quads[t].v_c.texture_id;
       vertices_array[(start_position+(cva*2) + 11)] = quads[t].v_c.is_clicked;
       vertices_array[(start_position+(cva*2) + 12)] = quads[t].v_c.type_id;
+      vertices_array[(start_position+(cva*2) + 13)] = quads[t].v_c.is_static;
 
       vertices_array[(start_position+(cva*3))] = quads[t].v_d.x_pos;
       vertices_array[(start_position+(cva*3) + 1)] = quads[t].v_d.y_pos;
@@ -256,6 +267,7 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 10)] = quads[t].v_d.texture_id;
       vertices_array[(start_position+(cva*3) + 11)] = quads[t].v_d.is_clicked;
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
+      vertices_array[(start_position+(cva*3) + 13)] = quads[t].v_d.is_static;
     }
     // std::cout << "Vertices array count: " << vertices_array_count << std::endl;
     // std::cout << "Quads size: " << n_quads << std::endl;

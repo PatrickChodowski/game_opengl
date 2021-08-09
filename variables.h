@@ -12,7 +12,7 @@ namespace quads
   #define QUAD_TYPE_TEXT 2.0f
   #define QUAD_TYPE_ENTITY 3.0f
 
-  int COUNT_VERTEX_ATTRIBUTES = 13;
+  int COUNT_VERTEX_ATTRIBUTES = 14;
   int VERTEX_OFFSET = 1;
 
 
@@ -47,6 +47,7 @@ namespace quads
 
     double is_clicked;
     double type_id;
+    double is_static;
 
     /// not counted as VERTEX ATTRIBUTES
     int tile_id;
@@ -108,6 +109,9 @@ namespace quads
     
     // for different shader calls:
     float type_id; // 0 - level, 1 - menu, 2 - text, 3 - entity
+
+    // to choose camera reaction:
+    float is_static;
   };
 
   struct ScaledQuad
@@ -241,7 +245,6 @@ std::vector<std::string> list_saves()
 {
   std::vector<std::string> saves = {};
   saves = utils::list_files("saves");
-  // logger::print_vector(saves);
   return saves;
 }
 
@@ -309,7 +312,6 @@ namespace game
   std::map<std::string, bool> GAME_STATE;
   bool CHANGE_STATE_TRIGGER = false;
   std::vector<std::string> GAME_STATE_LIST = {"GAME_ON",
-                                              "NEW_GAME",
                                               "MAIN_MENU",
                                               "NEW_GAME_MENU",
                                               "LOAD_GAME_MENU",
@@ -317,7 +319,6 @@ namespace game
   void init_game_states()
   {
     GAME_STATE.insert(std::pair<std::string, bool>("GAME_ON", false));
-    GAME_STATE.insert(std::pair<std::string, bool>("NEW_GAME", false));
     GAME_STATE.insert(std::pair<std::string, bool>("MAIN_MENU", true));
     GAME_STATE.insert(std::pair<std::string, bool>("NEW_GAME_MENU", false));
     GAME_STATE.insert(std::pair<std::string, bool>("LOAD_GAME_MENU", false));
