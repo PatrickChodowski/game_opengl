@@ -14,23 +14,6 @@ namespace events
 {
   void handle_game_on_controls(SDL_Keycode key)
   {
-    if(KEYBOARD[SDL_SCANCODE_LEFT]){
-      camera::move_x -= camera::speed;
-      hero::update_frame(MOVE_LEFT);
-    } 
-    if(KEYBOARD[SDL_SCANCODE_RIGHT]){
-      camera::move_x += camera::speed;
-      hero::update_frame(MOVE_RIGHT);
-    }
-    if(KEYBOARD[SDL_SCANCODE_UP]){
-      camera::move_y += camera::speed;
-      hero::update_frame(MOVE_UP);
-    }
-    if(KEYBOARD[SDL_SCANCODE_DOWN]){
-      camera::move_y -= camera::speed;
-      hero::update_frame(MOVE_DOWN);
-    }
-
     switch (key)
     { 
       case SDLK_ESCAPE:
@@ -131,6 +114,24 @@ namespace events
         break;
       };
     };
+
+    // keyboard scanning for camera movement
+    if(KEYBOARD[SDL_SCANCODE_LEFT]){
+      camera::move_x -= camera::speed;
+      hero::update_frame(MOVE_LEFT);
+    } 
+    if(KEYBOARD[SDL_SCANCODE_RIGHT]){
+      camera::move_x += camera::speed;
+      hero::update_frame(MOVE_RIGHT);
+    }
+    if(KEYBOARD[SDL_SCANCODE_UP]){
+      camera::move_y += camera::speed;
+      hero::update_frame(MOVE_UP);
+    }
+    if(KEYBOARD[SDL_SCANCODE_DOWN]){
+      camera::move_y -= camera::speed;
+      hero::update_frame(MOVE_DOWN);
+    }
 
     // if its true, than camera will stay in the centre and rest of the environment will be moving
     if(camera::centric)
