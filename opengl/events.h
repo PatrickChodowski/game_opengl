@@ -4,22 +4,33 @@
 
 namespace events
 {
+  // event ids:
+  #define MOVE_LEFT 0
+  #define MOVE_RIGHT 1
+  #define MOVE_UP 2
+  #define MOVE_DOWN 3
+  #define STAND_STILL 4
+  #define ATTACK 5
 
   void handle_game_on_controls(SDL_Keycode key)
   {
     switch (key)
-    {
+    { 
       case SDLK_LEFT:
         camera::move_x -= camera::speed;
+        hero::update_frame(MOVE_LEFT);
         break;
       case SDLK_RIGHT:
         camera::move_x += camera::speed;
+        hero::update_frame(MOVE_RIGHT);
         break;
       case SDLK_UP:
         camera::move_y += camera::speed;
+        hero::update_frame(MOVE_UP);
         break;
       case SDLK_DOWN:
         camera::move_y -= camera::speed;
+        hero::update_frame(MOVE_DOWN);
         break;
       case SDLK_ESCAPE:
           game::set_state("MAIN_MENU");

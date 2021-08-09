@@ -9,6 +9,8 @@ namespace hero
   float HERO_X = ((float)WINDOW_WIDTH)/2 - (70/2);
   float HERO_Y = ((float)WINDOW_HEIGHT)/2 - (90/2);
   int current_frame = 0;
+  float frame_delay = 0.2;
+  auto frame_update_time = std::chrono::system_clock::now();
 
 
   struct Hero
@@ -61,17 +63,123 @@ namespace hero
   }
 
 
-  void update(int new_frame_id)
+  void update_frame(int event_id)
   {
     // camera movement will update the hero frame_id (updated in events.h -> handle_game_on_controls)
     // logic based on current_frame_id and new_frame_id
+    // basic frame_id -> 0
+    // events:
+    // #define MOVE_LEFT 0
+    // #define MOVE_RIGHT 1
+    // #define MOVE_UP 2
+    // #define MOVE_DOWN 3
+    // #define STAND_STILL 4
+    // #define ATTACK 5
+    float time_since_last_update = timer::get_elapsed_time(hero::frame_update_time);
+    if(time_since_last_update >= hero::frame_delay){
+      switch(current_frame)
+      {
+        // standing still
+        case 0: 
+        case 1:
+        case 2:
+          switch(event_id)
+          {
+            case 0: current_frame = 7; break;
+            case 1: current_frame = 10; break;
+            case 2: current_frame = 11; break;
+            case 3: current_frame = 3; break;
+          }
+          break;
 
+        // facing left
+        case 7:
+          switch(event_id)
+          {
+            case 0: current_frame = 6; break;
+            case 1: current_frame = 9; break;
+            case 2: current_frame = 11; break;
+            case 3: current_frame = 3; break;
+          }
+          break;
 
+        // facing left
+        case 6:
+          switch(event_id)
+          {
+            case 0: current_frame = 7; break;
+            case 1: current_frame = 9; break;
+            case 2: current_frame = 11; break;
+            case 3: current_frame = 3; break;
+          }
+          break;
 
+        // facing right
+        case 9:
+          switch(event_id)
+          {
+            case 0: current_frame = 6; break;
+            case 1: current_frame = 10; break;
+            case 2: current_frame = 11; break;
+            case 3: current_frame = 3; break;
+          }
+          break;
+
+        // facing right
+        case 10:
+          switch(event_id)
+          {
+            case 0: current_frame = 7; break;
+            case 1: current_frame = 9; break;
+            case 2: current_frame = 11; break;
+            case 3: current_frame = 3; break;
+          }
+          break;
+
+        // facing down
+        case 3:
+          switch(event_id)
+          {
+            case 0: current_frame = 7; break;
+            case 1: current_frame = 9; break;
+            case 2: current_frame = 11; break;
+            case 3: current_frame = 4; break;
+          }
+          break;
+        // facing down
+        case 4:
+          switch(event_id)
+          {
+            case 0: current_frame = 7; break;
+            case 1: current_frame = 9; break;
+            case 2: current_frame = 11; break;
+            case 3: current_frame = 3; break;
+          }
+          break;
+        // facing up
+        case 11:
+          switch(event_id)
+          {
+            case 0: current_frame = 7; break;
+            case 1: current_frame = 9; break;
+            case 2: current_frame = 12; break;
+            case 3: current_frame = 4; break;
+          }
+          break;
+        // facing up
+        case 12:
+          switch(event_id)
+          {
+            case 0: current_frame = 7; break;
+            case 1: current_frame = 9; break;
+            case 2: current_frame = 11; break;
+            case 3: current_frame = 3; break;
+          }
+          break;
+      } 
+      hero::frame_update_time = std::chrono::system_clock::now();
+    }
   }
-
-
-
 }
 
 
