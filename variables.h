@@ -224,6 +224,7 @@ namespace maps
 
 namespace menu
 {
+  std::string NewGameName = "";
   std::vector<quads::Quad> MenuQuads;
   // Current Menu buttons store name and quad id
   std::map<int, std::string> CurrentMenuButtons;

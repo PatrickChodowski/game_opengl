@@ -57,7 +57,7 @@ namespace game
     buffer::update(quads);
 
     // glClear(GL_COLOR_BUFFER_BIT); // black by default
-    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    // glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
