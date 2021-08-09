@@ -29,11 +29,13 @@ namespace game
         camera::speed = 0;
         menu::drop();
         maps::drop_map();
+        ent::drop_entities();
         fonts::drop_texts();
         menu::load_menu({0,1,2,3});
       } else if(GAME_STATE["NEW_GAME_MENU"]){
         camera::speed = 0;
         menu::drop();
+        ent::drop_entities();
         maps::drop_map();
         fonts::drop_texts();
         menu::load_menu({4,5});
@@ -41,12 +43,16 @@ namespace game
         camera::speed = camera::base_speed;
         menu::drop();
         maps::drop_map();
+        ent::drop_entities();
         fonts::drop_texts();
         maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
         fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5);
+        quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, 90, 70, textures::FontTD);
+        ent::EntityQuads.push_back(hero);
       } else if(GAME_STATE["LOAD_GAME_MENU"]){
         camera::speed = 0;
         menu::drop();
+        ent::drop_entities();
         maps::drop_map();
         fonts::drop_texts();
         menu::load_menu({6, 1});

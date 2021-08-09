@@ -44,7 +44,13 @@ namespace events
           menu::NewGameName.pop_back();
           game::CHANGE_STATE_TRIGGER = true;
         }
-      break;
+        break;
+      case SDLK_RETURN:
+        if(menu::validate_name()){
+          CAMPAIGN_NAME = menu::NewGameName;
+          game::set_state("GAME_ON");
+        }
+        break;
     }
   }
 

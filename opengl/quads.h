@@ -31,10 +31,16 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
     }
 
+    // assign entity quads
+    if(ent::EntityQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), ent::EntityQuads.begin(), ent::EntityQuads.end());
+    }
+
     // quads::print_out_quads(quads::AllQuads);
     quads::QuadsSummary["map"] = maps::MapQuads.size();
     quads::QuadsSummary["menu"] = menu::MenuQuads.size();
     quads::QuadsSummary["text"] = fonts::TextQuads.size();
+    quads::QuadsSummary["entity"] = fonts::TextQuads.size();
   }
 
   void delete_quad_id(int quad_id)

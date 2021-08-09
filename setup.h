@@ -39,6 +39,7 @@ int WINDOW_VERTEX_HEIGHT = 8;
 int WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
 int WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
 
+
 // logging level
 int LOGGING = 0;
 
@@ -94,6 +95,8 @@ std::string CAMPAIGN_NAME;
 
 
 // game components
+#include "components/entity.h"
+
 #include "components/items.h"
 #include "components/mobs.h"
 #include "components/hero.h"

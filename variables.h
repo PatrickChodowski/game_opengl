@@ -10,6 +10,7 @@ namespace quads
   #define QUAD_TYPE_MAP 0.0f
   #define QUAD_TYPE_MENU 1.0f
   #define QUAD_TYPE_TEXT 2.0f
+  #define QUAD_TYPE_ENTITY 3.0f
 
   int COUNT_VERTEX_ATTRIBUTES = 13;
   int VERTEX_OFFSET = 1;
@@ -106,7 +107,7 @@ namespace quads
     float a_col;
     
     // for different shader calls:
-    float type_id; // 0 - level, 1 - menu, 2 - text
+    float type_id; // 0 - level, 1 - menu, 2 - text, 3 - entity
   };
 
   struct ScaledQuad
@@ -220,6 +221,11 @@ namespace maps
 {
   std::vector<quads::Quad> MapQuads;
   std::vector<quads::ScaledQuad> ScaledMapQuads;
+}
+
+namespace ent
+{
+  std::vector<quads::Quad> EntityQuads;
 }
 
 namespace menu
