@@ -132,16 +132,7 @@ namespace events
       camera::move_y -= camera::speed;
       hero::update_frame(MOVE_DOWN);
     }
-
-    // if its true, than camera will stay in the centre and rest of the environment will be moving
-    if(camera::centric)
-    {
-      camera::x += camera::move_x;
-      camera::y += camera::move_y;
-    } 
-
   }
-
 }
 
 
