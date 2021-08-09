@@ -21,7 +21,7 @@ namespace events
       case SDLK_DOWN:
         camera::move_y -= camera::speed;
         break;
-      case SDLK_m:
+      case SDLK_ESCAPE:
           game::set_state("MAIN_MENU");
         break;
 
@@ -51,6 +51,19 @@ namespace events
           game::set_state("GAME_ON");
         }
         break;
+      case SDLK_ESCAPE:
+          game::set_state("MAIN_MENU");
+        break;
+    }
+  }
+
+    void handle_load_game_menu_input(SDL_Keycode key)
+  {
+    switch (key)
+    {
+      case SDLK_ESCAPE:
+        game::set_state("MAIN_MENU");
+      break;
     }
   }
 
@@ -88,6 +101,9 @@ namespace events
         } else if (game::GAME_STATE["NEW_GAME_MENU"])
         {
           handle_new_game_name_input(event.key.keysym.sym);
+        } else if (game::GAME_STATE["LOAD_GAME_MENU"])
+        {
+          handle_load_game_menu_input(event.key.keysym.sym);
         }
         break;
       case SDL_TEXTINPUT:

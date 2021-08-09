@@ -7,7 +7,8 @@ namespace hero
 {
 
   float HERO_X = ((float)WINDOW_WIDTH)/2 - (70/2);
-  float HERO_Y = ((float)WINDOW_HEIGHT)/2 - (90/2) ;
+  float HERO_Y = ((float)WINDOW_HEIGHT)/2 - (90/2);
+  int current_frame = 0;
 
 
   struct Hero
@@ -57,6 +58,16 @@ namespace hero
     }
 
     return hero;
+  }
+
+
+  void update(int new_frame_id)
+  {
+    // camera movement will update the hero frame_id (updated in events.h -> handle_game_on_controls)
+    // logic based on current_frame_id and new_frame_id
+
+
+
   }
 
 
