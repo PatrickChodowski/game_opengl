@@ -43,7 +43,15 @@ namespace game
         maps::drop_map();
         fonts::drop_texts();
         maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
+      
+      } else if(GAME_STATE["LOAD_GAME_MENU"]){
+        camera::speed = 0;
+        menu::drop();
+        maps::drop_map();
+        fonts::drop_texts();
+        menu::load_menu({6, 1});
       }
+
 
     CHANGE_STATE_TRIGGER = false;
    }

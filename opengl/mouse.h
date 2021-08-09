@@ -33,6 +33,10 @@ namespace mouse
       {
         game::set_state("MAIN_MENU");
       }
+      else if (menu::CurrentMenuButtons[clicked_quad_id] == "main_load")
+      {
+        game::set_state("LOAD_GAME_MENU");
+      }
       else if (menu::CurrentMenuButtons[clicked_quad_id] == "main_exit")
       {
         RUNNING = false;
