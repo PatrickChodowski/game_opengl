@@ -11,11 +11,13 @@
 
 // frame names
 #define FRAME_STAND_1 0
+#define FRAME_STAND_2 1
+#define FRAME_STAND_3 2
 #define FRAME_LEFT_1 7
 #define FRAME_LEFT_2 5
 #define FRAME_LEFT_3 6
-#define FRAME_RIGHT_1 8
-#define FRAME_RIGHT_2 9
+#define FRAME_RIGHT_1 9
+#define FRAME_RIGHT_2 8
 #define FRAME_RIGHT_3 10
 #define FRAME_DOWN_1 4
 #define FRAME_DOWN_2 3
@@ -25,6 +27,7 @@
 #define FRAME_ATTACK_2 15
 #define FRAME_ATTACK_3 16
 
+#define FRAME_DELAY_LONG 0.7
 #define FRAME_DELAY 0.2
 #define FRAME_DELAY_SHORT 0.08
 
@@ -37,6 +40,7 @@ namespace hero
   float HERO_Y = ((float)WINDOW_HEIGHT)/2 - (90/2);
   int current_frame = 0;
   auto frame_update_time = std::chrono::system_clock::now();
+  bool attack_state = false;
 
 
   struct Hero
@@ -148,6 +152,33 @@ namespace hero
                 current_frame != FRAME_DOWN_1)
       {
         hero::set_current_frame(FRAME_DOWN_1);
+      }
+    } else if (event_id == STAND_STILL){
+      if(current_frame == FRAME_STAND_1 && time_since_last_update >= FRAME_DELAY_LONG){
+        hero::set_current_frame(FRAME_STAND_2);
+      } else if (current_frame == FRAME_STAND_2 && time_since_last_update >= FRAME_DELAY_SHORT){
+        hero::set_current_frame(FRAME_STAND_3);
+      } else if (current_frame == FRAME_STAND_3 && time_since_last_update >= FRAME_DELAY){
+        hero::set_current_frame(FRAME_STAND_1);
+      } else if (time_since_last_update >= FRAME_DELAY &&
+                current_frame != FRAME_STAND_1 && 
+                current_frame != FRAME_STAND_2 &&
+                current_frame != FRAME_STAND_3){
+        hero::set_current_frame(FRAME_STAND_1);
+      }
+    } else if (event_id == ATTACK){
+      if(current_frame == FRAME_ATTACK_1 && time_since_last_update >= FRAME_DELAY_SHORT){
+        hero::set_current_frame(FRAME_ATTACK_2);
+      } else if(current_frame == FRAME_ATTACK_2 && time_since_last_update >= FRAME_DELAY_SHORT){
+        hero::set_current_frame(FRAME_ATTACK_3);
+        hero::attack_state = false;
+      } else if(current_frame == FRAME_ATTACK_3 && time_since_last_update >= FRAME_DELAY_SHORT){
+        hero::set_current_frame(FRAME_ATTACK_1);
+      } else if(current_frame != FRAME_ATTACK_3 && 
+                current_frame != FRAME_ATTACK_2 &&
+                current_frame != FRAME_ATTACK_1 &&
+                time_since_last_update >= FRAME_DELAY_SHORT){
+        hero::set_current_frame(FRAME_ATTACK_1);
       }
     }
   }
