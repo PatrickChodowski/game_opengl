@@ -67,6 +67,12 @@ namespace saves
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(SD);
+
+    CAMPAIGN_NAME = SD.name;
+    camera::x = SD.x;
+    camera::y = SD.y;
+    camera::speed = SD.speed;
+    MAP_ID = SD.map_id;
   }
 
 

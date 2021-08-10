@@ -52,6 +52,7 @@ std::string FONT_NAME = "OpenSans";
 int MAP_ID = 0;
 int MAX_QUADS = 2000;
 std::string CAMPAIGN_NAME;
+bool NEW_GAME = true;
 
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta

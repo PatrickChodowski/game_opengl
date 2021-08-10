@@ -27,6 +27,7 @@ namespace mouse
       {
         if(menu::validate_name()){
           CAMPAIGN_NAME = menu::NewGameName;
+          NEW_GAME = true;
           game::set_state("GAME_ON");
         }
       }
@@ -41,6 +42,7 @@ namespace mouse
       else if (menu::CurrentMenuButtons[clicked_quad_id] == "load_save")
       {
         CAMPAIGN_NAME = menu::LoadSaveButtons[clicked_quad_id];
+        NEW_GAME = false;
         game::set_state("GAME_ON");
       }
       else if (menu::CurrentMenuButtons[clicked_quad_id] == "main_exit")
