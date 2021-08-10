@@ -25,6 +25,10 @@ namespace events
           hero::update_frame(ATTACK);
         break;
 
+      case SDLK_s:
+          saves::save_game();
+        break;
+
 
         // case SDLK_l:
         //   CURRENT_SHADER = "light_radius_shading_program";

@@ -96,7 +96,6 @@ std::string CAMPAIGN_NAME;
 
 // game components
 #include "components/entity.h"
-
 #include "components/items.h"
 #include "components/mobs.h"
 #include "components/hero.h"
@@ -106,6 +105,7 @@ std::string CAMPAIGN_NAME;
 #include "menu/menu.h"
 #include "maps/maps.h"
 
+#include "saves/saves.h"
 #include "opengl/events.h"
 
 #include "game.h"
