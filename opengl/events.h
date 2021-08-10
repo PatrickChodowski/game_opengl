@@ -19,6 +19,12 @@ namespace events
       case SDLK_ESCAPE:
           game::set_state("MAIN_MENU");
         break;
+      
+      case SDLK_x:
+          hero::attack_state = true;
+          hero::update_frame(ATTACK);
+        break;
+
 
         // case SDLK_l:
         //   CURRENT_SHADER = "light_radius_shading_program";
@@ -117,21 +123,27 @@ namespace events
 
     // keyboard scanning for camera movement
     // will be moving in only 4 directions
-    if(KEYBOARD[SDL_SCANCODE_LEFT]){
-      camera::move_x -= camera::speed;
-      hero::update_frame(MOVE_LEFT);
-    } 
-    else if(KEYBOARD[SDL_SCANCODE_RIGHT]){
-      camera::move_x += camera::speed;
-      hero::update_frame(MOVE_RIGHT);
-    }
-    else if(KEYBOARD[SDL_SCANCODE_UP]){
-      camera::move_y += camera::speed;
-      hero::update_frame(MOVE_UP);
-    }
-    else if(KEYBOARD[SDL_SCANCODE_DOWN]){
-      camera::move_y -= camera::speed;
-      hero::update_frame(MOVE_DOWN);
+    if(hero::attack_state == false){
+      if(KEYBOARD[SDL_SCANCODE_LEFT]){
+        camera::move_x -= camera::speed;
+        hero::update_frame(MOVE_LEFT);
+      } 
+      else if(KEYBOARD[SDL_SCANCODE_RIGHT]){
+        camera::move_x += camera::speed;
+        hero::update_frame(MOVE_RIGHT);
+      }
+      else if(KEYBOARD[SDL_SCANCODE_UP]){
+        camera::move_y += camera::speed;
+        hero::update_frame(MOVE_UP);
+      }
+      else if(KEYBOARD[SDL_SCANCODE_DOWN]){
+        camera::move_y -= camera::speed;
+        hero::update_frame(MOVE_DOWN);
+      } else {
+        hero::update_frame(STAND_STILL);
+      }
+    } else {
+      hero::update_frame(ATTACK);
     }
 
     // if its true, than camera will stay in the centre and rest of the environment will be moving
