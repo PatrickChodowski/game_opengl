@@ -184,7 +184,16 @@ namespace hero
       }
     }
   }
+
+  // hero's frame should also just pick the item frame that hero is holding
+
+
+
+
+
+
 }
+
 
 
 
