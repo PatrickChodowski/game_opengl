@@ -1,1 +1,10 @@
-{'x': 0, 'y': 0, 'w': 16, 'h': 16, 'state_id': 0} //stick
+{
+  "id": 5,
+  "type": "items",
+  "name": "items",
+  "width": 14,
+  "height": 13,
+  "frames_list": [
+    {"frame_id": 0, "x": 0, "y": 0, "w": 14, "h": 13, "is_solid": 0}
+  ]
+}

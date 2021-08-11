@@ -1,21 +1,17 @@
 #ifndef ITEMS_H
 #define ITEMS_H
 
+// frame ids per item in items.json
 
 namespace items
 {
-  struct Item
-  {
-    int entity_id;
-    std::string type;
-    int texture_id;
-
-    int x;
-    int y;
-  };
-
-  std::map<int, Item> Catalog = {};
+  std::map<std::string, int> Catalog = {};
   std::vector<int> items_on_ground = {};
+
+  void init()
+  {
+    Catalog.insert(std::pair<std::string, int>{"stick", 0});
+  }
 }
 
 #endif
