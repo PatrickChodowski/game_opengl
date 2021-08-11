@@ -29,7 +29,7 @@ namespace game
   void handle_game_state()
   {
    if(CHANGE_STATE_TRIGGER){ 
-      camera::zoom = 1.0;
+      camera::reset();
       menu::drop();
       maps::drop_map();
       ent::drop_entities();

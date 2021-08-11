@@ -53,6 +53,7 @@ namespace events
       case SDLK_RETURN:
         if(menu::validate_name()){
           CAMPAIGN_NAME = menu::NewGameName;
+          NEW_GAME = true;
           game::set_state("GAME_ON");
         }
         break;
