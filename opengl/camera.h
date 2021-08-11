@@ -82,9 +82,12 @@ namespace camera
 
   void reset()
   {
-
-
-    
+    camera::zoom = 1;
+    camera::x = 0;
+    camera::y = 0;
+    camera::move_x = 0;
+    camera::move_y = 0;
+    camera::tile_dim = TILE_DIM;    
   }
 
   

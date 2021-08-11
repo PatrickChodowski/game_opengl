@@ -29,7 +29,7 @@ namespace game
   void handle_game_state()
   {
    if(CHANGE_STATE_TRIGGER){ 
-      camera::zoom = 1.0;
+      camera::reset();
       menu::drop();
       maps::drop_map();
       ent::drop_entities();
@@ -44,10 +44,20 @@ namespace game
       } else if(GAME_STATE["GAME_ON"]){
         menu::NewGameName = "";
         camera::speed = camera::base_speed;
-        maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
-        fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-        quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, 90, 70, 2.0f,textures::FontTD);
-        ent::EntityQuads.push_back(hero);
+
+        if(NEW_GAME){
+          maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
+          fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
+          quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, 90, 70, 2.0f,textures::FontTD);
+          ent::EntityQuads.push_back(hero);
+        } else {
+          saves::load_game(CAMPAIGN_NAME);
+          maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
+          fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
+          quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, 90, 70, 2.0f,textures::FontTD);
+          ent::EntityQuads.push_back(hero);
+        }
+ 
       } else if(GAME_STATE["LOAD_GAME_MENU"]){
         camera::speed = 0;
         menu::load_menu({6, 1});

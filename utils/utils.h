@@ -68,9 +68,6 @@ namespace utils
       array_file.close();
     }
   }
-
-
-
 }
 
 
