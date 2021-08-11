@@ -29,8 +29,13 @@ namespace items
            height_og, items_frame_id, items_texture_id, texture_id);
   };
 
+  struct GeneratedItemData
+  {
+
+  };
+
   std::map<int, ItemData> ItemCatalog = {};
-  std::vector<int> items_on_ground = {};
+  std::map<int, GeneratedItemData> GeneratedItems = {};
 
   void load_item(std::string name)
   {
@@ -50,6 +55,21 @@ namespace items
     {
       load_item(item_list[i]);
     }
+  }
+
+  quads::Quad render_item_on_ground(int item_id, int x, int y)
+  {
+    struct ItemData ITD = ItemCatalog[item_id];
+    quads::Quad item_quad = ent::render_entity(0, 
+                                               ITD.items_texture_id,
+                                               ITD.items_frame_id, 
+                                               x, 
+                                               y, 
+                                               ITD.height_og, 
+                                               ITD.width_og, 
+                                               0.0f, 
+                                               textures::FontTD);
+    return item_quad;
   }
 }
 
