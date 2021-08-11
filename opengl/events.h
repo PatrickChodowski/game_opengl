@@ -29,6 +29,16 @@ namespace events
           saves::save_game();
         break;
 
+      case SDLK_l:
+      // toggle between base and light shader
+          if(CURRENT_SHADER_ID == 0)
+          {
+            CURRENT_SHADER_ID = 1;
+          } else {
+            CURRENT_SHADER_ID = 0;
+          }
+      break;
+
 
         // case SDLK_l:
         //   CURRENT_SHADER = "light_radius_shading_program";

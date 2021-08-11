@@ -4,6 +4,7 @@
     "map_id" : 0,
     "name" : "jennifer",
     "type" : "barbarian",
+    "shader_id": 0,
     "texture_id" : 3,
     "level" : 1,
     "exp" : 0,

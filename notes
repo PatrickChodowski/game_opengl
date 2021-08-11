@@ -1,31 +1,12 @@
-
-
-map_id 0 = gets texture 0 -> dungeon
-map_id 1 = gets textire 2 -> barbarian
-
-
-
-textures read in:
-barbarian tid 2
-forest tid 1
-dungeon tid 0
-
-
-
-texture notes:
-- need slot_id as well - dynamic
-
-
-
-
-
-
-
-
-
 ZARRTY:
 --- - --- 
 easter egg:
 zielony ssak
 
 ksiazka o przeuzywanych cytatach - droga nna ktorej spotykasz wrogow to ta dobras
+
+
+IDEAS:
+- reinforcement learning for monsters play
+- animations from blender
+- 

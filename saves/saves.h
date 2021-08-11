@@ -23,6 +23,7 @@ namespace saves
     int map_id;
     std::string name;
     std::string type;
+    int shader_id;
     int texture_id;
     int level;
     int exp;
@@ -32,7 +33,7 @@ namespace saves
     int def;
     int mobs_killed;
 
-    JS_OBJ(x, y, map_id, name, type, texture_id, 
+    JS_OBJ(x, y, map_id, name, type, shader_id, texture_id, 
     level, exp, speed, hp,dmg,def,mobs_killed);
   };
 
@@ -45,6 +46,7 @@ namespace saves
     sd.map_id = MAP_ID;
     sd.name = CAMPAIGN_NAME;
     sd.type = "barbarian";
+    sd.shader_id = CURRENT_SHADER_ID;
     sd.texture_id = 3;
     sd.level = 1;
     sd.exp = 0;
@@ -69,6 +71,7 @@ namespace saves
     context.parseTo(SD);
 
     CAMPAIGN_NAME = SD.name;
+    CURRENT_SHADER_ID = SD.shader_id;
     camera::x = SD.x;
     camera::y = SD.y;
     camera::speed = SD.speed;
