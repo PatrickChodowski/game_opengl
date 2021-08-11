@@ -1,0 +1,26 @@
+{
+  "id": 4,
+  "type": "item",
+  "name": "barbarian",
+  "width": 993,
+  "height": 63,
+  "frames_list": [
+    {'x': 0, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 0} //idle
+    {'x': 91, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 2}//idle
+    {'x': 182, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 1}//idle
+    {'x': 273, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 4} //down
+    {'x': 364, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 3} //down
+    {'x': 455, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 5} //left
+    {'x': 546, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 7} //left
+    {'x': 637, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 6} //left
+    {'x': 728, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 8} //right
+    {'x': 819, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 10} //right
+    {'x': 910, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 9} //right
+    {'x': 1001, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -14, 'dest_offset_y': 22, 'state_id': 11} //up
+    {'x': 1092, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -14, 'dest_offset_y': 22, 'state_id': 12} //up
+    {'x': 1092, 'y': 100, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 13} //up
+    {'x': 1183, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -20, 'dest_offset_y': 10, 'state_id': 14} //attack
+    {'x': 1274, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -14, 'dest_offset_y': 10, 'state_id': 15} //attack
+    {'x': 1365, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -14, 'dest_offset_y': 22, 'state_id': 16} //attack
+  ]}
+}
