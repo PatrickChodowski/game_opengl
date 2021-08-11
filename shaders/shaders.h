@@ -156,10 +156,17 @@ namespace shaders
     {
       read_shaders_data(shaders_list[s]);
     };
-    for(int s=0; s < shaders_list.size(); s++)
+
+    // sorted by ID:
+    for (auto const& x : shaders::Catalog)
     {
-      shaders::Catalog[s].gl_shader_id = shaders::custom_shaders(shaders_list[s].c_str());
+      shaders::Catalog[x.first].gl_shader_id = shaders::custom_shaders(x.second.name.c_str());
     }
+
+    // for(int s=0; s < shaders_list.size(); s++)
+    // {
+    //   shaders::Catalog[s].gl_shader_id = shaders::custom_shaders(shaders_list[s].c_str());
+    // }
     glReleaseShaderCompiler();
   }
 
