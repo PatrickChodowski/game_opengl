@@ -1,15 +1,15 @@
 {
-  "x": 500,
-  "y": 500,
-  "map_id": 0,
-  "name": "jennifer",
-  "type": "barbarian",
-  "texture_id": 3,
-  "level": 1,
-  "exp": 0,
-  "speed": 10,
-  "hp": 100,
-  "dmg": 20,
-  "def": 100,
-  "mobs_killed": 0
+    "x" : 1060,
+    "y" : -780,
+    "map_id" : 0,
+    "name" : "jennifer",
+    "type" : "barbarian",
+    "texture_id" : 3,
+    "level" : 1,
+    "exp" : 0,
+    "speed" : 6,
+    "hp" : 100,
+    "dmg" : 20,
+    "def" : 100,
+    "mobs_killed" : 0
 }

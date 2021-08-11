@@ -19,8 +19,8 @@
     {"frame_id": 11, "x": 637, "y": 0, "w": 58, "h": 63, "is_solid": 0},
     {"frame_id": 12, "x": 695, "y": 0, "w": 58, "h": 63, "is_solid": 0},
     {"frame_id": 13, "x": 753, "y": 0, "w": 58, "h": 63, "is_solid": 0},
-    {"frame_id": 14, "x": 811, "y": 0, "w": 58, "h": 63, "is_solid": 0},
-    {"frame_id": 15, "x": 869, "y": 0, "w": 58, "h": 63, "is_solid": 0},
-    {"frame_id": 16, "x": 927, "y": 0, "w": 58, "h": 63, "is_solid": 0},
+    {"frame_id": 14, "x": 815, "y": 0, "w": 58, "h": 63, "is_solid": 0},
+    {"frame_id": 15, "x": 874, "y": 0, "w": 58, "h": 63, "is_solid": 0},
+    {"frame_id": 16, "x": 931, "y": 0, "w": 58, "h": 63, "is_solid": 0},
   ]}
 }
