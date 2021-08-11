@@ -51,13 +51,18 @@ namespace game
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
           quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD);
+          quads::Quad stick = ent::render_entity(0,5,0, 100, 100, 20, 20, 0.0f, textures::FontTD);
+          ent::EntityQuads.push_back(stick);
           ent::EntityQuads.push_back(hero);
         } else {
           saves::load_game(CAMPAIGN_NAME);
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
           quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD);
+          // quads::Quad stick = ent::render_entity(0,5,0, 100, 100, 20, 20, 0.0f, textures::FontTD);
+
           ent::EntityQuads.push_back(hero);
+          // ent::EntityQuads.push_back(stick);
         }
  
       } else if(GAME_STATE["LOAD_GAME_MENU"]){

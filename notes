@@ -5,11 +5,11 @@ zielony ssak
 
 ksiazka o przeuzywanych cytatach - droga nna ktorej spotykasz wrogow to ta dobras
 
-
+doing:
+Item rendering
 
 TODO:
 - shader dla wyswietlania collision boxes
-- kolejnosc wczytywanie shaderow ma znaczenie
 
 IDEAS:
 - reinforcement learning for monsters play
