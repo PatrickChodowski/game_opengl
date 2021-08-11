@@ -1,0 +1,10 @@
+{
+    "id": 0,
+    "type": "stick",
+    "joint_id": 0,
+    "width_og": 80,
+    "height_og": 60,
+    "items_frame_id": 0,
+    "items_texture_id": 5,
+    "texture_id": 4
+}
