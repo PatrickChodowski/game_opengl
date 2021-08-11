@@ -37,7 +37,7 @@ namespace maps
    int map_id;
 
    std::vector<mobs::Mob> level_mobs;
-   std::vector<items::Item> level_items_on_ground;
+   // std::vector<items::Item> level_items_on_ground;
    std::vector<int> required_textures;
   };
 

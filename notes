@@ -5,8 +5,12 @@ zielony ssak
 
 ksiazka o przeuzywanych cytatach - droga nna ktorej spotykasz wrogow to ta dobras
 
+doing:
+Item rendering
+
+TODO:
+- shader dla wyswietlania collision boxes
 
 IDEAS:
 - reinforcement learning for monsters play
 - animations from blender
-- 

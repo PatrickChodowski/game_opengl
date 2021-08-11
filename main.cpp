@@ -19,6 +19,7 @@ int main()
 
   game::init_game_states();
   game::init();
+  items::init();
 
   game::set_state("MAIN_MENU");
   menu::load_menu({0,1,2,3});

@@ -1,10 +1,10 @@
 {
-    "x" : 936,
-    "y" : -996,
+    "x" : -84,
+    "y" : 54,
     "map_id" : 0,
     "name" : "patrick",
     "type" : "barbarian",
-    "shader_id": 1,
+    "shader_id" : 0,
     "texture_id" : 3,
     "level" : 1,
     "exp" : 0,
