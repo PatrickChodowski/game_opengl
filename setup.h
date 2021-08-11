@@ -100,6 +100,8 @@ bool NEW_GAME = true;
 #include "components/items.h"
 #include "components/mobs.h"
 #include "components/hero.h"
+#include "components/collisions.h"
+
 
 // quads dependent
 #include "fonts/fonts.h"
