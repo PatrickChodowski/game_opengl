@@ -52,9 +52,10 @@ std::string FONT_NAME = "OpenSans";
 int MAP_ID = 0;
 int MAX_QUADS = 2000;
 std::string CAMPAIGN_NAME;
+bool NEW_GAME = true;
 
 //https://github.com/jorgen/json_struct
-#include "dependencies/json_struct.h" // used for reading in texture sheets into catalog of textures meta
+#include "dependencies/json_struct.h" // used for reading/writing any json data
 #define STB_IMAGE_IMPLEMENTATION
 #include "dependencies/stb_image.h" // for reading-in images 
 
@@ -96,7 +97,6 @@ std::string CAMPAIGN_NAME;
 
 // game components
 #include "components/entity.h"
-
 #include "components/items.h"
 #include "components/mobs.h"
 #include "components/hero.h"
@@ -106,6 +106,7 @@ std::string CAMPAIGN_NAME;
 #include "menu/menu.h"
 #include "maps/maps.h"
 
+#include "saves/saves.h"
 #include "opengl/events.h"
 
 #include "game.h"
