@@ -24,14 +24,21 @@ namespace items
     int items_frame_id;
     int items_texture_id;
     int texture_id;
+    int min_dmg;
+    int max_dmg;
+    int min_speed;
+    int max_speed;
 
     JS_OBJ(id, type, joint_id, width_og, 
-           height_og, items_frame_id, items_texture_id, texture_id);
+           height_og, items_frame_id, items_texture_id, texture_id,
+           min_dmg, max_dmg, min_speed, max_speed);
   };
 
   struct GeneratedItemData
   {
-
+    int type_id;
+    int dmg;  
+    int speed;
   };
 
   std::map<int, ItemData> ItemCatalog = {};
