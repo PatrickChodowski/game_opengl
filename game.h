@@ -52,7 +52,7 @@ namespace game
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
           quads::Quad hero = ent::render_entity(0,3,0, hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD);
           ent::EntityQuads.push_back(hero);
-          quads::Quad stick = ent::render_entity(0,5,0, 200, 200, 20, 20, 0.0f, textures::FontTD);
+          quads::Quad stick = items::render_item_on_ground(0, 200, 200);
           ent::EntityQuads.push_back(stick);
         } else {
           saves::load_game(CAMPAIGN_NAME);
@@ -75,7 +75,7 @@ namespace game
       ent::drop_entities();
 
       // render entity again
-      quads::Quad stick = ent::render_entity(0,5,0, 200, 200, 20, 20, 0.0f, textures::FontTD);
+      quads::Quad stick = items::render_item_on_ground(0, 200, 200);
       ent::EntityQuads.push_back(stick);
 
       quads::Quad hero = ent::render_entity(0, 3, hero::current_frame, hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD);
