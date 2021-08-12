@@ -4,9 +4,13 @@
 
 // rendering entities logic
 
+// entity type ids:
+// hero:0, item:1, mob: 2
+
 namespace ent
 {
-  quads::Quad render_entity(int type_id,
+  quads::Quad render_entity(
+                     int entity_type_id,
                      int texture_id,
                      int frame_id,
                      float x, 
@@ -42,6 +46,7 @@ namespace ent
     quad.a_col = 1.0f;
     quad.type_id = QUAD_TYPE_ENTITY;
     quad.is_static = is_static;
+    quad.entity_type_id = entity_type_id;
 
     quad.a = quads::gen_vertex_id();
     quad.b = quads::gen_vertex_id();

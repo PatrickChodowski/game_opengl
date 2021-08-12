@@ -191,6 +191,22 @@ namespace hero
 
 
 
+  int get_hero_quad_id()
+  {
+    // find quad id of the hero
+    int hero_quad_id;
+    for(int e = 0; e < ent::EntityQuads.size(); e++)
+    {
+      if(ent::EntityQuads[e].entity_type_id == 0){
+        hero_quad_id = ent::EntityQuads[e].id;
+        break;
+      }
+    }
+    return hero_quad_id;
+  }
+
+
+
 
 }
 
