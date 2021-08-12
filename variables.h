@@ -112,6 +112,9 @@ namespace quads
 
     // to choose camera reaction:
     float is_static;
+
+    // for entities logic:
+    int entity_type_id;
   };
 
   struct ScaledQuad
