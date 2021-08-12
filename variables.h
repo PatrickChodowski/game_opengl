@@ -225,6 +225,9 @@ namespace maps
 {
   std::vector<quads::Quad> MapQuads;
   std::vector<quads::ScaledQuad> ScaledMapQuads;
+
+  // used only to optimize collisions, created when map data is loaded, contains only is_solid=true
+  std::vector<quads::Quad> SolidMapQuads;
 }
 
 namespace ent

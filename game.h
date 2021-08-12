@@ -24,6 +24,8 @@ namespace game
     textures::FontTD = fonts::init(FONT_NAME);
     textures::Catalog.insert({textures::FontTD.opengl_texture_id, textures::FontTD});
     textures::BoundTextures.push_back(textures::FontTD.opengl_texture_id);
+
+    colls::get_distance_between_points(1.0, 1.0, 5.0, 2.0);
   }
 
 
