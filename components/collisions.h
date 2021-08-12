@@ -26,7 +26,7 @@ namespace colls
       return distance;
     }
 
-    std::vector<colls::DistBP> get_entity_distances(int entity_quad_id, std::vector<quads::Quad> quads)
+    std::vector<colls::DistanceBetweenPoints> get_entity_distances(int entity_quad_id, std::vector<quads::Quad> quads)
     {
       // calculate distances between alive entity and solid map objects or other entities (basically other quads)
 
@@ -78,7 +78,7 @@ namespace colls
 
       std::vector<colls::DistanceBetweenPoints> ent_distances = get_entity_distances(entity_quad_id, ent::EntityQuads);
       if(ent_distances.size() > 0){
-        distances.insert(distances.end(), map_distances.begin(), map_distances.end());
+        distances.insert(distances.end(), ent_distances.begin(), ent_distances.end());
       }
 
     }
