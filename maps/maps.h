@@ -97,19 +97,13 @@ namespace maps
   {
     /*
       Loads map quads from map file
-
-
     */
-
-
     std::vector<quads::Quad> tile_map = {};
     std::string file_path = "maps/" + map_name;
     std::ifstream in_file;
     in_file.open(file_path.c_str());
 
     int n_tiles = vertex_width*vertex_height;
-    // int TILE_COUNTER = 1; // old version, need to use get_next_quad_id
-
       // read in the tile info
     if (in_file.is_open())
     {
@@ -122,14 +116,23 @@ namespace maps
             quad.y = r * camera::tile_dim;
             quad.w = camera::tile_dim;
             quad.h = camera::tile_dim;
-            in_file >> quad.frame_id;
-
+            in_file >> quad.frame_id; // value of tile in text file
+  
             quad.id = quads::gen_quad_id();
             quad.texture_id = texture_id;
             quad.is_clicked = 0.0;
             quad.type_id = QUAD_TYPE_MAP;
             quad.is_static = 0.0f;
             tile_map.push_back(quad);
+
+            // if frame_id is between 20 and 29, then its solid
+            if(quad.frame_id > 10 && quad.frame_id < 20){
+              // 11-19
+              quad.solid = true;
+              maps::SolidMapQuads.push_back(quad);
+            } else {
+              quad.solid = false;
+            }
           };
         } 
     }
@@ -153,9 +156,9 @@ namespace maps
               << " Map texture id: " << maps::Catalog[map_id].texture_id << std::endl;
 
     maps::MapQuads = load_map_from_file(maps::Catalog[map_id].name, 
-                                    maps::Catalog[map_id].vertex_width, 
-                                    maps::Catalog[map_id].vertex_height, 
-                                    maps::Catalog[map_id].texture_id);
+                                        maps::Catalog[map_id].vertex_width, 
+                                        maps::Catalog[map_id].vertex_height, 
+                                        maps::Catalog[map_id].texture_id);
 
     for(int i = 0; i < maps::MapQuads.size(); i++)
     { 
@@ -270,6 +273,8 @@ namespace maps
       - what if next map will be bigger?
 
       - dont know
+
+      Also Clears SolidMapQuads 
     */
 
     for(int q = 0; q < maps::MapQuads.size(); q++)
@@ -281,6 +286,7 @@ namespace maps
       quads::delete_vertex_id(maps::MapQuads[q].d);
     }
     maps::MapQuads.clear();
+    maps::SolidMapQuads.clear();
   }
 }
 

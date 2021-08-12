@@ -15,7 +15,8 @@
 #include <chrono>   // time/clock
 #include <ctime>    // time/clock
 #include <regex>    // for shader parameters
-#include <algorithm>
+#include <algorithm>// for min, max
+#include <math.h>     // for distance calculating
 
 // Opengl packages
 #include <GL/glew.h> 
