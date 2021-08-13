@@ -11,6 +11,7 @@ namespace ent
 {
   quads::Quad render_entity(
                      int entity_type_id,
+                     bool alive,
                      int texture_id,
                      int frame_id,
                      float x, 
@@ -47,6 +48,7 @@ namespace ent
     quad.type_id = QUAD_TYPE_ENTITY;
     quad.is_static = is_static;
     quad.entity_type_id = entity_type_id;
+    quad.alive = alive;
 
     quad.a = quads::gen_vertex_id();
     quad.b = quads::gen_vertex_id();

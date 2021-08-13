@@ -68,6 +68,7 @@ namespace items
   {
     struct ItemData ITD = ItemCatalog[item_id];
     quads::Quad item_quad = ent::render_entity(0, 
+                                               false,
                                                ITD.items_texture_id,
                                                ITD.items_frame_id, 
                                                x, 

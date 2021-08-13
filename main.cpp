@@ -34,6 +34,9 @@ int main()
 
     game::handle_game_state();
     quads::accumulate();
+
+    colls::find_broad_collisions();
+
     game::update(quads::AllQuads);
     
     SDL_GL_SwapWindow(WINDOW);
