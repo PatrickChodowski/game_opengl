@@ -1,6 +1,11 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#define QUAD_TYPE_MAP 0.0f
+#define QUAD_TYPE_MENU 1.0f
+#define QUAD_TYPE_TEXT 2.0f
+#define QUAD_TYPE_ENTITY 3.0f
+
 // Camera settings for now
 
 namespace camera
@@ -27,12 +32,13 @@ namespace camera
     for(int q=0; q<quads.size(); q++)
     {
       quads::ScaledQuad sq;
-      if (quads[q].type_id != 1){
+      if (quads[q].type_id == QUAD_TYPE_MAP || quads[q].type_id == QUAD_TYPE_ENTITY){
+
         sq.x = ((float)quads[q].x + (float)camera_move_x)*scale_factor;
         sq.y = ((float)quads[q].y + (float)camera_move_y)*scale_factor;
         sq.h = (float)quads[q].h*scale_factor;
         sq.w = (float)quads[q].w*scale_factor;
-      } else {
+      } else if (quads[q.type_id == QUAD_TYPE_MENU) {
         // menu:
         sq.x = (float)quads[q].x;
         sq.y = (float)quads[q].y;
@@ -68,7 +74,7 @@ namespace camera
     return mvp;
   }
 
-    glm::mat4 generate_zoom_only_mvp(float zoom)
+  glm::mat4 generate_zoom_only_mvp(float zoom)
   {
     float z_window_width = (float)WINDOW_WIDTH * (float)zoom;
     float z_window_height = (float)WINDOW_HEIGHT * (float)zoom;

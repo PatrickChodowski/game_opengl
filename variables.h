@@ -115,6 +115,7 @@ namespace quads
 
     // for entities logic:
     int entity_type_id;
+    bool alive;
   };
 
   struct ScaledQuad
@@ -313,6 +314,9 @@ namespace textures
 
 namespace game 
 {
+  glm::mat4 STATIC_MVP;
+  glm::mat4 DYNAMIC_MVP;
+  glm::mat4 ZOOM_MVP;
 
   // starts with menu on:
   std::map<std::string, bool> GAME_STATE;
