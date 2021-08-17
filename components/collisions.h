@@ -35,6 +35,24 @@ namespace colls
       return distance;
     }
 
+    float get_distance_between_quads(quads::Quad q1, quads::Quad q2)
+    {
+      return 0.0;
+
+      
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     float get_distance_between_points_scaled(float x1, float y1, float x2, float y2, int type_1, int type_2)
     {
       // Something tell me it wont work long term, maybe I shall just use ScaledQuads for finding distance?
@@ -58,9 +76,9 @@ namespace colls
         y2_s = (float)y1*scale_factor;
       }
 
-      std::cout << "Calculate distance between (" << x1_s << "," << y1_s <<") and (" << x2_s << "," << y2_s << ")" << std::endl;
+      //std::cout << "Calculate distance between (" << x1_s << "," << y1_s <<") and (" << x2_s << "," << y2_s << ")" << std::endl;
       float distance = std::sqrt(std::pow(x2_s-x1_s, 2) + std::pow(y2_s-y1_s, 2));
-      std::cout << "Distance is: " << distance << std::endl;
+      //std::cout << "Distance is: " << distance << std::endl;
       return distance;
     }
 
@@ -131,7 +149,7 @@ namespace colls
       return distances;
     }
 
-    void find_broad_collisions()
+    std::vector<colls::DistanceBetweenPoints> find_broad_collisions()
     {
       // running logic for all alive entities
       std::vector<colls::DistanceBetweenPoints> all_distances;
@@ -150,9 +168,10 @@ namespace colls
       for(int c=0; c<all_distances.size(); c++)
       {
         colls::DistanceBetweenPoints dbp = all_distances[c];
-        std::cout << "Main quad id: " << dbp.a_quad_id << " other quad: " << dbp.b_quad_id << " distance:" << dbp.distance << std::endl;
+        // std::cout << "Main quad id: " << dbp.a_quad_id << " other quad: " << dbp.b_quad_id << " distance:" << dbp.distance << std::endl;
 
       }
+      return all_distances;
     }
 
 }

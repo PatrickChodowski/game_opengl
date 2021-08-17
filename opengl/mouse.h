@@ -53,16 +53,15 @@ namespace mouse
   }
 
 
-  void query_quads(int x, int y, std::vector<quads::ScaledQuad> sv, std::vector<quads::Quad> lv)
+  void query_quads(int x, int y, std::vector<quads::Quad> quads)
   {
     int quad_id;
-    for(auto q : sv)
+    for(auto q : quads)
     {
-      if((q.x <= x) & (x < q.x+q.w) & (y >= q.y & y < q.y + q.h))
+      if((q.s_x <= x) & (x < q.s_x+q.s_w) & (y >= q.s_y & y < q.s_y + q.s_h))
       {
           logger::print("Clicked tile_id: " + std::to_string(q.id)); 
           click_quad(q.id);
-
       }
     };
   }
@@ -87,14 +86,13 @@ namespace mouse
 
   void handle_mouse(SDL_MouseMotionEvent e,  
                     SDL_MouseButtonEvent b, 
-                    std::vector<quads::ScaledQuad> v, 
-                    std::vector<quads::Quad> lv)
+                    std::vector<quads::Quad> quads)
   {
     switch (b.button)
     {
       case SDL_BUTTON_LEFT:
         print_mouse(e, "Left");
-        query_quads(e.x, e.y, v, lv);
+        query_quads(e.x, e.y, quads);
       break;
 
       case SDL_BUTTON_RIGHT:

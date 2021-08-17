@@ -25,23 +25,24 @@ int main()
   menu::load_menu({0,1,2,3});
   quads::accumulate();
   buffer::init(quads::AllQuads);
-
+  
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
     SDL_Event event;
-    events::handle_events(event, quads::ScaledAllQuads, quads::AllQuads);
+    events::handle_events(event, quads::AllQuads);
 
     game::handle_game_state();
     quads::accumulate();
 
     colls::find_broad_collisions();
-
     game::update(quads::AllQuads);
     
     SDL_GL_SwapWindow(WINDOW);
-    SDL_Delay(1000/60);
-    timer::print_elapsed_time(game_loop_start_time, "Game Loop duration:");
+    SDL_Delay(20);
+
+    auto game_loop_end_time = std::chrono::system_clock::now();
+    FPS = timer::get_fps(game_loop_start_time, game_loop_end_time);
   }
 
   // cleanup after the game
