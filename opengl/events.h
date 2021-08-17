@@ -38,14 +38,6 @@ namespace events
             CURRENT_SHADER_ID = 0;
           }
       break;
-
-
-        // case SDLK_l:
-        //   CURRENT_SHADER = "light_radius_shading_program";
-        //   break;
-        // case SDLK_g:
-        //   CURRENT_SHADER = "canvas";
-        //   break;
     }
   }
 
@@ -85,7 +77,7 @@ namespace events
 
 
   
-  void handle_events(SDL_Event event, std::vector<quads::ScaledQuad> v, std::vector<quads::Quad> lv)
+  void handle_events(SDL_Event event, std::vector<quads::Quad> quads)
   // subsystem for handling players input
   {
 
@@ -103,7 +95,7 @@ namespace events
           break;
         
         case SDL_MOUSEBUTTONDOWN:
-          mouse::handle_mouse(event.motion, event.button, v, lv);
+          mouse::handle_mouse(event.motion, event.button, quads);
         break;
 
         case SDL_QUIT:

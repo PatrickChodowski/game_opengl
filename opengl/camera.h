@@ -6,6 +6,8 @@
 #define QUAD_TYPE_TEXT 2.0f
 #define QUAD_TYPE_ENTITY 3.0f
 
+// #include "../dictionary.h"
+
 // Camera settings for now
 
 namespace camera
@@ -22,33 +24,24 @@ namespace camera
   bool centric = true;
   int tile_dim = TILE_DIM;
 
-  // for mouse events usage
-  std::vector<quads::ScaledQuad> scale_move_quads(std::vector<quads::Quad> quads, int camera_move_x=0, int camera_move_y=0)
+
+  void scale_move_quads(int camera_move_x=0, int camera_move_y=0)
+  // works on quads::AllQuads data, provides s_x, s_y, s_w, s_h, radius based on the camera move and tile type
+  // scaled information is used for collisions, nav mesh, mouse events
+  // scaling only quads from map and entity (probably will need to scale some texts later) but! later! not now
   {
     camera::tile_dim = (float)TILE_DIM*float(camera::zoom);
-    std::vector<quads::ScaledQuad> scaled_quads = {};
     float scale_factor = (1.0f/float(camera::zoom));
-
-    for(int q=0; q<quads.size(); q++)
+    for(int q=0; q<quads::AllQuads.size(); q++)
     {
-      quads::ScaledQuad sq;
-      if (quads[q].type_id == QUAD_TYPE_MAP || quads[q].type_id == QUAD_TYPE_ENTITY){
-
-        sq.x = ((float)quads[q].x + (float)camera_move_x)*scale_factor;
-        sq.y = ((float)quads[q].y + (float)camera_move_y)*scale_factor;
-        sq.h = (float)quads[q].h*scale_factor;
-        sq.w = (float)quads[q].w*scale_factor;
-      } else if (quads[q.type_id == QUAD_TYPE_MENU) {
-        // menu:
-        sq.x = (float)quads[q].x;
-        sq.y = (float)quads[q].y;
-        sq.h = (float)quads[q].h;
-        sq.w = (float)quads[q].w;
+      if (quads::AllQuads[q].type_id == QUAD_TYPE_MAP || quads::AllQuads[q].type_id == QUAD_TYPE_ENTITY){
+        quads::AllQuads[q].s_x = ((float)quads::AllQuads[q].x + (float)camera_move_x)*scale_factor;
+        quads::AllQuads[q].s_y  = ((float)quads::AllQuads[q].y + (float)camera_move_y)*scale_factor;
+        quads::AllQuads[q].s_h  = (float)quads::AllQuads[q].h*scale_factor;
+        quads::AllQuads[q].s_w  = (float)quads::AllQuads[q].w*scale_factor;
+        quads::AllQuads[q].s_diag = std::sqrt(std::pow((quads::AllQuads[q].s_w/2),2) + std::pow((quads::AllQuads[q].s_h/2),2));
       }
-      sq.id = quads[q].id;
-      scaled_quads.push_back(sq);
     }
-    return scaled_quads;
   };
 
   

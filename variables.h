@@ -15,9 +15,6 @@ namespace quads
   int COUNT_VERTEX_ATTRIBUTES = 14;
   int VERTEX_OFFSET = 1;
 
-
-
-  
   // vertex index
   struct Vindex
   {  
@@ -116,15 +113,16 @@ namespace quads
     // for entities logic:
     int entity_type_id;
     bool alive;
-  };
 
-  struct ScaledQuad
-  {
-    int id;
-    float x;
-    float y;
-    float w;
-    float h;
+    // Scaled metrics For collisions and mouse events:
+    float s_x;
+    float s_y;
+    float s_w;
+    float s_h;
+
+    // 'diagonal' is the distance from the middle of the quad to the corner
+    // would call it a radius but we are in a quad not a circle, but its like a radius to me
+    float s_diag; // 'diagonal' is the distance from the center of the quad to the corner
   };
 
 
@@ -161,7 +159,6 @@ namespace quads
   */
   std::vector<quads::Quad> AllQuads;
   std::map<std::string, int> QuadsSummary;
-  std::vector<quads::ScaledQuad> ScaledAllQuads;
   std::vector<int> UsedQuadIds = {};
   std::vector<int> UsedVertexIds = {};
 
@@ -228,7 +225,6 @@ namespace fonts
 namespace maps
 {
   std::vector<quads::Quad> MapQuads;
-  std::vector<quads::ScaledQuad> ScaledMapQuads;
 
   // used only to optimize collisions, created when map data is loaded, contains only is_solid=true
   std::vector<quads::Quad> SolidMapQuads;
