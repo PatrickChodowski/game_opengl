@@ -1,14 +1,7 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
-// event ids:
-#define MOVE_LEFT 0
-#define MOVE_RIGHT 1
-#define MOVE_UP 2
-#define MOVE_DOWN 3
-#define STAND_STILL 4
-#define ATTACK 5
-
+#include "../dictionary.h"
 
 namespace events
 {

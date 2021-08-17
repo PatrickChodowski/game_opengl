@@ -19,7 +19,9 @@ namespace ent
                      int h, 
                      int w, 
                      float is_static,
-                     textures::TextureData FontTD
+                     textures::TextureData FontTD,
+                     bool solid,
+                     bool coll
                      )
   {
     float norm_x_start = (float)textures::Catalog[texture_id].frames[frame_id].x/
@@ -49,6 +51,8 @@ namespace ent
     quad.is_static = is_static;
     quad.entity_type_id = entity_type_id;
     quad.alive = alive;
+    quad.solid = solid;
+    quad.coll = coll;
 
     quad.a = quads::gen_vertex_id();
     quad.b = quads::gen_vertex_id();

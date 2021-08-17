@@ -3,15 +3,10 @@
 #define VARS_H
 
 // file for defining variables that should be accessible by multiple files 
+#include "dictionary.h"
 
 namespace quads
 {
-
-  #define QUAD_TYPE_MAP 0.0f
-  #define QUAD_TYPE_MENU 1.0f
-  #define QUAD_TYPE_TEXT 2.0f
-  #define QUAD_TYPE_ENTITY 3.0f
-
   int COUNT_VERTEX_ATTRIBUTES = 14;
   int VERTEX_OFFSET = 1;
 
@@ -68,7 +63,9 @@ namespace quads
     int y;
     int w;
     int h;
-    bool solid;
+
+    bool solid; // if true, will get collision with hero entity
+    bool coll; // if true, will get distance to hero calculated
     bool is_clicked;
 
     // vertex IDS:
@@ -225,9 +222,6 @@ namespace fonts
 namespace maps
 {
   std::vector<quads::Quad> MapQuads;
-
-  // used only to optimize collisions, created when map data is loaded, contains only is_solid=true
-  std::vector<quads::Quad> SolidMapQuads;
 }
 
 namespace ent
