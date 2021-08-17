@@ -117,6 +117,11 @@ namespace maps
             quad.w = camera::tile_dim;
             quad.h = camera::tile_dim;
             in_file >> quad.frame_id; // value of tile in text file
+
+            quad.s_x = c * camera::tile_dim;
+            quad.s_y = r * camera::tile_dim;
+            quad.s_w = camera::tile_dim;
+            quad.s_h = camera::tile_dim;
   
             quad.id = quads::gen_quad_id();
             quad.texture_id = texture_id;
@@ -125,13 +130,13 @@ namespace maps
             quad.is_static = 0.0f;
             tile_map.push_back(quad);
 
-            // if frame_id is between 20 and 29, then its solid
+            quad.solid = false;
+            quad.coll = false;
+            // if frame_id is between 10 and 20, then its solid
             if(quad.frame_id > 10 && quad.frame_id < 20){
               // 11-19
               quad.solid = true;
-              maps::SolidMapQuads.push_back(quad);
-            } else {
-              quad.solid = false;
+              quad.coll = true;
             }
           };
         } 
@@ -273,8 +278,6 @@ namespace maps
       - what if next map will be bigger?
 
       - dont know
-
-      Also Clears SolidMapQuads 
     */
 
     for(int q = 0; q < maps::MapQuads.size(); q++)
@@ -286,7 +289,6 @@ namespace maps
       quads::delete_vertex_id(maps::MapQuads[q].d);
     }
     maps::MapQuads.clear();
-    maps::SolidMapQuads.clear();
   }
 }
 

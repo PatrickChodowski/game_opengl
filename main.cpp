@@ -25,7 +25,7 @@ int main()
   menu::load_menu({0,1,2,3});
   quads::accumulate();
   buffer::init(quads::AllQuads);
-  
+
   while(RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
@@ -34,12 +34,14 @@ int main()
 
     game::handle_game_state();
     quads::accumulate();
+    camera::scale_move_quads(-camera::x, camera::y);
 
-    colls::find_broad_collisions();
+    // temporary here
+    std::vector<colls::DistanceBetweenPoints> distances = colls::find_hero_broad_collisions();
     game::update(quads::AllQuads);
     
     SDL_GL_SwapWindow(WINDOW);
-    SDL_Delay(20);
+    SDL_Delay(16);
 
     auto game_loop_end_time = std::chrono::system_clock::now();
     FPS = timer::get_fps(game_loop_start_time, game_loop_end_time);

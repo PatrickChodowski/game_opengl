@@ -1,35 +1,7 @@
 #ifndef HERO_H
 #define HERO_H
 
-// event ids:
-#define MOVE_LEFT 0
-#define MOVE_RIGHT 1
-#define MOVE_UP 2
-#define MOVE_DOWN 3
-#define STAND_STILL 4
-#define ATTACK 5
-
-// frame names
-#define FRAME_STAND_1 0
-#define FRAME_STAND_2 1
-#define FRAME_STAND_3 2
-#define FRAME_LEFT_1 7
-#define FRAME_LEFT_2 5
-#define FRAME_LEFT_3 6
-#define FRAME_RIGHT_1 9
-#define FRAME_RIGHT_2 8
-#define FRAME_RIGHT_3 10
-#define FRAME_DOWN_1 4
-#define FRAME_DOWN_2 3
-#define FRAME_UP_1 12
-#define FRAME_UP_2 13
-#define FRAME_ATTACK_1 14
-#define FRAME_ATTACK_2 15
-#define FRAME_ATTACK_3 16
-
-#define FRAME_DELAY_LONG 0.7
-#define FRAME_DELAY 0.2
-#define FRAME_DELAY_SHORT 0.08
+#include "../dictionary.h"
 
 
 /// how to render hero and also how to update only the correct part of the buffer?
@@ -194,7 +166,7 @@ namespace hero
   int get_hero_quad_id()
   {
     // find quad id of the hero
-    int hero_quad_id;
+    int hero_quad_id = -1;
     for(int e = 0; e < ent::EntityQuads.size(); e++)
     {
       if(ent::EntityQuads[e].entity_type_id == 0){
