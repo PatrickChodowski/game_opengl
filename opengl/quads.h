@@ -81,7 +81,7 @@ namespace quads
   void click(int quad_id, int quad_type_id)
   {
 
-    if(quad_type_id == 0){
+    if(quad_type_id == QUAD_TYPE_MAP){
       // map
       int index = find_quad_id(quad_id, maps::MapQuads);
       if(maps::MapQuads[index].is_clicked == 0.0f)
@@ -98,7 +98,7 @@ namespace quads
         maps::MapQuads[index].v_c.is_clicked = 0.0f;
         maps::MapQuads[index].v_d.is_clicked = 0.0f;
       }
-    } else if (quad_type_id == 1){
+    } else if (quad_type_id == QUAD_TYPE_MENU){
        // menu
       int index = find_quad_id(quad_id, menu::MenuQuads);
       if(menu::MenuQuads[index].is_clicked == 0.0f)
@@ -115,6 +115,98 @@ namespace quads
         menu::MenuQuads[index].v_c.is_clicked = 0.0f;
         menu::MenuQuads[index].v_d.is_clicked = 0.0f;
       }
+    }
+  }
+
+  void all_quads_to_tsv_file()
+  {
+    std::string file_path = "./logs/all_quads.txt";
+    std::ofstream quads_file (file_path.c_str());
+
+    if (quads_file.is_open())
+    {
+      for(int i = 0; i < quads::AllQuads.size(); i++)
+      {
+        quads_file << quads::AllQuads[i].id << " " << 
+                      quads::AllQuads[i].x << " " << 
+                      quads::AllQuads[i].y << " " << 
+                      quads::AllQuads[i].w << " " << 
+                      quads::AllQuads[i].h << " " << 
+                      quads::AllQuads[i].solid << " " << 
+                      quads::AllQuads[i].coll << " " << 
+                      quads::AllQuads[i].is_clicked << " " << 
+                      quads::AllQuads[i].a << " " << 
+                      quads::AllQuads[i].b << " " << 
+                      quads::AllQuads[i].c << " " << 
+                      quads::AllQuads[i].d << " " << 
+                      quads::AllQuads[i].texture_id << " " << 
+                      quads::AllQuads[i].frame_id << " " << 
+                      quads::AllQuads[i].r_col << " " << 
+                      quads::AllQuads[i].g_col << " " << 
+                      quads::AllQuads[i].b_col << " " << 
+                      quads::AllQuads[i].a_col << " " << 
+                      quads::AllQuads[i].type_id << " " << 
+                      quads::AllQuads[i].is_static << " " << 
+                      quads::AllQuads[i].entity_type_id << " " << 
+                      quads::AllQuads[i].alive << " " << 
+                      quads::AllQuads[i].s_x << " " << 
+                      quads::AllQuads[i].s_y << " " << 
+                      quads::AllQuads[i].s_w << " " << 
+                      quads::AllQuads[i].s_h << " " << 
+                      quads::AllQuads[i].s_diag << " " << "\n";
+      }
+      quads_file.close();
+    }
+  }
+
+
+
+  void all_quads_to_json()
+  {
+    std::string file_path = "./logs/all_quads.json";
+    std::ofstream quads_file (file_path.c_str());
+    std::string end_str = " }, \n";
+    if (quads_file.is_open())
+    {
+      quads_file << "[ \n";
+      for(int i = 0; i < quads::AllQuads.size(); i++)
+      {
+        if(i == (quads::AllQuads.size() - 1)){
+          // last quad
+          end_str = " } \n";
+        }
+        quads_file << " { \n" <<
+                      "    \"id\": " << quads::AllQuads[i].id                         << ",\n"
+                      "    \"x\": " << quads::AllQuads[i].x                           << ",\n"
+                      "    \"y\": " << quads::AllQuads[i].y                           << ",\n"
+                      "    \"w\": " << quads::AllQuads[i].w                           << ",\n"
+                      "    \"h\": " << quads::AllQuads[i].h                           << ",\n"
+                      "    \"solid\": " << quads::AllQuads[i].solid                   << ",\n"
+                      "    \"coll\": " << quads::AllQuads[i].coll                     << ",\n"
+                      "    \"is_clicked\": " << quads::AllQuads[i].is_clicked         << ",\n"
+                      "    \"a\": " << quads::AllQuads[i].a                           << ",\n"
+                      "    \"b\": " << quads::AllQuads[i].b                           << ",\n"
+                      "    \"c\": " << quads::AllQuads[i].c                           << ",\n"
+                      "    \"d\": " << quads::AllQuads[i].d                           << ",\n"
+                      "    \"texture_id\": " << quads::AllQuads[i].texture_id         << ",\n"
+                      "    \"frame_id\": " << quads::AllQuads[i].frame_id             << ",\n"
+                      "    \"r_col\": " << quads::AllQuads[i].r_col                   << ",\n"
+                      "    \"g_col\": " << quads::AllQuads[i].g_col                   << ",\n"
+                      "    \"b_col\": " << quads::AllQuads[i].b_col                   << ",\n"
+                      "    \"a_col\": " << quads::AllQuads[i].a_col                   << ",\n"
+                      "    \"type_id\": " << quads::AllQuads[i].type_id               << ",\n"
+                      "    \"is_static\": " << quads::AllQuads[i].is_static           << ",\n"
+                      "    \"entity_type_id\": " << quads::AllQuads[i].entity_type_id << ",\n"
+                      "    \"alive\": " << quads::AllQuads[i].alive                   << ",\n"
+                      "    \"s_x\": " << quads::AllQuads[i].s_x                       << ",\n"
+                      "    \"s_y\": " << quads::AllQuads[i].s_y                       << ",\n"
+                      "    \"s_w\": " << quads::AllQuads[i].s_w                       << ",\n"
+                      "    \"s_h\": " << quads::AllQuads[i].s_h                       << ",\n"
+                      "    \"s_diag\": " << quads::AllQuads[i].s_diag                 << "\n" 
+                      << end_str;
+      }
+      quads_file << "] \n";
+      quads_file.close();
     }
   }
 }

@@ -2,7 +2,6 @@
 #ifndef COLLISIONS_H
 #define COLLISIONS_H
 
-#include "../dictionary.h"
 
 namespace colls
 {
@@ -59,6 +58,9 @@ namespace colls
 
             dbp.distance = dist;
             dbp.limit = entity_quad.s_diag + quads::AllQuads[q].s_diag;
+            dbp.limit = TILE_DIM;
+            // std::cout << "limit: " << dbp.limit << "entity sdiag: " << entity_quad.s_diag << "quad sdiag:" << quads::AllQuads[q].s_diag << std::endl;
+
             dbp.is_near = false;
 
             if(dbp.distance <= dbp.limit){

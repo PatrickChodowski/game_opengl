@@ -95,6 +95,7 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 13)] = quads[t].v_d.is_static;
     }
     utils::array_to_file("buffer_init_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
+    
 
     // generate indices array out of vector of Indices:
     int n_vindices = n_quads*2;
@@ -275,6 +276,8 @@ namespace buffer
     // Vertices array size: 676
     // Quads size: 13
     utils::array_to_file("buffer_update_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
+    //quads::all_quads_to_tsv_file();
+    quads::all_quads_to_json();
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
