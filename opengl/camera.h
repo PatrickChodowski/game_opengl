@@ -1,7 +1,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "../dictionary.h"
 
 // Camera settings for now
 
@@ -32,20 +31,26 @@ namespace camera
     {
       if (quads::AllQuads[q].type_id == QUAD_TYPE_MAP || quads::AllQuads[q].type_id == QUAD_TYPE_ENTITY){
 
-        if(quads::AllQuads[q].entity_type_id != ENTITY_TYPE_ID_HERO)
-        {
+        // if(quads::AllQuads[q].entity_type_id != ENTITY_TYPE_ID_HERO)
+        // {
+        //   quads::AllQuads[q].s_x = ((float)quads::AllQuads[q].x + (float)camera_move_x)*scale_factor;
+        //   quads::AllQuads[q].s_y  = ((float)quads::AllQuads[q].y + (float)camera_move_y)*scale_factor;
+        //   quads::AllQuads[q].s_h  = (float)quads::AllQuads[q].h*scale_factor;
+        //   quads::AllQuads[q].s_w  = (float)quads::AllQuads[q].w*scale_factor;
+        //   quads::AllQuads[q].s_diag = std::sqrt(std::pow((quads::AllQuads[q].s_w/2),2) + std::pow((quads::AllQuads[q].s_h/2),2));
+        // } else if (quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_HERO) {
+        //   quads::AllQuads[q].s_x = ((float)quads::AllQuads[q].x)*scale_factor;
+        //   quads::AllQuads[q].s_y  = ((float)quads::AllQuads[q].y)*scale_factor;
+        //   quads::AllQuads[q].s_h  = (float)quads::AllQuads[q].h*scale_factor;
+        //   quads::AllQuads[q].s_w  = (float)quads::AllQuads[q].w*scale_factor;
+        //   quads::AllQuads[q].s_diag = std::sqrt(std::pow((quads::AllQuads[q].s_w/2),2) + std::pow((quads::AllQuads[q].s_h/2),2));
+        // }
+
           quads::AllQuads[q].s_x = ((float)quads::AllQuads[q].x + (float)camera_move_x)*scale_factor;
           quads::AllQuads[q].s_y  = ((float)quads::AllQuads[q].y + (float)camera_move_y)*scale_factor;
           quads::AllQuads[q].s_h  = (float)quads::AllQuads[q].h*scale_factor;
           quads::AllQuads[q].s_w  = (float)quads::AllQuads[q].w*scale_factor;
           quads::AllQuads[q].s_diag = std::sqrt(std::pow((quads::AllQuads[q].s_w/2),2) + std::pow((quads::AllQuads[q].s_h/2),2));
-        } else if (quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_HERO) {
-          quads::AllQuads[q].s_x = ((float)quads::AllQuads[q].x)*scale_factor;
-          quads::AllQuads[q].s_y  = ((float)quads::AllQuads[q].y)*scale_factor;
-          quads::AllQuads[q].s_h  = (float)quads::AllQuads[q].h*scale_factor;
-          quads::AllQuads[q].s_w  = (float)quads::AllQuads[q].w*scale_factor;
-          quads::AllQuads[q].s_diag = std::sqrt(std::pow((quads::AllQuads[q].s_w/2),2) + std::pow((quads::AllQuads[q].s_h/2),2));
-        }
       }
     }
   };

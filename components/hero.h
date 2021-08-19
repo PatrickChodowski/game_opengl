@@ -1,8 +1,6 @@
 #ifndef HERO_H
 #define HERO_H
 
-#include "../dictionary.h"
-
 
 /// how to render hero and also how to update only the correct part of the buffer?
 // will be a bluebrint for other renderable entities
