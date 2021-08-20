@@ -272,6 +272,43 @@ namespace fonts
 namespace maps
 {
   std::vector<quads::Quad> MapQuads;
+    struct Nest // nest for spawning mobs
+  {
+    float x;
+    float y;
+    int n;
+
+    JS_OBJ(x, y, n);
+  };
+
+  struct Door
+  {
+    int door_id;
+    int x;
+    int y;
+    int dest_map_id;
+    int player_enter_x;
+    int player_enter_y;
+
+    JS_OBJ(door_id, x, y, dest_map_id, player_enter_x, player_enter_y);
+  };
+
+  struct MapData
+  {
+    int id;
+    std::string name;
+    int vertex_width;
+    int vertex_height;
+    int texture_id;
+    int default_player_x;
+    int default_player_y;
+    std::vector<Door> doors;
+    std::vector<Nest> nests;
+
+    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors, nests);
+  };
+  std::map<int, MapData> Catalog = {};
+
 }
 
 namespace ent
