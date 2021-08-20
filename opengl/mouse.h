@@ -15,11 +15,13 @@ namespace mouse
       logger::print("Clicking on " + std::to_string(clicked_quad_id));
       logger::print("Is clicked " + std::to_string(quads::AllQuads[quad_index].is_clicked));
       logger::print("Double check quad id:" + std::to_string(quads::AllQuads[quad_index].id));
-      logger::print("Quad Type ID:" + std::to_string(quad_type_id));
+      logger::print("Quad Type ID: " + std::to_string(quad_type_id));
+      logger::print("is solid?: " + std::to_string(quads::AllQuads[quad_index].solid));
+      logger::print("is coll?: " + std::to_string(quads::AllQuads[quad_index].coll));
 
       quads::click(clicked_quad_id, quad_type_id);
 
-      std::cout << "Clicked button: " << menu::CurrentMenuButtons[clicked_quad_id] << std::endl;
+      // std::cout << "Clicked button: " << menu::CurrentMenuButtons[clicked_quad_id] << std::endl;
       if(menu::CurrentMenuButtons[clicked_quad_id] == "main_new")
       {
         game::set_state("NEW_GAME_MENU");

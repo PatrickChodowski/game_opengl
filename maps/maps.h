@@ -112,6 +112,7 @@ namespace maps
           for (int c = 0; c < vertex_width; c++)
           {
             struct quads::Quad quad;
+            quad.id = quads::gen_quad_id();
             quad.x = c * camera::tile_dim;
             quad.y = r * camera::tile_dim;
             quad.w = camera::tile_dim;
@@ -123,12 +124,10 @@ namespace maps
             quad.s_w = camera::tile_dim;
             quad.s_h = camera::tile_dim;
   
-            quad.id = quads::gen_quad_id();
             quad.texture_id = texture_id;
             quad.is_clicked = 0.0;
             quad.type_id = QUAD_TYPE_MAP;
             quad.is_static = 0.0f;
-            tile_map.push_back(quad);
 
             quad.solid = false;
             quad.coll = false;
@@ -145,6 +144,8 @@ namespace maps
             quad.g_col = 0.5;
             quad.b_col = 0.5;
             quad.a_col = 0.5;
+
+            tile_map.push_back(quad);
           };
         } 
     }

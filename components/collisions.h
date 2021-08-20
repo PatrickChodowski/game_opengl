@@ -58,18 +58,6 @@ namespace colls
 
             dbp.distance = dist;
             dbp.limit = entity_quad.s_diag + quads::AllQuads[q].s_diag;
-
-            // std::cout << "limit: " << dbp.limit << "entity sdiag: " << entity_quad.s_diag << "quad sdiag:" << quads::AllQuads[q].s_diag << std::endl;
-            // if(quads::AllQuads[q].id == 15)
-            // {
-            //   std::cout << "entity quad id: " << entity_quad.id << std::endl;  
-            //   std::cout << "entity type: " << entity_quad.entity_type_id << std::endl;  
-            //   std::cout << "entity s_x, s_y: " << entity_quad.s_x << "," << entity_quad.s_y << std::endl;  
-            //   std::cout << "quad s_x, s_y: " << quads::AllQuads[q].s_x << "," << quads::AllQuads[q].s_y << std::endl;  
-            //   std::cout << "x diff: " << entity_quad.s_x - quads::AllQuads[q].s_x << std::endl;
-            //   std::cout << "y diff: " << entity_quad.s_y - quads::AllQuads[q].s_y << std::endl;
-            //   std::cout << "distance to 15: " << dist << std::endl;
-            // } 
             dbp.is_near = false;
 
             if(dbp.distance <= dbp.limit){
@@ -104,18 +92,18 @@ namespace colls
       {
         distances = get_entity_distances(entity_quad_id);
         int near_count = 0;
-        for(int d=0; d<distances.size(); d++)
-        {
-          if(distances[d].is_near)
-          {
-            near_count += 1;
-            std::cout <<"entity: " << distances[d].a_quad_id  << " type: " <<  distances[d].a_quad_type <<  " Near entity: " << distances[d].b_quad_id 
-            << " type: " << distances[d].b_quad_type  << " distance: " << distances[d].distance << " limit: " << distances[d].limit << std::endl;
-          }
-        }
-        if(near_count > 0){
-          std::cout << "Near entity count: " << near_count << std::endl;
-        }
+        // for(int d=0; d<distances.size(); d++)
+        // {
+        //   if(distances[d].is_near)
+        //   {
+        //     near_count += 1;
+        //     std::cout <<"entity: " << distances[d].a_quad_id  << " type: " <<  distances[d].a_quad_type <<  " Near entity: " << distances[d].b_quad_id 
+        //     << " type: " << distances[d].b_quad_type  << " distance: " << distances[d].distance << " limit: " << distances[d].limit << std::endl;
+        //   }
+        // }
+        // if(near_count > 0){
+        //   std::cout << "Near entity count: " << near_count << std::endl;
+        // }
       }
       return distances;
     }
