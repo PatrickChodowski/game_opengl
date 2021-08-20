@@ -83,7 +83,7 @@ namespace colls
       return near_distances;
     }
 
-    struct SolidLimits resolve_solid_collisions(std::vector<colls::DistanceBetweenPoints> near_distances)
+    void resolve_solid_collisions(std::vector<colls::DistanceBetweenPoints> near_distances)
     {
       struct SolidLimits limits;
       int hero_quad_id = hero::get_hero_quad_id();
@@ -139,7 +139,27 @@ namespace colls
           }
         }
       }
-      return limits;
+
+      // hero on the left     x |_|
+      if (limits.right_borders.size() > 0)
+      { 
+        float min_x_border = *std::min_element(limits.right_borders.begin(), limits.right_borders.end());
+      } 
+      // hero on the right   |_| x 
+      if (limits.left_borders.size() > 0)
+      { 
+        float max_x_border = *std::max_element(limits.left_borders.begin(), limits.left_borders.end());
+      } 
+      // hero on the top 
+      if (limits.bottom_borders.size() > 0)
+      { 
+        float min_y_border = *std::min_element(limits.bottom_borders.begin(), limits.bottom_borders.end());
+      } 
+      // hero on the bottom 
+      if (limits.top_borders.size() > 0)
+      { 
+        float max_y_border = *std::min_element(limits.top_borders.begin(), limits.top_borders.end());
+      } 
     }
 
     
@@ -152,7 +172,10 @@ namespace colls
       {
         hero::set_hero_sensors();
         quads::set_abs(near_distances);
-        struct SolidLimits solid_limits = resolve_solid_collisions(near_distances);
+        resolve_solid_collisions(near_distances);
+
+        // move camera back based on the solid limits
+
 
       }
     }

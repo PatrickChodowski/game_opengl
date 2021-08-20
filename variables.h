@@ -30,7 +30,6 @@ namespace colls
 
   struct SolidLimits
   {
-    std::vector<int> collisions = {};
     std::vector<float> left_borders = {};
     std::vector<float> right_borders = {};
     std::vector<float> top_borders = {};
