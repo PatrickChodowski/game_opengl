@@ -138,6 +138,13 @@ namespace maps
               quad.solid = true;
               quad.coll = true;
             }
+
+            quad.entity_type_id = ENTITY_TYPE_ID_NA;
+            quad.alive = false;
+            quad.r_col = 0.5;
+            quad.g_col = 0.5;
+            quad.b_col = 0.5;
+            quad.a_col = 0.5;
           };
         } 
     }

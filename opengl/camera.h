@@ -17,44 +17,6 @@ namespace camera
   float zoom_speed = 0.1f;
   bool centric = true;
   int tile_dim = TILE_DIM;
-
-
-  void scale_move_quads(int camera_move_x=0, int camera_move_y=0)
-  // works on quads::AllQuads data, provides s_x, s_y, s_w, s_h, radius based on the camera move and tile type
-  // scaled information is used for collisions, nav mesh, mouse events
-  // scaling only quads from map and entity (probably will need to scale some texts later) but! later! not now
-  {
-    camera::tile_dim = (float)TILE_DIM*float(camera::zoom);
-    float scale_factor = (1.0f/float(camera::zoom));
-
-    for(int q=0; q<quads::AllQuads.size(); q++)
-    {
-      if (quads::AllQuads[q].type_id == QUAD_TYPE_MAP || quads::AllQuads[q].type_id == QUAD_TYPE_ENTITY){
-
-        // if(quads::AllQuads[q].entity_type_id != ENTITY_TYPE_ID_HERO)
-        // {
-        //   quads::AllQuads[q].s_x = ((float)quads::AllQuads[q].x + (float)camera_move_x)*scale_factor;
-        //   quads::AllQuads[q].s_y  = ((float)quads::AllQuads[q].y + (float)camera_move_y)*scale_factor;
-        //   quads::AllQuads[q].s_h  = (float)quads::AllQuads[q].h*scale_factor;
-        //   quads::AllQuads[q].s_w  = (float)quads::AllQuads[q].w*scale_factor;
-        //   quads::AllQuads[q].s_diag = std::sqrt(std::pow((quads::AllQuads[q].s_w/2),2) + std::pow((quads::AllQuads[q].s_h/2),2));
-        // } else if (quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_HERO) {
-        //   quads::AllQuads[q].s_x = ((float)quads::AllQuads[q].x)*scale_factor;
-        //   quads::AllQuads[q].s_y  = ((float)quads::AllQuads[q].y)*scale_factor;
-        //   quads::AllQuads[q].s_h  = (float)quads::AllQuads[q].h*scale_factor;
-        //   quads::AllQuads[q].s_w  = (float)quads::AllQuads[q].w*scale_factor;
-        //   quads::AllQuads[q].s_diag = std::sqrt(std::pow((quads::AllQuads[q].s_w/2),2) + std::pow((quads::AllQuads[q].s_h/2),2));
-        // }
-
-          quads::AllQuads[q].s_x = ((float)quads::AllQuads[q].x + (float)camera_move_x)*scale_factor;
-          quads::AllQuads[q].s_y  = ((float)quads::AllQuads[q].y + (float)camera_move_y)*scale_factor;
-          quads::AllQuads[q].s_h  = (float)quads::AllQuads[q].h*scale_factor;
-          quads::AllQuads[q].s_w  = (float)quads::AllQuads[q].w*scale_factor;
-          quads::AllQuads[q].s_diag = std::sqrt(std::pow((quads::AllQuads[q].s_w/2),2) + std::pow((quads::AllQuads[q].s_h/2),2));
-      }
-    }
-  };
-
   
   glm::mat4 generate_dynamic_mvp(float zoom, int camera_move_x=0, int camera_move_y=0)
   {

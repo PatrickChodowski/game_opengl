@@ -1,7 +1,7 @@
 {
     "x" : 84,
     "y" : 234,
-    "map_id" : 0,
+    "map_id" : 1,
     "name" : "patrick",
     "type" : "barbarian",
     "shader_id" : 1,
