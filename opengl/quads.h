@@ -257,14 +257,6 @@ namespace quads
         aabb.min_y = (quads::AllQuads[qid].s_y + colls::SENSOR_OFFSET);
         aabb.max_y = (quads::AllQuads[qid].s_y + quads::AllQuads[qid].s_h - colls::SENSOR_OFFSET);
         aabb.max_x = (quads::AllQuads[qid].s_x + quads::AllQuads[qid].s_w - colls::SENSOR_OFFSET);
-
-
-        // std::cout << "MIN X :" << aabb.min_x << std::endl;
-        // std::cout << "MAX X :" << aabb.max_x << std::endl;
-
-        // std::cout << "MIN Y :" << aabb.min_y << std::endl;
-        // std::cout << "MAX Y :" << aabb.max_y << std::endl;
-
         aabb.id = AABB_FULL;
         quads::AllQuads[qid].abs.insert(std::pair<int, colls::AABB>(AABB_FULL, aabb));
       }

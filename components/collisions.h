@@ -97,7 +97,6 @@ namespace colls
           // loop through sensors
           for (auto const& s : quads::AllQuads[hid].sensors)
           {
-            // std::cout << s.first << std::endl;
             // hero entity on the left
             if((s.first == SENSOR_TOP_RIGHT || s.first == SENSOR_RIGHT || s.first == SENSOR_BOTTOM_RIGHT) && 
               (s.second.x >=  quads::AllQuads[qid].abs[AABB_FULL].min_x) && 
@@ -105,7 +104,6 @@ namespace colls
               (quads::AllQuads[hid].sensors[SENSOR_CENTER].x < quads::AllQuads[qid].abs[AABB_FULL].min_x)
             )
             {
-               //std::cout << "Hero on the left" << s.first << std::endl;
                limits.right_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].min_x);
             }
 
@@ -116,7 +114,6 @@ namespace colls
               (quads::AllQuads[hid].sensors[SENSOR_CENTER].x > quads::AllQuads[qid].abs[AABB_FULL].max_x)
             )
             {
-               //std::cout << "Hero on the right" << std::endl;
                limits.left_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].max_x);
             }
 
@@ -127,7 +124,6 @@ namespace colls
               (quads::AllQuads[hid].sensors[SENSOR_CENTER].y < quads::AllQuads[qid].abs[AABB_FULL].max_y)
             )
             {
-               //std::cout << "Hero on the top" << std::endl;
                limits.bottom_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].min_y);
             }
 
@@ -138,7 +134,6 @@ namespace colls
               (quads::AllQuads[hid].sensors[SENSOR_CENTER].y > quads::AllQuads[qid].abs[AABB_FULL].min_y)
             )
             {
-              //std::cout << "Hero on the bottom" << std::endl;
                limits.top_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].max_y);
             }
           }
