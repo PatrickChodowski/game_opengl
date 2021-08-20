@@ -50,7 +50,7 @@ const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
 int CURRENT_SHADER_ID = 0;
 std::string FONT_NAME = "OpenSans";
-int MAP_ID = 1;
+int MAP_ID = 2;
 int MAX_QUADS = 2000;
 std::string CAMPAIGN_NAME;
 bool NEW_GAME = true;
