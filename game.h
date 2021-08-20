@@ -14,6 +14,7 @@ namespace game
     shaders::init();
     textures::init();
     menu::init();
+    mobs::init();
     
     // adding font texture to texture catalog
     textures::FontTD = fonts::init(FONT_NAME);
