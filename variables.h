@@ -9,13 +9,16 @@ namespace colls
 {
   int SENSOR_COUNT = 9;
   int SENSOR_OFFSET = 1;
+
+  int ABS_COUNT = 1;
+
   struct AABB
   {
     int min_x;
     int min_y;
     int max_x;
     int max_y;
-    int quad_id;
+    int id;
   };
 
   struct Sensor
@@ -23,6 +26,26 @@ namespace colls
     float x;
     float y;
     int id;
+  };
+
+  struct SolidLimits
+  {
+    std::vector<int> collisions = {};
+    std::vector<float> left_borders = {};
+    std::vector<float> right_borders = {};
+    std::vector<float> top_borders = {};
+    std::vector<float> bottom_borders = {};
+  };
+
+  struct DistanceBetweenPoints
+  {
+    int a_quad_id;
+    int b_quad_id;
+    int a_quad_type;
+    int b_quad_type;
+    float distance;
+    float limit; // sum of quants diagonals
+    bool is_near;
   };
 
 }
@@ -143,8 +166,11 @@ namespace quads
     // would call it a radius but we are in a quad not a circle, but its like a radius to me
     float s_diag; // 'diagonal' is the distance from the center of the quad to the corner
 
-    // used if given entity has collision points
+    // used if given entity has collision sensors
     std::map<int, colls::Sensor> sensors;
+
+    // its not abs, its AABBs, but this is what I do to entertain myself
+    std::map<int, colls::AABB> abs; 
   };
 
 

@@ -180,7 +180,7 @@ namespace hero
     float hero_center_x = quads::AllQuads[hid].s_x + ((quads::AllQuads[hid].s_w)/2);
     float hero_center_y = quads::AllQuads[hid].s_y + ((quads::AllQuads[hid].s_h)/2);
 
-    for(int i=0; i < (colls::SENSOR_COUNT+1); i++)
+    for(int i=0; i < colls::SENSOR_COUNT; i++)
     {
       colls::Sensor s;
       switch(i) {

@@ -241,6 +241,29 @@ namespace quads
       quads_file.close();
     }
   }
+
+  void set_abs(std::vector<colls::DistanceBetweenPoints> near_distances)
+  {   
+    // for each entity in near distance set the aabb
+    for(int i = 0; i < near_distances.size(); i++)
+    {
+      int qid = quads::find_quad_id(near_distances[i].b_quad_id, quads::AllQuads);
+      quads::AllQuads[qid].abs.clear();
+      // for now just producing one box to not overcomplicate
+      for(int a = 0; a < colls::ABS_COUNT; a++)
+      {
+        colls::AABB aabb;
+        aabb.min_x = (quads::AllQuads[qid].s_x + colls::SENSOR_OFFSET);
+        aabb.min_y = (quads::AllQuads[qid].s_y + colls::SENSOR_OFFSET);
+        aabb.max_y = (quads::AllQuads[qid].s_y + quads::AllQuads[qid].s_h - colls::SENSOR_OFFSET);
+        aabb.max_x = (quads::AllQuads[qid].s_x + quads::AllQuads[qid].s_w - colls::SENSOR_OFFSET);
+        aabb.id = AABB_FULL;
+        quads::AllQuads[qid].abs.insert(std::pair<int, colls::AABB>(AABB_FULL, aabb));
+      }
+    }
+  };
+
+
 }
 
 

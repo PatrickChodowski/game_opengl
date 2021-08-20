@@ -36,6 +36,9 @@
 #define SENSOR_TOP_LEFT 7
 #define SENSOR_CENTER 8
 
+// ENTITY AABB boxes
+#define AABB_FULL 0
+
 // event ids:
 #define MOVE_LEFT 0
 #define MOVE_RIGHT 1

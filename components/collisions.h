@@ -5,26 +5,6 @@
 
 namespace colls
 {
-    // Distance Between Points is definately too long of a name
-    struct DistanceBetweenPoints
-    {
-      int a_quad_id;
-      int b_quad_id;
-      int a_quad_type;
-      int b_quad_type;
-      float distance;
-      float limit; // sum of quants diagonals
-      bool is_near;
-    };
-
-    float get_distance_between_points(float x1, float y1, float x2, float y2)
-    {
-      // std::cout << "Calculate distance between (" << x1 << "," << y1 <<") and (" << x2 << "," << y2 << ")" << std::endl; 
-      float distance = std::sqrt(std::pow(x2-x1, 2) + std::pow(y2-y1, 2));
-      // std::cout << "Distance is: " << distance << std::endl;
-      return distance;
-    }
-
     float get_distance_between_quads(quads::Quad q1, quads::Quad q2)
     {
       float distance = std::sqrt(std::pow((q2.s_x - q1.s_x), 2) + std::pow((q2.s_y-q1.s_y), 2));
@@ -103,6 +83,66 @@ namespace colls
       return near_distances;
     }
 
+    struct SolidLimits resolve_solid_collisions(std::vector<colls::DistanceBetweenPoints> near_distances)
+    {
+      struct SolidLimits limits;
+      int hero_quad_id = hero::get_hero_quad_id();
+      int hid = quads::find_quad_id(hero_quad_id, quads::AllQuads);
+
+      for(int i=0; i<near_distances.size(); i++)
+      {
+        int qid = quads::find_quad_id(near_distances[i].b_quad_id, quads::AllQuads);
+        if(quads::AllQuads[qid].solid)
+        { 
+          // loop through sensors
+          for (auto const& s : quads::AllQuads[hid].sensors)
+          {
+            // hero entity on the left
+            if((s.first == SENSOR_TOP_RIGHT || s.first == SENSOR_RIGHT || s.first == SENSOR_BOTTOM_RIGHT) && 
+              (s.second.x >=  quads::AllQuads[qid].abs[AABB_FULL].min_x) && 
+              (s.second.y >=  quads::AllQuads[qid].abs[AABB_FULL].min_y && s.second.y <= quads::AllQuads[qid].abs[AABB_FULL].max_y) &&
+              (quads::AllQuads[hid].sensors[SENSOR_CENTER].x < quads::AllQuads[qid].abs[AABB_FULL].min_x)
+            )
+            {
+               limits.right_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].min_x);
+            }
+
+            // hero entity on the right
+            if((s.first == SENSOR_TOP_LEFT || s.first == SENSOR_LEFT || s.first == SENSOR_BOTTOM_LEFT) && 
+              (s.second.x <=  quads::AllQuads[qid].abs[AABB_FULL].max_x) && 
+              (s.second.y >=  quads::AllQuads[qid].abs[AABB_FULL].min_y && s.second.y <= quads::AllQuads[qid].abs[AABB_FULL].max_y) &&
+              (quads::AllQuads[hid].sensors[SENSOR_CENTER].x > quads::AllQuads[qid].abs[AABB_FULL].max_x)
+            )
+            {
+               limits.left_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].max_x);
+            }
+
+            // hero entity on the top
+            if((s.first == SENSOR_BOTTOM_RIGHT || s.first == SENSOR_BOTTOM || s.first == SENSOR_BOTTOM_LEFT) && 
+              (s.second.y >=  quads::AllQuads[qid].abs[AABB_FULL].min_y) && 
+              (s.second.x >=  quads::AllQuads[qid].abs[AABB_FULL].min_x && s.second.x <= quads::AllQuads[qid].abs[AABB_FULL].max_x) &&
+              (quads::AllQuads[hid].sensors[SENSOR_CENTER].y < quads::AllQuads[qid].abs[AABB_FULL].max_y)
+            )
+            {
+               limits.bottom_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].min_y);
+            }
+
+            // hero entity on the bottom
+            if((s.first == SENSOR_TOP_LEFT || s.first == SENSOR_TOP || s.first == SENSOR_TOP_RIGHT) && 
+              (s.second.y <=  quads::AllQuads[qid].abs[AABB_FULL].max_y) && 
+              (s.second.x >=  quads::AllQuads[qid].abs[AABB_FULL].min_x && s.second.x <= quads::AllQuads[qid].abs[AABB_FULL].max_x) &&
+              (quads::AllQuads[hid].sensors[SENSOR_CENTER].y > quads::AllQuads[qid].abs[AABB_FULL].min_y)
+            )
+            {
+               limits.top_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].max_y);
+            }
+          }
+        }
+      }
+      return limits;
+    }
+
+    
     void handle_collisions(std::vector<colls::DistanceBetweenPoints> near_distances)
     {
       // handle near distances
@@ -111,7 +151,9 @@ namespace colls
       if(near_distances.size() > 0)
       {
         hero::set_hero_sensors();
-        quads::set_aabb();
+        quads::set_abs(near_distances);
+        struct SolidLimits solid_limits = resolve_solid_collisions(near_distances);
+
       }
     }
 }
