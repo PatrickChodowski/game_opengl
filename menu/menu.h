@@ -207,6 +207,11 @@ std::vector<quads::Quad> load_saves_buttons()
     quad.is_clicked = 0.0f;
     quad.type_id = QUAD_TYPE_MENU;
     quad.is_static = 1.0f;
+    quad.alive = false;
+    quad.entity_type_id = ENTITY_TYPE_ID_NA;
+    quad.solid = false;
+    quad.coll = false;
+
     button_quads.push_back(quad);
 
     fonts::render_text(saves[b].c_str(), 

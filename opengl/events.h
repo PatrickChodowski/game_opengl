@@ -149,6 +149,9 @@ namespace events
     // if its true, than camera will stay in the centre and rest of the environment will be moving
     if(camera::centric)
     {
+      // will be used for collisions (if we need to get back)
+      camera::previous_x = camera::x;
+      camera::previous_y = camera::y;
       camera::x += camera::move_x;
       camera::y += camera::move_y;
     } 

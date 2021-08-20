@@ -144,39 +144,45 @@ namespace colls
       if (limits.right_borders.size() > 0)
       { 
         float min_x_border = *std::min_element(limits.right_borders.begin(), limits.right_borders.end());
+        camera::x = camera::previous_x;
       } 
       // hero on the right   |_| x 
       if (limits.left_borders.size() > 0)
       { 
         float max_x_border = *std::max_element(limits.left_borders.begin(), limits.left_borders.end());
+        camera::x = camera::previous_x;
       } 
       // hero on the top 
       if (limits.bottom_borders.size() > 0)
       { 
         float min_y_border = *std::min_element(limits.bottom_borders.begin(), limits.bottom_borders.end());
+        camera::y = camera::previous_y;
       } 
       // hero on the bottom 
       if (limits.top_borders.size() > 0)
       { 
         float max_y_border = *std::min_element(limits.top_borders.begin(), limits.top_borders.end());
+        camera::y = camera::previous_y;
       } 
+
+      // need a bit smarter camera update than this
+
+      quads::scale_move_quads(camera::x, camera::y, camera::zoom);
     }
 
     
-    void handle_collisions(std::vector<colls::DistanceBetweenPoints> near_distances)
+    void handle()
     {
       // handle near distances
       // easiest example:
       // solid map tile wont let the hero through
+      std::vector<colls::DistanceBetweenPoints> near_distances = colls::find_hero_broad_collisions();
       if(near_distances.size() > 0)
       {
         hero::set_hero_sensors();
         quads::set_abs(near_distances);
-        resolve_solid_collisions(near_distances);
-
+        colls::resolve_solid_collisions(near_distances);
         // move camera back based on the solid limits
-
-
       }
     }
 }

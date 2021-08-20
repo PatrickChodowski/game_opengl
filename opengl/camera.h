@@ -9,6 +9,8 @@ namespace camera
   float base_zoom = 1.0f;
   int base_speed = 6;
   int speed = 6;
+  int previous_x = 0;
+  int previous_y = 0;
   int x = 0;
   int y = 0;
   int move_x = 0;
