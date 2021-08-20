@@ -4,33 +4,6 @@
 
 namespace maps 
 {
-
-  struct Door
-  {
-    int door_id;
-    int x;
-    int y;
-    int dest_map_id;
-    int player_enter_x;
-    int player_enter_y;
-
-    JS_OBJ(door_id, x, y, dest_map_id, player_enter_x, player_enter_y);
-  };
-
-  struct MapData
-  {
-    int id;
-    std::string name;
-    int vertex_width;
-    int vertex_height;
-    int texture_id;
-    int default_player_x;
-    int default_player_y;
-    std::vector<Door> doors;
-
-    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors);
-  };
-
   struct MapCache
   {
    int level_id;
@@ -41,7 +14,7 @@ namespace maps
    std::vector<int> required_textures;
   };
 
-  std::map<int, MapData> Catalog = {};
+  
   void read_map_data(std::string name)
   {
     /*
