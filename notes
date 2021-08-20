@@ -5,15 +5,15 @@ zielony ssak
 
 ksiazka o przeuzywanych cytatach - droga nna ktorej spotykasz wrogow to ta dobras
 
-doing:
-Item rendering
-
 TODO:
-- why distances dont calculate properly
-- shader dla wyswietlania collision boxes
+ - mobs:
+  - render mobs
+  - add navmesh for mobs
+  - mobs states
 
 IDEAS:
 - reinforcement learning for monsters play
 - animations from blender
 - navmesh
 - RVO for avoiding collisions
+- shader dla wyswietlania collision boxes
