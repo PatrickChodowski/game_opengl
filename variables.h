@@ -362,9 +362,8 @@ namespace textures
     int y;
     int w;
     int h;
-    int is_solid;
 
-    JS_OBJ(frame_id, x, y, w, h, is_solid);
+    JS_OBJ(frame_id, x, y, w, h);
   };
 
   // General texture information

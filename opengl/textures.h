@@ -88,7 +88,7 @@ namespace textures
       {
        std::cout <<  "frame_id: " << TD.frames_list[f].frame_id << ", x: " 
        <<  TD.frames_list[f].x << ", y: "<< TD.frames_list[f].y << ", w: " 
-       << TD.frames_list[f].w << ", h: "<< TD.frames_list[f].h << ", is_solid: " << TD.frames_list[f].is_solid << std::endl;
+       << TD.frames_list[f].w << ", h: "<< TD.frames_list[f].h  << std::endl;
       }
     }
 
