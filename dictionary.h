@@ -25,6 +25,17 @@
 #define JOINT_LEGS 4
 #define JOIN_HEAD 5 
 
+// ENTITY SENSORS
+#define SENSOR_TOP 0
+#define SENSOR_TOP_RIGHT 1
+#define SENSOR_RIGHT 2
+#define SENSOR_BOTTOM_RIGHT 3
+#define SENSOR_BOTTOM 4
+#define SENSOR_BOTTOM_LEFT 5
+#define SENSOR_LEFT 6
+#define SENSOR_TOP_LEFT 7
+#define SENSOR_CENTER 8
+
 // event ids:
 #define MOVE_LEFT 0
 #define MOVE_RIGHT 1
