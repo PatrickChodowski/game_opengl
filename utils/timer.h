@@ -34,6 +34,14 @@ namespace timer
     logger::print(full_message, -1);
   }
 
+  template<typename T>
+  int get_fps(T start_time, T end_time)
+  {
+    std::chrono::duration<double> elapsed_seconds = end_time-start_time;
+    float elapsed_seconds_ = elapsed_seconds.count();
+    int fps = 60/elapsed_seconds.count();
+    return fps;
+  }
 }
 
 #endif

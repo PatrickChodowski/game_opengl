@@ -15,7 +15,8 @@
 #include <chrono>   // time/clock
 #include <ctime>    // time/clock
 #include <regex>    // for shader parameters
-#include <algorithm>
+#include <algorithm>// for min, max
+#include <math.h>     // for distance calculating
 
 // Opengl packages
 #include <GL/glew.h> 
@@ -49,10 +50,11 @@ const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
 int CURRENT_SHADER_ID = 0;
 std::string FONT_NAME = "OpenSans";
-int MAP_ID = 0;
+int MAP_ID = 1;
 int MAX_QUADS = 2000;
 std::string CAMPAIGN_NAME;
 bool NEW_GAME = true;
+int FPS = 60; // just init
 
 //https://github.com/jorgen/json_struct
 #include "dependencies/json_struct.h" // used for reading/writing any json data
@@ -88,8 +90,8 @@ bool NEW_GAME = true;
 #include "opengl/utils.h"
 #include "opengl/textures.h"
 #include "shaders/shaders.h"
-#include "opengl/quads.h"
 #include "opengl/camera.h"
+#include "opengl/quads.h"
 #include "opengl/buffer.h"
 #include "opengl/mouse.h"
 
@@ -100,6 +102,8 @@ bool NEW_GAME = true;
 #include "components/items.h"
 #include "components/mobs.h"
 #include "components/hero.h"
+#include "components/collisions.h"
+
 
 // quads dependent
 #include "fonts/fonts.h"

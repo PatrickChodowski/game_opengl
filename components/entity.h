@@ -4,9 +4,14 @@
 
 // rendering entities logic
 
+// entity type ids:
+// hero:0, item:1, mob: 2
+
 namespace ent
 {
-  quads::Quad render_entity(int type_id,
+  quads::Quad render_entity(
+                     int entity_type_id,
+                     bool alive,
                      int texture_id,
                      int frame_id,
                      float x, 
@@ -14,7 +19,9 @@ namespace ent
                      int h, 
                      int w, 
                      float is_static,
-                     textures::TextureData FontTD
+                     textures::TextureData FontTD,
+                     bool solid,
+                     bool coll
                      )
   {
     float norm_x_start = (float)textures::Catalog[texture_id].frames[frame_id].x/
@@ -42,6 +49,10 @@ namespace ent
     quad.a_col = 1.0f;
     quad.type_id = QUAD_TYPE_ENTITY;
     quad.is_static = is_static;
+    quad.entity_type_id = entity_type_id;
+    quad.alive = alive;
+    quad.solid = solid;
+    quad.coll = coll;
 
     quad.a = quads::gen_vertex_id();
     quad.b = quads::gen_vertex_id();

@@ -1,14 +1,7 @@
 #ifndef ITEMS_H
 #define ITEMS_H
 
-// joints of the item to hero's body
-#define JOINT_RIGHT_HAND 0
-#define JOINT_LEFT_HAND 1
-#define JOINT_UPPER_BODY 2
-#define JOINT_LOWER_BODY 3
-#define JOINT_LEGS 4
-#define JOIN_HEAD 5 
-
+#include "../dictionary.h"
 
 namespace items
 {
@@ -67,15 +60,18 @@ namespace items
   quads::Quad render_item_on_ground(int item_id, int x, int y)
   {
     struct ItemData ITD = ItemCatalog[item_id];
-    quads::Quad item_quad = ent::render_entity(0, 
+    quads::Quad item_quad = ent::render_entity(ENTITY_TYPE_ID_ITEM, 
+                                               false,
                                                ITD.items_texture_id,
                                                ITD.items_frame_id, 
                                                x, 
                                                y, 
                                                ITD.height_og, 
                                                ITD.width_og, 
-                                               0.0f, 
-                                               textures::FontTD);
+                                               ENTITY_NOT_STATIC, 
+                                               textures::FontTD,
+                                               false,
+                                               true);
     return item_quad;
   }
 }

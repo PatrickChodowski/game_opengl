@@ -1,36 +1,6 @@
 #ifndef HERO_H
 #define HERO_H
 
-// event ids:
-#define MOVE_LEFT 0
-#define MOVE_RIGHT 1
-#define MOVE_UP 2
-#define MOVE_DOWN 3
-#define STAND_STILL 4
-#define ATTACK 5
-
-// frame names
-#define FRAME_STAND_1 0
-#define FRAME_STAND_2 1
-#define FRAME_STAND_3 2
-#define FRAME_LEFT_1 7
-#define FRAME_LEFT_2 5
-#define FRAME_LEFT_3 6
-#define FRAME_RIGHT_1 9
-#define FRAME_RIGHT_2 8
-#define FRAME_RIGHT_3 10
-#define FRAME_DOWN_1 4
-#define FRAME_DOWN_2 3
-#define FRAME_UP_1 12
-#define FRAME_UP_2 13
-#define FRAME_ATTACK_1 14
-#define FRAME_ATTACK_2 15
-#define FRAME_ATTACK_3 16
-
-#define FRAME_DELAY_LONG 0.7
-#define FRAME_DELAY 0.2
-#define FRAME_DELAY_SHORT 0.08
-
 
 /// how to render hero and also how to update only the correct part of the buffer?
 // will be a bluebrint for other renderable entities
@@ -186,12 +156,96 @@ namespace hero
   }
 
   // hero's frame should also just pick the item frame that hero is holding
+  // heeheee sure
+  int get_hero_quad_id()
+  {
+    // find quad id of the hero
+    int hero_quad_id = -1;
+    for(int e = 0; e < ent::EntityQuads.size(); e++)
+    {
+      if(ent::EntityQuads[e].entity_type_id == 0){
+        hero_quad_id = ent::EntityQuads[e].id;
+        break;
+      }
+    }
+    return hero_quad_id;
+  }
 
 
+  void set_hero_sensors()
+  {
+    int hero_quad_id = hero::get_hero_quad_id();
+    int hid = quads::find_quad_id(hero_quad_id, quads::AllQuads);
+    quads::AllQuads[hid].sensors.clear();
+    float hero_center_x = quads::AllQuads[hid].s_x + ((quads::AllQuads[hid].s_w)/2);
+    float hero_center_y = quads::AllQuads[hid].s_y + ((quads::AllQuads[hid].s_h)/2);
 
+    for(int i=0; i < colls::SENSOR_COUNT; i++)
+    {
+      colls::Sensor s;
+      // std::cout << i << std::endl;
+      switch(i) {
+        case SENSOR_TOP:
+            s.x = hero_center_x;
+            s.y = (quads::AllQuads[hid].s_y - colls::SENSOR_OFFSET);
+            s.id = SENSOR_TOP;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_TOP, s));
+            //std::cout << "TOP SENSOR " << s.x << "," << s.y << std::endl;
+        break;
+        case SENSOR_TOP_RIGHT:
+            s.x = (quads::AllQuads[hid].s_x + quads::AllQuads[hid].s_w + colls::SENSOR_OFFSET);
+            s.y = (quads::AllQuads[hid].s_y  - colls::SENSOR_OFFSET);
+            s.id = SENSOR_TOP_RIGHT;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_TOP_RIGHT, s));
+            //std::cout << "TOP RIGHT SENSOR " << s.x << "," << s.y << std::endl;
 
-
-
+        break;
+        case SENSOR_RIGHT:
+            s.x = (quads::AllQuads[hid].s_x + quads::AllQuads[hid].s_w  + colls::SENSOR_OFFSET);
+            s.y = (hero_center_y) ;
+            s.id = SENSOR_RIGHT;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_RIGHT, s));
+            //std::cout << "RIGHT SENSOR " << s.x << "," << s.y << std::endl;
+        break;
+        case SENSOR_BOTTOM_RIGHT: // bottom right
+            s.x = (quads::AllQuads[hid].s_x + quads::AllQuads[hid].s_w + colls::SENSOR_OFFSET);
+            s.y = (quads::AllQuads[hid].s_y + quads::AllQuads[hid].s_h + colls::SENSOR_OFFSET);
+            s.id = SENSOR_BOTTOM_RIGHT;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_BOTTOM_RIGHT, s));
+        break;
+        case SENSOR_BOTTOM:
+            s.x = hero_center_x;
+            s.y = (quads::AllQuads[hid].s_y + quads::AllQuads[hid].s_h + colls::SENSOR_OFFSET);
+            s.id = SENSOR_BOTTOM;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_BOTTOM, s));
+        break;
+        case SENSOR_BOTTOM_LEFT:
+            s.x = quads::AllQuads[hid].s_x - colls::SENSOR_OFFSET;
+            s.y = (quads::AllQuads[hid].s_y + quads::AllQuads[hid].s_h + colls::SENSOR_OFFSET);
+            s.id = SENSOR_BOTTOM_LEFT;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_BOTTOM_LEFT, s));
+        break;
+        case SENSOR_LEFT:
+            s.x = quads::AllQuads[hid].s_x - colls::SENSOR_OFFSET ;
+            s.y = hero_center_y;
+            s.id = SENSOR_LEFT;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_LEFT, s));
+        break;
+        case SENSOR_TOP_LEFT:
+            s.x = quads::AllQuads[hid].s_x - colls::SENSOR_OFFSET;
+            s.y = quads::AllQuads[hid].s_y - colls::SENSOR_OFFSET;
+            s.id = SENSOR_TOP_LEFT;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_TOP_LEFT, s));
+        break;
+        case SENSOR_CENTER:
+            s.x = hero_center_x;
+            s.y = hero_center_y;
+            s.id = SENSOR_CENTER;
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_CENTER, s));
+        break;
+      }
+    }
+  }
 }
 
 

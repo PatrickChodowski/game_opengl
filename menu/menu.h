@@ -45,6 +45,12 @@ std::vector<quads::Quad> load_button_quads(std::vector<int> button_list)
     quad.y = menu::Catalog[button_id].y;
     quad.w = menu::Catalog[button_id].w;    
     quad.h = menu::Catalog[button_id].h;
+
+    quad.s_x = menu::Catalog[button_id].x;
+    quad.s_y = menu::Catalog[button_id].y;
+    quad.s_w = menu::Catalog[button_id].w;    
+    quad.s_h = menu::Catalog[button_id].h;
+
     quad.r_col = menu::Catalog[button_id].r_col;
     quad.g_col = menu::Catalog[button_id].g_col;
     quad.b_col = menu::Catalog[button_id].b_col;
@@ -188,6 +194,12 @@ std::vector<quads::Quad> load_saves_buttons()
     quad.y = menu::Catalog[button_id].y + (b*(menu::Catalog[button_id].h+5));
     quad.w = menu::Catalog[button_id].w;    
     quad.h = menu::Catalog[button_id].h;
+
+    quad.s_x = menu::Catalog[button_id].x;
+    quad.s_y = menu::Catalog[button_id].y  + (b*(menu::Catalog[button_id].h+5));
+    quad.s_w = menu::Catalog[button_id].w;    
+    quad.s_h = menu::Catalog[button_id].h;
+
     quad.r_col = menu::Catalog[button_id].r_col;
     quad.g_col = menu::Catalog[button_id].g_col;
     quad.b_col = menu::Catalog[button_id].b_col;
@@ -195,6 +207,11 @@ std::vector<quads::Quad> load_saves_buttons()
     quad.is_clicked = 0.0f;
     quad.type_id = QUAD_TYPE_MENU;
     quad.is_static = 1.0f;
+    quad.alive = false;
+    quad.entity_type_id = ENTITY_TYPE_ID_NA;
+    quad.solid = false;
+    quad.coll = false;
+
     button_quads.push_back(quad);
 
     fonts::render_text(saves[b].c_str(), 

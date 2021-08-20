@@ -1,14 +1,7 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
-// event ids:
-#define MOVE_LEFT 0
-#define MOVE_RIGHT 1
-#define MOVE_UP 2
-#define MOVE_DOWN 3
-#define STAND_STILL 4
-#define ATTACK 5
-
+#include "../dictionary.h"
 
 namespace events
 {
@@ -38,14 +31,6 @@ namespace events
             CURRENT_SHADER_ID = 0;
           }
       break;
-
-
-        // case SDLK_l:
-        //   CURRENT_SHADER = "light_radius_shading_program";
-        //   break;
-        // case SDLK_g:
-        //   CURRENT_SHADER = "canvas";
-        //   break;
     }
   }
 
@@ -85,7 +70,7 @@ namespace events
 
 
   
-  void handle_events(SDL_Event event, std::vector<quads::ScaledQuad> v, std::vector<quads::Quad> lv)
+  void handle_events(SDL_Event event, std::vector<quads::Quad> quads)
   // subsystem for handling players input
   {
 
@@ -103,7 +88,7 @@ namespace events
           break;
         
         case SDL_MOUSEBUTTONDOWN:
-          mouse::handle_mouse(event.motion, event.button, v, lv);
+          mouse::handle_mouse(event.motion, event.button, quads);
         break;
 
         case SDL_QUIT:
@@ -164,6 +149,9 @@ namespace events
     // if its true, than camera will stay in the centre and rest of the environment will be moving
     if(camera::centric)
     {
+      // will be used for collisions (if we need to get back)
+      camera::previous_x = camera::x;
+      camera::previous_y = camera::y;
       camera::x += camera::move_x;
       camera::y += camera::move_y;
     } 
