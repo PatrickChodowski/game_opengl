@@ -215,6 +215,8 @@ namespace fonts
       quad.is_static = is_static;
       quad.coll = false;
       quad.solid = false;
+      quad.entity_type_id = ENTITY_TYPE_ID_NA;
+      quad.alive = false;
 
       quad.a = quads::gen_vertex_id();
       quad.b = quads::gen_vertex_id();
