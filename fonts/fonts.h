@@ -206,7 +206,6 @@ namespace fonts
       quad.h = character_map[*p].bitmap_height * scale;
       quad.frame_id = character_map[*p].frame_id;
       quad.texture_id = character_map[*p].texture_id;
-      quad.solid = 0.0f;
       quad.is_clicked = 0.0f;
       quad.r_col = r_col;
       quad.g_col = g_col;
@@ -214,6 +213,10 @@ namespace fonts
       quad.a_col = 1.0f;
       quad.type_id = QUAD_TYPE_TEXT;
       quad.is_static = is_static;
+      quad.coll = false;
+      quad.solid = false;
+      quad.entity_type_id = ENTITY_TYPE_ID_NA;
+      quad.alive = false;
 
       quad.a = quads::gen_vertex_id();
       quad.b = quads::gen_vertex_id();

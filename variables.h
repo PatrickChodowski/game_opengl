@@ -3,21 +3,57 @@
 #define VARS_H
 
 // file for defining variables that should be accessible by multiple files 
+#include "dictionary.h"
+
+namespace colls
+{
+  int SENSOR_COUNT = 9;
+  int SENSOR_OFFSET = 1;
+
+  int ABS_COUNT = 1;
+
+  struct AABB
+  {
+    int min_x;
+    int min_y;
+    int max_x;
+    int max_y;
+    int id;
+  };
+
+  struct Sensor
+  {
+    float x;
+    float y;
+    int id;
+  };
+
+  struct SolidLimits
+  {
+    std::vector<float> left_borders = {};
+    std::vector<float> right_borders = {};
+    std::vector<float> top_borders = {};
+    std::vector<float> bottom_borders = {};
+  };
+
+  struct DistanceBetweenPoints
+  {
+    int a_quad_id;
+    int b_quad_id;
+    int a_quad_type;
+    int b_quad_type;
+    float distance;
+    float limit; // sum of quants diagonals
+    bool is_near;
+  };
+
+}
 
 namespace quads
 {
-
-  #define QUAD_TYPE_MAP 0.0f
-  #define QUAD_TYPE_MENU 1.0f
-  #define QUAD_TYPE_TEXT 2.0f
-  #define QUAD_TYPE_ENTITY 3.0f
-
   int COUNT_VERTEX_ATTRIBUTES = 14;
   int VERTEX_OFFSET = 1;
 
-
-
-  
   // vertex index
   struct Vindex
   {  
@@ -71,7 +107,9 @@ namespace quads
     int y;
     int w;
     int h;
-    bool solid;
+
+    bool solid; // if true, will get collision with hero entity
+    bool coll; // if true, will get distance to hero calculated
     bool is_clicked;
 
     // vertex IDS:
@@ -112,15 +150,26 @@ namespace quads
 
     // to choose camera reaction:
     float is_static;
-  };
 
-  struct ScaledQuad
-  {
-    int id;
-    float x;
-    float y;
-    float w;
-    float h;
+    // for entities logic:
+    int entity_type_id;
+    bool alive;
+
+    // Scaled metrics For collisions and mouse events:
+    float s_x;
+    float s_y;
+    float s_w;
+    float s_h;
+
+    // 'diagonal' is the distance from the middle of the quad to the corner
+    // would call it a radius but we are in a quad not a circle, but its like a radius to me
+    float s_diag; // 'diagonal' is the distance from the center of the quad to the corner
+
+    // used if given entity has collision sensors
+    std::map<int, colls::Sensor> sensors;
+
+    // its not abs, its AABBs, but this is what I do to entertain myself
+    std::map<int, colls::AABB> abs; 
   };
 
 
@@ -157,7 +206,6 @@ namespace quads
   */
   std::vector<quads::Quad> AllQuads;
   std::map<std::string, int> QuadsSummary;
-  std::vector<quads::ScaledQuad> ScaledAllQuads;
   std::vector<int> UsedQuadIds = {};
   std::vector<int> UsedVertexIds = {};
 
@@ -224,7 +272,6 @@ namespace fonts
 namespace maps
 {
   std::vector<quads::Quad> MapQuads;
-  std::vector<quads::ScaledQuad> ScaledMapQuads;
 }
 
 namespace ent
@@ -307,6 +354,9 @@ namespace textures
 
 namespace game 
 {
+  glm::mat4 STATIC_MVP;
+  glm::mat4 DYNAMIC_MVP;
+  glm::mat4 ZOOM_MVP;
 
   // starts with menu on:
   std::map<std::string, bool> GAME_STATE;

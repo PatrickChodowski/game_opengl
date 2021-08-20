@@ -9,8 +9,11 @@ doing:
 Item rendering
 
 TODO:
+- why distances dont calculate properly
 - shader dla wyswietlania collision boxes
 
 IDEAS:
 - reinforcement learning for monsters play
 - animations from blender
+- navmesh
+- RVO for avoiding collisions

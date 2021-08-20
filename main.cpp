@@ -30,15 +30,20 @@ int main()
   {
     auto game_loop_start_time = std::chrono::system_clock::now();
     SDL_Event event;
-    events::handle_events(event, quads::ScaledAllQuads, quads::AllQuads);
+    events::handle_events(event, quads::AllQuads);
 
     game::handle_game_state();
     quads::accumulate();
+    quads::scale_move_quads(camera::x, camera::y, camera::zoom);
+
+    colls::handle();
     game::update(quads::AllQuads);
     
     SDL_GL_SwapWindow(WINDOW);
-    SDL_Delay(1000/60);
-    timer::print_elapsed_time(game_loop_start_time, "Game Loop duration:");
+    SDL_Delay(16);
+
+    auto game_loop_end_time = std::chrono::system_clock::now();
+    FPS = timer::get_fps(game_loop_start_time, game_loop_end_time);
   }
 
   // cleanup after the game

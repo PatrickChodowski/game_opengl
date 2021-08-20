@@ -97,19 +97,13 @@ namespace maps
   {
     /*
       Loads map quads from map file
-
-
     */
-
-
     std::vector<quads::Quad> tile_map = {};
     std::string file_path = "maps/" + map_name;
     std::ifstream in_file;
     in_file.open(file_path.c_str());
 
     int n_tiles = vertex_width*vertex_height;
-    // int TILE_COUNTER = 1; // old version, need to use get_next_quad_id
-
       // read in the tile info
     if (in_file.is_open())
     {
@@ -118,17 +112,39 @@ namespace maps
           for (int c = 0; c < vertex_width; c++)
           {
             struct quads::Quad quad;
+            quad.id = quads::gen_quad_id();
             quad.x = c * camera::tile_dim;
             quad.y = r * camera::tile_dim;
             quad.w = camera::tile_dim;
             quad.h = camera::tile_dim;
-            in_file >> quad.frame_id;
+            in_file >> quad.frame_id; // value of tile in text file
 
-            quad.id = quads::gen_quad_id();
+            quad.s_x = c * camera::tile_dim;
+            quad.s_y = r * camera::tile_dim;
+            quad.s_w = camera::tile_dim;
+            quad.s_h = camera::tile_dim;
+  
             quad.texture_id = texture_id;
             quad.is_clicked = 0.0;
             quad.type_id = QUAD_TYPE_MAP;
             quad.is_static = 0.0f;
+
+            quad.solid = false;
+            quad.coll = false;
+            // if frame_id is between 10 and 20, then its solid
+            if(quad.frame_id > 10 && quad.frame_id < 20){
+              // 11-19
+              quad.solid = true;
+              quad.coll = true;
+            }
+
+            quad.entity_type_id = ENTITY_TYPE_ID_NA;
+            quad.alive = false;
+            quad.r_col = 0.5;
+            quad.g_col = 0.5;
+            quad.b_col = 0.5;
+            quad.a_col = 0.5;
+
             tile_map.push_back(quad);
           };
         } 
@@ -153,9 +169,9 @@ namespace maps
               << " Map texture id: " << maps::Catalog[map_id].texture_id << std::endl;
 
     maps::MapQuads = load_map_from_file(maps::Catalog[map_id].name, 
-                                    maps::Catalog[map_id].vertex_width, 
-                                    maps::Catalog[map_id].vertex_height, 
-                                    maps::Catalog[map_id].texture_id);
+                                        maps::Catalog[map_id].vertex_width, 
+                                        maps::Catalog[map_id].vertex_height, 
+                                        maps::Catalog[map_id].texture_id);
 
     for(int i = 0; i < maps::MapQuads.size(); i++)
     { 
