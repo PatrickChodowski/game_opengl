@@ -5,6 +5,28 @@
 // file for defining variables that should be accessible by multiple files 
 #include "dictionary.h"
 
+namespace colls
+{
+  int SENSOR_COUNT = 9;
+  int SENSOR_OFFSET = 1;
+  struct AABB
+  {
+    int min_x;
+    int min_y;
+    int max_x;
+    int max_y;
+    int quad_id;
+  };
+
+  struct Sensor
+  {
+    float x;
+    float y;
+    int id;
+  };
+
+}
+
 namespace quads
 {
   int COUNT_VERTEX_ATTRIBUTES = 14;
@@ -120,6 +142,9 @@ namespace quads
     // 'diagonal' is the distance from the middle of the quad to the corner
     // would call it a radius but we are in a quad not a circle, but its like a radius to me
     float s_diag; // 'diagonal' is the distance from the center of the quad to the corner
+
+    // used if given entity has collision points
+    std::map<int, colls::Sensor> sensors;
   };
 
 

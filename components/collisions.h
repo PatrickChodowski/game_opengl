@@ -88,24 +88,31 @@ namespace colls
       int entity_quad_id = hero::get_hero_quad_id();
       // std::cout << entity_quad_id << std::endl;
       std::vector<colls::DistanceBetweenPoints> distances;
+      std::vector<colls::DistanceBetweenPoints> near_distances;
       if (entity_quad_id != -1)
       {
         distances = get_entity_distances(entity_quad_id);
-        int near_count = 0;
-        // for(int d=0; d<distances.size(); d++)
-        // {
-        //   if(distances[d].is_near)
-        //   {
-        //     near_count += 1;
-        //     std::cout <<"entity: " << distances[d].a_quad_id  << " type: " <<  distances[d].a_quad_type <<  " Near entity: " << distances[d].b_quad_id 
-        //     << " type: " << distances[d].b_quad_type  << " distance: " << distances[d].distance << " limit: " << distances[d].limit << std::endl;
-        //   }
-        // }
-        // if(near_count > 0){
-        //   std::cout << "Near entity count: " << near_count << std::endl;
-        // }
+        for(int d=0; d<distances.size(); d++)
+        {
+          if(distances[d].is_near)
+          {
+            near_distances.push_back(distances[d]);
+          }
+        }
       }
-      return distances;
+      return near_distances;
+    }
+
+    void handle_collisions(std::vector<colls::DistanceBetweenPoints> near_distances)
+    {
+      // handle near distances
+      // easiest example:
+      // solid map tile wont let the hero through
+      if(near_distances.size() > 0)
+      {
+        hero::set_hero_sensors();
+        quads::set_aabb();
+      }
     }
 }
 
