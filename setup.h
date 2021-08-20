@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <random>
 #include <fstream>  // for reading in the json files
 #include <sstream>  // for reading in the json files
 #include <dirent.h> // filesystem, listing files
