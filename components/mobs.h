@@ -25,6 +25,7 @@ namespace mobs
     max_speed, min_hp, max_hp, min_def, max_def);
   };
 
+  std::vector<int> alive_mobs = {};
   std::map<int, MobData> Catalog = {};
 
   void read_mob_data(std::string name)
@@ -56,6 +57,7 @@ namespace mobs
   { 
     // takes nests data from maps catalog using map id
     // spawns mobs on the level based on the level information
+    alive_mobs.clear();
     int MOB_ID = 0;
     // unpack each nest
     for(int i=0; i < maps::Catalog[map_id].nests.size(); i++)
@@ -63,27 +65,43 @@ namespace mobs
       for(int m=0; m<maps::Catalog[map_id].nests[i].n; m++)
       {
         quads::Quad mob_quad = ent::render_entity(ENTITY_TYPE_ID_MOB,
-                                                true,
-                                                mobs::Catalog[MOB_ID].texture_id,
-                                                0,
-                                                maps::Catalog[map_id].nests[i].x + (m*mobs::Catalog[MOB_ID].w),
-                                                maps::Catalog[map_id].nests[i].y,
-                                                mobs::Catalog[MOB_ID].h,
-                                                mobs::Catalog[MOB_ID].w,
-                                                0.0f,
-                                                textures::FontTD,
-                                                true,
-                                                true
+                                                  true,
+                                                  mobs::Catalog[MOB_ID].texture_id,
+                                                  0,
+                                                  maps::Catalog[map_id].nests[i].x + (m*mobs::Catalog[MOB_ID].w),
+                                                  maps::Catalog[map_id].nests[i].y,
+                                                  mobs::Catalog[MOB_ID].h,
+                                                  mobs::Catalog[MOB_ID].w,
+                                                  0.0f,
+                                                  textures::FontTD,
+                                                  true,
+                                                  true
                                                 );
         ent::EntityQuads.push_back(mob_quad);
+        alive_mobs.push_back(mob_quad.id);
       }
     };
   }
 
 
-
-
-
+  // void move_random()
+  // { 
+  //   std::cout<< "alive mobs size: " << alive_mobs.size() << std::endl;
+  //   for(int a = 0; 0 < alive_mobs.size(); a++)
+  //   {
+  //     int mid = quads::find_quad_id(alive_mobs[a], quads::AllQuads);
+  //     int r = utils::get_random(0,3);
+  //     if(r == 0){
+  //       quads::AllQuads[mid].x += 1;
+  //     } else if (r==1) {
+  //       quads::AllQuads[mid].x -= 1;
+  //     } else if (r==2) {
+  //       quads::AllQuads[mid].y -= 1;
+  //     } else if (r==3) {
+  //       quads::AllQuads[mid].y += 1;
+  //     }
+  //   }
+  // }
 
 
 
