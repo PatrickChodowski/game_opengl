@@ -27,7 +27,7 @@ namespace colls
 
     float get_distance_between_quads(quads::Quad q1, quads::Quad q2)
     {
-      float distance = std::sqrt(std::pow(q2.s_x - q1.s_x, 2) + std::pow(q2.s_y-q1.s_y, 2));
+      float distance = std::sqrt(std::pow((q2.s_x - q1.s_x), 2) + std::pow((q2.s_y-q1.s_y), 2));
       return distance;
     }
 
@@ -36,10 +36,10 @@ namespace colls
       // calculate distances between alive entity and quads of certain type
 
       // find quad id entity index
-      int entity_index = quads::find_quad_id(entity_quad_id, ent::EntityQuads);
+      int entity_index = quads::find_quad_id(entity_quad_id,  quads::AllQuads);
 
       // get entity quad data
-      quads::Quad entity_quad = ent::EntityQuads[entity_index];
+      quads::Quad entity_quad = quads::AllQuads[entity_index];
 
       // initialize instance of distances table
       std::vector<colls::DistanceBetweenPoints> distances = {};
@@ -58,13 +58,33 @@ namespace colls
 
             dbp.distance = dist;
             dbp.limit = entity_quad.s_diag + quads::AllQuads[q].s_diag;
-            dbp.limit = TILE_DIM;
-            // std::cout << "limit: " << dbp.limit << "entity sdiag: " << entity_quad.s_diag << "quad sdiag:" << quads::AllQuads[q].s_diag << std::endl;
 
+            // std::cout << "limit: " << dbp.limit << "entity sdiag: " << entity_quad.s_diag << "quad sdiag:" << quads::AllQuads[q].s_diag << std::endl;
+            // if(quads::AllQuads[q].id == 15)
+            // {
+            //   std::cout << "entity quad id: " << entity_quad.id << std::endl;  
+            //   std::cout << "entity type: " << entity_quad.entity_type_id << std::endl;  
+            //   std::cout << "entity s_x, s_y: " << entity_quad.s_x << "," << entity_quad.s_y << std::endl;  
+            //   std::cout << "quad s_x, s_y: " << quads::AllQuads[q].s_x << "," << quads::AllQuads[q].s_y << std::endl;  
+            //   std::cout << "x diff: " << entity_quad.s_x - quads::AllQuads[q].s_x << std::endl;
+            //   std::cout << "y diff: " << entity_quad.s_y - quads::AllQuads[q].s_y << std::endl;
+            //   std::cout << "distance to 15: " << dist << std::endl;
+            // } 
             dbp.is_near = false;
 
             if(dbp.distance <= dbp.limit){
               dbp.is_near = true;
+              quads::AllQuads[q].is_clicked = 1.0f;
+              quads::AllQuads[q].v_a.is_clicked = 1.0f;
+              quads::AllQuads[q].v_b.is_clicked = 1.0f;
+              quads::AllQuads[q].v_c.is_clicked = 1.0f;
+              quads::AllQuads[q].v_d.is_clicked = 1.0f;
+            } else {
+              quads::AllQuads[q].is_clicked = 0.0f;
+              quads::AllQuads[q].v_a.is_clicked = 0.0f;
+              quads::AllQuads[q].v_b.is_clicked = 0.0f;
+              quads::AllQuads[q].v_c.is_clicked = 0.0f;
+              quads::AllQuads[q].v_d.is_clicked = 0.0f;
             }
             distances.push_back(dbp);
           }
