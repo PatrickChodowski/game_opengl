@@ -183,24 +183,29 @@ namespace hero
     for(int i=0; i < colls::SENSOR_COUNT; i++)
     {
       colls::Sensor s;
+      // std::cout << i << std::endl;
       switch(i) {
         case SENSOR_TOP:
             s.x = hero_center_x;
             s.y = (quads::AllQuads[hid].s_y - colls::SENSOR_OFFSET);
             s.id = SENSOR_TOP;
-            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(colls::SENSOR_OFFSET, s));
+            quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_TOP, s));
+            //std::cout << "TOP SENSOR " << s.x << "," << s.y << std::endl;
         break;
         case SENSOR_TOP_RIGHT:
             s.x = (quads::AllQuads[hid].s_x + quads::AllQuads[hid].s_w + colls::SENSOR_OFFSET);
             s.y = (quads::AllQuads[hid].s_y  - colls::SENSOR_OFFSET);
             s.id = SENSOR_TOP_RIGHT;
             quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_TOP_RIGHT, s));
+            //std::cout << "TOP RIGHT SENSOR " << s.x << "," << s.y << std::endl;
+
         break;
         case SENSOR_RIGHT:
             s.x = (quads::AllQuads[hid].s_x + quads::AllQuads[hid].s_w  + colls::SENSOR_OFFSET);
             s.y = (hero_center_y) ;
             s.id = SENSOR_RIGHT;
             quads::AllQuads[hid].sensors.insert(std::pair<int, colls::Sensor>(SENSOR_RIGHT, s));
+            //std::cout << "RIGHT SENSOR " << s.x << "," << s.y << std::endl;
         break;
         case SENSOR_BOTTOM_RIGHT: // bottom right
             s.x = (quads::AllQuads[hid].s_x + quads::AllQuads[hid].s_w + colls::SENSOR_OFFSET);
