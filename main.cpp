@@ -36,8 +36,7 @@ int main()
     quads::accumulate();
     quads::scale_move_quads(camera::x, camera::y, camera::zoom);
 
-    // temporary here
-    std::vector<colls::DistanceBetweenPoints> distances = colls::find_hero_broad_collisions();
+    colls::handle();
     game::update(quads::AllQuads);
     
     SDL_GL_SwapWindow(WINDOW);
