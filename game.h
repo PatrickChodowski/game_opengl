@@ -51,7 +51,6 @@ namespace game
           ent::EntityQuads.push_back(hero);
           quads::Quad stick = items::render_item_on_ground(0, 200, 200);
           ent::EntityQuads.push_back(stick);
-
           mobs::spawn(MAP_ID);
         } else {
           saves::load_game(CAMPAIGN_NAME);
@@ -61,6 +60,7 @@ namespace game
           quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, 
                                                 hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD,  true, true);
           ent::EntityQuads.push_back(hero);
+          mobs::spawn(MAP_ID);
         }
  
       } else if(GAME_STATE["LOAD_GAME_MENU"]){
@@ -89,9 +89,8 @@ namespace game
       hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, textures::FontTD,  true, true);
       ent::EntityQuads.push_back(hero);
 
-      mobs::spawn(MAP_ID);
-
-      // mobs::move_random();
+      mobs::move_random();
+      mobs::render_alive_mobs();
      } 
 
    }

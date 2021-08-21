@@ -4,6 +4,18 @@
 
 namespace mobs
 {
+
+  struct AliveMobData
+  {
+    // stores current position of each mob, so its not respawned in original place
+    // current state
+    float x;
+    float y;
+    int quad_id;
+    int mob_id;
+    int state = MOB_STATE_CALM;
+  };
+
   
   struct MobData
   {
@@ -25,7 +37,7 @@ namespace mobs
     max_speed, min_hp, max_hp, min_def, max_def);
   };
 
-  std::vector<int> alive_mobs = {};
+  std::vector<mobs::AliveMobData> AliveMobs = {};
   std::map<int, MobData> Catalog = {};
 
   void read_mob_data(std::string name)
@@ -51,13 +63,14 @@ namespace mobs
   void drop()
   {
     mobs::Catalog.clear();
+    mobs::AliveMobs.clear();
   }
 
   void spawn(int map_id)
   { 
     // takes nests data from maps catalog using map id
     // spawns mobs on the level based on the level information
-    alive_mobs.clear();
+    AliveMobs.clear();
     int MOB_ID = 0;
     // unpack each nest
     for(int i=0; i < maps::Catalog[map_id].nests.size(); i++)
@@ -78,30 +91,59 @@ namespace mobs
                                                   true
                                                 );
         ent::EntityQuads.push_back(mob_quad);
-        alive_mobs.push_back(mob_quad.id);
+
+        struct AliveMobData amd;
+        amd.quad_id = mob_quad.id;
+        amd.x = mob_quad.x;
+        amd.y = mob_quad.y;
+        amd.mob_id = MOB_ID;
+        AliveMobs.push_back(amd);
       }
     };
   }
 
 
-  // void move_random()
-  // { 
-  //   std::cout<< "alive mobs size: " << alive_mobs.size() << std::endl;
-  //   for(int a = 0; 0 < alive_mobs.size(); a++)
-  //   {
-  //     int mid = quads::find_quad_id(alive_mobs[a], quads::AllQuads);
-  //     int r = utils::get_random(0,3);
-  //     if(r == 0){
-  //       quads::AllQuads[mid].x += 1;
-  //     } else if (r==1) {
-  //       quads::AllQuads[mid].x -= 1;
-  //     } else if (r==2) {
-  //       quads::AllQuads[mid].y -= 1;
-  //     } else if (r==3) {
-  //       quads::AllQuads[mid].y += 1;
-  //     }
-  //   }
-  // }
+  void move_random()
+  { 
+    for (int a=0; a<mobs::AliveMobs.size(); a++)
+    {
+      if(mobs::AliveMobs[a].state == MOB_STATE_CALM)
+      {
+        int r = utils::get_random(0,3);
+        if(r == 0){
+          mobs::AliveMobs[a].x += 1;
+        } else if (r==1) {
+          mobs::AliveMobs[a].x -= 1;
+        } else if (r==2) {
+          mobs::AliveMobs[a].y -= 1;
+        } else if (r==3) {
+          mobs::AliveMobs[a].y += 1;
+        }
+      }
+    }
+  }
+
+  void render_alive_mobs()
+  {
+    for (int a=0; a<mobs::AliveMobs.size(); a++)
+    {
+      quads::Quad mob_quad = ent::render_entity(ENTITY_TYPE_ID_MOB,
+                                                true,
+                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].texture_id,
+                                                0,
+                                                mobs::AliveMobs[a].x,
+                                                mobs::AliveMobs[a].y,
+                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].h,
+                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].w,
+                                                0.0f,
+                                                textures::FontTD,
+                                                true,
+                                                true
+                                              );
+      ent::EntityQuads.push_back(mob_quad);
+      mobs::AliveMobs[a].quad_id = mob_quad.id;
+    }
+  }
 
 
 
