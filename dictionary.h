@@ -69,4 +69,7 @@
 #define FRAME_DELAY 0.2
 #define FRAME_DELAY_SHORT 0.08
 
+
+#define MOB_STATE_CALM 0
+
 #endif
