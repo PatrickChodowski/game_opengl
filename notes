@@ -6,15 +6,19 @@ zielony ssak
 ksiazka o przeuzywanych cytatach - droga nna ktorej spotykasz wrogow to ta dobras
 
 TODO:
- - mobs:
-  - spawn mobs on the map
-  - render mobs
-  - add navmesh for mobs
+ - mobs
+  - add navmesh for mobs : 
+      - https://docs.unrealengine.com/udk/Three/NavigationMeshReference.html
+      - https://www.gamedev.net/tutorials/programming/artificial-intelligence/navigation-meshes-and-pathfinding-r4880/
+
+      manual nav mesh creation? :D  or automatic calculation?
+      how hard can it be?
+      dynamically find obstacles (other npcs and agents on the way that are moving)
+      
   - mobs states
+  - rvo avoiding collisions
 
 IDEAS:
 - reinforcement learning for monsters play
 - animations from blender
-- navmesh
-- RVO for avoiding collisions
-- shader dla wyswietlania collision boxes
+- debug shader do wyswietlania collisions etc.

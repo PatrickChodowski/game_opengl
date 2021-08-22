@@ -77,6 +77,10 @@ namespace maps
     in_file.open(file_path.c_str());
 
     int n_tiles = vertex_width*vertex_height;
+
+    // yes no solid array rowsxcols
+    bool solid_array[vertex_height][vertex_width];
+
       // read in the tile info
     if (in_file.is_open())
     {
@@ -91,7 +95,6 @@ namespace maps
             quad.w = camera::tile_dim;
             quad.h = camera::tile_dim;
             in_file >> quad.frame_id; // value of tile in text file
-
             quad.s_x = c * camera::tile_dim;
             quad.s_y = r * camera::tile_dim;
             quad.s_w = camera::tile_dim;
@@ -104,12 +107,15 @@ namespace maps
 
             quad.solid = false;
             quad.coll = false;
+            solid_array[r][c] = false;
+
             // if frame_id is between 10 and 20, then its solid
             if(quad.frame_id > 10 && quad.frame_id < 20){
               // 11-19
               quad.solid = true;
               quad.coll = true;
-            }
+              solid_array[r][c] = true;
+            } 
 
             quad.entity_type_id = ENTITY_TYPE_ID_NA;
             quad.alive = false;
@@ -123,6 +129,59 @@ namespace maps
         } 
     }
     in_file.close();
+
+    // // save solid array to file to file 
+    // std::string arra_log_file_path = "./logs/map_solid_array.txt";
+    // std::ofstream array_file (arra_log_file_path.c_str());
+    // if (array_file.is_open())
+    // {
+    //   for(int i = 0; i < vertex_height; i ++)
+    //   {
+    //     for(int j = 0; j < vertex_width; j++)
+    //     {
+    //       array_file << solid_array[i][j] << " ";
+    //     }
+    //     array_file << "\n";
+    //   }
+    //   array_file.close();
+    // }
+
+    // // calculate navmesh polygons
+    // struct ConvexPolygon
+    // {
+    //   int id;
+    //   std::vector<int> tiles;
+    // };
+
+    // ConvexPolygon cp;
+    // bool in_polygon = false;
+
+    // for(int i = 0; i < vertex_height; i ++)
+    //   {
+    //     for(int j = 0; j < vertex_width; j++)
+    //     {
+    //       if(!solid_array[i][j]){
+    //         // if not solid == if traversable
+    //         if(in_polygon)
+    //         {
+    //           // if we are currently in polygon
+    //           cp.tiles.push_back()
+
+    //         }
+
+
+
+    //       }
+
+
+
+
+
+
+
+
+
+
 
     return tile_map;
   }
