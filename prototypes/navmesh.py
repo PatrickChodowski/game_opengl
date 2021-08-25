@@ -135,7 +135,6 @@ for tile_id, t in TILES.items():
 
                     if t.tile_id_down is not None:
                         if TILES[t.tile_id_down].solid:
-                            # print(f"tile: {TILES[t.tile_id_down].id} is solid")
                             cp.max_y = t.y
                     else:
                         cp.max_y = t.y

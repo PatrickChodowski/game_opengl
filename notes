@@ -2,8 +2,8 @@ ZARRTY:
 --- - --- 
 easter egg:
 zielony ssak
-
 ksiazka o przeuzywanych cytatach - droga nna ktorej spotykasz wrogow to ta dobras
+fishing mechanic that doesnt do anything
 
 TODO:
  - mobs
@@ -13,12 +13,16 @@ TODO:
 
       manual nav mesh creation? :D  or automatic calculation?
       how hard can it be?
-      dynamically find obstacles (other npcs and agents on the way that are moving)
       
+  - collision detection for other npcs/agents    
   - mobs states
   - rvo avoiding collisions
+
+ - DEBUG vertex attribute -> will use D for debug shader, that would highligt debugged quads 
+   DEBUG = 1 -> the alpha shader would highlight this
 
 IDEAS:
 - reinforcement learning for monsters play
 - animations from blender
 - debug shader do wyswietlania collisions etc.
+
