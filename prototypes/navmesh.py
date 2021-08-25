@@ -90,7 +90,6 @@ for tile_id, t in TILES.items():
 
                 # if fits to current polygon
                 if poly_id > 0:
-                    METHOD = 1
                     print(f" [1] Tile {tile_id} belongs to  {poly_id}")
                     POLYGONS[poly_id].tiles.append(t)
                     if t.tile_id_right is not None:
