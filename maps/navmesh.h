@@ -19,7 +19,6 @@ namespace nav
     int id;
     int x;
     int y;
-    bool checked;
     bool solid;
     int tile_id_right;
     int tile_id_down;
@@ -65,7 +64,6 @@ namespace nav
           struct nav::NavTile t;
           t.x = c;
           t.y = r;
-          t.checked = false;
           in_file >> t.frame_id;
 
           if(t.frame_id > 10 && t.frame_id < 20){
@@ -123,89 +121,93 @@ namespace nav
     NavPolygons.clear();
     NavPolygon cp;
     cp.id = CURRENT_POLYGON_ID;
+    std::cout << "Navtiles size: " << NavTiles.size() << std::endl;
     for (auto const& t : NavTiles)
     {
-      if(!t.second.checked){
-        if(t.second.solid){
-          if(t.first == MAX_TILE_ID){
-            NavPolygons.insert({cp.id, cp});
-          }
-          continue;
+      std::cout << "Assigning tile id: " << t.first << std::endl;
+      if(t.second.solid){
+        continue;
+      } else {
+        // if not solid
+        if(!IN_POLYGON){
+          std::cout << "Not in polygon yet " << std::endl;
+          NavPolygon cp;
+          CURRENT_POLYGON_ID += 1;
+          cp.id = CURRENT_POLYGON_ID;
+          cp.min_x=t.second.x;
+          cp.min_y=t.second.y;
+          IN_POLYGON = true;
+          cp.tiles.push_back(t.second);
+          std::cout << " [0] Tile "<< t.first << " belongs to " << cp.id << std::endl;
         } else {
-          // if not solid
-          if(!IN_POLYGON){
-            NavPolygon cp;
-            CURRENT_POLYGON_ID += 1;
-            cp.id = CURRENT_POLYGON_ID;
-            cp.min_x=t.second.x;
-            cp.min_y=t.second.y;
-            IN_POLYGON = true;
-            cp.tiles.push_back(t.second);
+          // already in polygon
+          int poly_id = get_polygon_id_if_belongs(t.second, NavPolygons);
+          if(poly_id > -1){
+            NavPolygons[poly_id].tiles.push_back(t.second);
+
+            std::cout << " [1] Tile "<< t.first << " belongs to " << poly_id << std::endl;
+
+            if(t.second.tile_id_right > -1){
+              if(NavTiles[t.second.tile_id_right].solid){
+                NavPolygons[poly_id].max_x = t.second.x;
+              }
+            }
+
+            if(t.second.tile_id_down > -1){
+              if(NavTiles[t.second.tile_id_down].solid){
+                NavPolygons[poly_id].max_y = t.second.y;
+              }
+            }
           } else {
-            // already in polygon
-            int poly_id = get_polygon_id_if_belongs(t.second, NavPolygons);
-            if(poly_id > -1){
-              NavPolygons[poly_id].tiles.push_back(t.second);
+            if ((t.second.x >= cp.min_x) & (t.second.x <= cp.max_x) & (t.second.y >= cp.min_y) & (t.second.y <= cp.max_y)){
+              cp.tiles.push_back(t.second);
+              std::cout << " [2] Tile "<< t.first << " belongs to " << cp.id << std::endl;
 
-              if(t.second.tile_id_right > -1){
-                if(NavTiles[t.second.tile_id_right].solid){
-                  NavPolygons[poly_id].max_x = t.second.x;
-                }
-              }
-
-              if(t.second.tile_id_down > -1){
-                if(NavTiles[t.second.tile_id_down].solid){
-                  NavPolygons[poly_id].max_y = t.second.y;
-                }
-              }
             } else {
-              if ((t.second.x >= cp.min_x) & (t.second.x <= cp.max_x) & (t.second.y >= cp.min_y) & (t.second.y <= cp.max_y)){
-                cp.tiles.push_back(t.second);
-              } else {
-                NavPolygons.insert({cp.id, cp});
-                NavPolygon cp;
-                CURRENT_POLYGON_ID += 1;
-                cp.id = CURRENT_POLYGON_ID;
-                cp.min_x=t.second.x;
-                cp.min_y=t.second.y;
-                cp.tiles.push_back(t.second);
-              }
+              NavPolygons.insert({cp.id, cp});
+              NavPolygon cp;
+              CURRENT_POLYGON_ID += 1;
+              cp.id = CURRENT_POLYGON_ID;
+              cp.min_x=t.second.x;
+              cp.min_y=t.second.y;
+              cp.tiles.push_back(t.second);
+              std::cout << " [3] Tile "<< t.first << " belongs to " << cp.id << std::endl;
+            }
 
-              // single column rule:
-              if (t.second.tile_id_right > -1){
-                int next_tile_polygon_id = -1;
-                for (auto const& cp : NavPolygons)
+            // single column rule:
+            if (t.second.tile_id_right > -1){
+              int next_tile_polygon_id = -1;
+              for (auto const& cp : NavPolygons)
+              {
+                if((NavTiles[t.second.tile_id_right].x >= cp.second.min_x) & 
+                   (NavTiles[t.second.tile_id_right].x <= cp.second.max_x) & 
+                   (NavTiles[t.second.tile_id_right].y >= cp.second.min_y) & 
+                   (NavTiles[t.second.tile_id_right].y <= cp.second.max_y))
                 {
-                  if((NavTiles[t.second.tile_id_right].x >= cp.second.min_x) & 
-                     (NavTiles[t.second.tile_id_right].x <= cp.second.max_x) & 
-                     (NavTiles[t.second.tile_id_right].y >= cp.second.min_y) & 
-                     (NavTiles[t.second.tile_id_right].y <= cp.second.max_y))
-                  {
-                    next_tile_polygon_id = cp.first;
-                    break;
-                  }
-                }
-                if (next_tile_polygon_id > -1){
-                  cp.max_x = t.second.x;
+                  next_tile_polygon_id = cp.first;
+                  break;
                 }
               }
-
-              // check neighbouring tiles:
-              if (t.second.tile_id_right > -1){
-                if(NavTiles[t.second.tile_id_right].solid){
-                  cp.max_x = t.second.x;
-                }
-              } else {
+              if (next_tile_polygon_id > -1){
                 cp.max_x = t.second.x;
               }
+            }
 
-              if (t.second.tile_id_down > -1){
-                if(NavTiles[t.second.tile_id_down].solid){
-                  cp.max_y = t.second.y;
-                }
-              } else {
+            // check neighbouring tiles:
+            if (t.second.tile_id_right > -1){
+              if(NavTiles[t.second.tile_id_right].solid){
+                cp.max_x = t.second.x;
+              }
+            } else {
+              cp.max_x = t.second.x;
+            }
+
+            if (t.second.tile_id_down > -1){
+              if(NavTiles[t.second.tile_id_down].solid){
                 cp.max_y = t.second.y;
               }
+            } else {
+              cp.max_y = t.second.y;
             }
           }
         }
