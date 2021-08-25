@@ -109,8 +109,8 @@ int FPS = 60; // just init
 // quads dependent
 #include "fonts/fonts.h"
 #include "menu/menu.h"
-#include "maps/maps.h"
 #include "maps/navmesh.h"
+#include "maps/maps.h"
 
 #include "saves/saves.h"
 #include "opengl/events.h"
