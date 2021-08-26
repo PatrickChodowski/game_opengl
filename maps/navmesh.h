@@ -221,14 +221,29 @@ namespace nav
   void print(int vertex_width, 
              int vertex_height)
   {
-    int polygon_array[vertex_height+1][vertex_width+1] = {};
+    // int polygon_array[vertex_height+1][vertex_width+1] = {};
     std::cout << "Navpolygons size: " << NavPolygons.size() << std::endl;
+
+    // init rows:
+    std::vector<std::vector<int>> polygon_array(vertex_height+1);
+
+    // for each row create columns:
+    for(int r=0; r < (vertex_height+1); r++){
+      std::vector<int> cols(vertex_width+1);
+      polygon_array[r] = cols;
+    }
+
+
     for (auto const& cp : NavPolygons)
     { 
       for(int t=0; t < cp.second.tiles.size(); t++){
         polygon_array[cp.second.tiles[t].y][cp.second.tiles[t].x] = cp.first;
       }
     }
+
+
+
+
 
     for(int r=0; r < (MAX_ROW+1); r++){
       for(int c=0; c < (MAX_COL+1); c++){
@@ -237,6 +252,10 @@ namespace nav
       std::cout << std::endl;
     }
   }
+
+
+
+
 
   
   void init(std::string map_name,
