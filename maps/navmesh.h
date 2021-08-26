@@ -11,8 +11,6 @@ namespace nav
   int MAX_ROW;
   int MAX_COL;
   int MAX_TILE_ID;
-  bool IN_POLYGON = false;
-  int CURRENT_POLYGON_ID = 0;
 
   struct NavTile
   {
@@ -32,15 +30,13 @@ namespace nav
     std::vector<NavTile> tiles;
     int min_y;
     int min_x;
-    int max_y = MAX_COL;
-    int max_x = MAX_ROW;
+    int max_y;
+    int max_x;
   };
 
 
   std::map<int, NavTile> NavTiles = {};
-  std::map<int, NavPolygon> NavPolygons = {};
-
-
+ 
   // step 1: propagate NavTiles map 
   void load_navtiles(std::string map_name,
                      int vertex_width, 
@@ -110,119 +106,125 @@ namespace nav
         break;
       }
     }
+
+    if(t.id == 2001){
+      std::cout << "2001 x : " << t.x << std::endl; // 2
+      std::cout << "2001 y : " << t.y << std::endl; // 1
+      std::cout << "Polygon 1 min_x: " << polygons[1].min_x << std::endl;
+      std::cout << "Polygon 1 max_x: " << polygons[1].max_x << std::endl;
+      std::cout << "Polygon 1 min_y: " << polygons[1].min_y << std::endl;
+      std::cout << "Polygon 1 max_y: " << polygons[1].max_y << std::endl;
+    }
+
     return polygon_id;
   }
 
-
   // Analyze tiles and search for polygons 
-  void define_polygons()
+  std::map<int, NavPolygon> define_polygons()
   {
-    CURRENT_POLYGON_ID = 0;
-    NavPolygons.clear();
-    NavPolygon cp;
-    cp.id = CURRENT_POLYGON_ID;
-    std::cout << "Navtiles size: " << NavTiles.size() << std::endl;
+    int CURRENT_POLYGON_ID = 0;
+    std::map<int, NavPolygon> NavPolygons = {};
+
     for (auto const& t : NavTiles)
     {
-      std::cout << "Assigning tile id: " << t.first << std::endl;
+      // std::cout << "Assigning tile id: " << t.first << std::endl;
       if(t.second.solid){
         continue;
       } else {
-        // if not solid
-        if(!IN_POLYGON){
-          std::cout << "Not in polygon yet " << std::endl;
-          NavPolygon cp;
-          CURRENT_POLYGON_ID += 1;
-          cp.id = CURRENT_POLYGON_ID;
-          cp.min_x=t.second.x;
-          cp.min_y=t.second.y;
-          IN_POLYGON = true;
-          cp.tiles.push_back(t.second);
-          std::cout << " [0] Tile "<< t.first << " belongs to " << cp.id << std::endl;
-        } else {
-          // already in polygon
-          int poly_id = get_polygon_id_if_belongs(t.second, NavPolygons);
-          if(poly_id > -1){
-            NavPolygons[poly_id].tiles.push_back(t.second);
+        int poly_id = nav::get_polygon_id_if_belongs(t.second, NavPolygons);
+        if(poly_id > -1){
+          NavPolygons[poly_id].tiles.push_back(t.second);
+          std::cout << " [1] Tile " << t.first << " belongs to " << poly_id << std::endl;
 
-            std::cout << " [1] Tile "<< t.first << " belongs to " << poly_id << std::endl;
-
-            if(t.second.tile_id_right > -1){
+          if(t.second.tile_id_right > -1){
               if(NavTiles[t.second.tile_id_right].solid){
                 NavPolygons[poly_id].max_x = t.second.x;
+                std::cout << "Polygon " << poly_id << " max_x updated to " << NavPolygons[poly_id].max_x << std::endl;
               }
-            }
+          }
 
-            if(t.second.tile_id_down > -1){
-              if(NavTiles[t.second.tile_id_down].solid){
+          if(t.second.tile_id_down > -1){
+            if(NavTiles[t.second.tile_id_down].solid){
                 NavPolygons[poly_id].max_y = t.second.y;
-              }
+                std::cout << "Polygon " << poly_id << " max_y updated to " << NavPolygons[poly_id].max_y << std::endl;
             }
-          } else {
-            if ((t.second.x >= cp.min_x) & (t.second.x <= cp.max_x) & (t.second.y >= cp.min_y) & (t.second.y <= cp.max_y)){
-              cp.tiles.push_back(t.second);
-              std::cout << " [2] Tile "<< t.first << " belongs to " << cp.id << std::endl;
+          }
 
-            } else {
-              NavPolygons.insert({cp.id, cp});
-              NavPolygon cp;
-              CURRENT_POLYGON_ID += 1;
-              cp.id = CURRENT_POLYGON_ID;
-              cp.min_x=t.second.x;
-              cp.min_y=t.second.y;
-              cp.tiles.push_back(t.second);
-              std::cout << " [3] Tile "<< t.first << " belongs to " << cp.id << std::endl;
-            }
+        } else {
+          NavPolygon CP;
+          CURRENT_POLYGON_ID += 1;
+          CP.id = CURRENT_POLYGON_ID;
+          CP.min_x=t.second.x;
+          CP.min_y=t.second.y;
+          CP.max_x=nav::MAX_COL;
+          CP.max_y=nav::MAX_ROW;
+          CP.tiles.push_back(t.second);
 
-            // single column rule:
-            if (t.second.tile_id_right > -1){
-              int next_tile_polygon_id = -1;
-              for (auto const& cp : NavPolygons)
+          if (t.second.tile_id_right > -1){
+            int next_tile_polygon_id = -1;
+            for (auto const& p : NavPolygons)
               {
-                if((NavTiles[t.second.tile_id_right].x >= cp.second.min_x) & 
-                   (NavTiles[t.second.tile_id_right].x <= cp.second.max_x) & 
-                   (NavTiles[t.second.tile_id_right].y >= cp.second.min_y) & 
-                   (NavTiles[t.second.tile_id_right].y <= cp.second.max_y))
+                if((NavTiles[t.second.tile_id_right].x >= p.second.min_x) & 
+                   (NavTiles[t.second.tile_id_right].x <= p.second.max_x) & 
+                   (NavTiles[t.second.tile_id_right].y >= p.second.min_y) & 
+                   (NavTiles[t.second.tile_id_right].y <= p.second.max_y))
                 {
-                  next_tile_polygon_id = cp.first;
+                  next_tile_polygon_id = p.first;
                   break;
                 }
               }
               if (next_tile_polygon_id > -1){
-                cp.max_x = t.second.x;
+                std::cout << "Netx tile polygon id is " << next_tile_polygon_id << std::endl;
+                CP.max_x = t.second.x;
+                std::cout << "Polygon (Sincle column rule)" << CP.id << " max_x updated to " << CP.max_x << std::endl;
               }
-            }
-
-            // check neighbouring tiles:
-            if (t.second.tile_id_right > -1){
-              if(NavTiles[t.second.tile_id_right].solid){
-                cp.max_x = t.second.x;
-              }
-            } else {
-              cp.max_x = t.second.x;
-            }
-
-            if (t.second.tile_id_down > -1){
-              if(NavTiles[t.second.tile_id_down].solid){
-                cp.max_y = t.second.y;
-              }
-            } else {
-              cp.max_y = t.second.y;
-            }
           }
+          
+          // check neighbouring tiles:
+          if (t.second.tile_id_right > -1){
+              if(NavTiles[t.second.tile_id_right].solid){
+                CP.max_x = t.second.x;
+                std::cout << "Polygon (solid tile_id_right)" << CP.id << " max_x updated to " << CP.max_x << std::endl;
+              }
+          } else {
+              CP.max_x = t.second.x;
+              std::cout << "Polygon (empty tile_id_right)" << CP.id << " max_x updated to " << CP.max_x << std::endl;
+          }
+
+          if (t.second.tile_id_down > -1){
+              if(NavTiles[t.second.tile_id_down].solid){
+                CP.max_y = t.second.y;
+                std::cout << "Polygon (solid tile_id_down)" << CP.id << " max_y updated to " << CP.max_y << std::endl;
+              }
+          } else {
+              CP.max_y = t.second.y;
+              std::cout << "Polygon (empty tile_id_down)" << CP.id << " max_y updated to " << CP.max_y << std::endl;
+          }
+
+          NavPolygons.insert({CP.id, CP});
+          std::cout << "Added Polygon ID " << CP.id << " to NavPolygons. Size: " <<  NavPolygons.size() << std::endl;
+          std::cout << " min_x: " << CP.min_x << std::endl;
+          std::cout << " max_x: " << CP.max_x << std::endl;
+          std::cout << " min_y: " << CP.min_y << std::endl;
+          std::cout << " max_y: " << CP.max_y << std::endl;
+          std::cout << " [0] Tile " << t.first << " belongs to " << CP.id << std::endl;
         }
       }
-      if(t.first == MAX_TILE_ID){
-        NavPolygons.insert({cp.id, cp});
-      }
     }
+    return NavPolygons;
   }
+  
 
-  void print(int vertex_width, 
-             int vertex_height)
+
+
+
+
+  void print(std::map<int, NavPolygon> nav_polygons,
+            int vertex_width, 
+            int vertex_height)
   {
     // int polygon_array[vertex_height+1][vertex_width+1] = {};
-    std::cout << "Navpolygons size: " << NavPolygons.size() << std::endl;
+    std::cout << "Navpolygons size: " << nav_polygons.size() << std::endl;
 
     // init rows:
     std::vector<std::vector<int>> polygon_array(vertex_height+1);
@@ -233,19 +235,14 @@ namespace nav
       polygon_array[r] = cols;
     }
 
-
-    for (auto const& cp : NavPolygons)
+    for (auto const& cp : nav_polygons)
     { 
       for(int t=0; t < cp.second.tiles.size(); t++){
         polygon_array[cp.second.tiles[t].y][cp.second.tiles[t].x] = cp.first;
       }
     }
 
-
-
-
-
-    for(int r=0; r < (MAX_ROW+1); r++){
+    for(int r=0; r < (nav::MAX_ROW+1); r++){
       for(int c=0; c < (MAX_COL+1); c++){
         std::cout << polygon_array[r][c] << " ";
       }
@@ -263,8 +260,8 @@ namespace nav
             int vertex_height)
   {
     nav::load_navtiles(map_name, vertex_width, vertex_height);
-    nav::define_polygons();
-    nav::print(vertex_width, vertex_height);
+    std::map<int, NavPolygon> nav_polygons = nav::define_polygons();
+    nav::print(nav_polygons, vertex_width, vertex_height);
   }
 
 
