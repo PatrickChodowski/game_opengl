@@ -205,7 +205,7 @@ namespace maps
                                         maps::Catalog[map_id].vertex_height, 
                                         maps::Catalog[map_id].texture_id);
     
-    std::map<int, nav::NavPolygon> navmesh = nav::init(maps::Catalog[map_id].name, 
+    std::map<int, nav::NavNode> navmesh = nav::init(maps::Catalog[map_id].name, 
                                                        maps::Catalog[map_id].vertex_width, 
                                                        maps::Catalog[map_id].vertex_height);
 
