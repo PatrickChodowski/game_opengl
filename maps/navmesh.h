@@ -68,21 +68,21 @@ namespace nav
             t.solid = false;
           }
           // unique id based on row and column indices
-          t.id = (c*1000)+r;
+          t.id = (r*1000)+c;
           // std::cout << t.id <<std::endl;
 
           if((t.x < MAX_COL) & (t.y < MAX_ROW)){
-            t.tile_id_right = ((c+1)*1000)+r;
-            t.tile_id_rightdown = ((c+1)*1000)+(r+1);
-            t.tile_id_down = (c*1000)+(r+1);
+            t.tile_id_right = (r*1000)+(c+1);
+            t.tile_id_rightdown = ((r+1)*1000)+(c+1);
+            t.tile_id_down = ((r+1)*1000)+(c);
           } else if ((t.x < MAX_COL) & (t.y == MAX_ROW)){
-            t.tile_id_right = ((c+1)*1000)+r;
+            t.tile_id_right = (r*1000)+(c+1);
             t.tile_id_rightdown = -1;
             t.tile_id_down = -1;
           } else if ((t.x == MAX_COL) & (t.y < MAX_ROW)){
             t.tile_id_right = -1;
             t.tile_id_rightdown = -1;
-            t.tile_id_down = (c*1000)+(r+1);
+            t.tile_id_down = ((r+1)*1000)+(c);
           } else if ((t.x == MAX_COL) & (t.y < MAX_ROW)){
             t.tile_id_right = -1;
             t.tile_id_rightdown = -1;
@@ -107,13 +107,13 @@ namespace nav
       }
     }
 
-    if(t.id == 2001){
-      std::cout << "2001 x : " << t.x << std::endl; // 2
-      std::cout << "2001 y : " << t.y << std::endl; // 1
-      std::cout << "Polygon 1 min_x: " << polygons[1].min_x << std::endl;
-      std::cout << "Polygon 1 max_x: " << polygons[1].max_x << std::endl;
-      std::cout << "Polygon 1 min_y: " << polygons[1].min_y << std::endl;
-      std::cout << "Polygon 1 max_y: " << polygons[1].max_y << std::endl;
+    if(t.id == 12009){
+      std::cout << "12009 x : " << t.x << std::endl; // 2
+      std::cout << "12009 y : " << t.y << std::endl; // 1
+      // std::cout << "Polygon 1 min_x: " << polygons[1].min_x << std::endl;
+      // std::cout << "Polygon 1 max_x: " << polygons[1].max_x << std::endl;
+      // std::cout << "Polygon 1 min_y: " << polygons[1].min_y << std::endl;
+      // std::cout << "Polygon 1 max_y: " << polygons[1].max_y << std::endl;
     }
 
     return polygon_id;
@@ -136,6 +136,16 @@ namespace nav
           NavPolygons[poly_id].tiles.push_back(t.second);
           std::cout << " [1] Tile " << t.first << " belongs to " << poly_id << std::endl;
 
+          //  // single column rule
+          if (t.second.tile_id_right > -1){
+            int next_tile_polygon_id = get_polygon_id_if_belongs(NavTiles[t.second.tile_id_right], NavPolygons);
+            if (next_tile_polygon_id > -1 & next_tile_polygon_id < poly_id){
+                std::cout << "Netx tile polygon id is " << next_tile_polygon_id << std::endl;
+                NavPolygons[poly_id].max_x = t.second.x;
+                std::cout << "Polygon (Sincle column rule)" << poly_id << " max_x updated to " << NavPolygons[poly_id].max_x << std::endl;
+              }
+          }
+
           if(t.second.tile_id_right > -1){
               if(NavTiles[t.second.tile_id_right].solid){
                 NavPolygons[poly_id].max_x = t.second.x;
@@ -150,6 +160,7 @@ namespace nav
             }
           }
 
+
         } else {
           NavPolygon CP;
           CURRENT_POLYGON_ID += 1;
@@ -161,30 +172,10 @@ namespace nav
           CP.tiles.push_back(t.second);
 
           if (t.second.tile_id_right > -1){
-            int next_tile_polygon_id = -1;
-            for (auto const& p : NavPolygons)
-              {
-                if((NavTiles[t.second.tile_id_right].x >= p.second.min_x) & 
-                   (NavTiles[t.second.tile_id_right].x <= p.second.max_x) & 
-                   (NavTiles[t.second.tile_id_right].y >= p.second.min_y) & 
-                   (NavTiles[t.second.tile_id_right].y <= p.second.max_y))
-                {
-                  next_tile_polygon_id = p.first;
-                  break;
-                }
-              }
-              if (next_tile_polygon_id > -1){
-                std::cout << "Netx tile polygon id is " << next_tile_polygon_id << std::endl;
+            int next_tile_polygon_id = get_polygon_id_if_belongs(NavTiles[t.second.tile_id_right], NavPolygons);
+              if((NavTiles[t.second.tile_id_right].solid) | ((next_tile_polygon_id > -1 & next_tile_polygon_id < CP.id))){
                 CP.max_x = t.second.x;
-                std::cout << "Polygon (Sincle column rule)" << CP.id << " max_x updated to " << CP.max_x << std::endl;
-              }
-          }
-          
-          // check neighbouring tiles:
-          if (t.second.tile_id_right > -1){
-              if(NavTiles[t.second.tile_id_right].solid){
-                CP.max_x = t.second.x;
-                std::cout << "Polygon (solid tile_id_right)" << CP.id << " max_x updated to " << CP.max_x << std::endl;
+                std::cout << "Polygon (solid tile_id_right or assigned)" << CP.id << " max_x updated to " << CP.max_x << std::endl;
               }
           } else {
               CP.max_x = t.second.x;
