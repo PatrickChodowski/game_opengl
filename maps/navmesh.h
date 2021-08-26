@@ -17,6 +17,8 @@ namespace nav
     int id;
     int x;
     int y;
+    float x_real;
+    float y_real;
     bool solid;
     int tile_id_right;
     int tile_id_down;
@@ -32,6 +34,25 @@ namespace nav
     int min_x;
     int max_y;
     int max_x;
+  };
+
+  struct NavEdge
+  {
+    int a_id;
+    int b_id;
+    float x;
+    float y; 
+  };
+
+  struct NavNode
+  {
+    int id;
+    float min_y;
+    float min_x;
+    float max_y;
+    float max_x;
+    std::map<int, NavEdge> edges;
+    int count_tiles;
   };
 
 
@@ -60,6 +81,8 @@ namespace nav
           struct nav::NavTile t;
           t.x = c;
           t.y = r;
+          t.x_real = c * camera::tile_dim;
+          t.y_real = r * camera::tile_dim;
           in_file >> t.frame_id;
 
           if(t.frame_id > 10 && t.frame_id < 20){
@@ -210,7 +233,7 @@ namespace nav
 
 
 
-  void print(std::map<int, NavPolygon> nav_polygons,
+  void print_polygons(std::map<int, NavPolygon> nav_polygons,
             int vertex_width, 
             int vertex_height)
   {
@@ -243,17 +266,79 @@ namespace nav
 
 
 
+  std::map<int, NavNode> init_nodes(std::map<int, NavPolygon> nav_polygons)
+  {
+    std::map<int, NavNode> nav_nodes;
+    // convert polygon to node information
+    for (auto const& cp : nav_polygons)
+    { 
+      NavNode node;
+      node.id = cp.first;
+      node.count_tiles = 0;
+
+      float min_x = (float)INT_MAX;
+      float max_x = 0.0f;
+      float min_y = (float)INT_MAX;
+      float max_y = 0.0f;
+      std::cout << min_x << std::endl;
+
+      // find min_, max_, x , y from tiles of each polygon
+      for(int t=0; t < cp.second.tiles.size(); t++){
+
+          // debug
+          if(cp.first == 7){
+            std::cout << "tile x : " << cp.second.tiles[t].x_real << std::endl;
+            std::cout << "tile y : " << cp.second.tiles[t].x_real << std::endl;
+          }
+
+          node.count_tiles += 1;
+          if(cp.second.tiles[t].x_real < min_x){
+            min_x = cp.second.tiles[t].x_real;
+          };
+
+          if(cp.second.tiles[t].x_real > max_x){
+            max_x = cp.second.tiles[t].x_real;
+          };
+
+          if(cp.second.tiles[t].y_real < min_y){
+            min_y = cp.second.tiles[t].x_real;
+          };
+
+          if(cp.second.tiles[t].y_real > max_y){
+            max_y = cp.second.tiles[t].y_real;
+          };
+      };
+      node.min_x = min_x;
+      node.max_x = max_x + camera::tile_dim; // as it needs the edge of the tile
+      node.min_y = min_y;
+      node.max_y = max_y + camera::tile_dim; // as it needs the edge of the tile
+      nav_nodes.insert({node.id, node});
+
+      std::cout << "Nav Node ID: " << node.id << std::endl;
+      std::cout << "Nav Node min x: " << node.min_x << std::endl;
+      std::cout << "Nav Node max x: " << node.max_x << std::endl;
+      std::cout << "Nav Node min y: " << node.min_y << std::endl;
+      std::cout << "Nav Node max y: " << node.max_y << std::endl;
+      std::cout << "Nav Node tile count : " << node.count_tiles << std::endl;
+    }
+    std::cout << "Nav Nodes size: " << nav_nodes.size() << std::endl;
+    return nav_nodes;
+  }
+
+
 
 
   
-  std::map<int, NavPolygon> init(std::string map_name,
+  std::map<int, NavNode> init(std::string map_name,
                                  int vertex_width, 
                                  int vertex_height)
   {
     nav::load_navtiles(map_name, vertex_width, vertex_height);
     std::map<int, NavPolygon> nav_polygons = nav::define_polygons();
-    nav::print(nav_polygons, vertex_width, vertex_height);
-    return nav_polygons;
+    nav::print_polygons(nav_polygons, vertex_width, vertex_height);
+
+    std::map<int, NavNode> nav_nodes = nav::init_nodes(nav_polygons);
+    return nav_nodes;
   }
 
 
