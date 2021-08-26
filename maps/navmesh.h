@@ -218,9 +218,10 @@ namespace nav
     }
   }
 
-  void print()
+  void print(int vertex_width, 
+             int vertex_height)
   {
-    int polygon_array[MAX_ROW+1][MAX_COL+1] = {};
+    int polygon_array[vertex_height+1][vertex_width+1] = {};
     std::cout << "Navpolygons size: " << NavPolygons.size() << std::endl;
     for (auto const& cp : NavPolygons)
     { 
@@ -244,7 +245,7 @@ namespace nav
   {
     nav::load_navtiles(map_name, vertex_width, vertex_height);
     nav::define_polygons();
-    nav::print();
+    nav::print(vertex_width, vertex_height);
   }
 
 
