@@ -508,35 +508,49 @@ namespace paths
         break;
       }
      }
-    std::cout << "Mob's nav node id: " << nav_node_id << std::endl;
+    std::cout << "nav node id: " << nav_node_id << std::endl;
     return nav_node_id;
   }
 
   void find_path(int start_node_id, int end_node_id)
   {
-    std::cout << "Looking for path between " << start_node_id << " and " << end_node_id << std::endl;
-    std::vector<int> nodes_visited = {};
-
-    int current_agent_node_id = start_node_id;
-    nodes_visited.push_back(current_agent_node_id);
-
-    while(current_agent_node_id != end_node_id)
+    if((start_node_id > -1) & (end_node_id > -1))
     {
-        for (auto const& e : nav::NavMesh[current_agent_node_id].edges)
-        {
-            if(std::find(nodes_visited.begin(), nodes_visited.end(), e.first) != nodes_visited.end())
-            {
-                // not visited yet
-                current_agent_node_id = e.first;
-                nodes_visited.push_back(current_agent_node_id);
-            }
-        }
+      std::cout << "Looking for path between " << start_node_id << " and " << end_node_id << std::endl;
+      std::vector<int> nodes_visited = {};
+      int limit = 10;
+      int count = 0;
+      int current_agent_node_id = start_node_id;
+      nodes_visited.push_back(current_agent_node_id);
+
+      while((current_agent_node_id != end_node_id) & (count <= limit))
+      {
+          std::cout << "Nav node id: " << current_agent_node_id << " edges size: " << nav::NavMesh[current_agent_node_id].edges.size() << std::endl;
+          for (auto const& e : nav::NavMesh[current_agent_node_id].edges)
+          {
+              std::cout << "Edge ID: " << e.first << std::endl;
+              // for(int n = 0; n < nodes_visited.size(); n++)
+              // {
+              //     std::cout << nodes_visited[n] << " -> ";
+              // }
+              // std::cout << std::endl;
+
+              if(!(std::find(nodes_visited.begin(), nodes_visited.end(), e.first) != nodes_visited.end()))
+              {
+                  // not visited yet
+                  current_agent_node_id = e.first;
+                  nodes_visited.push_back(current_agent_node_id);
+                  break;
+              }
+          }
+        count += 1;
+      }
+      for(int n = 0; n < nodes_visited.size(); n++)
+      {
+          std::cout << nodes_visited[n] << " -> ";
+      }
+      std::cout << std::endl;
     }
-    for(int n = 0; n < nodes_visited.size(); n++)
-    {
-        std::cout << nodes_visited[n] << " -> ";
-    }
-    std::cout << std::endl;
   }
 }
 
