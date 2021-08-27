@@ -300,6 +300,7 @@ namespace nav
       // std::cout << "Nav Node tile count : " << node.count_tiles << std::endl;
     }
     //std::cout << "Nav Nodes size: " << nav_nodes.size() << std::endl;
+
     return nav_nodes;
   }
 
@@ -313,6 +314,8 @@ namespace nav
 
     for (auto const& nn : nav_nodes)
     { 
+
+      std::map<int, NavGate> _edges = {};
       for (auto const& t : nav_nodes)
       { 
         if(nn.first != t.first){
@@ -324,21 +327,22 @@ namespace nav
             ng.a_id = nn.first;
             ng.b_id = t.first;
             ng.id = (nn.first*1000) + t.first;
-            // ng.
-            
+
             ng.gate_min_x = std::max(nn.second.min_x, t.second.min_x);
             ng.gate_max_x = std::min(nn.second.max_x, t.second.max_x);
             ng.gate_min_y = std::max(nn.second.min_y, t.second.min_y);
             ng.gate_max_y = std::min(nn.second.max_y, t.second.max_y);
 
-            std::cout << " Gate between " << ng.a_id << " and " << ng.b_id << std::endl;
-            std::cout << " min x: " << ng.gate_min_x << std::endl;
-            std::cout << " max x: " << ng.gate_max_x << std::endl;
-            std::cout << " min y: " << ng.gate_min_y << std::endl;
-            std::cout << " max y: " << ng.gate_max_y << std::endl;          
+            _edges.insert({t.first, ng});
+            // std::cout << " Gate between " << ng.a_id << " and " << ng.b_id << std::endl;
+            // std::cout << " min x: " << ng.gate_min_x << std::endl;
+            // std::cout << " max x: " << ng.gate_max_x << std::endl;
+            // std::cout << " min y: " << ng.gate_min_y << std::endl;
+            // std::cout << " max y: " << ng.gate_max_y << std::endl;          
           }
         }
       }
+      nav_nodes[nn.first].edges = _edges;
     }
     return nav_nodes;
   }
@@ -357,6 +361,11 @@ namespace nav
 
     std::map<int, NavNode> nav_nodes = nav::init_nodes(nav_polygons);
     nav_nodes = join_nodes(nav_nodes);
+
+    for (auto const& nn : nav_nodes)
+    { 
+      std::cout << nn.first << " has " << nn.second.edges.size() << " edge(s)" << std::endl;
+    }
     return nav_nodes;
   }
 
