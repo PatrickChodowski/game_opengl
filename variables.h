@@ -262,6 +262,20 @@ namespace quads
     quads::UsedVertexIds.push_back(next_vertex_id);
     return next_vertex_id;
   }
+  int find_quad_id(int quad_id, std::vector<quads::Quad> quads)
+  {
+    int quad_index = -1;
+    /*Will return the index of quad id*/
+    for(int q = 0; q < quads.size(); q++)
+    {
+      if(quad_id == quads[q].id)
+      {
+        quad_index = q;
+        break;
+      }
+    }
+    return quad_index;
+  }
 }
 
 namespace fonts
@@ -454,4 +468,92 @@ namespace game
 
 }
 
+namespace nav
+{
+ // almost navigate, but no, its Nav Gate (gate between 2 polygons). Why I am not a comedian
+  struct NavGate 
+  {
+    int id;
+    int a_id;
+    int b_id;
+    float gate_min_x;
+    float gate_max_x;
+    float gate_min_y;
+    float gate_max_y;
+  };
+
+  struct NavNode
+  {
+    int id;
+    float min_y;
+    float min_x;
+    float max_y;
+    float max_x;
+    std::map<int, NavGate> edges;
+    int count_tiles;
+  };
+  std::map<int, NavNode> NavMesh;
+}
+
+namespace paths
+{
+  int get_navnode_id(float x, float y)
+  {
+    int nav_node_id = -1;
+    for (auto const& nn : nav::NavMesh)
+    { 
+      if(x >= nn.second.min_x & x <= nn.second.max_x & y >= nn.second.min_y & y <= nn.second.max_x)
+      { 
+        nav_node_id = nn.first;
+        break;
+      }
+     }
+    std::cout << "Mob's nav node id: " << nav_node_id << std::endl;
+    return nav_node_id;
+  }
+
+  void find_path(int start_node_id, int end_node_id)
+  {
+    std::cout << "Looking for path between " << start_node_id << " and " << end_node_id << std::endl;
+    std::vector<int> nodes_visited = {};
+
+    int current_agent_node_id = start_node_id;
+    nodes_visited.push_back(current_agent_node_id);
+
+    while(current_agent_node_id != end_node_id)
+    {
+        for (auto const& e : nav::NavMesh[current_agent_node_id].edges)
+        {
+            if(std::find(nodes_visited.begin(), nodes_visited.end(), e.first) != nodes_visited.end())
+            {
+                // not visited yet
+                current_agent_node_id = e.first;
+                nodes_visited.push_back(current_agent_node_id);
+            }
+        }
+    }
+    for(int n = 0; n < nodes_visited.size(); n++)
+    {
+        std::cout << nodes_visited[n] << " -> ";
+    }
+    std::cout << std::endl;
+  }
+}
+
+namespace mobs
+{
+  void move_to_point(int quad_id, float x, float y)
+  {
+    int quad_index = quads::find_quad_id(quad_id, quads::AllQuads);
+    int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].x, quads::AllQuads[quad_index].y);
+    int target_node_id = paths::get_navnode_id(x, y);
+
+    if(quad_node_id != target_node_id)
+    {
+      paths::find_path(quad_node_id, target_node_id);
+    }
+  }
+
+
+}
 #endif

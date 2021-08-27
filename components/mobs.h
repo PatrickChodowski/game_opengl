@@ -119,6 +119,7 @@ namespace mobs
         } else if (r==3) {
           mobs::AliveMobs[a].y += 1;
         }
+        // int mob_node_id = paths::get_navnode_id(mobs::AliveMobs[a].x, mobs::AliveMobs[a].y);
       }
     }
   }

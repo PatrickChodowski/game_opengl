@@ -11,7 +11,7 @@ namespace nav
   int MAX_ROW;
   int MAX_COL;
   int MAX_TILE_ID;
-
+  
   struct NavTile
   {
     int id;
@@ -36,30 +36,6 @@ namespace nav
     int max_x;
   };
  
- // almost navigate, but no, its Nav Gate (gate between 2 polygons). Why I am not a comedian
-  struct NavGate 
-  {
-    int id;
-    int a_id;
-    int b_id;
-    float gate_min_x;
-    float gate_max_x;
-    float gate_min_y;
-    float gate_max_y;
-  };
-
-  struct NavNode
-  {
-    int id;
-    float min_y;
-    float min_x;
-    float max_y;
-    float max_x;
-    std::map<int, NavGate> edges;
-    int count_tiles;
-  };
-
-
   std::map<int, NavTile> NavTiles = {};
  
   // step 1: propagate NavTiles map 
@@ -232,11 +208,6 @@ namespace nav
     return NavPolygons;
   }
   
-
-
-
-
-
   void print_polygons(std::map<int, NavPolygon> nav_polygons,
                       int vertex_width, 
                       int vertex_height)
@@ -347,13 +318,9 @@ namespace nav
     return nav_nodes;
   }
 
-
-
-
-  
-  std::map<int, NavNode> init(std::string map_name,
-                                 int vertex_width, 
-                                 int vertex_height)
+  void init(std::string map_name,
+            int vertex_width, 
+            int vertex_height)
   {
     nav::load_navtiles(map_name, vertex_width, vertex_height);
     std::map<int, NavPolygon> nav_polygons = nav::define_polygons();
@@ -362,11 +329,11 @@ namespace nav
     std::map<int, NavNode> nav_nodes = nav::init_nodes(nav_polygons);
     nav_nodes = join_nodes(nav_nodes);
 
-    for (auto const& nn : nav_nodes)
-    { 
-      std::cout << nn.first << " has " << nn.second.edges.size() << " edge(s)" << std::endl;
-    }
-    return nav_nodes;
+    // for (auto const& nn : nav_nodes)
+    // { 
+    //   std::cout << nn.first << " has " << nn.second.edges.size() << " edge(s)" << std::endl;
+    // }
+    nav::NavMesh = nav_nodes;
   }
 
 
