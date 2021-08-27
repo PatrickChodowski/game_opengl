@@ -96,21 +96,21 @@ int FPS = 60; // just init
 #include "opengl/buffer.h"
 #include "opengl/mouse.h"
 
+#include "components/hero.h"
+
+// quads and map stuff
+#include "fonts/fonts.h"
+#include "menu/menu.h"
+#include "maps/navmesh.h"
+#include "maps/maps.h"
+#include "maps/pathfinder.h"
 
 
 // game components
 #include "components/entity.h"
 #include "components/items.h"
 #include "components/mobs.h"
-#include "components/hero.h"
 #include "components/collisions.h"
-
-
-// quads dependent
-#include "fonts/fonts.h"
-#include "menu/menu.h"
-#include "maps/navmesh.h"
-#include "maps/maps.h"
 
 #include "saves/saves.h"
 #include "opengl/events.h"

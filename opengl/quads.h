@@ -95,21 +95,6 @@ namespace quads
     //std::cout << "Used Vertexes size: " << quads::UsedVertexIds.size() << std::endl;
   }
 
-  int find_quad_id(int quad_id, std::vector<quads::Quad> quads)
-  {
-    int quad_index = -1;
-    /*Will return the index of quad id*/
-    for(int q = 0; q < quads.size(); q++)
-    {
-      if(quad_id == quads[q].id)
-      {
-        quad_index = q;
-        break;
-      }
-    }
-    return quad_index;
-  }
-
   void click(int quad_id, int quad_type_id)
   {
 
