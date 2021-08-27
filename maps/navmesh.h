@@ -35,13 +35,17 @@ namespace nav
     int max_y;
     int max_x;
   };
-
-  struct NavEdge
+ 
+ // almost navigate, but no, its Nav Gate (gate between 2 polygons). Why I am not a comedian
+  struct NavGate 
   {
+    int id;
     int a_id;
     int b_id;
-    float x;
-    float y; 
+    float gate_min_x;
+    float gate_max_x;
+    float gate_min_y;
+    float gate_max_y;
   };
 
   struct NavNode
@@ -51,7 +55,7 @@ namespace nav
     float min_x;
     float max_y;
     float max_x;
-    std::map<int, NavEdge> edges;
+    std::map<int, NavGate> edges;
     int count_tiles;
   };
 
@@ -234,8 +238,8 @@ namespace nav
 
 
   void print_polygons(std::map<int, NavPolygon> nav_polygons,
-            int vertex_width, 
-            int vertex_height)
+                      int vertex_width, 
+                      int vertex_height)
   {
     // int polygon_array[vertex_height+1][vertex_width+1] = {};
     std::cout << "Navpolygons size: " << nav_polygons.size() << std::endl;
@@ -264,6 +268,11 @@ namespace nav
     }
   }
 
+  // function for testing if polygons intersect
+  bool aabb_intersect(NavNode a, NavNode b)
+  {
+    return ((a.min_x <= b.max_x & a.max_x >= b.min_x) & (a.min_y <= b.max_y & a.max_y >= b.min_y));
+  }
 
 
   std::map<int, NavNode> init_nodes(std::map<int, NavPolygon> nav_polygons)
@@ -283,14 +292,54 @@ namespace nav
           node.count_tiles += 1;
       }
       nav_nodes.insert({node.id, node});
-      std::cout << "Nav Node ID: " << node.id << std::endl;
-      std::cout << "Nav Node min x: " << node.min_x << std::endl;
-      std::cout << "Nav Node max x: " << node.max_x << std::endl;
-      std::cout << "Nav Node min y: " << node.min_y << std::endl;
-      std::cout << "Nav Node max y: " << node.max_y << std::endl;
-      std::cout << "Nav Node tile count : " << node.count_tiles << std::endl;
+      // std::cout << "Nav Node ID: " << node.id << std::endl;
+      // std::cout << "Nav Node min x: " << node.min_x << std::endl;
+      // std::cout << "Nav Node max x: " << node.max_x << std::endl;
+      // std::cout << "Nav Node min y: " << node.min_y << std::endl;
+      // std::cout << "Nav Node max y: " << node.max_y << std::endl;
+      // std::cout << "Nav Node tile count : " << node.count_tiles << std::endl;
     }
-    std::cout << "Nav Nodes size: " << nav_nodes.size() << std::endl;
+    //std::cout << "Nav Nodes size: " << nav_nodes.size() << std::endl;
+    return nav_nodes;
+  }
+
+  std::map<int, NavNode> join_nodes(std::map<int, NavNode> nav_nodes)
+  {
+    // for each node iterate and find nodes colliding (or rather touching each other)
+    // greate NavGate for each connection
+    // Polygon_id, Gate =  edge
+    // uh, thats solid plan
+
+
+    for (auto const& nn : nav_nodes)
+    { 
+      for (auto const& t : nav_nodes)
+      { 
+        if(nn.first != t.first){
+          if(nav::aabb_intersect(nn.second, t.second))
+          {
+
+            // std::cout << nn.first << "intersects with " << t.first << std::endl;
+            NavGate ng;
+            ng.a_id = nn.first;
+            ng.b_id = t.first;
+            ng.id = (nn.first*1000) + t.first;
+            // ng.
+            
+            ng.gate_min_x = std::max(nn.second.min_x, t.second.min_x);
+            ng.gate_max_x = std::min(nn.second.max_x, t.second.max_x);
+            ng.gate_min_y = std::max(nn.second.min_y, t.second.min_y);
+            ng.gate_max_y = std::min(nn.second.max_y, t.second.max_y);
+
+            std::cout << " Gate between " << ng.a_id << " and " << ng.b_id << std::endl;
+            std::cout << " min x: " << ng.gate_min_x << std::endl;
+            std::cout << " max x: " << ng.gate_max_x << std::endl;
+            std::cout << " min y: " << ng.gate_min_y << std::endl;
+            std::cout << " max y: " << ng.gate_max_y << std::endl;          
+          }
+        }
+      }
+    }
     return nav_nodes;
   }
 
@@ -307,6 +356,7 @@ namespace nav
     nav::print_polygons(nav_polygons, vertex_width, vertex_height);
 
     std::map<int, NavNode> nav_nodes = nav::init_nodes(nav_polygons);
+    nav_nodes = join_nodes(nav_nodes);
     return nav_nodes;
   }
 
