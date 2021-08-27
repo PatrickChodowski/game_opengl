@@ -275,45 +275,14 @@ namespace nav
       NavNode node;
       node.id = cp.first;
       node.count_tiles = 0;
-
-      float min_x = (float)INT_MAX;
-      float max_x = 0.0f;
-      float min_y = (float)INT_MAX;
-      float max_y = 0.0f;
-      std::cout << min_x << std::endl;
-
-      // find min_, max_, x , y from tiles of each polygon
+      node.min_x = (float)(cp.second.min_x * camera::tile_dim);
+      node.max_x = (float)((cp.second.max_x * camera::tile_dim) + camera::tile_dim);
+      node.min_y = (float)(cp.second.min_y * camera::tile_dim);
+      node.max_y = (float)((cp.second.max_y * camera::tile_dim) + camera::tile_dim);
       for(int t=0; t < cp.second.tiles.size(); t++){
-
-          // debug
-          if(cp.first == 7){
-            std::cout << "tile x : " << cp.second.tiles[t].x_real << std::endl;
-            std::cout << "tile y : " << cp.second.tiles[t].x_real << std::endl;
-          }
-
           node.count_tiles += 1;
-          if(cp.second.tiles[t].x_real < min_x){
-            min_x = cp.second.tiles[t].x_real;
-          };
-
-          if(cp.second.tiles[t].x_real > max_x){
-            max_x = cp.second.tiles[t].x_real;
-          };
-
-          if(cp.second.tiles[t].y_real < min_y){
-            min_y = cp.second.tiles[t].x_real;
-          };
-
-          if(cp.second.tiles[t].y_real > max_y){
-            max_y = cp.second.tiles[t].y_real;
-          };
-      };
-      node.min_x = min_x;
-      node.max_x = max_x + camera::tile_dim; // as it needs the edge of the tile
-      node.min_y = min_y;
-      node.max_y = max_y + camera::tile_dim; // as it needs the edge of the tile
+      }
       nav_nodes.insert({node.id, node});
-
       std::cout << "Nav Node ID: " << node.id << std::endl;
       std::cout << "Nav Node min x: " << node.min_x << std::endl;
       std::cout << "Nav Node max x: " << node.max_x << std::endl;
