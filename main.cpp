@@ -31,10 +31,10 @@ int main()
     auto game_loop_start_time = std::chrono::system_clock::now();
     SDL_Event event;
     events::handle_events(event, quads::AllQuads);
-    utils::get_random(0,10);
     game::handle_game_state();
     quads::accumulate();
     quads::scale_move_quads(camera::x, camera::y, camera::zoom);
+    nav::scale(camera::x, camera::y, camera::zoom);
 
     colls::handle();
     game::update(quads::AllQuads);

@@ -480,6 +480,10 @@ namespace nav
     float gate_max_x;
     float gate_min_y;
     float gate_max_y;
+    float gate_s_min_x;
+    float gate_s_max_x;
+    float gate_s_min_y;
+    float gate_s_max_y;
   };
 
   struct NavNode
@@ -489,6 +493,10 @@ namespace nav
     float min_x;
     float max_y;
     float max_x;
+    float s_min_y;
+    float s_min_x;
+    float s_max_y;
+    float s_max_x;
     std::map<int, NavGate> edges;
     int count_tiles;
   };
@@ -502,7 +510,7 @@ namespace paths
     int nav_node_id = -1;
     for (auto const& nn : nav::NavMesh)
     { 
-      if((x >= nn.second.min_x) & (x <= nn.second.max_x) & (y >= nn.second.min_y) & (y <= nn.second.max_y))
+      if((x >= nn.second.s_min_x) & (x <= nn.second.s_max_x) & (y >= nn.second.s_min_y) & (y <= nn.second.s_max_y))
       { 
         nav_node_id = nn.first;
         break;

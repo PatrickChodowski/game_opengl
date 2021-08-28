@@ -51,7 +51,11 @@ namespace nav
                      << "x min: " << nn.second.min_x << " "
                      << "x max: " << nn.second.max_x << " "
                      << "y min: " << nn.second.min_y << " "
-                     << "y max: " << nn.second.max_y << " "
+                     << "y max: " << nn.second.max_y << " " << std::endl << "       "
+                     << "s x min: " << nn.second.s_min_x << " "
+                     << "s x max: " << nn.second.s_max_x << " "
+                     << "s y min: " << nn.second.s_min_y << " "
+                     << "s y max: " << nn.second.s_max_y << " "
                      << "edges size: " << nn.second.edges.size() << " " << std::endl;
       }
       array_file.close();
@@ -353,6 +357,32 @@ namespace nav
     nav::log_navmesh();    
   }
 
+  // need to scale the navmesh as well 
+  void scale(int camera_x=0, int camera_y=0, float camera_zoom=1.0)
+  {
+    camera::tile_dim = (float)TILE_DIM*float(camera_zoom);
+    float scale_factor = (1.0f/float(camera_zoom));
+    // forgot why :/
+    camera_x = (-1)*camera_x;
+
+    for (auto const& nn : nav::NavMesh)
+    { 
+
+      nav::NavMesh[nn.first].s_max_x = (nn.second.max_x + (float)camera_x)*scale_factor;
+      nav::NavMesh[nn.first].s_min_x = (nn.second.min_x + (float)camera_x)*scale_factor;
+      nav::NavMesh[nn.first].s_max_y = (nn.second.max_y + (float)camera_x)*scale_factor;
+      nav::NavMesh[nn.first].s_min_y = (nn.second.min_y + (float)camera_x)*scale_factor;
+
+      for (auto const& ed : nn.second.edges)
+      {
+        nav::NavMesh[nn.first].edges[ed.first].gate_s_max_x = (ed.second.gate_max_x + (float)camera_x)*scale_factor;
+        nav::NavMesh[nn.first].edges[ed.first].gate_s_min_x = (ed.second.gate_min_x + (float)camera_x)*scale_factor;
+        nav::NavMesh[nn.first].edges[ed.first].gate_s_max_y = (ed.second.gate_max_y + (float)camera_x)*scale_factor;
+        nav::NavMesh[nn.first].edges[ed.first].gate_s_min_y = (ed.second.gate_min_y + (float)camera_x)*scale_factor;
+      }
+    }
+    nav::log_navmesh();  
+  }
 }
 
 
