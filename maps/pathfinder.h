@@ -20,58 +20,110 @@ namespace paths
     return nav_node_id;
   }
 
-int min_distance(std::vector<float> distances, 
-                std::vector<bool> polygon_included,
-                int polygon_count
-                )
-{
-    // Initialize min value
-    int min = INT_MAX, min_index;
- 
-    for (int v = 0; v < polygon_count; v++)
-        if (polygon_included[v] == false && distances[v] <= min)
-            min = distances[v], min_index = v;
- 
-    return min_index;
-}
+  int min_distance(std::vector<float> distances, 
+                   std::vector<bool> polygon_included,
+                   int polygon_count)
+  {
+      // Initialize min value
+      int min = INT_MAX, min_index;
+  
+      for (int v = 0; v < polygon_count; v++)
+          if (polygon_included[v] == false && distances[v] <= min)
+              min = distances[v], min_index = v;
+  
+      return min_index;
+  }
 
-  void find_path_djikstra(int start_node_id, int end_node_id)
+  struct DjikstraStep
+  {
+    int distance;
+    int previous_step;
+  };
+
+  // node_id, target, <distance, previous_step>
+  std::map<int, std::map<int, DjikstraStep>> PathCache;
+
+  std::map<int, DjikstraStep> find_paths_djikstra(int node_id)
+  {
+    int polygon_count = nav::NavMesh.size();
+    std::vector<bool> polygon_included = {};
+    std::vector<float> distances = {};
+    std::vector<int> previous_nodes = {};
+
+    for(int v = 0; v < polygon_count; v++)
+    {
+      polygon_included.push_back(false);
+      distances.push_back(1000);
+      previous_nodes.push_back(0);
+    }
+
+    // distance of end_node_id to itself will be always 0:
+    distances[(node_id-1)] = 0;
+    for (int count = 0; count < polygon_count - 1; count++) 
+    {
+      int u = min_distance(distances, polygon_included, polygon_count);
+      polygon_included[u] = true;
+
+      for (int v = 0; v < polygon_count; v++)
+      {
+        if (!polygon_included[v] && nav::NavMeshGraph[u][v] && distances[u] != 1000
+            && distances[u] + nav::NavMeshGraph[u][v] < distances[v]){
+              distances[v] = distances[u] + nav::NavMeshGraph[u][v];
+              previous_nodes[v] = (u+1);
+        }
+      }
+    }
+    std::map<int, DjikstraStep> djikstra = {};
+    for (int i = 0; i < polygon_count; i++)
+    {
+      DjikstraStep ds;
+      // ds.target = (i+1);
+      ds.distance = distances[i];
+      ds.previous_step = previous_nodes[i];
+      djikstra.insert({(i+1),ds});
+      //std::cout  << (i+1) << " \t\t" << distances[i] << " \t\t" << previous_nodes[i] << std::endl;
+    }
+    return djikstra;
+  }
+
+  void make_path_cache()
+  {
+    paths::PathCache.clear();
+    for (auto const& nn : nav::NavMesh)
+    { 
+      std::map<int, DjikstraStep> djikstra = find_paths_djikstra(nn.first);
+      paths::PathCache.insert({nn.first, djikstra});
+    }
+  }
+
+
+  void find_path(int start_node_id, int end_node_id)
   {
     if((start_node_id > -1) & (end_node_id > -1))
     {
-      int polygon_count = nav::NavMesh.size();
-      std::vector<bool> polygon_included = {};
-      std::vector<float> distances = {};
+      int next_distance;
+      int next_node = end_node_id;
+      std::vector<int> path = {};
+      path.push_back(next_node);
+      next_distance = paths::PathCache[start_node_id][next_node].distance;
 
-      for(int v = 0; v < polygon_count; v++)
+      while(next_distance > 1)
       {
-        polygon_included.push_back(false);
-        distances.push_back(INT_MAX);
+        next_node = paths::PathCache[start_node_id][next_node].previous_step;
+        next_distance = paths::PathCache[start_node_id][next_node].distance;
+        path.push_back(next_node);
       }
+      path.push_back(start_node_id);
+      reverse(path.begin(), path.end());
 
-      // distance of end_node_id to itself will be always 0:
-      distances[(end_node_id-1)] = 0;
-
-      for (int count = 0; count < polygon_count - 1; count++) 
+      for(int i=0; i < path.size(); i++)
       {
-        int u = min_distance(distances, polygon_included, polygon_count);
-        polygon_included[u] = true;
-
-        for (int v = 0; v < polygon_count; v++)
-        {
-          if (!polygon_included[v] && nav::NavMeshGraph[u][v] && distances[u] != INT_MAX
-              && distances[u] + nav::NavMeshGraph[u][v] < distances[v]){
-                distances[v] = distances[u] + nav::NavMeshGraph[u][v];
-          }
-        }
+        std::cout << path[i] << " "; 
       }
-
-      for (int i = 0; i < polygon_count; i++)
-      {
-        std::cout  << (i+1) << " \t\t" <<distances[i] << std::endl;
-      }
+      std::cout << std::endl;
     }
   }
+
 }
 
 

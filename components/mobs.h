@@ -145,10 +145,9 @@ namespace mobs
 
 
     int target_node_id = paths::get_navnode_id(x, y);
-
     if(quad_node_id != target_node_id)
     {
-      paths::find_path_djikstra(quad_node_id, target_node_id);
+      paths::find_path(quad_node_id, target_node_id);
     }
   }
 

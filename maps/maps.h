@@ -209,6 +209,8 @@ namespace maps
               maps::Catalog[map_id].vertex_width, 
               maps::Catalog[map_id].vertex_height);
 
+    paths::make_path_cache();
+
     for(int i = 0; i < maps::MapQuads.size(); i++)
     { 
       maps::MapQuads[i].a = quads::gen_vertex_id();
