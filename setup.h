@@ -94,7 +94,6 @@ int FPS = 60; // just init
 #include "opengl/camera.h"
 #include "opengl/quads.h"
 #include "opengl/buffer.h"
-#include "opengl/mouse.h"
 
 #include "components/hero.h"
 
@@ -111,6 +110,8 @@ int FPS = 60; // just init
 #include "components/items.h"
 #include "components/mobs.h"
 #include "components/collisions.h"
+
+#include "opengl/mouse.h"
 
 #include "saves/saves.h"
 #include "opengl/events.h"
