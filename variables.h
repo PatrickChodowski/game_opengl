@@ -501,6 +501,7 @@ namespace nav
     int count_tiles;
   };
   std::map<int, NavNode> NavMesh;
+  std::vector<std::vector<int>> NavMeshGraph;
 }
 
 namespace paths
@@ -520,6 +521,53 @@ namespace paths
     return nav_node_id;
   }
 
+int min_distance(std::vector<float> distances, 
+                std::vector<bool> polygon_included,
+                int polygon_count
+                )
+{
+    // Initialize min value
+    int min = INT_MAX, min_index;
+ 
+    for (int v = 0; v < polygon_count; v++)
+        if (polygon_included[v] == false && distances[v] <= min)
+            min = distances[v], min_index = v;
+ 
+    return min_index;
+}
+
+  void find_path_djikstra(int start_node_id, int end_node_id)
+  {
+    int polygon_count = nav::NavMesh.size();
+    std::vector<bool> polygon_included = {};
+    std::vector<float> distances = {};
+
+    for(int v = 0; v < polygon_count; v++)
+    {
+      polygon_included.push_back(false);
+      distances.push_back(INT_MAX);
+    }
+
+    // distance of end_node_id to itself will be always 0:
+    distances[(end_node_id-1)] = 0;
+
+    for (int count = 0; count < polygon_count - 1; count++) 
+    {
+      int u = min_distance(distances, polygon_included, polygon_count);
+      polygon_included[u] = true;
+
+      for (int v = 0; v < polygon_count; v++)
+      {
+        // if (!polygon_included[v] && nav::NavMeshGraph[u][v] && distances[u] != INT_MAX
+        //     && distances[u] + nav::NavMeshGraph[u][v] < distances[v]){
+        //       distances[v] = distances[u] + graph[u][v];
+        // }
+      }
+    }
+  }
+  
+
+
   void find_path(int start_node_id, int end_node_id)
   {
     if((start_node_id > -1) & (end_node_id > -1))
@@ -533,16 +581,8 @@ namespace paths
 
       while((current_agent_node_id != end_node_id) & (count <= limit))
       {
-          // std::cout << "Nav node id: " << current_agent_node_id << " edges size: " << nav::NavMesh[current_agent_node_id].edges.size() << std::endl;
           for (auto const& e : nav::NavMesh[current_agent_node_id].edges)
           {
-              // std::cout << "Edge ID: " << e.first << std::endl;
-              // for(int n = 0; n < nodes_visited.size(); n++)
-              // {
-              //     std::cout << nodes_visited[n] << " -> ";
-              // }
-              // std::cout << std::endl;
-
               if(!(std::find(nodes_visited.begin(), nodes_visited.end(), e.first) != nodes_visited.end()))
               {
                   // not visited yet
@@ -553,14 +593,17 @@ namespace paths
           }
         count += 1;
       }
-      // for(int n = 0; n < nodes_visited.size(); n++)
-      // {
-      //     std::cout << nodes_visited[n] << " -> ";
-      // }
-      // std::cout << std::endl;
+      for(int n = 0; n < nodes_visited.size(); n++)
+      {
+          std::cout << nodes_visited[n] << " -> ";
+      }
+      std::cout << std::endl;
     }
   }
 }
+
+
+
 
 namespace mobs
 {

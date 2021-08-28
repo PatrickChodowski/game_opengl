@@ -342,6 +342,39 @@ namespace nav
     return nav_nodes;
   }
 
+
+void make_navmesh_graph()
+{
+  int value;
+  int polygon_count = nav::NavMesh.size();
+  std::vector<std::vector<int>> graph = {};
+  for(int a = 0; a < polygon_count; a++)
+  {
+    std::vector<int> row = {};
+    for(int b = 0; b < polygon_count; b++)
+    {
+      if(nav::NavMesh[(a+1)].edges.count((b+1)) > 0){
+        value = 1;
+      } else {
+        value = 0;
+      }
+      row.push_back(value);
+    }
+    graph.push_back(row);
+  }
+  // debug graph
+  for(int i = 0; i < polygon_count; i++)
+  {
+    for(int j = 0; j < polygon_count; i++)
+    { 
+      std::cout << graph[i][j] << " "; 
+    }
+    std::cout << std::endl;
+  }
+
+  nav::NavMeshGraph = graph;
+}
+
   void init(std::string map_name,
             int vertex_width, 
             int vertex_height)
@@ -354,6 +387,7 @@ namespace nav
     nav_nodes = join_nodes(nav_nodes);
 
     nav::NavMesh = nav_nodes;
+    nav::make_navmesh_graph();
     nav::log_navmesh();    
   }
 
