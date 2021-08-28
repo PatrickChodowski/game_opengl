@@ -502,13 +502,13 @@ namespace paths
     int nav_node_id = -1;
     for (auto const& nn : nav::NavMesh)
     { 
-      if(x >= nn.second.min_x & x <= nn.second.max_x & y >= nn.second.min_y & y <= nn.second.max_x)
+      if((x >= nn.second.min_x) & (x <= nn.second.max_x) & (y >= nn.second.min_y) & (y <= nn.second.max_y))
       { 
         nav_node_id = nn.first;
         break;
       }
      }
-    std::cout << "nav node id: " << nav_node_id << std::endl;
+    std::cout << " Point: " << x << "," << y << " Node id: " << nav_node_id << std::endl;
     return nav_node_id;
   }
 
@@ -556,10 +556,26 @@ namespace paths
 
 namespace mobs
 {
-  void move_to_point(int quad_id, float x, float y)
+  void move_to_point(float x, float y)
   {
-    int quad_index = quads::find_quad_id(quad_id, quads::AllQuads);
+    // get mob quad id (temporary):
+    int quad_index; 
+    for(int q = 0; q < quads::AllQuads.size(); q++)
+    {
+      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
+      {
+        quad_index = q;
+        break;
+      }
+    }
+    std::cout << "Mob Quad Index: " << quad_index << std::endl;
+    std::cout << "Mob Position: " << quads::AllQuads[quad_index].x << "," << quads::AllQuads[quad_index].y << std::endl;
+
+    // int quad_index = quads::find_quad_id(quad_id, quads::AllQuads);
     int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].x, quads::AllQuads[quad_index].y);
+    std::cout << "Mob Polygon: " << quad_node_id << std::endl;
+
+
     int target_node_id = paths::get_navnode_id(x, y);
 
     if(quad_node_id != target_node_id)

@@ -95,7 +95,8 @@ namespace mouse
       case SDL_BUTTON_LEFT:
         print_mouse(e, "Left");
         query_quads(e.x, e.y, quads);
-        mobs::move_to_point(160, e.x, e.y);
+        // mobs::move_to_point(160, e.x, e.y);
+        mobs::move_to_point(e.x, e.y);
       break;
 
       case SDL_BUTTON_RIGHT:

@@ -37,6 +37,26 @@ namespace nav
   };
  
   std::map<int, NavTile> NavTiles = {};
+
+  void log_navmesh()
+  {
+    std::string file_path = "./logs/navmesh.txt";
+    std::ofstream array_file (file_path.c_str());
+
+    if (array_file.is_open())
+    {
+      for (auto const& nn : nav::NavMesh)
+      { 
+          array_file << "Node: " << nn.first << " " 
+                     << "x min: " << nn.second.min_x << " "
+                     << "x max: " << nn.second.max_x << " "
+                     << "y min: " << nn.second.min_y << " "
+                     << "y max: " << nn.second.max_y << " "
+                     << "edges size: " << nn.second.edges.size() << " " << std::endl;
+      }
+      array_file.close();
+    }
+  }
  
   // step 1: propagate NavTiles map 
   void load_navtiles(std::string map_name,
@@ -329,17 +349,11 @@ namespace nav
     std::map<int, NavNode> nav_nodes = nav::init_nodes(nav_polygons);
     nav_nodes = join_nodes(nav_nodes);
 
-    // for (auto const& nn : nav_nodes)
-    // { 
-    //   std::cout << nn.first << " has " << nn.second.edges.size() << " edge(s)" << std::endl;
-    // }
     nav::NavMesh = nav_nodes;
+    nav::log_navmesh();    
   }
 
-
-
-
-
 }
+
 
 #endif
