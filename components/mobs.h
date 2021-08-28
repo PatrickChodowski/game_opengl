@@ -124,6 +124,35 @@ namespace mobs
     }
   }
 
+  void move_to_point(float x, float y)
+  {
+    // get mob quad id (temporary):
+    int quad_index; 
+    for(int q = 0; q < quads::AllQuads.size(); q++)
+    {
+      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
+      {
+        quad_index = q;
+        break;
+      }
+    }
+    std::cout << "Mob Quad Index: " << quad_index << std::endl;
+    std::cout << "Mob Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
+
+    // int quad_index = quads::find_quad_id(quad_id, quads::AllQuads);
+    int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].s_x, quads::AllQuads[quad_index].s_y);
+    // std::cout << "Mob Polygon: " << quad_node_id << std::endl;
+
+
+    int target_node_id = paths::get_navnode_id(x, y);
+
+    if(quad_node_id != target_node_id)
+    {
+      paths::find_path_djikstra(quad_node_id, target_node_id);
+    }
+  }
+
+
   void render_alive_mobs()
   {
     for (int a=0; a<mobs::AliveMobs.size(); a++)
