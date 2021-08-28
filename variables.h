@@ -558,10 +558,10 @@ int min_distance(std::vector<float> distances,
 
       for (int v = 0; v < polygon_count; v++)
       {
-        // if (!polygon_included[v] && nav::NavMeshGraph[u][v] && distances[u] != INT_MAX
-        //     && distances[u] + nav::NavMeshGraph[u][v] < distances[v]){
-        //       distances[v] = distances[u] + graph[u][v];
-        // }
+        if (!polygon_included[v] && nav::NavMeshGraph[u][v] && distances[u] != INT_MAX
+            && distances[u] + nav::NavMeshGraph[u][v] < distances[v]){
+              distances[v] = distances[u] + graph[u][v];
+        }
       }
     }
   }

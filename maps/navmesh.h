@@ -365,7 +365,7 @@ void make_navmesh_graph()
   // debug graph
   for(int i = 0; i < polygon_count; i++)
   {
-    for(int j = 0; j < polygon_count; i++)
+    for(int j = 0; j < polygon_count; j++)
     { 
       std::cout << graph[i][j] << " "; 
     }
