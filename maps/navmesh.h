@@ -370,15 +370,15 @@ namespace nav
 
       nav::NavMesh[nn.first].s_max_x = (nn.second.max_x + (float)camera_x)*scale_factor;
       nav::NavMesh[nn.first].s_min_x = (nn.second.min_x + (float)camera_x)*scale_factor;
-      nav::NavMesh[nn.first].s_max_y = (nn.second.max_y + (float)camera_x)*scale_factor;
-      nav::NavMesh[nn.first].s_min_y = (nn.second.min_y + (float)camera_x)*scale_factor;
+      nav::NavMesh[nn.first].s_max_y = (nn.second.max_y + (float)camera_y)*scale_factor;
+      nav::NavMesh[nn.first].s_min_y = (nn.second.min_y + (float)camera_y)*scale_factor;
 
       for (auto const& ed : nn.second.edges)
       {
         nav::NavMesh[nn.first].edges[ed.first].gate_s_max_x = (ed.second.gate_max_x + (float)camera_x)*scale_factor;
         nav::NavMesh[nn.first].edges[ed.first].gate_s_min_x = (ed.second.gate_min_x + (float)camera_x)*scale_factor;
-        nav::NavMesh[nn.first].edges[ed.first].gate_s_max_y = (ed.second.gate_max_y + (float)camera_x)*scale_factor;
-        nav::NavMesh[nn.first].edges[ed.first].gate_s_min_y = (ed.second.gate_min_y + (float)camera_x)*scale_factor;
+        nav::NavMesh[nn.first].edges[ed.first].gate_s_max_y = (ed.second.gate_max_y + (float)camera_y)*scale_factor;
+        nav::NavMesh[nn.first].edges[ed.first].gate_s_min_y = (ed.second.gate_min_y + (float)camera_y)*scale_factor;
       }
     }
     nav::log_navmesh();  

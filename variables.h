@@ -533,10 +533,10 @@ namespace paths
 
       while((current_agent_node_id != end_node_id) & (count <= limit))
       {
-          std::cout << "Nav node id: " << current_agent_node_id << " edges size: " << nav::NavMesh[current_agent_node_id].edges.size() << std::endl;
+          // std::cout << "Nav node id: " << current_agent_node_id << " edges size: " << nav::NavMesh[current_agent_node_id].edges.size() << std::endl;
           for (auto const& e : nav::NavMesh[current_agent_node_id].edges)
           {
-              std::cout << "Edge ID: " << e.first << std::endl;
+              // std::cout << "Edge ID: " << e.first << std::endl;
               // for(int n = 0; n < nodes_visited.size(); n++)
               // {
               //     std::cout << nodes_visited[n] << " -> ";
@@ -553,11 +553,11 @@ namespace paths
           }
         count += 1;
       }
-      for(int n = 0; n < nodes_visited.size(); n++)
-      {
-          std::cout << nodes_visited[n] << " -> ";
-      }
-      std::cout << std::endl;
+      // for(int n = 0; n < nodes_visited.size(); n++)
+      // {
+      //     std::cout << nodes_visited[n] << " -> ";
+      // }
+      // std::cout << std::endl;
     }
   }
 }
@@ -577,11 +577,11 @@ namespace mobs
       }
     }
     std::cout << "Mob Quad Index: " << quad_index << std::endl;
-    std::cout << "Mob Position: " << quads::AllQuads[quad_index].x << "," << quads::AllQuads[quad_index].y << std::endl;
+    std::cout << "Mob Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
 
     // int quad_index = quads::find_quad_id(quad_id, quads::AllQuads);
-    int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].x, quads::AllQuads[quad_index].y);
-    std::cout << "Mob Polygon: " << quad_node_id << std::endl;
+    int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].s_x, quads::AllQuads[quad_index].s_y);
+    // std::cout << "Mob Polygon: " << quad_node_id << std::endl;
 
 
     int target_node_id = paths::get_navnode_id(x, y);
