@@ -4,18 +4,6 @@
 
 namespace mobs
 {
-
-  struct AliveMobData
-  {
-    // stores current position of each mob, so its not respawned in original place
-    // current state
-    float x;
-    float y;
-    int quad_id;
-    int mob_id;
-    int state = ENTITY_STATE_CALM;
-  };
-
   
   struct MobData
   {
@@ -37,7 +25,6 @@ namespace mobs
     max_speed, min_hp, max_hp, min_def, max_def);
   };
 
-  std::vector<mobs::AliveMobData> AliveMobs = {};
   std::map<int, MobData> Catalog = {};
 
   void read_mob_data(std::string name)
@@ -97,6 +84,8 @@ namespace mobs
         amd.x = mob_quad.x;
         amd.y = mob_quad.y;
         amd.mob_id = MOB_ID;
+        amd.speed = mobs::Catalog[MOB_ID].max_speed;
+        amd.hp = mobs::Catalog[MOB_ID].max_hp;
         AliveMobs.push_back(amd);
       }
     };

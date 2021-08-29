@@ -91,7 +91,8 @@ namespace travel
                 float dist = get_distance_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
                 float angle = get_angle_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
 
-  
+                // mobs::AliveMobs[0].x += 1;
+                // mobs::AliveMobs[0].y += 1;
 
             }
        }
