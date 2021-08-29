@@ -90,6 +90,7 @@ namespace game
       ent::EntityQuads.push_back(hero);
 
       mobs::move_random();
+      travel::manage();
       mobs::render_alive_mobs();
      } 
 

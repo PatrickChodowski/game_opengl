@@ -209,7 +209,7 @@ namespace maps
               maps::Catalog[map_id].vertex_width, 
               maps::Catalog[map_id].vertex_height);
 
-    paths::make_path_cache();
+    paths::make_path_map();
 
     for(int i = 0; i < maps::MapQuads.size(); i++)
     { 

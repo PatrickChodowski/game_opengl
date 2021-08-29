@@ -328,6 +328,15 @@ namespace nav
             ng.gate_min_y = std::max(nn.second.min_y, t.second.min_y);
             ng.gate_max_y = std::min(nn.second.max_y, t.second.max_y);
 
+            if(ng.gate_min_x == ng.gate_max_x)
+            {
+              ng.orientation = NAVGATE_VERTICAL_ORIENTATION;
+            } else if(ng.gate_min_y == ng.gate_max_y)
+            {
+              ng.orientation = NAVGATE_HORIZONTAL_ORIENTATION;
+            }
+
+
             _edges.insert({t.first, ng});
             // std::cout << " Gate between " << ng.a_id << " and " << ng.b_id << std::endl;
             // std::cout << " min x: " << ng.gate_min_x << std::endl;

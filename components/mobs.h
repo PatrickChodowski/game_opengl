@@ -13,7 +13,7 @@ namespace mobs
     float y;
     int quad_id;
     int mob_id;
-    int state = MOB_STATE_CALM;
+    int state = ENTITY_STATE_CALM;
   };
 
   
@@ -107,7 +107,7 @@ namespace mobs
   { 
     for (int a=0; a<mobs::AliveMobs.size(); a++)
     {
-      if(mobs::AliveMobs[a].state == MOB_STATE_CALM)
+      if(mobs::AliveMobs[a].state == ENTITY_STATE_CALM)
       {
         int r = utils::get_random(0,3);
         if(r == 0){
@@ -148,6 +148,60 @@ namespace mobs
     if(quad_node_id != target_node_id)
     {
       paths::find_path(quad_node_id, target_node_id);
+    }
+  }
+
+  void switch_aggro()
+  {
+    for (int a=0; a<mobs::AliveMobs.size(); a++)
+    {
+      if(mobs::AliveMobs[a].state == ENTITY_STATE_CALM)
+      {
+        mobs::AliveMobs[a].state = ENTITY_STATE_MOVING;
+      } 
+      else if (mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
+      {
+        mobs::AliveMobs[a].state = ENTITY_STATE_CALM;
+        if(travel::TravelControl.count(mobs::AliveMobs[a].quad_id) > 1)
+        {
+          travel::TravelControl.erase(mobs::AliveMobs[a].quad_id);  
+        }
+      }
+    }
+  }
+
+  void move_aggro_mobs_to_point(float x, float y)
+  {
+    for (int a=0; a < mobs::AliveMobs.size(); a++)
+    {
+      if(mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
+      { 
+        int quad_index = quads::find_quad_id(mobs::AliveMobs[a].quad_id, quads::AllQuads);
+        std::cout << "Mob Quad Index: " << quad_index << std::endl;
+        std::cout << "Mob Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
+        int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].s_x, quads::AllQuads[quad_index].s_y);
+        int target_node_id = paths::get_navnode_id(x, y);
+        if(quad_node_id != target_node_id)
+        {
+          std::vector<int> path = paths::find_path(quad_node_id, target_node_id);
+        
+          travel::TravelPlan tp;
+          tp.quad_id = mobs::AliveMobs[a].quad_id;
+          tp.full_path = path;
+
+          tp.current_node = quad_node_id;
+          tp.next_node = path[1];
+          tp.target_node = target_node_id;
+
+          tp.current_x = quads::AllQuads[quad_index].s_x;
+          tp.current_y = quads::AllQuads[quad_index].s_y;
+
+          tp.target_x = x;
+          tp.target_y = y;
+
+          travel::TravelControl.insert({tp.quad_id, tp});
+        }
+      }
     }
   }
 

@@ -325,6 +325,31 @@ namespace maps
 
 }
 
+
+namespace travel
+{
+  struct TravelPlan
+  {
+    int quad_id;
+    std::vector<int> full_path;
+    int current_step_index = 0;
+    int current_node;
+    float current_x;
+    float current_y;
+
+    int target_node;
+    float target_x;
+    float target_y;
+
+    int next_node;
+    float next_x;
+    float next_y;
+  };
+
+  // quad_id
+  std::map<int, TravelPlan> TravelControl;
+}
+
 namespace ent
 {
   std::vector<quads::Quad> EntityQuads;
@@ -484,8 +509,10 @@ namespace nav
     float gate_s_max_x;
     float gate_s_min_y;
     float gate_s_max_y;
+    int orientation;
   };
 
+  // NavNode store information about AABB box, scaled AABB box, edges(map) and tile count
   struct NavNode
   {
     int id;
@@ -500,6 +527,8 @@ namespace nav
     std::map<int, NavGate> edges;
     int count_tiles;
   };
+
+  // Map of NavNodeID (int) and NavNode
   std::map<int, NavNode> NavMesh;
   std::vector<std::vector<int>> NavMeshGraph;
 }

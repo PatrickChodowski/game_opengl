@@ -41,7 +41,7 @@ namespace paths
   };
 
   // node_id, target, <distance, previous_step>
-  std::map<int, std::map<int, DjikstraStep>> PathCache;
+  std::map<int, std::map<int, DjikstraStep>> PathMap;
 
   std::map<int, DjikstraStep> find_paths_djikstra(int node_id)
   {
@@ -86,31 +86,30 @@ namespace paths
     return djikstra;
   }
 
-  void make_path_cache()
+  void make_path_map()
   {
-    paths::PathCache.clear();
+    paths::PathMap.clear();
     for (auto const& nn : nav::NavMesh)
     { 
       std::map<int, DjikstraStep> djikstra = find_paths_djikstra(nn.first);
-      paths::PathCache.insert({nn.first, djikstra});
+      paths::PathMap.insert({nn.first, djikstra});
     }
   }
 
-
-  void find_path(int start_node_id, int end_node_id)
+  std::vector<int> find_path(int start_node_id, int end_node_id)
   {
+    std::vector<int> path = {};
     if((start_node_id > -1) & (end_node_id > -1))
     {
       int next_distance;
       int next_node = end_node_id;
-      std::vector<int> path = {};
       path.push_back(next_node);
-      next_distance = paths::PathCache[start_node_id][next_node].distance;
+      next_distance = paths::PathMap[start_node_id][next_node].distance;
 
       while(next_distance > 1)
       {
-        next_node = paths::PathCache[start_node_id][next_node].previous_step;
-        next_distance = paths::PathCache[start_node_id][next_node].distance;
+        next_node = paths::PathMap[start_node_id][next_node].previous_step;
+        next_distance = paths::PathMap[start_node_id][next_node].distance;
         path.push_back(next_node);
       }
       path.push_back(start_node_id);
@@ -122,13 +121,8 @@ namespace paths
       }
       std::cout << std::endl;
     }
+    return path;
   }
-
 }
-
-
-
-
-
 
 #endif
