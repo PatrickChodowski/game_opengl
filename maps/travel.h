@@ -13,39 +13,11 @@ namespace travel
     float get_angle_between_points(float a_x, float a_y, float b_x, float b_y)
     {
         float angle;
-        bool lowering;
-        float dx = a_x - b_x;
-        float dy = a_y - b_y;
-
-        if(dx == 0){
-            if(dy == 0){
-                angle = 0;
-            } else {
-                if(a_y > b_y){
-                    angle = 0;
-                } else {
-                    angle = 180;
-                }
-            }
-        } else if (dy == 0){
-            if(a_x < b_x){
-                angle = 90;
-            } else {
-                angle = 270;
-            }
-        } else {
-            angle = atan(dy / dx) / 3.14 * 180;
-            if(b_y>a_y){
-                lowering = true;
-            } else {
-                lowering = false;
-            }
-            if(((lowering) & (angle < 0)) | ((lowering == false) & (angle > 0))){
-                angle += 270;
-            } else {
-                angle += 90;
-            }
-        }
+        float dx = pow(a_x - b_x, 2);
+        float dy = pow(a_y - b_y, 2);
+        int d = abs(sqrt(dx + dy));
+        int angle_radian = atan2(dy,dx);
+        angle = angle_radian * 180/M_PI;
         return angle;
     }
 
@@ -61,45 +33,93 @@ namespace travel
         return point;
     }
 
-
+    // Basically a decision tree handling for TravelPlan
     void go(travel::TravelPlan tp)
     {
         // if we are not at the target yet, we move
         if((tp.current_x != tp.target_x) & (tp.current_y != tp.target_y))
         {
-            // if we are not at the target node
-            if(tp.current_node != tp.target_node)
-            {   
-                // define the gate to the next node:
-                std::pair<float, float> c_point;
-                nav::NavGate gate = nav::NavMesh[tp.current_node].edges[tp.next_node];
+          // if we are not at the target node
+          if(tp.current_node != tp.target_node)
+          {   
+            // define the gate to the next node:
+            std::pair<float, float> c_point;
+            nav::NavGate gate = nav::NavMesh[tp.current_node].edges[tp.next_node];
 
-                // find the closest point to the gate and calculate distance
-                if(gate.orientation == NAVGATE_HORIZONTAL_ORIENTATION)
-                {
-                     c_point = get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
-                                                         gate.gate_max_x, gate.gate_min_y, 
-                                                         tp.current_x, tp.current_y);
+            // find the closest point to the gate and calculate distance
+            if(gate.orientation == NAVGATE_HORIZONTAL_ORIENTATION)
+            {
+                 c_point = get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
+                                                     gate.gate_max_x, gate.gate_min_y, 
+                                                     tp.current_x, tp.current_y);
 
-                } else if (gate.orientation == NAVGATE_VERTICAL_ORIENTATION)
-                {
-                     c_point = get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
-                                                         gate.gate_min_x, gate.gate_max_y, 
-                                                         tp.current_x, tp.current_y);
-                }
-
-                float dist = get_distance_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
-                float angle = get_angle_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
-
-                // mobs::AliveMobs[0].x += 1;
-                // mobs::AliveMobs[0].y += 1;
-
+            } else if (gate.orientation == NAVGATE_VERTICAL_ORIENTATION)
+            {
+                 c_point = get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
+                                                     gate.gate_min_x, gate.gate_max_y, 
+                                                     tp.current_x, tp.current_y);
             }
-       }
+
+            float dist = get_distance_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
+            float angle = get_angle_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
+            float x1 = mobs::AliveMobs[0].x - cos(angle) * mobs::AliveMobs[0].speed;
+            float y1 = mobs::AliveMobs[0].y - sin(angle) * mobs::AliveMobs[0].speed;
+            
+            std::cout << "distance: " << dist <<std::endl;
+            std::cout << "angle: " << angle <<std::endl;
+            std::cout << "target: " << c_point.first << "," << c_point.second << std::endl;
+            // std::cout << "x1: " << x1 <<std::endl;
+            // std::cout << "y1: " << y1 <<std::endl;
+
+            tp.current_x = x1;
+            tp.current_y = y1;
+            mobs::AliveMobs[0].x = x1;
+            mobs::AliveMobs[0].y = y1;
+
+            // update the current and next node information if we are almost at the gate
+            if(dist <= mobs::AliveMobs[0].speed)
+            {
+              tp.current_step_index += 1;
+              tp.current_node = tp.full_path[tp.current_step_index];
+              if(tp.current_node != tp.target_node)
+              {
+                tp.next_node = tp.full_path[(tp.current_step_index+1)];
+              }
+ 
+            }
+
+          } else if (tp.current_node == tp.target_node){
+
+            float dist = get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+            float angle = get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+            float x1 = mobs::AliveMobs[0].x - cos(angle) * mobs::AliveMobs[0].speed;
+            float y1 = mobs::AliveMobs[0].y - sin(angle) * mobs::AliveMobs[0].speed;
+
+            std::cout << "distance: " << dist <<std::endl;
+            std::cout << "angle: " << angle <<std::endl;
+            std::cout << "target: " << tp.target_x << "," << tp.target_y << std::endl;
+
+            tp.current_x = x1;
+            tp.current_y = y1;
+            mobs::AliveMobs[0].x = x1;
+            mobs::AliveMobs[0].y = y1;
+          }
+
+          travel::TravelControl[tp.quad_id] = tp;
+        }
+        else {
+          // we are at the destination. Remove tp from TravelControl
+          if(travel::TravelControl.count(tp.quad_id) > 1)
+          {
+            travel::TravelControl.erase(tp.quad_id);  
+            std::cout << "removed " <<  tp.quad_id << " from Travel Control" << std::endl;  
+          }
+        }
     }
 
     void manage()
     {
+       //std::cout << "travelling entities: " << travel::TravelControl.size() << std::endl;
        for (auto const& tp : travel::TravelControl)
        {  
            travel::go(tp.second);
