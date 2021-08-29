@@ -325,6 +325,24 @@ namespace maps
 
 }
 
+namespace mobs
+{
+  // Store all information about Alive Mob Entity - position, quad_id, mob type, state, stats etc.
+  struct AliveMobData
+  {
+    float x;
+    float y;
+    int quad_id;
+    int mob_id;
+    int state = ENTITY_STATE_CALM;
+    int hp;
+    int speed;
+  };
+
+  // Table of Alive Mobs (id of Alive Mob and AliveMobData)
+  std::vector<mobs::AliveMobData> AliveMobs = {};
+}
+
 
 namespace travel
 {
