@@ -64,7 +64,7 @@ namespace travel
             float y1 = mobs::AliveMobs[0].y + sin(angle) * mobs::AliveMobs[0].speed;
             
             //std::cout << "distance: " << dist <<std::endl;
-            std::cout << "angle: " << angle <<std::endl;
+            //std::cout << "angle: " << angle <<std::endl;
             //std::cout << "target: " << c_point.first << "," << c_point.second << std::endl;
             // std::cout << "x1: " << x1 <<std::endl;
             // std::cout << "y1: " << y1 <<std::endl;
@@ -94,7 +94,7 @@ namespace travel
             float y1 = mobs::AliveMobs[0].y + sin(angle) * mobs::AliveMobs[0].speed;
 
             //std::cout << "distance: " << dist <<std::endl;
-            std::cout << "angle: " << angle <<std::endl;
+            //std::cout << "angle: " << angle <<std::endl;
             //std::cout << "target: " << tp.target_x << "," << tp.target_y << std::endl;
 
             tp.current_x = x1;
@@ -123,6 +123,7 @@ namespace travel
        {  
            travel::go(tp.second);
        }
+       std::cout << "tu?" << std::endl;
     }
 
 

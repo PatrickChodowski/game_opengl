@@ -400,7 +400,7 @@ void make_navmesh_graph()
     nav::log_navmesh();    
   }
 
-  // need to scale the navmesh as well 
+  // Scaling navmesh info -> Polygons boundaries and gates
   void scale(int camera_x=0, int camera_y=0, float camera_zoom=1.0)
   {
     camera::tile_dim = (float)TILE_DIM*float(camera_zoom);

@@ -182,8 +182,8 @@ namespace mobs
           tp.current_node = quad_node_id;
           tp.next_node = path[1];
           tp.target_node = target_node_id;
-          tp.current_x = quads::AllQuads[quad_index].x;
-          tp.current_y = quads::AllQuads[quad_index].y;
+          tp.current_x = quads::AllQuads[quad_index].s_x;
+          tp.current_y = quads::AllQuads[quad_index].s_y;
           tp.target_x = x;
           tp.target_y = y;
 
@@ -193,8 +193,8 @@ namespace mobs
           tp.current_node = quad_node_id;
           tp.next_node = target_node_id;
           tp.target_node = target_node_id;
-          tp.current_x = quads::AllQuads[quad_index].x;
-          tp.current_y = quads::AllQuads[quad_index].y;
+          tp.current_x = quads::AllQuads[quad_index].s_x;
+          tp.current_y = quads::AllQuads[quad_index].s_y;
           tp.target_x = x;
           tp.target_y = y;
         }
