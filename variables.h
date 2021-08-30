@@ -332,6 +332,8 @@ namespace mobs
   {
     float x;
     float y;
+    float s_x;
+    float s_y;
     int quad_id;
     int mob_id;
     int state = ENTITY_STATE_CALM;
