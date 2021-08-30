@@ -47,14 +47,14 @@ namespace travel
             // find the closest point to the gate and calculate distance
             if(gate.orientation == NAVGATE_HORIZONTAL_ORIENTATION)
             {
-                 c_point = get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
-                                                     gate.gate_max_x, gate.gate_min_y, 
+                 c_point = get_nearest_point_on_line(gate.gate_s_min_x, gate.gate_s_min_y, 
+                                                     gate.gate_s_max_x, gate.gate_s_min_y, 
                                                      tp.current_x, tp.current_y);
 
             } else if (gate.orientation == NAVGATE_VERTICAL_ORIENTATION)
             {
-                 c_point = get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
-                                                     gate.gate_min_x, gate.gate_max_y, 
+                 c_point = get_nearest_point_on_line(gate.gate_s_min_x, gate.gate_s_min_y, 
+                                                     gate.gate_s_min_x, gate.gate_s_max_y, 
                                                      tp.current_x, tp.current_y);
             }
 
