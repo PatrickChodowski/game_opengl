@@ -16,7 +16,6 @@ namespace paths
         break;
       }
      }
-    std::cout << " Point: " << x << "," << y << " Node id: " << nav_node_id << std::endl;
     return nav_node_id;
   }
 
