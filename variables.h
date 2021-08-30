@@ -365,6 +365,7 @@ namespace travel
 
   // quad_id
   std::map<int, TravelPlan> TravelControl;
+  std::vector<int> TPsToRemove = {};
 }
 
 namespace ent
