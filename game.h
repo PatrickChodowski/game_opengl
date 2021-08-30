@@ -89,7 +89,7 @@ namespace game
       hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, textures::FontTD,  true, true);
       ent::EntityQuads.push_back(hero);
 
-      mobs::move_random();
+      // mobs::move_random();
       travel::manage();
       mobs::render_alive_mobs();
      } 

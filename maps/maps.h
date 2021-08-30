@@ -335,6 +335,9 @@ namespace maps
       quads::delete_vertex_id(maps::MapQuads[q].d);
     }
     maps::MapQuads.clear();
+    travel::TravelControl.clear();
+    nav::NavMesh.clear();
+    nav::NavMeshGraph.clear();
   }
 }
 

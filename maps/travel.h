@@ -10,15 +10,11 @@ namespace travel
       return distance;
     }
 
-    float get_angle_between_points(float a_x, float a_y, float b_x, float b_y)
+    // Gets angle between entity loc and point loc. Creates invisble line through entity X and gets 360 
+    float get_angle_between_points(float e_x, float e_y, float p_x, float p_y)
     {
-        float angle;
-        float dx = pow(a_x - b_x, 2);
-        float dy = pow(a_y - b_y, 2);
-        int d = abs(sqrt(dx + dy));
-        int angle_radian = atan2(dy,dx);
-        angle = angle_radian * 180/M_PI;
-        return angle;
+      float angle = (atan2((p_y - e_y), (p_x - e_x)))*(180/M_PI);
+      return angle;
     }
 
     std::pair<float, float> get_nearest_point_on_line(float l_x1, float l_y1, float l_x2, float l_y2, float p_x, float p_y)
@@ -37,7 +33,9 @@ namespace travel
     void go(travel::TravelPlan tp)
     {
         // if we are not at the target yet, we move
-        if((tp.current_x != tp.target_x) & (tp.current_y != tp.target_y))
+        float dist_to_target = get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+        std::cout << "dist to target" << dist_to_target <<  std::endl;
+        if(dist_to_target > 100)
         {
           // if we are not at the target node
           if(tp.current_node != tp.target_node)
@@ -62,12 +60,12 @@ namespace travel
 
             float dist = get_distance_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
             float angle = get_angle_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
-            float x1 = mobs::AliveMobs[0].x - cos(angle) * mobs::AliveMobs[0].speed;
-            float y1 = mobs::AliveMobs[0].y - sin(angle) * mobs::AliveMobs[0].speed;
+            float x1 = mobs::AliveMobs[0].x + cos(angle) * mobs::AliveMobs[0].speed;
+            float y1 = mobs::AliveMobs[0].y + sin(angle) * mobs::AliveMobs[0].speed;
             
-            std::cout << "distance: " << dist <<std::endl;
+            //std::cout << "distance: " << dist <<std::endl;
             std::cout << "angle: " << angle <<std::endl;
-            std::cout << "target: " << c_point.first << "," << c_point.second << std::endl;
+            //std::cout << "target: " << c_point.first << "," << c_point.second << std::endl;
             // std::cout << "x1: " << x1 <<std::endl;
             // std::cout << "y1: " << y1 <<std::endl;
 
@@ -92,12 +90,12 @@ namespace travel
 
             float dist = get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
             float angle = get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
-            float x1 = mobs::AliveMobs[0].x - cos(angle) * mobs::AliveMobs[0].speed;
-            float y1 = mobs::AliveMobs[0].y - sin(angle) * mobs::AliveMobs[0].speed;
+            float x1 = mobs::AliveMobs[0].x + cos(angle) * mobs::AliveMobs[0].speed;
+            float y1 = mobs::AliveMobs[0].y + sin(angle) * mobs::AliveMobs[0].speed;
 
-            std::cout << "distance: " << dist <<std::endl;
+            //std::cout << "distance: " << dist <<std::endl;
             std::cout << "angle: " << angle <<std::endl;
-            std::cout << "target: " << tp.target_x << "," << tp.target_y << std::endl;
+            //std::cout << "target: " << tp.target_x << "," << tp.target_y << std::endl;
 
             tp.current_x = x1;
             tp.current_y = y1;
@@ -109,7 +107,8 @@ namespace travel
         }
         else {
           // we are at the destination. Remove tp from TravelControl
-          if(travel::TravelControl.count(tp.quad_id) > 1)
+        
+          if(travel::TravelControl.count(tp.quad_id) > 0)
           {
             travel::TravelControl.erase(tp.quad_id);  
             std::cout << "removed " <<  tp.quad_id << " from Travel Control" << std::endl;  
