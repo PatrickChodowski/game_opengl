@@ -107,22 +107,26 @@ namespace travel
         }
         else {
           // we are at the destination. Remove tp from TravelControl
-        
-          if(travel::TravelControl.count(tp.quad_id) > 0)
-          {
-            std::cout << "removing " <<  tp.quad_id << " from Travel Control" << std::endl;  
-            travel::TravelControl.erase(tp.quad_id);  
-            std::cout << "removed" << std::endl;
-          }
+          TPsToRemove.push_back(tp.quad_id);
         }
     }
 
     void manage()
     {
+        TPsToRemove.clear();
        //std::cout << "travelling entities: " << travel::TravelControl.size() << std::endl;
        for (auto const& tp : travel::TravelControl)
        {  
            travel::go(tp.second);
+       }
+
+       for(int i=0; i < TPsToRemove.size(); i++)
+       {
+        if(travel::TravelControl.count(TPsToRemove[i]) > 0)
+        {
+          std::cout << "removing " <<  TPsToRemove[i] << " from Travel Control" << std::endl;  
+          travel::TravelControl.erase(TPsToRemove[i]);  
+        }
        }
     }
 
