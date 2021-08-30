@@ -34,7 +34,7 @@ namespace travel
     {
         // if we are not at the target yet, we move
         float dist_to_target = get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
-        std::cout << "dist to target" << dist_to_target <<  std::endl;
+        // std::cout << "dist to target" << dist_to_target <<  std::endl;
         if(dist_to_target > 100)
         {
           // if we are not at the target node
@@ -110,8 +110,9 @@ namespace travel
         
           if(travel::TravelControl.count(tp.quad_id) > 0)
           {
+            std::cout << "removing " <<  tp.quad_id << " from Travel Control" << std::endl;  
             travel::TravelControl.erase(tp.quad_id);  
-            std::cout << "removed " <<  tp.quad_id << " from Travel Control" << std::endl;  
+            std::cout << "removed" << std::endl;
           }
         }
     }
@@ -123,7 +124,6 @@ namespace travel
        {  
            travel::go(tp.second);
        }
-       std::cout << "tu?" << std::endl;
     }
 
 

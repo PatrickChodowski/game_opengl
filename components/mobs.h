@@ -173,32 +173,34 @@ namespace mobs
 
         std::cout << "quad_node_id: " << quad_node_id << std::endl;
         std::cout << "target_node_id: " << target_node_id << std::endl;
-        travel::TravelPlan tp;
-        if(quad_node_id != target_node_id)
-        {
-          std::vector<int> path = paths::find_path(quad_node_id, target_node_id);
-          tp.quad_id = mobs::AliveMobs[a].quad_id;
-          tp.full_path = path;
-          tp.current_node = quad_node_id;
-          tp.next_node = path[1];
-          tp.target_node = target_node_id;
-          tp.current_x = quads::AllQuads[quad_index].s_x;
-          tp.current_y = quads::AllQuads[quad_index].s_y;
-          tp.target_x = x;
-          tp.target_y = y;
+        if(quad_node_id > -1 & target_node_id > -1){
+          travel::TravelPlan tp;
+          if(quad_node_id != target_node_id)
+          {
+            std::vector<int> path = paths::find_path(quad_node_id, target_node_id);
+            tp.quad_id = mobs::AliveMobs[a].quad_id;
+            tp.full_path = path;
+            tp.current_node = quad_node_id;
+            tp.next_node = path[1];
+            tp.target_node = target_node_id;
+            tp.current_x = quads::AllQuads[quad_index].s_x;
+            tp.current_y = quads::AllQuads[quad_index].s_y;
+            tp.target_x = x;
+            tp.target_y = y;
 
-        } else if (quad_node_id == target_node_id){
-          tp.quad_id = mobs::AliveMobs[a].quad_id;
-          tp.full_path = {};
-          tp.current_node = quad_node_id;
-          tp.next_node = target_node_id;
-          tp.target_node = target_node_id;
-          tp.current_x = quads::AllQuads[quad_index].s_x;
-          tp.current_y = quads::AllQuads[quad_index].s_y;
-          tp.target_x = x;
-          tp.target_y = y;
+          } else if (quad_node_id == target_node_id){
+            tp.quad_id = mobs::AliveMobs[a].quad_id;
+            tp.full_path = {};
+            tp.current_node = quad_node_id;
+            tp.next_node = target_node_id;
+            tp.target_node = target_node_id;
+            tp.current_x = quads::AllQuads[quad_index].s_x;
+            tp.current_y = quads::AllQuads[quad_index].s_y;
+            tp.target_x = x;
+            tp.target_y = y;
+          }
+          travel::TravelControl.insert({tp.quad_id, tp});
         }
-        travel::TravelControl.insert({tp.quad_id, tp});
       }
     }
   }
