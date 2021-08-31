@@ -77,7 +77,7 @@ namespace quads
     for(int m=0; m<mobs::AliveMobs.size(); m++)
     {
       mobs::AliveMobs[m].s_x = ((float)mobs::AliveMobs[m].x + (float)camera_x)*scale_factor;
-      mobs::AliveMobs[m].s_y = ((float)mobs::AliveMobs[m].y + (float)camera_x)*scale_factor;
+      mobs::AliveMobs[m].s_y = ((float)mobs::AliveMobs[m].y + (float)camera_y)*scale_factor;
     }
   };
 
