@@ -40,10 +40,11 @@ int main()
     game::update(quads::AllQuads);
     
     SDL_GL_SwapWindow(WINDOW);
-    SDL_Delay(16);
 
     auto game_loop_end_time = std::chrono::system_clock::now();
-    FPS = timer::get_fps(game_loop_start_time, game_loop_end_time);
+    float delay = timer::get_delay_ms(game_loop_start_time, game_loop_end_time);
+    SDL_Delay(delay);
+    FPS = timer::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
   }
 
   // cleanup after the game
