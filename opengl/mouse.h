@@ -99,6 +99,7 @@ namespace mouse
 
         mobs::switch_aggro();
         // mobs::move_to_point(e.x, e.y);
+        // e.x and e.y are for window. Its not scaled
         mobs::move_aggro_mobs_to_point(e.x, e.y);
       break;
 

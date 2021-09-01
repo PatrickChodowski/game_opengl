@@ -34,8 +34,7 @@ namespace travel
     {
         // if we are not at the target yet, we move
         float dist_to_target = get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
-        // std::cout << "dist to target" << dist_to_target <<  std::endl;
-        if(dist_to_target > 100)
+        if(dist_to_target > camera::tile_dim)
         {
           // if we are not at the target node
           if(tp.current_node != tp.target_node)
@@ -69,8 +68,8 @@ namespace travel
             // std::cout << "x1: " << x1 <<std::endl;
             // std::cout << "y1: " << y1 <<std::endl;
 
-            tp.current_x = x1;
-            tp.current_y = y1;
+            tp.current_x = camera::scale_x(x1, camera::x, camera::zoom);
+            tp.current_y = camera::scale_x(y1, camera::y, camera::zoom);
             mobs::AliveMobs[0].x = x1;
             mobs::AliveMobs[0].y = y1;
 
@@ -92,13 +91,8 @@ namespace travel
             float angle = get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
             float x1 = mobs::AliveMobs[0].x + cos(angle) * mobs::AliveMobs[0].speed;
             float y1 = mobs::AliveMobs[0].y + sin(angle) * mobs::AliveMobs[0].speed;
-
-            //std::cout << "distance: " << dist <<std::endl;
-            //std::cout << "angle: " << angle <<std::endl;
-            //std::cout << "target: " << tp.target_x << "," << tp.target_y << std::endl;
-
-            tp.current_x = x1;
-            tp.current_y = y1;
+            tp.current_x = camera::scale_x(x1, camera::x, camera::zoom);
+            tp.current_y = camera::scale_x(y1, camera::y, camera::zoom);
             mobs::AliveMobs[0].x = x1;
             mobs::AliveMobs[0].y = y1;
           }
@@ -107,6 +101,9 @@ namespace travel
         }
         else {
           // we are at the destination. Remove tp from TravelControl
+          std::cout << " Dist to target " << dist_to_target <<  std::endl;
+          std::cout << " Current position " << tp.current_x << "," << tp.current_y << std::endl;
+          std::cout << " Target position " << tp.target_x << "," << tp.target_y << std::endl;
           TPsToRemove.push_back(tp.quad_id);
         }
     }

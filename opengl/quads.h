@@ -49,9 +49,8 @@ namespace quads
   // scaled information is used for collisions, nav mesh, mouse events
   // scaling only quads from map and entity (probably will need to scale some texts later) but! later! not now
   {
-    camera::tile_dim = (float)TILE_DIM*float(camera_zoom);
     float scale_factor = (1.0f/float(camera_zoom));
-    // forgot why :/
+    camera::tile_dim = (float)TILE_DIM*scale_factor;
     camera_x = (-1)*camera_x;
 
     for(int q=0; q<quads::AllQuads.size(); q++)
