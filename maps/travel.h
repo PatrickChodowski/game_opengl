@@ -43,17 +43,19 @@ namespace travel
             std::pair<float, float> c_point;
             nav::NavGate gate = nav::NavMesh[tp.current_node].edges[tp.next_node];
 
+            std::cout << "gate_id: " << gate.id << std::endl;
+
             // find the closest point to the gate and calculate distance
             if(gate.orientation == NAVGATE_HORIZONTAL_ORIENTATION)
             {
-                 c_point = get_nearest_point_on_line(gate.gate_s_min_x, gate.gate_s_min_y, 
-                                                     gate.gate_s_max_x, gate.gate_s_min_y, 
+                 c_point = get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
+                                                     gate.gate_max_x, gate.gate_min_y, 
                                                      tp.current_x, tp.current_y);
 
             } else if (gate.orientation == NAVGATE_VERTICAL_ORIENTATION)
             {
-                 c_point = get_nearest_point_on_line(gate.gate_s_min_x, gate.gate_s_min_y, 
-                                                     gate.gate_s_min_x, gate.gate_s_max_y, 
+                 c_point = get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
+                                                     gate.gate_min_x, gate.gate_max_y, 
                                                      tp.current_x, tp.current_y);
             }
 
@@ -68,8 +70,8 @@ namespace travel
             // std::cout << "x1: " << x1 <<std::endl;
             // std::cout << "y1: " << y1 <<std::endl;
 
-            tp.current_x = camera::scale_x(x1, camera::x, camera::zoom);
-            tp.current_y = camera::scale_x(y1, camera::y, camera::zoom);
+            tp.current_x = x1;
+            tp.current_y = y1;
             mobs::AliveMobs[0].x = x1;
             mobs::AliveMobs[0].y = y1;
 
@@ -91,8 +93,8 @@ namespace travel
             float angle = get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
             float x1 = mobs::AliveMobs[0].x + cos(angle) * mobs::AliveMobs[0].speed;
             float y1 = mobs::AliveMobs[0].y + sin(angle) * mobs::AliveMobs[0].speed;
-            tp.current_x = camera::scale_x(x1, camera::x, camera::zoom);
-            tp.current_y = camera::scale_x(y1, camera::y, camera::zoom);
+            tp.current_x = x1;
+            tp.current_y = y1;
             mobs::AliveMobs[0].x = x1;
             mobs::AliveMobs[0].y = y1;
           }

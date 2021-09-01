@@ -88,6 +88,24 @@ namespace camera
     float s_pos = pos*scale_factor;
     return s_pos;
   }
+
+  // reverses click X with camera
+  float reverse_scale_click_x(float x, int camera_x=0, float camera_zoom=1.0)
+  {
+    //float scale_factor = (1.0f/float(camera_zoom));
+    float s_x = (x + (float)camera_x)*camera_zoom;
+    return s_x;
+  }
+
+  // reverses click Y with camera
+  float reverse_scale_click_y(float y, int camera_y=0, float camera_zoom=1.0)
+  {
+    //float scale_factor = (1.0f/float(camera_zoom));
+    camera_y = (-1)*camera_y;
+    float s_y = (y + (float)camera_y)*camera_zoom;
+    return s_y;
+  }
+
 }
 
 
