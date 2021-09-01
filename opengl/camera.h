@@ -56,6 +56,7 @@ namespace camera
 
   void reset()
   {
+    std::cout << " resetting camera " << std::endl;
     camera::zoom = 1;
     camera::x = 0;
     camera::y = 0;
@@ -64,10 +65,29 @@ namespace camera
     camera::tile_dim = TILE_DIM;    
   }
 
-  
+  // function to scale only X position value
+  float scale_x(float x, int camera_x=0, float camera_zoom=1.0)
+  {
+    float scale_factor = (1.0f/float(camera_zoom));
+    camera_x = (-1)*camera_x;
+    float s_x = (x + (float)camera_x)*scale_factor;
+    return s_x;
+  }
 
-    
+  // function to scale only Y position value
+  float scale_y(float y, int camera_y=0, float camera_zoom=1.0)
+  {
+    float scale_factor = (1.0f/float(camera_zoom));
+    float s_y = (y + (float)camera_y)*scale_factor;
+    return s_y;
+  }
 
+  float zoom_position(float pos, float camera_zoom=1.0)
+  {
+    float scale_factor = (1.0f/float(camera_zoom));
+    float s_pos = pos*scale_factor;
+    return s_pos;
+  }
 }
 
 

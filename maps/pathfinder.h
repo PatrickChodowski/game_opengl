@@ -5,12 +5,13 @@
 // Depends on nav::navmesh created from nav::init
 namespace paths
 {
-  int get_navnode_id(float x, float y)
+  // takes scaled position (s_x, s_y) and compares with scaled navmesh
+  int get_navnode_id(float s_x, float s_y)
   {
     int nav_node_id = -1;
     for (auto const& nn : nav::NavMesh)
     { 
-      if((x >= nn.second.s_min_x) & (x <= nn.second.s_max_x) & (y >= nn.second.s_min_y) & (y <= nn.second.s_max_y))
+      if((s_x >= nn.second.s_min_x) & (s_x <= nn.second.s_max_x) & (s_y >= nn.second.s_min_y) & (s_y <= nn.second.s_max_y))
       { 
         nav_node_id = nn.first;
         break;
