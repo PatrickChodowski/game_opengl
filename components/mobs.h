@@ -162,6 +162,12 @@ namespace mobs
   // x,y are not scaled points (window x,y - always from 0,0 to 900,800 something)
   void move_aggro_mobs_to_point(float x, float y)
   {
+    float target_rs_x = camera::reverse_scale_click_x(x, camera::x, camera::zoom);
+    float target_rs_y = camera::reverse_scale_click_y(y, camera::y, camera::zoom);
+
+    std::cout << " target position " << x << "," << y << std::endl;
+    std::cout << " target scaled position " << target_rs_x << "," << target_rs_y << std::endl;
+
     for (int a=0; a < mobs::AliveMobs.size(); a++)
     {
       if(mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
@@ -171,8 +177,8 @@ namespace mobs
         std::cout << "Mob Scaled Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
         std::cout << "Mob Position: " << quads::AllQuads[quad_index].x << "," << quads::AllQuads[quad_index].y << std::endl;
 
-        int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].s_x, quads::AllQuads[quad_index].s_y);
-        int target_node_id = paths::get_navnode_id(x, y);
+        int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].x, quads::AllQuads[quad_index].y);
+        int target_node_id = paths::get_navnode_id(target_rs_x, target_rs_y);
 
         std::cout << "quad_node_id: " << quad_node_id << std::endl;
         std::cout << "target_node_id: " << target_node_id << std::endl;
@@ -197,8 +203,8 @@ namespace mobs
           tp.target_node = target_node_id;
           tp.current_x = quads::AllQuads[quad_index].x;
           tp.current_y = quads::AllQuads[quad_index].y;
-          tp.target_x = x;
-          tp.target_y = y;
+          tp.target_x = target_rs_x;
+          tp.target_y = target_rs_y;
 
           // tp.current_x = quads::AllQuads[quad_index].s_x;
           // tp.current_y = quads::AllQuads[quad_index].s_y;
