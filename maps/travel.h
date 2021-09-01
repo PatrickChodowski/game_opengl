@@ -10,10 +10,10 @@ namespace travel
       return distance;
     }
 
-    // Gets angle between entity loc and point loc. Creates invisble line through entity X and gets 360 
+    // Gets angle between entity loc and point loc in reference to X axis. Returns radians
     float get_angle_between_points(float e_x, float e_y, float p_x, float p_y)
     {
-      float angle = (atan2((p_y - e_y), (p_x - e_x)))*(180/M_PI);
+      float angle = (atan2((p_y - e_y), (p_x - e_x)));
       return angle;
     }
 
@@ -21,10 +21,10 @@ namespace travel
     {
         float dx = l_x2 - l_x1;
         float dy = l_y2 - l_y1;
-        float det = dx*dx + dy*dy;
-        float a = (dy*(p_y-l_y1)+dx*(p_x-l_x1))/det;
-        float c_x = l_x1+a*dx;
-        float c_y = l_y1+a*dy;
+        float det = (dx*dx) + (dy*dy);
+        float a = abs(((dy*(p_y-l_y1))+(dx*(p_x-l_x1)))/det);
+        float c_x = l_x1+(a*dx);
+        float c_y = l_y1+(a*dy);
         std::pair<float, float> point = {c_x, c_y};
         return point;
     }
@@ -43,7 +43,12 @@ namespace travel
             std::pair<float, float> c_point;
             nav::NavGate gate = nav::NavMesh[tp.current_node].edges[tp.next_node];
 
-            std::cout << "gate_id: " << gate.id << std::endl;
+            // std::cout << "gate_id: " << gate.id << std::endl;
+            // std::cout << "gate min x: " << gate.gate_min_x << std::endl;
+            // std::cout << "gate max x: " << gate.gate_max_x << std::endl;
+            // std::cout << "gate min y: " << gate.gate_min_y << std::endl;
+            // std::cout << "gate max y: " << gate.gate_max_y << std::endl;
+            // std::cout << "gate orientation: " << gate.orientation << std::endl;
 
             // find the closest point to the gate and calculate distance
             if(gate.orientation == NAVGATE_HORIZONTAL_ORIENTATION)
@@ -61,8 +66,8 @@ namespace travel
 
             float dist = get_distance_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
             float angle = get_angle_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
-            float x1 = mobs::AliveMobs[0].x + cos(angle) * mobs::AliveMobs[0].speed;
-            float y1 = mobs::AliveMobs[0].y + sin(angle) * mobs::AliveMobs[0].speed;
+            float x1 = mobs::AliveMobs[0].x + (cos(angle) * mobs::AliveMobs[0].speed);
+            float y1 = mobs::AliveMobs[0].y + (sin(angle) * mobs::AliveMobs[0].speed);
             
             //std::cout << "distance: " << dist <<std::endl;
             //std::cout << "angle: " << angle <<std::endl;
