@@ -165,6 +165,9 @@ namespace mobs
     float target_rs_x = camera::reverse_scale_click_x(x, camera::x, camera::zoom);
     float target_rs_y = camera::reverse_scale_click_y(y, camera::y, camera::zoom);
 
+    std::cout << "current camera zoom: " << camera::zoom << std::endl;
+    std::cout << "current camera x: " << camera::x << std::endl;
+    std::cout << "current camera y: " << camera::y << std::endl;
     std::cout << " target position " << x << "," << y << std::endl;
     std::cout << " target scaled position " << target_rs_x << "," << target_rs_y << std::endl;
 
@@ -178,7 +181,8 @@ namespace mobs
         std::cout << "Mob Position: " << quads::AllQuads[quad_index].x << "," << quads::AllQuads[quad_index].y << std::endl;
 
         int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].x, quads::AllQuads[quad_index].y);
-        int target_node_id = paths::get_navnode_id(target_rs_x, target_rs_y);
+        //int target_node_id = paths::get_navnode_id(target_rs_x, target_rs_y);
+        int target_node_id = paths::get_navnode_id_scaled(x, y);
 
         std::cout << "quad_node_id: " << quad_node_id << std::endl;
         std::cout << "target_node_id: " << target_node_id << std::endl;
