@@ -34,13 +34,33 @@ namespace timer
     logger::print(full_message, -1);
   }
 
+  // template<typename T>
+  // int get_fps(T start_time, T end_time)
+  // {
+  //   std::chrono::duration<double> elapsed_seconds = end_time-start_time;
+  //   // float elapsed_seconds_ = elapsed_seconds.count();
+  //   float fps = 60.0/elapsed_seconds.count();
+  //   return fps;
+  // }
+
+
   template<typename T>
-  int get_fps(T start_time, T end_time)
+  int get_fps_delay(T start_time, T end_time, float delay)
   {
     std::chrono::duration<double> elapsed_seconds = end_time-start_time;
-    float elapsed_seconds_ = elapsed_seconds.count();
-    int fps = 60/elapsed_seconds.count();
+    // std::cout << "end time: " << elapsed_seconds.count() + delay << std::endl;
+    int fps = 1000/(elapsed_seconds.count() + delay);
     return fps;
+  }
+
+  template<typename T>
+  float get_delay_ms(T start_time, T end_time)
+  {
+    std::chrono::duration<double> elapsed_seconds = end_time-start_time;
+    //float elapsed_seconds_ = elapsed_seconds.count();
+    //std::cout << " elapsed seconds: " << elapsed_seconds_ << std::endl;
+    float delay = 17.0 - elapsed_seconds.count();
+    return delay;
   }
 }
 

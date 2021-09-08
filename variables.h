@@ -262,6 +262,20 @@ namespace quads
     quads::UsedVertexIds.push_back(next_vertex_id);
     return next_vertex_id;
   }
+  int find_quad_id(int quad_id, std::vector<quads::Quad> quads)
+  {
+    int quad_index = -1;
+    /*Will return the index of quad id*/
+    for(int q = 0; q < quads.size(); q++)
+    {
+      if(quad_id == quads[q].id)
+      {
+        quad_index = q;
+        break;
+      }
+    }
+    return quad_index;
+  }
 }
 
 namespace fonts
@@ -272,6 +286,86 @@ namespace fonts
 namespace maps
 {
   std::vector<quads::Quad> MapQuads;
+    struct Nest // nest for spawning mobs
+  {
+    float x;
+    float y;
+    int n;
+
+    JS_OBJ(x, y, n);
+  };
+
+  struct Door
+  {
+    int door_id;
+    int x;
+    int y;
+    int dest_map_id;
+    int player_enter_x;
+    int player_enter_y;
+
+    JS_OBJ(door_id, x, y, dest_map_id, player_enter_x, player_enter_y);
+  };
+
+  struct MapData
+  {
+    int id;
+    std::string name;
+    int vertex_width;
+    int vertex_height;
+    int texture_id;
+    int default_player_x;
+    int default_player_y;
+    std::vector<Door> doors;
+    std::vector<Nest> nests;
+
+    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors, nests);
+  };
+  std::map<int, MapData> Catalog = {};
+
+}
+
+namespace mobs
+{
+  // Store all information about Alive Mob Entity - position, quad_id, mob type, state, stats etc.
+  struct AliveMobData
+  {
+    float x;
+    float y;
+    float s_x;
+    float s_y;
+    int quad_id;
+    int mob_id;
+    int state = ENTITY_STATE_CALM;
+    int hp;
+    int speed;
+  };
+
+  // Table of Alive Mobs (id of Alive Mob and AliveMobData)
+  std::vector<mobs::AliveMobData> AliveMobs = {};
+}
+
+
+namespace travel
+{
+  struct TravelPlan
+  {
+    int quad_id;
+    std::vector<int> full_path;
+    int current_step_index = 0;
+    int current_node;
+    float current_x;
+    float current_y;
+
+    int target_node;
+    float target_x;
+    float target_y;
+    int next_node;
+  };
+
+  // quad_id
+  std::map<int, TravelPlan> TravelControl;
+  std::vector<int> TPsToRemove = {};
 }
 
 namespace ent
@@ -325,9 +419,8 @@ namespace textures
     int y;
     int w;
     int h;
-    int is_solid;
 
-    JS_OBJ(frame_id, x, y, w, h, is_solid);
+    JS_OBJ(frame_id, x, y, w, h);
   };
 
   // General texture information
@@ -416,6 +509,46 @@ namespace game
   }
 
 
+}
+
+namespace nav
+{
+ // almost navigate, but no, its Nav Gate (gate between 2 polygons). Why I am not a comedian
+  struct NavGate 
+  {
+    int id;
+    int a_id;
+    int b_id;
+    float gate_min_x;
+    float gate_max_x;
+    float gate_min_y;
+    float gate_max_y;
+    float gate_s_min_x;
+    float gate_s_max_x;
+    float gate_s_min_y;
+    float gate_s_max_y;
+    int orientation;
+  };
+
+  // NavNode store information about AABB box, scaled AABB box, edges(map) and tile count
+  struct NavNode
+  {
+    int id;
+    float min_y;
+    float min_x;
+    float max_y;
+    float max_x;
+    float s_min_y;
+    float s_min_x;
+    float s_max_y;
+    float s_max_x;
+    std::map<int, NavGate> edges;
+    int count_tiles;
+  };
+
+  // Map of NavNodeID (int) and NavNode
+  std::map<int, NavNode> NavMesh;
+  std::vector<std::vector<int>> NavMeshGraph;
 }
 
 #endif

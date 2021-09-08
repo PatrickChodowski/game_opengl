@@ -2,18 +2,34 @@ ZARRTY:
 --- - --- 
 easter egg:
 zielony ssak
-
 ksiazka o przeuzywanych cytatach - droga nna ktorej spotykasz wrogow to ta dobras
-
-doing:
-Item rendering
+fishing mechanic that doesnt do anything
+drugi akt to oczywiscie pustynia
 
 TODO:
-- why distances dont calculate properly
-- shader dla wyswietlania collision boxes
+ - mobs
+  - figure out scaling issue with travel agent
+
+  - collision detection for other npcs/agents    
+  - mobs states
+  - rvo avoiding collisions
+
+ - DEBUG vertex attribute -> will use D for debug shader, that would highligt debugged quads 
+   DEBUG = 1 -> the alpha shader would highlight this
 
 IDEAS:
 - reinforcement learning for monsters play
 - animations from blender
-- navmesh
-- RVO for avoiding collisions
+- debug shader do wyswietlania collisions etc.
+- https://www.youtube.com/watch?v=Lm_AzK27mZY&ab_channel=GameMaker%27sToolkit - Nemesis system - npc having knowledge of what happened before
+- https://www.youtube.com/watch?v=p40p0AVUH70&ab_channel=GDC - frakcje i system zero sum game  - wygraj szacunek jednej frakcji i reszta sie zbierze by zaatakowac zamek
+ mozna wygrac lub przegrac ta bitwe
+
+- try to understand how to implement animation using json (map of structs instead of IF ELSE tree)?
+- read json into this
+- similar with behavior trees for AI
+
+https://www.youtube.com/watch?v=6VBCXvfNlCM&ab_channel=AIandGames
+https://www.youtube.com/watch?v=JyF0oyarz4U&ab_channel=AIandGames
+
+

@@ -49,9 +49,8 @@ namespace quads
   // scaled information is used for collisions, nav mesh, mouse events
   // scaling only quads from map and entity (probably will need to scale some texts later) but! later! not now
   {
-    camera::tile_dim = (float)TILE_DIM*float(camera_zoom);
     float scale_factor = (1.0f/float(camera_zoom));
-    // forgot why :/
+    camera::tile_dim = (float)TILE_DIM*scale_factor;
     camera_x = (-1)*camera_x;
 
     for(int q=0; q<quads::AllQuads.size(); q++)
@@ -73,6 +72,12 @@ namespace quads
         }
       }
     }
+
+    for(int m=0; m<mobs::AliveMobs.size(); m++)
+    {
+      mobs::AliveMobs[m].s_x = ((float)mobs::AliveMobs[m].x + (float)camera_x)*scale_factor;
+      mobs::AliveMobs[m].s_y = ((float)mobs::AliveMobs[m].y + (float)camera_y)*scale_factor;
+    }
   };
 
   void delete_quad_id(int quad_id)
@@ -93,21 +98,6 @@ namespace quads
                                            quads::UsedVertexIds.end());
 
     //std::cout << "Used Vertexes size: " << quads::UsedVertexIds.size() << std::endl;
-  }
-
-  int find_quad_id(int quad_id, std::vector<quads::Quad> quads)
-  {
-    int quad_index = -1;
-    /*Will return the index of quad id*/
-    for(int q = 0; q < quads.size(); q++)
-    {
-      if(quad_id == quads[q].id)
-      {
-        quad_index = q;
-        break;
-      }
-    }
-    return quad_index;
   }
 
   void click(int quad_id, int quad_type_id)
@@ -257,14 +247,6 @@ namespace quads
         aabb.min_y = (quads::AllQuads[qid].s_y + colls::SENSOR_OFFSET);
         aabb.max_y = (quads::AllQuads[qid].s_y + quads::AllQuads[qid].s_h - colls::SENSOR_OFFSET);
         aabb.max_x = (quads::AllQuads[qid].s_x + quads::AllQuads[qid].s_w - colls::SENSOR_OFFSET);
-
-
-        // std::cout << "MIN X :" << aabb.min_x << std::endl;
-        // std::cout << "MAX X :" << aabb.max_x << std::endl;
-
-        // std::cout << "MIN Y :" << aabb.min_y << std::endl;
-        // std::cout << "MAX Y :" << aabb.max_y << std::endl;
-
         aabb.id = AABB_FULL;
         quads::AllQuads[qid].abs.insert(std::pair<int, colls::AABB>(AABB_FULL, aabb));
       }
