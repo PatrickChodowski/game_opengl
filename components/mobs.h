@@ -5,27 +5,251 @@
 namespace mobs
 {
   
-  struct Mob
+  struct MobData
   {
-    int entity_id;
+    int id;
     std::string type;
-    int texture_id;
-
-    int x;
-    int y;
     int w;
     int h;
+    int texture_id;
+    int min_dmg;
+    int max_dmg;
+    int min_speed;
+    int max_speed;
+    int min_hp;
+    int max_hp;
+    int min_def;
+    int max_def;
 
-    int hp;
-    int speed;
-    int dmg;
-    int def; 
+    JS_OBJ(id, type, w, h, texture_id, min_dmg, max_dmg, min_speed,
+    max_speed, min_hp, max_hp, min_def, max_def);
   };
 
-  // entity ids of alive mobs
-  std::vector<int> alive_mobs = {};
-  std::vector<int> level_mobs = {};
-  std::map<int, Mob> Catalog = {};
+  std::map<int, MobData> Catalog = {};
+
+  void read_mob_data(std::string name)
+  {
+    MobData MD;
+    std::string data_path = "./mobs/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(MD);
+    Catalog.insert({MD.id, MD});
+  }
+
+  void init()
+  {
+    logger::print("mobs::init(): READING MOBS");
+    std::vector<std::string> mob_list = utils::list_files("mobs/");
+    for(int m=0; m < mob_list.size(); m++)
+    {
+      read_mob_data(mob_list[m]);
+    }
+  }
+
+  void drop()
+  {
+    mobs::Catalog.clear();
+    mobs::AliveMobs.clear();
+  }
+
+  void spawn(int map_id)
+  { 
+    // takes nests data from maps catalog using map id
+    // spawns mobs on the level based on the level information
+    AliveMobs.clear();
+    int MOB_ID = 0;
+    // unpack each nest
+    for(int i=0; i < maps::Catalog[map_id].nests.size(); i++)
+    {
+      for(int m=0; m<maps::Catalog[map_id].nests[i].n; m++)
+      {
+        quads::Quad mob_quad = ent::render_entity(ENTITY_TYPE_ID_MOB,
+                                                  true,
+                                                  mobs::Catalog[MOB_ID].texture_id,
+                                                  0,
+                                                  maps::Catalog[map_id].nests[i].x + (m*mobs::Catalog[MOB_ID].w),
+                                                  maps::Catalog[map_id].nests[i].y,
+                                                  mobs::Catalog[MOB_ID].h,
+                                                  mobs::Catalog[MOB_ID].w,
+                                                  0.0f,
+                                                  textures::FontTD,
+                                                  true,
+                                                  true
+                                                );
+        ent::EntityQuads.push_back(mob_quad);
+
+        struct AliveMobData amd;
+        amd.quad_id = mob_quad.id;
+        amd.x = mob_quad.x;
+        amd.y = mob_quad.y;
+        amd.mob_id = MOB_ID;
+        amd.speed = mobs::Catalog[MOB_ID].max_speed;
+        amd.hp = mobs::Catalog[MOB_ID].max_hp;
+        AliveMobs.push_back(amd);
+      }
+    };
+  }
+
+
+  void move_random()
+  { 
+    for (int a=0; a<mobs::AliveMobs.size(); a++)
+    {
+      if(mobs::AliveMobs[a].state == ENTITY_STATE_CALM)
+      {
+        int r = utils::get_random(0,3);
+        if(r == 0){
+          mobs::AliveMobs[a].x += 1;
+        } else if (r==1) {
+          mobs::AliveMobs[a].x -= 1;
+        } else if (r==2) {
+          mobs::AliveMobs[a].y -= 1;
+        } else if (r==3) {
+          mobs::AliveMobs[a].y += 1;
+        }
+        // int mob_node_id = paths::get_navnode_id(mobs::AliveMobs[a].x, mobs::AliveMobs[a].y);
+      }
+    }
+  }
+
+  void move_to_point(float x, float y)
+  {
+    // get mob quad id (temporary):
+    int quad_index; 
+    for(int q = 0; q < quads::AllQuads.size(); q++)
+    {
+      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
+      {
+        quad_index = q;
+        break;
+      }
+    }
+    std::cout << "Mob Quad Index: " << quad_index << std::endl;
+    std::cout << "Mob Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
+
+    // int quad_index = quads::find_quad_id(quad_id, quads::AllQuads);
+    int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].s_x, quads::AllQuads[quad_index].s_y);
+    // std::cout << "Mob Polygon: " << quad_node_id << std::endl;
+
+
+    int target_node_id = paths::get_navnode_id(x, y);
+    if(quad_node_id != target_node_id)
+    {
+      paths::find_path(quad_node_id, target_node_id);
+    }
+  }
+
+  void switch_aggro()
+  {
+    for (int a=0; a<mobs::AliveMobs.size(); a++)
+    {
+      if(mobs::AliveMobs[a].state == ENTITY_STATE_CALM)
+      {
+        mobs::AliveMobs[a].state = ENTITY_STATE_MOVING;
+      } 
+      else if (mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
+      {
+        mobs::AliveMobs[a].state = ENTITY_STATE_CALM;
+        if(travel::TravelControl.count(mobs::AliveMobs[a].quad_id) > 0)
+        {
+          travel::TravelControl.erase(mobs::AliveMobs[a].quad_id);  
+        }
+      }
+    }
+  }
+
+  // x,y are not scaled points (window x,y - always from 0,0 to 900,800 something)
+  void move_aggro_mobs_to_point(float x, float y)
+  {
+    float target_rs_x = camera::reverse_scale_click_x(x, camera::x, camera::zoom);
+    float target_rs_y = camera::reverse_scale_click_y(y, camera::y, camera::zoom);
+
+    std::cout << "current camera zoom: " << camera::zoom << std::endl;
+    std::cout << "current camera x: " << camera::x << std::endl;
+    std::cout << "current camera y: " << camera::y << std::endl;
+    std::cout << " target position " << x << "," << y << std::endl;
+    std::cout << " target scaled position " << target_rs_x << "," << target_rs_y << std::endl;
+
+    for (int a=0; a < mobs::AliveMobs.size(); a++)
+    {
+      if(mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
+      { 
+        int quad_index = quads::find_quad_id(mobs::AliveMobs[a].quad_id, quads::AllQuads);
+        std::cout << "Mob Quad Index: " << quad_index << std::endl;
+        std::cout << "Mob Scaled Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
+        std::cout << "Mob Position: " << quads::AllQuads[quad_index].x << "," << quads::AllQuads[quad_index].y << std::endl;
+
+        int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].x, quads::AllQuads[quad_index].y);
+        //int target_node_id = paths::get_navnode_id(target_rs_x, target_rs_y);
+        int target_node_id = paths::get_navnode_id_scaled(x, y);
+
+        std::cout << "quad_node_id: " << quad_node_id << std::endl;
+        std::cout << "target_node_id: " << target_node_id << std::endl;
+
+        if(quad_node_id > -1 & target_node_id > -1){
+
+          travel::TravelPlan tp;
+
+          if(quad_node_id != target_node_id)
+          {
+            std::vector<int> path = paths::find_path(quad_node_id, target_node_id);
+            tp.full_path = path;
+            tp.next_node = path[1];
+
+          } else if (quad_node_id == target_node_id){
+            tp.full_path = {};
+            tp.next_node = target_node_id;
+          }
+
+          tp.quad_id = mobs::AliveMobs[a].quad_id;
+          tp.current_node = quad_node_id;
+          tp.target_node = target_node_id;
+          tp.current_x = quads::AllQuads[quad_index].x;
+          tp.current_y = quads::AllQuads[quad_index].y;
+          tp.target_x = target_rs_x;
+          tp.target_y = target_rs_y;
+
+          // tp.current_x = quads::AllQuads[quad_index].s_x;
+          // tp.current_y = quads::AllQuads[quad_index].s_y;
+          // tp.target_x = camera::scale_x(x, camera::x, camera::zoom);
+          // tp.target_y = camera::scale_y(y, camera::y, camera::zoom);
+          travel::TravelControl.insert({tp.quad_id, tp});
+
+          std::cout << " Target position " << tp.target_x << "," << tp.target_y << std::endl; 
+          std::cout << " Current position " << tp.current_x << "," << tp.current_y << std::endl;
+          float dist_to_target = travel::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y); 
+          std::cout << " Initial distance: " << dist_to_target << std::endl; 
+        }
+      }
+    }
+  }
+
+
+  void render_alive_mobs()
+  {
+    for (int a=0; a<mobs::AliveMobs.size(); a++)
+    {
+      quads::Quad mob_quad = ent::render_entity(ENTITY_TYPE_ID_MOB,
+                                                true,
+                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].texture_id,
+                                                0,
+                                                mobs::AliveMobs[a].x,
+                                                mobs::AliveMobs[a].y,
+                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].h,
+                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].w,
+                                                0.0f,
+                                                textures::FontTD,
+                                                true,
+                                                true
+                                              );
+      ent::EntityQuads.push_back(mob_quad);
+      mobs::AliveMobs[a].quad_id = mob_quad.id;
+    }
+  }
+
+
+
 }
 
 #endif

@@ -5,8 +5,8 @@
   "width": 192,
   "height": 64,
   "frames_list": [
-    {"frame_id": 10, "x": 0, "y": 0, "w": 64, "h": 64, "is_solid": 0},
-    {"frame_id": 20, "x": 65, "y": 0, "w": 64, "h": 64, "is_solid": 0},
-    {"frame_id": 12, "x": 129, "y": 0, "w": 64, "h": 64, "is_solid": 1}
-  ]}
+    {"frame_id": 10, "x": 0, "y": 0, "w": 64, "h": 64},
+    {"frame_id": 20, "x": 65, "y": 0, "w": 64, "h": 64},
+    {"frame_id": 12, "x": 129, "y": 0, "w": 64, "h": 64}
+  ]
 }

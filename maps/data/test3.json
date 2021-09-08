@@ -1,12 +1,16 @@
 {
   "id": 2,
   "name": "test3",
-  "vertex_width": 4,
-  "vertex_height": 2,
+  "vertex_width": 20,
+  "vertex_height": 16,
   "texture_id": 1,
   "default_player_x": 200,
   "default_player_y": 200,
   "doors": [
     {"door_id": 0, "x": 0, "y": 0, "dest_map_id": 1, "player_enter_x": 150, "player_enter_y": 500}
+  ],
+  "nests": [
+    {"x": 700, "y": 600, "n": 1},
+    {"x": 900, "y": 1000, "n": 0}
   ]
 }

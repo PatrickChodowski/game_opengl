@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <random>
 #include <fstream>  // for reading in the json files
 #include <sstream>  // for reading in the json files
 #include <dirent.h> // filesystem, listing files
@@ -50,7 +51,7 @@ const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 bool RUNNING = true;
 int CURRENT_SHADER_ID = 0;
 std::string FONT_NAME = "OpenSans";
-int MAP_ID = 1;
+int MAP_ID = 2;
 int MAX_QUADS = 2000;
 std::string CAMPAIGN_NAME;
 bool NEW_GAME = true;
@@ -93,22 +94,25 @@ int FPS = 60; // just init
 #include "opengl/camera.h"
 #include "opengl/quads.h"
 #include "opengl/buffer.h"
-#include "opengl/mouse.h"
 
+#include "components/hero.h"
+
+// quads and map stuff
+#include "fonts/fonts.h"
+#include "menu/menu.h"
+#include "maps/navmesh.h"
+#include "maps/pathfinder.h"
+#include "maps/travel.h"
+#include "maps/maps.h"
 
 
 // game components
 #include "components/entity.h"
 #include "components/items.h"
 #include "components/mobs.h"
-#include "components/hero.h"
 #include "components/collisions.h"
 
-
-// quads dependent
-#include "fonts/fonts.h"
-#include "menu/menu.h"
-#include "maps/maps.h"
+#include "opengl/mouse.h"
 
 #include "saves/saves.h"
 #include "opengl/events.h"

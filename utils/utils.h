@@ -68,7 +68,16 @@ namespace utils
       array_file.close();
     }
   }
+
+  int get_random(int min_int, int max_int)
+  {
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 gen(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(min_int, max_int); // define the range
+    int rand_num = distr(gen);
+    //std::cout << rand_num << std::endl;
+    return rand_num;
+  }
+
 }
-
-
 #endif
