@@ -19,6 +19,20 @@ namespace paths
     return nav_node_id;
   }
 
+    int get_navnode_id_scaled(float x, float y)
+  {
+    int nav_node_id = -1;
+    for (auto const& nn : nav::NavMesh)
+    { 
+      if((x >= nn.second.s_min_x) & (x <= nn.second.s_max_x) & (y >= nn.second.s_min_y) & (y <= nn.second.s_max_y))
+      { 
+        nav_node_id = nn.first;
+        break;
+      }
+     }
+    return nav_node_id;
+  }
+
   int min_distance(std::vector<float> distances, 
                    std::vector<bool> polygon_included,
                    int polygon_count)
