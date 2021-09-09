@@ -92,6 +92,8 @@ namespace game
       // mobs::move_random();
       travel::manage();
       mobs::render_alive_mobs();
+      quads::set_labels();
+      fonts::render_labels();
      } 
 
    }
