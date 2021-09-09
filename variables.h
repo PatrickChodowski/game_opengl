@@ -2,8 +2,6 @@
 #ifndef VARS_H
 #define VARS_H
 
-// file for defining variables that should be accessible by multiple files 
-#include "dictionary.h"
 
 namespace colls
 {
