@@ -3,7 +3,7 @@
 int main()
 {
   logger::init();
-  logger::log(LOG_INFO, LOG_EVENT_GAME_START, "main", __FILE__, __LINE__, "Initialized Main Function");
+  logger::log(LOG_INFO, LOG_EVENT_GAME_START, "main::main", __FILE__, __LINE__, "Initialized Main Function");
 
   // Window, OpenGL, SDL initiatlization
   initialize_opengl_context();
@@ -50,8 +50,6 @@ int main()
     FPS = timer::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
   }
 
-  logger::log(LOG_INFO, LOG_EVENT_GAME_LOOP_CLOSE, "main", __FILE__, __LINE__, "Game Loop Closed");
-
   // cleanup after the game
   textures::drop();
   shaders::drop();
@@ -60,5 +58,6 @@ int main()
   SDL_GL_DeleteContext(GLCONTEXT); 
   SDL_DestroyWindow(WINDOW);
   SDL_Quit();
+  logger::log(LOG_INFO, LOG_EVENT_GAME_EXIT, "main::main", __FILE__, __LINE__, "Game Exit");
   return 0;
 }

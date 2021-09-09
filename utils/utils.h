@@ -33,7 +33,6 @@ namespace utils
       if(has_ending (entry->d_name, ".json")){
         std::string str = entry->d_name;
         std::string clean_str = str.replace(str.end()-5, str.end(), "");
-        std::cout << clean_str << std::endl;
         list_of_files.push_back(clean_str);  
       }
     }
@@ -49,7 +48,6 @@ namespace utils
     while ((entry = readdir(dir)) != NULL)
     {
       std::string str = entry->d_name;
-      //std::cout << entry->d_name << std::endl;
       list_of_files.push_back(entry->d_name );  
     }
     closedir(dir);
@@ -90,7 +88,6 @@ namespace utils
     std::mt19937 gen(rd()); // seed the generator
     std::uniform_int_distribution<> distr(min_int, max_int); // define the range
     int rand_num = distr(gen);
-    //std::cout << rand_num << std::endl;
     return rand_num;
   }
 

@@ -14,65 +14,42 @@ namespace maps
    std::vector<int> required_textures;
   };
 
-  
+  // Reads json data by map name and stores it inside maps::Catalog
   void read_map_data(std::string name)
   {
-    /*
-      Read map data reads the json data by map name and stores it inside maps::Catalog
-    */    
-    MapData MD;
     std::string data_path = "./maps/data/"+name+".json";
+    logger::log(LOG_INFO, LOG_EVENT_READ_DATA, "maps::read_map_data", __FILE__, __LINE__, "Reading map data from " + data_path);
+    MapData MD;
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(MD);
-
-    // add to catalog
     Catalog.insert({MD.id, MD});
-
-    if(LOGGING == 0)
-    { 
-      std::cout << "Read-in map id: " << MD.id << ", name: " << MD.name << ", vertex_width: " <<
-       MD.vertex_width << ", vertex_height: " << MD.vertex_height << ", texture_id: " << MD.texture_id << 
-       ", default_player_x: " << MD.default_player_x << ", default_player_y: " << MD.default_player_y << 
-       ",  door count: " << MD.doors.size() << std::endl;
-
-      for(int d=0; d<MD.doors.size(); d++)
-      {
-       std::cout <<  "door_id: " << MD.doors[d].door_id << ", x: " 
-       <<  MD.doors[d].x << ", y: "<< MD.doors[d].y << ", dest_map_id: " 
-       << MD.doors[d].dest_map_id << ", player_enter_x: "<< MD.doors[d].player_enter_x << ", player_enter_y: " << MD.doors[d].player_enter_y << std::endl;
-      }
-    }
   }
 
+  // Reads list of maps from maps/data/ and for each map there performs read_map_data function. Thats reads json into maps::Catalog
   void init()
   { 
-    /*
-      Maps init just reads the list of maps from maps/data/ and for each map there
-      performs read_map_data function - which means reading the json file into the 
-      MapData object and store it inside maps::Catalog
-    */
-
-    logger::print("maps::init(): READING MAPS");
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "maps::init", __FILE__, __LINE__, "Initializing maps");
     std::vector<std::string> maps_list = utils::list_files("maps/data/");
     for(int m=0; m < maps_list.size(); m++)
     {
       read_map_data(maps_list[m]);
     }
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "maps::init", __FILE__, __LINE__, "Maps initialized");
   }
 
 
+  // Loads map quads from map file by map name
   std::vector<quads::Quad> load_map_from_file(std::string map_name, 
                                               int vertex_width, 
                                               int vertex_height, 
                                               int texture_id)
 
   {
-    /*
-      Loads map quads from map file
-    */
-    std::vector<quads::Quad> tile_map = {};
     std::string file_path = "maps/" + map_name;
+
+    logger::log(LOG_INFO, LOG_EVENT_LOAD_QUADS, "maps::load_map_from_file", __FILE__, __LINE__, "Loading map quads from "+file_path);
+    std::vector<quads::Quad> tile_map = {};
     std::ifstream in_file;
     in_file.open(file_path.c_str());
 
@@ -81,7 +58,7 @@ namespace maps
     // yes no solid array rowsxcols
     bool solid_array[vertex_height][vertex_width];
 
-      // read in the tile info
+    // read in the tile info
     if (in_file.is_open())
     {
       for (int r = 0; r < vertex_height; r++)
@@ -129,76 +106,21 @@ namespace maps
         } 
     }
     in_file.close();
-
-    // // save solid array to file to file 
-    // std::string arra_log_file_path = "./logs/map_solid_array.txt";
-    // std::ofstream array_file (arra_log_file_path.c_str());
-    // if (array_file.is_open())
-    // {
-    //   for(int i = 0; i < vertex_height; i ++)
-    //   {
-    //     for(int j = 0; j < vertex_width; j++)
-    //     {
-    //       array_file << solid_array[i][j] << " ";
-    //     }
-    //     array_file << "\n";
-    //   }
-    //   array_file.close();
-    // }
-
-    // // calculate navmesh polygons
-    // struct ConvexPolygon
-    // {
-    //   int id;
-    //   std::vector<int> tiles;
-    // };
-
-    // ConvexPolygon cp;
-    // bool in_polygon = false;
-
-    // for(int i = 0; i < vertex_height; i ++)
-    //   {
-    //     for(int j = 0; j < vertex_width; j++)
-    //     {
-    //       if(!solid_array[i][j]){
-    //         // if not solid == if traversable
-    //         if(in_polygon)
-    //         {
-    //           // if we are currently in polygon
-    //           cp.tiles.push_back()
-
-    //         }
-
-
-
-    //       }
-
-
-
-
-
-
-
-
-
-
-
+    logger::log(LOG_INFO, LOG_EVENT_LOAD_QUADS, "maps::load_map_from_file", __FILE__, __LINE__, "Map quads loaded from "+file_path);
     return tile_map;
   }
 
-  // map_id
-  // default player x, y
-  // it is supposed to load everything for given level
-  // also needs some  cache struct data for mobs situation, items on the ground etc.
-  // load needed textures, load vertices etc.
+  // Initialize level map by map_id with player_x and player_y coords
   void init_map(int map_id, int player_x, int player_y)
   {
-    // Load quads for the map first
-    std::cout << "Initializing map id: " << map_id
-              << " Map name: " << maps::Catalog[map_id].name
-              << " Vertex width: " << maps::Catalog[map_id].vertex_width
-              << " Vertex height: " << maps::Catalog[map_id].vertex_height
-              << " Map texture id: " << maps::Catalog[map_id].texture_id << std::endl;
+    std::string map_info =  "Initializing level map id: " 
+                              + std::to_string(map_id) 
+                              + " Map name: " + maps::Catalog[map_id].name
+                              + " Vertex width: " + std::to_string(maps::Catalog[map_id].vertex_width)
+                              + " Vertex height: " + std::to_string(maps::Catalog[map_id].vertex_height)
+                              + " Map texture id: " + std::to_string(maps::Catalog[map_id].texture_id);
+
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "maps::init_map", __FILE__, __LINE__, map_info);
 
     maps::MapQuads = load_map_from_file(maps::Catalog[map_id].name, 
                                         maps::Catalog[map_id].vertex_width, 
@@ -307,11 +229,7 @@ namespace maps
       maps::MapQuads[i].i_right.b = maps::MapQuads[i].c;
       maps::MapQuads[i].i_right.c = maps::MapQuads[i].d;
     }
-
-    if(LOGGING==-1)
-    {
-      print_out_quads(maps::MapQuads);
-    }
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "maps::init_map", __FILE__, __LINE__, "Level map initialized");
   }
 
 
@@ -325,7 +243,7 @@ namespace maps
 
       - dont know
     */
-
+    logger::log(LOG_INFO, LOG_EVENT_DROP_DATA, "maps::drop_map", __FILE__, __LINE__, "Dropping  current map");
     for(int q = 0; q < maps::MapQuads.size(); q++)
     {
       quads::delete_quad_id(maps::MapQuads[q].id);

@@ -77,8 +77,7 @@ namespace logger
     }
   }
 
-  // need something that gives [log level - module - funtion - file - time - message information]
-
+  // Logs information to logs/v2 logging dir as json objects
   template<typename T>
   void log(int level, int event_id, std::string module_name, std::string file, int line, T message)
   {
@@ -112,7 +111,7 @@ namespace logger
             json_file << lm_json_string[i];
         }
 
-        if(event_id == LOG_EVENT_GAME_LOOP_CLOSE){
+        if(event_id == LOG_EVENT_GAME_EXIT){
           json_file << "]\n";
         } else {
           json_file << ",\n";
@@ -121,12 +120,6 @@ namespace logger
       }
     }
   }
-
 }
-
-
-
-
-
 
 #endif
