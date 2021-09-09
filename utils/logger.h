@@ -103,8 +103,19 @@ namespace logger
       std::ofstream json_file (file_path.c_str(), std::ios_base::app);
       if (json_file.is_open())
       {
+        // add [ in the beginning
+        if(event_id == LOG_EVENT_GAME_START){
+            json_file << "[\n";
+        }
+
         for(int i = 0; i < lm_json_string.size(); i ++){
             json_file << lm_json_string[i];
+        }
+
+        if(event_id == LOG_EVENT_GAME_LOOP_CLOSE){
+          json_file << "]\n";
+        } else {
+          json_file << ",\n";
         }
         json_file.close();
       }
