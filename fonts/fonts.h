@@ -340,11 +340,11 @@ namespace fonts
                               quads::AllQuads[q].labels[l].x, 
                               quads::AllQuads[q].labels[l].y, 
                               textures::FontTD, 
-                              0.7, 
+                              0.5, 
                               0.5, 
                               0.5, 
                               0.5,
-                              1.0); 
+                              0.0); 
         }
       }
     }

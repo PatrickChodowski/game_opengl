@@ -1,0 +1,731 @@
+[
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "main::main",
+    "file" : "main.cpp",
+    "message" : "Initialized Main Function",
+    "time_elapsed" : 0.000628,
+    "line" : 6,
+    "level" : 1,
+    "event_id" : 0
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::init",
+    "file" : "./maps/maps.h",
+    "message" : "Initializing maps",
+    "time_elapsed" : 0.129562,
+    "line" : 32,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::read_map_data",
+    "file" : "./maps/maps.h",
+    "message" : "Reading map data from ./maps/data/test.json",
+    "time_elapsed" : 0.129869,
+    "line" : 21,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::read_map_data",
+    "file" : "./maps/maps.h",
+    "message" : "Reading map data from ./maps/data/test2.json",
+    "time_elapsed" : 0.130552,
+    "line" : 21,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::read_map_data",
+    "file" : "./maps/maps.h",
+    "message" : "Reading map data from ./maps/data/test3.json",
+    "time_elapsed" : 0.130726,
+    "line" : 21,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::init",
+    "file" : "./maps/maps.h",
+    "message" : "Maps initialized",
+    "time_elapsed" : 0.130885,
+    "line" : 38,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "shaders::init",
+    "file" : "./shaders/shaders.h",
+    "message" : "Initializing shaders",
+    "time_elapsed" : 0.130967,
+    "line" : 149,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::read_shaders_data",
+    "file" : "./shaders/shaders.h",
+    "message" : "Reading shader data from ./shaders/data/light.json",
+    "time_elapsed" : 0.131337,
+    "line" : 137,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::read_shaders_data",
+    "file" : "./shaders/shaders.h",
+    "message" : "Reading shader data from ./shaders/data/base.json",
+    "time_elapsed" : 0.131482,
+    "line" : 137,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "shaders::init",
+    "file" : "./shaders/shaders.h",
+    "message" : "Shaders initialized",
+    "time_elapsed" : 0.150438,
+    "line" : 162,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::init",
+    "file" : "./opengl/textures.h",
+    "message" : "Initializing textures",
+    "time_elapsed" : 0.150734,
+    "line" : 134,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/barbarian.json",
+    "time_elapsed" : 0.151033,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/forest.json",
+    "time_elapsed" : 0.15133,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/items.json",
+    "time_elapsed" : 0.151492,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/stick.json",
+    "time_elapsed" : 0.151834,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/skeleton.json",
+    "time_elapsed" : 0.152072,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/dungeon.json",
+    "time_elapsed" : 0.152505,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  1",
+    "time_elapsed" : 0.152872,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 1 path: assets/dungeon.png to opengl",
+    "time_elapsed" : 0.153008,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 1",
+    "time_elapsed" : 0.153694,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  1opengl texture id: 1",
+    "time_elapsed" : 0.153805,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  2",
+    "time_elapsed" : 0.154114,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 2 path: assets/forest.png to opengl",
+    "time_elapsed" : 0.154288,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 2",
+    "time_elapsed" : 0.158205,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  2opengl texture id: 2",
+    "time_elapsed" : 0.158379,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  3",
+    "time_elapsed" : 0.158579,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 3 path: assets/barbarian.png to opengl",
+    "time_elapsed" : 0.158709,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 3",
+    "time_elapsed" : 0.162872,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  3opengl texture id: 3",
+    "time_elapsed" : 0.16321,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  4",
+    "time_elapsed" : 0.163414,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 4 path: assets/stick.png to opengl",
+    "time_elapsed" : 0.163638,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 4",
+    "time_elapsed" : 0.166678,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  4opengl texture id: 4",
+    "time_elapsed" : 0.166923,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  5",
+    "time_elapsed" : 0.167194,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 5 path: assets/items.png to opengl",
+    "time_elapsed" : 0.16733,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 5",
+    "time_elapsed" : 0.167607,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  5opengl texture id: 5",
+    "time_elapsed" : 0.167711,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  6",
+    "time_elapsed" : 0.167893,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 6 path: assets/skeleton.png to opengl",
+    "time_elapsed" : 0.168053,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 6",
+    "time_elapsed" : 0.169289,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  6opengl texture id: 6",
+    "time_elapsed" : 0.169541,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::init",
+    "file" : "./opengl/textures.h",
+    "message" : "Textures initialized",
+    "time_elapsed" : 0.169733,
+    "line" : 147,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::init",
+    "file" : "./menu/menu.h",
+    "message" : "Initializing menu",
+    "time_elapsed" : 0.169916,
+    "line" : 362,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/main_new.json",
+    "time_elapsed" : 0.170123,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/main_exit.json",
+    "time_elapsed" : 0.170312,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/new_game_name.json",
+    "time_elapsed" : 0.170469,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/main_settings.json",
+    "time_elapsed" : 0.17076,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/back_to_main.json",
+    "time_elapsed" : 0.170919,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/load_save.json",
+    "time_elapsed" : 0.171123,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/main_load.json",
+    "time_elapsed" : 0.171274,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::init",
+    "file" : "./menu/menu.h",
+    "message" : "Menu initialized",
+    "time_elapsed" : 0.171569,
+    "line" : 370,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.179015,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.179758,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.365473,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.36586,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.427694,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.428341,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.555729,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.556229,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.579389,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.579891,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.662694,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.663242,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.798844,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.799293,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::init_map",
+    "file" : "./maps/maps.h",
+    "message" : "Initializing level map id: 2 Map name: test3 Vertex width: 20 Vertex height: 16 Map texture id: 1",
+    "time_elapsed" : 1.799783,
+    "line" : 123,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::load_map_from_file",
+    "file" : "./maps/maps.h",
+    "message" : "Loading map quads from maps/test3",
+    "time_elapsed" : 1.80018,
+    "line" : 51,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::load_map_from_file",
+    "file" : "./maps/maps.h",
+    "message" : "Map quads loaded from maps/test3",
+    "time_elapsed" : 1.802216,
+    "line" : 109,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::init_map",
+    "file" : "./maps/maps.h",
+    "message" : "Level map initialized",
+    "time_elapsed" : 1.81889,
+    "line" : 232,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "textures::drop",
+    "file" : "./opengl/textures.h",
+    "message" : "Dropping textures",
+    "time_elapsed" : 65.52374,
+    "line" : 157,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "shaders::drop",
+    "file" : "./shaders/shaders.h",
+    "message" : "Dropping current shader",
+    "time_elapsed" : 65.52496,
+    "line" : 169,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 65.525276,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210909/25/full.json",
+    "module_name" : "main::main",
+    "file" : "main.cpp",
+    "message" : "Game Exit",
+    "time_elapsed" : 65.55819,
+    "line" : 61,
+    "level" : 1,
+    "event_id" : 1
+}]
