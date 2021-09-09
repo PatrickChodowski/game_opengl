@@ -327,6 +327,29 @@ namespace fonts
     fonts::TextQuads.clear();
   }
 
+    // renders all labels from quads table
+  void render_labels()
+  {
+    for(int q = 0; q < quads::AllQuads.size(); q++)
+    {
+      if(quads::AllQuads[q].labels.size() > 0)
+      {
+        for(int l=0; l< quads::AllQuads[q].labels.size(); l++)
+        {
+          fonts::render_text(quads::AllQuads[q].labels[l].text.c_str(), 
+                              quads::AllQuads[q].labels[l].x, 
+                              quads::AllQuads[q].labels[l].y, 
+                              textures::FontTD, 
+                              0.7, 
+                              0.5, 
+                              0.5, 
+                              0.5,
+                              1.0); 
+        }
+      }
+    }
+  }
+
 
 
 

@@ -253,19 +253,22 @@ namespace quads
     }
   };
 
-  // Each quad can have set of labels to be moved with the quad
+  // Each quad can have set of labels to be moved with the quad.. right?
   void set_labels()
   {
     for(int q = 0; q < quads::AllQuads.size(); q++)
     {
-
-
-      
+      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
+      {
+        QuadLabel ql;
+        ql.text = "test";
+        ql.x = quads::AllQuads[q].x;
+        ql.y = quads::AllQuads[q].y + quads::AllQuads[q].h + 5;
+        quads::AllQuads[q].labels.push_back(ql);
+      }
     }
-
   }
-
-
+  
 }
 
 

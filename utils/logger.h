@@ -45,10 +45,11 @@ namespace logger
       std::vector<int> run_list_int = {};
       for(int r=0; r<run_list.size(); r++)
       {
-        if((run_list[r] != ".") & (run_list[r] != "..")){
+        if( std::isdigit(run_list[r][0]) ){
           run_list_int.push_back(stoi(run_list[r]));
         }
       }
+
 
       int max_run_id = *max_element(run_list_int.begin(), run_list_int.end());
       int new_run_id = max_run_id + 1;
