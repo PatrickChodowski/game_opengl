@@ -253,6 +253,18 @@ namespace quads
     }
   };
 
+  // Each quad can have set of labels to be moved with the quad
+  void set_labels()
+  {
+    for(int q = 0; q < quads::AllQuads.size(); q++)
+    {
+
+
+      
+    }
+
+  }
+
 
 }
 
