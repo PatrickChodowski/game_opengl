@@ -88,7 +88,12 @@ namespace quads
     int vertex_id;
   };
 
- 
+  struct QuadLabel
+  {
+    std::string text;
+    int x;
+    int y;
+  };
 
 
   // Quad will contain information about:
@@ -98,6 +103,7 @@ namespace quads
   // - Vindices with vertex ids
   // - actual vertex information
 
+// Contains all information about what is rendered
   struct Quad
   {
     int id;
@@ -168,6 +174,9 @@ namespace quads
 
     // its not abs, its AABBs, but this is what I do to entertain myself
     std::map<int, colls::AABB> abs; 
+
+    // label collection
+    std::vector<QuadLabel> labels;
   };
 
 
