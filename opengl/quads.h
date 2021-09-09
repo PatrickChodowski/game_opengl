@@ -261,10 +261,18 @@ namespace quads
       if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
       {
         QuadLabel ql;
-        ql.text = "test";
-        ql.x = quads::AllQuads[q].x;
-        ql.y = quads::AllQuads[q].y + quads::AllQuads[q].h + 5;
+        ql.text = std::to_string(quads::AllQuads[q].id) + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
+        ql.x = quads::AllQuads[q].x + 20;
+        ql.y = quads::AllQuads[q].y - 10;
         quads::AllQuads[q].labels.push_back(ql);
+
+
+        QuadLabel ql0;
+        ql0.text = "scaled:_(" + std::to_string((int)quads::AllQuads[q].s_x) + "," + std::to_string((int)quads::AllQuads[q].s_y) + ")";
+        ql0.x = quads::AllQuads[q].x + 20;
+        ql0.y = quads::AllQuads[q].y + quads::AllQuads[q].h + 20;
+        quads::AllQuads[q].labels.push_back(ql0);
+
       }
     }
   }
