@@ -76,8 +76,14 @@
 #define NAVGATE_VERTICAL_ORIENTATION 0
 #define NAVGATE_HORIZONTAL_ORIENTATION 1
 
+
+// logger codes:
 #define LOG_DEBUG 0
 #define LOG_INFO 1
 #define LOG_ERROR 2 
+
+#define LOG_EVENT_GAME_START 0
+#define LOG_EVENT_GAME_LOOP_CLOSE 1 
+
 
 #endif
