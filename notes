@@ -7,6 +7,14 @@ fishing mechanic that doesnt do anything
 drugi akt to oczywiscie pustynia
 
 TODO:
+  - debug (branch):
+    - add agent labels + debugging labels
+    - render mobs id, current position, scaled position
+    - current camera zoom and x, y
+    - travelling information
+    - ideally shader lines 
+
+
  - mobs
   - figure out scaling issue with travel agent
 

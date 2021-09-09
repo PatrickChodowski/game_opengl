@@ -2,6 +2,8 @@
 
 int main()
 {
+  logger::init();
+
   // Window, OpenGL, SDL initiatlization
   initialize_opengl_context();
   SDL_Window *WINDOW = SDL_CreateWindow("Pogromcy Karaluchow",

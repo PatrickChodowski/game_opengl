@@ -33,9 +33,24 @@ namespace utils
       if(has_ending (entry->d_name, ".json")){
         std::string str = entry->d_name;
         std::string clean_str = str.replace(str.end()-5, str.end(), "");
-        logger::print(clean_str);
+        std::cout << clean_str << std::endl;
         list_of_files.push_back(clean_str);  
       }
+    }
+    closedir(dir);
+    return list_of_files;
+  };  
+
+  std::vector<std::string> list_any_files(std::string path)
+  {
+    std::vector<std::string> list_of_files = {};
+    struct dirent *entry;
+    DIR *dir = opendir(path.c_str());
+    while ((entry = readdir(dir)) != NULL)
+    {
+      std::string str = entry->d_name;
+      //std::cout << entry->d_name << std::endl;
+      list_of_files.push_back(entry->d_name );  
     }
     closedir(dir);
     return list_of_files;

@@ -18,6 +18,7 @@
 #include <regex>    // for shader parameters
 #include <algorithm>// for min, max
 #include <math.h>     // for distance calculating
+#include <filesystem> // for filesystem managegement
 
 // Opengl packages
 #include <GL/glew.h> 
@@ -31,9 +32,14 @@
     #include <GL/glu.h>
 #endif
 
+#include "dictionary.h"
 
 // Globals (big rule - they cant be modified anywhere)
 int TILE_DIM = 96;
+auto GAME_START_TIME = std::chrono::system_clock::now();
+// logging level
+int LOGGING = LOG_DEBUG;
+
 
 // how many quads to show in window
 int WINDOW_VERTEX_WIDTH = 10;
@@ -41,9 +47,6 @@ int WINDOW_VERTEX_HEIGHT = 8;
 int WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
 int WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
 
-
-// logging level
-int LOGGING = 0;
 
 // SDL setup
 Uint32 flags = SDL_WINDOW_OPENGL;
@@ -79,8 +82,8 @@ int FPS = 60; // just init
 
 
 // Utils
-#include "utils/logger.h"
 #include "utils/utils.h"
+#include "utils/logger.h"
 #include "utils/timer.h"
 
 // Variables
@@ -128,4 +131,10 @@ void initialize_opengl_context()
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 }
+
+
+
+
+
+
 
