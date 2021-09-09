@@ -349,25 +349,17 @@ std::vector<quads::Quad> load_saves_buttons()
   {
     ButtonData BD;
     std::string data_path = "./menu/data/"+name+".json";
+    logger::log(LOG_INFO, LOG_EVENT_READ_DATA, "menu::read_button_data", __FILE__, __LINE__, "Reading button data from " + data_path);
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(BD);
-
-    // add to catalog
     menu::Catalog.insert({BD.id, BD});
-    if(LOGGING == 0)
-    { 
-      std::cout << "Read-in button id: " << BD.id << ", name: " << BD.name << std::endl
-      << " label: " << BD.label << std::endl << " position: " << BD.x << "," << BD.y << std::endl
-      << " width: " << BD.w << " height: " << BD.h << std::endl
-      << " colors: "<< BD.r_col << "," << BD.b_col << "," << BD.g_col << "," << BD.a_col << std::endl;
-    }
   }
 
   void init()
   {
     // for now just debugging different options on runtime 
-    logger::print("READING BUTTONS");
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "menu::init", __FILE__, __LINE__, "Initializing menu");
     std::vector<std::string> button_list = utils::list_files("menu/data/");
     for(int b=0; b < button_list.size(); b++)
     {
@@ -375,11 +367,13 @@ std::vector<quads::Quad> load_saves_buttons()
     }
     std::vector<std::string> saves = menu::list_saves();
     hero::Hero hero = hero::load_from_save(saves[0]);  
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "menu::init", __FILE__, __LINE__, "Menu initialized");
   }
 
   // closes the menu
   void drop()
   {
+    logger::log(LOG_INFO, LOG_EVENT_DROP_DATA, "menu::drop", __FILE__, __LINE__, "Dropping menu");
     CurrentMenuButtons.clear();
     LoadSaveButtons.clear();
     for (int q = 0; q < menu::MenuQuads.size(); q++)
