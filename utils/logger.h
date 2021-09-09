@@ -42,8 +42,17 @@ namespace logger
     } else {
       // directory exists - lets find new run number
       std::vector<std::string> run_list = utils::list_any_files(logger::LOG_PATH+today_date);
-      std::string max_run_id = *max_element(run_list.begin(), run_list.end());
-      int new_run_id = stoi(max_run_id) + 1;
+      std::vector<int> run_list_int = {};
+      for(int r=0; r<run_list.size(); r++)
+      {
+        if((run_list[r] != ".") & (run_list[r] != "..")){
+          run_list_int.push_back(stoi(run_list[r]));
+        }
+      }
+
+      int max_run_id = *max_element(run_list_int.begin(), run_list_int.end());
+      int new_run_id = max_run_id + 1;
+
       std::string dir_run = logger::LOG_PATH+today_date+"/"+std::to_string(new_run_id);
       std::filesystem::create_directory(dir_run);
       LOG_PATH_RUN = dir_run;
