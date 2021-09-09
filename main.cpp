@@ -3,6 +3,7 @@
 int main()
 {
   logger::init();
+  logger::log(LOG_INFO, LOG_EVENT_GAME_START, "main", __FILE__, __LINE__, "Initialized Main Function");
 
   // Window, OpenGL, SDL initiatlization
   initialize_opengl_context();
@@ -48,6 +49,8 @@ int main()
     SDL_Delay(delay);
     FPS = timer::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
   }
+
+  logger::log(LOG_INFO, LOG_EVENT_GAME_LOOP_CLOSE, "main", __FILE__, __LINE__, "Game Loop Closed");
 
   // cleanup after the game
   textures::drop();

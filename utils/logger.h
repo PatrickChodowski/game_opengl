@@ -6,6 +6,22 @@ namespace logger
   std::string LOG_PATH = "./logs/v2/";
   std::string LOG_PATH_RUN;
 
+  // Logs the message to v2 log file (only one?). Will log all events into one and analyze later. Anyway, better than console
+  struct LogMessage
+  {
+    std::string path;
+    std::string module_name;
+    std::string file;
+    std::string message;
+    float time_elapsed;
+    int line;
+    int level;
+    int event_id;
+
+    JS_OBJ(path, module_name, file, message, time_elapsed, line, level, event_id);
+  };
+
+
   void init()
   {
     // get today date in yyyymmdd
@@ -64,13 +80,34 @@ namespace logger
   // need something that gives [log level - module - funtion - file - time - message information]
 
   template<typename T>
-  void log(int level, std::string module, std::string file, int line, T message)
+  void log(int level, int event_id, std::string module_name, std::string file, int line, T message)
   {
     if(level >= LOGGING)
     {
-      std::string log_path = LOG_PATH + module;
+      auto end = std::chrono::system_clock::now();
+      std::chrono::duration<double> elapsed_seconds = end-GAME_START_TIME;
+      float elapsed_time = elapsed_seconds.count();
+      std::string file_path = LOG_PATH_RUN + "/full.json";
 
+      LogMessage lm;
+      lm.file = file;
+      lm.path = file_path;
+      lm.message = message;
+      lm.level = level;
+      lm.module_name = module_name;
+      lm.line = line;
+      lm.time_elapsed = elapsed_time;
+      lm.event_id = event_id;
 
+      std::string lm_json_string = JS::serializeStruct(lm);
+      std::ofstream json_file (file_path.c_str(), std::ios_base::app);
+      if (json_file.is_open())
+      {
+        for(int i = 0; i < lm_json_string.size(); i ++){
+            json_file << lm_json_string[i];
+        }
+        json_file.close();
+      }
     }
   }
 
