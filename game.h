@@ -15,6 +15,7 @@ namespace game
     textures::init();
     menu::init();
     mobs::init();
+    gui::init();
     
     // adding font texture to texture catalog
     textures::FontTD = fonts::init(FONT_NAME);
@@ -28,6 +29,7 @@ namespace game
    if(CHANGE_STATE_TRIGGER){ 
       camera::reset();
       menu::drop();
+      gui::drop();
       maps::drop_map();
       ent::drop_entities();
       fonts::drop_texts();

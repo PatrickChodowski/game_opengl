@@ -558,4 +558,10 @@ namespace nav
   std::vector<std::vector<int>> NavMeshGraph;
 }
 
+namespace gui
+{
+  std::map<int, std::string> CurrentGuiWindows;
+  std::vector<quads::Quad> GuiQuads;
+}
+
 #endif
