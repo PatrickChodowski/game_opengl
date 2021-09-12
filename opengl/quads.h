@@ -25,7 +25,7 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
     }
 
-    // assign level quads
+    // assign map quads
     if(maps::MapQuads.size() > 0){
       quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
     }
