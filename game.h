@@ -76,6 +76,7 @@ namespace game
       // if the game state didnt change and we are in GAME_ON mode
       // reset entities only
       ent::drop_entities();
+      gui::drop();
 
       // this will be replaced by GUI elements (guiquads)
       fonts::drop_texts();
