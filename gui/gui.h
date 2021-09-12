@@ -47,7 +47,7 @@ namespace gui
     }
 
     // render selected GUIs (defined by int)
-    std::vector<quads::Quad> render(std::vector<int> guis)
+    void render(std::vector<int> guis)
     {
         std::vector<quads::Quad> gui_quads;
         for(int g = 0; g < guis.size(); g++)
@@ -169,7 +169,7 @@ namespace gui
             gui_quads[i].i_right.c = gui_quads[i].d;
         }
 
-        return gui_quads;
+        gui::GuiQuads = gui_quads;
     }
 
     void drop()
