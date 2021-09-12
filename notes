@@ -8,8 +8,9 @@ drugi akt to oczywiscie pustynia
 
 TODO:
   - debug (branch):
-    - add agent labels + debugging labels
-    - render mobs id, current position, scaled position
+    - debug menu: make sure its on top
+    - debug menu: why the fps text dissapears? :o 
+    
     - current camera zoom and x, y
     - travelling information
     - ideally shader lines 

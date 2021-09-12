@@ -83,7 +83,6 @@ namespace game
       fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
       fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
 
-
       if(DEBUG_WINDOW){
         gui::render({0});
       }
