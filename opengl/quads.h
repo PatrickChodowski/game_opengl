@@ -21,7 +21,12 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
     }
 
-        // assign level quads
+    // assign gui quads
+    if(gui::GuiQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
+    }
+
+    // assign level quads
     if(maps::MapQuads.size() > 0){
       quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
     }
@@ -40,7 +45,8 @@ namespace quads
     quads::QuadsSummary["map"] = maps::MapQuads.size();
     quads::QuadsSummary["menu"] = menu::MenuQuads.size();
     quads::QuadsSummary["text"] = fonts::TextQuads.size();
-    quads::QuadsSummary["entity"] = fonts::TextQuads.size();
+    quads::QuadsSummary["entity"] = ent::EntityQuads.size();
+    quads::QuadsSummary["gui"] = gui::GuiQuads.size();
   }
 
 
