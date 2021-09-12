@@ -39,8 +39,7 @@ int TILE_DIM = 96;
 auto GAME_START_TIME = std::chrono::system_clock::now();
 // logging level
 int LOGGING = LOG_DEBUG;
-bool DEVMODE = true;
-
+bool DEBUG_WINDOW = false;
 
 // how many quads to show in window
 int WINDOW_VERTEX_WIDTH = 10;

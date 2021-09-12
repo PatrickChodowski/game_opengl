@@ -22,6 +22,15 @@ namespace events
           saves::save_game();
         break;
 
+      case SDLK_d:
+          if(DEBUG_WINDOW)
+          {
+            DEBUG_WINDOW = false;
+          } else {
+            DEBUG_WINDOW = true;
+          }
+        break;
+
       case SDLK_l:
       // toggle between base and light shader
           if(CURRENT_SHADER_ID == 0)
