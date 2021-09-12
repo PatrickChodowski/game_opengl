@@ -12,7 +12,6 @@ namespace quads
 {
 
   void accumulate()
-
   {
     quads::AllQuads.clear(); // resetting vector
 
