@@ -74,7 +74,7 @@ namespace gui
             gui::GuiQuads.push_back(quad);
 
             // insert name and quad id
-            CurrentGuiWindows.insert(std::pair<int, std::string>(quad.id, gui::Catalog[gui_id].name));
+            CurrentGuiWindows.insert(std::pair<int, int>(gui_id, quad.id));
         }
 
         for(int i = 0; i < gui::GuiQuads.size(); i++)
@@ -186,15 +186,15 @@ namespace gui
         gui::GuiQuads.clear();
     }
 
-    // add label to gui by gui_name, x, y, text, is_static
-    void add_gui_label(std::string gui_name, float x, float y, std::string text, bool is_static)
+    // add label to gui by gui_id, x, y, text, scale,  is_static
+    void add_gui_label(int gui_id, float x, float y, std::string text, float scale,  bool is_static)
     {
         // get quad id from current gui windows
         for (auto const& a : gui::CurrentGuiWindows)
         {
-            if(a.second == gui_name)
+            if(a.first == gui_id)
             {
-                quads::add_label(a.first, x, y, text, is_static);
+                quads::add_label(a.second, x, y, text, scale, is_static);
                 break;
             }
         }

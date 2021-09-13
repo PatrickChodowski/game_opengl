@@ -90,4 +90,7 @@
 #define LOG_EVENT_DROP_DATA 5
 
 
+// gui windows:
+#define GUI_DEBUG 0
+
 #endif

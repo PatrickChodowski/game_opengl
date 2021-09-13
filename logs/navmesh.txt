@@ -1,14 +1,14 @@
 Node: 1 x min: 96 x max: 288 y min: 96 y max: 1056 
-       s x min: 72 s x max: 264 s y min: 108 s y max: 1068 edges size: 1 
+       s x min: -294 s x max: -102 s y min: -738 s y max: 222 edges size: 1 
 Node: 2 x min: 384 x max: 1248 y min: 96 y max: 1056 
-       s x min: 360 s x max: 1224 s y min: 108 s y max: 1068 edges size: 3 
+       s x min: -6 s x max: 858 s y min: -738 s y max: 222 edges size: 3 
 Node: 3 x min: 1344 x max: 1824 y min: 96 y max: 1440 
-       s x min: 1320 s x max: 1800 s y min: 108 s y max: 1452 edges size: 1 
+       s x min: 954 s x max: 1434 s y min: -738 s y max: 606 edges size: 1 
 Node: 4 x min: 288 x max: 384 y min: 480 y max: 1056 
-       s x min: 264 s x max: 360 s y min: 492 s y max: 1068 edges size: 2 
+       s x min: -102 s x max: -6 s y min: -354 s y max: 222 edges size: 2 
 Node: 5 x min: 1248 x max: 1344 y min: 960 y max: 1440 
-       s x min: 1224 s x max: 1320 s y min: 972 s y max: 1452 edges size: 3 
+       s x min: 858 s x max: 954 s y min: 126 s y max: 606 edges size: 3 
 Node: 6 x min: 672 x max: 1248 y min: 1056 y max: 1440 
-       s x min: 648 s x max: 1224 s y min: 1068 s y max: 1452 edges size: 3 
+       s x min: 282 s x max: 858 s y min: 222 s y max: 606 edges size: 3 
 Node: 7 x min: 96 x max: 672 y min: 1152 y max: 1440 
-       s x min: 72 s x max: 648 s y min: 1164 s y max: 1452 edges size: 1 
+       s x min: -294 s x max: 282 s y min: 318 s y max: 606 edges size: 1 

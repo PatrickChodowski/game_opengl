@@ -1,0 +1,3331 @@
+[
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "main::main",
+    "file" : "main.cpp",
+    "message" : "Initialized Main Function",
+    "time_elapsed" : 0.000743,
+    "line" : 6,
+    "level" : 1,
+    "event_id" : 0
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::init",
+    "file" : "./maps/maps.h",
+    "message" : "Initializing maps",
+    "time_elapsed" : 0.178186,
+    "line" : 32,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::read_map_data",
+    "file" : "./maps/maps.h",
+    "message" : "Reading map data from ./maps/data/test.json",
+    "time_elapsed" : 0.178694,
+    "line" : 21,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::read_map_data",
+    "file" : "./maps/maps.h",
+    "message" : "Reading map data from ./maps/data/test2.json",
+    "time_elapsed" : 0.179669,
+    "line" : 21,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::read_map_data",
+    "file" : "./maps/maps.h",
+    "message" : "Reading map data from ./maps/data/test3.json",
+    "time_elapsed" : 0.180288,
+    "line" : 21,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::init",
+    "file" : "./maps/maps.h",
+    "message" : "Maps initialized",
+    "time_elapsed" : 0.180738,
+    "line" : 38,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "shaders::init",
+    "file" : "./shaders/shaders.h",
+    "message" : "Initializing shaders",
+    "time_elapsed" : 0.180955,
+    "line" : 149,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::read_shaders_data",
+    "file" : "./shaders/shaders.h",
+    "message" : "Reading shader data from ./shaders/data/light.json",
+    "time_elapsed" : 0.181216,
+    "line" : 137,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::read_shaders_data",
+    "file" : "./shaders/shaders.h",
+    "message" : "Reading shader data from ./shaders/data/base.json",
+    "time_elapsed" : 0.181805,
+    "line" : 137,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "shaders::init",
+    "file" : "./shaders/shaders.h",
+    "message" : "Shaders initialized",
+    "time_elapsed" : 0.211769,
+    "line" : 162,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::init",
+    "file" : "./opengl/textures.h",
+    "message" : "Initializing textures",
+    "time_elapsed" : 0.212183,
+    "line" : 134,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/barbarian.json",
+    "time_elapsed" : 0.212493,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/forest.json",
+    "time_elapsed" : 0.213875,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/items.json",
+    "time_elapsed" : 0.214435,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/stick.json",
+    "time_elapsed" : 0.214813,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/skeleton.json",
+    "time_elapsed" : 0.215574,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::read_texture_data",
+    "file" : "./opengl/textures.h",
+    "message" : "Reading texture data from ./assets/data/dungeon.json",
+    "time_elapsed" : 0.21612,
+    "line" : 72,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  1",
+    "time_elapsed" : 0.216597,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 1 path: assets/dungeon.png to opengl",
+    "time_elapsed" : 0.216773,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 1",
+    "time_elapsed" : 0.21823,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  1opengl texture id: 1",
+    "time_elapsed" : 0.218453,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  2",
+    "time_elapsed" : 0.218667,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 2 path: assets/forest.png to opengl",
+    "time_elapsed" : 0.218849,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 2",
+    "time_elapsed" : 0.22644,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  2opengl texture id: 2",
+    "time_elapsed" : 0.226775,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  3",
+    "time_elapsed" : 0.227003,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 3 path: assets/barbarian.png to opengl",
+    "time_elapsed" : 0.227181,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 3",
+    "time_elapsed" : 0.231885,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  3opengl texture id: 3",
+    "time_elapsed" : 0.232103,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  4",
+    "time_elapsed" : 0.232281,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 4 path: assets/stick.png to opengl",
+    "time_elapsed" : 0.232437,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 4",
+    "time_elapsed" : 0.235145,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  4opengl texture id: 4",
+    "time_elapsed" : 0.235356,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  5",
+    "time_elapsed" : 0.235607,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 5 path: assets/items.png to opengl",
+    "time_elapsed" : 0.235775,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 5",
+    "time_elapsed" : 0.236576,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  5opengl texture id: 5",
+    "time_elapsed" : 0.23672,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id:  6",
+    "time_elapsed" : 0.236979,
+    "line" : 91,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loading texture id: 6 path: assets/skeleton.png to opengl",
+    "time_elapsed" : 0.237113,
+    "line" : 18,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load_to_opengl",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture new id: 6",
+    "time_elapsed" : 0.238548,
+    "line" : 62,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::load",
+    "file" : "./opengl/textures.h",
+    "message" : "Loaded texture id:  6opengl texture id: 6",
+    "time_elapsed" : 0.238712,
+    "line" : 102,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::init",
+    "file" : "./opengl/textures.h",
+    "message" : "Textures initialized",
+    "time_elapsed" : 0.238961,
+    "line" : 147,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::init",
+    "file" : "./menu/menu.h",
+    "message" : "Initializing menu",
+    "time_elapsed" : 0.239262,
+    "line" : 362,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/main_new.json",
+    "time_elapsed" : 0.239509,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/main_exit.json",
+    "time_elapsed" : 0.240276,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/new_game_name.json",
+    "time_elapsed" : 0.241006,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/main_settings.json",
+    "time_elapsed" : 0.241427,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/back_to_main.json",
+    "time_elapsed" : 0.24181,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/load_save.json",
+    "time_elapsed" : 0.242474,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::read_button_data",
+    "file" : "./menu/menu.h",
+    "message" : "Reading button data from ./menu/data/main_load.json",
+    "time_elapsed" : 0.242947,
+    "line" : 352,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::init",
+    "file" : "./menu/menu.h",
+    "message" : "Menu initialized",
+    "time_elapsed" : 0.244264,
+    "line" : 370,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::init",
+    "file" : "./gui/gui.h",
+    "message" : "Initializing gui",
+    "time_elapsed" : 0.244865,
+    "line" : 39,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::read_gui_data",
+    "file" : "./gui/gui.h",
+    "message" : "Reading GUI Window data from ./gui/data/debug.json",
+    "time_elapsed" : 0.245144,
+    "line" : 29,
+    "level" : 1,
+    "event_id" : 3
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::init",
+    "file" : "./gui/gui.h",
+    "message" : "GUI initialized",
+    "time_elapsed" : 0.245916,
+    "line" : 46,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.658401,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 1.658988,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.659327,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.802613,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 1.803189,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.803417,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 1.910039,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 1.911049,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 1.912118,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 2.038722,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.039141,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 2.039459,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "menu::drop",
+    "file" : "./menu/menu.h",
+    "message" : "Dropping menu",
+    "time_elapsed" : 2.234398,
+    "line" : 376,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.234787,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 2.23511,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::init_map",
+    "file" : "./maps/maps.h",
+    "message" : "Initializing level map id: 2 Map name: test3 Vertex width: 20 Vertex height: 16 Map texture id: 1",
+    "time_elapsed" : 2.235635,
+    "line" : 123,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::load_map_from_file",
+    "file" : "./maps/maps.h",
+    "message" : "Loading map quads from maps/test3",
+    "time_elapsed" : 2.235959,
+    "line" : 51,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::load_map_from_file",
+    "file" : "./maps/maps.h",
+    "message" : "Map quads loaded from maps/test3",
+    "time_elapsed" : 2.238289,
+    "line" : 109,
+    "level" : 1,
+    "event_id" : 4
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::init_map",
+    "file" : "./maps/maps.h",
+    "message" : "Level map initialized",
+    "time_elapsed" : 2.252469,
+    "line" : 232,
+    "level" : 1,
+    "event_id" : 2
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.295422,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.343186,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.387086,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.430943,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.472955,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.516727,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.564531,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.611163,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.657548,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.704944,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.754255,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.79983,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.847428,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.901292,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 2.954598,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.010198,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.066555,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.119974,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.174176,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.227232,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.271251,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.306511,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.343428,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.379626,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.415932,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.454865,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.49389,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.530397,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.567076,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.603543,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.643683,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.682895,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.719406,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.759159,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.796167,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.835634,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.871807,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.90952,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.947916,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 3.988344,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.025962,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.06293,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.10729,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.148087,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.188334,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.226107,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.266169,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.30346,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.349442,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.38774,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.434958,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.47777,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.51646,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.563865,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.60568,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.646533,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.688495,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.727605,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.766646,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.805772,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.844618,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.883917,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.924511,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 4.964218,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.004175,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.046918,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.088048,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.12919,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.172447,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.214367,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.256021,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.306961,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.362363,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.420205,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.474489,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.53467,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.588331,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.625683,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.665424,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.703683,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.743225,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.783004,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.824201,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.868193,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.907984,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.948419,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 5.988946,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.02762,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.066213,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.105468,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.144903,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.184744,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.223069,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.265097,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.305301,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.345127,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.385215,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.422908,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.46412,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.506242,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.548937,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.588551,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.628619,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.668276,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.706823,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.74466,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.78286,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.821009,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.8616,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.899833,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.940129,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 6.98003,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.020681,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.063963,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.102666,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.141437,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.181348,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.222372,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.260929,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.29976,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.33889,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.377725,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.420281,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.459694,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.500904,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.540314,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.583928,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.624704,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.667974,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.707159,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.747863,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.786987,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.826451,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.869084,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.909961,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.951196,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 7.992247,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.031319,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.07477,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.11647,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.156057,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.196281,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.234885,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.275841,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.315855,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.357245,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.396811,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.437343,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.478446,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.518913,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.561222,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.60263,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.640432,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.679223,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.717281,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.760339,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.804852,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.846826,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.887878,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.926568,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 8.966675,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.005911,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.046865,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.086943,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.130396,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.170652,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.214529,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.258979,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.298152,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.340434,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.387969,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.430881,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.470801,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.515374,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.553792,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.602081,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.643178,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.683722,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.725017,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.768914,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.809012,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.848336,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.893208,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.934855,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 9.975703,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.033983,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.093188,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.148285,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.205086,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.262184,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.316348,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.372437,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.424637,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.479855,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.536147,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.591728,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.644933,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.704463,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.761193,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.818271,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.876265,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.934307,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 10.986127,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.042276,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.100782,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.153465,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.211333,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.268875,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.322617,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.379749,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.433841,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.487581,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.544832,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.599492,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.652124,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.709831,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.765589,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.818958,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.872347,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.924535,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 11.979721,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.035845,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.093334,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.150438,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.206486,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.26093,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.31734,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.364295,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.416613,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.469542,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.52218,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.573269,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.626441,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.682023,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.737745,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.793915,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.85077,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.909661,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 12.964538,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.025409,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.081614,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.139204,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.196791,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.250013,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.305765,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.365098,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.423159,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.480233,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.54258,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.596454,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.65399,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.709607,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.76597,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.820099,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 13.876633,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "gui::drop",
+    "file" : "./gui/gui.h",
+    "message" : "Dropping GUI",
+    "time_elapsed" : 14.034162,
+    "line" : 176,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "textures::drop",
+    "file" : "./opengl/textures.h",
+    "message" : "Dropping textures",
+    "time_elapsed" : 14.085999,
+    "line" : 157,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "shaders::drop",
+    "file" : "./shaders/shaders.h",
+    "message" : "Dropping current shader",
+    "time_elapsed" : 14.087,
+    "line" : 169,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "maps::drop_map",
+    "file" : "./maps/maps.h",
+    "message" : "Dropping  current map",
+    "time_elapsed" : 14.087401,
+    "line" : 246,
+    "level" : 1,
+    "event_id" : 5
+},
+{
+    "path" : "./logs/v2/20210913/33/full.json",
+    "module_name" : "main::main",
+    "file" : "main.cpp",
+    "message" : "Game Exit",
+    "time_elapsed" : 14.124002,
+    "line" : 61,
+    "level" : 1,
+    "event_id" : 1
+}]

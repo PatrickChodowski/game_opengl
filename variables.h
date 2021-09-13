@@ -94,6 +94,7 @@ namespace quads
     int x;
     int y;
     bool is_static;
+    float scale;
   };
 
 
@@ -561,7 +562,7 @@ namespace nav
 
 namespace gui
 {
-  std::map<int, std::string> CurrentGuiWindows;
+  std::map<int, int> CurrentGuiWindows;
   std::vector<quads::Quad> GuiQuads;
 }
 

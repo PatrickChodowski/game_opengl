@@ -340,7 +340,7 @@ namespace fonts
                               quads::AllQuads[q].labels[l].x, 
                               quads::AllQuads[q].labels[l].y, 
                               textures::FontTD, 
-                              0.5, 
+                              quads::AllQuads[q].labels[l].scale,  
                               0.1, 
                               0.1, 
                               0.1,
