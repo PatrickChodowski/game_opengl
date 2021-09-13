@@ -80,8 +80,8 @@ namespace game
 
       // this will be replaced by GUI elements (guiquads)
       fonts::drop_texts();
-      fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-      fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
+      fonts::render_text(CAMPAIGN_NAME.c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
+      //fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
 
       if(DEBUG_WINDOW){
         gui::render({0});
@@ -100,8 +100,7 @@ namespace game
       mobs::render_alive_mobs();
       quads::set_labels();
       fonts::render_labels();
-     } 
-
+    } 
    }
   }
 

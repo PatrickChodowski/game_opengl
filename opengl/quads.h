@@ -20,11 +20,6 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
     }
 
-    // assign gui quads
-    if(gui::GuiQuads.size() > 0){
-      quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
-    }
-
     // assign map quads
     if(maps::MapQuads.size() > 0){
       quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
@@ -39,6 +34,12 @@ namespace quads
     if(ent::EntityQuads.size() > 0){
       quads::AllQuads.insert(quads::AllQuads.end(), ent::EntityQuads.begin(), ent::EntityQuads.end());
     }
+
+    // assign gui quads
+    if(gui::GuiQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
+    }
+
 
     // quads::print_out_quads(quads::AllQuads);
     quads::QuadsSummary["map"] = maps::MapQuads.size();

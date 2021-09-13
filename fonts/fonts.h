@@ -154,7 +154,7 @@ namespace fonts
     return TD;
   }
 
-
+  // Renders text, args: text, x, y, font, scale, r,g,b,static
   void render_text(const char *text, 
                    int x, 
                    int y, 
