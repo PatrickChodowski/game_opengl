@@ -26,9 +26,9 @@ namespace quads
     }
 
     // assign text quads
-    if(fonts::TextQuads.size() > 0){
-      quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
-    }
+    // if(fonts::TextQuads.size() > 0){
+    //   quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
+    // }
 
     // assign entity quads
     if(ent::EntityQuads.size() > 0){
@@ -38,6 +38,10 @@ namespace quads
     // assign gui quads
     if(gui::GuiQuads.size() > 0){
       quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
+    }
+
+        if(fonts::TextQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
     }
 
 
@@ -270,6 +274,7 @@ namespace quads
         ql.text = std::to_string(quads::AllQuads[q].id) + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
         ql.x = quads::AllQuads[q].x + 20;
         ql.y = quads::AllQuads[q].y - 10;
+        ql.is_static = 0.0f;
         quads::AllQuads[q].labels.push_back(ql);
 
 
@@ -277,11 +282,25 @@ namespace quads
         ql0.text = "scaled:_(" + std::to_string((int)quads::AllQuads[q].s_x) + "," + std::to_string((int)quads::AllQuads[q].s_y) + ")";
         ql0.x = quads::AllQuads[q].x + 20;
         ql0.y = quads::AllQuads[q].y + quads::AllQuads[q].h + 20;
+        ql0.is_static = 0.0f;
         quads::AllQuads[q].labels.push_back(ql0);
 
       }
     }
   }
+
+  // Assign label to quad by ID, x, y, text, is_static
+  void add_label(int quad_id, float x, float y, std::string text, bool is_static)
+  {
+    int q = quads::find_quad_id(quad_id, quads::AllQuads);
+    QuadLabel ql;
+    ql.text = text;
+    ql.x = x;
+    ql.y = y;
+    ql.is_static = is_static;
+    quads::AllQuads[q].labels.push_back(ql);
+  }
+
   
 }
 

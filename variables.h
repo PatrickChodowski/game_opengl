@@ -93,6 +93,7 @@ namespace quads
     std::string text;
     int x;
     int y;
+    bool is_static;
   };
 
 

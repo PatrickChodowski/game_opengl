@@ -85,6 +85,7 @@ namespace game
 
       if(DEBUG_WINDOW){
         gui::render({0});
+        gui::add_gui_label("debug", 700, 200, "aaaa", 1.0);
       }
 
       // render entity again
