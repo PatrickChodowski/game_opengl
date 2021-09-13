@@ -341,10 +341,10 @@ namespace fonts
                               quads::AllQuads[q].labels[l].y, 
                               textures::FontTD, 
                               0.5, 
-                              0.5, 
-                              0.5, 
-                              0.5,
-                              0.0); 
+                              0.1, 
+                              0.1, 
+                              0.1,
+                              quads::AllQuads[q].labels[l].is_static); 
         }
       }
     }

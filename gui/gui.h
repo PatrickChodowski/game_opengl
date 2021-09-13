@@ -186,6 +186,20 @@ namespace gui
         gui::GuiQuads.clear();
     }
 
+    // add label to gui by gui_name, x, y, text, is_static
+    void add_gui_label(std::string gui_name, float x, float y, std::string text, bool is_static)
+    {
+        // get quad id from current gui windows
+        for (auto const& a : gui::CurrentGuiWindows)
+        {
+            if(a.second == gui_name)
+            {
+                quads::add_label(a.first, x, y, text, is_static);
+                break;
+            }
+        }
+    }
+
 }
 
 
