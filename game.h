@@ -84,8 +84,11 @@ namespace game
       //fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
 
       if(DEBUG_WINDOW){
-        gui::render({0});
-        gui::add_gui_label("debug", 700, 200, "aaaa", 1.0);
+        gui::render({GUI_DEBUG});
+        gui::add_gui_label(GUI_DEBUG, 610, 30, "FPS:_" + std::to_string(FPS), 0.6, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 55, "Camera_zoom:_" + std::to_string(camera::zoom), 0.6, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 80, "Camera_x:_" + std::to_string(camera::x), 0.6,  1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 105, "Camera_y:_" + std::to_string(camera::y), 0.6, 1.0);
       }
 
       // render entity again

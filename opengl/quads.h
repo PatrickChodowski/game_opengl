@@ -275,6 +275,7 @@ namespace quads
         ql.x = quads::AllQuads[q].x + 20;
         ql.y = quads::AllQuads[q].y - 10;
         ql.is_static = 0.0f;
+        ql.scale = 0.5;
         quads::AllQuads[q].labels.push_back(ql);
 
 
@@ -283,14 +284,15 @@ namespace quads
         ql0.x = quads::AllQuads[q].x + 20;
         ql0.y = quads::AllQuads[q].y + quads::AllQuads[q].h + 20;
         ql0.is_static = 0.0f;
+        ql0.scale = 0.5;
         quads::AllQuads[q].labels.push_back(ql0);
 
       }
     }
   }
 
-  // Assign label to quad by ID, x, y, text, is_static
-  void add_label(int quad_id, float x, float y, std::string text, bool is_static)
+  // Assign label to quad by ID, x, y, text, scale, is_static
+  void add_label(int quad_id, float x, float y, std::string text, float scale, bool is_static)
   {
     int q = quads::find_quad_id(quad_id, quads::AllQuads);
     QuadLabel ql;
@@ -298,6 +300,7 @@ namespace quads
     ql.x = x;
     ql.y = y;
     ql.is_static = is_static;
+    ql.scale = scale;
     quads::AllQuads[q].labels.push_back(ql);
   }
 
