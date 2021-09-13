@@ -74,14 +74,11 @@ namespace game
    else {
      if(GAME_STATE["GAME_ON"]){
       // if the game state didnt change and we are in GAME_ON mode
-      // reset entities only
+
       ent::drop_entities();
       gui::drop();
-
-      // this will be replaced by GUI elements (guiquads)
       fonts::drop_texts();
       fonts::render_text(CAMPAIGN_NAME.c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-      //fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
 
       if(DEBUG_WINDOW){
         gui::render({GUI_DEBUG});
@@ -89,6 +86,12 @@ namespace game
         gui::add_gui_label(GUI_DEBUG, 610, 55, "Camera_zoom:_" + std::to_string(camera::zoom), 0.6, 1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 80, "Camera_x:_" + std::to_string(camera::x), 0.6,  1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 105, "Camera_y:_" + std::to_string(camera::y), 0.6, 1.0);
+
+        if(travel::TravelControl.size() > 0)
+        {
+          
+
+        }
       }
 
       // render entity again
