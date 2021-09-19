@@ -8,12 +8,7 @@ drugi akt to oczywiscie pustynia
 
 TODO:
   - debug (branch):
-    - debug menu: make sure its on top
-    - debug menu: why the fps text dissapears? :o 
-    
-    - current camera zoom and x, y
-    - travelling information
-    - ideally shader lines 
+    - render lines, shadow quads and points
 
 
  - mobs

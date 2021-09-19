@@ -31,6 +31,7 @@ namespace game
       menu::drop();
       gui::drop();
       maps::drop_map();
+      travel::TravelControl.clear();
       ent::drop_entities();
       fonts::drop_texts();
       CURRENT_SHADER_ID = 0;
