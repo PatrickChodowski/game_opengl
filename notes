@@ -34,6 +34,9 @@ IDEAS:
 - https://www.youtube.com/watch?v=p40p0AVUH70&ab_channel=GDC - frakcje i system zero sum game  - wygraj szacunek jednej frakcji i reszta sie zbierze by zaatakowac zamek
  mozna wygrac lub przegrac ta bitwe
 
+- to bedzie o wikingach nie?
+- statki, dziki, bogowie, topory
+
 - try to understand how to implement animation using json (map of structs instead of IF ELSE tree)?
 - read json into this
 - similar with behavior trees for AI
@@ -41,4 +44,5 @@ IDEAS:
 https://www.youtube.com/watch?v=6VBCXvfNlCM&ab_channel=AIandGames
 https://www.youtube.com/watch?v=JyF0oyarz4U&ab_channel=AIandGames
 
-
+game:
+-- cactuses are strong

@@ -51,6 +51,9 @@ namespace quads
     quads::QuadsSummary["text"] = fonts::TextQuads.size();
     quads::QuadsSummary["entity"] = ent::EntityQuads.size();
     quads::QuadsSummary["gui"] = gui::GuiQuads.size();
+
+    quads::COUNT_QUADS = quads::AllQuads.size();
+    quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
   }
 
 

@@ -51,6 +51,8 @@ namespace quads
 {
   int COUNT_VERTEX_ATTRIBUTES = 14;
   int VERTEX_OFFSET = 1;
+  int COUNT_QUADS = 0;
+  int REQ_SIZE_BUFFER = 0;
 
   // vertex index
   struct Vindex
