@@ -119,6 +119,13 @@ namespace fonts
       character.advance_y = g->advance.y;
       character.bitmap_width = g->bitmap.width;
       character.bitmap_height = g->bitmap.rows;
+
+      // if(g->bitmap.rows == 27)
+      // {
+      //   character.bitmap_height = 30;
+      // } else {
+      //   character.bitmap_height = g->bitmap.rows;
+      // }
       character.bitmap_left = g->bitmap_left;
       character.bitmap_top = g->bitmap_top;
 
@@ -208,12 +215,13 @@ namespace fonts
       quad.x = x + character_map[*p].bitmap_left * scale;
 
       quad.y = y - ((character_map[*p].bitmap_height - character_map[*p].align) * scale);
-      // if((strcmp(p, "g") == 0) | (strcmp(p, "a") == 0))
+      // if((strcmp(p, "s") == 0) | (strcmp(p, "i") == 0))
       // {
       //   std::cout << "letter: " <<  p << " quad.y: " << quad.y 
       //   << " bitmap height: " << character_map[*p].bitmap_height 
       //   << " bitmap top: " << character_map[*p].bitmap_top 
-      //   << " align: " << character_map[*p].align   << std::endl;
+      //   << " align: " << character_map[*p].align 
+      //   << " adv y: " << character_map[*p].advance_y   << std::endl;
       // }
 
       quad.w = character_map[*p].bitmap_width * scale;
