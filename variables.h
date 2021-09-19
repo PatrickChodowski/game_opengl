@@ -289,6 +289,12 @@ namespace quads
   }
 }
 
+namespace debug
+{
+  std::vector<quads::Quad> DebugQuads;
+}
+
+
 namespace fonts
 {
   std::vector<quads::Quad> TextQuads;

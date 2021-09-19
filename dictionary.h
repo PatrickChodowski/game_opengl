@@ -8,6 +8,7 @@
 #define QUAD_TYPE_TEXT 2.0f
 #define QUAD_TYPE_ENTITY 3.0f
 #define QUAD_TYPE_GUI 4.0f
+#define QUAD_TYPE_DEBUG 5.0f
 
 #define ENTITY_TYPE_ID_HERO 0
 #define ENTITY_TYPE_ID_ITEM 1
