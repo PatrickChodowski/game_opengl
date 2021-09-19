@@ -10,7 +10,7 @@ namespace buffer
   int VBO_array_size = 0;
   float VBO_buffer_usage = 0.0f;
 
-  int EBO_size = 10200;
+  int EBO_size = MAX_QUADS*sizeof(float)*6;
   int EBO_array_size = 0;
   float EBO_buffer_usage = 0.0f;
 
@@ -142,7 +142,7 @@ namespace buffer
     // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer::EBO_size, vindices_array, GL_DYNAMIC_DRAW);
+    GlCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer::EBO_size, nullptr, GL_DYNAMIC_DRAW));
     //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
 
     // new version:
@@ -306,7 +306,7 @@ namespace buffer
 
     buffer::EBO_array_size = sizeof(float)*vindices_array_count;
     buffer::EBO_buffer_usage = std::round(((float)EBO_array_size/(float)EBO_size) * 1000.0)/1000.0;
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float)*vindices_array_count, vindices_array);
+    GlCall(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer::EBO_array_size, vindices_array));
 
   }
 
