@@ -5,6 +5,14 @@ namespace buffer
 {
 
   unsigned int VBO, VAO, EBO;
+  // Size of VBO buffer -> size of Vertex: 120*4, 4 vertices per quad, max quads is 2000. Buffer size is 960 000
+  int VBO_size = MAX_QUADS*sizeof(quads::Vertex)*4;
+  int VBO_array_size = 0;
+  float VBO_buffer_usage = 0.0f;
+
+  int EBO_size = 10200;
+  int EBO_array_size = 0;
+  float EBO_buffer_usage = 0.0f;
 
   void init(std::vector<quads::Quad> quads)
   {
@@ -14,9 +22,6 @@ namespace buffer
     int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
     float vertices_array[vertices_array_count];
 
-    int buffer_size = MAX_QUADS*sizeof(quads::Vertex)*4;
-    int index_buffer_size = 10200; //MAX_QUADS*6*sizeof(float);
-
     std::cout << "Vertices array count: " << vertices_array_count << std::endl;
     std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
     std::cout << "Vertices array size: " << sizeof(quads::Vertex)*n_vertices << std::endl;
@@ -24,8 +29,8 @@ namespace buffer
 
     std::cout << "Quads count: " << n_quads << std::endl;
     std::cout << "Vertex count: " << n_vertices << std::endl;
-    std::cout << "Buffer size: " << buffer_size << std::endl;
-    std::cout << "Index Buffer size: " << index_buffer_size << std::endl;
+    std::cout << "VBO size: " << buffer::VBO_size << std::endl;
+    std::cout << "EBO size: " << buffer::EBO_size << std::endl;
 
 
 
@@ -119,12 +124,6 @@ namespace buffer
     // dont get this part now
     GlCall(glEnable(GL_BLEND));
     GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
-
-    // vertex is not position, vertex can have much more than the position - so we pass a lot of data in vertices
-    // then we generate buffer, bind it and add data ( vertices data)
-    // they are all attributes
-
       
     // buffers are based in GPU (vram)
     glGenVertexArrays(1, &VAO);
@@ -138,12 +137,12 @@ namespace buffer
     // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_array), vertices_array, GL_STATIC_DRAW);
 
     // dynamic approach:
-    glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, buffer::VBO_size, nullptr, GL_DYNAMIC_DRAW);
     // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_size, vindices_array, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer::EBO_size, vindices_array, GL_DYNAMIC_DRAW);
     //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
 
     // new version:
@@ -279,15 +278,11 @@ namespace buffer
     //quads::all_quads_to_tsv_file();
     quads::all_quads_to_json();
 
+    buffer::VBO_array_size = sizeof(float)*vertices_array_count;
+    buffer::VBO_buffer_usage = std::round(((float)VBO_array_size/(float)VBO_size) * 1000.0)/1000.0;
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    // GLint size = 0;
-    // glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-    // // 896000 -- 66560
-    // std::cout << "size of data: " << sizeof(float)*vertices_array_count << std::endl;
-
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float)*vertices_array_count, vertices_array);
-
+    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertices_array);
 
 
     int n_vindices = n_quads*2;
@@ -309,11 +304,8 @@ namespace buffer
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
-    // GLint size_ebo = 0;
-    // glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size_ebo);
-    // std::cout << "size ebo: " << size_ebo << std::endl;
-    // std::cout << "size of ebo data: " << sizeof(int)*vindices_array_count << std::endl;
-
+    buffer::EBO_array_size = sizeof(float)*vindices_array_count;
+    buffer::EBO_buffer_usage = std::round(((float)EBO_array_size/(float)EBO_size) * 1000.0)/1000.0;
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float)*vindices_array_count, vindices_array);
 
   }

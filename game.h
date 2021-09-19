@@ -48,7 +48,6 @@ namespace game
         if(NEW_GAME){
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-          // fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
           quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD, true, true);
           ent::EntityQuads.push_back(hero);
           quads::Quad stick = items::render_item_on_ground(0, 200, 200);
@@ -58,7 +57,6 @@ namespace game
           saves::load_game(CAMPAIGN_NAME);
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-          // fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
           quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, 
                                                 hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD,  true, true);
           ent::EntityQuads.push_back(hero);
@@ -82,16 +80,7 @@ namespace game
 
       if(DEBUG_WINDOW){
         gui::render({GUI_DEBUG});
-        gui::add_gui_label(GUI_DEBUG, 610, 30, "FPS:_" + std::to_string(FPS), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 55, "Camera_zoom:_" + std::to_string(camera::zoom), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 80, "Camera_x:_" + std::to_string(camera::x), 0.6,  1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 105, "Camera_y:_" + std::to_string(camera::y), 0.6, 1.0);
-
-        if(travel::TravelControl.size() > 0)
-        {
-          
-
-        }
+        gui::render_debug_window();
       }
 
       // render entity again
