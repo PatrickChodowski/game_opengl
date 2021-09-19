@@ -22,11 +22,12 @@ namespace fonts
     float bitmap_top;
 
     float offset;  // offset of glyph
+    float align;
   };
 
   std::map<char, Character> character_map;
 
-  textures::TextureData init(std::string font_name = "OpenSans")
+  textures::TextureData init(std::string font_name)
   {
     /*
       Init opens font file .ttf and reads-in all character glyphs into character map and texture that will be later sent to OpenGL 
@@ -111,6 +112,7 @@ namespace fonts
     {
       if(FT_Load_Char(face, i, FT_LOAD_RENDER))
         continue;
+        //https://learnopengl.com/In-Practice/Text-Rendering
 
       Character character;
       character.advance_x = g->advance.x;
@@ -119,18 +121,15 @@ namespace fonts
       character.bitmap_height = g->bitmap.rows;
       character.bitmap_left = g->bitmap_left;
       character.bitmap_top = g->bitmap_top;
+
+      character.align = g->bitmap.rows - g->bitmap_top;
       character.offset = ((float)x/ (float)atlas_width);
       character.frame_id = c_id;
       character.texture_id = (int)texture_id;
       character_map.insert(std::pair<GLchar, Character>(i, character));
 
-      // std::cout << "Character: " << i << std::endl;
-      // std::cout << "Advance: X: " << character.advance_x << ", Y: " << character.advance_y  << std::endl;
-      // std::cout << "Bitmap: Width: " << character.bitmap_width << ", Height: " << character.bitmap_height << std::endl;
-      // std::cout << "Bitmap: Left: " << character.bitmap_left << ", Top: " << character.bitmap_top << std::endl;
-      // std::cout << "Offset: " << character.offset << std::endl;
-      // std::cout << "Texture id: " << character.texture_id << std::endl;
-
+      //GLchar test_i = i;
+      //std::cout << "font " << test_i << " " << character.bitmap_height << " " << character.bitmap_top << " " << character.align << std::endl;
       glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
       x += g->bitmap.width;
       c_id += 1;
@@ -149,6 +148,12 @@ namespace fonts
     TD.width = atlas_width;
     TD.height = atlas_height;
     TD.opengl_texture_id = texture_id;
+
+    // // debug render map
+    // for (auto const& t : fonts::character_map)
+    // { 
+    //   std::cout << t.first << " " << t.second.bitmap_height << " "<< t.second.bitmap_top << std::endl;
+    // }
 
 
     return TD;
@@ -201,7 +206,16 @@ namespace fonts
       struct quads::Quad quad;
       quad.id = quads::gen_quad_id();
       quad.x = x + character_map[*p].bitmap_left * scale;
-      quad.y = y - character_map[*p].bitmap_top * scale;
+
+      quad.y = y - ((character_map[*p].bitmap_height - character_map[*p].align) * scale);
+      // if((strcmp(p, "g") == 0) | (strcmp(p, "a") == 0))
+      // {
+      //   std::cout << "letter: " <<  p << " quad.y: " << quad.y 
+      //   << " bitmap height: " << character_map[*p].bitmap_height 
+      //   << " bitmap top: " << character_map[*p].bitmap_top 
+      //   << " align: " << character_map[*p].align   << std::endl;
+      // }
+
       quad.w = character_map[*p].bitmap_width * scale;
       quad.h = character_map[*p].bitmap_height * scale;
       quad.frame_id = character_map[*p].frame_id;

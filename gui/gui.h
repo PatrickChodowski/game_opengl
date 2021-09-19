@@ -205,7 +205,7 @@ namespace gui
     {
         // std::cout << "_EBO_usage:_"  <<  std::to_string(buffer::EBO_buffer_usage).substr(0, 5) << std::endl;
         // std::cout << "_VBO_usage:_"  <<  std::to_string(buffer::VBO_buffer_usage).substr(0, 5) << std::endl;
-        float _scale = 0.5;
+        float _scale = 0.4;
         gui::add_gui_label(GUI_DEBUG, 610, 25, "FPS:_" + std::to_string(FPS), _scale, 1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 50, "quad_count:_" + std::to_string(quads::COUNT_QUADS), _scale, 1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 75, "_VBO_usage:_" + std::to_string(buffer::VBO_buffer_usage).substr(0, 5), _scale, 1.0);
