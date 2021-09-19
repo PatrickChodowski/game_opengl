@@ -104,6 +104,7 @@ int FPS = 60; // just init
 #include "fonts/fonts.h"
 #include "menu/menu.h"
 #include "gui/gui.h"
+#include "gui/debug.h"
 #include "maps/navmesh.h"
 #include "maps/pathfinder.h"
 #include "maps/travel.h"

@@ -25,14 +25,13 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
     }
 
-    // assign text quads
-    // if(fonts::TextQuads.size() > 0){
-    //   quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
-    // }
-
     // assign entity quads
     if(ent::EntityQuads.size() > 0){
       quads::AllQuads.insert(quads::AllQuads.end(), ent::EntityQuads.begin(), ent::EntityQuads.end());
+    }
+
+    if(debug::DebugQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
     }
 
     // assign gui quads
@@ -40,7 +39,7 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
     }
 
-        if(fonts::TextQuads.size() > 0){
+    if(fonts::TextQuads.size() > 0){
       quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
     }
 
@@ -51,6 +50,7 @@ namespace quads
     quads::QuadsSummary["text"] = fonts::TextQuads.size();
     quads::QuadsSummary["entity"] = ent::EntityQuads.size();
     quads::QuadsSummary["gui"] = gui::GuiQuads.size();
+    quads::QuadsSummary["debug"] = debug::DebugQuads.size();
 
     quads::COUNT_QUADS = quads::AllQuads.size();
     quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);

@@ -121,11 +121,9 @@ namespace buffer
 
     utils::array_to_file("buffer_init_index_array", vindices_array, vindices_array_count, 3);
 
-    // dont get this part now
     GlCall(glEnable(GL_BLEND));
     GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
       
-    // buffers are based in GPU (vram)
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -133,17 +131,11 @@ namespace buffer
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    // static approach:
-    // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_array), vertices_array, GL_STATIC_DRAW);
-
     // dynamic approach:
     glBufferData(GL_ARRAY_BUFFER, buffer::VBO_size, nullptr, GL_DYNAMIC_DRAW);
-    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     GlCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer::EBO_size, nullptr, GL_DYNAMIC_DRAW));
-    //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
 
     // new version:
     // position attribute:
@@ -269,13 +261,8 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
       vertices_array[(start_position+(cva*3) + 13)] = quads[t].v_d.is_static;
     }
-    // std::cout << "Vertices array count: " << vertices_array_count << std::endl;
-    // std::cout << "Quads size: " << n_quads << std::endl;
 
-    // Vertices array size: 676
-    // Quads size: 13
     utils::array_to_file("buffer_update_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
-    //quads::all_quads_to_tsv_file();
     quads::all_quads_to_json();
 
     buffer::VBO_array_size = sizeof(float)*vertices_array_count;
@@ -283,7 +270,6 @@ namespace buffer
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertices_array);
-
 
     int n_vindices = n_quads*2;
     int vindices_array_count = 3*n_vindices; // its always 3 as it is a triangle
