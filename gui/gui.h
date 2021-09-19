@@ -203,17 +203,15 @@ namespace gui
     // Rendering all information in debug window
     void render_debug_window()
     {
-        // std::cout << "_EBO_usage:_"  <<  std::to_string(buffer::EBO_buffer_usage).substr(0, 5) << std::endl;
-        // std::cout << "_VBO_usage:_"  <<  std::to_string(buffer::VBO_buffer_usage).substr(0, 5) << std::endl;
         float _scale = 0.4;
-        gui::add_gui_label(GUI_DEBUG, 610, 25, "FPS:_" + std::to_string(FPS), _scale, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 50, "quad_count:_" + std::to_string(quads::COUNT_QUADS), _scale, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 75, "_VBO_usage:_" + std::to_string(buffer::VBO_buffer_usage).substr(0, 5), _scale, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 100, "_EBO_usage:_" + std::to_string(buffer::EBO_buffer_usage).substr(0, 5), _scale, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 125, "camera_zoom:_" + std::to_string(camera::zoom).substr(0, 3), _scale, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 150, "camera_x:_" + std::to_string(camera::x), _scale,  1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 175, "camera_y:_" + std::to_string(camera::y), _scale, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 200, "TC_size:_" + std::to_string(travel::TravelControl.size()), _scale, 1.0);
+        // gui::add_gui_label(GUI_DEBUG, 610, 25, "FPS:_" + std::to_string(FPS), _scale, 1.0);
+        // gui::add_gui_label(GUI_DEBUG, 610, 50, "quad_count:_" + std::to_string(quads::COUNT_QUADS), _scale, 1.0);
+        // gui::add_gui_label(GUI_DEBUG, 610, 75, "_VBO_usage:_" + std::to_string(buffer::VBO_buffer_usage).substr(0, 5), _scale, 1.0);
+        // gui::add_gui_label(GUI_DEBUG, 610, 100, "_EBO_usage:_" + std::to_string(buffer::EBO_buffer_usage).substr(0, 5), _scale, 1.0);
+        // gui::add_gui_label(GUI_DEBUG, 610, 125, "camera_zoom:_" + std::to_string(camera::zoom).substr(0, 3), _scale, 1.0);
+        // gui::add_gui_label(GUI_DEBUG, 610, 150, "camera_x:_" + std::to_string(camera::x), _scale,  1.0);
+        // gui::add_gui_label(GUI_DEBUG, 610, 175, "camera_y:_" + std::to_string(camera::y), _scale, 1.0);
+        // gui::add_gui_label(GUI_DEBUG, 610, 200, "TC_size:_" + std::to_string(travel::TravelControl.size()), _scale, 1.0);
         if(travel::TravelControl.size() > 0)
         {
             int count = 0;
@@ -221,12 +219,46 @@ namespace gui
             {   
                 
                 std::string tp_info0 = "TP_ID:_" + std::to_string(t.first); 
-                std::string tp_info1 = " Current_pos:_" + std::to_string(t.second.current_x).substr(0, 4) + 
-                "," + std::to_string(t.second.current_y).substr(0, 4);
+                // std::string tp_info1 = "___Current_pos:_" + std::to_string(t.second.current_x).substr(0, 4) + 
+                // "," + std::to_string(t.second.current_y).substr(0, 4);
+
+                std::string tp_info2 = "___Target_pos:_" + std::to_string(t.second.target_x).substr(0, 4) + 
+                "," + std::to_string(t.second.target_y).substr(0, 4);
+
+                std::string tp_info3 = "___Current_node:_" + std::to_string(t.second.current_node);
+                std::string tp_info4 = "___Next_node:_" + std::to_string(t.second.next_node);
+                std::string tp_info5 = "___Target_node:_" + std::to_string(t.second.target_node);
+                std::string tp_info6 = "___Next_gate:_" + std::to_string(t.second.next_gate);
+
+                std::string tp_info7 = "___Full_path:_";
+                for(int f=0; f<t.second.full_path.size(); f++)
+                {
+                    tp_info7 += std::to_string(t.second.full_path[f]);
+                    tp_info7 += ",";
+                }
+
+                //t.second.next_gate
+                std::string tp_info8 = "___cpoint:_" + std::to_string(t.second.cpoint_x).substr(0, 4) + "," + std::to_string(t.second.cpoint_y).substr(0, 4);
+
+
                 count++;
                 gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info0, _scale, 1.0);
                 count++;
-                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info1, _scale, 1.0);
+                //gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info1, _scale, 1.0);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info2, _scale, 1.0);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info3, _scale, 1.0);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info4, _scale, 1.0);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info5, _scale, 1.0);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info6, _scale, 1.0);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info7, _scale, 1.0);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info8, _scale, 1.0);
           
             }
         }

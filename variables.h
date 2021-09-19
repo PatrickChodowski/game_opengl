@@ -372,6 +372,10 @@ namespace travel
     float target_x;
     float target_y;
     int next_node;
+
+    int next_gate;
+    float cpoint_x;
+    float cpoint_y;
   };
 
   // quad_id

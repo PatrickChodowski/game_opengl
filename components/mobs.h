@@ -165,27 +165,27 @@ namespace mobs
     float target_rs_x = camera::reverse_scale_click_x(x, camera::x, camera::zoom);
     float target_rs_y = camera::reverse_scale_click_y(y, camera::y, camera::zoom);
 
-    std::cout << "current camera zoom: " << camera::zoom << std::endl;
-    std::cout << "current camera x: " << camera::x << std::endl;
-    std::cout << "current camera y: " << camera::y << std::endl;
-    std::cout << " target position " << x << "," << y << std::endl;
-    std::cout << " target scaled position " << target_rs_x << "," << target_rs_y << std::endl;
+    // std::cout << "current camera zoom: " << camera::zoom << std::endl;
+    // std::cout << "current camera x: " << camera::x << std::endl;
+    // std::cout << "current camera y: " << camera::y << std::endl;
+    // std::cout << " target position " << x << "," << y << std::endl;
+    // std::cout << " target scaled position " << target_rs_x << "," << target_rs_y << std::endl;
 
     for (int a=0; a < mobs::AliveMobs.size(); a++)
     {
       if(mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
       { 
         int quad_index = quads::find_quad_id(mobs::AliveMobs[a].quad_id, quads::AllQuads);
-        std::cout << "Mob Quad Index: " << quad_index << std::endl;
-        std::cout << "Mob Scaled Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
-        std::cout << "Mob Position: " << quads::AllQuads[quad_index].x << "," << quads::AllQuads[quad_index].y << std::endl;
+        // std::cout << "Mob Quad Index: " << quad_index << std::endl;
+        // std::cout << "Mob Scaled Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
+        // std::cout << "Mob Position: " << quads::AllQuads[quad_index].x << "," << quads::AllQuads[quad_index].y << std::endl;
 
         int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].x, quads::AllQuads[quad_index].y);
         //int target_node_id = paths::get_navnode_id(target_rs_x, target_rs_y);
         int target_node_id = paths::get_navnode_id_scaled(x, y);
 
-        std::cout << "quad_node_id: " << quad_node_id << std::endl;
-        std::cout << "target_node_id: " << target_node_id << std::endl;
+        // std::cout << "quad_node_id: " << quad_node_id << std::endl;
+        // std::cout << "target_node_id: " << target_node_id << std::endl;
 
         if(quad_node_id > -1 & target_node_id > -1){
 
@@ -216,10 +216,10 @@ namespace mobs
           // tp.target_y = camera::scale_y(y, camera::y, camera::zoom);
           travel::TravelControl.insert({tp.quad_id, tp});
 
-          std::cout << " Target position " << tp.target_x << "," << tp.target_y << std::endl; 
-          std::cout << " Current position " << tp.current_x << "," << tp.current_y << std::endl;
+          //std::cout << " Target position " << tp.target_x << "," << tp.target_y << std::endl; 
+          //std::cout << " Current position " << tp.current_x << "," << tp.current_y << std::endl;
           float dist_to_target = travel::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y); 
-          std::cout << " Initial distance: " << dist_to_target << std::endl; 
+          //std::cout << " Initial distance: " << dist_to_target << std::endl; 
         }
       }
     }

@@ -42,6 +42,7 @@ namespace travel
             // define the gate to the next node:
             std::pair<float, float> c_point;
             nav::NavGate gate = nav::NavMesh[tp.current_node].edges[tp.next_node];
+            tp.next_gate = gate.id;
 
             // std::cout << "gate_id: " << gate.id << std::endl;
             // std::cout << "gate min x: " << gate.gate_min_x << std::endl;
@@ -63,7 +64,8 @@ namespace travel
                                                      gate.gate_min_x, gate.gate_max_y, 
                                                      tp.current_x, tp.current_y);
             }
-
+            tp.cpoint_x = c_point.first;
+            tp.cpoint_y = c_point.second;
             float dist = get_distance_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
             float angle = get_angle_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
             float x1 = mobs::AliveMobs[0].x + (cos(angle) * mobs::AliveMobs[0].speed);
@@ -108,9 +110,9 @@ namespace travel
         }
         else {
           // we are at the destination. Remove tp from TravelControl
-          std::cout << " Dist to target " << dist_to_target <<  std::endl;
-          std::cout << " Current position " << tp.current_x << "," << tp.current_y << std::endl;
-          std::cout << " Target position " << tp.target_x << "," << tp.target_y << std::endl;
+          // std::cout << " Dist to target " << dist_to_target <<  std::endl;
+          // std::cout << " Current position " << tp.current_x << "," << tp.current_y << std::endl;
+          // std::cout << " Target position " << tp.target_x << "," << tp.target_y << std::endl;
           TPsToRemove.push_back(tp.quad_id);
         }
     }
