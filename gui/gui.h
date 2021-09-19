@@ -203,16 +203,19 @@ namespace gui
     // Rendering all information in debug window
     void render_debug_window()
     {
+        // std::cout << "_EBO_usage:_"  <<  std::to_string(buffer::EBO_buffer_usage).substr(0, 5) << std::endl;
+        // std::cout << "_VBO_usage:_"  <<  std::to_string(buffer::VBO_buffer_usage).substr(0, 5) << std::endl;
+
         gui::add_gui_label(GUI_DEBUG, 610, 30, "FPS:_" + std::to_string(FPS), 0.6, 1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 55, "Qc:_" + std::to_string(quads::COUNT_QUADS), 0.6, 1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 80, "QC_Size:_" + std::to_string(quads::REQ_SIZE_BUFFER), 0.6, 1.0);
         //gui::add_gui_label(GUI_DEBUG, 610, 105, "VBO_data:_" + std::to_string(buffer::VBO_array_size), 0.6, 1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 130, "_VBO_usage:_" + std::to_string(buffer::VBO_buffer_usage).substr(0, 5), 0.6, 1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 155, "_EBO_usage:_" + std::to_string(buffer::EBO_buffer_usage).substr(0, 5), 0.6, 1.0);
-        //gui::add_gui_label(GUI_DEBUG, 610, 80, "Camera_zoom:_" + std::to_string(camera::zoom), 0.6, 1.0);
-        //gui::add_gui_label(GUI_DEBUG, 610, 105, "Camera_x:_" + std::to_string(camera::x), 0.6,  1.0);
-        //gui::add_gui_label(GUI_DEBUG, 610, 130, "Camera_y:_" + std::to_string(camera::y), 0.6, 1.0);
-        //gui::add_gui_label(GUI_DEBUG, 610, 155, "TC_size:_" + std::to_string(travel::TravelControl.size()), 0.6, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 180, "Camera_zoom:_" + std::to_string(camera::zoom), 0.6, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 205, "Camera_x:_" + std::to_string(camera::x), 0.6,  1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 230, "Camera_y:_" + std::to_string(camera::y), 0.6, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 255, "TC_size:_" + std::to_string(travel::TravelControl.size()), 0.6, 1.0);
         // if(travel::TravelControl.size() > 0)
         // {
         //     int count = 0;
