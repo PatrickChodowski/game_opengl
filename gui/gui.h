@@ -205,28 +205,31 @@ namespace gui
     {
         // std::cout << "_EBO_usage:_"  <<  std::to_string(buffer::EBO_buffer_usage).substr(0, 5) << std::endl;
         // std::cout << "_VBO_usage:_"  <<  std::to_string(buffer::VBO_buffer_usage).substr(0, 5) << std::endl;
-
-        gui::add_gui_label(GUI_DEBUG, 610, 30, "FPS:_" + std::to_string(FPS), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 55, "Qc:_" + std::to_string(quads::COUNT_QUADS), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 80, "QC_Size:_" + std::to_string(quads::REQ_SIZE_BUFFER), 0.6, 1.0);
-        //gui::add_gui_label(GUI_DEBUG, 610, 105, "VBO_data:_" + std::to_string(buffer::VBO_array_size), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 130, "_VBO_usage:_" + std::to_string(buffer::VBO_buffer_usage).substr(0, 5), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 155, "_EBO_usage:_" + std::to_string(buffer::EBO_buffer_usage).substr(0, 5), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 180, "Camera_zoom:_" + std::to_string(camera::zoom), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 205, "Camera_x:_" + std::to_string(camera::x), 0.6,  1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 230, "Camera_y:_" + std::to_string(camera::y), 0.6, 1.0);
-        gui::add_gui_label(GUI_DEBUG, 610, 255, "TC_size:_" + std::to_string(travel::TravelControl.size()), 0.6, 1.0);
-        // if(travel::TravelControl.size() > 0)
-        // {
-        //     int count = 0;
-        //     for (auto const& t : travel::TravelControl)
-        //     {   
-        //         count++;
-        //         std::string tp_info = "TP_ID:_" + std::to_string(t.first) + "Current_pos:_" + std::to_string(t.second.current_x) + "," + std::to_string(t.second.current_y);
-        //         gui::add_gui_label(GUI_DEBUG, 610, 155, tp_info, 0.6, 1.0);
+        float _scale = 0.5;
+        gui::add_gui_label(GUI_DEBUG, 610, 25, "FPS:_" + std::to_string(FPS), _scale, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 50, "quad_count:_" + std::to_string(quads::COUNT_QUADS), _scale, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 75, "_VBO_usage:_" + std::to_string(buffer::VBO_buffer_usage).substr(0, 5), _scale, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 100, "_EBO_usage:_" + std::to_string(buffer::EBO_buffer_usage).substr(0, 5), _scale, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 125, "camera_zoom:_" + std::to_string(camera::zoom).substr(0, 3), _scale, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 150, "camera_x:_" + std::to_string(camera::x), _scale,  1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 175, "camera_y:_" + std::to_string(camera::y), _scale, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 200, "TC_size:_" + std::to_string(travel::TravelControl.size()), _scale, 1.0);
+        if(travel::TravelControl.size() > 0)
+        {
+            int count = 0;
+            for (auto const& t : travel::TravelControl)
+            {   
+                
+                std::string tp_info0 = "TP_ID:_" + std::to_string(t.first); 
+                std::string tp_info1 = " Current_pos:_" + std::to_string(t.second.current_x).substr(0, 4) + 
+                "," + std::to_string(t.second.current_y).substr(0, 4);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info0, _scale, 1.0);
+                count++;
+                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info1, _scale, 1.0);
           
-        //     }
-        // }
+            }
+        }
     }
 
 
