@@ -66,6 +66,11 @@ namespace travel
             }
             tp.cpoint_x = c_point.first;
             tp.cpoint_y = c_point.second;
+
+            if(DEBUG_MODE){
+              debug::render_point(tp.cpoint_x, tp.cpoint_y);
+            }
+
             float dist = get_distance_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
             float angle = get_angle_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
             float x1 = mobs::AliveMobs[0].x + (cos(angle) * mobs::AliveMobs[0].speed);
@@ -105,6 +110,10 @@ namespace travel
             mobs::AliveMobs[0].x = x1;
             mobs::AliveMobs[0].y = y1;
           }
+
+            if(DEBUG_MODE){
+              debug::render_point(tp.target_x, tp.target_y);
+            }
 
           travel::TravelControl[tp.quad_id] = tp;
         }

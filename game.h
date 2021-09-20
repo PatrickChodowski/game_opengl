@@ -30,6 +30,7 @@ namespace game
       camera::reset();
       menu::drop();
       gui::drop();
+      debug::drop();
       maps::drop_map();
       travel::TravelControl.clear();
       ent::drop_entities();
@@ -76,10 +77,11 @@ namespace game
 
       ent::drop_entities();
       gui::drop();
+      debug::drop();
       fonts::drop_texts();
       fonts::render_text(CAMPAIGN_NAME.c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
 
-      if(DEBUG_WINDOW){
+      if(DEBUG_MODE){
         gui::render({GUI_DEBUG});
         gui::render_debug_window();
       }

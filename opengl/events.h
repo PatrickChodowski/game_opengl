@@ -23,11 +23,11 @@ namespace events
         break;
 
       case SDLK_d:
-          if(DEBUG_WINDOW)
+          if(DEBUG_MODE)
           {
-            DEBUG_WINDOW = false;
+            DEBUG_MODE = false;
           } else {
-            DEBUG_WINDOW = true;
+            DEBUG_MODE = true;
           }
         break;
 

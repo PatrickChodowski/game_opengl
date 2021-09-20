@@ -238,7 +238,7 @@ namespace gui
                 }
 
                 //t.second.next_gate
-                std::string tp_info8 = "___cpoint:_" + std::to_string(t.second.cpoint_x).substr(0, 4) + "," + std::to_string(t.second.cpoint_y).substr(0, 4);
+                //std::string tp_info8 = "___cpoint:_" + std::to_string(t.second.cpoint_x).substr(0, 4) + "," + std::to_string(t.second.cpoint_y).substr(0, 4);
 
 
                 count++;
@@ -257,8 +257,8 @@ namespace gui
                 gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info6, _scale, 1.0);
                 count++;
                 gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info7, _scale, 1.0);
-                count++;
-                gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info8, _scale, 1.0);
+                //count++;
+                //gui::add_gui_label(GUI_DEBUG, 610, 200+count*25, tp_info8, _scale, 1.0);
           
             }
         }
