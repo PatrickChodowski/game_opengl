@@ -9,6 +9,8 @@ drugi akt to oczywiscie pustynia
 TODO:
   - debug (branch):
     - render shadow quads
+    - agent id? Quad id jest zmienna teraz gdy przelaczam debug window, stad bugi
+    - travel plan potrzebuje stalego ID - entity ID
  - mobs
   - figure out scaling issue with travel agent
   - close travel if new started for given mob

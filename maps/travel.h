@@ -145,6 +145,21 @@ namespace travel
        }
     }
 
+  // Method for checking if given mob has already travelplan. If it has, it will be deleted and new one will replace
+  bool check_if_mob_already_moving(int mob_quad_id)
+  {
+    bool check = false;
+    for (auto const& tp : travel::TravelControl)
+    {  
+      if(mob_quad_id == tp.first)
+      {
+        check = true;
+        break;
+      }
+    }
+    return check;
+  }
+
 
 
 
