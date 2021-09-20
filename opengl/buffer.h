@@ -5,6 +5,14 @@ namespace buffer
 {
 
   unsigned int VBO, VAO, EBO;
+  // Size of VBO buffer -> size of Vertex: 120*4, 4 vertices per quad, max quads is 2000. Buffer size is 960 000
+  int VBO_size = MAX_QUADS*sizeof(quads::Vertex)*4;
+  int VBO_array_size = 0;
+  float VBO_buffer_usage = 0.0f;
+
+  int EBO_size = MAX_QUADS*sizeof(float)*6;
+  int EBO_array_size = 0;
+  float EBO_buffer_usage = 0.0f;
 
   void init(std::vector<quads::Quad> quads)
   {
@@ -14,18 +22,14 @@ namespace buffer
     int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
     float vertices_array[vertices_array_count];
 
-    int buffer_size = MAX_QUADS*sizeof(quads::Vertex)*4;
-    int index_buffer_size = 10200; //MAX_QUADS*6*sizeof(float);
-
-    std::cout << "Vertices array count: " << vertices_array_count << std::endl;
-    std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
-    std::cout << "Vertices array size: " << sizeof(quads::Vertex)*n_vertices << std::endl;
-    std::cout << "Vertices array size (float based) " << sizeof(float)*vertices_array_count << std::endl;
-
-    std::cout << "Quads count: " << n_quads << std::endl;
-    std::cout << "Vertex count: " << n_vertices << std::endl;
-    std::cout << "Buffer size: " << buffer_size << std::endl;
-    std::cout << "Index Buffer size: " << index_buffer_size << std::endl;
+    //std::cout << "Vertices array count: " << vertices_array_count << std::endl;
+    //std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
+    //std::cout << "Vertices array size: " << sizeof(quads::Vertex)*n_vertices << std::endl;
+    //std::cout << "Vertices array size (float based) " << sizeof(float)*vertices_array_count << std::endl;
+    //std::cout << "Quads count: " << n_quads << std::endl;
+    //std::cout << "Vertex count: " << n_vertices << std::endl;
+    //std::cout << "VBO size: " << buffer::VBO_size << std::endl;
+    //std::cout << "EBO size: " << buffer::EBO_size << std::endl;
 
 
 
@@ -94,7 +98,7 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
       vertices_array[(start_position+(cva*3) + 13)] = quads[t].v_d.is_static;
     }
-    utils::array_to_file("buffer_init_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
+    //utils::array_to_file("buffer_init_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
     
 
     // generate indices array out of vector of Indices:
@@ -114,19 +118,11 @@ namespace buffer
       vindices_array[(start_position+5)] = quads[t].i_right.c;
     }
 
-    utils::array_to_file("buffer_init_index_array", vindices_array, vindices_array_count, 3);
+    //utils::array_to_file("buffer_init_index_array", vindices_array, vindices_array_count, 3);
 
-    // dont get this part now
     GlCall(glEnable(GL_BLEND));
     GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
-
-    // vertex is not position, vertex can have much more than the position - so we pass a lot of data in vertices
-    // then we generate buffer, bind it and add data ( vertices data)
-    // they are all attributes
-
       
-    // buffers are based in GPU (vram)
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -134,17 +130,11 @@ namespace buffer
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    // static approach:
-    // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_array), vertices_array, GL_STATIC_DRAW);
-
     // dynamic approach:
-    glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_DYNAMIC_DRAW);
-    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, buffer::VBO_size, nullptr, GL_DYNAMIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_size, vindices_array, GL_DYNAMIC_DRAW);
-    //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vindices_array), vindices_array, GL_DYNAMIC_DRAW);
+    GlCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer::EBO_size, nullptr, GL_DYNAMIC_DRAW));
 
     // new version:
     // position attribute:
@@ -270,25 +260,15 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
       vertices_array[(start_position+(cva*3) + 13)] = quads[t].v_d.is_static;
     }
-    // std::cout << "Vertices array count: " << vertices_array_count << std::endl;
-    // std::cout << "Quads size: " << n_quads << std::endl;
 
-    // Vertices array size: 676
-    // Quads size: 13
     utils::array_to_file("buffer_update_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
-    //quads::all_quads_to_tsv_file();
     quads::all_quads_to_json();
 
+    buffer::VBO_array_size = sizeof(float)*vertices_array_count;
+    buffer::VBO_buffer_usage = std::round(((float)VBO_array_size/(float)VBO_size) * 1000.0)/1000.0;
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    // GLint size = 0;
-    // glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-    // // 896000 -- 66560
-    // std::cout << "size of data: " << sizeof(float)*vertices_array_count << std::endl;
-
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float)*vertices_array_count, vertices_array);
-
-
+    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertices_array);
 
     int n_vindices = n_quads*2;
     int vindices_array_count = 3*n_vindices; // its always 3 as it is a triangle
@@ -309,12 +289,9 @@ namespace buffer
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
-    // GLint size_ebo = 0;
-    // glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size_ebo);
-    // std::cout << "size ebo: " << size_ebo << std::endl;
-    // std::cout << "size of ebo data: " << sizeof(int)*vindices_array_count << std::endl;
-
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float)*vindices_array_count, vindices_array);
+    buffer::EBO_array_size = sizeof(float)*vindices_array_count;
+    buffer::EBO_buffer_usage = std::round(((float)EBO_array_size/(float)EBO_size) * 1000.0)/1000.0;
+    GlCall(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer::EBO_array_size, vindices_array));
 
   }
 

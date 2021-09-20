@@ -2,6 +2,9 @@
 
 int main()
 {
+  logger::init();
+  logger::log(LOG_INFO, LOG_EVENT_GAME_START, "main::main", __FILE__, __LINE__, "Initialized Main Function");
+
   // Window, OpenGL, SDL initiatlization
   initialize_opengl_context();
   SDL_Window *WINDOW = SDL_CreateWindow("Pogromcy Karaluchow",
@@ -55,5 +58,6 @@ int main()
   SDL_GL_DeleteContext(GLCONTEXT); 
   SDL_DestroyWindow(WINDOW);
   SDL_Quit();
+  logger::log(LOG_INFO, LOG_EVENT_GAME_EXIT, "main::main", __FILE__, __LINE__, "Game Exit");
   return 0;
 }

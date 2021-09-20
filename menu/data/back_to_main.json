@@ -4,7 +4,7 @@
     "y": 420,
     "w": 300,
     "h": 80,
-    "label": "Back to main",
+    "label": "Back_to_main",
     "name": "back_to_main",
     "r_col": 0.5,
     "g_col": 0.5,

@@ -24,7 +24,7 @@ void main()
     frag_color.r = (1-out_is_clicked)*frag_color.r;
   }
   // when type is menu:
-  else if (out_type_id == 1.0)
+  else if (out_type_id == 1.0 || out_type_id == 4.0)
   {
     frag_color = out_color.rgba;
     frag_color.r = (1-out_is_clicked)*out_color.r;

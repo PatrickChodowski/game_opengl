@@ -5,7 +5,6 @@
 // all the loop/scene/game view related stuff I hope
 namespace game
 {
-
   float light_coords[3] = {hero::HERO_X + (hero::HERO_WIDTH/2), hero::HERO_Y + (hero::HERO_HEIGHT/2), 300};
   void init()
   {
@@ -15,6 +14,7 @@ namespace game
     textures::init();
     menu::init();
     mobs::init();
+    gui::init();
     
     // adding font texture to texture catalog
     textures::FontTD = fonts::init(FONT_NAME);
@@ -28,7 +28,10 @@ namespace game
    if(CHANGE_STATE_TRIGGER){ 
       camera::reset();
       menu::drop();
+      gui::drop();
+      debug::drop();
       maps::drop_map();
+      travel::TravelControl.clear();
       ent::drop_entities();
       fonts::drop_texts();
       CURRENT_SHADER_ID = 0;
@@ -42,12 +45,15 @@ namespace game
       } else if(GAME_STATE["GAME_ON"]){
         menu::NewGameName = "";
         camera::speed = camera::base_speed;
-
         if(NEW_GAME){
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-          // fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-          quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD, true, true);
+          quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, 
+                                                true, 
+                                                3,
+                                                0, 
+                                                hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 
+                                                2.0f,textures::FontTD, true, true, HERO_ENTITY_ID);
           ent::EntityQuads.push_back(hero);
           quads::Quad stick = items::render_item_on_ground(0, 200, 200);
           ent::EntityQuads.push_back(stick);
@@ -56,9 +62,8 @@ namespace game
           saves::load_game(CAMPAIGN_NAME);
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-          // fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
           quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, 
-                                                hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD,  true, true);
+                                                hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD,  true, true, HERO_ENTITY_ID);
           ent::EntityQuads.push_back(hero);
           mobs::spawn(MAP_ID);
         }
@@ -72,28 +77,32 @@ namespace game
    else {
      if(GAME_STATE["GAME_ON"]){
       // if the game state didnt change and we are in GAME_ON mode
-      // reset entities only
+
       ent::drop_entities();
-
-      // this will be replaced by GUI elements (guiquads)
+      gui::drop();
+      debug::drop();
       fonts::drop_texts();
-      fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-      fonts::render_text(std::to_string(FPS).c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
+      fonts::render_text(CAMPAIGN_NAME.c_str(), 10, 20, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
 
+      if(DEBUG_MODE){
+        gui::render({GUI_DEBUG});
+        gui::render_debug_window();
+      }
 
       // render entity again
       quads::Quad stick = items::render_item_on_ground(0, 200, 200);
       ent::EntityQuads.push_back(stick);
 
       quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3, hero::current_frame, 
-      hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, textures::FontTD,  true, true);
+      hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, textures::FontTD,  true, true, HERO_ENTITY_ID);
       ent::EntityQuads.push_back(hero);
 
       // mobs::move_random();
       travel::manage();
       mobs::render_alive_mobs();
-     } 
-
+      quads::set_labels();
+      fonts::render_labels();
+    } 
    }
   }
 

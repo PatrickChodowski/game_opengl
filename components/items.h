@@ -1,7 +1,6 @@
 #ifndef ITEMS_H
 #define ITEMS_H
 
-#include "../dictionary.h"
 
 namespace items
 {
@@ -60,6 +59,7 @@ namespace items
   quads::Quad render_item_on_ground(int item_id, int x, int y)
   {
     struct ItemData ITD = ItemCatalog[item_id];
+    int item_entity_id = ent::gen_entity_id();
     quads::Quad item_quad = ent::render_entity(ENTITY_TYPE_ID_ITEM, 
                                                false,
                                                ITD.items_texture_id,
@@ -71,7 +71,8 @@ namespace items
                                                ENTITY_NOT_STATIC, 
                                                textures::FontTD,
                                                false,
-                                               true);
+                                               true,
+                                               item_entity_id);
     return item_quad;
   }
 }

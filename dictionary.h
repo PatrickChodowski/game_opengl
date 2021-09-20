@@ -3,11 +3,14 @@
 
 // file containing all definitions
 
-
 #define QUAD_TYPE_MAP 0.0f
 #define QUAD_TYPE_MENU 1.0f
 #define QUAD_TYPE_TEXT 2.0f
 #define QUAD_TYPE_ENTITY 3.0f
+#define QUAD_TYPE_GUI 4.0f
+#define QUAD_TYPE_DEBUG 5.0f
+
+#define HERO_ENTITY_ID 0
 
 #define ENTITY_TYPE_ID_HERO 0
 #define ENTITY_TYPE_ID_ITEM 1
@@ -75,5 +78,22 @@
 
 #define NAVGATE_VERTICAL_ORIENTATION 0
 #define NAVGATE_HORIZONTAL_ORIENTATION 1
+
+
+// logger codes:
+#define LOG_DEBUG 0
+#define LOG_INFO 1
+#define LOG_ERROR 2 
+
+#define LOG_EVENT_GAME_START 0
+#define LOG_EVENT_GAME_EXIT 1 
+#define LOG_EVENT_INIT_MODULE 2
+#define LOG_EVENT_READ_DATA 3
+#define LOG_EVENT_LOAD_QUADS 4
+#define LOG_EVENT_DROP_DATA 5
+
+
+// gui windows:
+#define GUI_DEBUG 0
 
 #endif

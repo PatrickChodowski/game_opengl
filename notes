@@ -7,15 +7,13 @@ fishing mechanic that doesnt do anything
 drugi akt to oczywiscie pustynia
 
 TODO:
+  - debug (branch):
+    - render shadow quads
+    
  - mobs
-  - figure out scaling issue with travel agent
+  - close travel if new started for given mob
+  - travel nie dziala dobrze jak jest zoom i move, ale to dobrze, bo zoom to tylko debug
 
-  - collision detection for other npcs/agents    
-  - mobs states
-  - rvo avoiding collisions
-
- - DEBUG vertex attribute -> will use D for debug shader, that would highligt debugged quads 
-   DEBUG = 1 -> the alpha shader would highlight this
 
 IDEAS:
 - reinforcement learning for monsters play
@@ -25,6 +23,9 @@ IDEAS:
 - https://www.youtube.com/watch?v=p40p0AVUH70&ab_channel=GDC - frakcje i system zero sum game  - wygraj szacunek jednej frakcji i reszta sie zbierze by zaatakowac zamek
  mozna wygrac lub przegrac ta bitwe
 
+- to bedzie o wikingach nie?
+- statki, dziki, bogowie, topory
+
 - try to understand how to implement animation using json (map of structs instead of IF ELSE tree)?
 - read json into this
 - similar with behavior trees for AI
@@ -32,4 +33,5 @@ IDEAS:
 https://www.youtube.com/watch?v=6VBCXvfNlCM&ab_channel=AIandGames
 https://www.youtube.com/watch?v=JyF0oyarz4U&ab_channel=AIandGames
 
-
+game:
+-- cactuses are strong
