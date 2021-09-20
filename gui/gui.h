@@ -208,9 +208,9 @@ namespace gui
         // gui::add_gui_label(GUI_DEBUG, 610, 50, "quad_count:_" + std::to_string(quads::COUNT_QUADS), _scale, 1.0);
         // gui::add_gui_label(GUI_DEBUG, 610, 75, "_VBO_usage:_" + std::to_string(buffer::VBO_buffer_usage).substr(0, 5), _scale, 1.0);
         // gui::add_gui_label(GUI_DEBUG, 610, 100, "_EBO_usage:_" + std::to_string(buffer::EBO_buffer_usage).substr(0, 5), _scale, 1.0);
-        // gui::add_gui_label(GUI_DEBUG, 610, 125, "camera_zoom:_" + std::to_string(camera::zoom).substr(0, 3), _scale, 1.0);
-        // gui::add_gui_label(GUI_DEBUG, 610, 150, "camera_x:_" + std::to_string(camera::x), _scale,  1.0);
-        // gui::add_gui_label(GUI_DEBUG, 610, 175, "camera_y:_" + std::to_string(camera::y), _scale, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 125, "camera_zoom:_" + std::to_string(camera::zoom).substr(0, 3), _scale, 1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 150, "camera_x:_" + std::to_string(camera::x), _scale,  1.0);
+        gui::add_gui_label(GUI_DEBUG, 610, 175, "camera_y:_" + std::to_string(camera::y), _scale, 1.0);
         gui::add_gui_label(GUI_DEBUG, 610, 200, "TC_size:_" + std::to_string(travel::TravelControl.size()), _scale, 1.0);
         if(travel::TravelControl.size() > 0)
         {
