@@ -270,29 +270,29 @@ namespace quads
   // Each quad can have set of labels to be moved with the quad.. right?
   void set_labels()
   {
-    // for(int q = 0; q < quads::AllQuads.size(); q++)
-    // {
-      // if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
-      // {
-      //   QuadLabel ql;
-      //   ql.text = std::to_string(quads::AllQuads[q].id) + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
-      //   ql.x = quads::AllQuads[q].x + 20;
-      //   ql.y = quads::AllQuads[q].y - 10;
-      //   ql.is_static = 0.0f;
-      //   ql.scale = 0.5;
-      //   quads::AllQuads[q].labels.push_back(ql);
+    for(int q = 0; q < quads::AllQuads.size(); q++)
+    {
+      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
+      {
+        QuadLabel ql;
+        ql.text = std::to_string(quads::AllQuads[q].id);// + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
+        ql.x = quads::AllQuads[q].x + 20;
+        ql.y = quads::AllQuads[q].y - 10;
+        ql.is_static = 0.0f;
+        ql.scale = 0.5;
+        quads::AllQuads[q].labels.push_back(ql);
 
 
-      //   QuadLabel ql0;
-      //   ql0.text = "scaled:_(" + std::to_string((int)quads::AllQuads[q].s_x) + "," + std::to_string((int)quads::AllQuads[q].s_y) + ")";
-      //   ql0.x = quads::AllQuads[q].x + 20;
-      //   ql0.y = quads::AllQuads[q].y + quads::AllQuads[q].h + 20;
-      //   ql0.is_static = 0.0f;
-      //   ql0.scale = 0.5;
-      //   quads::AllQuads[q].labels.push_back(ql0);
+        // QuadLabel ql0;
+        // ql0.text = "scaled:_(" + std::to_string((int)quads::AllQuads[q].s_x) + "," + std::to_string((int)quads::AllQuads[q].s_y) + ")";
+        // ql0.x = quads::AllQuads[q].x + 20;
+        // ql0.y = quads::AllQuads[q].y + quads::AllQuads[q].h + 20;
+        // ql0.is_static = 0.0f;
+        // ql0.scale = 0.5;
+        // quads::AllQuads[q].labels.push_back(ql0);
 
-      // }
-   // }
+      }
+   }
   }
 
   // Assign label to quad by ID, x, y, text, scale, is_static
