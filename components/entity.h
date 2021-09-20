@@ -2,11 +2,6 @@
 #define ENTITY_H
 
 
-// rendering entities logic
-
-// entity type ids:
-// hero:0, item:1, mob: 2
-
 namespace ent
 {
   quads::Quad render_entity(

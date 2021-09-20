@@ -115,14 +115,10 @@ namespace travel
               debug::render_point(tp.target_x, tp.target_y);
             }
 
-          travel::TravelControl[tp.quad_id] = tp;
+          travel::TravelControl[tp.entity_id] = tp;
         }
         else {
-          // we are at the destination. Remove tp from TravelControl
-          // std::cout << " Dist to target " << dist_to_target <<  std::endl;
-          // std::cout << " Current position " << tp.current_x << "," << tp.current_y << std::endl;
-          // std::cout << " Target position " << tp.target_x << "," << tp.target_y << std::endl;
-          TPsToRemove.push_back(tp.quad_id);
+          TPsToRemove.push_back(tp.entity_id);
         }
     }
 
@@ -146,12 +142,12 @@ namespace travel
     }
 
   // Method for checking if given mob has already travelplan. If it has, it will be deleted and new one will replace
-  bool check_if_mob_already_moving(int mob_quad_id)
+  bool check_if_entity_already_moving(int entity_id)
   {
     bool check = false;
     for (auto const& tp : travel::TravelControl)
     {  
-      if(mob_quad_id == tp.first)
+      if(entity_id == tp.first)
       {
         check = true;
         break;
@@ -160,8 +156,12 @@ namespace travel
     return check;
   }
 
-
-
+  // Deletes travel plan for given entity_id
+  void cancel_travel_plan(int entity_id)
+  {
+    std::cout << entity_id << " had some plans already! Cancelling!" << std::endl;
+    travel::TravelControl.erase(entity_id);
+  }
 
 }
 

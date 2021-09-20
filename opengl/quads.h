@@ -272,7 +272,9 @@ namespace quads
   {
     for(int q = 0; q < quads::AllQuads.size(); q++)
     {
-      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
+      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB || 
+         quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_HERO || 
+         quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_ITEM)
       {
         QuadLabel ql;
         ql.text = std::to_string(quads::AllQuads[q].entity_id);// + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
