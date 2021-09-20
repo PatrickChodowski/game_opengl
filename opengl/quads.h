@@ -275,7 +275,7 @@ namespace quads
       if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
       {
         QuadLabel ql;
-        ql.text = std::to_string(quads::AllQuads[q].id);// + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
+        ql.text = std::to_string(quads::AllQuads[q].entity_id);// + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
         ql.x = quads::AllQuads[q].x + 20;
         ql.y = quads::AllQuads[q].y - 10;
         ql.is_static = 0.0f;
