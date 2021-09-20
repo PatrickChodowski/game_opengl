@@ -29,9 +29,49 @@ namespace travel
         return point;
     }
 
+    // Method to reset travel plan if current node is not equal to real current node
+    int sanity_check_replace_tp(float x, float y, int tp_current_node_id)
+    {
+      int correct_node = tp_current_node_id;
+      int real_node_id = paths::get_navnode_id(x, y);
+      if(tp_current_node_id != real_node_id)
+      {
+        correct_node = real_node_id;
+      }
+      return correct_node;
+    }
+
+    travel::TravelPlan make_basic_plan(int current_node_id, int target_node_id)
+    {
+      travel::TravelPlan tp;
+      if(current_node_id != target_node_id)
+      {
+        std::vector<int> path = paths::find_path(current_node_id, target_node_id);
+        tp.full_path = path;
+        tp.next_node = path[1];
+      } else if (current_node_id == target_node_id){
+        tp.full_path = {};
+        tp.next_node = target_node_id;
+      }
+      tp.current_node = current_node_id;
+      tp.target_node = target_node_id;
+      return tp;
+    }
+
     // Basically a decision tree handling for TravelPlan
     void go(travel::TravelPlan tp)
-    {
+    { 
+      // check real node and adjust the plan if there is an error
+      int checked_real_node = travel::sanity_check_replace_tp(tp.current_x, tp.current_y, tp.current_node);
+      // if not correct then adjust plan
+      if(checked_real_node != tp.current_node & checked_real_node != -1)
+      {
+        TravelPlan tp_adj = make_basic_plan(checked_real_node, tp.target_node);
+        tp.current_node = tp_adj.current_node;
+        tp.next_node = tp_adj.next_node;
+        tp.full_path = tp_adj.full_path;
+      }
+
         // if we are not at the target yet, we move
         float dist_to_target = get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
         if(dist_to_target > camera::tile_dim)
@@ -43,14 +83,6 @@ namespace travel
             std::pair<float, float> c_point;
             nav::NavGate gate = nav::NavMesh[tp.current_node].edges[tp.next_node];
             tp.next_gate = gate.id;
-
-            // std::cout << "gate_id: " << gate.id << std::endl;
-            // std::cout << "gate min x: " << gate.gate_min_x << std::endl;
-            // std::cout << "gate max x: " << gate.gate_max_x << std::endl;
-            // std::cout << "gate min y: " << gate.gate_min_y << std::endl;
-            // std::cout << "gate max y: " << gate.gate_max_y << std::endl;
-            // std::cout << "gate orientation: " << gate.orientation << std::endl;
-
             // find the closest point to the gate and calculate distance
             if(gate.orientation == NAVGATE_HORIZONTAL_ORIENTATION)
             {
@@ -75,13 +107,7 @@ namespace travel
             float angle = get_angle_between_points(tp.current_x, tp.current_y, c_point.first, c_point.second);
             float x1 = mobs::AliveMobs[0].x + (cos(angle) * mobs::AliveMobs[0].speed);
             float y1 = mobs::AliveMobs[0].y + (sin(angle) * mobs::AliveMobs[0].speed);
-            
-            //std::cout << "distance: " << dist <<std::endl;
-            //std::cout << "angle: " << angle <<std::endl;
-            //std::cout << "target: " << c_point.first << "," << c_point.second << std::endl;
-            // std::cout << "x1: " << x1 <<std::endl;
-            // std::cout << "y1: " << y1 <<std::endl;
-
+          
             tp.current_x = x1;
             tp.current_y = y1;
             mobs::AliveMobs[0].x = x1;
@@ -128,7 +154,6 @@ namespace travel
       {  
         travel::go(tp.second);
       }
-
        for(int i=0; i < TPsToRemove.size(); i++)
        {
         if(travel::TravelControl.count(TPsToRemove[i]) > 0)

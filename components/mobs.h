@@ -141,7 +141,6 @@ namespace mobs
   {
     float target_rs_x = camera::reverse_scale_click_x(x, camera::x, camera::zoom);
     float target_rs_y = camera::reverse_scale_click_y(y, camera::y, camera::zoom);
-    std::cout << "alive mobs size: " << mobs::AliveMobs.size() << std::endl;
     for (int a=0; a < mobs::AliveMobs.size(); a++)
     {
       if(mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
@@ -157,21 +156,8 @@ namespace mobs
 
         if(quad_node_id > -1 & target_node_id > -1){
 
-          travel::TravelPlan tp;
-          if(quad_node_id != target_node_id)
-          {
-            std::vector<int> path = paths::find_path(quad_node_id, target_node_id);
-            tp.full_path = path;
-            tp.next_node = path[1];
-
-          } else if (quad_node_id == target_node_id){
-            tp.full_path = {};
-            tp.next_node = target_node_id;
-          }
-
+          travel::TravelPlan tp = travel::make_basic_plan(quad_node_id, target_node_id);
           tp.quad_id = mobs::AliveMobs[a].quad_id;
-          tp.current_node = quad_node_id;
-          tp.target_node = target_node_id;
           tp.current_x = quads::AllQuads[quad_index].x;
           tp.current_y = quads::AllQuads[quad_index].y;
           tp.target_x = target_rs_x;
