@@ -12,7 +12,6 @@ namespace quads
 {
 
   void accumulate()
-
   {
     quads::AllQuads.clear(); // resetting vector
 
@@ -21,14 +20,9 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
     }
 
-        // assign level quads
+    // assign map quads
     if(maps::MapQuads.size() > 0){
       quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
-    }
-
-    // assign text quads
-    if(fonts::TextQuads.size() > 0){
-      quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
     }
 
     // assign entity quads
@@ -36,11 +30,30 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), ent::EntityQuads.begin(), ent::EntityQuads.end());
     }
 
+    if(debug::DebugQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
+    }
+
+    // assign gui quads
+    if(gui::GuiQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
+    }
+
+    if(fonts::TextQuads.size() > 0){
+      quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
+    }
+
+
     // quads::print_out_quads(quads::AllQuads);
     quads::QuadsSummary["map"] = maps::MapQuads.size();
     quads::QuadsSummary["menu"] = menu::MenuQuads.size();
     quads::QuadsSummary["text"] = fonts::TextQuads.size();
-    quads::QuadsSummary["entity"] = fonts::TextQuads.size();
+    quads::QuadsSummary["entity"] = ent::EntityQuads.size();
+    quads::QuadsSummary["gui"] = gui::GuiQuads.size();
+    quads::QuadsSummary["debug"] = debug::DebugQuads.size();
+
+    quads::COUNT_QUADS = quads::AllQuads.size();
+    quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
   }
 
 
@@ -55,7 +68,8 @@ namespace quads
 
     for(int q=0; q<quads::AllQuads.size(); q++)
     {
-      if (quads::AllQuads[q].type_id == QUAD_TYPE_MAP || quads::AllQuads[q].type_id == QUAD_TYPE_ENTITY){
+      if (quads::AllQuads[q].type_id == QUAD_TYPE_MAP || 
+         quads::AllQuads[q].type_id == QUAD_TYPE_ENTITY){
         if(quads::AllQuads[q].entity_type_id != ENTITY_TYPE_ID_HERO)
         {
           quads::AllQuads[q].s_x  = ((float)quads::AllQuads[q].x + (float)camera_x)*scale_factor;
@@ -253,7 +267,50 @@ namespace quads
     }
   };
 
+  // Each quad can have set of labels to be moved with the quad.. right?
+  void set_labels()
+  {
+    for(int q = 0; q < quads::AllQuads.size(); q++)
+    {
+      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB || 
+         quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_HERO || 
+         quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_ITEM)
+      {
+        QuadLabel ql;
+        ql.text = std::to_string(quads::AllQuads[q].entity_id);// + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
+        ql.x = quads::AllQuads[q].x + 20;
+        ql.y = quads::AllQuads[q].y - 10;
+        ql.is_static = 0.0f;
+        ql.scale = 0.5;
+        quads::AllQuads[q].labels.push_back(ql);
 
+
+        // QuadLabel ql0;
+        // ql0.text = "scaled:_(" + std::to_string((int)quads::AllQuads[q].s_x) + "," + std::to_string((int)quads::AllQuads[q].s_y) + ")";
+        // ql0.x = quads::AllQuads[q].x + 20;
+        // ql0.y = quads::AllQuads[q].y + quads::AllQuads[q].h + 20;
+        // ql0.is_static = 0.0f;
+        // ql0.scale = 0.5;
+        // quads::AllQuads[q].labels.push_back(ql0);
+
+      }
+   }
+  }
+
+  // Assign label to quad by ID, x, y, text, scale, is_static
+  void add_label(int quad_id, float x, float y, std::string text, float scale, bool is_static)
+  {
+    int q = quads::find_quad_id(quad_id, quads::AllQuads);
+    QuadLabel ql;
+    ql.text = text;
+    ql.x = x;
+    ql.y = y;
+    ql.is_static = is_static;
+    ql.scale = scale;
+    quads::AllQuads[q].labels.push_back(ql);
+  }
+
+  
 }
 
 

@@ -1,7 +1,7 @@
 UNAME := $(shell uname)
 ifeq ($(UNAME),Darwin)
 output: game
-	g++ -std=c++11 main.cpp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
+	g++ -std=c++17 main.cpp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
 game: main.cpp
 clean: rm *.o
 endif

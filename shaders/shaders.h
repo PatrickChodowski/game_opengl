@@ -134,23 +134,19 @@ namespace shaders
   {
     ShaderData SD;
     std::string data_path = "./shaders/data/"+name+".json";
+    logger::log(LOG_INFO, LOG_EVENT_READ_DATA, "maps::read_shaders_data", __FILE__, __LINE__, "Reading shader data from " + data_path);
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(SD);
 
     // add to catalog
     Catalog.insert({SD.id, SD});
-
-    if(LOGGING == 0)
-    {
-      std::cout << "Read-in shader id: " << SD.id << ", name: " << SD.name << ", gl_shader_id: " << SD.gl_shader_id << std::endl;
-    }
   }
 
 
   void init()
   {
-    logger::print("READING SHADERS");
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "shaders::init", __FILE__, __LINE__, "Initializing shaders");
     std::vector<std::string> shaders_list = utils::list_files("shaders/data/");
     for(int s=0; s < shaders_list.size(); s++)
     {
@@ -162,18 +158,15 @@ namespace shaders
     {
       shaders::Catalog[x.first].gl_shader_id = shaders::custom_shaders(x.second.name.c_str());
     }
-
-    // for(int s=0; s < shaders_list.size(); s++)
-    // {
-    //   shaders::Catalog[s].gl_shader_id = shaders::custom_shaders(shaders_list[s].c_str());
-    // }
     glReleaseShaderCompiler();
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "shaders::init", __FILE__, __LINE__, "Shaders initialized");
   }
 
 
 
   void drop()
   {
+    logger::log(LOG_INFO, LOG_EVENT_DROP_DATA, "shaders::drop", __FILE__, __LINE__, "Dropping current shader");
     glDeleteProgram(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id);
   }
 

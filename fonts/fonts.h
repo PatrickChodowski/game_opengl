@@ -22,11 +22,12 @@ namespace fonts
     float bitmap_top;
 
     float offset;  // offset of glyph
+    float align;
   };
 
   std::map<char, Character> character_map;
 
-  textures::TextureData init(std::string font_name = "OpenSans")
+  textures::TextureData init(std::string font_name)
   {
     /*
       Init opens font file .ttf and reads-in all character glyphs into character map and texture that will be later sent to OpenGL 
@@ -111,26 +112,31 @@ namespace fonts
     {
       if(FT_Load_Char(face, i, FT_LOAD_RENDER))
         continue;
+        //https://learnopengl.com/In-Practice/Text-Rendering
 
       Character character;
       character.advance_x = g->advance.x;
       character.advance_y = g->advance.y;
       character.bitmap_width = g->bitmap.width;
       character.bitmap_height = g->bitmap.rows;
+
+      // if(g->bitmap.rows == 27)
+      // {
+      //   character.bitmap_height = 30;
+      // } else {
+      //   character.bitmap_height = g->bitmap.rows;
+      // }
       character.bitmap_left = g->bitmap_left;
       character.bitmap_top = g->bitmap_top;
+
+      character.align = g->bitmap.rows - g->bitmap_top;
       character.offset = ((float)x/ (float)atlas_width);
       character.frame_id = c_id;
       character.texture_id = (int)texture_id;
       character_map.insert(std::pair<GLchar, Character>(i, character));
 
-      // std::cout << "Character: " << i << std::endl;
-      // std::cout << "Advance: X: " << character.advance_x << ", Y: " << character.advance_y  << std::endl;
-      // std::cout << "Bitmap: Width: " << character.bitmap_width << ", Height: " << character.bitmap_height << std::endl;
-      // std::cout << "Bitmap: Left: " << character.bitmap_left << ", Top: " << character.bitmap_top << std::endl;
-      // std::cout << "Offset: " << character.offset << std::endl;
-      // std::cout << "Texture id: " << character.texture_id << std::endl;
-
+      //GLchar test_i = i;
+      //std::cout << "font " << test_i << " " << character.bitmap_height << " " << character.bitmap_top << " " << character.align << std::endl;
       glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
       x += g->bitmap.width;
       c_id += 1;
@@ -150,11 +156,17 @@ namespace fonts
     TD.height = atlas_height;
     TD.opengl_texture_id = texture_id;
 
+    // // debug render map
+    // for (auto const& t : fonts::character_map)
+    // { 
+    //   std::cout << t.first << " " << t.second.bitmap_height << " "<< t.second.bitmap_top << std::endl;
+    // }
+
 
     return TD;
   }
 
-
+  // Renders text, args: text, x, y, font, scale, r,g,b,static
   void render_text(const char *text, 
                    int x, 
                    int y, 
@@ -201,7 +213,17 @@ namespace fonts
       struct quads::Quad quad;
       quad.id = quads::gen_quad_id();
       quad.x = x + character_map[*p].bitmap_left * scale;
-      quad.y = y - character_map[*p].bitmap_top * scale;
+
+      quad.y = y - ((character_map[*p].bitmap_height - character_map[*p].align) * scale);
+      // if((strcmp(p, "s") == 0) | (strcmp(p, "i") == 0))
+      // {
+      //   std::cout << "letter: " <<  p << " quad.y: " << quad.y 
+      //   << " bitmap height: " << character_map[*p].bitmap_height 
+      //   << " bitmap top: " << character_map[*p].bitmap_top 
+      //   << " align: " << character_map[*p].align 
+      //   << " adv y: " << character_map[*p].advance_y   << std::endl;
+      // }
+
       quad.w = character_map[*p].bitmap_width * scale;
       quad.h = character_map[*p].bitmap_height * scale;
       quad.frame_id = character_map[*p].frame_id;
@@ -325,6 +347,29 @@ namespace fonts
       quads::delete_vertex_id(fonts::TextQuads[q].d);
     }
     fonts::TextQuads.clear();
+  }
+
+    // renders all labels from quads table
+  void render_labels()
+  {
+    for(int q = 0; q < quads::AllQuads.size(); q++)
+    {
+      if(quads::AllQuads[q].labels.size() > 0)
+      {
+        for(int l=0; l< quads::AllQuads[q].labels.size(); l++)
+        {
+          fonts::render_text(quads::AllQuads[q].labels[l].text.c_str(), 
+                              quads::AllQuads[q].labels[l].x, 
+                              quads::AllQuads[q].labels[l].y, 
+                              textures::FontTD, 
+                              quads::AllQuads[q].labels[l].scale,  
+                              0.1, 
+                              0.1, 
+                              0.1,
+                              quads::AllQuads[q].labels[l].is_static); 
+        }
+      }
+    }
   }
 
 

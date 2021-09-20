@@ -11,17 +11,22 @@ namespace textures
                                        int n_channels, 
                                        std::string name)
   {
+
+    std::string texture_path = "assets/"+name+".png";
+
+    logger::log(LOG_INFO, LOG_EVENT_LOAD_QUADS, "textures::load_to_opengl", 
+    __FILE__, __LINE__, "Loading texture id: " + std::to_string(texture_id) + " path: " + texture_path + " to opengl");
     // unsigned int initialized
     stbi_set_flip_vertically_on_load(false);  
-    std::string texture_path = "assets/"+name+".png";
-    std::cout << "Texture id: " << texture_id << " path: " << texture_path << std::endl;
-
     // this reads texture information 
     unsigned char *image_data = stbi_load(texture_path.c_str(),
                                          &width, 
                                          &height, &n_channels, 4); 
 
-    if (image_data == NULL){logger::print("Cannot load texture from path "+texture_path);};
+    if (image_data == NULL){
+          logger::log(LOG_ERROR, LOG_EVENT_LOAD_QUADS, "textures::load_to_opengl", 
+    __FILE__, __LINE__, "Texture id: " + std::to_string(texture_id) + " path: " + texture_path + " not loaded to opengl");
+    };
 
     // generate texture names (number of textures, array in which the generated texture will be stored)
     // this changes texture_id to different ID!!!! (in the order of adding )
@@ -54,21 +59,19 @@ namespace textures
     stbi_image_free(image_data);
 
     // returns new texture_id
-    logger::print("Opengl texture id: " + std::to_string(texture_id));
+    logger::log(LOG_INFO, LOG_EVENT_LOAD_QUADS, "textures::load_to_opengl", __FILE__, __LINE__, 
+    "Loaded texture new id: " + std::to_string(texture_id));
+
     return texture_id;
-
   }
-
-
-
-
-
 
   // Read-in all json files
   void read_texture_data(std::string name)
   {
-    TextureData TD;
     std::string data_path = "./assets/data/"+name+".json";
+    logger::log(LOG_INFO, LOG_EVENT_READ_DATA, "textures::read_texture_data", __FILE__, __LINE__, 
+    "Reading texture data from " + data_path);
+    TextureData TD;
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(TD);
@@ -78,36 +81,26 @@ namespace textures
     {
       TD.frames.insert({TD.frames_list[f].frame_id, TD.frames_list[f]}); 
     }
-
-    if(LOGGING == 0)
-    {
-      std::cout << "Read-in texture id: " << TD.id << ", type: " << TD.type << ", name: " <<
-       TD.name << ", width: " << TD.width << ", height: " << TD.height << ",  frames count: " << TD.frames.size() << std::endl;
-
-      for(int f=0; f<TD.frames_list.size(); f++)
-      {
-       std::cout <<  "frame_id: " << TD.frames_list[f].frame_id << ", x: " 
-       <<  TD.frames_list[f].x << ", y: "<< TD.frames_list[f].y << ", w: " 
-       << TD.frames_list[f].w << ", h: "<< TD.frames_list[f].h  << std::endl;
-      }
-    }
-
     TD.frames_list.clear();
     textures::Catalog.insert({TD.id, TD});
   }
 
-  void load(int texture_id){
+  void load(int texture_id)
+  {
+    logger::log(LOG_INFO, LOG_EVENT_LOAD_QUADS, "textures::load",
+     __FILE__, __LINE__, "Loading texture id:  "+std::to_string(texture_id));
+
     unsigned int opengl_texture_id = textures::load_to_opengl(textures::Catalog[texture_id].id, 
                                                               textures::Catalog[texture_id].width, 
                                                               textures::Catalog[texture_id].height, 
                                                               4, 
                                                               textures::Catalog[texture_id].name);
     textures::Catalog[texture_id].opengl_texture_id = opengl_texture_id;
-
-    std::cout << "open texture id: " << opengl_texture_id << " original texture id: " 
-    << textures::Catalog[texture_id].id << std::endl;
-
     textures::BoundTextures.push_back(textures::Catalog[texture_id].opengl_texture_id);
+
+    logger::log(LOG_INFO, LOG_EVENT_LOAD_QUADS, "textures::load",
+     __FILE__, __LINE__, "Loaded texture id:  " + std::to_string(texture_id) + 
+     "opengl texture id: " + std::to_string(opengl_texture_id));
   }
 
 
@@ -134,29 +127,24 @@ namespace textures
 
 
 
-  // reads-in all possible textures into a catalog
-  // reads also the textures themselves
+
+  // Reads all available texture data and loads textures to opengl
   void init()
   {
-    logger::print("READING TEXTURES");
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "textures::init", __FILE__, __LINE__, "Initializing textures");
     std::vector<std::string> texture_list = utils::list_files("assets/data/");
-    logger::print("TEXTURE LIST:");
-    logger::print_vector(texture_list);
 
     // read texture data by name
     for(int t=0; t<texture_list.size(); t++)
     {
       textures::read_texture_data(texture_list[t]);
     }
-
-    logger::print("Texture catalog size: " + std::to_string(textures::Catalog.size()));
-
     // load to opengl by texture_id
     for (auto const &x : textures::Catalog)
     {
-      std::cout << "Loading texture id: " << x.first << " from catalog to opengl" << std::endl;
       textures::load(x.first);
     }
+    logger::log(LOG_INFO, LOG_EVENT_INIT_MODULE, "textures::init", __FILE__, __LINE__, "Textures initialized");
   }
   // void unbind()
   // {
@@ -166,7 +154,7 @@ namespace textures
 
   void drop()
   {
-
+    logger::log(LOG_INFO, LOG_EVENT_DROP_DATA, "textures::drop", __FILE__, __LINE__, "Dropping textures");
     for(int t=0; t<textures::BoundTextures.size(); t++)
     {
 

@@ -2,8 +2,6 @@
 #ifndef VARS_H
 #define VARS_H
 
-// file for defining variables that should be accessible by multiple files 
-#include "dictionary.h"
 
 namespace colls
 {
@@ -53,6 +51,8 @@ namespace quads
 {
   int COUNT_VERTEX_ATTRIBUTES = 14;
   int VERTEX_OFFSET = 1;
+  int COUNT_QUADS = 0;
+  int REQ_SIZE_BUFFER = 0;
 
   // vertex index
   struct Vindex
@@ -90,7 +90,14 @@ namespace quads
     int vertex_id;
   };
 
- 
+  struct QuadLabel
+  {
+    std::string text;
+    int x;
+    int y;
+    bool is_static;
+    float scale;
+  };
 
 
   // Quad will contain information about:
@@ -100,6 +107,7 @@ namespace quads
   // - Vindices with vertex ids
   // - actual vertex information
 
+// Contains all information about what is rendered
   struct Quad
   {
     int id;
@@ -153,6 +161,8 @@ namespace quads
 
     // for entities logic:
     int entity_type_id;
+    // only for entities -> will store entity_id defined on mob::spawn and others
+    int entity_id;
     bool alive;
 
     // Scaled metrics For collisions and mouse events:
@@ -170,6 +180,9 @@ namespace quads
 
     // its not abs, its AABBs, but this is what I do to entertain myself
     std::map<int, colls::AABB> abs; 
+
+    // label collection
+    std::vector<QuadLabel> labels;
   };
 
 
@@ -209,15 +222,10 @@ namespace quads
   std::vector<int> UsedQuadIds = {};
   std::vector<int> UsedVertexIds = {};
 
+  // Algorithm to find next available quad id 
   int find_next_quad_id()
   {
-    /*
-      Algorithm to find next available quad id 
-    */
-    
     int n = quads::UsedQuadIds.size();
-    bool found = false;
-
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
@@ -228,15 +236,10 @@ namespace quads
     return n+1;
   }
 
+  // Algorithm to find next available vertex id 
   int find_next_vertex_id()
   {
-    /*
-      Algorithm to find next available vertex id 
-    */
-    
     int n = quads::UsedVertexIds.size();
-    bool found = false;
-
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
@@ -250,22 +253,21 @@ namespace quads
   int gen_quad_id()
   {
     int next_quad_id = quads::find_next_quad_id();
-    // std::cout << "Next Quad id: " << next_quad_id << std::endl;
     quads::UsedQuadIds.push_back(next_quad_id);
     return next_quad_id;
   }
 
-   int gen_vertex_id()
+  int gen_vertex_id()
   {
     int next_vertex_id = quads::find_next_vertex_id();
-    // std::cout << "Next vertex id: " << next_vertex_id << std::endl;
     quads::UsedVertexIds.push_back(next_vertex_id);
     return next_vertex_id;
   }
+
+  // Will return the index of quad id
   int find_quad_id(int quad_id, std::vector<quads::Quad> quads)
   {
     int quad_index = -1;
-    /*Will return the index of quad id*/
     for(int q = 0; q < quads.size(); q++)
     {
       if(quad_id == quads[q].id)
@@ -277,6 +279,12 @@ namespace quads
     return quad_index;
   }
 }
+
+namespace debug
+{
+  std::vector<quads::Quad> DebugQuads;
+}
+
 
 namespace fonts
 {
@@ -335,6 +343,7 @@ namespace mobs
     float s_x;
     float s_y;
     int quad_id;
+    int entity_id;
     int mob_id;
     int state = ENTITY_STATE_CALM;
     int hp;
@@ -351,6 +360,7 @@ namespace travel
   struct TravelPlan
   {
     int quad_id;
+    int entity_id;
     std::vector<int> full_path;
     int current_step_index = 0;
     int current_node;
@@ -361,16 +371,46 @@ namespace travel
     float target_x;
     float target_y;
     int next_node;
+
+    int next_gate;
+    float cpoint_x;
+    float cpoint_y;
   };
 
-  // quad_id
+  // entity_id, TravelPlan object
   std::map<int, TravelPlan> TravelControl;
   std::vector<int> TPsToRemove = {};
 }
 
 namespace ent
 {
+  // Entity ID has to last longer than one frame and be assigned to entity since load till the end of its activity
+  std::vector<int> UsedEntityIds = {};
   std::vector<quads::Quad> EntityQuads;
+
+  // Algorithm to find next available entity id
+  int find_next_entity_id()
+  {
+    int n = ent::UsedEntityIds.size();
+    // for whole vector, find value that would be bigger than (index + 1)
+    for (int i = 0; i < n; i++)
+    {
+      if (ent::UsedEntityIds[i] > (i+1)){
+        return i+1;
+      }
+    }
+    return n+1;
+  }
+
+  // Generate next entity id
+  int gen_entity_id()
+  {
+    int next_entity_id = ent::find_next_entity_id();
+    // std::cout << "next entity id: " << next_entity_id << std::endl;
+    ent::UsedEntityIds.push_back(next_entity_id);
+    return next_entity_id;
+  }
+
 }
 
 namespace menu
@@ -549,6 +589,12 @@ namespace nav
   // Map of NavNodeID (int) and NavNode
   std::map<int, NavNode> NavMesh;
   std::vector<std::vector<int>> NavMeshGraph;
+}
+
+namespace gui
+{
+  std::map<int, int> CurrentGuiWindows;
+  std::vector<quads::Quad> GuiQuads;
 }
 
 #endif
