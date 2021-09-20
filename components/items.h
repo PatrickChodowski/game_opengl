@@ -1,7 +1,6 @@
 #ifndef ITEMS_H
 #define ITEMS_H
 
-#include "../dictionary.h"
 
 namespace items
 {

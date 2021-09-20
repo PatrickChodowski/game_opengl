@@ -145,12 +145,10 @@ namespace mobs
     {
       if(mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
       { 
-        if(travel::check_if_mob_already_moving(mobs::AliveMobs[a].quad_id))
-        {
-          // delete current travel plan
-          std::cout << mobs::AliveMobs[a].quad_id << " had some plans already! Cancelling!" << std::endl;
-        }
-
+        // if(travel::check_if_entity_already_moving(mobs::AliveMobs[a].entity_id))
+        // {
+        //   travel::cancel_travel_plan(mobs::AliveMobs[a].entity_id);
+        // }
 
         int quad_index = quads::find_quad_id(mobs::AliveMobs[a].quad_id, quads::AllQuads);
         int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].x, quads::AllQuads[quad_index].y);
@@ -177,7 +175,7 @@ namespace mobs
           tp.current_y = quads::AllQuads[quad_index].y;
           tp.target_x = target_rs_x;
           tp.target_y = target_rs_y;
-          travel::TravelControl.insert({tp.quad_id, tp});
+          travel::TravelControl.insert({mobs::AliveMobs[a].entity_id, tp});
           float dist_to_target = travel::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y); 
         }
       }
