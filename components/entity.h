@@ -154,11 +154,6 @@ namespace ent
       quads::delete_vertex_id(ent::EntityQuads[q].d);
     }
     ent::EntityQuads.clear();
-
-    for (int e = 0; e < ent::UsedEntityIds.size(); e++)
-    {
-      ent::delete_entity_id(ent::UsedEntityIds[e]);
-    }
     ent::UsedEntityIds.clear();
 
   }

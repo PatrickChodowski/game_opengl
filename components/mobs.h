@@ -141,6 +141,7 @@ namespace mobs
   {
     float target_rs_x = camera::reverse_scale_click_x(x, camera::x, camera::zoom);
     float target_rs_y = camera::reverse_scale_click_y(y, camera::y, camera::zoom);
+    std::cout << "alive mobs size: " << mobs::AliveMobs.size() << std::endl;
     for (int a=0; a < mobs::AliveMobs.size(); a++)
     {
       if(mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
@@ -175,8 +176,9 @@ namespace mobs
           tp.current_y = quads::AllQuads[quad_index].y;
           tp.target_x = target_rs_x;
           tp.target_y = target_rs_y;
+          tp.entity_id = mobs::AliveMobs[a].entity_id;
           travel::TravelControl.insert({mobs::AliveMobs[a].entity_id, tp});
-          float dist_to_target = travel::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y); 
+          // float dist_to_target = travel::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y); 
         }
       }
     }

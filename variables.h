@@ -406,6 +406,7 @@ namespace ent
   int gen_entity_id()
   {
     int next_entity_id = ent::find_next_entity_id();
+    // std::cout << "next entity id: " << next_entity_id << std::endl;
     ent::UsedEntityIds.push_back(next_entity_id);
     return next_entity_id;
   }
