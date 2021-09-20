@@ -8,18 +8,11 @@ drugi akt to oczywiscie pustynia
 
 TODO:
   - debug (branch):
-    - render lines, shadow quads and points
-
-
+    - render shadow quads
  - mobs
   - figure out scaling issue with travel agent
+  - close travel if new started for given mob
 
-  - collision detection for other npcs/agents    
-  - mobs states
-  - rvo avoiding collisions
-
- - DEBUG vertex attribute -> will use D for debug shader, that would highligt debugged quads 
-   DEBUG = 1 -> the alpha shader would highlight this
 
 IDEAS:
 - reinforcement learning for monsters play

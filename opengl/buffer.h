@@ -22,15 +22,14 @@ namespace buffer
     int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
     float vertices_array[vertices_array_count];
 
-    std::cout << "Vertices array count: " << vertices_array_count << std::endl;
-    std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
-    std::cout << "Vertices array size: " << sizeof(quads::Vertex)*n_vertices << std::endl;
-    std::cout << "Vertices array size (float based) " << sizeof(float)*vertices_array_count << std::endl;
-
-    std::cout << "Quads count: " << n_quads << std::endl;
-    std::cout << "Vertex count: " << n_vertices << std::endl;
-    std::cout << "VBO size: " << buffer::VBO_size << std::endl;
-    std::cout << "EBO size: " << buffer::EBO_size << std::endl;
+    //std::cout << "Vertices array count: " << vertices_array_count << std::endl;
+    //std::cout << "Vertex size: " << sizeof(quads::Vertex) << std::endl;
+    //std::cout << "Vertices array size: " << sizeof(quads::Vertex)*n_vertices << std::endl;
+    //std::cout << "Vertices array size (float based) " << sizeof(float)*vertices_array_count << std::endl;
+    //std::cout << "Quads count: " << n_quads << std::endl;
+    //std::cout << "Vertex count: " << n_vertices << std::endl;
+    //std::cout << "VBO size: " << buffer::VBO_size << std::endl;
+    //std::cout << "EBO size: " << buffer::EBO_size << std::endl;
 
 
 
@@ -99,7 +98,7 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 12)] = quads[t].v_d.type_id;
       vertices_array[(start_position+(cva*3) + 13)] = quads[t].v_d.is_static;
     }
-    utils::array_to_file("buffer_init_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
+    //utils::array_to_file("buffer_init_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
     
 
     // generate indices array out of vector of Indices:
@@ -119,7 +118,7 @@ namespace buffer
       vindices_array[(start_position+5)] = quads[t].i_right.c;
     }
 
-    utils::array_to_file("buffer_init_index_array", vindices_array, vindices_array_count, 3);
+    //utils::array_to_file("buffer_init_index_array", vindices_array, vindices_array_count, 3);
 
     GlCall(glEnable(GL_BLEND));
     GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));

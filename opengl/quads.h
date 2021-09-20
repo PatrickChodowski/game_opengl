@@ -68,7 +68,8 @@ namespace quads
 
     for(int q=0; q<quads::AllQuads.size(); q++)
     {
-      if (quads::AllQuads[q].type_id == QUAD_TYPE_MAP || quads::AllQuads[q].type_id == QUAD_TYPE_ENTITY){
+      if (quads::AllQuads[q].type_id == QUAD_TYPE_MAP || 
+         quads::AllQuads[q].type_id == QUAD_TYPE_ENTITY){
         if(quads::AllQuads[q].entity_type_id != ENTITY_TYPE_ID_HERO)
         {
           quads::AllQuads[q].s_x  = ((float)quads::AllQuads[q].x + (float)camera_x)*scale_factor;

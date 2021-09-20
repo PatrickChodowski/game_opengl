@@ -14,8 +14,8 @@ namespace debug
         quad.y = y;
         quad.w = 10;   
         quad.h = 10;
-        quad.s_x = x;
-        quad.s_y = y;
+        quad.s_x = camera::scale_x(x);
+        quad.s_y = camera::scale_y(y);
         quad.s_w = 10;   
         quad.s_h = 10;
         quad.r_col = 1.0;
@@ -24,7 +24,7 @@ namespace debug
         quad.a_col = 0.5;
         quad.is_clicked = 0.0f;
         quad.type_id = QUAD_TYPE_DEBUG;
-        quad.is_static = 1.0f;
+        quad.is_static = 0.0f;
 
         quad.a = quads::gen_vertex_id();
         quad.b = quads::gen_vertex_id();
