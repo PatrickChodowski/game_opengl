@@ -111,10 +111,9 @@ namespace travel
             mobs::AliveMobs[0].y = y1;
           }
 
-            if(DEBUG_MODE){
-              debug::render_point(tp.target_x, tp.target_y);
-            }
-
+          if(DEBUG_MODE){
+            debug::render_point(tp.target_x, tp.target_y);
+          }
           travel::TravelControl[tp.entity_id] = tp;
         }
         else {
@@ -124,12 +123,11 @@ namespace travel
 
     void manage()
     {
-        TPsToRemove.clear();
-       //std::cout << "travelling entities: " << travel::TravelControl.size() << std::endl;
-       for (auto const& tp : travel::TravelControl)
-       {  
-           travel::go(tp.second);
-       }
+      TPsToRemove.clear();
+      for (auto const& tp : travel::TravelControl)
+      {  
+        travel::go(tp.second);
+      }
 
        for(int i=0; i < TPsToRemove.size(); i++)
        {

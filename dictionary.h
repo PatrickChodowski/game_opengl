@@ -10,6 +10,8 @@
 #define QUAD_TYPE_GUI 4.0f
 #define QUAD_TYPE_DEBUG 5.0f
 
+#define HERO_ENTITY_ID 0
+
 #define ENTITY_TYPE_ID_HERO 0
 #define ENTITY_TYPE_ID_ITEM 1
 #define ENTITY_TYPE_ID_MOB 2
