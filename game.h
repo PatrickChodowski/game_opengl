@@ -5,7 +5,6 @@
 // all the loop/scene/game view related stuff I hope
 namespace game
 {
-
   float light_coords[3] = {hero::HERO_X + (hero::HERO_WIDTH/2), hero::HERO_Y + (hero::HERO_HEIGHT/2), 300};
   void init()
   {
@@ -26,6 +25,7 @@ namespace game
 
   void handle_game_state()
   {
+   int hero_entity_id = ent::gen_entity_id();
    if(CHANGE_STATE_TRIGGER){ 
       camera::reset();
       menu::drop();
@@ -46,11 +46,15 @@ namespace game
       } else if(GAME_STATE["GAME_ON"]){
         menu::NewGameName = "";
         camera::speed = camera::base_speed;
-
         if(NEW_GAME){
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-          quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD, true, true);
+          quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, 
+                                                true, 
+                                                3,
+                                                0, 
+                                                hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 
+                                                2.0f,textures::FontTD, true, true, hero_entity_id);
           ent::EntityQuads.push_back(hero);
           quads::Quad stick = items::render_item_on_ground(0, 200, 200);
           ent::EntityQuads.push_back(stick);
@@ -60,7 +64,7 @@ namespace game
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
           quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, 
-                                                hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD,  true, true);
+                                                hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD,  true, true, hero_entity_id);
           ent::EntityQuads.push_back(hero);
           mobs::spawn(MAP_ID);
         }
@@ -91,7 +95,7 @@ namespace game
       ent::EntityQuads.push_back(stick);
 
       quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3, hero::current_frame, 
-      hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, textures::FontTD,  true, true);
+      hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, textures::FontTD,  true, true, hero_entity_id);
       ent::EntityQuads.push_back(hero);
 
       // mobs::move_random();

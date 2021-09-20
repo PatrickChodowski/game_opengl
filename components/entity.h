@@ -21,7 +21,8 @@ namespace ent
                      float is_static,
                      textures::TextureData FontTD,
                      bool solid,
-                     bool coll
+                     bool coll,
+                     int entity_id
                      )
   {
     float norm_x_start = (float)textures::Catalog[texture_id].frames[frame_id].x/
@@ -53,6 +54,7 @@ namespace ent
     quad.alive = alive;
     quad.solid = solid;
     quad.coll = coll;
+    quad.entity_id = entity_id;
 
     quad.a = quads::gen_vertex_id();
     quad.b = quads::gen_vertex_id();
@@ -138,7 +140,13 @@ namespace ent
     return quad;
   }
 
-
+  // Deletes entity id from the used list
+  void delete_entity_id(int entity_id)
+  {
+    ent::UsedEntityIds.erase(std::remove(ent::UsedEntityIds.begin(), 
+                                         ent::UsedEntityIds.end(), entity_id), 
+                                         ent::UsedEntityIds.end());
+  }
 
   void drop_entities()
   {
@@ -151,9 +159,14 @@ namespace ent
       quads::delete_vertex_id(ent::EntityQuads[q].d);
     }
     ent::EntityQuads.clear();
+
+    for (int e = 0; e < ent::UsedEntityIds.size(); e++)
+    {
+      ent::delete_entity_id(ent::UsedEntityIds[e]);
+    }
+    ent::UsedEntityIds.clear();
+
   }
-
-
 }
 
 

@@ -64,6 +64,7 @@ namespace mobs
     {
       for(int m=0; m<maps::Catalog[map_id].nests[i].n; m++)
       {
+        int mob_entity_id = ent::gen_entity_id();
         quads::Quad mob_quad = ent::render_entity(ENTITY_TYPE_ID_MOB,
                                                   true,
                                                   mobs::Catalog[MOB_ID].texture_id,
@@ -75,7 +76,8 @@ namespace mobs
                                                   0.0f,
                                                   textures::FontTD,
                                                   true,
-                                                  true
+                                                  true,
+                                                  mob_entity_id
                                                 );
         ent::EntityQuads.push_back(mob_quad);
 
@@ -83,6 +85,7 @@ namespace mobs
         amd.quad_id = mob_quad.id;
         amd.x = mob_quad.x;
         amd.y = mob_quad.y;
+        amd.entity_id = mob_entity_id;
         amd.mob_id = MOB_ID;
         amd.speed = mobs::Catalog[MOB_ID].max_speed;
         amd.hp = mobs::Catalog[MOB_ID].max_hp;
@@ -110,33 +113,6 @@ namespace mobs
         }
         // int mob_node_id = paths::get_navnode_id(mobs::AliveMobs[a].x, mobs::AliveMobs[a].y);
       }
-    }
-  }
-
-  void move_to_point(float x, float y)
-  {
-    // get mob quad id (temporary):
-    int quad_index; 
-    for(int q = 0; q < quads::AllQuads.size(); q++)
-    {
-      if(quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_MOB)
-      {
-        quad_index = q;
-        break;
-      }
-    }
-    std::cout << "Mob Quad Index: " << quad_index << std::endl;
-    std::cout << "Mob Position: " << quads::AllQuads[quad_index].s_x << "," << quads::AllQuads[quad_index].s_y << std::endl;
-
-    // int quad_index = quads::find_quad_id(quad_id, quads::AllQuads);
-    int quad_node_id = paths::get_navnode_id(quads::AllQuads[quad_index].s_x, quads::AllQuads[quad_index].s_y);
-    // std::cout << "Mob Polygon: " << quad_node_id << std::endl;
-
-
-    int target_node_id = paths::get_navnode_id(x, y);
-    if(quad_node_id != target_node_id)
-    {
-      paths::find_path(quad_node_id, target_node_id);
     }
   }
 
@@ -183,7 +159,6 @@ namespace mobs
         if(quad_node_id > -1 & target_node_id > -1){
 
           travel::TravelPlan tp;
-
           if(quad_node_id != target_node_id)
           {
             std::vector<int> path = paths::find_path(quad_node_id, target_node_id);
@@ -225,7 +200,8 @@ namespace mobs
                                                 0.0f,
                                                 textures::FontTD,
                                                 true,
-                                                true
+                                                true,
+                                                mobs::AliveMobs[a].entity_id
                                               );
       ent::EntityQuads.push_back(mob_quad);
       mobs::AliveMobs[a].quad_id = mob_quad.id;
