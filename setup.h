@@ -93,6 +93,7 @@ int FPS = 60; // just init
 // OpenGL
 #include "opengl/utils.h"
 #include "opengl/textures.h"
+#include "opengl/anims.h"
 #include "shaders/shaders.h"
 #include "opengl/camera.h"
 #include "opengl/quads.h"
@@ -109,7 +110,6 @@ int FPS = 60; // just init
 #include "maps/pathfinder.h"
 #include "maps/travel.h"
 #include "maps/maps.h"
-
 
 // game components
 #include "components/entity.h"

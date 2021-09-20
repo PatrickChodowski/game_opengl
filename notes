@@ -7,6 +7,10 @@ fishing mechanic that doesnt do anything
 drugi akt to oczywiscie pustynia
 
 TODO:
+  - anims:
+    - Animations from json file (hero walking)
+
+
   - debug (branch):
     - render shadow quads
     

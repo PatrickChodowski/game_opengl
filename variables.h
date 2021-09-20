@@ -452,15 +452,38 @@ std::vector<std::string> list_saves()
 
 namespace textures 
 {
-    struct Frame
+  // Frame information - id, x, y, w, h, label. Read in with texture data
+  struct Frame
   {
     int frame_id;
     int x;
     int y;
     int w;
     int h;
+    std::string label;
 
-    JS_OBJ(frame_id, x, y, w, h);
+    JS_OBJ(frame_id, x, y, w, h, label);
+  };
+
+  // Animation key data
+  struct AnimationKey
+  {
+    int id;
+    int next;
+    float time;
+
+    JS_OBJ(id, next, time);
+  };
+
+  // Animation information - id, x, y, w, h, label. Read in with texture data
+  struct Animation
+  {
+    std::string label;
+    int event_id;
+    std::vector<AnimationKey> keys;
+
+    std::vector<int> key_list;
+    JS_OBJ(label, event_id, keys);
   };
 
   // General texture information
@@ -473,10 +496,11 @@ namespace textures
     int height;
     std::vector<Frame> frames_list;
     std::map<int, Frame> frames;
+    std::vector<Animation> anims_list;
 
     unsigned int opengl_texture_id;
 
-    JS_OBJ(id, type, name, width, height, frames_list);
+    JS_OBJ(id, type, name, width, height, frames_list, anims_list);
   };
 
   // Creating catalog of all textures data 
