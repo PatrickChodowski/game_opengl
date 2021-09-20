@@ -141,6 +141,7 @@ namespace mobs
   {
     float target_rs_x = camera::reverse_scale_click_x(x, camera::x, camera::zoom);
     float target_rs_y = camera::reverse_scale_click_y(y, camera::y, camera::zoom);
+
     for (int a=0; a < mobs::AliveMobs.size(); a++)
     {
       if(mobs::AliveMobs[a].state == ENTITY_STATE_MOVING)
