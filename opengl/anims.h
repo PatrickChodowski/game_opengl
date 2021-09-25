@@ -16,6 +16,18 @@ namespace anims
         anims::PlayAnimation pa;
         pa.entity_id = entity_id;
         pa.entity_id = event_id;
+        pa.quad_id = ent::EntityQuadList[entity_id];
+
+        // frames should come from texture catalog
+        pa.current_frame = 0;
+        pa.next_frame = 0;
+        pa.delay = 0.0;
+        
+        pa.frame_update_time = timer::get_current_time();
+        pa.time_since_last_update = 0.0f;
+
+        //
+        // pa.texture_id = ?? // do i need it?
 
 
 

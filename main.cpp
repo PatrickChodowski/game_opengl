@@ -4,7 +4,6 @@ int main()
 {
   logger::init();
   logger::log(LOG_INFO, LOG_EVENT_GAME_START, "main::main", __FILE__, __LINE__, "Initialized Main Function");
-  anims::read_anim_data();
   // Window, OpenGL, SDL initiatlization
   initialize_opengl_context();
   SDL_Window *WINDOW = SDL_CreateWindow("Pogromcy Karaluchow",

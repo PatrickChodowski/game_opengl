@@ -132,6 +132,9 @@ namespace ent
     quad.i_right.b = quad.c;
     quad.i_right.c = quad.d;
 
+    // insert to EntityQuadID map -> insert entity and quad id for given frame
+    ent::EntityQuadList.insert({entity_id, quad.id});
+
     return quad;
   }
 
@@ -141,6 +144,7 @@ namespace ent
     ent::UsedEntityIds.erase(std::remove(ent::UsedEntityIds.begin(), 
                                          ent::UsedEntityIds.end(), entity_id), 
                                          ent::UsedEntityIds.end());
+    ent::EntityQuadList.erase(entity_id);
   }
 
   void drop_entities()
@@ -155,6 +159,7 @@ namespace ent
     }
     ent::EntityQuads.clear();
     ent::UsedEntityIds.clear();
+    ent::EntityQuadList.clear();
 
   }
 }

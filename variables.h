@@ -392,11 +392,13 @@ namespace anims
     int entity_id;
     int current_frame;
     int next_frame;
+    int texture_id;
 
     float delay;
     float time_since_last_update;
 
-    auto frame_update_time = std::chrono::system_clock::now();
+    //auto frame_update_time = std::chrono::system_clock::now();
+    std::time_t frame_update_time;
   };
 
   // Gathers current playanimation objects
@@ -409,6 +411,7 @@ namespace ent
   // Entity ID has to last longer than one frame and be assigned to entity since load till the end of its activity
   std::vector<int> UsedEntityIds = {};
   std::vector<quads::Quad> EntityQuads;
+  std::map<int, int> EntityQuadList;
 
   // Algorithm to find next available entity id
   int find_next_entity_id()
