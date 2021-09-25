@@ -147,10 +147,6 @@ namespace quads
     int texture_id;
     int frame_id;
 
-    // for animations
-    auto frame_update_time = std::chrono::system_clock::now();
-    float time_since_last_update;
-
     // for passing colors
     float r_col;
     float g_col;
