@@ -382,6 +382,28 @@ namespace travel
   std::vector<int> TPsToRemove = {};
 }
 
+namespace anims
+{
+  // Play Animation data - event_id, quad_id, entity_id, current_frame, next_frame, delay, time_since_last_update, frame_update_time
+  struct PlayAnimation
+  {
+    int event_id;
+    int quad_id;
+    int entity_id;
+    int current_frame;
+    int next_frame;
+
+    float delay;
+    float time_since_last_update;
+
+    auto frame_update_time = std::chrono::system_clock::now();
+  };
+
+  // Gathers current playanimation objects
+  std::map<int, PlayAnimation> PlayAnimationControl;
+  std::vector<int> PAsToRemove = {};
+}
+
 namespace ent
 {
   // Entity ID has to last longer than one frame and be assigned to entity since load till the end of its activity
