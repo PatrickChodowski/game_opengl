@@ -79,7 +79,7 @@ namespace textures
     // list animations available for texture (event_id_list)
     for(int a = 0; a < TD.anims_list.size(); a++)
     {
-      TD.anims.insert({TD.anims_list[a].event_id, TD.anims_list[a]})
+      TD.anims.insert({TD.anims_list[a].event_id, TD.anims_list[a]});
     }
     TD.anims_list.clear();
 

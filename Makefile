@@ -7,7 +7,7 @@ clean: rm *.o
 endif
 ifeq ($(UNAME),Linux)
 output: game
-	g++ -std=c++11 main.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
+	g++ -std=c++17 main.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
 game: main.cpp
 clean: rm *.o
 endif
