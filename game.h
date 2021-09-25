@@ -15,6 +15,9 @@ namespace game
     menu::init();
     mobs::init();
     gui::init();
+
+    // std::cout << " Animation label: " << textures::Catalog[3].anims_list[0].label << std::endl;
+    // std::cout << " Animation event id: " << textures::Catalog[3].anims_list[0].event_id << std::endl;
     
     // adding font texture to texture catalog
     textures::FontTD = fonts::init(FONT_NAME);

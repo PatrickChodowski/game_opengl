@@ -147,6 +147,10 @@ namespace quads
     int texture_id;
     int frame_id;
 
+    // for animations
+    auto frame_update_time = std::chrono::system_clock::now();
+    float time_since_last_update;
+
     // for passing colors
     float r_col;
     float g_col;
@@ -495,9 +499,10 @@ namespace textures
     int width;
     int height;
     std::vector<Frame> frames_list;
-    std::map<int, Frame> frames;
     std::vector<Animation> anims_list;
 
+    std::map<int, Frame> frames;
+    std::map<int, Animation> anims;
     unsigned int opengl_texture_id;
 
     JS_OBJ(id, type, name, width, height, frames_list, anims_list);
