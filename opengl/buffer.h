@@ -261,7 +261,7 @@ namespace buffer
       vertices_array[(start_position+(cva*3) + 13)] = quads[t].v_d.is_static;
     }
 
-    utils::array_to_file("buffer_update_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
+    // utils::array_to_file("buffer_update_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
     quads::all_quads_to_json();
 
     buffer::VBO_array_size = sizeof(float)*vertices_array_count;
@@ -285,7 +285,7 @@ namespace buffer
       vindices_array[(start_position+4)] = quads[t].i_right.b;
       vindices_array[(start_position+5)] = quads[t].i_right.c;
     }
-    utils::array_to_file("buffer_update_index_array", vindices_array, vindices_array_count, 3);
+    // utils::array_to_file("buffer_update_index_array", vindices_array, vindices_array_count, 3);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 

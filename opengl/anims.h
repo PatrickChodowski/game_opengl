@@ -32,7 +32,7 @@ namespace anims
 
         for(int e=0; e<ent::EntityQuads.size(); e++)
         {
-          if(entity_id == ent::EntityQuads[e])
+          if(entity_id == ent::EntityQuads[e].entity_id)
           {
             pa.texture_id = ent::EntityQuads[e].texture_id;
             pa.quad_id = ent::EntityQuads[e].id;
@@ -47,7 +47,7 @@ namespace anims
           if(textures::Catalog[pa.texture_id].anims.count(event_id))
           {
             pa.animation_label = textures::Catalog[pa.texture_id].anims[event_id].label;
-            pa.current_frame = textures::Catalog[pa.texture_id].anims[event_id].label;
+            // pa.current_frame = textures::Catalog[pa.texture_id].anims[event_id].label;
 
             // (NOTE): Somehow need to pass current frame of the entity 
             // to decide which sequence to fire
