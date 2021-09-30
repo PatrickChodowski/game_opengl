@@ -28,15 +28,16 @@
     {
       "label": "move_left", 
       "event_id": 0, 
-      "sequence": [],
-      "keys": [{"id": 7, "time": 0.2, "next": 6},
+      "length": 2,
+      "sequence": [{"id": 7, "time": 0.2, "next": 6},
                {"id": 6, "time": 0.2, "next": 7}]
     },
     {
       "label": "move_right", 
       "event_id": 1, 
-      "keys": [{"id": 9, "time": 0.2, "next": 10},
-               {"id": 10, "time": 0.2, "next": 9}]
+      "length": 2,
+      "sequence": [{"id": 9, "time": 0.2, "next": 10},
+                   {"id": 10, "time": 0.2, "next": 9}]
     }
   ]
 }

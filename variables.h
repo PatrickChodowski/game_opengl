@@ -387,12 +387,15 @@ namespace anims
   // Play Animation data - event_id, quad_id, entity_id, current_frame, next_frame, delay, time_since_last_update, frame_update_time
   struct PlayAnimation
   {
+    bool breakable;
+
     int event_id;
     int quad_id;
     int entity_id;
     int current_frame;
     int next_frame;
     int texture_id;
+    int seq_index;
 
     float delay;
     float time_since_last_update;
@@ -403,8 +406,10 @@ namespace anims
     std::string animation_label;
   };
 
-  // Gathers current playanimation objects
+  // Gathers current playanimation objects. <entity_id, Play Animation object>
   std::map<int, PlayAnimation> PlayAnimationControl;
+
+  // Contains entity IDs of which animation should be removed
   std::vector<int> PAsToRemove = {};
 }
 
@@ -509,10 +514,11 @@ namespace textures
   {
     std::string label;
     int event_id;
-    std::vector<AnimationKey> keys;
+    int length;
+    std::vector<AnimationKey> sequence;
 
     std::vector<int> key_list;
-    JS_OBJ(label, event_id, keys);
+    JS_OBJ(label, event_id, length, sequence);
   };
 
   // General texture information

@@ -4,28 +4,45 @@
 // it should be similar, but shorter than TravelPlans
 namespace anims
 {
-
-    void set_frame(int quad_index, int frame_id)
+    bool check_if_entity_in_played_anim(int entity_id)
     {
-
+      bool check;
+      if(anims::PlayAnimationControl.count(entity_id) > 0)
+      {
+        check = true;
+      } else {
+        check = false;
+      }
+      return check;
     }
 
+
     // Starts animation - creates PlayAnimation object for entity and provides event_id which tells what animation to start
-    anims::PlayAnimation start(int entity_id, int event_id)
+    void start(int entity_id, int event_id, bool breakable)
     {
+      bool green;
+      // first check if given entity is already in animation
+      if(check_if_entity_in_played_anim(entity_id))
+      {
+        // if it is in animation, check if its breakable animation
+        if(anims::PlayAnimationControl[entity_id].breakable)
+        {
+
+
+        }
+
+      }
+
+
         anims::PlayAnimation pa;
         pa.entity_id = entity_id;
-        pa.entity_id = event_id;
-        pa.quad_id = ent::EntityQuadList[entity_id];
+        pa.event_id = event_id;
+        pa.breakable = breakable;
 
-        // frames should come from texture catalog
-        pa.current_frame = 0;
-        pa.next_frame = 0;
-        pa.delay = 0.0;
-        
         pa.frame_update_time = timer::get_current_time();
         pa.time_since_last_update = 0.0f;
         pa.texture_id = -1;
+        pa.seq_index = 0;
 
         // texture ID from Entity Quads
         // but need to update frame in AllQuads -> this has to be done before summarizing quads
@@ -44,7 +61,7 @@ namespace anims
         if(pa.texture_id > -1)
         {
           // check if given animation exists in the texture
-          if(textures::Catalog[pa.texture_id].anims.count(event_id))
+          if(textures::Catalog[pa.texture_id].anims.count(event_id) > 0)
           {
             pa.animation_label = textures::Catalog[pa.texture_id].anims[event_id].label;
             // pa.current_frame = textures::Catalog[pa.texture_id].anims[event_id].label;
@@ -56,26 +73,24 @@ namespace anims
             // is it the long sequence or short sequence.
             // shall I lock the direction till it finishes?
 
+            pa.current_frame = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].id;
+            pa.next_frame = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].next;
+            pa.delay = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].time;
+
           }
 
 
         }
-
-        return pa;
+        anims::PlayAnimationControl.insert({entity_id, pa});
+        // return pa;
         //this belongs to entity logic? 
         //anims::PlayAnimationControl.insert({anims::AliveMobs[a].entity_id, pa});
     }
 
     void play(anims::PlayAnimation pa)
     {
-        // check if event_id exists in given texture animation catalog:
-        // if(textures::Catalog[quads::AllQuads[quad_index].texture_id].anims.count(event_id) > 0)
-        // {
-        //     //float time_since_last_update = timer::get_elapsed_time(quads::AllQuads[quad_index].frame_update_time);
-
-
-
-        // }
+      pa.
+      
 
     }
 
