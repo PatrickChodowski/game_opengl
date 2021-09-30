@@ -135,7 +135,10 @@ namespace events
     if(hero::attack_state == false){
       if(KEYBOARD[SDL_SCANCODE_LEFT]){
         camera::move_x -= camera::speed;
-        hero::update_frame(MOVE_LEFT);
+        // hero::update_frame(MOVE_LEFT);
+        // get hero entity id
+        anims::start(HERO_ENTITY_ID, MOVE_LEFT);
+
       } 
       else if(KEYBOARD[SDL_SCANCODE_RIGHT]){
         camera::move_x += camera::speed;
