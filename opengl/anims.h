@@ -25,15 +25,41 @@ namespace anims
         
         pa.frame_update_time = timer::get_current_time();
         pa.time_since_last_update = 0.0f;
+        pa.texture_id = -1;
 
-        //
-        // pa.texture_id = ?? // do i need it?
+        // texture ID from Entity Quads
+        // but need to update frame in AllQuads -> this has to be done before summarizing quads
+
+        for(int e=0; e<ent::EntityQuads.size(); e++)
+        {
+          if(entity_id == ent::EntityQuads[e])
+          {
+            pa.texture_id = ent::EntityQuads[e].texture_id;
+            pa.quad_id = ent::EntityQuads[e].id;
+            break;
+          }
+        }
+
+        // if found texture, read the anims data from texture catalog
+        if(pa.texture_id > -1)
+        {
+          // check if given animation exists in the texture
+          if(textures::Catalog[pa.texture_id].anims.count(event_id))
+          {
+            pa.animation_label = textures::Catalog[pa.texture_id].anims[event_id].label;
+            pa.current_frame = textures::Catalog[pa.texture_id].anims[event_id].label;
+
+            // (NOTE): Somehow need to pass current frame of the entity 
+            // to decide which sequence to fire
+            // or not? just finish the animation
+            // what If I finish the move before (anim will go right and I will change left)
+            // is it the long sequence or short sequence.
+            // shall I lock the direction till it finishes?
+
+          }
 
 
-
-
-
-
+        }
 
         return pa;
         //this belongs to entity logic? 

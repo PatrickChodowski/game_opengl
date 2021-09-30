@@ -399,6 +399,8 @@ namespace anims
 
     //auto frame_update_time = std::chrono::system_clock::now();
     std::time_t frame_update_time;
+
+    std::string animation_label;
   };
 
   // Gathers current playanimation objects
@@ -411,6 +413,8 @@ namespace ent
   // Entity ID has to last longer than one frame and be assigned to entity since load till the end of its activity
   std::vector<int> UsedEntityIds = {};
   std::vector<quads::Quad> EntityQuads;
+
+  // <entity_id, quad_id>
   std::map<int, int> EntityQuadList;
 
   // Algorithm to find next available entity id
@@ -523,13 +527,15 @@ namespace textures
     std::vector<Animation> anims_list;
 
     std::map<int, Frame> frames;
+
+    // Catalog of <EventID-Animation Object>
     std::map<int, Animation> anims;
     unsigned int opengl_texture_id;
 
     JS_OBJ(id, type, name, width, height, frames_list, anims_list);
   };
 
-  // Creating catalog of all textures data 
+  // Creating catalog of all textures data. <Texture_id - Texture Data object>
   std::map<int, TextureData> Catalog = {};
   std::vector<unsigned int> BoundTextures = {};
   textures::TextureData FontTD;

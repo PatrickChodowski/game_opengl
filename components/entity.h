@@ -132,9 +132,6 @@ namespace ent
     quad.i_right.b = quad.c;
     quad.i_right.c = quad.d;
 
-    // insert to EntityQuadID map -> insert entity and quad id for given frame
-    ent::EntityQuadList.insert({entity_id, quad.id});
-
     return quad;
   }
 
@@ -159,8 +156,6 @@ namespace ent
     }
     ent::EntityQuads.clear();
     ent::UsedEntityIds.clear();
-    ent::EntityQuadList.clear();
-
   }
 }
 
