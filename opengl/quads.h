@@ -276,13 +276,13 @@ namespace quads
          quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_HERO || 
          quads::AllQuads[q].entity_type_id == ENTITY_TYPE_ID_ITEM)
       {
-        QuadLabel ql;
-        ql.text = std::to_string(quads::AllQuads[q].entity_id);// + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
-        ql.x = quads::AllQuads[q].x + 20;
-        ql.y = quads::AllQuads[q].y - 10;
-        ql.is_static = 0.0f;
-        ql.scale = 0.5;
-        quads::AllQuads[q].labels.push_back(ql);
+        // QuadLabel ql;
+        // ql.text = std::to_string(quads::AllQuads[q].entity_id);// + "_(" + std::to_string(quads::AllQuads[q].x) + "," + std::to_string(quads::AllQuads[q].y) + ")";
+        // ql.x = quads::AllQuads[q].x + 20;
+        // ql.y = quads::AllQuads[q].y - 10;
+        // ql.is_static = 0.0f;
+        // ql.scale = 0.5;
+        // quads::AllQuads[q].labels.push_back(ql);
 
 
         // QuadLabel ql0;

@@ -62,6 +62,22 @@ namespace timer
     float delay = 17.0 - elapsed_seconds.count();
     return delay;
   }
+
+  std::chrono::milliseconds get_current_ms_time()
+  {
+    std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+          std::chrono::system_clock::now().time_since_epoch()
+    );
+    return ms;
+  }
+
+  float get_elapsed_ms(std::chrono::milliseconds start)
+  {
+    std::chrono::milliseconds now_time = timer::get_current_ms_time();
+    float elapsed_ms = now_time.count() - start.count();
+    return elapsed_ms;
+  }
+
 }
 
 #endif

@@ -18,44 +18,34 @@ namespace anims
 
 
     // Starts animation - creates PlayAnimation object for entity and provides event_id which tells what animation to start
-    void start(int entity_id, int event_id, bool breakable)
+    void start(int entity_id, int event_id, bool breakable = true)
     {
-      bool green;
-      // first check if given entity is already in animation
-      if(check_if_entity_in_played_anim(entity_id))
+      bool check_in_anim = check_if_entity_in_played_anim(entity_id);
+      bool breakable_anim = false;
+      if(check_in_anim)
       {
-        // if it is in animation, check if its breakable animation
-        if(anims::PlayAnimationControl[entity_id].breakable)
-        {
-
-
-        }
-
+        breakable_anim = anims::PlayAnimationControl[entity_id].breakable;
       }
 
-
+      // not in animation or in animation that  is breakable
+      if(!check_in_anim | (check_in_anim & breakable_anim))
+      {
         anims::PlayAnimation pa;
         pa.entity_id = entity_id;
         pa.event_id = event_id;
         pa.breakable = breakable;
 
-        pa.frame_update_time = timer::get_current_time();
+        pa.frame_update_time = timer::get_current_ms_time();
         pa.time_since_last_update = 0.0f;
         pa.texture_id = -1;
         pa.seq_index = 0;
 
         // texture ID from Entity Quads
         // but need to update frame in AllQuads -> this has to be done before summarizing quads
+        int ent_quad_index = ent::find_entity(entity_id);
+        pa.texture_id = ent::EntityQuads[ent_quad_index].texture_id;
+        pa.quad_id = ent::EntityQuads[ent_quad_index].id;
 
-        for(int e=0; e<ent::EntityQuads.size(); e++)
-        {
-          if(entity_id == ent::EntityQuads[e].entity_id)
-          {
-            pa.texture_id = ent::EntityQuads[e].texture_id;
-            pa.quad_id = ent::EntityQuads[e].id;
-            break;
-          }
-        }
 
         // if found texture, read the anims data from texture catalog
         if(pa.texture_id > -1)
@@ -75,21 +65,40 @@ namespace anims
 
             pa.current_frame = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].id;
             pa.next_frame = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].next;
-            pa.delay = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].time;
+            pa.delay = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].ms_delay;
 
           }
-
-
         }
-        anims::PlayAnimationControl.insert({entity_id, pa});
+        if(breakable_anim){
+          // overwriting breakable anim for this entity
+          anims::PlayAnimationControl[entity_id] = pa;
+        } else {
+          // othwerwise inserting
+          anims::PlayAnimationControl.insert({entity_id, pa});
+        }
+      }
         // return pa;
         //this belongs to entity logic? 
         //anims::PlayAnimationControl.insert({anims::AliveMobs[a].entity_id, pa});
     }
 
+    // plays animation: check for elapsed time
     void play(anims::PlayAnimation pa)
     {
-      pa.
+      
+      //std::cout << "playing animation" << std::endl;
+      std::chrono::milliseconds now_time = timer::get_current_ms_time();
+      pa.time_since_last_update = timer::get_elapsed_ms(pa.frame_update_time);
+
+      if(pa.time_since_last_update >= pa.delay)
+      {
+        pa.frame_update_time = now_time;
+        std::cout << "time since last update: " << pa.time_since_last_update << std::endl;
+      }
+
+
+
+      int ent_quad_index = ent::find_entity(pa.entity_id);
       
 
     }

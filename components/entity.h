@@ -157,6 +157,7 @@ namespace ent
     ent::EntityQuads.clear();
     ent::UsedEntityIds.clear();
   }
+
 }
 
 
