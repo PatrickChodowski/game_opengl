@@ -105,6 +105,10 @@ namespace game
       mobs::render_alive_mobs();
       quads::set_labels();
       fonts::render_labels();
+
+
+      // after all entities are rendered -> hero, items, mobs: manage their animations
+      anims::manage();
     } 
    }
   }

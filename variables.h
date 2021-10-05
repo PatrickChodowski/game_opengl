@@ -401,10 +401,11 @@ namespace anims
     float time_since_last_update;
 
     //auto frame_update_time = std::chrono::system_clock::now();
-    std::time_t frame_update_time;
-
+    // std::time_t frame_update_time;
+    std::chrono::milliseconds frame_update_time = timer::get_current_ms_time();
     std::string animation_label;
   };
+
 
   // Gathers current playanimation objects. <entity_id, Play Animation object>
   std::map<int, PlayAnimation> PlayAnimationControl;
@@ -443,6 +444,21 @@ namespace ent
     // std::cout << "next entity id: " << next_entity_id << std::endl;
     ent::UsedEntityIds.push_back(next_entity_id);
     return next_entity_id;
+  }
+
+  // return quad index from ent::EntityQuads for given entity id
+  int find_entity(int entity_id)
+  {
+    int index = -1;
+    for(int e=0; e<ent::EntityQuads.size(); e++)
+    {
+      if(entity_id == ent::EntityQuads[e].entity_id)
+      {
+        index = e;
+        break;
+      }
+    }
+    return index;
   }
 
 }
@@ -504,9 +520,9 @@ namespace textures
   {
     int id;
     int next;
-    float time;
+    float ms_delay;
 
-    JS_OBJ(id, next, time);
+    JS_OBJ(id, next, ms_delay);
   };
 
   // Animation information - id, x, y, w, h, label. Read in with texture data

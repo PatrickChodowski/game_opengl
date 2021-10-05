@@ -10,10 +10,12 @@ introdce thor by being part of the ogre (Thrym)
 TODO:
   - anims:
     - Animations from json file (hero walking)
+    - Animations manager being worked on 
 
 
   - debug (branch):
     - render shadow quads
+    - set_labels() definately not set in the right moment (on quads in handle_state, but quads are summarized later :o)
     
  - mobs
   - close travel if new started for given mob
