@@ -408,7 +408,10 @@ namespace anims
 
 
   // Gathers current playanimation objects. <entity_id, Play Animation object>
-  std::map<int, PlayAnimation> PlayAnimationControl;
+  //std::map<int, PlayAnimation> PlayAnimationControl;
+
+  // Gathers current playanimation objects. vector::<Play Animation object>
+  std::vector<PlayAnimation> PlayAnimationControl;  
 
   // Contains entity IDs of which animation should be removed
   std::vector<int> PAsToRemove = {};

@@ -4,27 +4,47 @@
 // it should be similar, but shorter than TravelPlans
 namespace anims
 {
-    bool check_if_entity_in_played_anim(int entity_id)
+    // bool check_if_entity_in_played_anim(int entity_id)
+    // {
+    //   bool check;
+    //   if(anims::PlayAnimationControl.count(entity_id) > 0)
+    //   {
+    //     check = true;
+    //   } else {
+    //     check = false;
+    //   }
+    //   return check;
+    // }
+
+    int check_if_entity_in_played_anim(int entity_id)
     {
-      bool check;
-      if(anims::PlayAnimationControl.count(entity_id) > 0)
+      int entity_index = -1;
+      for(int i=0; i< anims::PlayAnimationControl.size(); i++)
       {
-        check = true;
-      } else {
-        check = false;
+        if(entity_id == anims::PlayAnimationControl[i].entity_id)
+        {
+          entity_index = i;
+          break;
+        }
       }
-      return check;
-    }
+      return entity_index;
+    } 
+
 
 
     // Starts animation - creates PlayAnimation object for entity and provides event_id which tells what animation to start
     void start(int entity_id, int event_id, bool breakable = true)
     {
-      bool check_in_anim = check_if_entity_in_played_anim(entity_id);
+      bool check_in_anim = false;
+      int entity_index = check_if_entity_in_played_anim(entity_id);
+      if(entity_index > -1){
+        check_in_anim = true;
+      }
       bool breakable_anim = false;
+
       if(check_in_anim)
       {
-        breakable_anim = anims::PlayAnimationControl[entity_id].breakable;
+        breakable_anim = anims::PlayAnimationControl[entity_index].breakable;
       }
 
       // not in animation or in animation that  is breakable
@@ -71,10 +91,11 @@ namespace anims
         }
         if(breakable_anim){
           // overwriting breakable anim for this entity
-          anims::PlayAnimationControl[entity_id] = pa;
+          anims::PlayAnimationControl[entity_index] = pa;
         } else {
           // othwerwise inserting
-          anims::PlayAnimationControl.insert({entity_id, pa});
+          // anims::PlayAnimationControl.insert({entity_id, pa});
+          anims::PlayAnimationControl.push_back(pa);
         }
       }
         // return pa;
@@ -83,23 +104,37 @@ namespace anims
     }
 
     // plays animation: check for elapsed time
-    void play(anims::PlayAnimation pa)
+    void play(anims::PlayAnimation &pa)
     {
       
       //std::cout << "playing animation" << std::endl;
       std::chrono::milliseconds now_time = timer::get_current_ms_time();
-      pa.time_since_last_update = timer::get_elapsed_ms(pa.frame_update_time);
+      int ent_quad_index = ent::find_entity(pa.entity_id);
 
-      if(pa.time_since_last_update >= pa.delay)
+      if(pa.seq_index == 0)
       {
         pa.frame_update_time = now_time;
-        std::cout << "time since last update: " << pa.time_since_last_update << std::endl;
+        pa.seq_index += 1;
+
+      } else {
+
+        pa.time_since_last_update = timer::get_elapsed_ms(pa.frame_update_time);
+        if(pa.time_since_last_update >= pa.delay)
+        {
+          pa.frame_update_time = now_time;
+          pa.seq_index += 1;
+          pa.current_frame = pa.next_frame;
+          pa.next_frame = //
+          // eee? need a full frame sequence here! Why its not here?
+
+
+        }
+
+
       }
 
+      ent::EntityQuads[ent_quad_index].frame_id = pa.current_frame;
 
-
-      int ent_quad_index = ent::find_entity(pa.entity_id);
-      
 
     }
 
@@ -107,18 +142,23 @@ namespace anims
     void manage()
     {
         PAsToRemove.clear();
-        for (auto const& pa : anims::PlayAnimationControl)
-        {  
-            anims::play(pa.second);
-        }
-        for(int i=0; i < PAsToRemove.size(); i++)
+        // for (auto const& pa : anims::PlayAnimationControl)
+        // {  
+        //     anims::play(pa.second);
+        // }
+        for(int p = 0; p < anims::PlayAnimationControl.size(); p++)
         {
-            if(anims::PlayAnimationControl.count(PAsToRemove[i]) > 0)
-            {
-                std::cout << "removing " <<  PAsToRemove[i] << " from Played Animations" << std::endl;  
-                anims::PlayAnimationControl.erase(PAsToRemove[i]);  
-            }
+          anims::play(anims::PlayAnimationControl[p]);
         }
+
+        // for(int i=0; i < PAsToRemove.size(); i++)
+        // {
+        //     if(anims::PlayAnimationControl.count(PAsToRemove[i]) > 0)
+        //     {
+        //         std::cout << "removing " <<  PAsToRemove[i] << " from Played Animations" << std::endl;  
+        //         anims::PlayAnimationControl.erase(PAsToRemove[i]);  
+        //     }
+        // }
     }
 
 }
