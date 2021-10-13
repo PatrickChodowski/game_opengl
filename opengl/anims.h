@@ -16,7 +16,7 @@ namespace anims
     //   return check;
     // }
 
-    // checks if given entity id has already played animation in PlayAnimationControl
+    // checks if given entity id has already played animation in PlayAnimationControl. Returns index
     int check_if_entity_in_played_anim(int entity_id)
     {
       int entity_index = -1;
@@ -51,6 +51,7 @@ namespace anims
       // not in animation or in animation that  is breakable
       if(!check_in_anim | (check_in_anim & breakable_anim))
       {
+        //std::cout << "    starting animation entity: " << entity_id << " event_id: " << event_id << std::endl;
         anims::PlayAnimation pa;
         pa.entity_id = entity_id;
         pa.event_id = event_id;
@@ -59,7 +60,7 @@ namespace anims
         pa.frame_update_time = timer::get_current_ms_time();
         pa.time_since_last_update = 0.0f;
         pa.texture_id = -1;
-        pa.seq_index = 0;
+        pa.seq_index = 0; 
 
         // texture ID from Entity Quads
         // but need to update frame in AllQuads -> this has to be done before summarizing quads
@@ -85,8 +86,9 @@ namespace anims
             // shall I lock the direction till it finishes?
 
             pa.current_frame = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].id;
-            pa.next_frame = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].next;
             pa.delay = textures::Catalog[pa.texture_id].anims[event_id].sequence[pa.seq_index].ms_delay;
+            pa.length = textures::Catalog[pa.texture_id].anims[event_id].length;
+            pa.idle_frame = textures::Catalog[pa.texture_id].anims[event_id].idle_frame;
 
           }
         }
@@ -104,64 +106,56 @@ namespace anims
         //anims::PlayAnimationControl.insert({anims::AliveMobs[a].entity_id, pa});
     }
 
-    // plays animation: check for elapsed time
-    void play(anims::PlayAnimation &pa)
+    // Plays the animation. Returns information if animation finished or not
+    bool play(anims::PlayAnimation &pa)
     {
-      
-      //std::cout << "playing animation" << std::endl;
+      //std::cout << "Playing animation for entity " << pa.entity_id << " Seq Index: " << pa.seq_index << std::endl;
+      bool finished = false;
       std::chrono::milliseconds now_time = timer::get_current_ms_time();
       int ent_quad_index = ent::find_entity(pa.entity_id);
-
       if(pa.seq_index == 0)
       {
         pa.frame_update_time = now_time;
         pa.seq_index += 1;
-
-      } else {
-
+      } else if ((pa.seq_index + 1) <= pa.length ) {
         pa.time_since_last_update = timer::get_elapsed_ms(pa.frame_update_time);
         if(pa.time_since_last_update >= pa.delay)
         {
           pa.frame_update_time = now_time;
           pa.seq_index += 1;
-          pa.current_frame = pa.next_frame;
-          pa.next_frame = //
-          // eee? need a full frame sequence here! Why its not here?
-
-
+          pa.current_frame = textures::Catalog[pa.texture_id].anims[pa.event_id].sequence[pa.seq_index].id;
+          pa.delay = textures::Catalog[pa.texture_id].anims[pa.event_id].sequence[pa.seq_index].ms_delay;
         }
-
+      } else if ((pa.seq_index + 1) > pa.length) {
+          pa.current_frame = pa.idle_frame;
+          finished = true;
 
       }
-
-      ent::EntityQuads[ent_quad_index].frame_id = pa.current_frame;
-
-
+      ent::update_frame(ent_quad_index, pa.current_frame);
+      return finished;
     }
 
     // manages played animations
     void manage()
     {
         PAsToRemove.clear();
-        // for (auto const& pa : anims::PlayAnimationControl)
-        // {  
-        //     anims::play(pa.second);
-        // }
         for(int p = 0; p < anims::PlayAnimationControl.size(); p++)
         {
-          anims::play(anims::PlayAnimationControl[p]);
+          bool finished = anims::play(anims::PlayAnimationControl[p]);
+          if(finished){
+            PAsToRemove.push_back(anims::PlayAnimationControl[p].entity_id);
+          }
         }
 
-        // for(int i=0; i < PAsToRemove.size(); i++)
-        // {
-        //     if(anims::PlayAnimationControl.count(PAsToRemove[i]) > 0)
-        //     {
-        //         std::cout << "removing " <<  PAsToRemove[i] << " from Played Animations" << std::endl;  
-        //         anims::PlayAnimationControl.erase(PAsToRemove[i]);  
-        //     }
-        // }
+        if (PAsToRemove.size() > 0)
+        {
+          for(int i=0; i < PAsToRemove.size(); i++)
+          {
+            int entity_index = check_if_entity_in_played_anim(PAsToRemove[i]);
+            anims::PlayAnimationControl.erase(anims::PlayAnimationControl.begin() + entity_index);
+          }
+        }
     }
-
 }
 
 #endif 

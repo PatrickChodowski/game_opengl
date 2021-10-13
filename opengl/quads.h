@@ -27,6 +27,12 @@ namespace quads
 
     // assign entity quads
     if(ent::EntityQuads.size() > 0){
+      
+      // for(int e=0; e < ent::EntityQuads.size(); e++)
+      // {
+      //   std::cout << "  attaching entity id: " << ent::EntityQuads[e].entity_id << " frame id: " << ent::EntityQuads[e].frame_id << std::endl;
+      // }
+
       quads::AllQuads.insert(quads::AllQuads.end(), ent::EntityQuads.begin(), ent::EntityQuads.end());
     }
 

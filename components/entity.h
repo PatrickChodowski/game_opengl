@@ -4,6 +4,7 @@
 
 namespace ent
 {
+  // Adds Entity Quad to EntityQuads vector. Entity Type ID (one of HERO, ITEM, MOB, NA). Alive, textureid, frame_id, x, y, h, w, static, FontTD, solid, coll, entity_id
   quads::Quad render_entity(
                      int entity_type_id,
                      bool alive,
