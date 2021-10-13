@@ -393,11 +393,12 @@ namespace anims
     int quad_id;
     int entity_id;
     int current_frame;
-    int next_frame;
     int texture_id;
     int seq_index;
+    int length;
+    int delay;
+    int idle_frame;
 
-    float delay;
     float time_since_last_update;
 
     //auto frame_update_time = std::chrono::system_clock::now();
@@ -415,6 +416,69 @@ namespace anims
 
   // Contains entity IDs of which animation should be removed
   std::vector<int> PAsToRemove = {};
+}
+
+namespace textures 
+{
+  // Frame information - id, x, y, w, h, label. Read in with texture data
+  struct Frame
+  {
+    int frame_id;
+    int x;
+    int y;
+    int w;
+    int h;
+    std::string label;
+
+    JS_OBJ(frame_id, x, y, w, h, label);
+  };
+
+  // Animation key data
+  struct AnimationKey
+  {
+    int id;
+    int ms_delay;
+
+    JS_OBJ(id, ms_delay);
+  };
+
+  // Animation information - id, x, y, w, h, label. Read in with texture data
+  struct Animation
+  {
+    std::string label;
+    int event_id;
+    int length;
+    int idle_frame;
+    std::vector<AnimationKey> sequence;
+
+    std::vector<int> key_list;
+    JS_OBJ(label, event_id, length, sequence, idle_frame);
+  };
+
+  // General texture information
+  struct TextureData
+  {
+    int id;
+    std::string type;
+    std::string name;
+    int width;
+    int height;
+    std::vector<Frame> frames_list;
+    std::vector<Animation> anims_list;
+
+    std::map<int, Frame> frames;
+
+    // Catalog of <EventID-Animation Object>
+    std::map<int, Animation> anims;
+    unsigned int opengl_texture_id;
+
+    JS_OBJ(id, type, name, width, height, frames_list, anims_list);
+  };
+
+  // Creating catalog of all textures data. <Texture_id - Texture Data object>
+  std::map<int, TextureData> Catalog = {};
+  std::vector<unsigned int> BoundTextures = {};
+  textures::TextureData FontTD;
 }
 
 namespace ent
@@ -464,6 +528,29 @@ namespace ent
     return index;
   }
 
+  // Takes index of quad in entities and new frame id, and updates values in the quad
+  void update_frame(int ent_quad_index_id, int frame_id)
+  {
+    int texture_id = ent::EntityQuads[ent_quad_index_id].texture_id;
+    float norm_x_start = (float)textures::Catalog[texture_id].frames[frame_id].x/
+    (float)textures::Catalog[texture_id].width;
+
+    float norm_x_end =  (float)(textures::Catalog[texture_id].frames[frame_id].x + 
+    textures::Catalog[texture_id].frames[frame_id].w)/
+    (float)textures::Catalog[texture_id].width;
+
+    ent::EntityQuads[ent_quad_index_id].frame_id = frame_id;
+    ent::EntityQuads[ent_quad_index_id].v_a.tex_coord_x = norm_x_start;
+    ent::EntityQuads[ent_quad_index_id].v_c.tex_coord_x = norm_x_start;
+    ent::EntityQuads[ent_quad_index_id].v_b.tex_coord_x = norm_x_end;
+    ent::EntityQuads[ent_quad_index_id].v_d.tex_coord_x = norm_x_end;
+    ent::EntityQuads[ent_quad_index_id].v_a.frame_id = frame_id;
+    ent::EntityQuads[ent_quad_index_id].v_b.frame_id = frame_id;
+    ent::EntityQuads[ent_quad_index_id].v_c.frame_id = frame_id;
+    ent::EntityQuads[ent_quad_index_id].v_d.frame_id = frame_id;
+  }
+
+
 }
 
 namespace menu
@@ -501,69 +588,6 @@ std::vector<std::string> list_saves()
     }
     return good;
   }
-}
-
-namespace textures 
-{
-  // Frame information - id, x, y, w, h, label. Read in with texture data
-  struct Frame
-  {
-    int frame_id;
-    int x;
-    int y;
-    int w;
-    int h;
-    std::string label;
-
-    JS_OBJ(frame_id, x, y, w, h, label);
-  };
-
-  // Animation key data
-  struct AnimationKey
-  {
-    int id;
-    int next;
-    float ms_delay;
-
-    JS_OBJ(id, next, ms_delay);
-  };
-
-  // Animation information - id, x, y, w, h, label. Read in with texture data
-  struct Animation
-  {
-    std::string label;
-    int event_id;
-    int length;
-    std::vector<AnimationKey> sequence;
-
-    std::vector<int> key_list;
-    JS_OBJ(label, event_id, length, sequence);
-  };
-
-  // General texture information
-  struct TextureData
-  {
-    int id;
-    std::string type;
-    std::string name;
-    int width;
-    int height;
-    std::vector<Frame> frames_list;
-    std::vector<Animation> anims_list;
-
-    std::map<int, Frame> frames;
-
-    // Catalog of <EventID-Animation Object>
-    std::map<int, Animation> anims;
-    unsigned int opengl_texture_id;
-
-    JS_OBJ(id, type, name, width, height, frames_list, anims_list);
-  };
-
-  // Creating catalog of all textures data. <Texture_id - Texture Data object>
-  std::map<int, TextureData> Catalog = {};
-  std::vector<unsigned int> BoundTextures = {};
-  textures::TextureData FontTD;
 }
 
 namespace game 

@@ -72,20 +72,21 @@ namespace hero
   void update_frame(int event_id)
   {
     float time_since_last_update = timer::get_elapsed_time(hero::frame_update_time);
-    if(event_id == MOVE_LEFT){
-      if(current_frame == FRAME_LEFT_1 && time_since_last_update >= FRAME_DELAY)
-      {
-        hero::set_current_frame(FRAME_LEFT_3);
-      } else if(current_frame == FRAME_LEFT_3 && time_since_last_update >= FRAME_DELAY)
-      {
-        hero::set_current_frame(FRAME_LEFT_1);
-      } else if (time_since_last_update >= FRAME_DELAY_SHORT && 
-                current_frame != FRAME_LEFT_3 && 
-                current_frame != FRAME_LEFT_1)
-      {
-        hero::set_current_frame(FRAME_LEFT_1);
-      }
-    } else if(event_id == MOVE_RIGHT){
+    // if(event_id == MOVE_LEFT){
+    //   if(current_frame == FRAME_LEFT_1 && time_since_last_update >= FRAME_DELAY)
+    //   {
+    //     hero::set_current_frame(FRAME_LEFT_3);
+    //   } else if(current_frame == FRAME_LEFT_3 && time_since_last_update >= FRAME_DELAY)
+    //   {
+    //     hero::set_current_frame(FRAME_LEFT_1);
+    //   } else if (time_since_last_update >= FRAME_DELAY_SHORT && 
+    //             current_frame != FRAME_LEFT_3 && 
+    //             current_frame != FRAME_LEFT_1)
+    //   {
+    //     hero::set_current_frame(FRAME_LEFT_1);
+    //   }
+    // } 
+     if(event_id == MOVE_RIGHT){
       if(current_frame == FRAME_RIGHT_1 && time_since_last_update >= FRAME_DELAY)
       {
         hero::set_current_frame(FRAME_RIGHT_3);

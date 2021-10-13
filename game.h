@@ -93,12 +93,14 @@ namespace game
       }
 
       // render entity again
+      quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3, hero::current_frame, 
+                                            hero::HERO_X, hero::HERO_Y, 
+                                            hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, 
+                                            textures::FontTD,  true, true, HERO_ENTITY_ID);
+      ent::EntityQuads.push_back(hero);
+
       quads::Quad stick = items::render_item_on_ground(0, 200, 200);
       ent::EntityQuads.push_back(stick);
-
-      quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3, hero::current_frame, 
-      hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, textures::FontTD,  true, true, HERO_ENTITY_ID);
-      ent::EntityQuads.push_back(hero);
 
       // mobs::move_random();
       travel::manage();
