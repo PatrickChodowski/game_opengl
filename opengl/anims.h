@@ -16,6 +16,7 @@ namespace anims
     //   return check;
     // }
 
+    // checks if given entity id has already played animation in PlayAnimationControl
     int check_if_entity_in_played_anim(int entity_id)
     {
       int entity_index = -1;
