@@ -1,6 +1,10 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+// (NOTE) how to not render entities every frame (that is, they are initialized already) - do I need to remake EntityQuadsID every time?
+// for example, it should store current frame, event Id, action etc.
+// init entity and keep it EntityQuads
+
 
 namespace ent
 {
