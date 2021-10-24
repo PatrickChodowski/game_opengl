@@ -34,22 +34,30 @@ namespace anims
 
 
     // Starts animation - creates PlayAnimation object for entity and provides event_id which tells what animation to start
+    // Checkes if entity_id is not in animation and if the animation is breakable. Also if current animation has started for the same event, ignores new one
     void start(int entity_id, int event_id, bool breakable = true)
     {
       bool check_in_anim = false;
+      bool breakable_anim = false;
+      bool same_event_anim = false;
+
+
       int entity_index = check_if_entity_in_played_anim(entity_id);
       if(entity_index > -1){
         check_in_anim = true;
       }
-      bool breakable_anim = false;
 
       if(check_in_anim)
       {
         breakable_anim = anims::PlayAnimationControl[entity_index].breakable;
+        if(anims::PlayAnimationControl[entity_index].event_id == event_id)
+        {
+          same_event_anim = true;
+        }
       }
 
-      // not in animation or in animation that  is breakable
-      if(!check_in_anim | (check_in_anim & breakable_anim))
+      // not in animation or in animation that is breakable or not the same event
+      if(!check_in_anim | (check_in_anim & breakable_anim & !same_event_anim))
       {
         //std::cout << "    starting animation entity: " << entity_id << " event_id: " << event_id << std::endl;
         anims::PlayAnimation pa;
