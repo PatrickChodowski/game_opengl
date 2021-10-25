@@ -65,7 +65,7 @@ namespace mobs
       for(int m=0; m<maps::Catalog[map_id].nests[i].n; m++)
       {
         int mob_entity_id = ent::gen_entity_id();
-        quads::Quad mob_quad = ent::render_entity(ENTITY_TYPE_ID_MOB,
+        int quad_id = ent::render_entity(ENTITY_TYPE_ID_MOB,
                                                   true,
                                                   mobs::Catalog[MOB_ID].texture_id,
                                                   0,
@@ -79,12 +79,11 @@ namespace mobs
                                                   true,
                                                   mob_entity_id
                                                 );
-        ent::EntityQuads.push_back(mob_quad);
 
         struct AliveMobData amd;
-        amd.quad_id = mob_quad.id;
-        amd.x = mob_quad.x;
-        amd.y = mob_quad.y;
+        amd.quad_id = quad_id;
+        amd.x = maps::Catalog[map_id].nests[i].x;
+        amd.y = maps::Catalog[map_id].nests[i].y;
         amd.entity_id = mob_entity_id;
         amd.mob_id = MOB_ID;
         amd.speed = mobs::Catalog[MOB_ID].max_speed;
@@ -176,22 +175,22 @@ namespace mobs
   {
     for (int a=0; a<mobs::AliveMobs.size(); a++)
     {
-      quads::Quad mob_quad = ent::render_entity(ENTITY_TYPE_ID_MOB,
-                                                true,
-                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].texture_id,
-                                                0,
-                                                mobs::AliveMobs[a].x,
-                                                mobs::AliveMobs[a].y,
-                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].h,
-                                                mobs::Catalog[mobs::AliveMobs[a].mob_id].w,
-                                                0.0f,
-                                                textures::FontTD,
-                                                true,
-                                                true,
-                                                mobs::AliveMobs[a].entity_id
-                                              );
-      ent::EntityQuads.push_back(mob_quad);
-      mobs::AliveMobs[a].quad_id = mob_quad.id;
+      int quad_id = ent::render_entity(ENTITY_TYPE_ID_MOB,
+                         true,
+                         mobs::Catalog[mobs::AliveMobs[a].mob_id].texture_id,
+                         0,
+                         mobs::AliveMobs[a].x,
+                         mobs::AliveMobs[a].y,
+                         mobs::Catalog[mobs::AliveMobs[a].mob_id].h,
+                         mobs::Catalog[mobs::AliveMobs[a].mob_id].w,
+                         0.0f,
+                         textures::FontTD,
+                         true,
+                         true,
+                         mobs::AliveMobs[a].entity_id
+                         );
+
+      mobs::AliveMobs[a].quad_id = quad_id;
     }
   }
 

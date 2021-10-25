@@ -250,10 +250,12 @@ namespace quads
     return n;
   }
 
+  // generates new quad id: 321
   int gen_quad_id()
   {
     int next_quad_id = quads::find_next_quad_id();
     quads::UsedQuadIds.push_back(next_quad_id);
+    // std::cout << "next quad id: " << next_quad_id << std::endl;
     return next_quad_id;
   }
 
@@ -486,6 +488,21 @@ namespace ent
   // Entity ID has to last longer than one frame and be assigned to entity since load till the end of its activity
   std::vector<int> UsedEntityIds = {};
   std::vector<quads::Quad> EntityQuads;
+
+  // Contains all persitent (between frames) information about given entity
+  struct EntityData
+  {
+    int entity_id;
+    int x;
+    int y;
+    int texture_id;
+    int frame_id;
+    int event_id;
+    int status;
+  };
+  
+  // Table of EntityData
+  std::map<int, EntityData> entities;
 
   // <entity_id, quad_id>
   std::map<int, int> EntityQuadList;

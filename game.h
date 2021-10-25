@@ -51,23 +51,21 @@ namespace game
         if(NEW_GAME){
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-          quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, 
-                                                true, 
-                                                3,
-                                                0, 
-                                                hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 
-                                                2.0f,textures::FontTD, true, true, HERO_ENTITY_ID);
-          ent::EntityQuads.push_back(hero);
-          quads::Quad stick = items::render_item_on_ground(0, 200, 200);
-          ent::EntityQuads.push_back(stick);
+          ent::render_entity(ENTITY_TYPE_ID_HERO, 
+                             true, 
+                             3,
+                             0, 
+                             hero::HERO_X, hero::HERO_Y, hero::HERO_HEIGHT, hero::HERO_WIDTH, 
+                             2.0f,textures::FontTD, true, true, HERO_ENTITY_ID);
+          items::render_item_on_ground(0, 200, 200);
           mobs::spawn(MAP_ID);
         } else {
           saves::load_game(CAMPAIGN_NAME);
           maps::init_map(MAP_ID, maps::Catalog[MAP_ID].default_player_x, maps::Catalog[MAP_ID].default_player_y);
           fonts::render_text(CAMPAIGN_NAME.c_str(), 600, 50, textures::FontTD, 0.5, 0.5, 0.5, 0.5, 1.0);
-          quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, 
+          ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3,0, hero::HERO_X, hero::HERO_Y, 
                                                 hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f,textures::FontTD,  true, true, HERO_ENTITY_ID);
-          ent::EntityQuads.push_back(hero);
+
           mobs::spawn(MAP_ID);
         }
  
@@ -92,15 +90,14 @@ namespace game
         gui::render_debug_window();
       }
 
-      // render entity again
-      quads::Quad hero = ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3, hero::current_frame, 
-                                            hero::HERO_X, hero::HERO_Y, 
-                                            hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, 
-                                            textures::FontTD,  true, true, HERO_ENTITY_ID);
-      ent::EntityQuads.push_back(hero);
+      // render entity again - need to replace it so it doesnt update entities, rather keeps them all the time
+      ent::render_entity(ENTITY_TYPE_ID_HERO, true, 3, hero::current_frame, 
+                         hero::HERO_X, hero::HERO_Y, 
+                         hero::HERO_HEIGHT, hero::HERO_WIDTH, 2.0f, 
+                         textures::FontTD,  true, true, HERO_ENTITY_ID);
 
-      quads::Quad stick = items::render_item_on_ground(0, 200, 200);
-      ent::EntityQuads.push_back(stick);
+
+      items::render_item_on_ground(0, 200, 200);
 
       // mobs::move_random();
       travel::manage();
