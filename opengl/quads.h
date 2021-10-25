@@ -26,13 +26,8 @@ namespace quads
     }
 
     // assign entity quads
+    //std::cout << "entities size: " << ent::EntityQuads.size() << std::endl;
     if(ent::EntityQuads.size() > 0){
-      
-      // for(int e=0; e < ent::EntityQuads.size(); e++)
-      // {
-      //   std::cout << "  attaching entity id: " << ent::EntityQuads[e].entity_id << " frame id: " << ent::EntityQuads[e].frame_id << std::endl;
-      // }
-
       quads::AllQuads.insert(quads::AllQuads.end(), ent::EntityQuads.begin(), ent::EntityQuads.end());
     }
 
@@ -60,6 +55,7 @@ namespace quads
 
     quads::COUNT_QUADS = quads::AllQuads.size();
     quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
+    // std::cout << " count quads: " << quads::COUNT_QUADS << std::endl;
   }
 
 

@@ -9,7 +9,7 @@
 namespace ent
 {
   // Adds Entity Quad to EntityQuads vector. Entity Type ID (one of HERO, ITEM, MOB, NA). Alive, textureid, frame_id, x, y, h, w, static, FontTD, solid, coll, entity_id
-  quads::Quad render_entity(
+  int render_entity(
                      int entity_type_id,
                      bool alive,
                      int texture_id,
@@ -137,8 +137,22 @@ namespace ent
     quad.i_right.b = quad.c;
     quad.i_right.c = quad.d;
 
-    return quad;
+    //return quad;
+    ent::EntityQuads.push_back(quad);
+
+    return quad.id;
   }
+
+  // initializes entity. Saves entity data to entity table 
+  void init()
+  {
+
+  }
+
+
+
+
+
 
   // Deletes entity id from the used list
   void delete_entity_id(int entity_id)
@@ -149,8 +163,10 @@ namespace ent
     ent::EntityQuadList.erase(entity_id);
   }
 
+  // Clears entity quads, quad_id, vertex_id, usedentityIds
   void drop_entities()
   {
+    // std::cout << " Dropping entities " << std::endl;
     for (int q = 0; q <ent::EntityQuads.size(); q++)
     {
       quads::delete_quad_id(ent::EntityQuads[q].id);
