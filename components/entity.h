@@ -150,7 +150,7 @@ namespace ent
   {
 
     ent::EntityData ed;
-    ed.entity_id = 
+    ed.entity_id = 0;
 
   }
 
