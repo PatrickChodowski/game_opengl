@@ -143,9 +143,14 @@ namespace ent
     return quad.id;
   }
 
-  // initializes entity. Saves entity data to entity table 
+  // TODO (patrick): Write methods to properly initialize, memorize and kill entity
+  // initializes entity. Saves entity data to entity table
+  // split data between entity quad and entity 
   void init()
   {
+
+    ent::EntityData ed;
+    ed.entity_id = 
 
   }
 
