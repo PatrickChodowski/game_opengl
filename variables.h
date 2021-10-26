@@ -500,8 +500,8 @@ namespace ent
     int event_id;
     int status;
   };
-  
-  // Table of EntityData
+
+  // Table of EntityID, EntityData. Initializes in init function
   std::map<int, EntityData> entities;
 
   // <entity_id, quad_id>
