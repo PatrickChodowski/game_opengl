@@ -46,6 +46,9 @@ namespace collisions
     bool is_near;
   };
 
+
+  std::vector<collisions::DistanceBetweenPoints> get_entity_distances(int entity_id);
+
 }
 
 
