@@ -1,7 +1,13 @@
 #include "setup.h"
 
+#include "modules/entity.h"
+#include "modules/quad.h"
+#include "modules/collisions.h"
+
 int main()
 {
+  entity::create();
+
   logger::init();
   logger::log(LOG_INFO, LOG_EVENT_GAME_START, "main::main", __FILE__, __LINE__, "Initialized Main Function");
   // Window, OpenGL, SDL initiatlization

@@ -28,7 +28,7 @@ Contains information about current entities (hero, mobs, items etc.) loaded into
 
 ### Add record to table
 ```c++
-int entity::spawn();
+int entity::create();
 ```
 
 ### Update record in the table
@@ -38,7 +38,7 @@ int entity::update();
 
 ### Delete record from the table
 ```c++
-int entity::kill();
+int entity::drop();
 ```
 
 ### Clear table
