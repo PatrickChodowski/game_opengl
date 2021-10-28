@@ -20,6 +20,10 @@
 #define ENTITY_NOT_STATIC 0.0f
 #define ENTITY_STATIC 1.0f
 
+// object types
+#define OBJECT_TYPE_ENTITY 0
+#define OBJECT_TYPE_MAP 1
+
 // joints of the item to hero's body
 #define JOINT_RIGHT_HAND 0
 #define JOINT_LEFT_HAND 1
