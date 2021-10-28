@@ -11,12 +11,19 @@ namespace entity
   struct EntityData
   {
     int entity_id;
-    int x;
-    int y;
     int texture_id;
     int frame_id;
     int event_id;
     int status;
+
+    float x;
+    float y;
+    float h;
+    float w;
+    float mid_x;
+    float mid_y;
+
+    float diag;
   };
 
   extern std::vector<quad::QuadData> EntityQuads;

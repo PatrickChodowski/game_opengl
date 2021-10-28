@@ -1,5 +1,7 @@
 #include <vector>
 #include "collisions.h"
+#include "entity.h"
+#include <math.h>
 
 namespace collisions
 {
@@ -7,56 +9,47 @@ namespace collisions
   int SENSOR_OFFSET = 1;
   int ABS_COUNT = 1;
 
-// TODO
- std::vector<collisions::DistanceBetweenPoints> get_entity_distances(int entity_quad_id)
+  float get_distance_between_points(float x1, float y1, float x2, float y2)
+  {
+    float distance = std::sqrt(std::pow((x2 - x1), 2) + std::pow((y2-y1), 2));
+    return distance;
+  }
+
+
+  // REDO-> isntead of using quads, use entity and map tables
+  std::vector<collisions::DistanceBetweenEntities> get_entity_distances(int entity_id)
+  {
+    // calculate distances between alive entity and quads of certain type
+    // initialize instance of distances table
+    std::vector<collisions::DistanceBetweenEntities> distances = {};
+    float e_x = entity::entities[entity_id].x;
+    float e_y = entity::entities[entity_id].y;
+    float e_diag = entity::entities[entity_id].diag;
+
+    if (entity::entities.size() > 1)
     {
-      // calculate distances between alive entity and quads of certain type
-
-      // find quad id entity index
-      int entity_index = quads::find_quad_id(entity_quad_id,  quads::AllQuads);
-
-      // get entity quad data
-      quads::Quad entity_quad = quads::AllQuads[entity_index];
-
-      // initialize instance of distances table
-      std::vector<colls::DistanceBetweenPoints> distances = {};
-      if (quads::AllQuads.size() > 0)
+      for (auto const& [k, v]: entity::entities)
       {
-        for(int q = 0; q < quads::AllQuads.size(); q++)
+        // for any entity thats not argument entity id
+        if((k != entity_id))
         {
-          if((entity_quad_id != quads::AllQuads[q].id) && (quads::AllQuads[q].coll))
+          float dist = get_distance_between_points(v.x, v.y, e_x, e_y);
+          DistanceBetweenEntities dbe;
+          dbe.a_entity_id = entity_id;
+          dbe.b_entity_id = k;
+          dbe.distance = dist;
+          dbe.limit = e_diag + v.diag;
+          dbe.is_near = false;
+
+          if(dbe.distance <= dbe.limit)
           {
-            float dist = get_distance_between_quads(entity_quad, quads::AllQuads[q]);
-            DistanceBetweenPoints dbp;
-            dbp.a_quad_id = entity_quad_id;
-            dbp.b_quad_id = quads::AllQuads[q].id;
-            dbp.a_quad_type = entity_quad.entity_type_id;
-            dbp.b_quad_type = quads::AllQuads[q].entity_type_id;
-
-            dbp.distance = dist;
-            dbp.limit = entity_quad.s_diag + quads::AllQuads[q].s_diag;
-            dbp.is_near = false;
-
-            if(dbp.distance <= dbp.limit){
-              dbp.is_near = true;
-              quads::AllQuads[q].is_clicked = 1.0f;
-              quads::AllQuads[q].v_a.is_clicked = 1.0f;
-              quads::AllQuads[q].v_b.is_clicked = 1.0f;
-              quads::AllQuads[q].v_c.is_clicked = 1.0f;
-              quads::AllQuads[q].v_d.is_clicked = 1.0f;
-            } else {
-              quads::AllQuads[q].is_clicked = 0.0f;
-              quads::AllQuads[q].v_a.is_clicked = 0.0f;
-              quads::AllQuads[q].v_b.is_clicked = 0.0f;
-              quads::AllQuads[q].v_c.is_clicked = 0.0f;
-              quads::AllQuads[q].v_d.is_clicked = 0.0f;
-            }
-            distances.push_back(dbp);
+            dbe.is_near = true;
           }
+          distances.push_back(dbe);
         }
       }
-      return distances;
     }
-
+    return distances;
+  }
 
 }
