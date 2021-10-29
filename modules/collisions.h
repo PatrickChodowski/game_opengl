@@ -73,7 +73,10 @@ namespace collisions
   std::vector<collisions::DistanceToObject> get_entity_to_map_distances(int entity_id);
 
   // Find broad collisions for entity (by default its the hero, but lets leave the option)
-  find_entity_broad_collisions(int entity_id = 0);
+  std::vector<collisions::DistanceToObject> find_entity_broad_collisions(int entity_id);
+
+  // Analyze solid collisions from near distances from find_entity_broad_collisions
+  void resolve_solid_collisions(std::vector<collisions::DistanceToObject near_distances);
 
 }
 
