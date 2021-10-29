@@ -7,8 +7,12 @@ clean: rm *.o
 endif
 ifeq ($(UNAME),Linux)
 output: game
-#	g++ -std=c++17 main.cpp modules/entity.cpp modules/quad.cpp modules/collisions.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
-	g++ -std=c++17 main.cpp modules/entity.cpp modules/quad.cpp modules/collisions.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
+	g++ -std=c++17 main.cpp \
+	modules/collisions.cpp \
+	modules/entity.cpp \
+	modules/maps.cpp \
+	modules/quad.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
+#g++ -std=c++17 -I . main.cpp -I ./modules *.cpp modules/*.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
 game: main.cpp
 clean: rm *.o
 endif

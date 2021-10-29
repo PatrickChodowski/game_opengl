@@ -1,5 +1,6 @@
 #include <vector>
 #include <map>
+#include "quad.h"
 
 #ifndef MODULES_MAPS_H
 #define MODULES_MAPS_H
@@ -27,7 +28,7 @@ namespace maps
     bool is_solid;
   };
 
-  extern std::vector<quad::QuadData> MapQuads;
+  extern std::vector<quad::QuadData> TileQuads;
   extern std::map<int, TileData> tiles;
   extern std::vector<int> UsedTileIds;
 
