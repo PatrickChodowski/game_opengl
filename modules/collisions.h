@@ -51,9 +51,7 @@ namespace collisions
 
     bool is_solid;
     bool is_near;
-
   };
-
 
   // Calculates distance between two points
   float get_distance_between_points(float x1, float y1, float x2, float y2);
