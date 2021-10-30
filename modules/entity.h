@@ -35,6 +35,7 @@ namespace entity
     float s_diag;
 
     bool is_solid;
+    bool is_camera_static;
 
     // used if given entity has collision sensors
     std::map<int, collisions::Sensor> sensors;

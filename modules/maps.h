@@ -33,6 +33,7 @@ namespace maps
     float s_mid_y;
     float s_diag;
 
+    bool is_camera_static;
     bool is_clicked;
     bool is_solid;
 
