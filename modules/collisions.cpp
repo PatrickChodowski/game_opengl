@@ -3,6 +3,7 @@
 #include "entity.h"
 #include "maps.h"
 #include <math.h>
+#include <algorithm>
 #include "../dictionary.h"
 
 namespace collisions
@@ -11,41 +12,34 @@ namespace collisions
   int SENSOR_OFFSET = 1;
   int ABS_COUNT = 1;
 
-
   float get_distance_between_points(float x1, float y1, float x2, float y2)
   {
     float distance = std::sqrt(std::pow((x2 - x1), 2) + std::pow((y2-y1), 2));
     return distance;
   }
 
-
   std::vector<collisions::DistanceToObject> get_entity_to_entity_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
-    float e_x = entity::entities[entity_id].x;
-    float e_y = entity::entities[entity_id].y;
-    float e_diag = entity::entities[entity_id].diag;
-
-    if (entity::entities.size() > 1)
+    for (auto const& [k, v]: entity::entities)
     {
-      for (auto const& [k, v]: entity::entities)
+      if(k != entity_id)
       {
-        // for any entity thats not argument entity id
-        if((k != entity_id))
+        float dist = get_distance_between_points(v.s_x, 
+                                                 v.s_y, 
+                                                 entity::entities[entity_id].s_x, 
+                                                 entity::entities[entity_id].s_y);
+        float dist_limit = entity::entities[entity_id].s_diag + v.s_diag;
+        if(dist <= dist_limit)
         {
-          float dist = get_distance_between_points(v.x, v.y, e_x, e_y);
           DistanceToObject dto;
-          dto.a_entity_id = entity_id;
+          dto.entity_id = entity_id;
           dto.object_id = k;
-          dto.distance = dist;
-          dto.limit = e_diag + v.diag;
-          dto.is_near = false;
           dto.object_type = OBJECT_TYPE_ENTITY;
-
-          if(dto.distance <= dto.limit)
-          {
-            dto.is_near = true;
-          }
+          dto.distance = dist;
+          dto.limit = dist_limit;
+          dto.is_solid = v.is_solid;
+          dto.is_near = true;
           distances.push_back(dto);
         }
       }
@@ -53,120 +47,119 @@ namespace collisions
     return distances;
   }
 
-
   std::vector<collisions::DistanceToObject> get_entity_to_map_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
-    float e_mid_x = entity::entities[entity_id].mid_x;
-    float e_mid_y = entity::entities[entity_id].mid_y;
-    float e_diag = entity::entities[entity_id].diag;
-
-    if (maps::tiles.size() > 0)
+    for (auto const& [k, v]: maps::tiles)
     {
-      for (auto const& [k, v]: maps::tiles)
+      float dist = get_distance_between_points(v.s_x, 
+                                               v.s_y, 
+                                               entity::entities[entity_id].s_x, 
+                                               entity::entities[entity_id].s_y);
+      float dist_limit = entity::entities[entity_id].s_diag + v.s_diag;
+      if(dist <= dist_limit)
       {
-        // for any entity thats not argument entity id
-        float dist = get_distance_between_points(v.mid_x, v.mid_y, e_mid_x, e_mid_y);
         DistanceToObject dto;
-        dto.a_entity_id = entity_id;
+        dto.entity_id = entity_id;
         dto.object_id = k;
-        dto.distance = dist;
-        dto.limit = e_diag + v.diag;
-        dto.is_near = false;
         dto.object_type = OBJECT_TYPE_MAP;
-
-        if(dto.distance <= dto.limit)
-        {
-          dto.is_near = true;
-        }
+        dto.distance = dist;
+        dto.limit = dist_limit;
+        dto.is_solid = v.is_solid;
+        dto.is_near = true;
         distances.push_back(dto);
       }
     }
     return distances;
   }
 
-
   std::vector<collisions::DistanceToObject> find_entity_broad_collisions(int entity_id = 0)
   {
-    std::vector<collisions::DistanceToObject> near_distances;
-    std::vector<collisions::DistanceToObject> map_distances = get_entity_to_map_distances(entity_id);
-    std::vector<collisions::DistanceToObject> entity_distances = get_entity_to_entity_distances(entity_id);
+    std::vector<collisions::DistanceToObject> near_distances = {};
+    std::vector<collisions::DistanceToObject> map_near_distances = get_entity_to_map_distances(entity_id);
+    std::vector<collisions::DistanceToObject> entity_near_distances = get_entity_to_entity_distances(entity_id);
 
-    for(int d=0; d < map_distances.size(); d++)
+    if(map_near_distances.size() > 0)
     {
-      if(map_distances[d].is_near)
-      {
-        near_distances.push_back(map_distances[d]);
-      }
+      near_distances.insert(near_distances.end(), map_near_distances.begin(), map_near_distances.end());
     }
-
-    for(int d=0; d < entity_distances.size(); d++)
+    if(entity_near_distances.size() > 0)
     {
-      if(entity_distances[d].is_near)
-      {
-        near_distances.push_back(entity_distances[d]);
-      }
+      near_distances.insert(near_distances.end(), entity_near_distances.begin(), entity_near_distances.end());
     }
     return near_distances;
   }
 
-  // TODO -> reimplement this method for entity
-  void resolve_solid_collisions(std::vector<collisions::DistanceToObject> near_distances)
+  void resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_distances)
   {
     struct SolidLimits limits;
-
-
     for(int i=0; i<near_distances.size(); i++)
     {
-      int qid = quads::find_quad_id(near_distances[i].b_quad_id, quads::AllQuads);
-      if(quads::AllQuads[qid].solid)
-      { 
-        // loop through sensors
-        for (auto const& s : quads::AllQuads[hid].sensors)
+      if(near_distances[i].is_solid)
+      {
+        int entity_id = near_distances[i].entity_id;
+        int object_id = near_distances[i].object_id;
+        int object_type = near_distances[i].object_type;
+        float sensor_center_x = entity::entities[entity_id].sensors[SENSOR_CENTER].x;
+        float sensor_center_y = entity::entities[entity_id].sensors[SENSOR_CENTER].y;
+
+        collisions::AABB aabb;
+        // extract object type box
+        if(object_type == OBJECT_TYPE_ENTITY)
         {
-          // hero entity on the left
-          if((s.first == SENSOR_TOP_RIGHT || s.first == SENSOR_RIGHT || s.first == SENSOR_BOTTOM_RIGHT) && 
-            (s.second.x >=  quads::AllQuads[qid].abs[AABB_FULL].min_x) && 
-            (s.second.y >=  quads::AllQuads[qid].abs[AABB_FULL].min_y && s.second.y <= quads::AllQuads[qid].abs[AABB_FULL].max_y) &&
-            (quads::AllQuads[hid].sensors[SENSOR_CENTER].x < quads::AllQuads[qid].abs[AABB_FULL].min_x)
+          aabb = entity::entities[object_id].abs[AABB_FULL];
+        } else if (object_type == OBJECT_TYPE_MAP)
+        {
+          aabb = maps::tiles[object_id].abs[AABB_FULL];
+        }
+
+
+        // loop through entity sensors
+        for (auto const& [k, v]: entity::entities[entity_id].sensors)
+        {
+          // entity on the left
+          if((k == SENSOR_TOP_RIGHT || k == SENSOR_RIGHT || k == SENSOR_BOTTOM_RIGHT) && 
+            (v.x >=  aabb.min_x) && 
+            (v.y >=  aabb.min_y && v.y <= aabb.max_y) &&
+            (sensor_center_x < aabb.min_x)
           )
           {
-             limits.right_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].min_x);
+            limits.right_borders.push_back(aabb.min_x);
           }
 
-          // hero entity on the right
-          if((s.first == SENSOR_TOP_LEFT || s.first == SENSOR_LEFT || s.first == SENSOR_BOTTOM_LEFT) && 
-            (s.second.x <=  quads::AllQuads[qid].abs[AABB_FULL].max_x) && 
-            (s.second.y >=  quads::AllQuads[qid].abs[AABB_FULL].min_y && s.second.y <= quads::AllQuads[qid].abs[AABB_FULL].max_y) &&
-            (quads::AllQuads[hid].sensors[SENSOR_CENTER].x > quads::AllQuads[qid].abs[AABB_FULL].max_x)
+          // entity on the right
+          if((k == SENSOR_TOP_LEFT || k == SENSOR_LEFT || k == SENSOR_BOTTOM_LEFT) && 
+            (v.x <=  aabb.max_x) && 
+            (v.y >=  aabb.min_y && v.y <= aabb.max_y) &&
+            (sensor_center_x > aabb.max_x)
           )
           {
-             limits.left_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].max_x);
+            limits.left_borders.push_back(aabb.max_x);
           }
 
-          // hero entity on the top
-          if((s.first == SENSOR_BOTTOM_RIGHT || s.first == SENSOR_BOTTOM || s.first == SENSOR_BOTTOM_LEFT) && 
-            (s.second.y >=  quads::AllQuads[qid].abs[AABB_FULL].min_y) && 
-            (s.second.x >=  quads::AllQuads[qid].abs[AABB_FULL].min_x && s.second.x <= quads::AllQuads[qid].abs[AABB_FULL].max_x) &&
-            (quads::AllQuads[hid].sensors[SENSOR_CENTER].y < quads::AllQuads[qid].abs[AABB_FULL].max_y)
+          // entity on the top
+          if((k == SENSOR_BOTTOM_RIGHT || k == SENSOR_BOTTOM || k == SENSOR_BOTTOM_LEFT) && 
+            (v.y >=  aabb.min_y) && 
+            (v.x >=  aabb.min_x && v.x <= aabb.max_x) &&
+            (sensor_center_y < aabb.max_y)
           )
           {
-             limits.bottom_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].min_y);
+            limits.bottom_borders.push_back(aabb.min_y);
           }
 
-          // hero entity on the bottom
-          if((s.first == SENSOR_TOP_LEFT || s.first == SENSOR_TOP || s.first == SENSOR_TOP_RIGHT) && 
-            (s.second.y <=  quads::AllQuads[qid].abs[AABB_FULL].max_y) && 
-            (s.second.x >=  quads::AllQuads[qid].abs[AABB_FULL].min_x && s.second.x <= quads::AllQuads[qid].abs[AABB_FULL].max_x) &&
-            (quads::AllQuads[hid].sensors[SENSOR_CENTER].y > quads::AllQuads[qid].abs[AABB_FULL].min_y)
+          // entity on the bottom
+          if((k == SENSOR_TOP_LEFT || k == SENSOR_TOP || k == SENSOR_TOP_RIGHT) && 
+            (v.y <=  aabb.max_y) && 
+            (v.x >=  aabb.min_x && v.x <= aabb.max_x) &&
+            (sensor_center_y > aabb.min_y)
           )
           {
-             limits.top_borders.push_back(quads::AllQuads[qid].abs[AABB_FULL].max_y);
+            limits.top_borders.push_back(aabb.max_y);
           }
         }
       }
     }
-
+    // resolve collisions
     // hero on the left     x |_|
     if (limits.right_borders.size() > 0)
     { 
@@ -194,5 +187,136 @@ namespace collisions
     // need a bit smarter camera update than this, but it works, leaving for now
     quads::scale_move_quads(camera::x, camera::y, camera::zoom);
   }
+
+  void set_sensors(int entity_id)
+  {
+    // entity::entities[entity_id].sensors.clear();
+    // entity::entities.at(entity_id).sensors.clear();
+
+    // NOTE: dont know if that really works
+    // copied over just to search for it once
+    entity::EntityData edd = entity::entities.at(entity_id);
+    edd.sensors.clear();
+
+    for(int i=0; i < collisions::SENSOR_COUNT; i++)
+    {
+      collisions::Sensor s;
+      switch(i) {
+        case SENSOR_TOP:
+            s.x = edd.s_mid_x;
+            s.y = (edd.s_y - collisions::SENSOR_OFFSET);
+            s.id = SENSOR_TOP;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP, s));
+        break;
+        case SENSOR_TOP_RIGHT:
+            s.x = (edd.s_x + edd.s_w + collisions::SENSOR_OFFSET);
+            s.y = (edd.s_y  - collisions::SENSOR_OFFSET);
+            s.id = SENSOR_TOP_RIGHT;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_RIGHT, s));
+        break;
+        case SENSOR_RIGHT:
+            s.x = (edd.s_x + edd.s_w  + collisions::SENSOR_OFFSET);
+            s.y = (edd.s_y) ;
+            s.id = SENSOR_RIGHT;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_RIGHT, s));
+        break;
+        case SENSOR_BOTTOM_RIGHT:
+            s.x = (edd.s_x + edd.s_w + collisions::SENSOR_OFFSET);
+            s.y = (edd.s_y + edd.s_h + collisions::SENSOR_OFFSET);
+            s.id = SENSOR_BOTTOM_RIGHT;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_RIGHT, s));
+        break;
+        case SENSOR_BOTTOM:
+            s.x = edd.s_mid_x;
+            s.y = (edd.s_y + edd.s_h + collisions::SENSOR_OFFSET);
+            s.id = SENSOR_BOTTOM;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM, s));
+        break;
+        case SENSOR_BOTTOM_LEFT:
+            s.x = edd.s_x - collisions::SENSOR_OFFSET;
+            s.y = (edd.s_y + edd.s_h + collisions::SENSOR_OFFSET);
+            s.id = SENSOR_BOTTOM_LEFT;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_LEFT, s));
+        break;
+        case SENSOR_LEFT:
+            s.x = edd.s_x - collisions::SENSOR_OFFSET ;
+            s.y = edd.s_mid_y;
+            s.id = SENSOR_LEFT;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_LEFT, s));
+        break;
+        case SENSOR_TOP_LEFT:
+            s.x = edd.s_x - collisions::SENSOR_OFFSET;
+            s.y = edd.s_y - collisions::SENSOR_OFFSET;
+            s.id = SENSOR_TOP_LEFT;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_LEFT, s));
+        break;
+        case SENSOR_CENTER:
+            s.x = edd.s_mid_x;
+            s.y = edd.s_mid_y;
+            s.id = SENSOR_CENTER;
+            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_CENTER, s));
+        break;
+      }  
+    }
+  }
+
+  void _set_abs_entities(int entity_id)
+  {
+    entity::EntityData edd = entity::entities.at(entity_id);
+    edd.abs.clear();
+    for(int a = 0; a < collisions::ABS_COUNT; a++)
+    {
+      collisions::AABB aabb;
+      aabb.min_x = (edd.s_x + collisions::SENSOR_OFFSET);
+      aabb.min_y = (edd.s_y + collisions::SENSOR_OFFSET);
+      aabb.max_y = (edd.s_y + edd.s_h - collisions::SENSOR_OFFSET);
+      aabb.max_x = (edd.s_x + edd.s_w - collisions::SENSOR_OFFSET);
+      aabb.id = AABB_FULL;
+      edd.abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
+    }
+  }
+
+  void _set_abs_maps(int tile_id)
+  {
+    maps::TileData tdd = maps::tiles.at(tile_id);
+    tdd.abs.clear();
+    for(int a = 0; a < collisions::ABS_COUNT; a++)
+    {
+      collisions::AABB aabb;
+      aabb.min_x = (tdd.s_x + collisions::SENSOR_OFFSET);
+      aabb.min_y = (tdd.s_y + collisions::SENSOR_OFFSET);
+      aabb.max_y = (tdd.s_y + tdd.s_h - collisions::SENSOR_OFFSET);
+      aabb.max_x = (tdd.s_x + tdd.s_w - collisions::SENSOR_OFFSET);
+      aabb.id = AABB_FULL;
+      tdd.abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
+    }    
+  }
+
+  void set_abs(std::vector<collisions::DistanceToObject>& near_distances)
+  {
+    for(int i = 0; i < near_distances.size(); i++)
+    {
+      if(near_distances[i].object_type == OBJECT_TYPE_ENTITY)
+      {
+        collisions::_set_abs_entities(near_distances[i].object_id);
+      } else if (near_distances[i].object_type == OBJECT_TYPE_MAP)
+      {
+        collisions::_set_abs_maps(near_distances[i].object_id);
+      }
+    }
+  }
+
+  void handle_entity_collisions(int entity_id)
+  {
+    // for hero only currently
+    std::vector<collisions::DistanceToObject> near_distances = collisions::find_entity_broad_collisions(entity_id);
+    if(near_distances.size() > 0)
+    {
+      collisions::set_sensors(entity_id);
+      collisions::set_abs(near_distances);
+      collisions::resolve_solid_collisions(near_distances);
+    }
+  }
+
 
 }
