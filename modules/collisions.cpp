@@ -187,7 +187,7 @@ namespace collisions
     } 
     // need a bit smarter camera update than this, but it works, leaving for now
     // quads::scale_move_quads(camera::x, camera::y, camera::zoom);
-    camera::scale();
+    camera::scale(camera::cam.x, camera::cam.y, camera::cam.zoom);
   }
 
   void set_sensors(int entity_id)
