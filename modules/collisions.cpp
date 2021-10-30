@@ -1,6 +1,7 @@
 #include <vector>
 #include "collisions.h"
 #include "entity.h"
+#include "camera.h"
 #include "maps.h"
 #include <math.h>
 #include <algorithm>
@@ -164,28 +165,29 @@ namespace collisions
     if (limits.right_borders.size() > 0)
     { 
       float min_x_border = *std::min_element(limits.right_borders.begin(), limits.right_borders.end());
-      camera::x = camera::previous_x;
+      camera::cam.x = camera::cam.previous_x;
     } 
     // hero on the right   |_| x 
     if (limits.left_borders.size() > 0)
     { 
       float max_x_border = *std::max_element(limits.left_borders.begin(), limits.left_borders.end());
-      camera::x = camera::previous_x;
+      camera::cam.x = camera::cam.previous_x;
     } 
     // hero on the top 
     if (limits.bottom_borders.size() > 0)
     { 
       float min_y_border = *std::min_element(limits.bottom_borders.begin(), limits.bottom_borders.end());
-      camera::y = camera::previous_y;
+      camera::cam.y = camera::cam.previous_y;
     } 
     // hero on the bottom 
     if (limits.top_borders.size() > 0)
     { 
       float max_y_border = *std::min_element(limits.top_borders.begin(), limits.top_borders.end());
-      camera::y = camera::previous_y;
+      camera::cam.y = camera::cam.previous_y;
     } 
     // need a bit smarter camera update than this, but it works, leaving for now
-    quads::scale_move_quads(camera::x, camera::y, camera::zoom);
+    // quads::scale_move_quads(camera::x, camera::y, camera::zoom);
+    camera::scale();
   }
 
   void set_sensors(int entity_id)
