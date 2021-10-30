@@ -38,28 +38,20 @@ namespace collisions
     std::vector<float> bottom_borders = {};
   };
 
-  // [Old] Quad based distance
-  struct DistanceBetweenPoints
-  {
-    int a_quad_id;
-    int b_quad_id;
-    int a_quad_type;
-    int b_quad_type;
-    float distance;
-    float limit; // sum of quants diagonals
-    bool is_near;
-  };
 
   // Data. stores information about distance between entity and some other object (can be entity or map etc.). Used for collision detection
   struct DistanceToObject
   {
-    int a_entity_id;
+    int entity_id;
     int object_id; // can be map object, can be entity
     int object_type; //map or entity
 
     float distance;
     float limit; // sum of entity diagonals
+
+    bool is_solid;
     bool is_near;
+
   };
 
 
@@ -76,7 +68,22 @@ namespace collisions
   std::vector<collisions::DistanceToObject> find_entity_broad_collisions(int entity_id);
 
   // Analyze solid collisions from near distances from find_entity_broad_collisions
-  void resolve_solid_collisions(std::vector<collisions::DistanceToObject near_distances);
+  void resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_distances);
+
+  // Sets sensors on selected entity
+  void set_sensors(int entity_id);
+
+  // Set abs on entities - hidden
+  void _set_abs_entities(int entity_id);
+ 
+  // Set abs on tiles - hidden
+  void _set_abs_maps(int tile_id);
+
+  // Sets AABBs boxes on objects flagged by near distances
+  void set_abs(std::vector<collisions::DistanceToObject>& near_distances);
+
+  // Calculates near distances to entities and map objects. Sets sensors, abs and resolves collisions
+  void handle_entity_collisions(int entity_id);
 
 }
 

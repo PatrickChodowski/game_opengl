@@ -115,7 +115,7 @@ namespace quad
     float s_diag; // 'diagonal' is the distance from the center of the quad to the corner
 
     // used if given entity has collision sensors
-    std::map<int, collisions::Sensor> sensors;
+    // std::map<int, collisions::Sensor> sensors;
 
     // its not abs, its AABBs, but this is what I do to entertain myself
     std::map<int, collisions::AABB> abs; 

@@ -23,9 +23,21 @@ namespace maps
     float mid_x;
     float mid_y;
     float diag;
+  
+    // scaled space
+    float s_x;
+    float s_y;
+    float s_h;
+    float s_w;
+    float s_mid_x;
+    float s_mid_y;
+    float s_diag;
 
     bool is_clicked;
     bool is_solid;
+
+    // collision boxes
+    std::map<int, collisions::AABB> abs;
   };
 
   extern std::vector<quad::QuadData> TileQuads;

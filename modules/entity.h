@@ -16,14 +16,30 @@ namespace entity
     int event_id;
     int status;
 
+    // original space
     float x;
     float y;
     float h;
     float w;
     float mid_x;
     float mid_y;
-
     float diag;
+
+    // scaled space
+    float s_x;
+    float s_y;
+    float s_h;
+    float s_w;
+    float s_mid_x;
+    float s_mid_y;
+    float s_diag;
+
+    bool is_solid;
+
+    // used if given entity has collision sensors
+    std::map<int, collisions::Sensor> sensors;
+    // its not abs, its AABBs, but this is what I do to entertain myself
+    std::map<int, collisions::AABB> abs; 
   };
 
   extern std::vector<quad::QuadData> EntityQuads;
