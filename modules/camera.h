@@ -37,7 +37,7 @@ namespace camera
 
   // Inner method scaling particular data_table
   template <typename T>
-  void _scale_table(std::map<int, T>& data_table, float camera_x, float camera_y, float scale_factor);
+  void _scale_table(std::map<int, T> data_table, float camera_x, float camera_y, float scale_factor);
 
   // Scale all objects (entities, tiles etc.) positions (x,y) and dimensions (w,h,diag) with camera parameters
   // Should scale: entities(different with static), map tiles, texts(not all)

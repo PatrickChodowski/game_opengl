@@ -50,12 +50,12 @@ namespace camera
 
 
   template <typename T>
-  void _scale_table(std::map<int, T>& data_table, float camera_x, float camera_y, float scale_factor)
+  void _scale_table(std::map<int, T> data_table, float camera_x, float camera_y, float scale_factor)
   {
     float final_camera_x; 
     float final_camera_y;
 
-    for (auto const& [k, v] : data_table)
+    for (auto & [k, v] : data_table)
     {
       if(v.is_camera_static)
       {
