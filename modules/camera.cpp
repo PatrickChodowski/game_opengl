@@ -9,7 +9,7 @@
 
 namespace camera
 {
-  // temporary
+  // temporary ?
   float TILE_DIM = 96;
   float WINDOW_VERTEX_WIDTH = 10;
   float WINDOW_VERTEX_HEIGHT = 8;
@@ -66,9 +66,6 @@ namespace camera
         final_camera_x = camera_x; 
         final_camera_y = camera_y;
       }
-      // TODO
-      // this is not working:
-      // assignment of member ‘entity::EntityData::s_h’ in read-only object
       v.s_x = (v.x + final_camera_x)*scale_factor;
       v.s_y = (v.y + final_camera_y)*scale_factor;
       v.s_h = v.h*scale_factor;

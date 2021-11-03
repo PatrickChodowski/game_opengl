@@ -190,7 +190,7 @@ namespace buffer
     int n_vertices = n_quads*4;
     int vertices_array_count = quads::COUNT_VERTEX_ATTRIBUTES*n_vertices;
     float vertices_array[vertices_array_count];
-
+    int cva = quads::COUNT_VERTEX_ATTRIBUTES; 
     for(int t=0; t<n_quads; t++)
     {
       // std::cout << "buffering quad" << quads[t].id << std::endl;
@@ -198,8 +198,6 @@ namespace buffer
       // std::cout << "" << std::endl;
 
       int start_position = t*quads::COUNT_VERTEX_ATTRIBUTES*4;
-      int cva = quads::COUNT_VERTEX_ATTRIBUTES; 
-
       vertices_array[(start_position)] = quads[t].v_a.x_pos;
       vertices_array[(start_position+1)] = quads[t].v_a.y_pos;
       vertices_array[(start_position+2)] = quads[t].v_a.z_pos;
@@ -262,7 +260,7 @@ namespace buffer
     }
 
     // utils::array_to_file("buffer_update_vertex_array", vertices_array, vertices_array_count, quads::COUNT_VERTEX_ATTRIBUTES);
-    quads::all_quads_to_json();
+    // quads::all_quads_to_json();
 
     buffer::VBO_array_size = sizeof(float)*vertices_array_count;
     buffer::VBO_buffer_usage = std::round(((float)VBO_array_size/(float)VBO_size) * 1000.0)/1000.0;

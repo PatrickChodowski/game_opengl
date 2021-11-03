@@ -41,6 +41,9 @@ namespace entity
     std::map<int, collisions::Sensor> sensors;
     // its not abs, its AABBs, but this is what I do to entertain myself
     std::map<int, collisions::AABB> abs; 
+
+    // label collection
+    // std::vector<QuadLabel> labels;
   };
 
   extern std::vector<quad::QuadData> EntityQuads;
