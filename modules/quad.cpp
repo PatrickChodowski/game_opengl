@@ -1,5 +1,5 @@
 #include "quad.h"
-#include <math.h> 
+#include <cmath> 
 #include "entity.h"
 
 namespace quad

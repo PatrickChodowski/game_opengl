@@ -1,6 +1,7 @@
 #include "buffer.h"
 #include "quad.h"
 #include <vector>
+#include <cmath>
 
 // Buffer functionality
 namespace buffer
