@@ -1,5 +1,5 @@
 
-#include "quad.h"
+#include "quads.h"
 #include <vector>
 
 #ifndef MODULES_BUFFER_H
@@ -21,13 +21,13 @@ namespace buffer2
   void init();
 
   // Method propagating vertex array from quads inside buffer::update
-  void _make_vertex_array(std::vector<quad::QuadData>& quads, float* arr);
+  void _make_vertex_array(std::vector<quads2::QuadData>& quads, float* arr);
 
   // Method propagating index array from quads inside buffer::update
-  void _make_index_array(std::vector<quad::QuadData>& quads, unsigned int* arr);
+  void _make_index_array(std::vector<quads2::QuadData>& quads, unsigned int* arr);
 
   // Gets main quads vector, transforms it and uses it to update the main gpu buffer
-  void update(std::vector<quad::QuadData>& quads);
+  void update(std::vector<quads2::QuadData>& quads);
 
   // Drop buffers
   void drop();

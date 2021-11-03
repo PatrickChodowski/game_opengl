@@ -13,22 +13,25 @@
 - textures
 - utils
 
+# next:
+- run minimum game based only on the new setup
+
 # doing:
+- timer
+- main.cpp
+- game.h
+- variables
 
 # todo:
 - saves
 - items
 - mobs
 - anims
+- menu
 - logger
-- timer
 - gui
 - debug
 
-# specials to make version2:
-- main.cpp
-- setup.h
-- game.h
 
 # to remove:
 - variables

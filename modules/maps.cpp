@@ -1,9 +1,9 @@
 #include "maps.h"
-#include "quad.h"
+#include "quads.h"
 
 namespace maps
 {
-  std::vector<quad::QuadData> TileQuads;
+  std::vector<quads2::QuadData> TileQuads;
   std::map<int, TileData> tiles;
   std::vector<int> UsedTileIds = {};
 

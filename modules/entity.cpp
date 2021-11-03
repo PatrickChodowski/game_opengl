@@ -10,7 +10,7 @@ namespace entity
 
   std::map<int, EntityData> entities;
   std::vector<int> UsedEntityIds = {};
-  std::vector<quad::QuadData> EntityQuads;
+  std::vector<quads2::QuadData> EntityQuads;
 
   int create()
   { 

@@ -1,6 +1,6 @@
 #include <vector>
 #include <map>
-#include "quad.h"
+#include "quads.h"
 
 #ifndef MODULES_MAPS_H
 #define MODULES_MAPS_H
@@ -41,7 +41,7 @@ namespace maps
     std::map<int, collisions::AABB> abs;
   };
 
-  extern std::vector<quad::QuadData> TileQuads;
+  extern std::vector<quads2::QuadData> TileQuads;
   extern std::map<int, TileData> tiles;
   extern std::vector<int> UsedTileIds;
 
