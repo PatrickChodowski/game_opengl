@@ -132,7 +132,6 @@ namespace buffer
 
     // dynamic approach:
     glBufferData(GL_ARRAY_BUFFER, buffer::VBO_size, nullptr, GL_DYNAMIC_DRAW);
-
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     GlCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer::EBO_size, nullptr, GL_DYNAMIC_DRAW));
 

@@ -17,6 +17,8 @@ namespace buffer2
   extern float EBO_buffer_usage;
   extern int MAX_QUADS;
 
+  // Initialize opengl buffers, attributes etc.
+  void init();
 
   // Method propagating vertex array from quads inside buffer::update
   void _make_vertex_array(std::vector<quad::QuadData>& quads, float* arr);
@@ -27,16 +29,8 @@ namespace buffer2
   // Gets main quads vector, transforms it and uses it to update the main gpu buffer
   void update(std::vector<quad::QuadData>& quads);
 
-
-
-
-
-
-
-
-
-
-
+  // Drop buffers
+  void drop();
 
 }
 
