@@ -1,17 +1,7 @@
 #include "setup.h"
 
-#include "modules/buffer.h"
-#include "modules/camera.h"
-#include "modules/collisions.h"
-#include "modules/entity.h"
-#include "modules/maps.h"
-#include "modules/camera.h"
-
-
 int main()
 {
-  entity::create();
-
   logger::init();
   logger::log(LOG_INFO, LOG_EVENT_GAME_START, "main::main", __FILE__, __LINE__, "Initialized Main Function");
   // Window, OpenGL, SDL initiatlization
