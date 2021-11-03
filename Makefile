@@ -9,6 +9,7 @@ output: game
 	modules/events.cpp \
 	modules/hero.cpp \
 	modules/maps.cpp \
+	modules/mouse.cpp \
 	modules/quad.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
@@ -26,6 +27,7 @@ output: game
 	modules/events.cpp \
 	modules/hero.cpp \
 	modules/maps.cpp \
+	modules/mouse.cpp \
 	modules/quad.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
