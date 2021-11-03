@@ -1,19 +1,19 @@
-#include "quad.h"
+#include "quads.h"
 #include <cmath> 
 #include "entity.h"
 
-namespace quad
+namespace quads2
 {
   int COUNT_VERTEX_ATTRIBUTES = 14;
   float VERTEX_OFFSET = 1;
   int COUNT_QUADS = 0;
   int REQ_SIZE_BUFFER = 0;
 
-  std::vector<QuadData> AllQuads;
+  std::vector<quads2::QuadData> AllQuads;
   std::vector<int> UsedQuadIds = {};
   std::vector<int> UsedVertexIds = {};
 
-  VertexData _fill_quad_vertex_data(QuadData& q)
+  VertexData _fill_quad_vertex_data(quads2::QuadData& q)
   {
     VertexData v;
     v.v1_id = gen_vertex_id();
@@ -28,7 +28,7 @@ namespace quad
     // v.v1_tx_y = 0.0f;
 
     // B
-    v.v2_x = q.x + q.w - quad::VERTEX_OFFSET;
+    v.v2_x = q.x + q.w - quads2::VERTEX_OFFSET;
     v.v2_y = q.y;
     // v.v2_tx_x = norm_x_end;
     // v.v2_tx_y = 0.0f;
@@ -36,13 +36,13 @@ namespace quad
 
     // C
     v.v3_x = q.x;
-    v.v3_y = q.y + q.h - quad::VERTEX_OFFSET;
+    v.v3_y = q.y + q.h - quads2::VERTEX_OFFSET;
     // v.v3_tx_x = norm_x_start;
     // v.v3_tx_y = 1.0f;
 
     // D
-    v.v4_x = q.x + q.w - quad::VERTEX_OFFSET;
-    v.v4_y = q.y + q.h - quad::VERTEX_OFFSET;
+    v.v4_x = q.x + q.w - quads2::VERTEX_OFFSET;
+    v.v4_y = q.y + q.h - quads2::VERTEX_OFFSET;
     // v.v4_tx_x = norm_x_end;
     // v.v4_tx_y = 1.0f;
 
@@ -51,11 +51,11 @@ namespace quad
 
   int _find_next_quad_id()
   {
-    int n = quad::UsedQuadIds.size();
+    int n = quads2::UsedQuadIds.size();
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
-      if (quad::UsedQuadIds[i] > (i+1)){
+      if (quads2::UsedQuadIds[i] > (i+1)){
         return i+1;
       }
     }
@@ -64,18 +64,18 @@ namespace quad
 
   int gen_quad_id()
   {
-    int next_quad_id = quad::_find_next_quad_id();
-    quad::UsedQuadIds.push_back(next_quad_id);
+    int next_quad_id = quads2::_find_next_quad_id();
+    quads2::UsedQuadIds.push_back(next_quad_id);
     return next_quad_id;
   }
 
   int _find_next_vertex_id()
   {
-    int n = quad::UsedVertexIds.size();
+    int n = quads2::UsedVertexIds.size();
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
-      if (quad::UsedVertexIds[i] > i){
+      if (quads2::UsedVertexIds[i] > i){
         return i;
       }
     }
@@ -84,12 +84,12 @@ namespace quad
 
   int gen_vertex_id()
   {
-    int next_vertex_id = quad::_find_next_vertex_id();
-    quad::UsedVertexIds.push_back(next_vertex_id);
+    int next_vertex_id = quads2::_find_next_vertex_id();
+    quads2::UsedVertexIds.push_back(next_vertex_id);
     return next_vertex_id;
   }
 
-  int find_quad_id(int quad_id, std::vector<quad::QuadData> quads)
+  int find_quad_id(int quad_id, std::vector<quads2::QuadData> quads)
   {
     int quad_index = -1;
     for(int q = 0; q < quads.size(); q++)
@@ -103,7 +103,7 @@ namespace quad
     return quad_index;
   }
 
-  float get_distance_between_quads(QuadData q1, QuadData q2)
+  float get_distance_between_quads(quads2::QuadData q1, quads2::QuadData q2)
   {
     float distance = std::sqrt(std::pow((q2.s_x - q1.s_x), 2) + std::pow((q2.s_y-q1.s_y), 2));
     return distance;
@@ -111,7 +111,7 @@ namespace quad
 
   void accumulate()
   {
-    quad::AllQuads.clear(); // resetting vector
+    quads2::AllQuads.clear(); // resetting vector
 
     // // assign menu quads
     // if(menu::MenuQuads.size() > 0){
@@ -126,7 +126,7 @@ namespace quad
     // assign entity quads
     //std::cout << "entities size: " << ent::EntityQuads.size() << std::endl;
     if(entity::EntityQuads.size() > 0){
-      quad::AllQuads.insert(quad::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
+      quads2::AllQuads.insert(quads2::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
     }
 
     // if(debug::DebugQuads.size() > 0){
@@ -142,8 +142,8 @@ namespace quad
     //   quad::AllQuads.insert(quad::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
     // }
 
-    quad::COUNT_QUADS = quad::AllQuads.size();
-    quad::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
+    quads2::COUNT_QUADS = quads2::AllQuads.size();
+    quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
   }
 
 }

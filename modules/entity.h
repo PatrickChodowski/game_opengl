@@ -1,4 +1,4 @@
-#include "quad.h"
+#include "quads.h"
 
 #ifndef MODULES_ENTITY_H
 #define MODULES_ENTITY_H
@@ -46,7 +46,7 @@ namespace entity
     // std::vector<QuadLabel> labels;
   };
 
-  extern std::vector<quad::QuadData> EntityQuads;
+  extern std::vector<quads2::QuadData> EntityQuads;
   extern std::map<int, EntityData> entities;
   extern std::vector<int> UsedEntityIds;
 

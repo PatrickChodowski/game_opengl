@@ -10,9 +10,10 @@ output: game
 	modules/hero.cpp \
 	modules/maps.cpp \
 	modules/mouse.cpp \
-	modules/quad.cpp \
+	modules/quads.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
+	modules/timer.cpp \
 	modules/utils.cpp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
 game: main.cpp
 clean: rm *.o
@@ -28,9 +29,10 @@ output: game
 	modules/hero.cpp \
 	modules/maps.cpp \
 	modules/mouse.cpp \
-	modules/quad.cpp \
+	modules/quads.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
+	modules/timer.cpp \
 	modules/utils.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
 game: main.cpp
 clean: rm *.o

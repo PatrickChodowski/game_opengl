@@ -6,7 +6,7 @@
 #define MODULES_QUAD_H
 
 // Frame data. Table of quads and all operations on this table
-namespace quad
+namespace quads2
 {
   // Struct containing only vertex specific data - locations and texture querying params
   struct VertexData
@@ -83,7 +83,7 @@ namespace quad
   extern int REQ_SIZE_BUFFER;
 
   // Takes some quad information and produces vertex data struct to be added to quad;
-  VertexData _fill_quad_vertex_data(QuadData& q);
+  VertexData _fill_quad_vertex_data(quads2::QuadData& q);
 
   // Finds next available quad id
   int _find_next_quad_id();
@@ -98,10 +98,10 @@ namespace quad
   int gen_vertex_id();
 
   // Finds index of quad id in vector of quads
-  int find_quad_id(int quad_id, std::vector<quad::QuadData> quads);
+  int find_quad_id(int quad_id, std::vector<quads2::QuadData> quads);
 
   // Find distance between quads
-  float get_distance_between_quads(QuadData q1, QuadData q2);
+  float get_distance_between_quads(quads2::QuadData q1, quads2::QuadData q2);
 
   // Accumulate all quad vectors from different components
   void accumulate();

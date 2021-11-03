@@ -1,5 +1,5 @@
 #include "buffer.h"
-#include "quad.h"
+#include "quads.h"
 #include <vector>
 #include <cmath>
 // Opengl packages
@@ -18,7 +18,7 @@ namespace buffer2
 {
   int MAX_QUADS = 2000;
   unsigned int VBO, VAO, EBO;
-  int VBO_size = buffer2::MAX_QUADS*sizeof(quad::COUNT_VERTEX_ATTRIBUTES*sizeof(double))*4;
+  int VBO_size = buffer2::MAX_QUADS*sizeof(quads2::COUNT_VERTEX_ATTRIBUTES*sizeof(double))*4;
   int VBO_array_size = 0;
   float VBO_buffer_usage = 0.0f;
   int EBO_size =  buffer2::MAX_QUADS*sizeof(float)*6;
@@ -46,42 +46,42 @@ namespace buffer2
 
     // Set attributes
     // position attribute:
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     // color attribute:
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     // frame_id attribute
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(7 * sizeof(float)));
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(7 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
     // in texture coordinates attribute
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(8 * sizeof(float)));
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(8 * sizeof(float)));
     glEnableVertexAttribArray(3);
 
     // in texture id attribute
-    glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(10 * sizeof(float)));
+    glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(10 * sizeof(float)));
     glEnableVertexAttribArray(4);
 
     // is_clicked  attribute
-    glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(11 * sizeof(float)));
+    glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(11 * sizeof(float)));
     glEnableVertexAttribArray(5);
 
     // quad type id  attribute
-    glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
+    glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
     glEnableVertexAttribArray(6);
 
     // is_static attribute
-    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
+    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
     glEnableVertexAttribArray(7);
 
   }
 
-  void _make_vertex_array(std::vector<quad::QuadData>& quads, float* arr)
+  void _make_vertex_array(std::vector<quads2::QuadData>& quads, float* arr)
   {
-    int cva = quad::COUNT_VERTEX_ATTRIBUTES; 
+    int cva = quads2::COUNT_VERTEX_ATTRIBUTES; 
     for(int t=0; t<quads.size(); t++)
     {
       int start_position = t*cva*4;
@@ -148,7 +148,7 @@ namespace buffer2
 
   }
 
-  void _make_index_array(std::vector<quad::QuadData>& quads, unsigned int* arr)
+  void _make_index_array(std::vector<quads2::QuadData>& quads, unsigned int* arr)
   {
     for(int t=0; t<quads.size(); t++)
     {
@@ -163,9 +163,9 @@ namespace buffer2
     }
   }
 
-  void update(std::vector<quad::QuadData>& quads)
+  void update(std::vector<quads2::QuadData>& quads)
   {
-    int n_vertex_array = quad::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
+    int n_vertex_array = quads2::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
     float vertex_array[n_vertex_array];
 
     int n_index_array = 3*quads.size()*2;
