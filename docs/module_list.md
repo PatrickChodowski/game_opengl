@@ -5,21 +5,21 @@
 - collisions
 - entity
 - events
+- hero
 - maps
 - quad
+- shaders
 - textures
 - utils
 
 # doing:
-- shaders
+- mouse
 
 # todo:
-- hero
+- saves
 - items
 - mobs
 - anims
-- mouse
-- saves
 - logger
 - timer
 - gui
@@ -34,3 +34,7 @@
 - variables
 - maybe setup?
 - 
+
+
+# todo later:
+- move all data files to /data/ dir-> data/shaders, data/maps, data/mobs etc.

@@ -7,6 +7,7 @@ output: game
 	modules/collisions.cpp \
 	modules/entity.cpp \
 	modules/events.cpp \
+	modules/hero.cpp \
 	modules/maps.cpp \
 	modules/quad.cpp \
 	modules/shaders.cpp \
@@ -23,6 +24,7 @@ output: game
 	modules/collisions.cpp \
 	modules/entity.cpp \
 	modules/events.cpp \
+	modules/hero.cpp \
 	modules/maps.cpp \
 	modules/quad.cpp \
 	modules/shaders.cpp \
