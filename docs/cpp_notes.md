@@ -25,3 +25,8 @@ for (auto const& [key, val] : symbolTable)
 }
 
 ```
+
+
+### good practice:
+ - avoid bools in structs and if(isActive) stuff
+ bool is one bit, but uses 8 bytes of memory inside struct as it needs whole block
