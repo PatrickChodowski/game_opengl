@@ -7,7 +7,8 @@ output: game
 	modules/collisions.cpp \
 	modules/entity.cpp \
 	modules/maps.cpp \
-	modules/quad.cpp  -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
+	modules/quad.cpp \
+	modules/textures.cp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
 game: main.cpp
 clean: rm *.o
 endif
@@ -19,7 +20,8 @@ output: game
 	modules/collisions.cpp \
 	modules/entity.cpp \
 	modules/maps.cpp \
-	modules/quad.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
+	modules/quad.cpp \
+	modules/textures.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
 game: main.cpp
 clean: rm *.o
 endif
