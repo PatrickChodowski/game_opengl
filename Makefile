@@ -8,7 +8,8 @@ output: game
 	modules/entity.cpp \
 	modules/maps.cpp \
 	modules/quad.cpp \
-	modules/textures.cp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
+	modules/textures.cpp \
+	modules/utils.cpp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
 game: main.cpp
 clean: rm *.o
 endif
@@ -21,7 +22,8 @@ output: game
 	modules/entity.cpp \
 	modules/maps.cpp \
 	modules/quad.cpp \
-	modules/textures.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
+	modules/textures.cpp \
+	modules/utils.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
 game: main.cpp
 clean: rm *.o
 endif
