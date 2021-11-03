@@ -35,7 +35,7 @@ namespace camera
   // Re-set camera struct "cam" to default values
   void reset2();
 
-  // Inner method scaling particular data_table
+  // Inner method scaling particular data_table. Template can be any ObjectData with locations and dimensions (entity, tiles etc.)
   template <typename T>
   void _scale_table(std::map<int, T> data_table, float camera_x, float camera_y, float scale_factor);
 

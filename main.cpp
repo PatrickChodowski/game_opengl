@@ -3,6 +3,7 @@
 #include "modules/entity.h"
 #include "modules/quad.h"
 #include "modules/collisions.h"
+#include "modules/camera.h"
 
 int main()
 {

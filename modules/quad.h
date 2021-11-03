@@ -8,129 +8,82 @@
 // Frame data. Table of quads and all operations on this table
 namespace quad
 {
+  // Struct containing only vertex specific data - locations and texture querying params
   struct VertexData
   {
-     // info send to GPU:
-    double x_pos; 
-    double y_pos;
-    double z_pos;
+    int v1_id, v2_id, v3_id, v4_id;
 
-    double r_col;
-    double g_col;
-    double b_col;
-    double a_col;
+    double v1_x, v1_y, v1_z;
+    double v1_tx_x, v1_tx_y;
+    
+    double v2_x, v2_y, v2_z;
+    double v2_tx_x, v2_tx_y;
 
-    double frame_id;
-    double tex_coord_x;
-    double tex_coord_y;
-    double texture_id;
+    double v3_x, v3_y, v3_z;
+    double v3_tx_x, v3_tx_y;
 
-    double is_clicked;
-    double type_id;
-    double is_static;
+    double v4_x, v4_y, v4_z;
+    double v4_tx_x, v4_tx_y;
 
-    /// not counted as VERTEX ATTRIBUTES
-    int tile_id;
-    int vertex_id;
   };
 
+  // Set of Vertex IDs to form index
   struct VertexIndex
   {  
-    int a; 
-    int b;
-    int c;
+    int v1, v2, v3; 
   };
 
-  struct QuadLabel
-  {
-    std::string text;
-    int x;
-    int y;
-    bool is_static;
-    float scale;
-  };
-
+  // All data needed by buffer and shaders to render image properly
   struct QuadData
   {
     int id;
-    int x;
-    int y;
-    int w;
-    int h;
-    
-    // vertex IDS:
-    int a;
-    int b;
-    int c;
-    int d;
-    // a b
-    // c d
-
-    // for assigning texture and frame in assign_vertices:
     int texture_id;
     int frame_id;
 
-    // for entities logic:
-    int entity_type_id;
-
-
-    bool solid; // if true, will get collision with hero entity
-    bool coll; // if true, will get distance to hero calculated
     bool is_clicked;
 
-    // Vertex information
-    VertexData v_a;
-    VertexData v_b;
-    VertexData v_c;
-    VertexData v_d;
-
-    // VertexIndex
-    struct VertexIndex i_left;
     // a b
     // c
-    struct VertexIndex i_right;
+    struct VertexIndex i_left;
+
     //   b
     // c d
-    
-    // for passing colors
-    float r_col;
-    float g_col;
-    float b_col;
-    float a_col;
+    struct VertexIndex i_right;
 
-    // for different shader calls:
-    float type_id; // 0 - level, 1 - menu, 2 - text, 3 - entity
+    // Vertex specific data
+    struct VertexData v;
 
-    // to choose camera reaction:
+    // Quad color
+    double r, g, b, a;
+
+    // Quad position
+    float x, y, z;
+
+    // Quad dimensions
+    float w, h;
+
+    // Quad type: 0 - level, 1 - menu, 2 - text, 3 - entity
+    float type_id;
+
+    // To choose camera behaviour
     float is_static;
 
     // Scaled metrics For collisions and mouse events:
-    float s_x;
-    float s_y;
-    float s_w;
-    float s_h;
+    float s_x, s_y;
+    float s_w, s_h;
 
-    // 'diagonal' is the distance from the middle of the quad to the corner
-    // would call it a radius but we are in a quad not a circle, but its like a radius to me
-    float s_diag; // 'diagonal' is the distance from the center of the quad to the corner
-
-    // used if given entity has collision sensors
-    // std::map<int, collisions::Sensor> sensors;
-
-    // its not abs, its AABBs, but this is what I do to entertain myself
-    std::map<int, collisions::AABB> abs; 
-
-    // label collection
-    std::vector<QuadLabel> labels;
   };
 
   extern std::vector<QuadData> AllQuads;
   extern std::vector<int> UsedQuadIds;
   extern std::vector<int> UsedVertexIds;
   extern int COUNT_VERTEX_ATTRIBUTES;
-  extern int VERTEX_OFFSET;
+  extern float VERTEX_OFFSET;
   extern int COUNT_QUADS;
   extern int REQ_SIZE_BUFFER;
+
+  // Takes some quad information and produces vertex data struct to be added to quad;
+  VertexData _fill_quad_vertex_data(QuadData& q);
 
   // Finds next available quad id
   int _find_next_quad_id();
@@ -152,6 +105,8 @@ namespace quad
 
   // Accumulate all quad vectors from different components
   void accumulate();
+
+
 }
 
 #endif

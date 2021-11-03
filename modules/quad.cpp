@@ -5,13 +5,49 @@
 namespace quad
 {
   int COUNT_VERTEX_ATTRIBUTES = 14;
-  int VERTEX_OFFSET = 1;
+  float VERTEX_OFFSET = 1;
   int COUNT_QUADS = 0;
   int REQ_SIZE_BUFFER = 0;
 
   std::vector<QuadData> AllQuads;
   std::vector<int> UsedQuadIds = {};
   std::vector<int> UsedVertexIds = {};
+
+  VertexData _fill_quad_vertex_data(QuadData& q)
+  {
+    VertexData v;
+    v.v1_id = gen_vertex_id();
+    v.v2_id = gen_vertex_id();
+    v.v3_id = gen_vertex_id();
+    v.v4_id = gen_vertex_id();
+
+    // A
+    v.v1_x = q.x;
+    v.v1_y = q.y;
+    // v.v1_tx_x = norm_x_start;
+    // v.v1_tx_y = 0.0f;
+
+    // B
+    v.v2_x = q.x + q.w - quad::VERTEX_OFFSET;
+    v.v2_y = q.y;
+    // v.v2_tx_x = norm_x_end;
+    // v.v2_tx_y = 0.0f;
+
+
+    // C
+    v.v3_x = q.x;
+    v.v3_y = q.y + q.h - quad::VERTEX_OFFSET;
+    // v.v3_tx_x = norm_x_start;
+    // v.v3_tx_y = 1.0f;
+
+    // D
+    v.v4_x = q.x + q.w - quad::VERTEX_OFFSET;
+    v.v4_y = q.y + q.h - quad::VERTEX_OFFSET;
+    // v.v4_tx_x = norm_x_end;
+    // v.v4_tx_y = 1.0f;
+
+    return v;
+  }
 
   int _find_next_quad_id()
   {
