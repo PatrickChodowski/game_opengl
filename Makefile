@@ -9,6 +9,7 @@ output: game
 	modules/events.cpp \
 	modules/maps.cpp \
 	modules/quad.cpp \
+	modules/shaders.cpp \
 	modules/textures.cpp \
 	modules/utils.cpp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
 game: main.cpp
@@ -24,6 +25,7 @@ output: game
 	modules/events.cpp \
 	modules/maps.cpp \
 	modules/quad.cpp \
+	modules/shaders.cpp \
 	modules/textures.cpp \
 	modules/utils.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
 game: main.cpp
