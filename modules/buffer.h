@@ -18,8 +18,11 @@ namespace buffer2
   extern int MAX_QUADS;
 
 
-  // Method converting vector of quads to VertexArray
-  void _quads_to_array(std::vector<quad::QuadData>& quads, float* arr);
+  // Method propagating vertex array from quads inside buffer::update
+  void _make_vertex_array(std::vector<quad::QuadData>& quads, float* arr);
+
+  // Method propagating index array from quads inside buffer::update
+  void _make_index_array(std::vector<quad::QuadData>& quads, unsigned int* arr);
 
   // Gets main quads vector, transforms it and uses it to update the main gpu buffer
   void update(std::vector<quad::QuadData>& quads);
