@@ -7,13 +7,13 @@
 - events
 - hero
 - maps
+- mouse
 - quad
 - shaders
 - textures
 - utils
 
 # doing:
-- mouse
 
 # todo:
 - saves
