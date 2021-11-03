@@ -2,6 +2,9 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <regex> 
+#include <SDL2/SDL.h>
+
 #include "utils.h"
 #include "../dependencies/json_struct.h"
 
@@ -27,7 +30,7 @@ namespace shaders2
   {
     ShaderData SD;
     std::string data_path = "./shaders/data/"+name+".json";
-    std::string json_data = utils::read_text_file(data_path);
+    std::string json_data = utils2::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(SD);
     shaders2::shaders.insert({SD.id, SD});
@@ -35,7 +38,7 @@ namespace shaders2
 
   void init()
   {
-    std::vector<std::string> shaders_list = utils::list_files("shaders/data/");
+    std::vector<std::string> shaders_list = utils2::list_json_files("shaders/data/");
     for(int s=0; s < shaders_list.size(); s++)
     {
       shaders2::read_data(shaders_list[s]);
@@ -43,7 +46,7 @@ namespace shaders2
 
     for (auto const& x : shaders2::shaders)
     {
-      shader2s::shaders[x.first].gl_shader_id = shaders2::build(x.second.name.c_str());
+      shaders2::shaders[x.first].gl_shader_id = shaders2::build(x.second.name.c_str());
     }
     glReleaseShaderCompiler();
   };
@@ -65,7 +68,7 @@ namespace shaders2
       std::string slots = "32";
     #endif
       
-    std::string shader_source = utils::read_text_file(filename);
+    std::string shader_source = utils2::read_text_file(filename);
 
     shader_source = std::regex_replace(shader_source, std::regex("\\$version"), version);
     shader_source = std::regex_replace(shader_source, std::regex("\\$slots"), slots);
@@ -161,7 +164,7 @@ namespace shaders2
     glDeleteShader(fragmentShader);
 
     if (status == GL_FALSE){
-      logger::print("CustomShaderException: Shader status is FALSE", 2);
+      //logger::print("CustomShaderException: Shader status is FALSE", 2);
       return 0;
     };
     return shading_program;
