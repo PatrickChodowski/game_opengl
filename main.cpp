@@ -1,9 +1,12 @@
 #include "setup.h"
 
-#include "modules/entity.h"
-#include "modules/quad.h"
-#include "modules/collisions.h"
+#include "modules/buffer.h"
 #include "modules/camera.h"
+#include "modules/collisions.h"
+#include "modules/entity.h"
+#include "modules/maps.h"
+#include "modules/camera.h"
+
 
 int main()
 {
