@@ -28,7 +28,7 @@ namespace buffer2
 
 
   // Method converting vector of quads to VertexArray
-  void _quads_to_array(std::vector<quad::QuadData>& quads, float* arr)
+  void _make_vertex_array(std::vector<quad::QuadData>& quads, float* arr)
   {
     int cva = quad::COUNT_VERTEX_ATTRIBUTES; 
     for(int t=0; t<quads.size(); t++)
@@ -95,27 +95,48 @@ namespace buffer2
       arr[(start_position+(cva*3) + 13)] = quads[t].is_static;
     }
 
-    arr;
+  }
+
+  void _make_index_array(std::vector<quad::QuadData>& quads, unsigned int* arr)
+  {
+    for(int t=0; t<quads.size(); t++)
+    {
+      int start_position = t*3*2;
+      arr[(start_position+0)] = quads[t].i_left.v1;
+      arr[(start_position+1)] = quads[t].i_left.v2;
+      arr[(start_position+2)] = quads[t].i_left.v3;
+
+      arr[(start_position+3)] = quads[t].i_right.v1;
+      arr[(start_position+4)] = quads[t].i_right.v2;
+      arr[(start_position+5)] = quads[t].i_right.v3;
+    }
   }
 
   // Gets main quads vector, transforms it and uses it to update the main gpu buffer
   void update(std::vector<quad::QuadData>& quads)
   {
-    int n_vertex = quads.size()*4;
-    int n_vertex_array = quad::COUNT_VERTEX_ATTRIBUTES*n_vertex;
+    int n_vertex_array = quad::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
     float vertex_array[n_vertex_array];
 
-    // transforms quads table into array
-    _quads_to_array(quads, vertex_array);
+    int n_index_array = 3*quads.size()*2;
+    unsigned int index_array[n_index_array];
+
+    _make_vertex_array(quads, vertex_array);
+
+    _make_index_array(quads, index_array);
 
     buffer2::VBO_array_size = sizeof(float)*n_vertex_array;
     buffer2::VBO_buffer_usage = std::round(((float)VBO_array_size/(float)VBO_size) * 1000.0)/1000.0;
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer2::VBO_array_size, vertex_array);
 
-
-
-
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    buffer2::EBO_array_size = sizeof(float)*n_index_array;
+    buffer2::EBO_buffer_usage = std::round(((float)EBO_array_size/(float)EBO_size) * 1000.0)/1000.0;
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer2::EBO_array_size, index_array);
   }
+
+
 
 
 
