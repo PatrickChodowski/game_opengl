@@ -14,7 +14,6 @@
     #include <GL/glu.h>
 #endif
 
-// Buffer functionality
 namespace buffer2
 {
   int MAX_QUADS = 2000;
@@ -26,8 +25,60 @@ namespace buffer2
   int EBO_array_size = 0;
   float EBO_buffer_usage = 0.0f;
 
+  void init()
+  {
+    // OpenGL options:
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  // Method converting vector of quads to VertexArray
+    // Generate buffers:
+    glGenVertexArrays(1, &buffer2::VAO);
+    glGenBuffers(1, &buffer2::VBO);
+    glGenBuffers(1, &buffer2::EBO);
+
+    // Bind buffers
+    glBindVertexArray(buffer2::VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer2::VBO);
+    glBufferData(GL_ARRAY_BUFFER, buffer2::VBO_size, nullptr, GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer2::EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer2::EBO_size, nullptr, GL_DYNAMIC_DRAW);
+
+    // Set attributes
+    // position attribute:
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // color attribute:
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    // frame_id attribute
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(7 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+
+    // in texture coordinates attribute
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(8 * sizeof(float)));
+    glEnableVertexAttribArray(3);
+
+    // in texture id attribute
+    glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(10 * sizeof(float)));
+    glEnableVertexAttribArray(4);
+
+    // is_clicked  attribute
+    glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(11 * sizeof(float)));
+    glEnableVertexAttribArray(5);
+
+    // quad type id  attribute
+    glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
+    glEnableVertexAttribArray(6);
+
+    // is_static attribute
+    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, quad::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
+    glEnableVertexAttribArray(7);
+
+  }
+
   void _make_vertex_array(std::vector<quad::QuadData>& quads, float* arr)
   {
     int cva = quad::COUNT_VERTEX_ATTRIBUTES; 
@@ -112,7 +163,6 @@ namespace buffer2
     }
   }
 
-  // Gets main quads vector, transforms it and uses it to update the main gpu buffer
   void update(std::vector<quad::QuadData>& quads)
   {
     int n_vertex_array = quad::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
@@ -136,17 +186,12 @@ namespace buffer2
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer2::EBO_array_size, index_array);
   }
 
-
-
-
-
-
-
-
-
-
-
-
+  void drop()
+  {
+    glDeleteVertexArrays(1, &buffer2::VAO);
+    glDeleteBuffers(1, &buffer2::VBO);
+    glDeleteBuffers(1, &buffer2::EBO);
+  }
 
 
 }
