@@ -73,7 +73,7 @@ namespace textures2
   // Hidden method, used to load selected texture to opengl
   unsigned int _load_texture_to_opengl(unsigned int texture_id, int w, int h, int n_channels, std::string name);
 
-  // Read texture data from the path
+  // Read texture data from the path and insert it to textures table
   void read_data(std::string name);
 
   // Loads texture to opengl and textures catalog

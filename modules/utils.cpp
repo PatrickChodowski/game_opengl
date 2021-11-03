@@ -1,11 +1,15 @@
-#ifndef UTILS_H
-#define UTILS_H
+#include <string>
+#include <vector>
+#include <dirent.h>
+#include "utils.h"
+#include <fstream>
+#include <sstream>
+#include <random>
+#include "../dependencies/json_struct.h"
 
-namespace utils
+// Random reused utility functions
+namespace utils2
 {
-
-
-  // Reading in text files (may be moved later to utils if needed)
   std::string read_text_file(std::string path)
   {
     std::ifstream json_file(path);
@@ -13,18 +17,18 @@ namespace utils
     tmp << json_file.rdbuf();
     std::string s = tmp.str();
     return s;
-  } 
+  };
 
-  bool has_ending (std::string const &fullString, std::string const &ending) {
-    if (fullString.length() >= ending.length()) {
-        return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
+  bool has_ending(std::string const &full_string, std::string const &ending) 
+  {
+    if (full_string.length() >= ending.length()) {
+        return (0 == full_string.compare (full_string.length() - ending.length(), ending.length(), ending));
     } else {
         return false;
     }
-  }
+  };
 
- // list all json files in directory that have metadata created, default path
-  std::vector<std::string> list_files(std::string path)
+  std::vector<std::string> list_json_files(std::string path)
   {
     std::vector<std::string> list_of_files = {};
     struct dirent *entry;
@@ -54,34 +58,18 @@ namespace utils
     return list_of_files;
   };  
 
-  void check_glew(GLenum err)
-  {
-    if (err != GLEW_OK)
-    {
-        exit(1); 
-    }
-  // check that the machine supports the 2.1 API.
-    if (!GLEW_VERSION_2_1)
-    { 
-      exit(1); 
-    }
-  }
-
-  template<typename T>
-  void array_to_file(std::string file_name, T *array_pointer, int array_size, int new_line_count){
-    std::string file_path = "./logs/"+file_name + ".txt";
-    std::ofstream array_file (file_path.c_str());
-    if (array_file.is_open())
-    {
-      for(int i = 0; i < array_size; i ++){
-          array_file << array_pointer[i] << " " ;
-          if(((i+1) % new_line_count == 0) && (i>0)){
-            array_file << "\n";
-          }
-      }
-      array_file.close();
-    }
-  }
+  // void check_glew(GLenum err)
+  // {
+  //   if (err != GLEW_OK)
+  //   {
+  //       exit(1); 
+  //   }
+  // // check that the machine supports the 2.1 API.
+  //   if (!GLEW_VERSION_2_1)
+  //   { 
+  //     exit(1); 
+  //   }
+  // }
 
   int get_random(int min_int, int max_int)
   {
@@ -93,4 +81,3 @@ namespace utils
   }
 
 }
-#endif

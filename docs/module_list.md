@@ -7,6 +7,10 @@
 - maps
 - quad
 
+# doing:
+- textures
+- utils
+
 # todo:
 - hero
 - items
@@ -14,13 +18,10 @@
 - anims
 - events
 - mouse
-- textures
-- utils
 - saves
 - shaders
 - logger
 - timer
-- utils
 - gui
 - debug
 - game
