@@ -2,7 +2,6 @@
 #ifndef VARS_H
 #define VARS_H
 
-
 namespace colls
 {
   int SENSOR_COUNT = 9;
@@ -287,7 +286,6 @@ namespace debug
   std::vector<quads::Quad> DebugQuads;
 }
 
-
 namespace fonts
 {
   std::vector<quads::Quad> TextQuads;
@@ -355,7 +353,6 @@ namespace mobs
   // Table of Alive Mobs (id of Alive Mob and AliveMobData)
   std::vector<mobs::AliveMobData> AliveMobs = {};
 }
-
 
 namespace travel
 {

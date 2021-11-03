@@ -4,26 +4,33 @@
 - camera
 - collisions
 - entity
+- events
 - maps
 - quad
-
-# doing:
 - textures
 - utils
+
+# doing:
+- shaders
 
 # todo:
 - hero
 - items
 - mobs
 - anims
-- events
 - mouse
 - saves
-- shaders
 - logger
 - timer
 - gui
 - debug
-- game
-- setup
+
+# specials to make version2:
+- main.cpp
+- setup.h
+- game.h
+
+# to remove:
 - variables
+- maybe setup?
+- 

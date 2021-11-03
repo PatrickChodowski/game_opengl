@@ -7,7 +7,6 @@
 // #define STB_IMAGE_IMPLEMENTATION
 #include "../dependencies/stb_image.h"
 
-// Opengl packages
 #include <GL/glew.h> 
 #ifdef TARGET_OS_MAC
     #include <OpenGL/gl.h>

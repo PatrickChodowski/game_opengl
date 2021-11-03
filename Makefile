@@ -6,6 +6,7 @@ output: game
 	modules/camera.cpp \
 	modules/collisions.cpp \
 	modules/entity.cpp \
+	modules/events.cpp \
 	modules/maps.cpp \
 	modules/quad.cpp \
 	modules/textures.cpp \
@@ -20,6 +21,7 @@ output: game
 	modules/camera.cpp \
 	modules/collisions.cpp \
 	modules/entity.cpp \
+	modules/events.cpp \
 	modules/maps.cpp \
 	modules/quad.cpp \
 	modules/textures.cpp \
