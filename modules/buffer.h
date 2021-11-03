@@ -6,17 +6,16 @@
 #define MODULES_BUFFER_H
 
 // Buffer functionality
-namespace buffer
+namespace buffer2
 {
-  unsigned int VBO, VAO, EBO;
-  // Size of VBO buffer -> size of Vertex: 120*4, 4 vertices per quad, max quads is 2000. Buffer size is 960 000
-  int VBO_size = MAX_QUADS*sizeof(quad::COUNT_VERTEX_ATTRIBUTES*sizeof(double))*4;
-  int VBO_array_size = 0;
-  float VBO_buffer_usage = 0.0f;
-
-  int EBO_size = MAX_QUADS*sizeof(float)*6;
-  int EBO_array_size = 0;
-  float EBO_buffer_usage = 0.0f;
+  extern unsigned int VBO, VAO, EBO;
+  extern int VBO_size;
+  extern int VBO_array_size;
+  extern float VBO_buffer_usage;
+  extern int EBO_size;
+  extern int EBO_array_size;
+  extern float EBO_buffer_usage;
+  extern int MAX_QUADS;
 
 
   // Method converting vector of quads to VertexArray

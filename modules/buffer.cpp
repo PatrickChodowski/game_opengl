@@ -2,19 +2,29 @@
 #include "quad.h"
 #include <vector>
 #include <cmath>
+// Opengl packages
+#include <GL/glew.h> 
+#ifdef TARGET_OS_MAC
+    #include <OpenGL/gl.h>
+    #include <OpenGL/glu.h>
+#endif
+
+#ifdef __linux__
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
 
 // Buffer functionality
-namespace buffer
+namespace buffer2
 {
-  // initialize variables
-  int VBO_size = MAX_QUADS*sizeof(quad::COUNT_VERTEX_ATTRIBUTES*sizeof(double))*4;
+  int MAX_QUADS = 2000;
+  unsigned int VBO, VAO, EBO;
+  int VBO_size = buffer2::MAX_QUADS*sizeof(quad::COUNT_VERTEX_ATTRIBUTES*sizeof(double))*4;
   int VBO_array_size = 0;
   float VBO_buffer_usage = 0.0f;
-
-  int EBO_size = MAX_QUADS*sizeof(float)*6;
+  int EBO_size =  buffer2::MAX_QUADS*sizeof(float)*6;
   int EBO_array_size = 0;
   float EBO_buffer_usage = 0.0f;
-
 
 
   // Method converting vector of quads to VertexArray
@@ -98,8 +108,8 @@ namespace buffer
     // transforms quads table into array
     _quads_to_array(quads, vertex_array);
 
-    buffer::VBO_array_size = sizeof(float)*n_vertex_array;
-    buffer::VBO_buffer_usage = std::round(((float)VBO_array_size/(float)VBO_size) * 1000.0)/1000.0;
+    buffer2::VBO_array_size = sizeof(float)*n_vertex_array;
+    buffer2::VBO_buffer_usage = std::round(((float)VBO_array_size/(float)VBO_size) * 1000.0)/1000.0;
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 
