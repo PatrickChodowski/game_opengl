@@ -1,6 +1,7 @@
 #include "camera.h"
 #include "entity.h"
 #include "maps.h"
+#include "game.h"
 #include "../dependencies/glm/mat4x4.hpp"
 #include "../dependencies/glm/ext/matrix_transform.hpp"
 #include "../dependencies/glm/gtc/matrix_transform.hpp"
@@ -9,14 +10,11 @@
 
 namespace camera
 {
-  // temporary ?
-  float TILE_DIM = 96;
-  float WINDOW_VERTEX_WIDTH = 10;
-  float WINDOW_VERTEX_HEIGHT = 8;
-  float WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
-  float WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
-
   Camera cam;
+  glm::mat4 STATIC_MVP;
+  glm::mat4 DYNAMIC_MVP;
+  glm::mat4 ZOOM_MVP;
+
   void reset2()
   {
     cam.base_speed = 6;
@@ -27,7 +25,7 @@ namespace camera
     cam.y = 0;
     cam.move_x = 0;
     cam.move_y = 0;
-    cam.tile_dim = TILE_DIM;
+    cam.tile_dim = game2::TILE_DIM;
     cam.base_zoom = 1.0f;
     cam.zoom = 1.0f;
     cam.zoom_speed = 0.1f;
@@ -36,8 +34,8 @@ namespace camera
 
   glm::mat4 gen_dynamic_mvp(float camera_move_x=0, float camera_move_y=0, float camera_zoom=1)
   {
-    float z_window_width = WINDOW_WIDTH * camera_zoom;
-    float z_window_height = WINDOW_HEIGHT * camera_zoom;
+    float z_window_width = game2::WINDOW_WIDTH * camera_zoom;
+    float z_window_height = game2::WINDOW_HEIGHT * camera_zoom;
     glm::mat4 proj = glm::ortho(0.0f, z_window_width, z_window_height, 0.0f, -1.0f, 1.0f);
     // glm::vec3(0, 10, 0) moves tiles down
     // glm::vec3(10, 0, 0) moves tiles right
@@ -77,7 +75,7 @@ namespace camera
   void scale(float camera_x=0.0, float camera_y=0.0, float camera_zoom=1.0)
   {
     float scale_factor = (1.0f/camera_zoom);
-    camera::cam.tile_dim = TILE_DIM*scale_factor; //???? why the hell it is here ?????
+    camera::cam.tile_dim = game2::TILE_DIM*scale_factor; //???? why the hell it is here ?????
     camera_x = (-1.0)*camera_x;
 
     camera::_scale_table(entity::entities, camera_x, camera_y, scale_factor);

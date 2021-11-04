@@ -19,7 +19,7 @@
 
 # doing:
 - main.cpp -> main2.cpp
-- game.h
+- game.h   -> modules/game
 - variables.h -> to remove
 - setup.h -> to remove
 
@@ -36,10 +36,6 @@
 - navmesh
 - pathfinder
 - travel
-
-# to remove:
-- variables
-- setup?
 
 # todo later:
 - move all data files to /data/ dir-> data/shaders, data/maps, data/mobs etc.
