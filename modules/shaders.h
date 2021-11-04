@@ -13,8 +13,8 @@
     #include <GL/glu.h>
 #endif
 
-#ifndef MODULES_MAPS_H
-#define MODULES_MAPS_H
+#ifndef MODULES_SHADERS_H
+#define MODULES_SHADERS_H
 
 namespace shaders2
 {

@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include "../dictionary.h"
 #include "events.h"
+#include "game.h"
 
 namespace events2
 {
@@ -97,7 +98,7 @@ namespace events2
         break;
 
         case SDL_QUIT:
-          //RUNNING = false;
+          game2::RUNNING = false;
           break;
 
       case SDL_KEYDOWN: // has to remove camera/hero move from here in order to run smoothly
