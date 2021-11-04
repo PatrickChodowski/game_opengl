@@ -1,3 +1,8 @@
+#include <string>
+#include <map>
+#include <vector>
+#include <iostream>
+
 #include "game.h"
 
 #include "buffer.h"
@@ -15,9 +20,61 @@ namespace game2
   float WINDOW_VERTEX_HEIGHT = 8;
   float WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
   float WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
+  bool CHANGE_STATE_TRIGGER = false;
+  
+  std::map<std::string, bool> GAME_STATE;
+  std::vector<std::string> GAME_STATE_LIST = {"GAME_ON",
+                                              "MAIN_MENU",
+                                              "NEW_GAME_MENU",
+                                              "LOAD_GAME_MENU",
+                                              "SETTINGS_MENU"};
+
+  void _init_game_states()
+  {
+    GAME_STATE.insert(std::pair<std::string, bool>("GAME_ON", true));
+    GAME_STATE.insert(std::pair<std::string, bool>("MAIN_MENU", false));
+    GAME_STATE.insert(std::pair<std::string, bool>("NEW_GAME_MENU", false));
+    GAME_STATE.insert(std::pair<std::string, bool>("LOAD_GAME_MENU", false));
+    GAME_STATE.insert(std::pair<std::string, bool>("SETTINGS_MENU", false));
+  };
+
+  void set_state(std::string state_name)
+  {
+    std::string old_state = get_state();
+    if(old_state != state_name){
+      GAME_STATE[state_name] = true;
+      for(int s = 0; s < GAME_STATE_LIST.size(); s++)
+      {
+        if(GAME_STATE_LIST[s] != state_name){
+          GAME_STATE[GAME_STATE_LIST[s]] = false;
+        }
+      }
+      std::cout << "Set the game state to " << state_name << std::endl;
+      CHANGE_STATE_TRIGGER = true;
+    }
+  }
+
+  std::string get_state()
+  {
+    std::string current_state;
+    for(int s = 0; s < GAME_STATE_LIST.size(); s++)
+    {
+      if(GAME_STATE[GAME_STATE_LIST[s]])
+      {
+        current_state = GAME_STATE_LIST[s];
+        break;
+      }
+    }
+    std::cout << "Current state: " << current_state << std::endl;
+    return current_state;
+  }
+
 
   void init()
   {
+    game2::_init_game_states();
+    game2::set_state("GAME_ON");
+
     buffer2::init();
     shaders2::init();
     textures2::init();

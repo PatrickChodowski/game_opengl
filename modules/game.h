@@ -1,3 +1,6 @@
+#include <map>
+#include <vector>
+#include <string>
 
 #ifndef MODULES_GAME_H
 #define MODULES_GAME_H
@@ -13,6 +16,18 @@ namespace game2
   extern float WINDOW_VERTEX_HEIGHT;
   extern float WINDOW_WIDTH;
   extern float WINDOW_HEIGHT;
+  extern std::map<std::string, bool> GAME_STATE;
+  extern std::vector<std::string> GAME_STATE_LIST;
+  extern bool CHANGE_STATE_TRIGGER;
+
+  // Initialize game states set
+  void _init_game_states();
+
+  // Sets game state
+  void set_state();
+
+  // Gets game state
+  std::string get_state();
 
   // Initialize all in-game systems inside single game::init()
   void init();
