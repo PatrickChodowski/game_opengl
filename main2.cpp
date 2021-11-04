@@ -45,19 +45,11 @@ int main()
   glViewport(0, 0, game2::WINDOW_WIDTH, game2::WINDOW_HEIGHT);
   GLenum err = glewInit();
   utils2::check_glew(err);
-
   game2::init();
-
-  // game::init_game_states();
-  // items::init();
-
-  // game::set_state("MAIN_MENU");
-  // menu::load_menu({0,1,2,3});
-  // quads::accumulate();
 
   while(game2::RUNNING)
   {
-    //auto game_loop_start_time = std::chrono::system_clock::now();
+    auto game_loop_start_time = std::chrono::system_clock::now();
     SDL_Event event;
     events2::handle_events(event);
     // game::handle_game_state();
@@ -65,7 +57,6 @@ int main()
     game2::update();
     
     SDL_GL_SwapWindow(WINDOW);
-
     auto game_loop_end_time = std::chrono::system_clock::now();
     //float delay = timer2::get_delay_ms(game_loop_start_time, game_loop_end_time);
     SDL_Delay(1000/60);
