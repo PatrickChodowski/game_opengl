@@ -19,9 +19,9 @@
 
 # doing:
 - main.cpp -> main2.cpp
-- setup.h
 - game.h
-- variables.h
+- variables.h -> to remove
+- setup.h -> to remove
 
 # todo:
 - saves
@@ -39,7 +39,7 @@
 
 # to remove:
 - variables
-- maybe setup?
+- setup?
 
 # todo later:
 - move all data files to /data/ dir-> data/shaders, data/maps, data/mobs etc.
