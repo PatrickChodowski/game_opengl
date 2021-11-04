@@ -51,14 +51,14 @@ int main()
   GLenum err = glewInit();
   utils2::check_glew(err);
 
+  game2::init();
+
   // game::init_game_states();
-  // game::init();
   // items::init();
 
   // game::set_state("MAIN_MENU");
   // menu::load_menu({0,1,2,3});
   // quads::accumulate();
-  buffer2::init();
 
   while(game2::RUNNING)
   {
@@ -67,8 +67,7 @@ int main()
     events2::handle_events(event);
     // game::handle_game_state();
     quads2::accumulate();
-
-    // game::update(quads::AllQuads);
+    game2::update();
     
     SDL_GL_SwapWindow(WINDOW);
 
