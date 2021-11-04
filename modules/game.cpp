@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include "buffer.h"
+#include "camera.h"
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
@@ -9,6 +10,11 @@ namespace game2
 {
   bool RUNNING = true;
   int CURRENT_SHADER_ID = 0;
+  float TILE_DIM = 96;
+  float WINDOW_VERTEX_WIDTH = 10;
+  float WINDOW_VERTEX_HEIGHT = 8;
+  float WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
+  float WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
 
   void init()
   {
@@ -37,7 +43,7 @@ namespace game2
       sampler[(i+1)] = textures2::BoundTextures[i];
     }
     // react to camera changes
-    // DYNAMIC_MVP = camera::generate_dynamic_mvp(camera::zoom, -camera::x, camera::y);
+    camera::DYNAMIC_MVP = camera::gen_dynamic_mvp(-camera::cam.x, camera::cam.y, camera::cam.zoom);
 
     // // independent of camera moving
     // STATIC_MVP = camera::generate_static_mvp();
@@ -51,7 +57,7 @@ namespace game2
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
     // glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "static_mvp"), 1, GL_FALSE, glm::value_ptr(STATIC_MVP));
-    // glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "dynamic_mvp"), 1, GL_FALSE, glm::value_ptr(DYNAMIC_MVP));
+    glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "dynamic_mvp"), 1, GL_FALSE, glm::value_ptr(camera::DYNAMIC_MVP));
     // glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "zoom_mvp"), 1, GL_FALSE, glm::value_ptr(ZOOM_MVP));
     
     // set shader
@@ -59,6 +65,14 @@ namespace game2
     // draw 
     glDrawElements(GL_TRIANGLES, quads2::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
 
+  }
+
+
+  void drop()
+  {
+    buffer2::drop();
+    shaders2::drop();
+    textures2::drop();
   }
 
 

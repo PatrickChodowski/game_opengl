@@ -31,6 +31,9 @@ namespace camera
   };
 
   extern Camera cam;
+  extern glm::mat4 STATIC_MVP;
+  extern glm::mat4 DYNAMIC_MVP;
+  extern glm::mat4 ZOOM_MVP;
 
   // Re-set camera struct "cam" to default values
   void reset2();
