@@ -8,7 +8,7 @@
 - hero
 - maps
 - mouse
-- quad
+- quads
 - shaders
 - textures
 - timer
@@ -18,7 +18,7 @@
 - run minimum game based only on the new setup
 
 # doing:
-- main.cpp
+- main.cpp -> main2.cpp
 - setup.h
 - game.h
 - variables.h
