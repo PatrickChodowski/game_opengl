@@ -20,7 +20,7 @@ clean: rm *.o
 endif
 ifeq ($(UNAME),Linux)
 output: game
-	g++ -std=c++17 main.cpp \
+	g++ -std=c++17 main2.cpp \
 	modules/buffer.cpp \
 	modules/camera.cpp \
 	modules/collisions.cpp \
