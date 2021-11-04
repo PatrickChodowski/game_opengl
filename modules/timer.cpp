@@ -56,7 +56,7 @@ namespace timer2
   float get_delay_ms(T start_time, T end_time)
   {
     std::chrono::duration<double> elapsed_seconds = end_time-start_time;
-    //float elapsed_seconds_ = elapsed_seconds.count();
+    float elapsed_seconds_ = elapsed_seconds.count();
     //std::cout << " elapsed seconds: " << elapsed_seconds_ << std::endl;
     float delay = 17.0 - elapsed_seconds.count();
     return delay;

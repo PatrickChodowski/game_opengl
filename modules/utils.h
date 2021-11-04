@@ -1,6 +1,8 @@
 #include <string>
 #include <vector>
 
+#include <GL/glew.h> 
+
 #ifndef MODULES_UTILS_H
 #define MODULES_UTILS_H
 
@@ -19,7 +21,7 @@ namespace utils2
   std::vector<std::string> list_any_files(std::string path);
 
   // Checks glew
-  // void check_glew(Glenum err);
+  void check_glew(GLenum err);
 
   // Get random int from the range
   int get_random(int min_int, int max_int);

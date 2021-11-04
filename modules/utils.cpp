@@ -6,6 +6,8 @@
 #include <sstream>
 #include <random>
 #include "../dependencies/json_struct.h"
+#include <GL/glew.h> 
+
 
 // Random reused utility functions
 namespace utils2
@@ -58,18 +60,18 @@ namespace utils2
     return list_of_files;
   };  
 
-  // void check_glew(GLenum err)
-  // {
-  //   if (err != GLEW_OK)
-  //   {
-  //       exit(1); 
-  //   }
-  // // check that the machine supports the 2.1 API.
-  //   if (!GLEW_VERSION_2_1)
-  //   { 
-  //     exit(1); 
-  //   }
-  // }
+  void check_glew(GLenum err)
+  {
+    if (err != GLEW_OK)
+    {
+        exit(1); 
+    }
+  // check that the machine supports the 2.1 API.
+    if (!GLEW_VERSION_2_1)
+    { 
+      exit(1); 
+    }
+  }
 
   int get_random(int min_int, int max_int)
   {
