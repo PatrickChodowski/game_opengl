@@ -12,14 +12,3 @@
 ### 3) I hate everything about handling game state -> vector and map of game states etc. - nightmares
 
 what quad data needs to have to render, looking at the buffer:
-
-1,2,3: position: x,y,z
-4,5,6,7: color:  r,g,b,a
-8: frame_id
-9,10: texture_coordinates
-11: texture_id
-12: is_clicked
-13: quad_type_id
-14: is_static
-
-struct 

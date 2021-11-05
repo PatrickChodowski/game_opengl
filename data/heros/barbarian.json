@@ -1,0 +1,15 @@
+{
+  "x" : 300,
+  "y" : 300,
+  "w" : 70,
+  "h" : 70,
+  "map_id" : 1,
+  "texture_id" : 3,
+  "level" : 1,
+  "exp" : 0,
+  "speed" : 6,
+  "hp" : 100,
+  "dmg" : 20,
+  "def" : 100,
+  "mobs_killed" : 0
+}

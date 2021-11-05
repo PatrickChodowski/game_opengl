@@ -1,9 +1,9 @@
 {
   "id": 3,
+  "w": 993,
+  "h": 63,
   "type": "person",
   "name": "barbarian",
-  "width": 993,
-  "height": 63,
   "frames_list": [
     {"frame_id": 0, "x": 0, "y": 0, "w": 58,    "h": 63, "label": "stand_1"},
     {"frame_id": 1, "x": 58, "y": 0, "w": 58,   "h": 63, "label": "stand_2"},

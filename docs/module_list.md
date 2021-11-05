@@ -16,11 +16,10 @@
 
 
 # doing:
-- read-in maps information and display it in window
 - read-in entity information and display it in window
-- figure whats wrong with timer?
+- figure whats wrong with timer? -> templates
 - main.cpp -> main2.cpp
-- game.h   -> modules/game
+- game.h   -> modules/game -> handle state left
 - variables.h -> to remove
 - setup.h -> to remove
 

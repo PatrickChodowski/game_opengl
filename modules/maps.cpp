@@ -96,6 +96,7 @@ namespace maps2
     // paths::make_path_map();
 
     // Make map quads:
+    maps2::MapQuads.clear();
     maps2::MapQuads = quads2::make_quads(maps2::tiles, OBJECT_TYPE_MAP);
 
   };
@@ -125,6 +126,24 @@ namespace maps2
   {
     maps2::UsedTileIds.clear();
     maps2::tiles.clear();
+  }
+
+
+  void drop()
+  {
+
+    // for(int q = 0; q < maps::MapQuads.size(); q++)
+    // {
+    //   quads::delete_quad_id(maps::MapQuads[q].id);
+    //   quads::delete_vertex_id(maps::MapQuads[q].a);
+    //   quads::delete_vertex_id(maps::MapQuads[q].b);
+    //   quads::delete_vertex_id(maps::MapQuads[q].c);
+    //   quads::delete_vertex_id(maps::MapQuads[q].d);
+    // }
+    // maps::MapQuads.clear();
+    // travel::TravelControl.clear();
+    // nav::NavMesh.clear();
+    // nav::NavMeshGraph.clear();
   }
 
 
