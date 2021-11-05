@@ -46,7 +46,14 @@ namespace camera
     return mvp;
   }
 
-
+  glm::mat4 gen_static_mvp()
+  {
+    glm::mat4 proj = glm::ortho(0.0f, game2::WINDOW_WIDTH, game2::WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 mvp = proj*view*model;
+    return mvp;
+  }
 
   template <typename T>
   void _scale_table(std::map<int, T> data_table, float camera_x, float camera_y, float scale_factor)
