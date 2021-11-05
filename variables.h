@@ -294,7 +294,7 @@ namespace fonts
 namespace maps
 {
   std::vector<quads::Quad> MapQuads;
-    struct Nest // nest for spawning mobs
+  struct Nest // nest for spawning mobs
   {
     float x;
     float y;

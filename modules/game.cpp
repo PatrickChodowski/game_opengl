@@ -7,6 +7,7 @@
 
 #include "buffer.h"
 #include "camera.h"
+#include "maps.h"
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
@@ -76,6 +77,7 @@ namespace game2
     game2::set_state("GAME_ON");
 
     buffer2::init();
+    maps2::init();
     shaders2::init();
     textures2::init();
     
