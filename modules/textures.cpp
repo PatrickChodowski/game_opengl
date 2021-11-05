@@ -1,7 +1,9 @@
 #include "textures.h"
 #include "utils.h"
-#include <string>
+
+#include <iostream>
 #include <map>
+#include <string>
 #include <vector>
 
 // #define STB_IMAGE_IMPLEMENTATION
@@ -26,9 +28,15 @@ namespace textures2
 
   unsigned int _load_texture_to_opengl(unsigned int texture_id, int w, int h, int n_channels, std::string name)
   {
-    std::string texture_path = "data/assets/"+name+".png";
+    std::string texture_path = "assets/"+name+".png";
     stbi_set_flip_vertically_on_load(false);
     unsigned char *image_data = stbi_load(texture_path.c_str(), &w, &h, &n_channels, 4); 
+
+    if(image_data == NULL)
+    {
+      std::cout << "Error while loading texture from " << texture_path << std::endl;
+    };
+
     glGenTextures(1, &texture_id); 
     glBindTexture(GL_TEXTURE_2D, texture_id); 
 
