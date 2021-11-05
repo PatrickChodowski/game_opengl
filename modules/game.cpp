@@ -80,6 +80,8 @@ namespace game2
     maps2::init();
     shaders2::init();
     textures2::init();
+
+    maps2::init_map(1);
     
   };
 
@@ -104,8 +106,8 @@ namespace game2
     // react to camera changes
     camera::DYNAMIC_MVP = camera::gen_dynamic_mvp(-camera::cam.x, camera::cam.y, camera::cam.zoom);
 
-    // // independent of camera moving
-    // STATIC_MVP = camera::generate_static_mvp();
+    // independent of camera moving
+    camera::STATIC_MVP = camera::gen_static_mvp();
 
     // // zoom only for hero?
     // ZOOM_MVP = camera::generate_zoom_only_mvp(camera::zoom);
@@ -115,7 +117,7 @@ namespace game2
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
-    // glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "static_mvp"), 1, GL_FALSE, glm::value_ptr(STATIC_MVP));
+    glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "static_mvp"), 1, GL_FALSE, glm::value_ptr(camera::STATIC_MVP));
     glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "dynamic_mvp"), 1, GL_FALSE, glm::value_ptr(camera::DYNAMIC_MVP));
     // glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "zoom_mvp"), 1, GL_FALSE, glm::value_ptr(ZOOM_MVP));
     

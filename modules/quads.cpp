@@ -1,11 +1,13 @@
 
 #include <cmath> 
+#include <iostream>
 #include <map>
 #include <vector>
 #include "entity.h"
+#include "maps.h"
 #include "quads.h"
 #include "textures.h"
-#include "maps.h"
+
 
 namespace quads2
 {
@@ -126,9 +128,9 @@ namespace quads2
     // }
 
     // // assign map quads
-    // if(maps::MapQuads.size() > 0){
-    //   quad::AllQuads.insert(quad::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
-    // }
+    if(maps2::MapQuads.size() > 0){
+      quads2::AllQuads.insert(quads2::AllQuads.end(), maps2::MapQuads.begin(), maps2::MapQuads.end());
+    }
 
     // assign entity quads
     //std::cout << "entities size: " << ent::EntityQuads.size() << std::endl;
@@ -151,6 +153,7 @@ namespace quads2
 
     quads2::COUNT_QUADS = quads2::AllQuads.size();
     quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
+    std::cout << "COUNT QUADS: " << quads2::COUNT_QUADS << std::endl;
   }
 
 
