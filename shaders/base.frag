@@ -22,7 +22,7 @@ void main()
   {
     frag_color = texture(textures[texture_index], out_tex_coord);
     // frag_color.r = (1-out_is_clicked)*frag_color.r;
-    // frag_color = out_color.rgba;
+    //frag_color = out_color.rgba;
   }
   // when type is menu:
   else if (out_type_id == 2.0 || out_type_id == 3.0)

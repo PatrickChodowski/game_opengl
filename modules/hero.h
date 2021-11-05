@@ -19,8 +19,9 @@ namespace hero2
   struct HeroData
   {
     // position
-    int x, y;
-    int w, h;
+    float x, y;
+    float w, h;
+
     int current_frame;
     int map_id;
 
@@ -41,13 +42,20 @@ namespace hero2
     std::string name;
     std::string type;
 
-    JS_OBJ(x, y, map_id, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, name, type);
+    JS_OBJ(x, y, w, h, map_id, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, name, type);
   }; 
 
   extern hero2::HeroData hero;
 
+  // Reads default data for character type 
+  void _read_data(std::string char_type);
+
   // Loads hero struct information from save 
   void _load_from_save(std::string save_name);
+
+
+  // Creates new character of certain type. Will have default stats
+  void create_new(std::string name, std::string type);
 
 }
 

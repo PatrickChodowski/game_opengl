@@ -1,9 +1,21 @@
+#include "entity.h"
 #include "hero.h"
+#include "../dependencies/json_struct.h"
+#include "../dictionary.h"
+
 
 namespace hero2
 {
 
   hero2::HeroData hero;
+
+  void _read_data(std::string char_type)
+  {
+    std::string file_path = "data/heros/" + char_type + ".json";
+    std::string json_data = utils2::read_text_file(file_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(hero2::hero);
+  }
 
   void _load_from_save(std::string save_name)
   {
@@ -11,6 +23,16 @@ namespace hero2
     std::string json_data = utils2::read_text_file(file_path);
     JS::ParseContext context(json_data);
     context.parseTo(hero2::hero);
+  };
+
+  void create_new(std::string name, std::string type)
+  {
+    hero2::_read_data(type);
+    hero.current_frame = 0;
+    hero.current_movement_state = ENTITY_STATE_CALM;
+    hero.name = name;
+    hero.type = type;
+    entity::create(hero2::hero, OBJECT_TYPE_ENTITY, CAMERA_STATIC);
   };
 
 

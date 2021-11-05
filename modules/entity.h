@@ -15,6 +15,7 @@ namespace entity
     int frame_id;
     int event_id;
     int status;
+    int entity_type_id;
 
     // original space
     float x;
@@ -52,8 +53,9 @@ namespace entity
   extern std::map<int, EntityData> entities;
   extern std::vector<int> UsedEntityIds;
 
-  // Creates entity and adds it to the table
-  int create();
+  // Creates entity and adds it to the table. Uses the data structure different based on entity type
+  template <typename T>
+  int create(T data, int entity_type_id, float camera_type);
 
   // Updates entity in the table
   int update(int entity_id);
@@ -61,8 +63,8 @@ namespace entity
   // Deletes entity from the table
   int drop(int entity_id);
 
-  // Renders entity (creates quad for entity)
-  int render(int entity_id);
+  // Creates quads for the entity table
+  void render();
 
   // Clears entity table
   void clear();

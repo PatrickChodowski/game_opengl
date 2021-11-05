@@ -127,13 +127,12 @@ namespace quads2
     //   quad::AllQuads.insert(quad::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
     // }
 
-    // // assign map quads
+    // assign map quads
     if(maps2::MapQuads.size() > 0){
       quads2::AllQuads.insert(quads2::AllQuads.end(), maps2::MapQuads.begin(), maps2::MapQuads.end());
     }
 
     // assign entity quads
-    //std::cout << "entities size: " << ent::EntityQuads.size() << std::endl;
     if(entity::EntityQuads.size() > 0){
       quads2::AllQuads.insert(quads2::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
     }
@@ -153,7 +152,7 @@ namespace quads2
 
     quads2::COUNT_QUADS = quads2::AllQuads.size();
     quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
-    // std::cout << "COUNT QUADS: " << quads2::COUNT_QUADS << std::endl;
+    std::cout << "COUNT QUADS: " << quads2::COUNT_QUADS << std::endl;
   }
 
 

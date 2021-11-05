@@ -8,6 +8,8 @@
 
 #include "buffer.h"
 #include "camera.h"
+#include "entity.h"
+#include "hero.h"
 #include "maps.h"
 #include "quads.h"
 #include "shaders.h"
@@ -82,13 +84,14 @@ namespace game2
     shaders2::init();
     textures2::init();
 
-    maps2::init_map(1);
+    hero2::create_new("john","barbarian");
+    entity::render();
+    maps2::init_map(hero2::hero.map_id);
     
   };
 
   void update()
   {
-
     quads2::accumulate();
     textures2::bind();
     buffer2::update(quads2::AllQuads);
@@ -97,7 +100,6 @@ namespace game2
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
-    //std::cout << "bound textures size: " << textures2::BoundTextures.size() << std::endl;
     int sampler_size = (textures2::BoundTextures.size() + 1);
     int sampler[sampler_size]; 
     sampler[0] = 0;
