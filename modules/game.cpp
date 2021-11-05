@@ -104,7 +104,6 @@ namespace game2
     for (int i = 0; i < textures2::BoundTextures.size(); i++)
     {
       sampler[(i+1)] = textures2::BoundTextures[i];
-      std::cout << textures2::BoundTextures[i] << std::endl;
     }
 
 
