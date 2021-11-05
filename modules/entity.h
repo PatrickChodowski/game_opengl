@@ -10,7 +10,7 @@ namespace entity
   // Contains all necessary entity information 
   struct EntityData
   {
-    int entity_id;
+    int id;
     int texture_id;
     int frame_id;
     int event_id;
@@ -34,8 +34,10 @@ namespace entity
     float s_mid_y;
     float s_diag;
 
+    float camera_type;
+
     bool is_solid;
-    bool is_camera_static;
+    bool is_clicked;
 
     // used if given entity has collision sensors
     std::map<int, collisions::Sensor> sensors;

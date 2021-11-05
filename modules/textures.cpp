@@ -116,7 +116,7 @@ namespace textures2
     {
       textures2::load(x.first);
     }
-  }
+  };
 
   void drop()
   {
@@ -125,6 +125,18 @@ namespace textures2
       glDeleteTextures(1, &textures2::BoundTextures[t]);
     } 
     textures2::BoundTextures.clear();
-  }
+  };
+
+  float _get_normalized_frame_start(int texture_id, int frame_id)
+  {
+    textures2::TextureData tdd = textures2::textures[texture_id];
+    return tdd.frames[frame_id].x/tdd.w;
+  };
+
+  float _get_normalized_frame_end(int texture_id, int frame_id)
+  {
+    textures2::TextureData tdd = textures2::textures[texture_id];
+    return (tdd.frames[frame_id].x + tdd.frames[frame_id].w)/tdd.w;
+  };
 
 }

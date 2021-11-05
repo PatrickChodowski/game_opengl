@@ -2,10 +2,10 @@
 #include <map>
 #include <string>
 #include <vector>
-
-#include "maps.h"
 #include "quads.h"
+#include "maps.h"
 #include "utils.h"
+#include "../dictionary.h"
 
 namespace maps2
 {
@@ -14,6 +14,7 @@ namespace maps2
   std::map<int, maps2::MapData> maps = {};
   float default_tile_width = 96;
   float default_tile_height = 96;
+  std::vector<quads2::QuadData> MapQuads = {};
 
 
   void read_map_data(std::string name)
@@ -55,33 +56,32 @@ namespace maps2
           for (int c = 0; c < vertex_width; c++)
           {
             struct maps2::TileData tile;
-            tile.tile_id = maps2::_gen_tile_id();
+            tile.id = maps2::_gen_tile_id();
 
             tile.x = c * maps2::default_tile_width;
             tile.y = r * maps2::default_tile_height;
             tile.w = maps2::default_tile_width;
             tile.h = maps2::default_tile_height;
-            in_file >> tile.tile_type_id;
+            in_file >> tile.frame_id;
 
             tile.texture_id = texture_id;
             
-            tile.is_camera_static = 0.0f;
+            tile.camera_type = CAMERA_STATIC;
             tile.is_clicked = false;
             tile.is_solid = false;
 
-            // if tile_type_id is between 10 and 20, then its solid (11-19)
-            if(tile.tile_type_id > 10 && tile.tile_type_id < 20)
+            // if frame_id is between 10 and 20, then its solid (11-19)
+            if(tile.frame_id > 10 && tile.frame_id < 20)
             {
               tile.is_solid = true;
             } 
 
-            maps2::tiles[tile.tile_id] = tile;
+            maps2::tiles[tile.id] = tile;
           };
         } 
     }
     in_file.close();
   }
-
 
   void init_map(int map_id)
   {
@@ -96,6 +96,7 @@ namespace maps2
     // paths::make_path_map();
 
     // Make map quads:
+    maps2::MapQuads = quads2::make_quads(maps2::tiles, OBJECT_TYPE_MAP);
 
   };
 

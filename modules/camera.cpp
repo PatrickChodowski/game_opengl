@@ -7,6 +7,7 @@
 #include "../dependencies/glm/gtc/matrix_transform.hpp"
 #include "../dependencies/glm/gtc/type_ptr.hpp"
 #include "../dependencies/glm/gtx/string_cast.hpp"
+#include "../dictionary.h"
 
 namespace camera
 {
@@ -55,7 +56,7 @@ namespace camera
 
     for (auto & [k, v] : data_table)
     {
-      if(v.is_camera_static)
+      if(v.camera_type == CAMERA_STATIC)
       {
         final_camera_x = 0.0; 
         final_camera_y = 0.0;

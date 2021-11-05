@@ -13,8 +13,8 @@ namespace textures2
   struct Frame
   {
     int frame_id;
-    int x, y;
-    int w, h; 
+    float x, y;
+    float w, h; 
     std::string label;
 
     JS_OBJ(frame_id, x, y, w, h, label);
@@ -46,9 +46,10 @@ namespace textures2
   {
 
     int id;
-    int w;
-    int h;
     unsigned int opengl_texture_id;
+
+    float w;
+    float h;
 
     std::string type;
     std::string name;
@@ -88,6 +89,11 @@ namespace textures2
   // Erases all texture data
   void drop();
 
+  // Calculates the normalized X position of frame start
+  float _get_normalized_frame_start(int texture_id, int frame_id);
+
+  // Calculates the normalized X position of frame end
+  float _get_normalized_frame_end(int texture_id, int frame_id);
 }
 
 

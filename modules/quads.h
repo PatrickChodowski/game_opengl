@@ -2,6 +2,7 @@
 #include <map>
 #include "collisions.h"
 
+
 #ifndef MODULES_QUAD_H
 #define MODULES_QUAD_H
 
@@ -40,8 +41,8 @@ namespace quads2
     int texture_id;
     int frame_id;
 
-    bool is_clicked;
-
+    int object_id;
+ 
     // a b
     // c
     struct VertexIndex i_left;
@@ -63,14 +64,14 @@ namespace quads2
     float w, h;
 
     // Quad type: 0 - level, 1 - menu, 2 - text, 3 - entity
-    float type_id;
-
-    // To choose camera behaviour
-    float is_static;
+    float object_type_id;
+    float camera_type;
 
     // Scaled metrics For collisions and mouse events:
     float s_x, s_y;
     float s_w, s_h;
+
+    bool is_clicked;
 
   };
 
@@ -106,6 +107,9 @@ namespace quads2
   // Accumulate all quad vectors from different components
   void accumulate();
 
+  // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc.
+  template <typename T>
+  std::vector<quads2::QuadData> make_quads(std::map<int, T> data, int object_type_id);
 
 }
 
