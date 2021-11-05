@@ -13,9 +13,10 @@ namespace maps2
 {
   struct TileData
   {
-    int tile_id;
+    int id;
     int texture_id;
-    int tile_type_id;
+    int frame_id;
+    int camera_type;
 
     float x;
     float y;
@@ -34,13 +35,13 @@ namespace maps2
     float s_mid_y;
     float s_diag;
 
+
     // collision boxes
     std::map<int, collisions::AABB> abs;
 
-    bool is_camera_static;
+    
     bool is_clicked;
     bool is_solid;
-
 
   };
 
@@ -91,6 +92,7 @@ namespace maps2
   //  TileID, TileData
   extern std::map<int, maps2::TileData> tiles;
   extern std::vector<int> UsedTileIds;
+  extern std::vector<quads2::QuadData> MapQuads;
 
 
   // Reads json data by map name and stores it inside maps::maps

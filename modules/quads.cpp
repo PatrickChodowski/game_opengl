@@ -1,6 +1,11 @@
-#include "quads.h"
+
 #include <cmath> 
+#include <map>
+#include <vector>
 #include "entity.h"
+#include "quads.h"
+#include "textures.h"
+#include "maps.h"
 
 namespace quads2
 {
@@ -21,30 +26,32 @@ namespace quads2
     v.v3_id = gen_vertex_id();
     v.v4_id = gen_vertex_id();
 
+    float norm_x_start = textures2::_get_normalized_frame_start(q.texture_id, q.frame_id);
+    float norm_x_end = textures2::_get_normalized_frame_end(q.texture_id, q.frame_id);
+
     // A
     v.v1_x = q.x;
     v.v1_y = q.y;
-    // v.v1_tx_x = norm_x_start;
-    // v.v1_tx_y = 0.0f;
+    v.v1_tx_x = norm_x_start;
+    v.v1_tx_y = 0.0f;
 
     // B
     v.v2_x = q.x + q.w - quads2::VERTEX_OFFSET;
     v.v2_y = q.y;
-    // v.v2_tx_x = norm_x_end;
-    // v.v2_tx_y = 0.0f;
-
+    v.v2_tx_x = norm_x_end;
+    v.v2_tx_y = 0.0f;
 
     // C
     v.v3_x = q.x;
     v.v3_y = q.y + q.h - quads2::VERTEX_OFFSET;
-    // v.v3_tx_x = norm_x_start;
-    // v.v3_tx_y = 1.0f;
+    v.v3_tx_x = norm_x_start;
+    v.v3_tx_y = 1.0f;
 
     // D
     v.v4_x = q.x + q.w - quads2::VERTEX_OFFSET;
     v.v4_y = q.y + q.h - quads2::VERTEX_OFFSET;
-    // v.v4_tx_x = norm_x_end;
-    // v.v4_tx_y = 1.0f;
+    v.v4_tx_x = norm_x_end;
+    v.v4_tx_y = 1.0f;
 
     return v;
   }
@@ -145,5 +152,51 @@ namespace quads2
     quads2::COUNT_QUADS = quads2::AllQuads.size();
     quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
   }
+
+
+  template <typename T>
+  std::vector<quads2::QuadData> make_quads(std::map<int, T> data, int object_type_id)
+  {
+    std::vector<quads2::QuadData> quads = {};
+    for (auto const& [k, v] : data)
+    {
+      quads2::QuadData quad;
+      quad.id = quads2::gen_quad_id();
+      quad.texture_id = v.texture_id;
+      quad.frame_id = v.frame_id;
+      quad.object_id = v.id;
+      quad.object_type_id = object_type_id;
+      quad.camera_type = v.camera_type;
+
+      quad.r = 0.5;
+      quad.g = 0.5;
+      quad.b = 0.5;
+      quad.a = 1.0f;
+
+      quad.x = v.x;
+      quad.y = v.y;
+      quad.z = 1.0f;
+      quad.h = v.h;
+      quad.w = v.w;
+
+      quad.is_clicked = v.is_clicked;
+
+      quad.v = quads2::_fill_quad_vertex_data(quad);
+      quad.i_left.v1 = quad.v.v1_id;
+      quad.i_left.v2 = quad.v.v2_id;
+      quad.i_left.v3 = quad.v.v3_id;
+      quad.i_right.v1 = quad.v.v2_id;
+      quad.i_right.v2 = quad.v.v3_id;
+      quad.i_right.v3 = quad.v.v4_id;
+
+      quads.push_back(quad);
+    }
+    return quads;
+  }
+
+
+
+  template std::vector<quads2::QuadData> quads2::make_quads<maps2::TileData>(std::map<int, maps2::TileData>, int);
+  template std::vector<quads2::QuadData> quads2::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
 
 }

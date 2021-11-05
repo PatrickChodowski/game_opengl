@@ -17,8 +17,9 @@
 #define ENTITY_TYPE_ID_MOB 2
 #define ENTITY_TYPE_ID_NA 9
 
-#define ENTITY_NOT_STATIC 0.0f
-#define ENTITY_STATIC 1.0f
+#define CAMERA_DYNAMIC 0.0f
+#define CAMERA_STATIC 1.0f
+#define CAMERA_ZOOM_ONLY 2.0f
 
 // object types
 #define OBJECT_TYPE_ENTITY 0
