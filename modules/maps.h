@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include "quads.h"
+#include "collisions.h"
 #include "../dependencies/json_struct.h"
 
 #ifndef MODULES_MAPS_H
@@ -10,13 +11,11 @@
 // Persistent data. Table of tiles and all operations on this table. Loaded on new level
 namespace maps2
 {
-  
   struct TileData
   {
     int tile_id;
-    int tile_type_id;
     int texture_id;
-    int frame_id;
+    int tile_type_id;
 
     float x;
     float y;
@@ -35,12 +34,14 @@ namespace maps2
     float s_mid_y;
     float s_diag;
 
+    // collision boxes
+    std::map<int, collisions::AABB> abs;
+
     bool is_camera_static;
     bool is_clicked;
     bool is_solid;
 
-    // collision boxes
-    std::map<int, collisions::AABB> abs;
+
   };
 
   // Nest for spawning mobs
@@ -81,13 +82,14 @@ namespace maps2
     JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors, nests);
   };
 
+  extern float default_tile_width;
+  extern float default_tile_height;
+
   // MapID, MapData
   extern std::map<int, MapData> maps;
 
   //  TileID, TileData
-  extern std::map<int, TileData> tiles;
-
-  extern std::vector<quads2::QuadData> TileQuads;
+  extern std::map<int, maps2::TileData> tiles;
   extern std::vector<int> UsedTileIds;
 
 
@@ -98,17 +100,23 @@ namespace maps2
   // read_map_data function. Thats reads json into maps::maps
   void init();
 
-  // Loads map tiles from map file by map name
-  std::vector<quads::Quad> load_map_from_file(std::string map_name, 
-                                              int vertex_width, 
-                                              int vertex_height, 
-                                              int texture_id);
+  // Loads map tiles from map file by map name to maps2::tiles
+  void load_map(std::string map_name, 
+                int vertex_width, 
+                int vertex_height, 
+                int texture_id);
 
   // Loads selected map to game
   void init_map(int map_id);
 
+  // Finds next available tile id 
+  int _find_next_tile_id();
 
+  // Generate new tile id
+  int _gen_tile_id();
 
+  // clears the currently loaded map -> erases used tiles ids and tiles catalog
+  void _clear_current_map();
 
 
 }
