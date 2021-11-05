@@ -55,6 +55,9 @@ namespace camera
   // generate static MVP
   glm::mat4 gen_static_mvp();
 
+  // generate zoom only MVP
+  glm::mat4 gen_zoom_only_mvp(float camera_zoom);
+
 }
 
 

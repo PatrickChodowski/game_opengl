@@ -1,7 +1,8 @@
-#include <string>
-#include <map>
-#include <vector>
 #include <iostream>
+#include <map>
+#include <string>
+#include <vector>
+
 
 #include "game.h"
 
@@ -96,30 +97,35 @@ namespace game2
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
+    //std::cout << "bound textures size: " << textures2::BoundTextures.size() << std::endl;
     int sampler_size = (textures2::BoundTextures.size() + 1);
     int sampler[sampler_size]; 
     sampler[0] = 0;
     for (int i = 0; i < textures2::BoundTextures.size(); i++)
     {
       sampler[(i+1)] = textures2::BoundTextures[i];
+      std::cout << textures2::BoundTextures[i] << std::endl;
     }
+
+
     // react to camera changes
     camera::DYNAMIC_MVP = camera::gen_dynamic_mvp(-camera::cam.x, camera::cam.y, camera::cam.zoom);
 
     // independent of camera moving
     camera::STATIC_MVP = camera::gen_static_mvp();
 
-    // // zoom only for hero?
-    // ZOOM_MVP = camera::generate_zoom_only_mvp(camera::zoom);
+    // zoom only
+    camera::ZOOM_MVP = camera::gen_zoom_only_mvp(camera::cam.zoom);
   
-    // // set light source coordinates
-    // glUniform3fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "light_coords"), 1, light_coords);
+    // set light source coordinates
+    float light_coords[3] = {100, 200, 300};
+    glUniform3fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_coords"), 1, light_coords);
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
     glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "static_mvp"), 1, GL_FALSE, glm::value_ptr(camera::STATIC_MVP));
     glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "dynamic_mvp"), 1, GL_FALSE, glm::value_ptr(camera::DYNAMIC_MVP));
-    // glUniformMatrix4fv(glGetUniformLocation(shaders::Catalog[CURRENT_SHADER_ID].gl_shader_id, "zoom_mvp"), 1, GL_FALSE, glm::value_ptr(ZOOM_MVP));
+    glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "zoom_mvp"), 1, GL_FALSE, glm::value_ptr(camera::ZOOM_MVP));
     
     // set shader
     glUseProgram(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id);

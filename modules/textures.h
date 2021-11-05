@@ -48,8 +48,7 @@ namespace textures2
     int id;
     unsigned int opengl_texture_id;
 
-    float w;
-    float h;
+    float w, h;
 
     std::string type;
     std::string name;

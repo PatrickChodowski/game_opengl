@@ -55,6 +55,18 @@ namespace camera
     return mvp;
   }
 
+
+  glm::mat4 gen_zoom_only_mvp(float camera_zoom)
+  {
+    float z_window_width = game2::WINDOW_WIDTH * camera_zoom;
+    float z_window_height = game2::WINDOW_HEIGHT * camera_zoom;
+    glm::mat4 proj = glm::ortho(0.0f, z_window_width, z_window_height, 0.0f, -1.0f, 1.0f);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 mvp = proj*view*model;
+    return mvp;
+  }
+
   template <typename T>
   void _scale_table(std::map<int, T> data_table, float camera_x, float camera_y, float scale_factor)
   {
