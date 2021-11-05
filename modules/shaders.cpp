@@ -29,7 +29,7 @@ namespace shaders2
   void read_data(std::string name)
   {
     ShaderData SD;
-    std::string data_path = "./shaders/data/"+name+".json";
+    std::string data_path = "./data/shaders/"+name+".json";
     std::string json_data = utils2::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(SD);
@@ -38,7 +38,7 @@ namespace shaders2
 
   void init()
   {
-    std::vector<std::string> shaders_list = utils2::list_json_files("shaders/data/");
+    std::vector<std::string> shaders_list = utils2::list_json_files("data/shaders/");
     for(int s=0; s < shaders_list.size(); s++)
     {
       shaders2::read_data(shaders_list[s]);

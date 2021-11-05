@@ -1,22 +1,24 @@
-#include <vector>
+#include <fstream>
 #include <map>
 #include <string>
-#include <fstream>
+#include <vector>
+
 #include "maps.h"
 #include "quads.h"
 #include "utils.h"
 
 namespace maps2
 {
-  std::vector<quads2::QuadData> TileQuads;
   std::map<int, maps2::TileData> tiles;
   std::vector<int> UsedTileIds = {};
   std::map<int, maps2::MapData> maps = {};
+  float default_tile_width = 96;
+  float default_tile_height = 96;
 
 
   void read_map_data(std::string name)
   {
-    std::string data_path = "./maps/data/"+name+".json";
+    std::string data_path = "./data/maps/"+name+".json";
     maps2::MapData MD;
     std::string json_data = utils2::read_text_file(data_path);
     JS::ParseContext context(json_data);
@@ -26,7 +28,7 @@ namespace maps2
 
   void init()
   { 
-    std::vector<std::string> maps_list = utils2::list_json_files("maps/data/");
+    std::vector<std::string> maps_list = utils2::list_json_files("data/maps");
     for(int m=0; m < maps_list.size(); m++)
     {
       maps2::read_map_data(maps_list[m]);
@@ -34,21 +36,16 @@ namespace maps2
   };
 
 
-  std::vector<quads2::QuadData> load_map_from_file(std::string map_name, 
-                                                   int vertex_width, 
-                                                   int vertex_height, 
-                                                   int texture_id)
-
+  void load_map(std::string map_name, 
+                int vertex_width, 
+                int vertex_height, 
+                int texture_id)
   {
-    std::string file_path = "maps/" + map_name;
-    std::vector<quads2::QuadData> tile_map = {};
+    maps2::_clear_current_map();
+    std::string file_path = "data/maps/" + map_name;
     std::ifstream in_file;
     in_file.open(file_path.c_str());
-
     int n_tiles = vertex_width*vertex_height;
-
-    // yes no solid array rowsxcols
-    bool solid_array[vertex_height][vertex_width];
 
     // read in the tile info
     if (in_file.is_open())
@@ -57,59 +54,77 @@ namespace maps2
         {
           for (int c = 0; c < vertex_width; c++)
           {
-            struct quads::Quad quad;
-            quad.id = quads::gen_quad_id();
-            quad.x = c * camera::tile_dim;
-            quad.y = r * camera::tile_dim;
-            quad.w = camera::tile_dim;
-            quad.h = camera::tile_dim;
-            in_file >> quad.frame_id; // value of tile in text file
-            quad.s_x = c * camera::tile_dim;
-            quad.s_y = r * camera::tile_dim;
-            quad.s_w = camera::tile_dim;
-            quad.s_h = camera::tile_dim;
-  
-            quad.texture_id = texture_id;
-            quad.is_clicked = 0.0;
-            quad.type_id = QUAD_TYPE_MAP;
-            quad.is_static = 0.0f;
+            struct maps2::TileData tile;
+            tile.tile_id = maps2::_gen_tile_id();
 
-            quad.solid = false;
-            quad.coll = false;
-            solid_array[r][c] = false;
+            tile.x = c * maps2::default_tile_width;
+            tile.y = r * maps2::default_tile_height;
+            tile.w = maps2::default_tile_width;
+            tile.h = maps2::default_tile_height;
+            in_file >> tile.tile_type_id;
 
-            // if frame_id is between 10 and 20, then its solid
-            if(quad.frame_id > 10 && quad.frame_id < 20){
-              // 11-19
-              quad.solid = true;
-              quad.coll = true;
-              solid_array[r][c] = true;
+            tile.texture_id = texture_id;
+            
+            tile.is_camera_static = 0.0f;
+            tile.is_clicked = false;
+            tile.is_solid = false;
+
+            // if tile_type_id is between 10 and 20, then its solid (11-19)
+            if(tile.tile_type_id > 10 && tile.tile_type_id < 20)
+            {
+              tile.is_solid = true;
             } 
 
-            quad.entity_type_id = ENTITY_TYPE_ID_NA;
-            quad.alive = false;
-            quad.r_col = 0.5;
-            quad.g_col = 0.5;
-            quad.b_col = 0.5;
-            quad.a_col = 0.5;
-
-            tile_map.push_back(quad);
+            maps2::tiles[tile.tile_id] = tile;
           };
         } 
     }
     in_file.close();
-    return tile_map;
   }
 
 
   void init_map(int map_id)
   {
+    load_map(maps2::maps[map_id].name,
+             maps2::maps[map_id].vertex_width,
+             maps2::maps[map_id].vertex_height,
+             maps2::maps[map_id].texture_id);
+
+    // nav::init(maps::Catalog[map_id].name, 
+    //           maps::Catalog[map_id].vertex_width, 
+    //           maps::Catalog[map_id].vertex_height);
+    // paths::make_path_map();
+
+    // Make map quads:
 
   };
 
+  int _find_next_tile_id()
+  {
+    int n = maps2::UsedTileIds.size();
+    for (int i = 0; i < n; i++)
+    {
+      if (maps2::UsedTileIds[i] > (i+1))
+      {
+        return i+1;
+      }
+    }
+    return n+1;
+  };
+
+  int _gen_tile_id()
+  {
+    int next_tile_id = maps2::_find_next_tile_id();
+    maps2::UsedTileIds.push_back(next_tile_id);
+    return next_tile_id;
+  };
 
 
-
+  void _clear_current_map()
+  {
+    maps2::UsedTileIds.clear();
+    maps2::tiles.clear();
+  }
 
 
 

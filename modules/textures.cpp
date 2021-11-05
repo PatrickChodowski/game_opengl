@@ -26,7 +26,7 @@ namespace textures2
 
   unsigned int _load_texture_to_opengl(unsigned int texture_id, int w, int h, int n_channels, std::string name)
   {
-    std::string texture_path = "assets/"+name+".png";
+    std::string texture_path = "data/assets/"+name+".png";
     stbi_set_flip_vertically_on_load(false);
     unsigned char *image_data = stbi_load(texture_path.c_str(), &w, &h, &n_channels, 4); 
     glGenTextures(1, &texture_id); 
@@ -55,7 +55,7 @@ namespace textures2
 
   void read_data(std::string name)
   {
-    std::string data_path = "./assets/data/"+name+".json";
+    std::string data_path = "./data/assets/"+name+".json";
     textures2::TextureData TD;
     std::string json_data = utils2::read_text_file(data_path);
     JS::ParseContext context(json_data);
@@ -104,7 +104,7 @@ namespace textures2
 
   void init()
   {
-    std::vector<std::string> texture_list = utils2::list_json_files("assets/data/");
+    std::vector<std::string> texture_list = utils2::list_json_files("data/assets/");
     // read texture data by name
     for(int t=0; t<texture_list.size(); t++)
     {
