@@ -1,7 +1,9 @@
 #include "buffer.h"
 #include "quads.h"
-#include <vector>
+
 #include <cmath>
+#include <iostream>
+#include <vector>
 // Opengl packages
 #include <GL/glew.h> 
 #ifdef TARGET_OS_MAC
@@ -144,6 +146,11 @@ namespace buffer2
       arr[(start_position+(cva*3) + 11)] = quads[t].is_clicked;
       arr[(start_position+(cva*3) + 12)] = quads[t].object_type_id;
       arr[(start_position+(cva*3) + 13)] = quads[t].camera_type;
+      std::cout << quads[t].v.v1_tx_x << std::endl;
+      std::cout << quads[t].v.v2_tx_x << std::endl;
+      std::cout << quads[t].v.v3_tx_x << std::endl;
+      std::cout << quads[t].v.v4_tx_x << std::endl;
+      std::cout << quads[t].texture_id << std::endl;
     }
 
   }

@@ -153,7 +153,7 @@ namespace quads2
 
     quads2::COUNT_QUADS = quads2::AllQuads.size();
     quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
-    std::cout << "COUNT QUADS: " << quads2::COUNT_QUADS << std::endl;
+    // std::cout << "COUNT QUADS: " << quads2::COUNT_QUADS << std::endl;
   }
 
 
@@ -165,8 +165,12 @@ namespace quads2
     {
       quads2::QuadData quad;
       quad.id = quads2::gen_quad_id();
+
       quad.texture_id = v.texture_id;
+      //std::cout << quad.texture_id << std::endl;
       quad.frame_id = v.frame_id;
+      //std::cout << quad.frame_id << std::endl;
+
       quad.object_id = v.id;
       quad.object_type_id = object_type_id;
       quad.camera_type = v.camera_type;

@@ -1,9 +1,9 @@
 {
   "id": 1,
+  "w": 192,
+  "h": 64,
   "type": "tiles",
   "name": "dungeon",
-  "width": 192,
-  "height": 64,
   "frames_list": [
     {"frame_id": 10, "x": 0, "y": 0, "w": 64, "h": 64},
     {"frame_id": 20, "x": 65, "y": 0, "w": 64, "h": 64},
