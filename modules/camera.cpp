@@ -79,7 +79,7 @@ namespace camera
     camera_x = (-1.0)*camera_x;
 
     camera::_scale_table(entity::entities, camera_x, camera_y, scale_factor);
-    camera::_scale_table(maps::tiles, camera_x, camera_y, scale_factor);
+    camera::_scale_table(maps2::tiles, camera_x, camera_y, scale_factor);
   };
 
   void inverse_scale()

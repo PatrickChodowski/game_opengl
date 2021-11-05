@@ -56,7 +56,7 @@ namespace collisions
   std::vector<collisions::DistanceToObject> get_entity_to_map_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
-    for (auto const& [k, v]: maps::tiles)
+    for (auto const& [k, v]: maps2::tiles)
     {
       float dist = get_distance_between_points(v.s_x, 
                                                v.s_y, 
@@ -116,7 +116,7 @@ namespace collisions
           aabb = entity::entities[object_id].abs[AABB_FULL];
         } else if (object_type == OBJECT_TYPE_MAP)
         {
-          aabb = maps::tiles[object_id].abs[AABB_FULL];
+          aabb = maps2::tiles[object_id].abs[AABB_FULL];
         }
 
 
@@ -285,7 +285,7 @@ namespace collisions
 
   void _set_abs_maps(int tile_id)
   {
-    maps::TileData tdd = maps::tiles.at(tile_id);
+    maps2::TileData tdd = maps2::tiles.at(tile_id);
     tdd.abs.clear();
     for(int a = 0; a < collisions::ABS_COUNT; a++)
     {

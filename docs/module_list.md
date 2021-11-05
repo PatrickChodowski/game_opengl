@@ -14,14 +14,17 @@
 - timer
 - utils
 
-# next:
-- run minimum game based only on the new setup
 
 # doing:
+- read-in maps information and display it in window
+- read-in entity information and display it in window
+- figure whats wrong with timer?
 - main.cpp -> main2.cpp
 - game.h   -> modules/game
 - variables.h -> to remove
 - setup.h -> to remove
+
+
 
 # todo:
 - saves
