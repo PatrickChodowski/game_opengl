@@ -25,6 +25,9 @@ namespace utils2
 
   // Get random int from the range
   int get_random(int min_int, int max_int);
+
+  // Float array saved to file
+  void array_to_file(std::string file_name, float* arr, int array_size, int new_line_count);
 }
 
 #endif

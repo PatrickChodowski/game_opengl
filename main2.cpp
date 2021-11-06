@@ -53,7 +53,6 @@ int main()
     SDL_Event event;
     events2::handle_events(event);
     // game::handle_game_state();
-    quads2::accumulate();
     game2::update();
     
     SDL_GL_SwapWindow(WINDOW);

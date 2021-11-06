@@ -85,13 +85,14 @@ namespace game2
     textures2::init();
 
     hero2::create_new("john","barbarian");
-    entity::render();
     maps2::init_map(hero2::hero.map_id);
+    // entity::render();
     
   };
 
   void update()
   {
+    entity::render();
     quads2::accumulate();
     textures2::bind();
     buffer2::update(quads2::AllQuads);
