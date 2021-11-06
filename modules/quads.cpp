@@ -111,6 +111,35 @@ namespace quads2
     }
     return quad_index;
   }
+  
+  void delete_quad_id(int quad_id)
+  {
+    quads2::UsedQuadIds.erase(std::remove(quads2::UsedQuadIds.begin(), 
+                                          quads2::UsedQuadIds.end(), quad_id), 
+                                          quads2::UsedQuadIds.end());
+  }
+
+  void delete_vertex_id(int vertex_id)
+  {
+    quads2::UsedVertexIds.erase(std::remove(quads2::UsedVertexIds.begin(), 
+                                            quads2::UsedVertexIds.end(), vertex_id), 
+                                            quads2::UsedVertexIds.end());
+
+  }
+
+  void clear_quads_data(std::vector<quads2::QuadData>& vq)
+  {
+    for(int q=0; q < vq.size(); q++)
+    {
+      quads2::QuadData qdd = vq[q];
+      quads2::delete_quad_id(qdd.id);
+      quads2::delete_vertex_id(qdd.v.v1_id);
+      quads2::delete_vertex_id(qdd.v.v2_id);
+      quads2::delete_vertex_id(qdd.v.v3_id);
+      quads2::delete_vertex_id(qdd.v.v4_id);
+    }
+    vq.clear();
+  };
 
   float get_distance_between_quads(quads2::QuadData q1, quads2::QuadData q2)
   {
@@ -128,12 +157,14 @@ namespace quads2
     // }
 
     // assign map quads
-    if(maps2::MapQuads.size() > 0){
+    if(maps2::MapQuads.size() > 0)
+    {
       quads2::AllQuads.insert(quads2::AllQuads.end(), maps2::MapQuads.begin(), maps2::MapQuads.end());
     }
 
     // assign entity quads
-    if(entity::EntityQuads.size() > 0){
+    if(entity::EntityQuads.size() > 0)
+    {
       quads2::AllQuads.insert(quads2::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
     }
 
@@ -152,7 +183,11 @@ namespace quads2
 
     quads2::COUNT_QUADS = quads2::AllQuads.size();
     quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
-    //std::cout << "COUNT QUADS: " << quads2::COUNT_QUADS << std::endl;
+
+    // std::cout << " COUNT QUADS: " << quads2::COUNT_QUADS << std::endl;
+    // std::cout << " Used Quad ID size: " << quads2::UsedQuadIds.size() << std::endl;
+    // std::cout << " Used Vertex ID size: " << quads2::UsedVertexIds.size() << std::endl;
+
   }
 
 
