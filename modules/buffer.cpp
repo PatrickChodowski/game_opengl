@@ -1,5 +1,7 @@
 #include "buffer.h"
 #include "quads.h"
+#include "utils.h"
+
 
 #include <cmath>
 #include <iostream>
@@ -18,17 +20,22 @@
 
 namespace buffer2
 {
+  
   int MAX_QUADS = 2000;
   unsigned int VBO, VAO, EBO;
-  int VBO_size = buffer2::MAX_QUADS*sizeof(quads2::COUNT_VERTEX_ATTRIBUTES*sizeof(double))*4;
-  int VBO_array_size = 0;
-  float VBO_buffer_usage = 0.0f;
+  int VBO_size = buffer2::MAX_QUADS*quads2::COUNT_VERTEX_ATTRIBUTES*sizeof(float)*4;
+  int VBO_array_size;
+  float VBO_buffer_usage;
   int EBO_size =  buffer2::MAX_QUADS*sizeof(float)*6;
-  int EBO_array_size = 0;
-  float EBO_buffer_usage = 0.0f;
+  int EBO_array_size;
+  float EBO_buffer_usage;
 
   void init()
   {
+    // std::cout << " quads2::COUNT_VERTEX_ATTRIBUTES on buffer init: " << quads2::COUNT_VERTEX_ATTRIBUTES << std::endl;
+    // std::cout << " max quads on buffer init: " << buffer2::MAX_QUADS << std::endl;
+    // std::cout << " VBO_size on buffer init: " << buffer2::VBO_size << std::endl;
+    // std::cout << " EBO_size on buffer init: " << buffer2::EBO_size << std::endl;
     // OpenGL options:
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -168,14 +175,19 @@ namespace buffer2
   void update(std::vector<quads2::QuadData>& quads)
   {
     int n_vertex_array = quads2::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
+    //std::cout << " n vertex array: " << n_vertex_array << std::endl;
+    //std::cout << " quads size inside buffer: " << quads.size() << std::endl;
+    //std::cout << " quads2::COUNT_VERTEX_ATTRIBUTES: " << quads2::COUNT_VERTEX_ATTRIBUTES << std::endl;
     float vertex_array[n_vertex_array];
 
     int n_index_array = 3*quads.size()*2;
     unsigned int index_array[n_index_array];
 
-    _make_vertex_array(quads, vertex_array);
+    buffer2::_make_vertex_array(quads, vertex_array);
 
-    _make_index_array(quads, index_array);
+    utils2::array_to_file("buffer_update_vertex_array", vertex_array, n_vertex_array, quads2::COUNT_VERTEX_ATTRIBUTES);
+
+    buffer2::_make_index_array(quads, index_array);
 
     buffer2::VBO_array_size = sizeof(float)*n_vertex_array;
     buffer2::VBO_buffer_usage = std::round(((float)VBO_array_size/(float)VBO_size) * 1000.0)/1000.0;
@@ -185,6 +197,13 @@ namespace buffer2
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     buffer2::EBO_array_size = sizeof(float)*n_index_array;
     buffer2::EBO_buffer_usage = std::round(((float)EBO_array_size/(float)EBO_size) * 1000.0)/1000.0;
+
+    //std::cout << "VBO USAGE: " << buffer2::VBO_buffer_usage << std::endl;
+    // std::cout << "VBO array size: " << buffer2::VBO_array_size << std::endl;
+    // std::cout << "VBO size: " << buffer2::VBO_size << std::endl;
+
+    //std::cout << "EBO USAGE: " << buffer2::EBO_buffer_usage << std::endl;
+
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer2::EBO_array_size, index_array);
   }
 
