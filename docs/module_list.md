@@ -7,6 +7,7 @@
 - events
 - hero
 - maps
+- mobs
 - mouse
 - quads
 - shaders
