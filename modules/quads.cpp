@@ -188,6 +188,7 @@ namespace quads2
 
     quads2::COUNT_QUADS = quads2::AllQuads.size();
     quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
+    // std::cout << "count entity quads: " << entity::EntityQuads.size() << std::endl;
 
   }
 

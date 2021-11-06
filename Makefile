@@ -9,6 +9,7 @@ output: game
 	modules/events.cpp \
 	modules/game.cpp \
 	modules/hero.cpp \
+	modules/items.cpp \
 	modules/maps.cpp \
 	modules/mobs.cpp \
 	modules/mouse.cpp \
@@ -30,6 +31,7 @@ output: game
 	modules/events.cpp \
 	modules/game.cpp \
 	modules/hero.cpp \
+	modules/items.cpp \
 	modules/maps.cpp \
 	modules/mobs.cpp \
 	modules/mouse.cpp \
