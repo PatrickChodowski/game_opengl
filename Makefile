@@ -1,7 +1,7 @@
 UNAME := $(shell uname)
 ifeq ($(UNAME),Darwin)
 output: game
-	g++ -std=c++17 main2.cpp \
+	g++ -std=c++17 main.cpp \
 	modules/buffer.cpp \
 	modules/camera.cpp \
 	modules/collisions.cpp \
@@ -16,12 +16,12 @@ output: game
 	modules/textures.cpp \
 	modules/timer.cpp \
 	modules/utils.cpp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
-game: main2.cpp
+game: main.cpp
 clean: rm *.o
 endif
 ifeq ($(UNAME),Linux)
 output: game
-	g++ -std=c++17 main2.cpp \
+	g++ -std=c++17 main.cpp \
 	modules/buffer.cpp \
 	modules/camera.cpp \
 	modules/collisions.cpp \
@@ -36,6 +36,6 @@ output: game
 	modules/textures.cpp \
 	modules/timer.cpp \
 	modules/utils.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
-game: main2.cpp
+game: main.cpp
 clean: rm *.o
 endif

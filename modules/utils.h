@@ -28,6 +28,11 @@ namespace utils2
 
   // Float array saved to file
   void array_to_file(std::string file_name, float* arr, int array_size, int new_line_count);
+
+
+  #define ASSERT(x) if(!(x)) raise(SIGTRAP);
+  #define GlCall(x) GlClearError();x;ASSERT(GlLogCall(#x, __FILE__, __LINE__));
+
 }
 
 #endif
