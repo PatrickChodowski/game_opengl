@@ -16,10 +16,13 @@
 
 
 # doing:
-- read-in entity information and display it in window
 - figure whats wrong with timer? -> templates
+- items
+- mobs
+
 - main.cpp -> main2.cpp
 - game.h   -> modules/game -> handle state left
+
 - variables.h -> to remove
 - setup.h -> to remove
 
