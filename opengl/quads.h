@@ -98,22 +98,16 @@ namespace quads
 
   void delete_quad_id(int quad_id)
   {
-    //std::cout << "Removing " << quad_id << " from used quads" << std::endl;
     quads::UsedQuadIds.erase(std::remove(quads::UsedQuadIds.begin(), 
                                          quads::UsedQuadIds.end(), quad_id), 
                                          quads::UsedQuadIds.end());
-
-    //std::cout << "Used quads size: " << quads::UsedQuadIds.size() << std::endl;
   }
 
   void delete_vertex_id(int vertex_id)
   {
-    //std::cout << "Removing " << vertex_id << " from used vertexes" << std::endl;
     quads::UsedVertexIds.erase(std::remove(quads::UsedVertexIds.begin(), 
                                            quads::UsedVertexIds.end(), vertex_id), 
                                            quads::UsedVertexIds.end());
-
-    //std::cout << "Used Vertexes size: " << quads::UsedVertexIds.size() << std::endl;
   }
 
   void click(int quad_id, int quad_type_id)

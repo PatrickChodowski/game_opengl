@@ -50,6 +50,7 @@ namespace entity
 
   void render()
   {
+    quads2::clear_quads_data(entity::EntityQuads);
     entity::EntityQuads.clear();
     entity::EntityQuads = quads2::make_quads(entity::entities, OBJECT_TYPE_ENTITY);
   }
@@ -58,6 +59,7 @@ namespace entity
   {
     entity::UsedEntityIds.clear();
     entity::entities.clear();
+    quads2::clear_quads_data(entity::EntityQuads);
   }
 
   int _find_next()
