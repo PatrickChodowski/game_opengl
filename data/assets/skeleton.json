@@ -1,9 +1,9 @@
 {
   "id": 6,
+  "w": 128,
+  "h": 128,
   "type": "mob",
   "name": "skeleton",
-  "width": 128,
-  "height": 128,
   "frames_list": [
     {"frame_id": 0, "x": 0, "y": 0, "w": 128, "h": 128}
   ]

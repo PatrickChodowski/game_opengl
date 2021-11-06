@@ -11,6 +11,7 @@
 #include "entity.h"
 #include "hero.h"
 #include "maps.h"
+#include "mobs.h"
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
@@ -81,11 +82,13 @@ namespace game2
 
     buffer2::init();
     maps2::init();
+    mobs2::init();
     shaders2::init();
     textures2::init();
 
     hero2::create_new("john","barbarian");
     maps2::init_map(hero2::hero.map_id);
+    mobs2::spawn(hero2::hero.map_id);
 
   };
 
@@ -94,7 +97,10 @@ namespace game2
     entity::render();
     quads2::accumulate();
     textures2::bind();
-    buffer2::update(quads2::AllQuads);
+    //buffer2::update(quads2::AllQuads);
+
+    // buffer2::update(entity::EntityQuads);
+    buffer2::update(maps2::MapQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -139,6 +145,8 @@ namespace game2
   void drop()
   {
     buffer2::drop();
+    maps2::drop();
+    mobs2::drop();
     shaders2::drop();
     textures2::drop();
   }

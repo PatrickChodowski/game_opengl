@@ -1,9 +1,9 @@
 {
   "id": 4,
+  "w": 1446,
+  "h": 58,
   "type": "item",
   "name": "stick",
-  "width": 1446,
-  "height": 58,
   "frames_list": [
     {'x': 0, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 0} //idle
     {'x': 91, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -16, 'dest_offset_y': 22, 'state_id': 2}//idle
