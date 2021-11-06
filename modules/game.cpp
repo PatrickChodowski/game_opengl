@@ -86,8 +86,7 @@ namespace game2
 
     hero2::create_new("john","barbarian");
     maps2::init_map(hero2::hero.map_id);
-    //entity::render();
-    
+
   };
 
   void update()
@@ -95,8 +94,6 @@ namespace game2
     entity::render();
     quads2::accumulate();
     textures2::bind();
-    //buffer2::update(maps2::MapQuads);
-    //buffer2::update(entity::EntityQuads);
     buffer2::update(quads2::AllQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
