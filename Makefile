@@ -10,6 +10,7 @@ output: game
 	modules/game.cpp \
 	modules/hero.cpp \
 	modules/maps.cpp \
+	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/quads.cpp \
 	modules/shaders.cpp \
@@ -30,6 +31,7 @@ output: game
 	modules/game.cpp \
 	modules/hero.cpp \
 	modules/maps.cpp \
+	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/quads.cpp \
 	modules/shaders.cpp \

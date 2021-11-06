@@ -173,11 +173,14 @@ namespace buffer2
   }
 
   void update(std::vector<quads2::QuadData>& quads)
-  {
+  { 
+    // Assigning vertex index and vertex positions here, on the final table
+    for(int q=0; q < quads.size(); q++ )
+    { 
+      quads2::_fill_quad_vertex_data(quads[q]);
+    }
+
     int n_vertex_array = quads2::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
-    //std::cout << " n vertex array: " << n_vertex_array << std::endl;
-    //std::cout << " quads size inside buffer: " << quads.size() << std::endl;
-    //std::cout << " quads2::COUNT_VERTEX_ATTRIBUTES: " << quads2::COUNT_VERTEX_ATTRIBUTES << std::endl;
     float vertex_array[n_vertex_array];
 
     int n_index_array = 3*quads.size()*2;

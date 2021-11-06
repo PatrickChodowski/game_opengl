@@ -55,6 +55,14 @@ namespace quads2
     v.v4_tx_x = norm_x_end;
     v.v4_tx_y = 1.0f;
 
+    q.v = v;
+    q.i_left.v1 =q.v.v1_id;
+    q.i_left.v2 = q.v.v2_id;
+    q.i_left.v3 = q.v.v3_id;
+    q.i_right.v1 = q.v.v2_id;
+    q.i_right.v2 = q.v.v3_id;
+    q.i_right.v3 = q.v.v4_id;
+
     return v;
   }
 
@@ -133,10 +141,6 @@ namespace quads2
     {
       quads2::QuadData qdd = vq[q];
       quads2::delete_quad_id(qdd.id);
-      quads2::delete_vertex_id(qdd.v.v1_id);
-      quads2::delete_vertex_id(qdd.v.v2_id);
-      quads2::delete_vertex_id(qdd.v.v3_id);
-      quads2::delete_vertex_id(qdd.v.v4_id);
     }
     vq.clear();
   };
@@ -149,7 +153,8 @@ namespace quads2
 
   void accumulate()
   {
-    quads2::AllQuads.clear(); // resetting vector
+    quads2::AllQuads.clear();
+    quads2::UsedVertexIds.clear();
 
     // // assign menu quads
     // if(menu::MenuQuads.size() > 0){
@@ -168,7 +173,7 @@ namespace quads2
       quads2::AllQuads.insert(quads2::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
     }
 
-    // if(debug::DebugQuads.size() > 0){
+  // if(debug::DebugQuads.size() > 0){
     //   quad::AllQuads.insert(quad::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
     // }
 
@@ -184,10 +189,6 @@ namespace quads2
     quads2::COUNT_QUADS = quads2::AllQuads.size();
     quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
 
-    // std::cout << " COUNT QUADS: " << quads2::COUNT_QUADS << std::endl;
-    // std::cout << " Used Quad ID size: " << quads2::UsedQuadIds.size() << std::endl;
-    // std::cout << " Used Vertex ID size: " << quads2::UsedVertexIds.size() << std::endl;
-
   }
 
 
@@ -199,11 +200,8 @@ namespace quads2
     {
       quads2::QuadData quad;
       quad.id = quads2::gen_quad_id();
-
       quad.texture_id = v.texture_id;
-      //std::cout << quad.texture_id << std::endl;
       quad.frame_id = v.frame_id;
-      //std::cout << quad.frame_id << std::endl;
 
       quad.object_id = v.id;
       quad.object_type_id = object_type_id;
@@ -221,15 +219,6 @@ namespace quads2
       quad.w = v.w;
 
       quad.is_clicked = v.is_clicked;
-
-      quad.v = quads2::_fill_quad_vertex_data(quad);
-      quad.i_left.v1 = quad.v.v1_id;
-      quad.i_left.v2 = quad.v.v2_id;
-      quad.i_left.v3 = quad.v.v3_id;
-      quad.i_right.v1 = quad.v.v2_id;
-      quad.i_right.v2 = quad.v.v3_id;
-      quad.i_right.v3 = quad.v.v4_id;
-
       quads.push_back(quad);
     }
     return quads;
