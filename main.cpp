@@ -5,19 +5,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "dependencies/stb_image.h"
 
-#include "modules/buffer.h"
-#include "modules/camera.h"
-#include "modules/collisions.h"
-#include "modules/entity.h"
 #include "modules/events.h"
 #include "modules/game.h"
-#include "modules/hero.h"
-#include "modules/maps.h"
-#include "modules/mouse.h"
-#include "modules/quads.h"
-#include "modules/shaders.h"
-#include "modules/textures.h"
-#include "modules/timer.h"
 #include "modules/utils.h"
 
 #include "dictionary.h"

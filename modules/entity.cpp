@@ -7,6 +7,7 @@
 
 #include "entity.h"
 #include "hero.h"
+#include "items.h"
 #include "mobs.h"
 #include "quads.h"
 #include "../dictionary.h"
@@ -85,6 +86,7 @@ namespace entity
 
 
   template int entity::create<hero2::HeroData>(hero2::HeroData, int, float);
+  template int entity::create<items2::ItemData>(items2::ItemData, int, float);
   template int entity::create<mobs2::MobData>(mobs2::MobData, int, float);
 
 }

@@ -20,7 +20,6 @@
 
 # doing:
 - items
-- mobs
 
 - variables.h -> to remove
 - setup.h -> to remove
