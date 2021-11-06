@@ -5,6 +5,7 @@
 - collisions
 - entity
 - events
+- items -> cleanup the texture/data messup
 - hero
 - maps
 - mobs
@@ -17,12 +18,11 @@
 - main
 - game -> refactor of game state left to do
 
-
-# doing:
-- items
-
 - variables.h -> to remove
 - setup.h -> to remove
+
+# doing:
+- mouse and events control
 
 # todo:
 - saves
