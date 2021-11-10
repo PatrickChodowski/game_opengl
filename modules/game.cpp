@@ -12,6 +12,7 @@
 #include "hero.h"
 #include "items.h"
 #include "maps.h"
+#include "menu.h"
 #include "mobs.h"
 #include "quads.h"
 #include "shaders.h"
@@ -83,11 +84,13 @@ namespace game2
 
     buffer2::init();
     maps2::init();
+    menu2::init();
     mobs2::init();
     shaders2::init();
     textures2::init();
 
     hero2::create_new("john","barbarian");
+    menu2::render(hero2::hero.map_id);
     maps2::init_map(hero2::hero.map_id);
     mobs2::spawn(hero2::hero.map_id);
     items2::put_item_on_ground(0, 600, 500);

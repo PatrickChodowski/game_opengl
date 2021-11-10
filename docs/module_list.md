@@ -22,13 +22,15 @@
 - setup.h -> to remove
 
 # doing:
+- re-implement whole idea of game state
+- events: to avoid if else on events, shall the events_handle_id be assigned to a level?
+- menu
+- fonts
+- saves
 - mouse and events control
 
 # todo:
-- saves
 - anims
-- fonts
-- menu
 - logger
 - gui
 - debug

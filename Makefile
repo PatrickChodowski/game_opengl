@@ -11,6 +11,7 @@ output: game
 	modules/hero.cpp \
 	modules/items.cpp \
 	modules/maps.cpp \
+	modules/menu.cpp \
 	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/quads.cpp \
@@ -33,6 +34,7 @@ output: game
 	modules/hero.cpp \
 	modules/items.cpp \
 	modules/maps.cpp \
+	modules/menu.cpp \
 	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/quads.cpp \
