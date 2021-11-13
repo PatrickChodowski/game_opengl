@@ -1,49 +1,85 @@
 #include <SDL2/SDL.h>
 #include "../dictionary.h"
+
+#include "camera.h"
 #include "events.h"
 #include "game.h"
+#include "hero.h"
+#include "menu.h"
 #include "mouse.h"
 
 namespace events2
 {
+
+  void scan_for_camera_move()
+  {
+    camera::cam.move_x = 0;
+    camera::cam.move_y = 0;
+
+    if(game2::KEYBOARD[SDL_SCANCODE_LEFT])
+    {
+      camera::cam.move_x -= camera::cam.speed;
+      //hero::update_frame(MOVE_LEFT);
+    } 
+    else if(game2::KEYBOARD[SDL_SCANCODE_RIGHT])
+    {
+      camera::cam.move_x += camera::cam.speed;
+    }
+    else if(game2::KEYBOARD[SDL_SCANCODE_UP])
+    {
+      camera::cam.move_y += camera::cam.speed;
+    }
+    else if(game2::KEYBOARD[SDL_SCANCODE_DOWN])
+    {
+      camera::cam.move_y -= camera::cam.speed;
+    } else 
+    {
+      //hero::update_frame(STAND_STILL);
+    }
+    camera::cam.previous_x = camera::cam.x;
+    camera::cam.previous_y = camera::cam.y;
+    camera::cam.x += camera::cam.move_x;
+    camera::cam.y += camera::cam.move_y;
+
+  }
+
 
   void _handle_game_on_controls(SDL_Keycode key)
   {
     switch (key)
     { 
       case SDLK_ESCAPE:
-          //game::set_state("MAIN_MENU");
-        break;
+        hero2::hero.map_id = MAIN_MENU_LEVEL_ID;    
+      break;
       
       case SDLK_x:
-          //hero::attack_state = true;
-          //hero::update_frame(ATTACK);
-        break;
+        //hero::attack_state = true;
+        //hero::update_frame(ATTACK);
+      break;
 
       case SDLK_s:
-          //saves::save_game();
-        break;
+        //saves::save_game();
+      break;
 
       case SDLK_d:
-          // if(DEBUG_MODE)
-          // {
-          //   DEBUG_MODE = false;
-          // } else {
-          //   DEBUG_MODE = true;
-          // }
-        break;
+        // if(DEBUG_MODE)
+        // {
+        //   DEBUG_MODE = false;
+        // } else {
+        //   DEBUG_MODE = true;
+        // }
+      break;
 
       case SDLK_l:
-      // toggle between base and light shader
-          // if(CURRENT_SHADER_ID == 0)
-          // {
-          //   CURRENT_SHADER_ID = 1;
-          // } else {
-          //   CURRENT_SHADER_ID = 0;
-          // }
+        // toggle between base and light shader
+        // if(CURRENT_SHADER_ID == 0)
+        // {
+        //   CURRENT_SHADER_ID = 1;
+        // } else {
+        //   CURRENT_SHADER_ID = 0;
+        // }
       break;
     }
-
   };
 
   void _handle_new_game_name_input(SDL_Keycode key)
@@ -51,21 +87,20 @@ namespace events2
     switch (key)
     {
       case SDLK_BACKSPACE:
-        // if(menu::NewGameName.size() > 0)
-        // {
-        //   menu::NewGameName.pop_back();
-        //   game::CHANGE_STATE_TRIGGER = true;
-        // }
-        break;
+        if(menu2::NewGameName.size() > 0)
+        {
+          menu2::NewGameName.pop_back();
+        }
+      break;
+
       case SDLK_RETURN:
-        // if(menu::validate_name()){
-        //   CAMPAIGN_NAME = menu::NewGameName;
-        //   NEW_GAME = true;
-        //   game::set_state("GAME_ON");
-        // }
+        if(menu2::_validate_name())
+        {
+
+        }
         break;
       case SDLK_ESCAPE:
-          // game::set_state("MAIN_MENU");
+          hero2::hero.map_id = MAIN_MENU_LEVEL_ID;
         break;
     }
 
@@ -76,22 +111,39 @@ namespace events2
     switch (key)
     {
       case SDLK_ESCAPE:
-        // game::set_state("MAIN_MENU");
+        hero2::hero.map_id = MAIN_MENU_LEVEL_ID;
       break;
     }
   };
 
+  int _check_if_menu(int level_id)
+  { 
+    if(level_id < MAIN_MENU_LEVEL_ID)
+    {
+      return IN_GAME_LEVEL_ID;
+    } else 
+    {
+      return level_id;
+    }
+  }
+
   void handle_events(SDL_Event event)
   {
+    // Possible values: 100, 101, 102, 103, 200
+    int lvlid = _check_if_menu(hero2::hero.map_id);
+
     while (SDL_PollEvent(&event))
     {
       switch (event.type)
       {
         case SDL_MOUSEWHEEL:
-          // if (game::GAME_STATE["GAME_ON"]){
-          //   if(event.wheel.y > 0) {camera::zoom += camera::zoom_speed;}
-          //   else if(event.wheel.y < 0){camera::zoom -= camera::zoom_speed;}
-          // }
+            if(event.wheel.y > 0) 
+            {
+              camera::cam.zoom += camera::cam.zoom_speed;
+            } else if(event.wheel.y < 0)
+            {
+              camera::cam.zoom -= camera::cam.zoom_speed;
+            }
           break;
         
         case SDL_MOUSEBUTTONDOWN:
@@ -100,33 +152,33 @@ namespace events2
 
         case SDL_QUIT:
           game2::RUNNING = false;
-          break;
-
-      case SDL_KEYDOWN: // has to remove camera/hero move from here in order to run smoothly
-        // if(game::GAME_STATE["GAME_ON"])
-        // {
-        //   handle_game_on_controls(event.key.keysym.sym);
-        // } else if(game::GAME_STATE["NEW_GAME_MENU"])
-        // {
-        //   handle_new_game_name_input(event.key.keysym.sym);
-        // } else if(game::GAME_STATE["LOAD_GAME_MENU"])
-        // {
-        //   handle_load_game_menu_input(event.key.keysym.sym);
-        // }
         break;
-      case SDL_TEXTINPUT:
-        // if(game::GAME_STATE["NEW_GAME_MENU"])
-        // {
-        //   if(menu::validate_input(event.text.text) && menu::NewGameName.size() < 8)
-        //   {
-        //     menu::NewGameName += event.text.text;
-        //     game::CHANGE_STATE_TRIGGER = true;
-        //   }
-        //   break;
-        // }
+
+        case SDL_KEYDOWN: 
+          switch (lvlid)
+          {
+            case IN_GAME_LEVEL_ID:
+              events2::_handle_game_on_controls(event.key.keysym.sym);
+            break;
+            case NEWGAME_MENU_LEVEL_ID:
+              events2::_handle_new_game_name_input(event.key.keysym.sym);
+            break;
+            case LOADGAME_MENU_LEVEL_ID:
+              events2::_handle_load_game_menu_input(event.key.keysym.sym);
+            break;
+          };
+        break;
+
+        case SDL_TEXTINPUT:
+          if(lvlid == NEWGAME_MENU_LEVEL_ID)
+          {
+            if(menu2::_validate_input(event.text.text) && menu2::NewGameName.size() < 8)
+            {
+              menu2::NewGameName += event.text.text;
+            }
+          }
         break;
       };
     };
   };
-
 }

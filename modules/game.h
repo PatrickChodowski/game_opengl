@@ -1,5 +1,6 @@
 #include <map>
 #include <vector>
+#include <SDL2/SDL.h>
 #include <string>
 
 #ifndef MODULES_GAME_H
@@ -19,6 +20,7 @@ namespace game2
   extern std::map<std::string, bool> GAME_STATE;
   extern std::vector<std::string> GAME_STATE_LIST;
   extern bool CHANGE_STATE_TRIGGER;
+  extern const Uint8 *KEYBOARD;
 
   // Initialize game states set
   void _init_game_states();

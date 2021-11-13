@@ -25,18 +25,8 @@ namespace entity
     float mid_x;
     float mid_y;
     float diag;
-
-    // scaled space
-    float s_x;
-    float s_y;
-    float s_h;
-    float s_w;
-    float s_mid_x;
-    float s_mid_y;
-    float s_diag;
-
     float camera_type;
-
+    
     bool is_solid;
     bool is_clicked;
 

@@ -7,6 +7,7 @@
 
 #include "modules/events.h"
 #include "modules/game.h"
+#include "modules/hero.h"
 #include "modules/utils.h"
 
 #include "dictionary.h"
@@ -14,7 +15,6 @@
 int FPS;
 auto GAME_START_TIME = std::chrono::system_clock::now();
 Uint32 flags = SDL_WINDOW_OPENGL;
-const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 
 int main()
 {
@@ -41,6 +41,7 @@ int main()
     auto game_loop_start_time = std::chrono::system_clock::now();
     SDL_Event event;
     events2::handle_events(event);
+    events2::scan_for_camera_move();
     // game::handle_game_state();
     game2::update();
     
