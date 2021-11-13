@@ -31,11 +31,11 @@ namespace collisions
     {
       if(k != entity_id)
       {
-        float dist = get_distance_between_points(v.s_x, 
-                                                 v.s_y, 
-                                                 entity::entities[entity_id].s_x, 
-                                                 entity::entities[entity_id].s_y);
-        float dist_limit = entity::entities[entity_id].s_diag + v.s_diag;
+        float dist = get_distance_between_points(v.x, 
+                                                 v.y, 
+                                                 entity::entities[entity_id].x, 
+                                                 entity::entities[entity_id].y);
+        float dist_limit = entity::entities[entity_id].diag + v.diag;
         if(dist <= dist_limit)
         {
           DistanceToObject dto;
@@ -58,11 +58,11 @@ namespace collisions
     std::vector<collisions::DistanceToObject> distances = {};
     for (auto const& [k, v]: maps2::tiles)
     {
-      float dist = get_distance_between_points(v.s_x, 
-                                               v.s_y, 
-                                               entity::entities[entity_id].s_x, 
-                                               entity::entities[entity_id].s_y);
-      float dist_limit = entity::entities[entity_id].s_diag + v.s_diag;
+      float dist = get_distance_between_points(v.x, 
+                                               v.y, 
+                                               entity::entities[entity_id].x, 
+                                               entity::entities[entity_id].y);
+      float dist_limit = entity::entities[entity_id].diag + v.diag;
       if(dist <= dist_limit)
       {
         DistanceToObject dto;
@@ -207,56 +207,56 @@ namespace collisions
       collisions::Sensor s;
       switch(i) {
         case SENSOR_TOP:
-            s.x = edd.s_mid_x;
-            s.y = (edd.s_y - collisions::SENSOR_OFFSET);
+            s.x = edd.mid_x;
+            s.y = (edd.y - collisions::SENSOR_OFFSET);
             s.id = SENSOR_TOP;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP, s));
         break;
         case SENSOR_TOP_RIGHT:
-            s.x = (edd.s_x + edd.s_w + collisions::SENSOR_OFFSET);
-            s.y = (edd.s_y  - collisions::SENSOR_OFFSET);
+            s.x = (edd.x + edd.w + collisions::SENSOR_OFFSET);
+            s.y = (edd.y  - collisions::SENSOR_OFFSET);
             s.id = SENSOR_TOP_RIGHT;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_RIGHT, s));
         break;
         case SENSOR_RIGHT:
-            s.x = (edd.s_x + edd.s_w  + collisions::SENSOR_OFFSET);
-            s.y = (edd.s_y) ;
+            s.x = (edd.x + edd.w  + collisions::SENSOR_OFFSET);
+            s.y = (edd.y) ;
             s.id = SENSOR_RIGHT;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_RIGHT, s));
         break;
         case SENSOR_BOTTOM_RIGHT:
-            s.x = (edd.s_x + edd.s_w + collisions::SENSOR_OFFSET);
-            s.y = (edd.s_y + edd.s_h + collisions::SENSOR_OFFSET);
+            s.x = (edd.x + edd.w + collisions::SENSOR_OFFSET);
+            s.y = (edd.y + edd.h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM_RIGHT;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_RIGHT, s));
         break;
         case SENSOR_BOTTOM:
-            s.x = edd.s_mid_x;
-            s.y = (edd.s_y + edd.s_h + collisions::SENSOR_OFFSET);
+            s.x = edd.mid_x;
+            s.y = (edd.y + edd.h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM, s));
         break;
         case SENSOR_BOTTOM_LEFT:
-            s.x = edd.s_x - collisions::SENSOR_OFFSET;
-            s.y = (edd.s_y + edd.s_h + collisions::SENSOR_OFFSET);
+            s.x = edd.x - collisions::SENSOR_OFFSET;
+            s.y = (edd.y + edd.h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM_LEFT;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_LEFT, s));
         break;
         case SENSOR_LEFT:
-            s.x = edd.s_x - collisions::SENSOR_OFFSET ;
-            s.y = edd.s_mid_y;
+            s.x = edd.x - collisions::SENSOR_OFFSET ;
+            s.y = edd.mid_y;
             s.id = SENSOR_LEFT;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_LEFT, s));
         break;
         case SENSOR_TOP_LEFT:
-            s.x = edd.s_x - collisions::SENSOR_OFFSET;
-            s.y = edd.s_y - collisions::SENSOR_OFFSET;
+            s.x = edd.x - collisions::SENSOR_OFFSET;
+            s.y = edd.y - collisions::SENSOR_OFFSET;
             s.id = SENSOR_TOP_LEFT;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_LEFT, s));
         break;
         case SENSOR_CENTER:
-            s.x = edd.s_mid_x;
-            s.y = edd.s_mid_y;
+            s.x = edd.mid_x;
+            s.y = edd.mid_y;
             s.id = SENSOR_CENTER;
             edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_CENTER, s));
         break;
@@ -271,10 +271,10 @@ namespace collisions
     for(int a = 0; a < collisions::ABS_COUNT; a++)
     {
       collisions::AABB aabb;
-      aabb.min_x = (edd.s_x + collisions::SENSOR_OFFSET);
-      aabb.min_y = (edd.s_y + collisions::SENSOR_OFFSET);
-      aabb.max_y = (edd.s_y + edd.s_h - collisions::SENSOR_OFFSET);
-      aabb.max_x = (edd.s_x + edd.s_w - collisions::SENSOR_OFFSET);
+      aabb.min_x = (edd.x + collisions::SENSOR_OFFSET);
+      aabb.min_y = (edd.y + collisions::SENSOR_OFFSET);
+      aabb.max_y = (edd.y + edd.h - collisions::SENSOR_OFFSET);
+      aabb.max_x = (edd.x + edd.w - collisions::SENSOR_OFFSET);
       aabb.id = AABB_FULL;
       edd.abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
     }
@@ -287,10 +287,10 @@ namespace collisions
     for(int a = 0; a < collisions::ABS_COUNT; a++)
     {
       collisions::AABB aabb;
-      aabb.min_x = (tdd.s_x + collisions::SENSOR_OFFSET);
-      aabb.min_y = (tdd.s_y + collisions::SENSOR_OFFSET);
-      aabb.max_y = (tdd.s_y + tdd.s_h - collisions::SENSOR_OFFSET);
-      aabb.max_x = (tdd.s_x + tdd.s_w - collisions::SENSOR_OFFSET);
+      aabb.min_x = (tdd.x + collisions::SENSOR_OFFSET);
+      aabb.min_y = (tdd.y + collisions::SENSOR_OFFSET);
+      aabb.max_y = (tdd.y + tdd.h - collisions::SENSOR_OFFSET);
+      aabb.max_x = (tdd.x + tdd.w - collisions::SENSOR_OFFSET);
       aabb.id = AABB_FULL;
       tdd.abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
     }    

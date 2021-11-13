@@ -15,17 +15,13 @@ namespace menu2
   struct ButtonData
   {
     int id;
-    int x;
-    int y;
-    int w;
-    int h;
     int texture_id;
     int frame_id;
-    
-    float r_col;
-    float g_col;
-    float b_col;
-    float a_col;
+
+    float x,y;
+    float w,h;
+    float r, g, b, a;
+
     float camera_type;
 
     std::string label;
@@ -33,7 +29,7 @@ namespace menu2
 
     bool is_clicked;
 
-    JS_OBJ(id, x, y, w, h, r_col, g_col, b_col, a_col, label, name);
+    JS_OBJ(id, x, y, w, h, r, g, b, a, label, name);
 
   };
 
@@ -50,6 +46,7 @@ namespace menu2
   extern std::map<int, menu2::MenuData> menus;
   extern std::map<int, menu2::ButtonData> menubuttons;
   extern std::vector<quads2::QuadData> MenuQuads;
+  extern std::string NewGameName;
 
   // Initialize different menu data and load into menu catalog (menus)
   void init();
@@ -70,7 +67,7 @@ namespace menu2
   void drop();
 
   // Method to validate input in new character menu
-  bool _validate_input(std::string& input);
+  bool _validate_input(std::string input);
 
   // Validates new character name - if exists or is it have more than 0 characters
   bool _validate_name();

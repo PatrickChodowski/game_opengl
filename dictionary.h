@@ -1,22 +1,14 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
-// file containing all definitions
+// level ids have to match data/menu IDS 
+#define MAIN_MENU_LEVEL_ID 100
+#define NEWGAME_MENU_LEVEL_ID 101
+#define LOADGAME_MENU_LEVEL_ID 102
+#define SETTINGS_MENU_LEVEL_ID 103
+#define IN_GAME_LEVEL_ID 200
 
-#define QUAD_TYPE_MAP 0.0f
-#define QUAD_TYPE_MENU 1.0f
-#define QUAD_TYPE_TEXT 2.0f
-#define QUAD_TYPE_ENTITY 3.0f
-#define QUAD_TYPE_GUI 4.0f
-#define QUAD_TYPE_DEBUG 5.0f
-
-#define HERO_ENTITY_ID 0
-
-#define ENTITY_TYPE_ID_HERO 0
-#define ENTITY_TYPE_ID_ITEM 1
-#define ENTITY_TYPE_ID_MOB 2
-#define ENTITY_TYPE_ID_NA 9
-
+// camera types
 #define CAMERA_DYNAMIC 0.0f
 #define CAMERA_STATIC 1.0f
 #define CAMERA_ZOOM_ONLY 2.0f
@@ -34,7 +26,7 @@
 #define JOINT_LEGS 4
 #define JOIN_HEAD 5 
 
-// ENTITY SENSORS
+// entity collision sensors
 #define SENSOR_TOP 0
 #define SENSOR_TOP_RIGHT 1
 #define SENSOR_RIGHT 2
@@ -45,7 +37,7 @@
 #define SENSOR_TOP_LEFT 7
 #define SENSOR_CENTER 8
 
-// ENTITY AABB boxes
+// entity collision AABB boxes
 #define AABB_FULL 0
 
 // event ids:

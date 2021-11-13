@@ -66,7 +66,7 @@ namespace maps2
 
             tile.texture_id = texture_id;
             
-            tile.camera_type = CAMERA_STATIC;
+            tile.camera_type = CAMERA_DYNAMIC;
             tile.is_clicked = false;
             tile.is_solid = false;
 

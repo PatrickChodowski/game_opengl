@@ -88,7 +88,7 @@ namespace menu2
     menu2::list_saves();
   }
 
-  bool _validate_input(std::string& input)
+  bool _validate_input(std::string input)
   {
     bool good = false;
     if (menu2::_allowed_input.find(input) != std::string::npos) 

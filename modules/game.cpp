@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <SDL2/SDL.h>
 #include <string>
 #include <vector>
 
@@ -22,6 +23,7 @@
 namespace game2
 {
   bool RUNNING = true;
+  bool PAUSE = false;
   int CURRENT_SHADER_ID = 0;
   float TILE_DIM = 96;
   float WINDOW_VERTEX_WIDTH = 10;
@@ -29,6 +31,9 @@ namespace game2
   float WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
   float WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
   bool CHANGE_STATE_TRIGGER = false;
+  const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
+
+
   
   std::map<std::string, bool> GAME_STATE;
   std::vector<std::string> GAME_STATE_LIST = {"GAME_ON",
