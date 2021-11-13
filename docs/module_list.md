@@ -22,7 +22,6 @@
 - setup.h -> to remove
 
 # doing:
-- pause button
 - logger -> for now only quad printing 
 - fonts
 - saves

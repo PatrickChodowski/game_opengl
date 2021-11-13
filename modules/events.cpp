@@ -61,6 +61,16 @@ namespace events2
         //saves::save_game();
       break;
 
+      case SDLK_p:
+        if(game2::PAUSE)
+        {
+          game2::PAUSE = false;
+        } else 
+        {
+          game2::PAUSE = true;
+        }      
+      break;
+
       case SDLK_d:
         // if(DEBUG_MODE)
         // {
