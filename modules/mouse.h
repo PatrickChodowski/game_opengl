@@ -15,10 +15,13 @@ namespace mouse2
   };
 
   // Print out click information
-  void print_mouse(SDL_MouseMotionEvent e, std::string  name);
+  void print_mouse(SDL_MouseMotionEvent e, const char* name);
 
   // Handle mouse events
   void handle_mouse(SDL_MouseMotionEvent e, SDL_MouseButtonEvent b);
+
+  // Find which quads are clicked on:
+  void _find_clicked_quads(float click_x, float click_y);
 
 }
 

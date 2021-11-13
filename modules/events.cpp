@@ -2,6 +2,7 @@
 #include "../dictionary.h"
 #include "events.h"
 #include "game.h"
+#include "mouse.h"
 
 namespace events2
 {
@@ -94,7 +95,7 @@ namespace events2
           break;
         
         case SDL_MOUSEBUTTONDOWN:
-          //mouse::handle_mouse(event.motion, event.button, quads);
+          mouse2::handle_mouse(event.motion, event.button);
         break;
 
         case SDL_QUIT:

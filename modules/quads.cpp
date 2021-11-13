@@ -146,12 +146,6 @@ namespace quads2
     vq.clear();
   };
 
-  float get_distance_between_quads(quads2::QuadData q1, quads2::QuadData q2)
-  {
-    float distance = std::sqrt(std::pow((q2.s_x - q1.s_x), 2) + std::pow((q2.s_y-q1.s_y), 2));
-    return distance;
-  }
-
   void accumulate()
   {
     quads2::AllQuads.clear();
