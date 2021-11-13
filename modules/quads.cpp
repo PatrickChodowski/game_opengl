@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include "entity.h"
+#include "fonts.h"
 #include "maps.h"
 #include "menu.h"
 #include "quads.h"
@@ -178,9 +179,10 @@ namespace quads2
     //   quad::AllQuads.insert(quad::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
     // }
 
-    // if(fonts::TextQuads.size() > 0){
-    //   quad::AllQuads.insert(quad::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
-    // }
+    if(fonts2::TextQuads.size() > 0)
+    {
+      quad2::AllQuads.insert(quads2::AllQuads.end(), fonts2::TextQuads.begin(), fonts2::TextQuads.end());
+    }
 
     quads2::COUNT_QUADS = quads2::AllQuads.size();
     quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
@@ -228,7 +230,9 @@ namespace quads2
 
 
   template std::vector<quads2::QuadData> quads2::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
+  //template std::vector<quads2::QuadData> quads2::make_quads<menu2::ButtonData>(std::map<int, fonts::ButtonData>, int);
   template std::vector<quads2::QuadData> quads2::make_quads<maps2::TileData>(std::map<int, maps2::TileData>, int);
   template std::vector<quads2::QuadData> quads2::make_quads<menu2::ButtonData>(std::map<int, menu2::ButtonData>, int);
+  
 
 }

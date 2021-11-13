@@ -7,6 +7,7 @@ output: game
 	modules/collisions.cpp \
 	modules/entity.cpp \
 	modules/events.cpp \
+	modules/fonts.cpp \
 	modules/game.cpp \
 	modules/hero.cpp \
 	modules/items.cpp \
@@ -31,6 +32,7 @@ output: game
 	modules/collisions.cpp \
 	modules/entity.cpp \
 	modules/events.cpp \
+	modules/fonts.cpp \
 	modules/game.cpp \
 	modules/hero.cpp \
 	modules/items.cpp \

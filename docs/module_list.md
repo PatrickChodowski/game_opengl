@@ -22,8 +22,8 @@
 - setup.h -> to remove
 
 # doing:
+- fonts -> how to render it seamlessly with current quads data approach
 - logger -> for now only quad printing 
-- fonts
 - saves
 
 # todo:

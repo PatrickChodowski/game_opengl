@@ -11,6 +11,7 @@
 #include "camera.h"
 #include "entity.h"
 #include "events.h"
+#include "fonts.h"
 #include "hero.h"
 #include "items.h"
 #include "logger.h"
@@ -76,6 +77,7 @@ namespace game2
   void init()
   {
     buffer2::init();
+    fonts2::init("arial");
     maps2::init();
     menu2::init();
     mobs2::init();
