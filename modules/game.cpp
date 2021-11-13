@@ -10,6 +10,7 @@
 #include "buffer.h"
 #include "camera.h"
 #include "entity.h"
+#include "events.h"
 #include "hero.h"
 #include "items.h"
 #include "logger.h"
@@ -19,6 +20,8 @@
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
+
+#include "../dictionary.h"
 
 namespace game2
 {
@@ -30,77 +33,62 @@ namespace game2
   float WINDOW_VERTEX_HEIGHT = 8;
   float WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
   float WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
-  bool CHANGE_STATE_TRIGGER = false;
   const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 
 
-  
-  std::map<std::string, bool> GAME_STATE;
-  std::vector<std::string> GAME_STATE_LIST = {"GAME_ON",
-                                              "MAIN_MENU",
-                                              "NEW_GAME_MENU",
-                                              "LOAD_GAME_MENU",
-                                              "SETTINGS_MENU"};
-
-  void _init_game_states()
+  void init_level(int level_id, bool is_new_game)
   {
-    GAME_STATE.insert(std::pair<std::string, bool>("GAME_ON", true));
-    GAME_STATE.insert(std::pair<std::string, bool>("MAIN_MENU", false));
-    GAME_STATE.insert(std::pair<std::string, bool>("NEW_GAME_MENU", false));
-    GAME_STATE.insert(std::pair<std::string, bool>("LOAD_GAME_MENU", false));
-    GAME_STATE.insert(std::pair<std::string, bool>("SETTINGS_MENU", false));
-  };
-
-  void set_state(std::string state_name)
-  {
-    std::string old_state = get_state();
-    if(old_state != state_name){
-      GAME_STATE[state_name] = true;
-      for(int s = 0; s < GAME_STATE_LIST.size(); s++)
-      {
-        if(GAME_STATE_LIST[s] != state_name){
-          GAME_STATE[GAME_STATE_LIST[s]] = false;
-        }
-      }
-      std::cout << "Set the game state to " << state_name << std::endl;
-      CHANGE_STATE_TRIGGER = true;
-    }
-  }
-
-  std::string get_state()
-  {
-    std::string current_state;
-    for(int s = 0; s < GAME_STATE_LIST.size(); s++)
+    if (level_id < MAIN_MENU_LEVEL_ID)
     {
-      if(GAME_STATE[GAME_STATE_LIST[s]])
+      if(is_new_game)
       {
-        current_state = GAME_STATE_LIST[s];
-        break;
+        hero2::create_new("john","barbarian");
+      } else 
+      {
+        // saves::load()
       }
+      maps2::init_map(level_id);
+      mobs2::spawn(level_id);
+      items2::put_item_on_ground(0, 600, 500);
     }
-    std::cout << "Current state: " << current_state << std::endl;
-    return current_state;
+    menu2::render(level_id);
   }
 
+  void switch_level(int level_id)
+  {
+    game2::clear_level();
+    game2::init_level(level_id, false);
+  }
+
+  void clear_level()
+  {
+    maps2::clear();
+    camera::reset();
+    entity::clear();
+
+    quads2::clear_quads_data(menu2::MenuQuads);
+    menu2::MenuQuads.clear();
+
+    // saves::save()
+
+  }
 
   void init()
   {
-    game2::_init_game_states();
-    game2::set_state("GAME_ON");
-
     buffer2::init();
     maps2::init();
     menu2::init();
     mobs2::init();
     shaders2::init();
     textures2::init();
-
-    hero2::create_new("john","barbarian");
+    // hero2::create_new("john","barbarian");
     // hero2::hero.map_id = 100;
-    menu2::render(hero2::hero.map_id);
-    maps2::init_map(hero2::hero.map_id);
-    mobs2::spawn(hero2::hero.map_id);
-    items2::put_item_on_ground(0, 600, 500);
+    // menu2::render(hero2::hero.map_id);
+    // maps2::init_map(hero2::hero.map_id);
+    // mobs2::spawn(hero2::hero.map_id);
+    // items2::put_item_on_ground(0, 600, 500);
+
+    game2::init_level(2, true);
 
   };
 
@@ -159,7 +147,6 @@ namespace game2
   void drop()
   {
     buffer2::drop();
-    maps2::drop();
     mobs2::drop();
     shaders2::drop();
     textures2::drop();

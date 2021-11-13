@@ -49,7 +49,7 @@ namespace events2
     switch (key)
     { 
       case SDLK_ESCAPE:
-        hero2::hero.map_id = MAIN_MENU_LEVEL_ID;    
+        game2::switch_level(MAIN_MENU_LEVEL_ID);    
       break;
       
       case SDLK_x:
@@ -100,7 +100,7 @@ namespace events2
         }
         break;
       case SDLK_ESCAPE:
-          hero2::hero.map_id = MAIN_MENU_LEVEL_ID;
+          game2::switch_level(MAIN_MENU_LEVEL_ID);  
         break;
     }
 
@@ -111,7 +111,7 @@ namespace events2
     switch (key)
     {
       case SDLK_ESCAPE:
-        hero2::hero.map_id = MAIN_MENU_LEVEL_ID;
+        game2::switch_level(MAIN_MENU_LEVEL_ID);  
       break;
     }
   };

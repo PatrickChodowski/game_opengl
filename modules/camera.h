@@ -22,7 +22,6 @@ namespace camera
     float y = 0;
     float move_x = 0;
     float move_y = 0;
-    float tile_dim = 96;
     float base_zoom = 1.0f;
     float zoom = 1.0f;
     float zoom_speed = 0.1f;
@@ -36,7 +35,7 @@ namespace camera
   extern glm::mat4 ZOOM_MVP;
 
   // Re-set camera struct "cam" to default values
-  void reset2();
+  void reset();
 
   // Scale quadData objects
   void scale_quads(float camera_x, float camera_y, float camera_zoom);

@@ -17,19 +17,16 @@ namespace game2
   extern float WINDOW_VERTEX_HEIGHT;
   extern float WINDOW_WIDTH;
   extern float WINDOW_HEIGHT;
-  extern std::map<std::string, bool> GAME_STATE;
-  extern std::vector<std::string> GAME_STATE_LIST;
-  extern bool CHANGE_STATE_TRIGGER;
   extern const Uint8 *KEYBOARD;
 
-  // Initialize game states set
-  void _init_game_states();
+  // Initialize all systems for new level (new scene)
+  void init_level(int level_id, bool is_new_game);
 
-  // Sets game state
-  void set_state();
+  // Delete all data necessary for clear the level (scene)
+  void clear_level();
 
-  // Gets game state
-  std::string get_state();
+  // Switches level. Clears current level data and initializes new one
+  void switch_level(int level_id);
 
   // Initialize all in-game systems inside single game::init()
   void init();
