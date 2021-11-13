@@ -23,6 +23,7 @@
 - setup.h -> to remove
 
 # doing:
+- clicking not working again :( 
 - pause button
 - re-implement whole idea of game state -> all based on level_id
 - logger -> for now only quad printing 
