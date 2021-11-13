@@ -17,7 +17,7 @@ namespace camera
   glm::mat4 DYNAMIC_MVP;
   glm::mat4 ZOOM_MVP;
 
-  void reset2()
+  void reset()
   {
     cam.base_speed = 6;
     cam.speed = 6;
@@ -27,7 +27,6 @@ namespace camera
     cam.y = 0;
     cam.move_x = 0;
     cam.move_y = 0;
-    cam.tile_dim = game2::TILE_DIM;
     cam.base_zoom = 1.0f;
     cam.zoom = 1.0f;
     cam.zoom_speed = 0.1f;

@@ -91,9 +91,6 @@ namespace maps2
   // read_map_data function. Thats reads json into maps::maps
   void init();
 
-  // Drops all map related stuff
-  void drop();
-
   // Loads map tiles from map file by map name to maps2::tiles
   void load_map(std::string map_name, 
                 int vertex_width, 
@@ -110,7 +107,7 @@ namespace maps2
   int _gen_tile_id();
 
   // clears the currently loaded map -> erases used tiles ids and tiles catalog
-  void _clear_current_map();
+  void clear();
 
 
 }

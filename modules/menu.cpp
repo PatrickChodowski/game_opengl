@@ -51,7 +51,7 @@ namespace menu2
     // check if level_id exists in the menus
     if (menu2::menus.find(level_id) != menu2::menus.end()) 
     {
-      // Clear quds data
+      // Clear quads data
       quads2::clear_quads_data(menu2::MenuQuads);
       menu2::MenuQuads.clear();
 

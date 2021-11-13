@@ -42,7 +42,7 @@ namespace maps2
                 int vertex_height, 
                 int texture_id)
   {
-    maps2::_clear_current_map();
+    maps2::clear();
     std::string file_path = "data/maps/" + map_name;
     std::ifstream in_file;
     in_file.open(file_path.c_str());
@@ -122,31 +122,13 @@ namespace maps2
   };
 
 
-  void _clear_current_map()
+  void clear()
   {
     maps2::UsedTileIds.clear();
     maps2::tiles.clear();
+    quads2::clear_quads_data(maps2::MapQuads);
+    maps2::MapQuads.clear();
   }
-
-
-  void drop()
-  {
-
-    // for(int q = 0; q < maps::MapQuads.size(); q++)
-    // {
-    //   quads::delete_quad_id(maps::MapQuads[q].id);
-    //   quads::delete_vertex_id(maps::MapQuads[q].a);
-    //   quads::delete_vertex_id(maps::MapQuads[q].b);
-    //   quads::delete_vertex_id(maps::MapQuads[q].c);
-    //   quads::delete_vertex_id(maps::MapQuads[q].d);
-    // }
-    // maps::MapQuads.clear();
-    // travel::TravelControl.clear();
-    // nav::NavMesh.clear();
-    // nav::NavMeshGraph.clear();
-  }
-
-
 
 
 }

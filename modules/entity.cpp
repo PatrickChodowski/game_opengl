@@ -62,6 +62,7 @@ namespace entity
     entity::UsedEntityIds.clear();
     entity::entities.clear();
     quads2::clear_quads_data(entity::EntityQuads);
+    entity::EntityQuads.clear();
   }
 
   int _find_next()
