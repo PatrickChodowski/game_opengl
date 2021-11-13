@@ -76,9 +76,10 @@ namespace camera
     float final_camera_y;
     //std::cout << " Scale quads quads::AllQuads.size: " << quads2::AllQuads.size() << std::endl;
 
-    for(auto q : quads2::AllQuads)
+    for(int q = 0; q < quads2::AllQuads.size(); q++)
     {
-      if(q.camera_type == CAMERA_STATIC)
+      
+      if(quads2::AllQuads[q].camera_type == CAMERA_STATIC)
       {
         final_camera_x = 0.0; 
         final_camera_y = 0.0;
@@ -87,13 +88,14 @@ namespace camera
         final_camera_x = camera_x; 
         final_camera_y = camera_y;
       }
-      q.window_x = (q.x + final_camera_x)*scale_factor;
-      q.window_y = (q.y + final_camera_y)*scale_factor;
-      q.window_h = q.h*scale_factor;
-      q.window_w = q.w*scale_factor;
+      quads2::AllQuads[q].window_x = (quads2::AllQuads[q].x + final_camera_x)*scale_factor;
+      quads2::AllQuads[q].window_y = (quads2::AllQuads[q].y + final_camera_y)*scale_factor;
+      quads2::AllQuads[q].window_h = quads2::AllQuads[q].h*scale_factor;
+      quads2::AllQuads[q].window_w = quads2::AllQuads[q].w*scale_factor;
 
-      // if(q.id == 2)
+      // if(q.id == 1)
       // {
+      //   std::cout << " camera: " << camera_x << "," << camera_y << std::endl;
       //   std::cout << " scale factor: " << scale_factor << std::endl;
       //   std::cout << " world: " << q.x << "," << q.y << "," << q.h << std::endl;
       //   std::cout << " window: " << q.window_x << "," << q.window_y << "," << q.window_h << std::endl;

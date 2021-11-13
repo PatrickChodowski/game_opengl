@@ -4,14 +4,14 @@
 - camera
 - collisions
 - entity
-- events
+- events1
 - items -> cleanup the texture/data messup
 - hero
 - maps
 - menu
 - mobs
 - mouse
-- quads
+- quads 
 - shaders
 - textures
 - timer -> figure whats wrong with timer? -> templates

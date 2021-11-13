@@ -23,12 +23,12 @@ namespace logger2
         {
           end_str = " } \n";
         }
-        // if(quads2::AllQuads[i].id == 2)
-        // {
-        //   std::cout << " logging world: " << quads2::AllQuads[i].x << "," << quads2::AllQuads[i].y << "," << quads2::AllQuads[i].h << std::endl;
-        //   std::cout << " logging window: " << quads2::AllQuads[i].window_x << "," << quads2::AllQuads[i].window_y << "," << quads2::AllQuads[i].window_h << std::endl;
-        // }
 
+      // if(quads2::AllQuads[i].id   == 1)
+      // {
+      //   std::cout << " world: " << quads2::AllQuads[i].x << "," << quads2::AllQuads[i].y << "," << quads2::AllQuads[i].h << std::endl;
+      //   std::cout << " window: " << quads2::AllQuads[i].window_x << "," << quads2::AllQuads[i].window_y << "," << quads2::AllQuads[i].window_h << std::endl;
+      // }
 
         quads_file << " { \n" <<
                       "    \"id\": " << quads2::AllQuads[i].id                         << ",\n"
