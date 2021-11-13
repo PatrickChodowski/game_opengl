@@ -15,6 +15,7 @@ namespace menu2
   std::string NewGameName;
   std::map<int, menu2::MenuData> menus;
   std::map<int, menu2::ButtonData> menubuttons;
+  std::vector<quads2::QuadData> MenuQuads;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
   
   void _read_button_data(std::string& name)
@@ -24,6 +25,9 @@ namespace menu2
     std::string json_data = utils2::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(BD);
+    BD.camera_type = CAMERA_STATIC;
+    BD.frame_id = 0;
+    BD.is_clicked = 0;
     menu2::menubuttons.insert({BD.id, BD});
   };
 
@@ -44,7 +48,26 @@ namespace menu2
 
   void render(int level_id)
   {
+    // check if level_id exists in the menus
+    if (menu2::menus.find(level_id) != menu2::menus.end()) 
+    {
+      // Clear quds data
+      quads2::clear_quads_data(menu2::MenuQuads);
+      menu2::MenuQuads.clear();
 
+      // Get level button list
+      std::map<int, ButtonData> level_buttons;
+      std::vector<int> button_list =  menu2::menus[level_id].buttons;
+
+      // Recreate button data for selected level
+      for(int b=0; b<button_list.size(); b++)
+      {
+        level_buttons[button_list[b]] = menu2::menubuttons[button_list[b]];
+      }
+
+      // Should only render levels button:
+      menu2::MenuQuads = quads2::make_quads(level_buttons, OBJECT_TYPE_MENU);
+    }
   };
 
   void init()
