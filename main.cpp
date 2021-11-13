@@ -46,9 +46,12 @@ int main()
     SDL_Event event;
     events2::handle_events(event);
     events2::scan_for_camera_move();
-    // game::handle_game_state();
-    game2::update();
-    
+
+    if(!game2::PAUSE)
+    {
+      game2::update();
+    }
+
     SDL_GL_SwapWindow(WINDOW);
     auto game_loop_end_time = std::chrono::system_clock::now();
     //float delay = timer2::get_delay_ms(game_loop_start_time, game_loop_end_time);

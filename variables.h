@@ -75,32 +75,6 @@ namespace anims
   std::vector<int> PAsToRemove = {};
 }
 
-  // // Takes index of quad in entities and new frame id, and updates values in the quad
-  // void update_frame(int ent_quad_index_id, int frame_id)
-  // {
-  //   int texture_id = ent::EntityQuads[ent_quad_index_id].texture_id;
-  //   float norm_x_start = (float)textures::Catalog[texture_id].frames[frame_id].x/
-  //   (float)textures::Catalog[texture_id].width;
-
-  //   float norm_x_end =  (float)(textures::Catalog[texture_id].frames[frame_id].x + 
-  //   textures::Catalog[texture_id].frames[frame_id].w)/
-  //   (float)textures::Catalog[texture_id].width;
-
-  //   ent::EntityQuads[ent_quad_index_id].frame_id = frame_id;
-  //   ent::EntityQuads[ent_quad_index_id].v_a.tex_coord_x = norm_x_start;
-  //   ent::EntityQuads[ent_quad_index_id].v_c.tex_coord_x = norm_x_start;
-  //   ent::EntityQuads[ent_quad_index_id].v_b.tex_coord_x = norm_x_end;
-  //   ent::EntityQuads[ent_quad_index_id].v_d.tex_coord_x = norm_x_end;
-  //   ent::EntityQuads[ent_quad_index_id].v_a.frame_id = frame_id;
-  //   ent::EntityQuads[ent_quad_index_id].v_b.frame_id = frame_id;
-  //   ent::EntityQuads[ent_quad_index_id].v_c.frame_id = frame_id;
-  //   ent::EntityQuads[ent_quad_index_id].v_d.frame_id = frame_id;
-  // }
-
-
-}
-
-
 namespace nav
 {
  // almost navigate, but no, its Nav Gate (gate between 2 polygons). Why I am not a comedian

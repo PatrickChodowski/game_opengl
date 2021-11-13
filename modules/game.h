@@ -10,6 +10,7 @@
 namespace game2
 {
   // Game running variables
+  extern bool PAUSE;
   extern bool RUNNING;
   extern int CURRENT_SHADER_ID;
   extern float TILE_DIM;
