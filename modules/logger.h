@@ -3,7 +3,7 @@
 #define MODULES_LOGGER_H
 
 
-namespace log2
+namespace logger2
 {
 
   // Writes down the quads data to ./logs/all_quads.json on every frame

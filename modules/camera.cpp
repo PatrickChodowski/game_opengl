@@ -70,7 +70,7 @@ namespace camera
 
   void scale_quads(float camera_x, float camera_y, float camera_zoom)
   {
-    float scale_factor = (1.0f/camera_zoom);
+    float scale_factor = (1.0/camera_zoom);
     camera_x = (-1.0)*camera_x;
     float final_camera_x; 
     float final_camera_y;
@@ -92,10 +92,12 @@ namespace camera
       q.window_h = q.h*scale_factor;
       q.window_w = q.w*scale_factor;
 
-      if(q.id == 0)
-      {
-        std::cout << q.window_x <<"," << q.window_y << std::endl;
-      }
+      // if(q.id == 2)
+      // {
+      //   std::cout << " scale factor: " << scale_factor << std::endl;
+      //   std::cout << " world: " << q.x << "," << q.y << "," << q.h << std::endl;
+      //   std::cout << " window: " << q.window_x << "," << q.window_y << "," << q.window_h << std::endl;
+      // }
     }
 
 
