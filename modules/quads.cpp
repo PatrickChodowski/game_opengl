@@ -215,6 +215,11 @@ namespace quads2
       quad.h = v.h;
       quad.w = v.w;
 
+      quad.window_x = v.x;
+      quad.window_y = v.y;
+      quad.window_h = v.h;
+      quad.window_w = v.w;
+
       quad.is_clicked = v.is_clicked;
       quads.push_back(quad);
     }

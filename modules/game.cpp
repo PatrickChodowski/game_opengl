@@ -11,6 +11,7 @@
 #include "entity.h"
 #include "hero.h"
 #include "items.h"
+#include "logger.h"
 #include "maps.h"
 #include "menu.h"
 #include "mobs.h"
@@ -103,6 +104,7 @@ namespace game2
     entity::render();
     quads2::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
+    logger2::all_quads_to_json();
     textures2::bind();
 
     buffer2::update(quads2::AllQuads);

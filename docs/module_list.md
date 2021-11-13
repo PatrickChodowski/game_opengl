@@ -23,15 +23,16 @@
 - setup.h -> to remove
 
 # doing:
-- re-implement whole idea of game state
+- pause button
+- re-implement whole idea of game state -> all based on level_id
 - events: to avoid if else on events, shall the events_handle_id be assigned to a level?
+- logger -> for now only quad printing 
+- mouse and events control
 - fonts
 - saves
-- mouse and events control
 
 # todo:
 - anims
-- logger
 - gui
 - debug
 - navmesh

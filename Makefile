@@ -10,6 +10,7 @@ output: game
 	modules/game.cpp \
 	modules/hero.cpp \
 	modules/items.cpp \
+	modules/logger.cpp \
 	modules/maps.cpp \
 	modules/menu.cpp \
 	modules/mobs.cpp \
@@ -33,6 +34,7 @@ output: game
 	modules/game.cpp \
 	modules/hero.cpp \
 	modules/items.cpp \
+	modules/logger.cpp \
 	modules/maps.cpp \
 	modules/menu.cpp \
 	modules/mobs.cpp \
