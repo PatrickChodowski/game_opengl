@@ -90,6 +90,7 @@ namespace game2
     textures2::init();
 
     hero2::create_new("john","barbarian");
+    // hero2::hero.map_id = 100;
     menu2::render(hero2::hero.map_id);
     maps2::init_map(hero2::hero.map_id);
     mobs2::spawn(hero2::hero.map_id);

@@ -5,6 +5,7 @@
 #include <vector>
 #include "entity.h"
 #include "maps.h"
+#include "menu.h"
 #include "quads.h"
 #include "textures.h"
 
@@ -157,9 +158,10 @@ namespace quads2
     quads2::UsedVertexIds.clear();
 
     // // assign menu quads
-    // if(menu::MenuQuads.size() > 0){
-    //   quad::AllQuads.insert(quad::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
-    // }
+    if(menu2::MenuQuads.size() > 0)
+    {
+      quads2::AllQuads.insert(quads2::AllQuads.end(), menu2::MenuQuads.begin(), menu2::MenuQuads.end());
+    }
 
     // assign map quads
     if(maps2::MapQuads.size() > 0)
@@ -226,8 +228,8 @@ namespace quads2
   }
 
 
-
-  template std::vector<quads2::QuadData> quads2::make_quads<maps2::TileData>(std::map<int, maps2::TileData>, int);
   template std::vector<quads2::QuadData> quads2::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
+  template std::vector<quads2::QuadData> quads2::make_quads<maps2::TileData>(std::map<int, maps2::TileData>, int);
+  template std::vector<quads2::QuadData> quads2::make_quads<menu2::ButtonData>(std::map<int, menu2::ButtonData>, int);
 
 }

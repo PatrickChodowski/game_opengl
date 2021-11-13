@@ -19,14 +19,19 @@ namespace menu2
     int y;
     int w;
     int h;
-
+    int texture_id;
+    int frame_id;
+    
     float r_col;
     float g_col;
     float b_col;
     float a_col;
+    float camera_type;
 
     std::string label;
     std::string name;
+
+    bool is_clicked;
 
     JS_OBJ(id, x, y, w, h, r_col, g_col, b_col, a_col, label, name);
 
@@ -41,9 +46,10 @@ namespace menu2
 
   extern std::vector<std::string> saves;
 
-  // Map of LevelID (100,101,102 and button lists)
+  // Map of LevelID (100,101,102 and buttons: (std::vector<int> buttons))
   extern std::map<int, menu2::MenuData> menus;
   extern std::map<int, menu2::ButtonData> menubuttons;
+  extern std::vector<quads2::QuadData> MenuQuads;
 
   // Initialize different menu data and load into menu catalog (menus)
   void init();

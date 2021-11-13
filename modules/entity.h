@@ -50,6 +50,8 @@ namespace entity
   };
 
   extern std::vector<quads2::QuadData> EntityQuads;
+
+  // Entities data -> entity_id, EntityData
   extern std::map<int, EntityData> entities;
   extern std::vector<int> UsedEntityIds;
 
