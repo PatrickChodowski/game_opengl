@@ -8,6 +8,7 @@
 #include "../dependencies/glm/gtc/type_ptr.hpp"
 #include "../dependencies/glm/gtx/string_cast.hpp"
 #include "../dictionary.h"
+#include <iostream>
 
 namespace camera
 {
@@ -67,15 +68,17 @@ namespace camera
     return mvp;
   }
 
-  template <typename T>
-  void _scale_table(std::map<int, T> data_table, float camera_x, float camera_y, float scale_factor)
+  void scale_quads(float camera_x, float camera_y, float camera_zoom)
   {
+    float scale_factor = (1.0f/camera_zoom);
+    camera_x = (-1.0)*camera_x;
     float final_camera_x; 
     float final_camera_y;
+    //std::cout << " Scale quads quads::AllQuads.size: " << quads2::AllQuads.size() << std::endl;
 
-    for (auto & [k, v] : data_table)
+    for(auto q : quads2::AllQuads)
     {
-      if(v.camera_type == CAMERA_STATIC)
+      if(q.camera_type == CAMERA_STATIC)
       {
         final_camera_x = 0.0; 
         final_camera_y = 0.0;
@@ -84,23 +87,20 @@ namespace camera
         final_camera_x = camera_x; 
         final_camera_y = camera_y;
       }
-      v.s_x = (v.x + final_camera_x)*scale_factor;
-      v.s_y = (v.y + final_camera_y)*scale_factor;
-      v.s_h = v.h*scale_factor;
-      v.s_w = v.w*scale_factor;
-      v.s_diag = v.diag*scale_factor;
+      q.window_x = (q.x + final_camera_x)*scale_factor;
+      q.window_y = (q.y + final_camera_y)*scale_factor;
+      q.window_h = q.h*scale_factor;
+      q.window_w = q.w*scale_factor;
+
+      if(q.id == 0)
+      {
+        std::cout << q.window_x <<"," << q.window_y << std::endl;
+      }
     }
-  };
 
-  void scale(float camera_x=0.0, float camera_y=0.0, float camera_zoom=1.0)
-  {
-    float scale_factor = (1.0f/camera_zoom);
-    camera::cam.tile_dim = game2::TILE_DIM*scale_factor; //???? why the hell it is here ?????
-    camera_x = (-1.0)*camera_x;
 
-    camera::_scale_table(entity::entities, camera_x, camera_y, scale_factor);
-    camera::_scale_table(maps2::tiles, camera_x, camera_y, scale_factor);
-  };
+  }
+
 
   void inverse_scale()
   {

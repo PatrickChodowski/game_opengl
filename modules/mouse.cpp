@@ -1,11 +1,28 @@
 #include "mouse.h"
+#include "quads.h"
+
 #include <iostream>
 #include <string>
 
 namespace mouse2
 {
 
-  void print_mouse(SDL_MouseMotionEvent e, std::string  name)
+  void _find_clicked_quads(float click_x, float click_y)
+  {
+    int quad_id;
+    for(auto q : quads2::AllQuads)
+    {
+      if((q.window_x <= click_x) & (click_x < q.window_x+q.window_w) & (click_y >= q.window_y & click_y < q.window_y + q.window_h))
+      {
+        std::cout << "Clicked on quad: " << q.id 
+                  << " object ID: " << q.object_id 
+                  << " object type id " << q.object_type_id 
+                  << std::endl;
+      }
+    };
+  }
+
+  void print_mouse(SDL_MouseMotionEvent e, const char* name)
   {
     std::cout << "Click pos: "  << e.x << "," << e.y 
               << " timestamp:  "     << e.timestamp 
@@ -18,11 +35,8 @@ namespace mouse2
     switch (b.button)
     {
       case SDL_BUTTON_LEFT:
-        print_mouse(e, "Left");
-        //query_quads(e.x, e.y, quads);
-        //mobs::switch_aggro();
-        // e.x and e.y are for window. Its not scaled
-        //mobs::move_aggro_mobs_to_point(e.x, e.y);
+        mouse2::print_mouse(e, "Left");
+        mouse2::_find_clicked_quads(e.x, e.y);
       break;
 
       case SDL_BUTTON_RIGHT:

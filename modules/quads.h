@@ -67,9 +67,9 @@ namespace quads2
     float object_type_id;
     float camera_type;
 
-    // Scaled metrics For collisions and mouse events:
-    float s_x, s_y;
-    float s_w, s_h;
+    // Window dimensions and coordinates for presenting in the window
+    float window_x, window_y;
+    float window_w, window_h;
 
     bool is_clicked;
 
@@ -109,9 +109,6 @@ namespace quads2
 
   // Finds index of quad id in vector of quads
   int find_quad_id(int quad_id, std::vector<quads2::QuadData> quads);
-
-  // Find distance between quads
-  float get_distance_between_quads(quads2::QuadData q1, quads2::QuadData q2);
 
   // Accumulate all quad vectors from different components
   void accumulate();

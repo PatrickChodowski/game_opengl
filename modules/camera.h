@@ -38,13 +38,8 @@ namespace camera
   // Re-set camera struct "cam" to default values
   void reset2();
 
-  // Inner method scaling particular data_table. Template can be any ObjectData with locations and dimensions (entity, tiles etc.)
-  template <typename T>
-  void _scale_table(std::map<int, T> data_table, float camera_x, float camera_y, float scale_factor);
-
-  // Scale all objects (entities, tiles etc.) positions (x,y) and dimensions (w,h,diag) with camera parameters
-  // Should scale: entities(different with static), map tiles, texts(not all)
-  void scale(float camera_x, float camera_y, float camera_zoom);
+  // Scale quadData objects
+  void scale_quads(float camera_x, float camera_y, float camera_zoom);
 
   // Inverse the scaled items to original space
   void inverse_scale();

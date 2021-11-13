@@ -190,9 +190,6 @@ namespace collisions
       float max_y_border = *std::min_element(limits.top_borders.begin(), limits.top_borders.end());
       camera::cam.y = camera::cam.previous_y;
     } 
-    // need a bit smarter camera update than this, but it works, leaving for now
-    // quads::scale_move_quads(camera::x, camera::y, camera::zoom);
-    camera::scale(camera::cam.x, camera::cam.y, camera::cam.zoom);
   }
 
   void set_sensors(int entity_id)

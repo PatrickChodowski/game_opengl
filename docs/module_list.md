@@ -8,6 +8,7 @@
 - items -> cleanup the texture/data messup
 - hero
 - maps
+- menu
 - mobs
 - mouse
 - quads
@@ -24,7 +25,6 @@
 # doing:
 - re-implement whole idea of game state
 - events: to avoid if else on events, shall the events_handle_id be assigned to a level?
-- menu
 - fonts
 - saves
 - mouse and events control

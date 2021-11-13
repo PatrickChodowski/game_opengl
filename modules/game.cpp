@@ -102,6 +102,7 @@ namespace game2
   {
     entity::render();
     quads2::accumulate();
+    camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     textures2::bind();
 
     buffer2::update(quads2::AllQuads);
