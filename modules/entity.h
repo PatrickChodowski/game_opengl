@@ -61,12 +61,6 @@ namespace entity
   // Clears entity table
   void clear();
 
-  // Find next available entity id
-  int _find_next();
-
-  // Generate next entity id (calls _find_next and inserts it to UsedEntityIds)
-  int _gen_entity_id();
-
 }
 
 #endif

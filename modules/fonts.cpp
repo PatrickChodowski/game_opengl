@@ -1,6 +1,7 @@
 
 #include "fonts.h"
 #include "textures.h"
+#include "utils.h"
 
 #include <iostream>
 #include <map>
@@ -153,9 +154,15 @@ namespace fonts2
     return TD;
   }
 
+  // TODO: finish methods here: add, render and clear
   void add(std::string text, float x, float y, float camera_type)
   {
+    fonts2::TextData tdd;
+    tdd.id = utils2::generate_id(fonts2::UsedTextIds);
+    // tdd.texture_id 
 
+
+    tdd.camera_type = camera_type;
 
   }  
 
@@ -167,7 +174,7 @@ namespace fonts2
 
   void clear()
   {
-    
+
   }
 
 

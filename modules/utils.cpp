@@ -100,6 +100,26 @@ namespace utils2
     }
   };
 
+  int _find_next_id(std::vector<int>& used_ids_table)
+  {
+    int n = used_ids_table.size();
+    // for whole vector, find value that would be bigger than (index + 1)
+    for (int i = 0; i < n; i++)
+    {
+      if (used_ids_table[i] > (i+1)){
+        return i+1;
+      }
+    }
+    return n+1;
+  }
+
+  int generate_id(std::vector<int>& used_ids_table)
+  {
+    int next_id = utils2::_find_next_id(used_ids_table);
+    used_ids_table.push_back(next_id);
+    return next_id;
+  }
+
   static void GlClearError()
   {
     while(glGetError() != GL_NO_ERROR);

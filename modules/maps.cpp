@@ -56,7 +56,7 @@ namespace maps2
           for (int c = 0; c < vertex_width; c++)
           {
             struct maps2::TileData tile;
-            tile.id = maps2::_gen_tile_id();
+            tile.id = utils2::generate_id(maps2::UsedTileIds);
 
             tile.x = c * maps2::default_tile_width;
             tile.y = r * maps2::default_tile_height;
@@ -100,27 +100,6 @@ namespace maps2
     maps2::MapQuads = quads2::make_quads(maps2::tiles, OBJECT_TYPE_MAP);
 
   };
-
-  int _find_next_tile_id()
-  {
-    int n = maps2::UsedTileIds.size();
-    for (int i = 0; i < n; i++)
-    {
-      if (maps2::UsedTileIds[i] > (i+1))
-      {
-        return i+1;
-      }
-    }
-    return n+1;
-  };
-
-  int _gen_tile_id()
-  {
-    int next_tile_id = maps2::_find_next_tile_id();
-    maps2::UsedTileIds.push_back(next_tile_id);
-    return next_tile_id;
-  };
-
 
   void clear()
   {

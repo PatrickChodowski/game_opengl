@@ -10,6 +10,7 @@
 #include "items.h"
 #include "mobs.h"
 #include "quads.h"
+#include "utils.h"
 #include "../dictionary.h"
 
 namespace entity
@@ -23,7 +24,7 @@ namespace entity
   int create(T data, int entity_type_id, float camera_type)
   { 
     entity::EntityData edd;
-    edd.id = entity::_gen_entity_id();
+    edd.id = utils2::generate_id(entity::UsedEntityIds);
     edd.texture_id = data.texture_id;
     edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
@@ -64,27 +65,6 @@ namespace entity
     quads2::clear_quads_data(entity::EntityQuads);
     entity::EntityQuads.clear();
   }
-
-  int _find_next()
-  {
-    int n = entity::UsedEntityIds.size();
-    // for whole vector, find value that would be bigger than (index + 1)
-    for (int i = 0; i < n; i++)
-    {
-      if (entity::UsedEntityIds[i] > (i+1)){
-        return i+1;
-      }
-    }
-    return n+1;
-  }
-
-  int _gen_entity_id()
-  {
-    int next_entity_id = entity::_find_next();
-    entity::UsedEntityIds.push_back(next_entity_id);
-    return next_entity_id;
-  }
-
 
   template int entity::create<hero2::HeroData>(hero2::HeroData, int, float);
   template int entity::create<items2::ItemData>(items2::ItemData, int, float);
