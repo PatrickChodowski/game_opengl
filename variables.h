@@ -7,11 +7,6 @@ namespace debug
   std::vector<quads::Quad> DebugQuads;
 }
 
-namespace fonts
-{
-  std::vector<quads::Quad> TextQuads;
-}
-
 namespace travel
 {
   struct TravelPlan

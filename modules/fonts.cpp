@@ -26,8 +26,10 @@
 
 namespace fonts2
 {
-  std::map<char, Character> character_map = {};
-
+  std::map<char, CharacterData> chars = {};
+  std::vector<quads2::QuadData> TextQuads = {};
+  std::map<int, TextData> texts = {};
+  std::vector<int> UsedTextIds = {};
 
   textures2::TextureData init(std::string font_name)
   {
@@ -116,7 +118,7 @@ namespace fonts2
         continue;
         //https://learnopengl.com/In-Practice/Text-Rendering
 
-      Character character;
+      fonts2::CharacterData character;
       character.advance_x = g->advance.x;
       character.advance_y = g->advance.y;
       character.bitmap_width = g->bitmap.width;
@@ -127,7 +129,7 @@ namespace fonts2
       character.offset = ((float)x/ (float)atlas_width);
       character.frame_id = c_id;
       character.texture_id = (int)texture_id;
-      character_map.insert(std::pair<GLchar, Character>(i, character));
+      chars.insert(std::pair<GLchar, fonts2::CharacterData>(i, character));
 
       //GLchar test_i = i;
       //std::cout << "font " << test_i << " " << character.bitmap_height << " " << character.bitmap_top << " " << character.align << std::endl;
@@ -151,8 +153,22 @@ namespace fonts2
     return TD;
   }
 
+  void add(std::string text, float x, float y, float camera_type)
+  {
 
 
+  }  
+
+  void render()
+  { 
+
+  }
+
+
+  void clear()
+  {
+    
+  }
 
 
 }
