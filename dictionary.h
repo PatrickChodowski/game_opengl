@@ -17,6 +17,7 @@
 #define OBJECT_TYPE_ENTITY 0
 #define OBJECT_TYPE_MAP 1
 #define OBJECT_TYPE_MENU 2
+#define OBJECT_TYPE_TEXT 3
 
 // joints of the item to hero's body
 #define JOINT_RIGHT_HAND 0

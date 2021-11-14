@@ -181,7 +181,7 @@ namespace quads2
 
     if(fonts2::TextQuads.size() > 0)
     {
-      quad2::AllQuads.insert(quads2::AllQuads.end(), fonts2::TextQuads.begin(), fonts2::TextQuads.end());
+      quads2::AllQuads.insert(quads2::AllQuads.end(), fonts2::TextQuads.begin(), fonts2::TextQuads.end());
     }
 
     quads2::COUNT_QUADS = quads2::AllQuads.size();
@@ -230,7 +230,7 @@ namespace quads2
 
 
   template std::vector<quads2::QuadData> quads2::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
-  //template std::vector<quads2::QuadData> quads2::make_quads<menu2::ButtonData>(std::map<int, fonts::ButtonData>, int);
+  template std::vector<quads2::QuadData> quads2::make_quads<fonts2::TextData>(std::map<int, fonts2::TextData>, int);
   template std::vector<quads2::QuadData> quads2::make_quads<maps2::TileData>(std::map<int, maps2::TileData>, int);
   template std::vector<quads2::QuadData> quads2::make_quads<menu2::ButtonData>(std::map<int, menu2::ButtonData>, int);
   
