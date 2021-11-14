@@ -100,15 +100,8 @@ namespace maps2
   // Loads selected map to game
   void init_map(int map_id);
 
-  // Finds next available tile id 
-  int _find_next_tile_id();
-
-  // Generate new tile id
-  int _gen_tile_id();
-
   // clears the currently loaded map -> erases used tiles ids and tiles catalog
   void clear();
-
 
 }
 
