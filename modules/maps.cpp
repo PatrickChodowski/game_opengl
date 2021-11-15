@@ -96,6 +96,7 @@ namespace maps2
     // paths::make_path_map();
 
     // Make map quads:
+    quads2::clear_quads_data(maps2::MapQuads);
     maps2::MapQuads.clear();
     maps2::MapQuads = quads2::make_quads(maps2::tiles, OBJECT_TYPE_MAP);
 
