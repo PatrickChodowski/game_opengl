@@ -53,6 +53,7 @@ namespace game2
       items2::put_item_on_ground(0, 600, 500);
     }
     menu2::render(level_id);
+    fonts2::render();
   }
 
   void switch_level(int level_id)
@@ -66,6 +67,7 @@ namespace game2
     maps2::clear();
     camera::reset();
     entity::clear();
+    fonts2::clear();
 
     quads2::clear_quads_data(menu2::MenuQuads);
     menu2::MenuQuads.clear();
@@ -77,7 +79,7 @@ namespace game2
   void init()
   {
     buffer2::init();
-    fonts2::init("arial");
+    fonts2::init("arial"); // its important to keep it before textures becuase of bindings
     maps2::init();
     menu2::init();
     mobs2::init();
