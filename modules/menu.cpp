@@ -2,10 +2,13 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "quads.h"
+
+#include "fonts.h"
 #include "menu.h"
 #include "mouse.h"
+#include "quads.h"
 #include "utils.h"
+
 #include "../dictionary.h"
 #include "../dependencies/json_struct.h"
 
@@ -62,8 +65,15 @@ namespace menu2
       // Recreate button data for selected level
       for(int b=0; b<button_list.size(); b++)
       {
-        level_buttons[button_list[b]] = menu2::menubuttons[button_list[b]];
+        menu2::ButtonData bdd = menu2::menubuttons[button_list[b]];
+
+        level_buttons[button_list[b]] = bdd;
+
+        // render text for this button
+        fonts2::add(bdd.label.c_str(), bdd.x, bdd.y, CAMERA_STATIC, 1.0);
       }
+
+
 
       // Should only render levels button:
       menu2::MenuQuads = quads2::make_quads(level_buttons, OBJECT_TYPE_MENU);

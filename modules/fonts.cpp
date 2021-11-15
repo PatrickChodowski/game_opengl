@@ -86,8 +86,8 @@ namespace fonts2
     int atlas_width = w;
     int atlas_height = h;
 
-    std::cout << "ATLAS WIDTH: " << atlas_width << std::endl;
-    std::cout << "ATLAS HEIGHT: " << atlas_height << std::endl;
+    //std::cout << "ATLAS WIDTH: " << atlas_width << std::endl;
+    //std::cout << "ATLAS HEIGHT: " << atlas_height << std::endl;
 
 
     // Generate texture - adds new texture id, based on what was generated before
