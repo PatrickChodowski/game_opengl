@@ -4,7 +4,8 @@
 - camera
 - collisions
 - entity
-- events1
+- events
+- fonts
 - items -> cleanup the texture/data messup
 - hero
 - maps
@@ -22,7 +23,7 @@
 - setup.h -> to remove
 
 # doing:
-- fonts -> how to render it seamlessly with current quads data approach
+- fonts
 - logger -> for now only quad printing 
 - saves
 
