@@ -3,7 +3,7 @@
   "type": "skeleton",
   "w": 100,
   "h": 128,
-  "texture_id": 6,
+  "texture_id": 7,
   "min_dmg": 1,
   "max_dmg": 5,
   "min_speed": 1,

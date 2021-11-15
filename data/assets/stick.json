@@ -1,5 +1,5 @@
 {
-  "id": 4,
+  "id": 5,
   "w": 1446,
   "h": 58,
   "type": "item",
@@ -22,5 +22,5 @@
     {'x': 1183, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -20, 'dest_offset_y': 10, 'state_id': 14} //attack
     {'x': 1274, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -14, 'dest_offset_y': 10, 'state_id': 15} //attack
     {'x': 1365, 'y': 0, 'w': 81, 'h': 58, 'dest_offset_x': -14, 'dest_offset_y': 22, 'state_id': 16} //attack
-  ]}
+  ]
 }

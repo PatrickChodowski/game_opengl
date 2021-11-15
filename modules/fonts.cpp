@@ -96,6 +96,8 @@ namespace fonts2
     glBindTexture(GL_TEXTURE_2D, texture_id);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
       
+    //std::cout << "Font texture ID: " << texture_id << std::endl;  
+
     // Set texture options
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -154,8 +156,18 @@ namespace fonts2
     TD.opengl_texture_id = texture_id;
 
     fonts2::FontTDD = TD;
+    textures2::textures[texture_id] = TD;
+    textures2::BoundTextures.push_back(TD.opengl_texture_id);
   }
 
+  // quad.v_a.tex_coord_x = offset;
+  // quad.v_a.tex_coord_y = 0.0f;
+  // quad.v_b.tex_coord_x = offset+ ((float)bitmap_width/(float)atlas_width);
+  // quad.v_b.tex_coord_y = 0.0f;
+  // quad.v_c.tex_coord_x = offset;
+  // quad.v_c.tex_coord_y = 1.0f;
+  // quad.v_d.tex_coord_x = offset + ((float)bitmap_width/(float)atlas_width);
+  // quad.v_d.tex_coord_y = 1.0f;
 
   void add(const char *text, float x, float y, float camera_type, float scale)
   {
@@ -177,12 +189,15 @@ namespace fonts2
       tdd.w = chars[*p].bitmap_width * scale;
       tdd.h = chars[*p].bitmap_height * scale;
 
-      tdd.r = 0.7;
-      tdd.g = 0.7;
-      tdd.b = 0.7;
+      tdd.r = 1.0;
+      tdd.g = 1.0;
+      tdd.b = 1.0;
       tdd.a = 1.0;
       tdd.camera_type = camera_type;
       tdd.is_clicked = false;
+
+      tdd.norm_x_start = chars[*p].offset;
+      tdd.norm_x_end = chars[*p].offset + (chars[*p].bitmap_width/FontTDD.w);
 
       // push new x for next character
       x += ((chars[*p].bitmap_width * scale)+5);

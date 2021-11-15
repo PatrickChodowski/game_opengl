@@ -67,9 +67,6 @@ namespace textures2
   // Vector of bound textures to opengl
   extern std::vector<unsigned int> BoundTextures;
 
-  // Current Font Texture data
-  extern textures2::TextureData FontTD;
-
   // Hidden method, used to load selected texture to opengl
   unsigned int _load_texture_to_opengl(unsigned int texture_id, int w, int h, int n_channels, std::string name);
 
@@ -87,6 +84,9 @@ namespace textures2
 
   // Erases all texture data
   void drop();
+
+  // Logs textures data to json file in logs
+  void log();
 
   // Calculates the normalized X position of frame start
   float _get_normalized_frame_start(int texture_id, int frame_id);

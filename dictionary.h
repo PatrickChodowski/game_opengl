@@ -1,6 +1,8 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
+#define FONT_TEXTURE_ID 1
+
 // level ids have to match data/menu IDS 
 #define MAIN_MENU_LEVEL_ID 100
 #define NEWGAME_MENU_LEVEL_ID 101

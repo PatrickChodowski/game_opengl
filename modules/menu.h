@@ -23,6 +23,7 @@ namespace menu2
     float r, g, b, a;
 
     float camera_type;
+    float norm_x_start, norm_x_end;
 
     std::string label;
     std::string name;

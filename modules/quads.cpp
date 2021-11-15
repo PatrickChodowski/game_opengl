@@ -9,6 +9,7 @@
 #include "menu.h"
 #include "quads.h"
 #include "textures.h"
+#include "../dictionary.h"
 
 
 namespace quads2
@@ -30,31 +31,28 @@ namespace quads2
     v.v3_id = gen_vertex_id();
     v.v4_id = gen_vertex_id();
 
-    float norm_x_start = textures2::_get_normalized_frame_start(q.texture_id, q.frame_id);
-    float norm_x_end = textures2::_get_normalized_frame_end(q.texture_id, q.frame_id);
-
     // A
     v.v1_x = q.x;
     v.v1_y = q.y;
-    v.v1_tx_x = norm_x_start;
+    v.v1_tx_x = q.norm_x_start;
     v.v1_tx_y = 0.0f;
 
     // B
     v.v2_x = q.x + q.w - quads2::VERTEX_OFFSET;
     v.v2_y = q.y;
-    v.v2_tx_x = norm_x_end;
+    v.v2_tx_x = q.norm_x_end;
     v.v2_tx_y = 0.0f;
 
     // C
     v.v3_x = q.x;
     v.v3_y = q.y + q.h - quads2::VERTEX_OFFSET;
-    v.v3_tx_x = norm_x_start;
+    v.v3_tx_x = q.norm_x_start;
     v.v3_tx_y = 1.0f;
 
     // D
     v.v4_x = q.x + q.w - quads2::VERTEX_OFFSET;
     v.v4_y = q.y + q.h - quads2::VERTEX_OFFSET;
-    v.v4_tx_x = norm_x_end;
+    v.v4_tx_x = q.norm_x_end;
     v.v4_tx_y = 1.0f;
 
     q.v = v;
@@ -206,10 +204,10 @@ namespace quads2
       quad.object_type_id = object_type_id;
       quad.camera_type = v.camera_type;
 
-      quad.r = 0.5;
-      quad.g = 0.5;
-      quad.b = 0.5;
-      quad.a = 1.0f;
+      quad.r = v.r;
+      quad.g = v.g;
+      quad.b = v.b;
+      quad.a = v.a;
 
       quad.x = v.x;
       quad.y = v.y;
@@ -221,6 +219,9 @@ namespace quads2
       quad.window_y = v.y;
       quad.window_h = v.h;
       quad.window_w = v.w;
+
+      quad.norm_x_start = v.norm_x_start;
+      quad.norm_x_end = v.norm_x_end;
 
       quad.is_clicked = v.is_clicked;
       quads.push_back(quad);

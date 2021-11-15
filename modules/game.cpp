@@ -102,6 +102,7 @@ namespace game2
     quads2::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger2::all_quads_to_json();
+    textures2::log();
     textures2::bind();
 
     buffer2::update(quads2::AllQuads);
@@ -109,17 +110,26 @@ namespace game2
     // buffer2::update(maps2::MapQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
+
+
     int sampler_size = (textures2::BoundTextures.size() + 1);
     int sampler[sampler_size]; 
     sampler[0] = 0;
     for (int i = 0; i < textures2::BoundTextures.size(); i++)
     {
       sampler[(i+1)] = textures2::BoundTextures[i];
-    }
+    } 
 
+    // std::cout << "sampler: ";
+    // for(int s=0; s< sampler_size; s++)
+    // {
+    //   std::cout << sampler[s] << ", ";
+    // }
+    // std::cout << std::endl;
 
     // react to camera changes
     camera::DYNAMIC_MVP = camera::gen_dynamic_mvp(-camera::cam.x, camera::cam.y, camera::cam.zoom);

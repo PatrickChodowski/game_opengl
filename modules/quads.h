@@ -71,6 +71,9 @@ namespace quads2
     float window_x, window_y;
     float window_w, window_h;
 
+    // norm x start and norm x end for text textures
+    float norm_x_start, norm_x_end;
+
     bool is_clicked;
 
   };
