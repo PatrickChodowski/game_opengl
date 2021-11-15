@@ -23,6 +23,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H  
 
+#include "../dictionary.h"
 
 
 namespace fonts2
@@ -31,8 +32,9 @@ namespace fonts2
   std::vector<quads2::QuadData> TextQuads = {};
   std::map<int, TextData> texts = {};
   std::vector<int> UsedTextIds = {};
+  textures2::TextureData FontTDD;
 
-  textures2::TextureData init(std::string font_name)
+  void init(std::string font_name)
   {
     /*
       Init opens font file .ttf and reads-in all character glyphs into character map and texture that will be later sent to OpenGL 
@@ -151,31 +153,59 @@ namespace fonts2
     TD.h = atlas_height;
     TD.opengl_texture_id = texture_id;
 
-    return TD;
+    fonts2::FontTDD = TD;
   }
 
-  // TODO: finish methods here: add, render and clear
-  void add(std::string text, float x, float y, float camera_type)
+
+  void add(const char *text, float x, float y, float camera_type, float scale)
   {
-    fonts2::TextData tdd;
-    tdd.id = utils2::generate_id(fonts2::UsedTextIds);
-    // tdd.texture_id 
+    for(const char *p = text; *p; p++) 
+    { 
+      /* Skip glyphs that have no pixels */
+      if(!chars[*p].bitmap_width * scale || !chars[*p].bitmap_height * scale)
+      {
+        continue;
+      }
 
+      fonts2::TextData tdd;
+      tdd.id = utils2::generate_id(fonts2::UsedTextIds);
+      tdd.texture_id = chars[*p].texture_id;
+      tdd.frame_id = chars[*p].frame_id;
 
-    tdd.camera_type = camera_type;
+      tdd.x = x + chars[*p].bitmap_left * scale;
+      tdd.y = y - ((chars[*p].bitmap_height - chars[*p].align) * scale);
+      tdd.w = chars[*p].bitmap_width * scale;
+      tdd.h = chars[*p].bitmap_height * scale;
 
+      tdd.r = 0.7;
+      tdd.g = 0.7;
+      tdd.b = 0.7;
+      tdd.a = 1.0;
+      tdd.camera_type = camera_type;
+      tdd.is_clicked = false;
+
+      // push new x for next character
+      x += ((chars[*p].bitmap_width * scale)+5);
+      fonts2::texts[tdd.id] = tdd;
+    }
   }  
 
   void render()
   { 
-
+    quads2::clear_quads_data(fonts2::TextQuads);
+    fonts2::TextQuads.clear();
+    fonts2::TextQuads = quads2::make_quads(fonts2::texts, OBJECT_TYPE_TEXT);
   }
 
 
   void clear()
   {
-
+    quads2::clear_quads_data(fonts2::TextQuads);
+    fonts2::TextQuads.clear();
+    fonts2::texts.clear();
+    fonts2::UsedTextIds.clear();
   }
 
 
 }
+

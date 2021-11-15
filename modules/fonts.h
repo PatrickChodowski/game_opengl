@@ -25,7 +25,7 @@ namespace fonts2
     float align;
   };
 
-  // Stores in-game string data -> text, id, position, color, 
+  // Stores in-game character data -> text, id, position, color, 
   struct TextData
   {
     int id;
@@ -52,14 +52,17 @@ namespace fonts2
   // Map of text_id, TextData
   extern std::map<int, TextData> texts;
 
+  // Font's texture data 
+  extern textures2::TextureData FontTDD;
+
   // Initialize font texture and characters catalog
-  textures2::TextureData init(std::string font_name);
+  void init(std::string font_name);
 
-  // Add the string to the texts catalog
-  void add(std::string text, float x, float y, float camera_type);
+  // Add the text to render
+  void add(const char *text, float x, float y, float camera_type, float scale);
 
-  // Render strings from the map
-  void render(std::string text);
+  // Render charcters from the texts map
+  void render();
 
   // Clear all texts related data
   void clear();
