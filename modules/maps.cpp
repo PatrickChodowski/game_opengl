@@ -4,6 +4,7 @@
 #include <vector>
 #include "quads.h"
 #include "maps.h"
+#include "textures.h"
 #include "utils.h"
 #include "../dictionary.h"
 
@@ -69,6 +70,9 @@ namespace maps2
             tile.camera_type = CAMERA_DYNAMIC;
             tile.is_clicked = false;
             tile.is_solid = false;
+
+            tile.norm_x_start = textures2::_get_normalized_frame_start(texture_id, tile.frame_id);
+            tile.norm_x_end = textures2::_get_normalized_frame_end(texture_id, tile.frame_id);
 
             // if frame_id is between 10 and 20, then its solid (11-19)
             if(tile.frame_id > 10 && tile.frame_id < 20)

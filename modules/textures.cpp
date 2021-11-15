@@ -1,7 +1,9 @@
+#include "fonts.h"
 #include "textures.h"
 #include "utils.h"
 
 #include <iostream>
+#include <fstream>
 #include <map>
 #include <string>
 #include <vector>
@@ -20,11 +22,12 @@
     #include <GL/glu.h>
 #endif
 
+#include "../dictionary.h"
+
 namespace textures2
 {
   std::map<int, textures2::TextureData> textures = {};
   std::vector<unsigned int> BoundTextures = {};
-  textures2::TextureData FontTD;
 
   unsigned int _load_texture_to_opengl(unsigned int texture_id, int w, int h, int n_channels, std::string name)
   {
@@ -37,8 +40,10 @@ namespace textures2
       std::cout << "Error while loading texture from " << texture_path << std::endl;
     };
 
+    // std::cout << "texture id before " << texture_id << std::endl;
     glGenTextures(1, &texture_id); 
     glBindTexture(GL_TEXTURE_2D, texture_id); 
+    // std::cout << "texture id after " << texture_id << std::endl;
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);	
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -96,12 +101,14 @@ namespace textures2
                                                                         textures2::textures[texture_id].name);
     textures2::textures[texture_id].opengl_texture_id = opengl_texture_id;
     textures2::BoundTextures.push_back(textures2::textures[texture_id].opengl_texture_id);
+
   };
 
   void bind()
   {
     for(int t=0; t<textures2::BoundTextures.size(); t++)
     {
+      //std::cout << " Binding texture " <<  textures2::BoundTextures[t] << std::endl;
       // which texture slot we are actually binding 
       // first slot -> GL_TEXTURE0
       // Max 32, but depends on platform
@@ -122,7 +129,10 @@ namespace textures2
     // load to opengl by texture_id
     for (auto const &x : textures2::textures)
     {
-      textures2::load(x.first);
+      if(x.first != FONT_TEXTURE_ID)
+      {
+        textures2::load(x.first);
+      }
     }
   };
 
@@ -146,5 +156,37 @@ namespace textures2
     textures2::TextureData tdd = textures2::textures[texture_id];
     return (tdd.frames[frame_id].x + tdd.frames[frame_id].w)/tdd.w;
   };
+
+
+  void log()
+  {
+    const char* log_path = "logs/textures.json";
+    std::ofstream log_file (log_path);
+    std::string end_str = " }, \n";
+    if (log_file.is_open())
+    {
+      log_file << "[ \n";
+      for (auto const& [k, v] : textures2::textures)
+      {
+        // if(i == (textures2::textures.size() - 1))
+        // {
+        //   end_str = " } \n";
+        // }
+
+        log_file << " { \n" <<
+                      "    \"key\": " << k                                  << ",\n"
+                      "    \"id\": " << v.id                                << ",\n"
+                      "    \"opengl_texture_id\": " << v.opengl_texture_id  << ",\n"
+                      "    \"w\": " << v.w                                  << ",\n"
+                      "    \"h\": " << v.h                                  << ",\n"
+                      "    \"type\": " << v.type                            << ",\n"
+                      "    \"name\": " << v.name                            << " \n"
+                      << " } \n";
+      }
+      log_file << "] \n";
+      log_file.close();
+    }
+  }
+
 
 }

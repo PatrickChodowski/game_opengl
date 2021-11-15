@@ -10,6 +10,7 @@
 #include "items.h"
 #include "mobs.h"
 #include "quads.h"
+#include "textures.h"
 #include "utils.h"
 #include "../dictionary.h"
 
@@ -38,6 +39,10 @@ namespace entity
     edd.camera_type = camera_type;
     edd.is_solid = true;
     edd.is_clicked = false;
+
+    edd.norm_x_start = textures2::_get_normalized_frame_start(data.texture_id, data.current_frame);
+    edd.norm_x_end = textures2::_get_normalized_frame_end(data.texture_id, data.current_frame);
+
     entity::entities[edd.id] = edd;
     return edd.id;
   }

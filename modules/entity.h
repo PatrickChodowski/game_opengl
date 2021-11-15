@@ -18,14 +18,15 @@ namespace entity
     int entity_type_id;
 
     // original space
-    float x;
-    float y;
-    float h;
-    float w;
-    float mid_x;
-    float mid_y;
+    float x, y;
+    float h, w;
+    float r, g, b, a;
+
+    float mid_x, mid_y;
     float diag;
     float camera_type;
+
+    float norm_x_start, norm_x_end;
     
     bool is_solid;
     bool is_clicked;

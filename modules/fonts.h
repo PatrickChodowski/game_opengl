@@ -37,6 +37,15 @@ namespace fonts2
 
     float r, g, b, a;
     float camera_type;
+
+    float norm_x_start, norm_x_end;
+
+    float char_width;
+    float char_height;
+    float atlas_width;
+    float atlas_height;
+    float offset;
+
     bool is_clicked;
   };
 

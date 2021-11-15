@@ -36,10 +36,6 @@ int main()
   utils2::check_glew(err);
   game2::init();
 
-    //   textures::FontTD = fonts::init(FONT_NAME);
-    // textures::Catalog.insert({textures::FontTD.opengl_texture_id, textures::FontTD});
-    // textures::BoundTextures.push_back(textures::FontTD.opengl_texture_id);
-
   while(game2::RUNNING)
   {
     auto game_loop_start_time = std::chrono::system_clock::now();

@@ -18,13 +18,15 @@ namespace maps2
     int frame_id;
     int camera_type;
 
-    float x;
-    float y;
-    float h;
-    float w;
+    float x, y;
+    float h, w;
+    float r, g, b, a;
+
     float mid_x;
     float mid_y;
     float diag;
+
+    float norm_x_start, norm_x_end;
 
     // collision boxes
     std::map<int, collisions::AABB> abs;

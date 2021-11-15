@@ -49,6 +49,8 @@ namespace logger2
                       "    \"window_y\": " << quads2::AllQuads[i].window_y             << ",\n"
                       "    \"window_w\": " << quads2::AllQuads[i].window_w             << ",\n"
                       "    \"window_h\": " << quads2::AllQuads[i].window_h             << ",\n"
+                      "    \"norm_x_start\": " << quads2::AllQuads[i].norm_x_start     << ",\n"
+                      "    \"norm_x_end\": " << quads2::AllQuads[i].norm_x_end         << ",\n"
                       "    \"is_clicked\": " << quads2::AllQuads[i].is_clicked         << "\n"
                       << end_str;
       }

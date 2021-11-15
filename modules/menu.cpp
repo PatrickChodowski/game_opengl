@@ -31,6 +31,12 @@ namespace menu2
     BD.camera_type = CAMERA_STATIC;
     BD.frame_id = 0;
     BD.is_clicked = 0;
+    BD.r = 0.5;
+    BD.g = 0.5;
+    BD.b = 0.5;
+    BD.a = 0.5;
+    BD.norm_x_start = 0;
+    BD.norm_x_end = 0;
     menu2::menubuttons.insert({BD.id, BD});
   };
 
