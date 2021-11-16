@@ -1,0 +1,17 @@
+{
+    "x" : 0.0,
+    "y" : 0.0,
+    "w" : 1.6532469e-1,
+    "h" : 4.569e-41,
+    "exp" : 0.0,
+    "speed" : 6.0,
+    "hp" : 100.0,
+    "dmg" : 20.0,
+    "def" : 100.0,
+    "map_id" : 2,
+    "texture_id" : 4,
+    "level" : 1,
+    "mobs_killed" : 0,
+    "name" : "john",
+    "type" : "barbarian"
+}

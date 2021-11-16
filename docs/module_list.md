@@ -9,10 +9,11 @@
 - items -> cleanup the texture/data messup
 - hero
 - maps
-- menu
+- menu -> add clicking events
 - mobs
 - mouse
 - quads 
+- saves
 - shaders
 - textures
 - timer -> figure whats wrong with timer? -> templates
@@ -23,12 +24,10 @@
 
 # doing:
 - logger -> for now only quad printing 
-- saves
+- debug
 
 # todo:
 - anims
-- gui
-- debug
 - navmesh
 - pathfinder
 - travel

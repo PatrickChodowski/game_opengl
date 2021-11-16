@@ -110,10 +110,5 @@ namespace nav
   std::vector<std::vector<int>> NavMeshGraph;
 }
 
-namespace gui
-{
-  std::map<int, int> CurrentGuiWindows;
-  std::vector<quads::Quad> GuiQuads;
-}
 
 #endif

@@ -28,6 +28,8 @@ namespace saves2
     SaveData sd;
     sd.x = camera::cam.x;
     sd.y = camera::cam.y;
+    sd.w = hero2::hero.w;
+    sd.h = hero2::hero.h;
     sd.map_id = hero2::hero.map_id;
     sd.name = hero2::hero.name;
     sd.type = hero2::hero.type;
@@ -55,6 +57,7 @@ namespace saves2
     context.parseTo(SD);
 
     hero2::hero.name = SD.name;
+    hero2::hero.type = SD.type;
     camera::cam.x = SD.x;
     camera::cam.y = SD.y;
     camera::cam.speed = SD.speed;
