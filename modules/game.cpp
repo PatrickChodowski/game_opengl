@@ -101,8 +101,7 @@ namespace game2
     entity::render();
     quads2::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
-    logger2::all_quads_to_json();
-    textures2::log();
+    logger2::log();
     textures2::bind();
 
     buffer2::update(quads2::AllQuads);
