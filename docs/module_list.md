@@ -20,7 +20,6 @@
 - main
 
 - variables.h -> to remove
-- setup.h -> to remove
 
 # doing:
 - logger -> for now only quad printing 
