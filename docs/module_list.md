@@ -23,7 +23,6 @@
 - setup.h -> to remove
 
 # doing:
-- fonts
 - logger -> for now only quad printing 
 - saves
 

@@ -120,6 +120,9 @@ namespace quads2
   template <typename T>
   std::vector<quads2::QuadData> make_quads(std::map<int, T> data, int object_type_id);
 
+  // Writes down the quads data to ./logs/all_quads.json on every frame
+  void log();
+
 }
 
 #endif
