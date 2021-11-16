@@ -17,6 +17,7 @@ output: game
 	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/quads.cpp \
+	modules/saves.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
 	modules/timer.cpp \
@@ -42,6 +43,7 @@ output: game
 	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/quads.cpp \
+	modules/saves.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
 	modules/timer.cpp \

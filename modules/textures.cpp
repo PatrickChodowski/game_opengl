@@ -157,6 +157,7 @@ namespace textures2
     return (tdd.frames[frame_id].x + tdd.frames[frame_id].w)/tdd.w;
   };
 
+  // not the clearest json from here
   void log()
   {
     const char* log_path = "logs/textures.json";
@@ -180,7 +181,7 @@ namespace textures2
                       "    \"h\": " << v.h                                  << ",\n"
                       "    \"type\": " << v.type                            << ",\n"
                       "    \"name\": " << v.name                            << " \n"
-                      << " } \n";
+                      << end_str;
       }
       log_file << "] \n";
       log_file.close();
