@@ -1,5 +1,4 @@
 #include <SDL2/SDL.h>
-#include "../dictionary.h"
 
 #include "camera.h"
 #include "events.h"
@@ -7,6 +6,9 @@
 #include "hero.h"
 #include "menu.h"
 #include "mouse.h"
+#include "saves.h"
+
+#include "../dictionary.h"
 
 namespace events2
 {
@@ -58,7 +60,7 @@ namespace events2
       break;
 
       case SDLK_s:
-        //saves::save_game();
+        saves2::save_game();
       break;
 
       case SDLK_p:

@@ -29,14 +29,14 @@ namespace hero2
     int current_movement_state;
     int texture_id;
     int level;
+    int mobs_killed;
 
     // statistics
-    int exp;
-    int speed;
-    int hp;
-    int dmg;
-    int def;
-    int mobs_killed;
+    float exp;
+    float speed;
+    float hp;
+    float dmg;
+    float def;
 
     // personal information
     std::string name;
@@ -52,7 +52,6 @@ namespace hero2
 
   // Loads hero struct information from save 
   void _load_from_save(std::string save_name);
-
 
   // Creates new character of certain type. Will have default stats
   void create_new(std::string name, std::string type);

@@ -31,8 +31,8 @@ namespace saves2
     std::string name;
     std::string type;
 
-    JS_OBJ(x, y, map_id, name, type, texture_id, 
-    level, exp, speed, hp,dmg,def,mobs_killed);
+    JS_OBJ(x, y, w, h, exp, speed, hp, dmg, def, map_id, texture_id, 
+    level, mobs_killed, name, type);
   };
 
   // Writes the save json file to saves firectory
