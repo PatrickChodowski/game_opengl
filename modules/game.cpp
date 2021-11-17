@@ -101,6 +101,8 @@ namespace game2
     entity::render();
     menu2::render();
     quads2::accumulate();
+
+    
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger2::log();
     textures2::bind();

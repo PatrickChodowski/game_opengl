@@ -75,7 +75,7 @@ namespace menu2
         menu2::CurrentMenuButtons[button_list[b]] = bdd;
 
         // Add text for this button
-        fonts2::add(bdd.label.c_str(), bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
+        fonts2::add(bdd.label.c_str(), bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0, bdd.temp_label);
       }
     }
   };

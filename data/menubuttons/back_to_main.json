@@ -4,10 +4,11 @@
     "y": 420,
     "w": 300,
     "h": 80,
-    "label": "Back_to_main",
+    "label": "Back",
     "name": "back_to_main",
     "r_col": 0.5,
     "g_col": 0.5,
     "b_col": 0.5,
-    "a_col": 0.5
+    "a_col": 0.5,
+    "temp_label": 0
    }

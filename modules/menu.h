@@ -29,8 +29,9 @@ namespace menu2
     std::string name;
 
     bool is_clicked;
+    bool temp_label;
 
-    JS_OBJ(id, x, y, w, h, r, g, b, a, label, name);
+    JS_OBJ(id, x, y, w, h, r, g, b, a, label, name, temp_label);
 
   };
 
