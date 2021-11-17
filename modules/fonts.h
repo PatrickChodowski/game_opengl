@@ -61,6 +61,9 @@ namespace fonts2
   // Map of text_id, TextData
   extern std::map<int, TextData> texts;
 
+  // Map of temporary text_id, TextData
+  extern std::map<int, TextData> temptexts;
+
   // Font's texture data 
   extern textures2::TextureData FontTDD;
 
@@ -68,7 +71,7 @@ namespace fonts2
   void init(std::string font_name);
 
   // Add the text to render
-  void add(const char *text, float x, float y, float camera_type, float scale);
+  void add(const char *text, float x, float y, float camera_type, float scale, bool temp);
 
   // Render charcters from the texts map
   void render();

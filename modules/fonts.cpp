@@ -31,6 +31,7 @@ namespace fonts2
   std::map<char, CharacterData> chars = {};
   std::vector<quads2::QuadData> TextQuads = {};
   std::map<int, TextData> texts = {};
+  std::map<int, TextData> temptexts = {};
   std::vector<int> UsedTextIds = {};
   textures2::TextureData FontTDD;
 
@@ -169,7 +170,7 @@ namespace fonts2
   // quad.v_d.tex_coord_x = offset + ((float)bitmap_width/(float)atlas_width);
   // quad.v_d.tex_coord_y = 1.0f;
 
-  void add(const char *text, float x, float y, float camera_type, float scale)
+  void add(const char *text, float x, float y, float camera_type, float scale, bool temp = false)
   {
     for(const char *p = text; *p; p++) 
     { 
@@ -201,7 +202,15 @@ namespace fonts2
 
       // push new x for next character
       x += ((chars[*p].bitmap_width * scale)+5);
-      fonts2::texts[tdd.id] = tdd;
+
+      // Assign to different table, dependent if the label will change every frame (temporary) or not
+      if(temp)
+      {
+        fonts2::temptexts[tdd.id] = tdd;
+      } else 
+      {
+        fonts2::texts[tdd.id] = tdd;
+      }
     }
   }  
 

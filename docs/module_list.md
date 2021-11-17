@@ -5,7 +5,7 @@
 - collisions
 - entity
 - events
-- fonts
+- fonts -> need replaceable and non replaceable fonts? TODO -> figure out how to handle changing labels next to not changing labels
 - game -> make sure the level cleans up properly
 - hero
 - items
