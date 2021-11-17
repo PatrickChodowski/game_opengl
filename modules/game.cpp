@@ -53,7 +53,7 @@ namespace game2
       mobs2::spawn(level_id);
       items2::put_item_on_ground(0, 600, 500);
     }
-    menu2::render(level_id);
+    menu2::load(level_id);
     fonts2::render();
   }
 
@@ -69,12 +69,9 @@ namespace game2
     camera::reset();
     entity::clear();
     fonts2::clear();
-
-    quads2::clear_quads_data(menu2::MenuQuads);
-    menu2::MenuQuads.clear();
+    menu2::clear();
 
     // saves::save()
-
   }
 
   void init()
@@ -102,6 +99,7 @@ namespace game2
   void update()
   {
     entity::render();
+    menu2::render();
     quads2::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger2::log();
