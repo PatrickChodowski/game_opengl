@@ -1,3 +1,5 @@
+
+#include "menu.h"
 #include "mouse.h"
 #include "quads.h"
 
@@ -12,44 +14,45 @@ namespace mouse2
 
   std::map <int , sig_ptr> click = {};
 
-  void _find_clicked_quads(float click_x, float click_y)
+  void _find_clicked_quads(float click_x, float click_y, int mouse_button_id)
   {
-    int quad_id;
     for(auto q : quads2::AllQuads)
     {
       if((q.window_x <= click_x) & (click_x < q.window_x+q.window_w) & (click_y >= q.window_y & click_y < q.window_y + q.window_h))
       {
-        std::cout << "Clicked on quad: " << q.id 
-                  << " object ID: " << q.object_id 
-                  << " object type id " << q.object_type_id 
-                  << std::endl;
-
-        mouse2::click[q.object_type_id](q.object_id);
+        std::cout << " Clicked on quad: " << q.id  << std::endl;
+        //           << " object ID: " << q.object_id 
+        //           << " object type id " << q.object_type_id 
+        //           << " mouse button id " << mouse_button_id 
+        //           << std::endl;
+        mouse2::click[q.object_type_id](q.object_id, mouse_button_id);
       }
     };
   }
 
-  // how to handle different types of click -> on menu, on map, on entity, left click, right click etc.
-
-
-  void _click_menu(int object_id)
+  // TODO: recognize which menu button was clicked, run some logic dependent on this
+  void _click_menu(int object_id, int mouse_button_id)
   {
-    std::cout << "Clicked on menu object id: " << object_id << std::endl;
+    std::cout << "Clicked on menu object id: " << object_id << " with button id: " << mouse_button_id << std::endl;
+
+    // menu2::me
+
+
   };
 
-  void _click_entity(int object_id)
+  void _click_entity(int object_id, int mouse_button_id)
   {
-    std::cout << "Clicked on entity object id: " << object_id << std::endl;
+    std::cout << "Clicked on entity object id: " << object_id  << " with button id: " << mouse_button_id <<  std::endl;
   };
 
-  void _click_map(int object_id)
+  void _click_map(int object_id, int mouse_button_id)
   {
-    std::cout << "Clicked on map object id: " << object_id << std::endl;
+    std::cout << "Clicked on map object id: " << object_id << " with button id: " << mouse_button_id << std::endl;
   };
 
-  void _click_text(int object_id)
+  void _click_text(int object_id, int mouse_button_id)
   {
-    std::cout << "Clicked on text object id: " << object_id << std::endl;
+    std::cout << "Clicked on text object id: " << object_id<< " with button id: " << mouse_button_id << std::endl;
   };
 
 
@@ -76,12 +79,13 @@ namespace mouse2
     switch (b.button)
     {
       case SDL_BUTTON_LEFT:
-        mouse2::print_mouse(e, "Left");
-        mouse2::_find_clicked_quads(e.x, e.y);
+        // mouse2::print_mouse(e, "Left");
+        mouse2::_find_clicked_quads(e.x, e.y, MOUSE_BUTTON_LEFT);
       break;
 
       case SDL_BUTTON_RIGHT:
-        print_mouse(e, "Right");
+        // print_mouse(e, "Right");
+        mouse2::_find_clicked_quads(e.x, e.y, MOUSE_BUTTON_RIGHT);
       break;
 
       case SDL_BUTTON_MIDDLE:

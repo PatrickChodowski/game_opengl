@@ -3,6 +3,10 @@
 
 #define FONT_TEXTURE_ID 1
 
+// Mouse buttons
+#define MOUSE_BUTTON_LEFT 0
+#define MOUSE_BUTTON_RIGHT 1
+
 // level ids have to match data/menu IDS 
 #define MAIN_MENU_LEVEL_ID 100
 #define NEWGAME_MENU_LEVEL_ID 101
