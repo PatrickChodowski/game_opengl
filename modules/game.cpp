@@ -80,6 +80,7 @@ namespace game2
   {
     buffer2::init();
     fonts2::init("arial"); // its important to keep it before textures becuase of bindings
+    items2::init();
     maps2::init();
     menu2::init();
     mobs2::init();

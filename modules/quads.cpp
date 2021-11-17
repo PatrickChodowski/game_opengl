@@ -234,7 +234,7 @@ namespace quads2
 
   void log()
   {
-    const char* log_path = "logs/textures.json";
+    const char* log_path = "logs/quads.json";
     std::ofstream quads_file (log_path);
     std::string end_str = " }, \n";
     if (quads_file.is_open())
