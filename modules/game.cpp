@@ -18,6 +18,7 @@
 #include "maps.h"
 #include "menu.h"
 #include "mobs.h"
+#include "mouse.h"
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
@@ -84,6 +85,7 @@ namespace game2
     maps2::init();
     menu2::init();
     mobs2::init();
+    mouse2::init();
     shaders2::init();
     textures2::init();
     // hero2::create_new("john","barbarian");
