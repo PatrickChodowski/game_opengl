@@ -97,12 +97,12 @@ namespace menu2
 
   void _click_load_game()
   {
-
+    game2::switch_level(LOADGAME_MENU_LEVEL_ID);
   };
 
   void _click_settings()
   {
-
+    game2::switch_level(SETTINGS_MENU_LEVEL_ID);
   };
 
   void _click_exit()
@@ -112,7 +112,8 @@ namespace menu2
 
   void _click_newgame_name()
   {
-    game2::switch_level(2);
+    game2::clear_level();
+    game2::init_level(2, true);
   }
 
   void _click_back()
