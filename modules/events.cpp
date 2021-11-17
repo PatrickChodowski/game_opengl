@@ -1,7 +1,9 @@
+#include <iostream>
 #include <SDL2/SDL.h>
 
 #include "camera.h"
 #include "events.h"
+#include "fonts.h"
 #include "game.h"
 #include "hero.h"
 #include "menu.h"
@@ -115,7 +117,8 @@ namespace events2
           game2::switch_level(MAIN_MENU_LEVEL_ID);  
         break;
     }
-
+    std::cout << "tutaj?" << std::endl;
+    fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
   };
 
   void _handle_load_game_menu_input(SDL_Keycode key)
@@ -142,6 +145,8 @@ namespace events2
   void handle_events(SDL_Event event)
   {
     // Possible values: 100, 101, 102, 103, 200
+    // doesnt work when on menu
+    // Should it be stored on game::level_id? - less confusing
     int lvlid = _check_if_menu(hero2::hero.map_id);
 
     while (SDL_PollEvent(&event))
@@ -167,6 +172,7 @@ namespace events2
         break;
 
         case SDL_KEYDOWN: 
+        std::cout << "levlid: " << lvlid << std::endl;
           switch (lvlid)
           {
             case IN_GAME_LEVEL_ID:

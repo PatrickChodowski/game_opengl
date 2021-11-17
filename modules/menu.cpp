@@ -72,10 +72,12 @@ namespace menu2
       for(int b=0; b<button_list.size(); b++)
       {
         menu2::ButtonData bdd = menu2::menubuttons[button_list[b]];
+        bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
+        if(bdd.id == MENU_BUTTON_NEWGAME_NAME)
+        {
+          fonts2::NEW_GAME_LABEL_ID = bdd.id;
+        }
         menu2::CurrentMenuButtons[button_list[b]] = bdd;
-
-        // Add text for this button
-        fonts2::add(bdd.label.c_str(), bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0, bdd.temp_label);
       }
     }
   };

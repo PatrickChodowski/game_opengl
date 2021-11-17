@@ -31,9 +31,11 @@ namespace fonts2
   std::map<char, CharacterData> chars = {};
   std::vector<quads2::QuadData> TextQuads = {};
   std::map<int, TextData> texts = {};
-  std::map<int, TextData> temptexts = {};
+  std::map<int, LabelData> labels;
   std::vector<int> UsedTextIds = {};
+  std::vector<int> UsedLabelIds = {};
   textures2::TextureData FontTDD;
+  int NEW_GAME_LABEL_ID = 0;
 
   void init(std::string font_name)
   {
@@ -159,67 +161,64 @@ namespace fonts2
     fonts2::FontTDD = TD;
     textures2::textures[texture_id] = TD;
     textures2::BoundTextures.push_back(TD.opengl_texture_id);
-  }
+  };
 
-  // quad.v_a.tex_coord_x = offset;
-  // quad.v_a.tex_coord_y = 0.0f;
-  // quad.v_b.tex_coord_x = offset+ ((float)bitmap_width/(float)atlas_width);
-  // quad.v_b.tex_coord_y = 0.0f;
-  // quad.v_c.tex_coord_x = offset;
-  // quad.v_c.tex_coord_y = 1.0f;
-  // quad.v_d.tex_coord_x = offset + ((float)bitmap_width/(float)atlas_width);
-  // quad.v_d.tex_coord_y = 1.0f;
-
-  void add(const char *text, float x, float y, float camera_type, float scale, bool temp = false)
+  int add(std::string& text, float x_start, float y_start, float camera_type, float scale)
   {
-    for(const char *p = text; *p; p++) 
-    { 
-      /* Skip glyphs that have no pixels */
-      // if(!chars[*p].bitmap_width * scale || !chars[*p].bitmap_height * scale)
-      // {
-      //   continue;
-      // }
+    fonts2::LabelData ldd;
+    ldd.id = utils2::generate_id(fonts2::UsedLabelIds);
+    ldd.text = text;
+    ldd.x_start = x_start;
+    ldd.y_start = y_start;
+    ldd.camera_type = camera_type;
+    ldd.scale = scale;
+    labels[ldd.id] = ldd;
+    return ldd.id;
+  };
 
+  void render_chars(fonts2::LabelData ldd)
+  { 
+    float x = ldd.x_start;
+    float y = ldd.y_start;
+
+    for(const char *p = ldd.text.c_str(); *p; p++) 
+    { 
       fonts2::TextData tdd;
       tdd.id = utils2::generate_id(fonts2::UsedTextIds);
       tdd.texture_id = chars[*p].texture_id;
       tdd.frame_id = chars[*p].frame_id;
 
-      tdd.x = x + chars[*p].bitmap_left * scale;
-      tdd.y = y - ((chars[*p].bitmap_height - chars[*p].align) * scale);
-      tdd.w = chars[*p].bitmap_width * scale;
-      tdd.h = chars[*p].bitmap_height * scale;
+      tdd.x = x + chars[*p].bitmap_left * ldd.scale;
+      tdd.y = y - ((chars[*p].bitmap_height - chars[*p].align) * ldd.scale);
+      tdd.w = chars[*p].bitmap_width * ldd.scale;
+      tdd.h = chars[*p].bitmap_height * ldd.scale;
 
       tdd.r = 1.0;
       tdd.g = 1.0;
       tdd.b = 1.0;
       tdd.a = 1.0;
-      tdd.camera_type = camera_type;
+      tdd.camera_type = ldd.camera_type;
       tdd.is_clicked = false;
 
       tdd.norm_x_start = chars[*p].offset;
       tdd.norm_x_end = chars[*p].offset + (chars[*p].bitmap_width/FontTDD.w);
 
-      // push new x for next character
-      x += ((chars[*p].bitmap_width * scale)+5);
-
-      // Assign to different table, dependent if the label will change every frame (temporary) or not
-      if(temp)
-      {
-        fonts2::temptexts[tdd.id] = tdd;
-      } else 
-      {
-        fonts2::texts[tdd.id] = tdd;
-      }
+      x += ((chars[*p].bitmap_width * ldd.scale)+5);
+      fonts2::texts[tdd.id] = tdd;
     }
-  }  
+  };
 
   void render()
   { 
+    fonts2::texts.clear();
+    for (auto const& [k, v] : fonts2::labels)
+    {
+      fonts2::render_chars(v);
+    } 
     quads2::clear_quads_data(fonts2::TextQuads);
     fonts2::TextQuads.clear();
     fonts2::TextQuads = quads2::make_quads(fonts2::texts, OBJECT_TYPE_TEXT);
-  }
+  };
 
 
   void clear()
@@ -227,8 +226,10 @@ namespace fonts2
     quads2::clear_quads_data(fonts2::TextQuads);
     fonts2::TextQuads.clear();
     fonts2::texts.clear();
+    fonts2::labels.clear();
     fonts2::UsedTextIds.clear();
-  }
+    fonts2::UsedLabelIds.clear();
+  };
 
 
 }

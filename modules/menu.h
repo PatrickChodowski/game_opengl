@@ -17,6 +17,7 @@ namespace menu2
     int id;
     int texture_id;
     int frame_id;
+    int label_id;
 
     float x,y;
     float w,h;
