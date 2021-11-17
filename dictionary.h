@@ -15,7 +15,6 @@
 #define MENU_BUTTON_NEWGAME_NAME 4
 #define MENU_BUTTON_BACK 5
 
-
 // level ids have to match data/menu IDS 
 #define MAIN_MENU_LEVEL_ID 100
 #define NEWGAME_MENU_LEVEL_ID 101
