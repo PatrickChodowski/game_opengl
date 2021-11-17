@@ -11,7 +11,7 @@
 - items
 - main
 - maps
-- menu -> add clicking events
+- menu -> TODO: NewGameName logic, starting new game, listing saves and loading the saves
 - mobs
 - mouse
 - quads 
