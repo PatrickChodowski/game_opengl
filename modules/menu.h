@@ -41,11 +41,16 @@ namespace menu2
     JS_OBJ(id, buttons);
   };
 
+  typedef void (*sig_ptr)();
+  // Catalog of functions to be chosen based on the button id
+  extern std::map <int , sig_ptr> ClickButton;
+
   extern std::vector<std::string> saves;
 
   // Map of LevelID (100,101,102 and buttons: (std::vector<int> buttons))
   extern std::map<int, menu2::MenuData> menus;
   extern std::map<int, menu2::ButtonData> menubuttons;
+  extern std::map<int, menu2::ButtonData> CurrentMenuButtons;
   extern std::vector<quads2::QuadData> MenuQuads;
   extern std::string NewGameName;
 
@@ -61,11 +66,32 @@ namespace menu2
   // Lists saves file to menu2::saves;
   void list_saves();
 
-  // Create quads for selected level. Levels 100, 101, 102 etc. mean menus
-  void render(int level_id);
+  // Load correct menu buttons to CurrentMenuButtons for selected level. Levels 100, 101, 102 etc. mean menus
+  void load(int level_id);
+
+  // Make quads out of CurrentMenuButtons
+  void render();
+
+  // Logic of what happens after clicking on new game
+  void _click_new_game();
+
+  // Logic of what happens after clicking on load game 
+  void _click_load_game();
+
+  // Logic of what happens after clicking on settings
+  void _click_settings();
+
+  // Logic of what happens after clicking on exit
+  void _click_exit();
+
+  // Logic of what happens after clicking on newgame_name
+  void _click_newgame_name();
+
+  // Logic of what happens after clicking on back to main menu button
+  void _click_back();
 
   // Removes all menu data
-  void drop();
+  void clear();
 
   // Method to validate input in new character menu
   bool _validate_input(std::string input);

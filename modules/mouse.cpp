@@ -30,9 +30,9 @@ namespace mouse2
   void _click_menu(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on menu object id: " << object_id << " with button id: " << mouse_button_id << std::endl;
-
-    // menu2::me
-
+    std::cout << "is clicked current value: " <<  menu2::CurrentMenuButtons[object_id].is_clicked << std::endl;
+    menu2::CurrentMenuButtons[object_id].is_clicked = !menu2::CurrentMenuButtons[object_id].is_clicked;
+    menu2::ClickButton[object_id]();
 
   };
 

@@ -7,6 +7,15 @@
 #define MOUSE_BUTTON_LEFT 0
 #define MOUSE_BUTTON_RIGHT 1
 
+// Menu buttons IDs
+#define MENU_BUTTON_NEWGAME 0
+#define MENU_BUTTON_LOADGAME 1
+#define MENU_BUTTON_SETTINGS 2
+#define MENU_BUTTON_EXIT 3
+#define MENU_BUTTON_NEWGAME_NAME 4
+#define MENU_BUTTON_BACK 5
+
+
 // level ids have to match data/menu IDS 
 #define MAIN_MENU_LEVEL_ID 100
 #define NEWGAME_MENU_LEVEL_ID 101

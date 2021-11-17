@@ -1,9 +1,11 @@
 
+#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 
 #include "fonts.h"
+#include "game.h"
 #include "menu.h"
 #include "mouse.h"
 #include "quads.h"
@@ -14,10 +16,12 @@
 
 namespace menu2
 {
+  std::map <int , sig_ptr> ClickButton = {};
   std::vector<std::string> saves;
   std::string NewGameName;
   std::map<int, menu2::MenuData> menus;
   std::map<int, menu2::ButtonData> menubuttons;
+  std::map<int, menu2::ButtonData> CurrentMenuButtons;
   std::vector<quads2::QuadData> MenuQuads;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
   
@@ -55,39 +59,78 @@ namespace menu2
     menu2::saves = utils2::list_json_files("saves");
   };
 
-  void render(int level_id)
+  void load(int level_id)
   {
     // check if level_id exists in the menus
     if (menu2::menus.find(level_id) != menu2::menus.end()) 
     {
-      // Clear quads data
-      quads2::clear_quads_data(menu2::MenuQuads);
-      menu2::MenuQuads.clear();
-
+      menu2::CurrentMenuButtons.clear();
       // Get level button list
-      std::map<int, ButtonData> level_buttons;
       std::vector<int> button_list =  menu2::menus[level_id].buttons;
 
       // Recreate button data for selected level
       for(int b=0; b<button_list.size(); b++)
       {
         menu2::ButtonData bdd = menu2::menubuttons[button_list[b]];
+        menu2::CurrentMenuButtons[button_list[b]] = bdd;
 
-        level_buttons[button_list[b]] = bdd;
-
-        // render text for this button
+        // Add text for this button
         fonts2::add(bdd.label.c_str(), bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
       }
-
-
-
-      // Should only render levels button:
-      menu2::MenuQuads = quads2::make_quads(level_buttons, OBJECT_TYPE_MENU);
     }
   };
 
+  void render()
+  {
+    // Clear quads data
+    quads2::clear_quads_data(menu2::MenuQuads);
+    menu2::MenuQuads.clear();
+
+    // Create new quads
+    menu2::MenuQuads = quads2::make_quads(menu2::CurrentMenuButtons, OBJECT_TYPE_MENU);
+  }
+
+  void _click_new_game()
+  {
+    game2::switch_level(NEWGAME_MENU_LEVEL_ID);
+  };
+
+  void _click_load_game()
+  {
+
+  };
+
+  void _click_settings()
+  {
+
+  };
+
+  void _click_exit()
+  {
+    game2::RUNNING = false;
+  };
+
+  void _click_newgame_name()
+  {
+    game2::switch_level(2);
+  }
+
+  void _click_back()
+  {
+    game2::switch_level(MAIN_MENU_LEVEL_ID);
+  };
+
+
+
   void init()
   {
+    menu2::ClickButton[MENU_BUTTON_NEWGAME] = _click_new_game;
+    menu2::ClickButton[MENU_BUTTON_LOADGAME] = _click_load_game;
+    menu2::ClickButton[MENU_BUTTON_SETTINGS] = _click_settings;
+    menu2::ClickButton[MENU_BUTTON_EXIT] = _click_exit;
+    menu2::ClickButton[MENU_BUTTON_NEWGAME_NAME] = _click_newgame_name;
+    menu2::ClickButton[MENU_BUTTON_BACK] = _click_back;
+
     std::vector<std::string> button_list = utils2::list_json_files("data/menubuttons");
     for(int b=0; b < button_list.size(); b++)
     {
@@ -102,6 +145,14 @@ namespace menu2
 
 
     menu2::list_saves();
+  }
+
+  void clear()
+  {
+    menu2::NewGameName = "";
+    menu2::CurrentMenuButtons.clear();
+    quads2::clear_quads_data(menu2::MenuQuads);
+    menu2::MenuQuads.clear();
   }
 
   bool _validate_input(std::string input)
