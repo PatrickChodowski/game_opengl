@@ -1,7 +1,9 @@
 #include "timer.h"
-#include <string>
+
 #include <chrono>
 #include <ctime> 
+#include <iostream>
+#include <string>
 
 namespace timer2
 {
@@ -14,8 +16,7 @@ namespace timer2
     return time_now_start_time;
   }
 
-  template<typename T>
-  float get_elapsed_time(T start_time)
+  float get_elapsed_time(std::chrono::time_point<std::chrono::high_resolution_clock> start_time)
   {
     auto end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end-start_time;
@@ -23,8 +24,8 @@ namespace timer2
     return elapsed_time;
   }
 
-  template<typename T>
-  void print_elapsed_time(T start_time, std::string message)
+  void print_elapsed_time(std::chrono::time_point<std::chrono::high_resolution_clock> start_time, 
+                          std::string message)
   {
     auto end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end-start_time;
@@ -33,18 +34,10 @@ namespace timer2
     // logger::print(full_message, -1);
   }
 
-  // template<typename T>
-  // int get_fps(T start_time, T end_time)
-  // {
-  //   std::chrono::duration<double> elapsed_seconds = end_time-start_time;
-  //   // float elapsed_seconds_ = elapsed_seconds.count();
-  //   float fps = 60.0/elapsed_seconds.count();
-  //   return fps;
-  // }
 
-
-  template<typename T>
-  int get_fps_delay(T start_time, T end_time, float delay)
+  int get_fps_delay(std::chrono::time_point<std::chrono::high_resolution_clock> start_time,
+                    std::chrono::time_point<std::chrono::high_resolution_clock> end_time,
+                    float delay)
   {
     std::chrono::duration<double> elapsed_seconds = end_time-start_time;
     // std::cout << "end time: " << elapsed_seconds.count() + delay << std::endl;
@@ -52,13 +45,13 @@ namespace timer2
     return fps;
   }
 
-  template<typename T>
-  float get_delay_ms(T start_time, T end_time)
+  float get_delay_ms(std::chrono::time_point<std::chrono::high_resolution_clock> start_time,
+                     std::chrono::time_point<std::chrono::high_resolution_clock> end_time)
   {
     std::chrono::duration<double> elapsed_seconds = end_time-start_time;
     float elapsed_seconds_ = elapsed_seconds.count();
     //std::cout << " elapsed seconds: " << elapsed_seconds_ << std::endl;
-    float delay = 17.0 - elapsed_seconds.count();
+    float delay = 17.0 - elapsed_seconds_;
     return delay;
   }
 

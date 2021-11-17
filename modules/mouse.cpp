@@ -21,10 +21,6 @@ namespace mouse2
       if((q.window_x <= click_x) & (click_x < q.window_x+q.window_w) & (click_y >= q.window_y & click_y < q.window_y + q.window_h))
       {
         std::cout << " Clicked on quad: " << q.id  << std::endl;
-        //           << " object ID: " << q.object_id 
-        //           << " object type id " << q.object_type_id 
-        //           << " mouse button id " << mouse_button_id 
-        //           << std::endl;
         mouse2::click[q.object_type_id](q.object_id, mouse_button_id);
       }
     };

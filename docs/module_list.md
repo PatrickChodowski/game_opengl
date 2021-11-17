@@ -6,25 +6,26 @@
 - entity
 - events
 - fonts
-- items
+- game -> make sure the level cleans up properly
 - hero
+- items
+- main
 - maps
-- menu -> add clicking events make sure the level cleans up properly
+- menu -> add clicking events
 - mobs
 - mouse
 - quads 
 - saves
 - shaders
 - textures
-- timer -> figure whats wrong with timer? -> templates
+- timer
 - utils
-- main
 
 - variables.h -> to remove
 
 # doing:
 - logger -> log() makes all data files. Log:: print should print message and 
-- debug - render point, render quad, render lines -> thats the important part
+- debug - render point, render quad, render lines, debug menu after right click 
 
 # todo:
 - anims

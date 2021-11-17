@@ -10,17 +10,19 @@ namespace timer2
 {
   std::time_t get_current_time();
 
-  template<typename T>
-  float get_elapsed_time(T start_time);
+  float get_elapsed_time(std::chrono::time_point<std::chrono::high_resolution_clock> start_time);
 
-  template<typename T>
-  void print_elapsed_time(T start_time, std::string message);
+  void print_elapsed_time(std::chrono::time_point<std::chrono::high_resolution_clock> start_time,
+                          std::string message);
 
-  template<typename T>
-  int get_fps_delay(T start_time, T end_time, float delay);
+  // Get frames per second parameter
+  int get_fps_delay(std::chrono::time_point<std::chrono::high_resolution_clock> start_time,
+                    std::chrono::time_point<std::chrono::high_resolution_clock> end_time,
+                    float delay);
 
-  template<typename T>
-  float get_delay_ms(T start_time, T end_time);
+  // Get frame delay in miliseconds
+  float get_delay_ms(std::chrono::time_point<std::chrono::high_resolution_clock> start_time,
+                     std::chrono::time_point<std::chrono::high_resolution_clock> end_time);
 
   std::chrono::milliseconds get_current_ms_time();
 

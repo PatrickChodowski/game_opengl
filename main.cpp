@@ -9,6 +9,7 @@
 #include "modules/game.h"
 #include "modules/hero.h"
 #include "modules/utils.h"
+#include "modules/timer.h"
 
 #include "dictionary.h"
 
@@ -38,7 +39,7 @@ int main()
 
   while(game2::RUNNING)
   {
-    auto game_loop_start_time = std::chrono::system_clock::now();
+    auto game_loop_start_time = std::chrono::high_resolution_clock::now();
     SDL_Event event;
     events2::handle_events(event);
     events2::scan_for_camera_move();
@@ -49,11 +50,10 @@ int main()
     }
 
     SDL_GL_SwapWindow(WINDOW);
-    auto game_loop_end_time = std::chrono::system_clock::now();
-    //float delay = timer2::get_delay_ms(game_loop_start_time, game_loop_end_time);
-    SDL_Delay(1000/60);
-    // SDL_Delay(delay);
-    // FPS = timer2::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
+    auto game_loop_end_time = std::chrono::high_resolution_clock::now();
+    float delay = timer2::get_delay_ms(game_loop_start_time, game_loop_end_time);
+    SDL_Delay(delay);
+    FPS = timer2::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
   }
 
   game2::drop();
