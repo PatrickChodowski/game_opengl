@@ -1,7 +1,7 @@
-
-#include <vector>
+#include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 
 #include "collisions.h"
 #include "entity.h"
@@ -42,13 +42,13 @@ namespace items2
     items2::ItemData tdd = items2::items[item_id];
     tdd.x = x;
     tdd.y = y;
-    tdd.w = 20;
-    tdd.h = 40;
+    tdd.w = tdd.width_og;
+    tdd.h = tdd.height_og;
     tdd.current_frame = tdd.items_frame_id;
     tdd.texture_id = items2::items[item_id].items_texture_id;
 
     // logic for items to be stored in different table? Same as alive mobs
-    entity::create(tdd, OBJECT_TYPE_ENTITY, CAMERA_STATIC);
+    entity::create(tdd, OBJECT_TYPE_ENTITY, CAMERA_DYNAMIC);
   }
 
 }

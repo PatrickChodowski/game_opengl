@@ -6,10 +6,10 @@
 - entity
 - events
 - fonts
-- items -> cleanup the texture/data messup
+- items
 - hero
 - maps
-- menu -> add clicking events
+- menu -> add clicking events make sure the level cleans up properly
 - mobs
 - mouse
 - quads 
@@ -23,8 +23,8 @@
 - variables.h -> to remove
 
 # doing:
-- logger -> for now only quad printing 
-- debug
+- logger -> log() makes all data files. Log:: print should print message and 
+- debug - render point, render quad, render lines -> thats the important part
 
 # todo:
 - anims
