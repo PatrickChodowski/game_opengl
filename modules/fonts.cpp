@@ -174,10 +174,10 @@ namespace fonts2
     for(const char *p = text; *p; p++) 
     { 
       /* Skip glyphs that have no pixels */
-      if(!chars[*p].bitmap_width * scale || !chars[*p].bitmap_height * scale)
-      {
-        continue;
-      }
+      // if(!chars[*p].bitmap_width * scale || !chars[*p].bitmap_height * scale)
+      // {
+      //   continue;
+      // }
 
       fonts2::TextData tdd;
       tdd.id = utils2::generate_id(fonts2::UsedTextIds);
