@@ -76,7 +76,7 @@ namespace menu2
         level_buttons[button_list[b]] = bdd;
 
         // render text for this button
-        fonts2::add(bdd.label.c_str(), bdd.x, bdd.y, CAMERA_STATIC, 1.0);
+        fonts2::add(bdd.label.c_str(), bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
       }
 
 
