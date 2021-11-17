@@ -30,6 +30,7 @@ namespace game2
   bool RUNNING = true;
   bool PAUSE = false;
   int CURRENT_SHADER_ID = 0;
+  int LEVEL_ID = 2;
   float TILE_DIM = 96;
   float WINDOW_VERTEX_WIDTH = 10;
   float WINDOW_VERTEX_HEIGHT = 8;
@@ -100,9 +101,9 @@ namespace game2
   {
     entity::render();
     menu2::render();
-    quads2::accumulate();
+    fonts2::render();
 
-    
+    quads2::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger2::log();
     textures2::bind();

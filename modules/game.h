@@ -13,6 +13,7 @@ namespace game2
   extern bool PAUSE;
   extern bool RUNNING;
   extern int CURRENT_SHADER_ID;
+  extern int LEVEL_ID;
   extern float TILE_DIM;
   extern float WINDOW_VERTEX_WIDTH;
   extern float WINDOW_VERTEX_HEIGHT;
