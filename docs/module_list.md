@@ -4,14 +4,14 @@
 - camera
 - collisions
 - entity
-- events -> switch controller _handle_events (based on SCENE -> map mapping function pointers to scene)
+- events
 - fonts
 - game -> make sure the level cleans up properly
 - hero
 - items
 - main
 - maps
-- menu -> starting new game, listing saves and loading the saves
+- menu -> listing saves and loading the saves
 - mobs
 - mouse
 - quads 

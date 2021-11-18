@@ -29,6 +29,7 @@ namespace game2
 {
   bool RUNNING = true;
   bool PAUSE = false;
+  int IS_MENU = IN_GAME_SCENE_ID; // 200 if in game, some menu ID if a menu
   int CURRENT_SHADER_ID = 0;
   int SCENE_ID = 2;
   float TILE_DIM = 96;
@@ -57,12 +58,24 @@ namespace game2
     menu2::load(scene_id);
     fonts2::render();
     game2::SCENE_ID = scene_id;
+    game2::_check_if_menu();
   }
 
-  void switch_scene(int scene_id)
+  void _check_if_menu()
+  { 
+    if(game2::SCENE_ID < MAIN_MENU_SCENE_ID)
+    {
+      game2::IS_MENU = IN_GAME_SCENE_ID;
+    } else 
+    {
+      game2::IS_MENU = game2::SCENE_ID;
+    }
+  }
+
+  void switch_scene(int scene_id, bool is_new_game = false)
   {
     game2::clear_scene();
-    game2::init_scene(scene_id, false);
+    game2::init_scene(scene_id, is_new_game);
   }
 
   void clear_scene()
@@ -79,6 +92,7 @@ namespace game2
   void init()
   {
     buffer2::init();
+    events2::init();
     fonts2::init("arial"); // its important to keep it before textures becuase of bindings
     items2::init();
     maps2::init();
@@ -88,7 +102,6 @@ namespace game2
     shaders2::init();
     textures2::init();
     game2::init_scene(2, true);
-
   };
 
   void update()

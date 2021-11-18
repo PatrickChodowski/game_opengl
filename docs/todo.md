@@ -15,4 +15,6 @@ Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it
  - blender
  - blender python api
  - PIFuh by facebook
- - gITF file format   
+ - gITF file format 
+
+ https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  

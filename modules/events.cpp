@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include <SDL2/SDL.h>
 
 #include "camera.h"
@@ -15,7 +16,18 @@
 namespace events2
 {
 
-  void scan_for_camera_move()
+  std::map <int , sig_ptr> EventsHandler = {};
+
+  void init()
+  {
+    events2::EventsHandler[IN_GAME_SCENE_ID] = _handle_in_game;
+    events2::EventsHandler[MAIN_MENU_SCENE_ID] = _handle_menu;
+    events2::EventsHandler[NEWGAME_MENU_SCENE_ID] = _handle_new_game;
+    events2::EventsHandler[LOADGAME_MENU_SCENE_ID] = _handle_load_game;
+    events2::EventsHandler[SETTINGS_MENU_SCENE_ID] = _handle_menu;
+  }
+
+  void _scan_for_camera_move()
   {
     camera::cam.move_x = 0;
     camera::cam.move_y = 0;
@@ -47,119 +59,22 @@ namespace events2
 
   }
 
-
-  void _handle_game_on_controls(SDL_Keycode key)
+  void _handle_in_game(SDL_Event event)
   {
-    switch (key)
-    { 
-      case SDLK_ESCAPE:
-        game2::switch_scene(MAIN_MENU_SCENE_ID);    
-      break;
-      
-      case SDLK_x:
-        //hero::attack_state = true;
-        //hero::update_frame(ATTACK);
-      break; 
-
-      case SDLK_s:
-        saves2::save_game();
-      break;
-
-      case SDLK_p:
-        if(game2::PAUSE)
-        {
-          game2::PAUSE = false;
-        } else 
-        {
-          game2::PAUSE = true;
-        }      
-      break;
-
-      case SDLK_d:
-        // if(DEBUG_MODE)
-        // {
-        //   DEBUG_MODE = false;
-        // } else {
-        //   DEBUG_MODE = true;
-        // }
-      break;
-
-      case SDLK_l:
-        // toggle between base and light shader
-        // if(CURRENT_SHADER_ID == 0)
-        // {
-        //   CURRENT_SHADER_ID = 1;
-        // } else {
-        //   CURRENT_SHADER_ID = 0;
-        // }
-      break;
-    }
-  };
-
-  void _handle_new_game_name_input(SDL_Keycode key)
-  {
-    switch (key)
-    {
-      case SDLK_BACKSPACE:
-        if(menu2::NewGameName.size() > 0)
-        {
-          menu2::NewGameName.pop_back();
-          fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
-        }
-      break;
-
-      case SDLK_RETURN:
-        if(menu2::_validate_name())
-        {
-
-        }
-        break;
-      case SDLK_ESCAPE:
-          game2::switch_scene(MAIN_MENU_SCENE_ID);  
-        break;
-    }
-  };
-
-  void _handle_load_game_menu_input(SDL_Keycode key)
-  {
-    switch (key)
-    {
-      case SDLK_ESCAPE:
-        game2::switch_scene(MAIN_MENU_SCENE_ID);  
-      break;
-    }
-  };
-
-  int _check_if_menu(int scene_id)
-  { 
-    if(scene_id < MAIN_MENU_SCENE_ID)
-    {
-      return IN_GAME_SCENE_ID;
-    } else 
-    {
-      return scene_id;
-    }
-  }
-
-  void handle_events(SDL_Event event)
-  {
-    // Possible values: 100, 101, 102, 103, 200
-    int scene_id = _check_if_menu(game2::SCENE_ID);
-
     while (SDL_PollEvent(&event))
     {
       switch (event.type)
       {
         case SDL_MOUSEWHEEL:
-            if(event.wheel.y > 0) 
-            {
-              camera::cam.zoom += camera::cam.zoom_speed;
-            } else if(event.wheel.y < 0)
-            {
-              camera::cam.zoom -= camera::cam.zoom_speed;
-            }
+          if(event.wheel.y > 0) 
+          {
+            camera::cam.zoom += camera::cam.zoom_speed;
+          } else if(event.wheel.y < 0)
+          {
+            camera::cam.zoom -= camera::cam.zoom_speed;
+          }
           break;
-        
+
         case SDL_MOUSEBUTTONDOWN:
           mouse2::handle_mouse(event.motion, event.button);
         break;
@@ -169,31 +84,151 @@ namespace events2
         break;
 
         case SDL_KEYDOWN: 
-          switch (scene_id)
+          switch (event.key.keysym.sym)
+          { 
+            case SDLK_ESCAPE:
+              game2::switch_scene(MAIN_MENU_SCENE_ID, false);    
+            break;
+            
+            case SDLK_x:
+              //hero::attack_state = true;
+              //hero::update_frame(ATTACK);
+            break; 
+
+            case SDLK_s:
+              saves2::save_game();
+            break;
+
+            case SDLK_p:
+              if(game2::PAUSE)
+              {
+                game2::PAUSE = false;
+              } else 
+              {
+                game2::PAUSE = true;
+              }      
+            break;
+
+            case SDLK_d:
+              // if(DEBUG_MODE)
+              // {
+              //   DEBUG_MODE = false;
+              // } else {
+              //   DEBUG_MODE = true;
+              // }
+            break;
+
+            case SDLK_l:
+              // toggle between base and light shader
+              // if(CURRENT_SHADER_ID == 0)
+              // {
+              //   CURRENT_SHADER_ID = 1;
+              // } else {
+              //   CURRENT_SHADER_ID = 0;
+              // }
+            break;
+          }
+        break;
+      }
+    }
+    _scan_for_camera_move();
+  };
+
+  void _handle_new_game(SDL_Event event)
+  {
+    while (SDL_PollEvent(&event))
+    {
+      switch (event.type)
+      {
+        case SDL_MOUSEBUTTONDOWN:
+          mouse2::handle_mouse(event.motion, event.button);
+        break;
+
+        case SDL_QUIT:
+          game2::RUNNING = false;
+        break;
+
+        case SDL_KEYDOWN: 
+          switch (event.key.keysym.sym)
           {
-            case IN_GAME_SCENE_ID:
-              events2::_handle_game_on_controls(event.key.keysym.sym);
+            case SDLK_BACKSPACE:
+              if(menu2::NewGameName.size() > 0)
+              {
+                menu2::NewGameName.pop_back();
+                fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
+              }
             break;
-            case NEWGAME_MENU_SCENE_ID:
-              events2::_handle_new_game_name_input(event.key.keysym.sym);
+
+            case SDLK_RETURN:
+              if(menu2::_validate_name())
+              {
+                game2::switch_scene(2, true);
+              }
             break;
-            case LOADGAME_MENU_SCENE_ID:
-              events2::_handle_load_game_menu_input(event.key.keysym.sym);
+
+            case SDLK_ESCAPE:
+              game2::switch_scene(MAIN_MENU_SCENE_ID, false);  
             break;
-          };
+          }
+
         break;
 
         case SDL_TEXTINPUT:
-          if(scene_id == NEWGAME_MENU_SCENE_ID)
+          if(menu2::_validate_input(event.text.text) && menu2::NewGameName.size() < 8)
           {
-            if(menu2::_validate_input(event.text.text) && menu2::NewGameName.size() < 8)
-            {
-              menu2::NewGameName += event.text.text;
-              fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
-            }
+            menu2::NewGameName += event.text.text;
+            fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
           }
         break;
-      };
-    };
+      }
+    }
   };
+
+  void _handle_load_game(SDL_Event event)
+ { //Will add mouse scrolling later for the a lot of saves
+    while (SDL_PollEvent(&event))
+    {
+      switch (event.type)
+      {
+        case SDL_MOUSEBUTTONDOWN:
+          mouse2::handle_mouse(event.motion, event.button);
+        break;
+
+        case SDL_QUIT:
+          game2::RUNNING = false;
+        break;
+
+        case SDL_KEYDOWN: 
+          switch (event.key.keysym.sym)
+          {     
+            case SDLK_ESCAPE:
+              game2::switch_scene(MAIN_MENU_SCENE_ID, false);  
+            break;
+          }
+        break;
+      }
+    }
+  };
+
+  void _handle_menu(SDL_Event event)
+ { //Will add mouse scrolling later for the a lot of saves
+    while (SDL_PollEvent(&event))
+    {
+      switch (event.type)
+      {
+        case SDL_MOUSEBUTTONDOWN:
+          mouse2::handle_mouse(event.motion, event.button);
+        break;
+
+        case SDL_QUIT:
+          game2::RUNNING = false;
+        break;
+      }
+    }
+  };
+
+  void handle_events(SDL_Event event)
+  {
+    events2::EventsHandler[game2::IS_MENU](event);
+  }
 }

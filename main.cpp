@@ -14,7 +14,7 @@
 #include "dictionary.h"
 
 int FPS;
-auto GAME_START_TIME = std::chrono::system_clock::now();
+auto GAME_START_TIME = std::chrono::high_resolution_clock::now();
 Uint32 flags = SDL_WINDOW_OPENGL;
 
 int main()
@@ -42,7 +42,6 @@ int main()
     auto game_loop_start_time = std::chrono::high_resolution_clock::now();
     SDL_Event event;
     events2::handle_events(event);
-    events2::scan_for_camera_move();
 
     if(!game2::PAUSE)
     {
