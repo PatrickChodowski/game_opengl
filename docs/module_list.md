@@ -4,14 +4,14 @@
 - camera
 - collisions
 - entity
-- events
-- fonts -> need replaceable and non replaceable fonts? TODO -> figure out how to handle changing labels next to not changing labels
+- events -> switch controller _handle_events (based on SCENE -> map mapping function pointers to scene)
+- fonts
 - game -> make sure the level cleans up properly
 - hero
 - items
 - main
 - maps
-- menu -> TODO: NewGameName logic, starting new game, listing saves and loading the saves
+- menu -> starting new game, listing saves and loading the saves
 - mobs
 - mouse
 - quads 
