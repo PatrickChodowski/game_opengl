@@ -9,6 +9,7 @@
 
 #include "buffer.h"
 #include "camera.h"
+#include "debug.h"
 #include "entity.h"
 #include "events.h"
 #include "fonts.h"
@@ -153,8 +154,16 @@ namespace game2
     
     // set shader
     glUseProgram(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id);
-    // draw 
+    // draw scene
     glDrawElements(GL_TRIANGLES, quads2::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
+
+
+
+    //////// TEST CODE FROM HERE:
+    debug2::render_line(50,50,800,800, 1,1,1,1);
+
+    buffer2::draw_lines();
+
 
   }
 

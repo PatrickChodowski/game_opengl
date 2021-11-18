@@ -43,10 +43,10 @@ int main()
     SDL_Event event;
     events2::handle_events(event);
 
-    if(!game2::PAUSE)
-    {
-      game2::update();
-    }
+    // if(!game2::PAUSE)
+    // {
+    game2::update();
+    // }
 
     SDL_GL_SwapWindow(WINDOW);
     auto game_loop_end_time = std::chrono::high_resolution_clock::now();
