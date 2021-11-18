@@ -12,7 +12,7 @@ namespace logger2
 
   void log()
   {
-    quads2::log();
-    textures2::log();
+    // quads2::log();
+    // textures2::log();
   }
 }

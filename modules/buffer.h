@@ -32,6 +32,9 @@ namespace buffer2
   // Drop buffers
   void drop();
 
+  // Draws the lines, hopefully
+  void draw_lines();
+
 }
 
 

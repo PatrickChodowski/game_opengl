@@ -1,4 +1,5 @@
 #include "buffer.h"
+#include "debug.h"
 #include "quads.h"
 #include "utils.h"
 
@@ -187,9 +188,7 @@ namespace buffer2
     unsigned int index_array[n_index_array];
 
     buffer2::_make_vertex_array(quads, vertex_array);
-
     utils2::array_to_file("buffer_update_vertex_array", vertex_array, n_vertex_array, quads2::COUNT_VERTEX_ATTRIBUTES);
-
     buffer2::_make_index_array(quads, index_array);
 
     buffer2::VBO_array_size = sizeof(float)*n_vertex_array;
@@ -200,13 +199,6 @@ namespace buffer2
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     buffer2::EBO_array_size = sizeof(float)*n_index_array;
     buffer2::EBO_buffer_usage = std::round(((float)EBO_array_size/(float)EBO_size) * 1000.0)/1000.0;
-
-    //std::cout << "VBO USAGE: " << buffer2::VBO_buffer_usage << std::endl;
-    // std::cout << "VBO array size: " << buffer2::VBO_array_size << std::endl;
-    // std::cout << "VBO size: " << buffer2::VBO_size << std::endl;
-
-    //std::cout << "EBO USAGE: " << buffer2::EBO_buffer_usage << std::endl;
-
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer2::EBO_array_size, index_array);
   }
 
@@ -217,5 +209,30 @@ namespace buffer2
     glDeleteBuffers(1, &buffer2::EBO);
   }
 
+
+  void draw_lines()
+  {
+    // todo:
+    // make line data look like quads data
+    // vector<quaddata> to make a vertex_array out of it
+    // make index array out of it
+    // push the data to buffer::update
+    // data already needs to respect attributes of current buffer
+    // set up shader dealing with the lines (or not?) -> OBJECT_TYPE_DEBUG
+    // make new functions and array of function pointers based on the render_shape -> RENDER_SHAPE_QUAD, RENDER_SHAPE_LINE
+
+    glDrawArrays(GL_LINES, 0, 2);
+
+    // clear debug after drawing the lines
+    debug2::clear();
+  }
+
+
+
+  void update_buffer_lines(std::vector<quads2::QuadData>& quads)
+  {
+
+
+  }
 
 }

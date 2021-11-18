@@ -2,11 +2,6 @@
 #ifndef VARS_H
 #define VARS_H
 
-namespace debug
-{
-  std::vector<quads::Quad> DebugQuads;
-}
-
 namespace travel
 {
   struct TravelPlan

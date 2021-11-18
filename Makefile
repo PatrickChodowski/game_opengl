@@ -5,6 +5,7 @@ output: game
 	modules/buffer.cpp \
 	modules/camera.cpp \
 	modules/collisions.cpp \
+	modules/debug.cpp \
 	modules/entity.cpp \
 	modules/events.cpp \
 	modules/fonts.cpp \
@@ -31,6 +32,7 @@ output: game
 	modules/buffer.cpp \
 	modules/camera.cpp \
 	modules/collisions.cpp \
+	modules/debug.cpp \
 	modules/entity.cpp \
 	modules/events.cpp \
 	modules/fonts.cpp \

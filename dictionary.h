@@ -33,6 +33,11 @@
 #define OBJECT_TYPE_MAP 1
 #define OBJECT_TYPE_MENU 2
 #define OBJECT_TYPE_TEXT 3
+#define OBJECT_TYPE_DEBUG 4
+
+// Buffer data object shapes
+#define RENDER_SHAPE_QUAD 0
+#define RENDER_SHAPE_LINE 1
 
 // joints of the item to hero's body
 #define JOINT_RIGHT_HAND 0
