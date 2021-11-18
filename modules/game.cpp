@@ -56,7 +56,6 @@ namespace game2
       items2::put_item_on_ground(0, 600, 500);
     }
     menu2::load(scene_id);
-    fonts2::render();
     game2::SCENE_ID = scene_id;
     game2::_check_if_menu();
   }
@@ -85,6 +84,7 @@ namespace game2
     entity::clear();
     fonts2::clear();
     menu2::clear();
+    quads2::clear();
 
     // saves::save()
   }
@@ -106,6 +106,7 @@ namespace game2
 
   void update()
   {
+    maps2::render();
     entity::render();
     menu2::render();
     fonts2::render();
@@ -116,6 +117,8 @@ namespace game2
     textures2::bind();
 
     buffer2::update(quads2::AllQuads);
+    
+
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

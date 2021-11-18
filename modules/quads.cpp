@@ -109,49 +109,18 @@ namespace quads2
     return next_vertex_id;
   }
 
-  int find_quad_id(int quad_id, std::vector<quads2::QuadData> quads)
+  void clear()
   {
-    int quad_index = -1;
-    for(int q = 0; q < quads.size(); q++)
-    {
-      if(quad_id == quads[q].id)
-      {
-        quad_index = q;
-        break;
-      }
-    }
-    return quad_index;
+    quads2::AllQuads.clear();
+    quads2::UsedVertexIds.clear();
+    quads2::UsedQuadIds.clear();
   }
-  
-  void delete_quad_id(int quad_id)
-  {
-    quads2::UsedQuadIds.erase(std::remove(quads2::UsedQuadIds.begin(), 
-                                          quads2::UsedQuadIds.end(), quad_id), 
-                                          quads2::UsedQuadIds.end());
-  }
-
-  void delete_vertex_id(int vertex_id)
-  {
-    quads2::UsedVertexIds.erase(std::remove(quads2::UsedVertexIds.begin(), 
-                                            quads2::UsedVertexIds.end(), vertex_id), 
-                                            quads2::UsedVertexIds.end());
-
-  }
-
-  void clear_quads_data(std::vector<quads2::QuadData>& vq)
-  {
-    for(int q=0; q < vq.size(); q++)
-    {
-      quads2::QuadData qdd = vq[q];
-      quads2::delete_quad_id(qdd.id);
-    }
-    vq.clear();
-  };
 
   void accumulate()
   {
     quads2::AllQuads.clear();
     quads2::UsedVertexIds.clear();
+    quads2::UsedQuadIds.clear();
 
     // // assign menu quads
     if(menu2::MenuQuads.size() > 0)
