@@ -101,17 +101,8 @@ namespace quads2
   // Generate new vertex id
   int gen_vertex_id();
 
-  // Delete quad id from used quads
-  void delete_quad_id(int quad_id);
-
-  // Delete vertex id from used vertices
-  void delete_vertex_id(int vertex_id);
-
-  // Clear out quads vector along with used Quad ID and used Vertex ID
-  void clear_quads_data(std::vector<quads2::QuadData>& vq);
-
-  // Finds index of quad id in vector of quads
-  int find_quad_id(int quad_id, std::vector<quads2::QuadData> quads);
+  // Clear all quads data
+  void clear();
 
   // Accumulate all quad vectors from different components
   void accumulate();

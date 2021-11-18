@@ -102,6 +102,9 @@ namespace maps2
   // Loads selected map to game
   void init_map(int map_id);
 
+  // Make map quads from maps2::tiles
+  void render();
+
   // clears the currently loaded map -> erases used tiles ids and tiles catalog
   void clear();
 

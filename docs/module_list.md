@@ -6,7 +6,7 @@
 - entity
 - events
 - fonts
-- game -> make sure the level cleans up properly
+- game
 - hero
 - items
 - main

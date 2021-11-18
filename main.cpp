@@ -52,6 +52,8 @@ int main()
     auto game_loop_end_time = std::chrono::high_resolution_clock::now();
     float delay = timer2::get_delay_ms(game_loop_start_time, game_loop_end_time);
     SDL_Delay(delay);
+
+    //SDL_Delay(1000);
     FPS = timer2::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
   }
 

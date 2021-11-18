@@ -105,7 +105,6 @@ namespace menu2
   void render()
   {
     // Clear quads data
-    quads2::clear_quads_data(menu2::MenuQuads);
     menu2::MenuQuads.clear();
 
     // Create new quads
@@ -179,7 +178,6 @@ namespace menu2
   {
     menu2::NewGameName = "";
     menu2::CurrentMenuButtons.clear();
-    quads2::clear_quads_data(menu2::MenuQuads);
     menu2::MenuQuads.clear();
   }
 

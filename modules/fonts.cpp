@@ -210,12 +210,12 @@ namespace fonts2
 
   void render()
   { 
+    fonts2::UsedTextIds.clear();
     fonts2::texts.clear();
     for (auto const& [k, v] : fonts2::labels)
     { 
       fonts2::render_chars(v);
     } 
-    quads2::clear_quads_data(fonts2::TextQuads);
     fonts2::TextQuads.clear();
     fonts2::TextQuads = quads2::make_quads(fonts2::texts, OBJECT_TYPE_TEXT);
   };
@@ -223,7 +223,6 @@ namespace fonts2
 
   void clear()
   {
-    quads2::clear_quads_data(fonts2::TextQuads);
     fonts2::TextQuads.clear();
     fonts2::texts.clear();
     fonts2::labels.clear();
