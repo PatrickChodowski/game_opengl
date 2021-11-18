@@ -13,7 +13,7 @@ namespace game2
   extern bool PAUSE;
   extern bool RUNNING;
   extern int CURRENT_SHADER_ID;
-  extern int LEVEL_ID;
+  extern int SCENE_ID;
   extern float TILE_DIM;
   extern float WINDOW_VERTEX_WIDTH;
   extern float WINDOW_VERTEX_HEIGHT;
@@ -21,14 +21,14 @@ namespace game2
   extern float WINDOW_HEIGHT;
   extern const Uint8 *KEYBOARD;
 
-  // Initialize all systems for new level (new scene)
-  void init_level(int level_id, bool is_new_game);
+  // Initialize all systems for new scene
+  void init_scene(int scene_id, bool is_new_game);
 
-  // Delete all data necessary for clear the level (scene)
-  void clear_level();
+  // Delete all data necessary for clear the scene
+  void clear_scene();
 
-  // Switches level. Clears current level data and initializes new one
-  void switch_level(int level_id);
+  // Switches scene. Clears current scene data and initializes new one
+  void switch_scene(int scene_id);
 
   // Initialize all in-game systems inside single game::init()
   void init();

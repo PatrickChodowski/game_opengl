@@ -30,7 +30,7 @@ namespace game2
   bool RUNNING = true;
   bool PAUSE = false;
   int CURRENT_SHADER_ID = 0;
-  int LEVEL_ID = 2;
+  int SCENE_ID = 2;
   float TILE_DIM = 96;
   float WINDOW_VERTEX_WIDTH = 10;
   float WINDOW_VERTEX_HEIGHT = 8;
@@ -39,9 +39,9 @@ namespace game2
   const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
 
 
-  void init_level(int level_id, bool is_new_game)
+  void init_scene(int scene_id, bool is_new_game)
   {
-    if (level_id < MAIN_MENU_LEVEL_ID)
+    if (scene_id < MAIN_MENU_SCENE_ID)
     {
       if(is_new_game)
       {
@@ -50,21 +50,21 @@ namespace game2
       {
         // saves::load()
       }
-      maps2::init_map(level_id);
-      mobs2::spawn(level_id);
+      maps2::init_map(scene_id);
+      mobs2::spawn(scene_id);
       items2::put_item_on_ground(0, 600, 500);
     }
-    menu2::load(level_id);
+    menu2::load(scene_id);
     fonts2::render();
   }
 
-  void switch_level(int level_id)
+  void switch_scene(int scene_id)
   {
-    game2::clear_level();
-    game2::init_level(level_id, false);
+    game2::clear_scene();
+    game2::init_scene(scene_id, false);
   }
 
-  void clear_level()
+  void clear_scene()
   {
     maps2::clear();
     camera::reset();
@@ -93,7 +93,7 @@ namespace game2
     // mobs2::spawn(hero2::hero.map_id);
     // items2::put_item_on_ground(0, 600, 500);
 
-    game2::init_level(2, true);
+    game2::init_scene(2, true);
 
   };
 

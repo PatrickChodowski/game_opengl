@@ -16,11 +16,11 @@
 #define MENU_BUTTON_BACK 5
 
 // level ids have to match data/menu IDS 
-#define MAIN_MENU_LEVEL_ID 100
-#define NEWGAME_MENU_LEVEL_ID 101
-#define LOADGAME_MENU_LEVEL_ID 102
-#define SETTINGS_MENU_LEVEL_ID 103
-#define IN_GAME_LEVEL_ID 200
+#define MAIN_MENU_SCENE_ID 100
+#define NEWGAME_MENU_SCENE_ID 101
+#define LOADGAME_MENU_SCENE_ID 102
+#define SETTINGS_MENU_SCENE_ID 103
+#define IN_GAME_SCENE_ID 200
 
 // camera types
 #define CAMERA_DYNAMIC 0.0f

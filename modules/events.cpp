@@ -53,7 +53,7 @@ namespace events2
     switch (key)
     { 
       case SDLK_ESCAPE:
-        game2::switch_level(MAIN_MENU_LEVEL_ID);    
+        game2::switch_scene(MAIN_MENU_SCENE_ID);    
       break;
       
       case SDLK_x:
@@ -114,7 +114,7 @@ namespace events2
         }
         break;
       case SDLK_ESCAPE:
-          game2::switch_level(MAIN_MENU_LEVEL_ID);  
+          game2::switch_scene(MAIN_MENU_SCENE_ID);  
         break;
     }
     std::cout << "tutaj?" << std::endl;
@@ -126,28 +126,26 @@ namespace events2
     switch (key)
     {
       case SDLK_ESCAPE:
-        game2::switch_level(MAIN_MENU_LEVEL_ID);  
+        game2::switch_scene(MAIN_MENU_SCENE_ID);  
       break;
     }
   };
 
-  int _check_if_menu(int level_id)
+  int _check_if_menu(int scene_id)
   { 
-    if(level_id < MAIN_MENU_LEVEL_ID)
+    if(scene_id < MAIN_MENU_SCENE_ID)
     {
-      return IN_GAME_LEVEL_ID;
+      return IN_GAME_SCENE_ID;
     } else 
     {
-      return level_id;
+      return scene_id;
     }
   }
 
   void handle_events(SDL_Event event)
   {
     // Possible values: 100, 101, 102, 103, 200
-    // doesnt work when on menu
-    // Should it be stored on game::level_id? - less confusing
-    int lvlid = _check_if_menu(hero2::hero.map_id);
+    int scene_id = _check_if_menu(game2::SCENE_ID);
 
     while (SDL_PollEvent(&event))
     {
@@ -172,23 +170,23 @@ namespace events2
         break;
 
         case SDL_KEYDOWN: 
-        std::cout << "levlid: " << lvlid << std::endl;
-          switch (lvlid)
+        std::cout << "scene_id: " << scene_id << std::endl;
+          switch (scene_id)
           {
-            case IN_GAME_LEVEL_ID:
+            case IN_GAME_SCENE_ID:
               events2::_handle_game_on_controls(event.key.keysym.sym);
             break;
-            case NEWGAME_MENU_LEVEL_ID:
+            case NEWGAME_MENU_SCENE_ID:
               events2::_handle_new_game_name_input(event.key.keysym.sym);
             break;
-            case LOADGAME_MENU_LEVEL_ID:
+            case LOADGAME_MENU_SCENE_ID:
               events2::_handle_load_game_menu_input(event.key.keysym.sym);
             break;
           };
         break;
 
         case SDL_TEXTINPUT:
-          if(lvlid == NEWGAME_MENU_LEVEL_ID)
+          if(scene_id == NEWGAME_MENU_SCENE_ID)
           {
             if(menu2::_validate_input(event.text.text) && menu2::NewGameName.size() < 8)
             {
