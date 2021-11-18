@@ -94,17 +94,17 @@ namespace menu2
 
   void _click_new_game()
   {
-    game2::switch_level(NEWGAME_MENU_LEVEL_ID);
+    game2::switch_scene(NEWGAME_MENU_SCENE_ID);
   };
 
   void _click_load_game()
   {
-    game2::switch_level(LOADGAME_MENU_LEVEL_ID);
+    game2::switch_scene(LOADGAME_MENU_SCENE_ID);
   };
 
   void _click_settings()
   {
-    game2::switch_level(SETTINGS_MENU_LEVEL_ID);
+    game2::switch_scene(SETTINGS_MENU_SCENE_ID);
   };
 
   void _click_exit()
@@ -114,13 +114,13 @@ namespace menu2
 
   void _click_newgame_name()
   {
-    game2::clear_level();
-    game2::init_level(2, true);
+    game2::clear_scene();
+    game2::init_scene(2, true);
   }
 
   void _click_back()
   {
-    game2::switch_level(MAIN_MENU_LEVEL_ID);
+    game2::switch_scene(MAIN_MENU_SCENE_ID);
   };
 
 
