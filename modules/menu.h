@@ -18,6 +18,7 @@ namespace menu2
     int texture_id;
     int frame_id;
     int label_id;
+    int button_type_id;
 
     float x,y;
     float w,h;
@@ -49,7 +50,7 @@ namespace menu2
 
   extern std::vector<std::string> saves;
 
-  // Map of LevelID (100,101,102 and buttons: (std::vector<int> buttons))
+  // Map of scene_id (100,101,102 and buttons: (std::vector<int> buttons))
   extern std::map<int, menu2::MenuData> menus;
   extern std::map<int, menu2::ButtonData> menubuttons;
   extern std::map<int, menu2::ButtonData> CurrentMenuButtons;
@@ -69,7 +70,7 @@ namespace menu2
   void list_saves();
 
   // Load correct menu buttons to CurrentMenuButtons for selected level. Levels 100, 101, 102 etc. mean menus
-  void load(int level_id);
+  void load(int scene_id);
 
   // Make quads out of CurrentMenuButtons
   void render();

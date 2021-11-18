@@ -212,7 +212,7 @@ namespace fonts2
   { 
     fonts2::texts.clear();
     for (auto const& [k, v] : fonts2::labels)
-    {
+    { 
       fonts2::render_chars(v);
     } 
     quads2::clear_quads_data(fonts2::TextQuads);

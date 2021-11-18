@@ -56,6 +56,7 @@ namespace game2
     }
     menu2::load(scene_id);
     fonts2::render();
+    game2::SCENE_ID = scene_id;
   }
 
   void switch_scene(int scene_id)
@@ -86,13 +87,6 @@ namespace game2
     mouse2::init();
     shaders2::init();
     textures2::init();
-    // hero2::create_new("john","barbarian");
-    // hero2::hero.map_id = 100;
-    // menu2::render(hero2::hero.map_id);
-    // maps2::init_map(hero2::hero.map_id);
-    // mobs2::spawn(hero2::hero.map_id);
-    // items2::put_item_on_ground(0, 600, 500);
-
     game2::init_scene(2, true);
 
   };
@@ -109,16 +103,11 @@ namespace game2
     textures2::bind();
 
     buffer2::update(quads2::AllQuads);
-    // buffer2::update(entity::EntityQuads);
-    // buffer2::update(maps2::MapQuads);
-
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
-
-
     int sampler_size = (textures2::BoundTextures.size() + 1);
     int sampler[sampler_size]; 
     sampler[0] = 0;
@@ -126,13 +115,6 @@ namespace game2
     {
       sampler[(i+1)] = textures2::BoundTextures[i];
     } 
-
-    // std::cout << "sampler: ";
-    // for(int s=0; s< sampler_size; s++)
-    // {
-    //   std::cout << sampler[s] << ", ";
-    // }
-    // std::cout << std::endl;
 
     // react to camera changes
     camera::DYNAMIC_MVP = camera::gen_dynamic_mvp(-camera::cam.x, camera::cam.y, camera::cam.zoom);

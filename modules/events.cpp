@@ -59,7 +59,7 @@ namespace events2
       case SDLK_x:
         //hero::attack_state = true;
         //hero::update_frame(ATTACK);
-      break;
+      break; 
 
       case SDLK_s:
         saves2::save_game();
@@ -104,6 +104,7 @@ namespace events2
         if(menu2::NewGameName.size() > 0)
         {
           menu2::NewGameName.pop_back();
+          fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
         }
       break;
 
@@ -117,8 +118,6 @@ namespace events2
           game2::switch_scene(MAIN_MENU_SCENE_ID);  
         break;
     }
-    std::cout << "tutaj?" << std::endl;
-    fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
   };
 
   void _handle_load_game_menu_input(SDL_Keycode key)
@@ -170,7 +169,6 @@ namespace events2
         break;
 
         case SDL_KEYDOWN: 
-        std::cout << "scene_id: " << scene_id << std::endl;
           switch (scene_id)
           {
             case IN_GAME_SCENE_ID:
@@ -191,6 +189,7 @@ namespace events2
             if(menu2::_validate_input(event.text.text) && menu2::NewGameName.size() < 8)
             {
               menu2::NewGameName += event.text.text;
+              fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
             }
           }
         break;

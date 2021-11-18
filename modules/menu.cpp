@@ -41,6 +41,7 @@ namespace menu2
     BD.a = 0.5;
     BD.norm_x_start = 0;
     BD.norm_x_end = 0;
+    BD.button_type_id = BD.id;
     menu2::menubuttons.insert({BD.id, BD});
   };
 
@@ -59,14 +60,14 @@ namespace menu2
     menu2::saves = utils2::list_json_files("saves");
   };
 
-  void load(int level_id)
+  void load(int scene_id)
   {
     // check if level_id exists in the menus
-    if (menu2::menus.find(level_id) != menu2::menus.end()) 
+    if (menu2::menus.find(scene_id) != menu2::menus.end()) 
     {
       menu2::CurrentMenuButtons.clear();
       // Get level button list
-      std::vector<int> button_list =  menu2::menus[level_id].buttons;
+      std::vector<int> button_list =  menu2::menus[scene_id].buttons;
 
       // Recreate button data for selected level
       for(int b=0; b<button_list.size(); b++)
@@ -75,7 +76,7 @@ namespace menu2
         bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
         if(bdd.id == MENU_BUTTON_NEWGAME_NAME)
         {
-          fonts2::NEW_GAME_LABEL_ID = bdd.id;
+          fonts2::NEW_GAME_LABEL_ID = bdd.label_id;
         }
         menu2::CurrentMenuButtons[button_list[b]] = bdd;
       }
