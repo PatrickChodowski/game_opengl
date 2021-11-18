@@ -4,11 +4,11 @@
 
 - dont really like the implementation of near distances, set_abs etc. splitting between two object types. 
 
-###  4) How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
+###  2) How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
 Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it 
 
 
-### 5) 3d models instead of spritesheets:
+### 3) 3d models instead of spritesheets:
  - photogrammetry
  - meshroom 
  - https://www.mixamo.com/
@@ -18,3 +18,8 @@ Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it
  - gITF file format 
 
  https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
+
+
+ ### 4) menu highliting -> nice feature to have :)
+
+ ### 5) saves scrolling

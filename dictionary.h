@@ -14,6 +14,7 @@
 #define MENU_BUTTON_EXIT 3
 #define MENU_BUTTON_NEWGAME_NAME 4
 #define MENU_BUTTON_BACK 5
+#define MENU_BUTTON_LOADGAME_NAME 6
 
 // level ids have to match data/menu IDS 
 #define MAIN_MENU_SCENE_ID 100

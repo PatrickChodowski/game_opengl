@@ -11,7 +11,7 @@
 - items
 - main
 - maps
-- menu -> listing saves and loading the saves
+- menu
 - mobs
 - mouse
 - quads 
