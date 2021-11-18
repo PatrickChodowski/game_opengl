@@ -26,13 +26,16 @@ namespace mouse2
     };
   }
 
-  // TODO: recognize which menu button was clicked, run some logic dependent on this
   void _click_menu(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on menu object id: " << object_id << " with button id: " << mouse_button_id << std::endl;
     std::cout << "is clicked current value: " <<  menu2::CurrentMenuButtons[object_id].is_clicked << std::endl;
+
+    // Making sure its clicking on button_id type 6 to trigger the logic, not the save ID (over > 100)
+    int logic_object_id = menu2::_check_if_load_game(object_id);
+
     menu2::CurrentMenuButtons[object_id].is_clicked = !menu2::CurrentMenuButtons[object_id].is_clicked;
-    menu2::ClickButton[object_id]();
+    menu2::ClickButton[logic_object_id]();
 
   };
 

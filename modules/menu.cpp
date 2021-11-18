@@ -17,6 +17,7 @@
 namespace menu2
 {
   std::map <int , sig_ptr> ClickButton = {};
+  int CLICKED_BUTTON_ID;
   std::vector<std::string> saves;
   std::string NewGameName;
   std::map<int, menu2::MenuData> menus;
@@ -72,13 +73,31 @@ namespace menu2
       // Recreate button data for selected level
       for(int b=0; b<button_list.size(); b++)
       {
-        menu2::ButtonData bdd = menu2::menubuttons[button_list[b]];
-        bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
-        if(bdd.id == MENU_BUTTON_NEWGAME_NAME)
+        
+        // saves handling
+        if(button_list[b] == 6)
         {
-          fonts2::NEW_GAME_LABEL_ID = bdd.label_id;
+          // create button for each save
+          for(int s=0; s<menu2::saves.size(); s++)
+          {
+            menu2::ButtonData bdd = menu2::menubuttons[button_list[b]];
+            bdd.id = bdd.id + (s+100);
+            bdd.label = menu2::saves[s];
+            bdd.y = bdd.y + (bdd.h*(s+1)) + 5;
+            bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
+            menu2::CurrentMenuButtons[bdd.id] = bdd;
+          }
+
+        } else 
+        {
+          menu2::ButtonData bdd = menu2::menubuttons[button_list[b]];
+          bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
+          if(bdd.id == MENU_BUTTON_NEWGAME_NAME)
+          {
+            fonts2::NEW_GAME_LABEL_ID = bdd.label_id;
+          }
+          menu2::CurrentMenuButtons[button_list[b]] = bdd;
         }
-        menu2::CurrentMenuButtons[button_list[b]] = bdd;
       }
     }
   };
@@ -118,6 +137,11 @@ namespace menu2
     game2::switch_scene(2, true);
   }
 
+  void _click_loadgame_name()
+  {
+    game2::switch_scene(2, true);
+  }
+
   void _click_back()
   {
     game2::switch_scene(MAIN_MENU_SCENE_ID, false);
@@ -133,6 +157,7 @@ namespace menu2
     menu2::ClickButton[MENU_BUTTON_EXIT] = _click_exit;
     menu2::ClickButton[MENU_BUTTON_NEWGAME_NAME] = _click_newgame_name;
     menu2::ClickButton[MENU_BUTTON_BACK] = _click_back;
+    menu2::ClickButton[MENU_BUTTON_LOADGAME_NAME] = _click_loadgame_name;
 
     std::vector<std::string> button_list = utils2::list_json_files("data/menubuttons");
     for(int b=0; b < button_list.size(); b++)
@@ -187,6 +212,16 @@ namespace menu2
     }
     return good;
   };
+
+  int _check_if_load_game(int button_id)
+  { 
+    // Over 100 will be a loaded save
+    if(button_id > 100)
+    {
+      button_id = MENU_BUTTON_LOADGAME_NAME;
+    }
+    return button_id;
+  }
 
 
 } 

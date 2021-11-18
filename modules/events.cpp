@@ -211,7 +211,7 @@ namespace events2
   };
 
   void _handle_menu(SDL_Event event)
- { //Will add mouse scrolling later for the a lot of saves
+  { //Will add mouse scrolling later for the a lot of saves
     while (SDL_PollEvent(&event))
     {
       switch (event.type)

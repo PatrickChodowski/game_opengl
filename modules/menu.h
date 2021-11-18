@@ -47,7 +47,6 @@ namespace menu2
   typedef void (*sig_ptr)();
   // Catalog of functions to be chosen based on the button id
   extern std::map <int , sig_ptr> ClickButton;
-
   extern std::vector<std::string> saves;
 
   // Map of scene_id (100,101,102 and buttons: (std::vector<int> buttons))
@@ -101,6 +100,9 @@ namespace menu2
 
   // Validates new character name - if exists or is it have more than 0 characters
   bool _validate_name();
+
+  // Checks if clicked button was for a load game
+  int _check_if_load_game(int button_id);
 
 }
 
