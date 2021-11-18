@@ -12,6 +12,7 @@ namespace game2
   // Game running variables
   extern bool PAUSE;
   extern bool RUNNING;
+  extern int IS_MENU;
   extern int CURRENT_SHADER_ID;
   extern int SCENE_ID;
   extern float TILE_DIM;
@@ -24,11 +25,14 @@ namespace game2
   // Initialize all systems for new scene
   void init_scene(int scene_id, bool is_new_game);
 
+  // checks if next scene id is a menu
+  void _check_if_menu();
+
   // Delete all data necessary for clear the scene
   void clear_scene();
 
   // Switches scene. Clears current scene data and initializes new one
-  void switch_scene(int scene_id);
+  void switch_scene(int scene_id, bool is_new_game);
 
   // Initialize all in-game systems inside single game::init()
   void init();
