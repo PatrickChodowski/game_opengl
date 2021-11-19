@@ -10,6 +10,7 @@
 - game
 - hero
 - items
+- logger
 - main
 - maps
 - menu
@@ -25,10 +26,9 @@
 - variables.h -> to remove
 
 # doing:
-- logger -> Log:: print should print message and 
+- navmesh
+- pathfinder
 
 # todo:
 - anims
-- navmesh
-- pathfinder
 - travel
