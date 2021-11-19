@@ -35,18 +35,6 @@
 #define OBJECT_TYPE_TEXT 3
 #define OBJECT_TYPE_DEBUG 4
 
-// Buffer data object shapes
-#define RENDER_SHAPE_QUAD 0
-#define RENDER_SHAPE_LINE 1
-
-// joints of the item to hero's body
-#define JOINT_RIGHT_HAND 0
-#define JOINT_LEFT_HAND 1
-#define JOINT_UPPER_BODY 2
-#define JOINT_LOWER_BODY 3
-#define JOINT_LEGS 4
-#define JOIN_HEAD 5 
-
 // entity collision sensors
 #define SENSOR_TOP 0
 #define SENSOR_TOP_RIGHT 1
@@ -61,58 +49,22 @@
 // entity collision AABB boxes
 #define AABB_FULL 0
 
-// event ids:
-#define MOVE_LEFT 0
-#define MOVE_RIGHT 1
-#define MOVE_UP 2
-#define MOVE_DOWN 3
-#define STAND_STILL 4
-#define ATTACK 5
-
-// frame names
-#define FRAME_STAND_1 0
-#define FRAME_STAND_2 1
-#define FRAME_STAND_3 2
-#define FRAME_LEFT_1 7
-#define FRAME_LEFT_2 5
-#define FRAME_LEFT_3 6
-#define FRAME_RIGHT_1 9
-#define FRAME_RIGHT_2 8
-#define FRAME_RIGHT_3 10
-#define FRAME_DOWN_1 4
-#define FRAME_DOWN_2 3
-#define FRAME_UP_1 12
-#define FRAME_UP_2 13
-#define FRAME_ATTACK_1 14
-#define FRAME_ATTACK_2 15
-#define FRAME_ATTACK_3 16
-
-#define FRAME_DELAY_LONG 0.7
-#define FRAME_DELAY 0.2
-#define FRAME_DELAY_SHORT 0.08
-
-
 #define ENTITY_STATE_CALM 0
 #define ENTITY_STATE_MOVING 1
 
 #define NAVGATE_VERTICAL_ORIENTATION 0
 #define NAVGATE_HORIZONTAL_ORIENTATION 1
 
+// Log Levels
+#define LOG_LVL_DEBUG 0
+#define LOG_LVL_INFO 1
+#define LOG_LVL_ERROR 2
 
-// logger codes:
-#define LOG_DEBUG 0
-#define LOG_INFO 1
-#define LOG_ERROR 2 
-
-#define LOG_EVENT_GAME_START 0
-#define LOG_EVENT_GAME_EXIT 1 
-#define LOG_EVENT_INIT_MODULE 2
-#define LOG_EVENT_READ_DATA 3
-#define LOG_EVENT_LOAD_QUADS 4
-#define LOG_EVENT_DROP_DATA 5
-
-
-// gui windows:
-#define GUI_DEBUG 0
+// Log types
+#define LOG_START_TIMER 0
+#define LOG_END_TIMER 1 
+#define LOG_INFO 2 
+#define LOG_GAME_START 3
+#define LOG_GAME_END 4
 
 #endif

@@ -14,7 +14,6 @@
 #include "dictionary.h"
 
 int FPS;
-auto GAME_START_TIME = std::chrono::high_resolution_clock::now();
 Uint32 flags = SDL_WINDOW_OPENGL;
 
 int main()

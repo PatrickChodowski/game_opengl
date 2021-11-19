@@ -1,3 +1,5 @@
+
+#include <chrono>
 #include <map>
 #include <vector>
 #include <SDL2/SDL.h>
@@ -21,6 +23,7 @@ namespace game2
   extern float WINDOW_WIDTH;
   extern float WINDOW_HEIGHT;
   extern const Uint8 *KEYBOARD;
+  extern std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME;
 
   // Initialize all systems for new scene
   void init_scene(int scene_id, bool is_new_game);
