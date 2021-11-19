@@ -17,7 +17,6 @@
 
 namespace quads2
 {
-  int COUNT_VERTEX_ATTRIBUTES = 14;
   float VERTEX_OFFSET = 1;
   int COUNT_QUADS = 0;
   int REQ_SIZE_BUFFER = 0;
@@ -152,6 +151,12 @@ namespace quads2
     if(fonts2::TextQuads.size() > 0)
     {
       quads2::AllQuads.insert(quads2::AllQuads.end(), fonts2::TextQuads.begin(), fonts2::TextQuads.end());
+    }
+
+    // Assigning vertex index and vertex positions here, on the final table
+    for(int q=0; q < quads2::AllQuads.size(); q++ )
+    { 
+      quads2::_fill_quad_vertex_data(quads2::AllQuads[q]);
     }
 
     quads2::COUNT_QUADS = quads2::AllQuads.size();

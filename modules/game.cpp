@@ -117,11 +117,9 @@ namespace game2
     logger2::log();
     textures2::bind();
 
-    buffer2::update(quads2::AllQuads);
+    buffer2::update_quads(quads2::AllQuads);
     
-
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
@@ -157,12 +155,9 @@ namespace game2
     // draw scene
     glDrawElements(GL_TRIANGLES, quads2::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
 
-
-
-    //////// TEST CODE FROM HERE:
-    debug2::render_line(50,50,800,800, 1,1,1,1);
-
-    buffer2::draw_lines();
+    //////// TEST CODE
+    // debug2::render_line(50,50,800,800, 1,1,1,1);
+    // buffer2::draw_lines();
 
 
   }
