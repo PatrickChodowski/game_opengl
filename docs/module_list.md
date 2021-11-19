@@ -3,6 +3,7 @@
 - buffer
 - camera
 - collisions
+- debug -> todo debug popup menu
 - entity
 - events
 - fonts
@@ -24,8 +25,7 @@
 - variables.h -> to remove
 
 # doing:
-- debug - render point, render quad, render lines, debug menu after right click 
-- logger -> log() makes all data files. Log:: print should print message and 
+- logger -> Log:: print should print message and 
 
 # todo:
 - anims
