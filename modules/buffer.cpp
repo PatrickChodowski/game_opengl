@@ -196,7 +196,7 @@ namespace buffer2
       arr[(start_position+10)] = 0; // texture_id
       arr[(start_position+11)] = 0; // is_clicked
       arr[(start_position+12)] = OBJECT_TYPE_DEBUG;
-      arr[(start_position+13)] = CAMERA_STATIC;
+      arr[(start_position+13)] = CAMERA_DYNAMIC;
 
       arr[(start_position+cva)] = lines[t].x2;
       arr[(start_position+(cva+1))] = lines[t].y2;
@@ -211,13 +211,8 @@ namespace buffer2
       arr[(start_position+(cva+10))] = 0; // texture_id
       arr[(start_position+(cva+11))] = 0; // is_clicked
       arr[(start_position+(cva+12))] = OBJECT_TYPE_DEBUG;
-      arr[(start_position+(cva+13))] = CAMERA_STATIC;
+      arr[(start_position+(cva+13))] = CAMERA_DYNAMIC;
     }
-  }
-
-  void _make_index_array_from_lines(std::vector<debug2::LineData>& lines, unsigned int* arr)
-  {
-    // this might not be necessary
   }
 
   void update_quads(std::vector<quads2::QuadData>& quads)
@@ -257,24 +252,5 @@ namespace buffer2
     glDeleteBuffers(1, &buffer2::VBO);
     glDeleteBuffers(1, &buffer2::EBO);
   }
-
-
-  void draw_lines()
-  {
-    // todo:
-    // make line data look like quads data
-    // vector<quaddata> to make a vertex_array out of it
-    // make index array out of it
-    // push the data to buffer::update
-    // data already needs to respect attributes of current buffer
-    // set up shader dealing with the lines (or not?) -> OBJECT_TYPE_DEBUG
-    // make new functions and array of function pointers based on the render_shape -> RENDER_SHAPE_QUAD, RENDER_SHAPE_LINE
-
-    glDrawArrays(GL_LINES, 0, 2);
-
-    // clear debug after drawing the lines
-    debug2::clear();
-  }
-
 
 }
