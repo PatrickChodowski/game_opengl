@@ -86,6 +86,7 @@ namespace game2
     fonts2::clear();
     menu2::clear();
     quads2::clear();
+    debug2::clear();
 
     // saves::save()
   }
@@ -109,6 +110,7 @@ namespace game2
   {
     maps2::render();
     entity::render();
+    debug2::render();
     menu2::render();
     fonts2::render();
 
@@ -118,7 +120,7 @@ namespace game2
     textures2::bind();
 
     buffer2::update_quads(quads2::AllQuads);
-    
+
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -159,8 +161,6 @@ namespace game2
     buffer2::update_lines(debug2::lines);
     glDrawArrays(GL_LINES, 0, debug2::lines.size()*2);
 
-    // clean debug data:
-    debug2::clear();
   }
 
 

@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#include "debug.h"
 #include "entity.h"
 #include "fonts.h"
 #include "maps.h"
@@ -139,14 +140,10 @@ namespace quads2
       quads2::AllQuads.insert(quads2::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
     }
 
-  // if(debug::DebugQuads.size() > 0){
-    //   quad::AllQuads.insert(quad::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
-    // }
-
-    // // assign gui quads
-    // if(gui::GuiQuads.size() > 0){
-    //   quad::AllQuads.insert(quad::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
-    // }
+    if(debug2::DebugQuads.size() > 0)
+    {
+      quads2::AllQuads.insert(quads2::AllQuads.end(), debug2::DebugQuads.begin(), debug2::DebugQuads.end());
+    }
 
     if(fonts2::TextQuads.size() > 0)
     {
@@ -251,7 +248,7 @@ namespace quads2
   }
 
 
-
+  template std::vector<quads2::QuadData> quads2::make_quads<debug2::PointData>(std::map<int, debug2::PointData>, int);
   template std::vector<quads2::QuadData> quads2::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
   template std::vector<quads2::QuadData> quads2::make_quads<fonts2::TextData>(std::map<int, fonts2::TextData>, int);
   template std::vector<quads2::QuadData> quads2::make_quads<maps2::TileData>(std::map<int, maps2::TileData>, int);

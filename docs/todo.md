@@ -24,4 +24,4 @@ Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it
 
  ### 5) saves scrolling
 
- ### 6) Debug -> want to display points (little quads), lines, and right click menu with information, outline of the object
+ ### 6) Debug -> want to display right click menu with information
