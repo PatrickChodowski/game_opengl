@@ -1,5 +1,8 @@
 
+#include "debug.h"
 #include "quads.h"
+
+#include <map>
 #include <vector>
 
 #ifndef MODULES_BUFFER_H
@@ -9,6 +12,7 @@
 namespace buffer2
 {
   extern unsigned int VBO, VAO, EBO;
+  extern int COUNT_VERTEX_ATTRIBUTES;
   extern int VBO_size;
   extern int VBO_array_size;
   extern float VBO_buffer_usage;
@@ -17,17 +21,27 @@ namespace buffer2
   extern float EBO_buffer_usage;
   extern int MAX_QUADS;
 
+
   // Initialize opengl buffers, attributes etc.
   void init();
 
   // Method propagating vertex array from quads inside buffer::update
-  void _make_vertex_array(std::vector<quads2::QuadData>& quads, float* arr);
+  void _make_vertex_array_from_quads(std::vector<quads2::QuadData>& quads, float* arr);
 
   // Method propagating index array from quads inside buffer::update
-  void _make_index_array(std::vector<quads2::QuadData>& quads, unsigned int* arr);
+  void _make_index_array_from_quads(std::vector<quads2::QuadData>& quads, unsigned int* arr);
+
+  // Method propagating vertex array from lines inside buffer::update
+  void _make_vertex_array_from_lines(std::vector<debug2::LineData>& lines, float* arr);
+
+  // Method propagating index array from quads inside buffer::update
+  void _make_index_array_from_lines(std::vector<debug2::LineData>& lines, unsigned int* arr);
 
   // Gets main quads vector, transforms it and uses it to update the main gpu buffer
-  void update(std::vector<quads2::QuadData>& quads);
+  void update_quads(std::vector<quads2::QuadData>& quads);
+
+  // Gets main lines vector, transforms it and uses it to update the main gpu buffer
+  void update_lines(std::vector<debug2::LineData>& lines);
 
   // Drop buffers
   void drop();

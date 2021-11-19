@@ -10,7 +10,7 @@ namespace debug2
   {
     float x1, y1;
     float x2, y2;
-    float r,g,b,a;
+    float r, g, b, a;
   };
   
   extern std::vector<debug2::LineData> lines;
@@ -27,6 +27,7 @@ namespace debug2
 
   // Remove debug data after drawing, called from buffer
   void clear();
+
 }
 
 

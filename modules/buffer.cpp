@@ -6,6 +6,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <map>
 #include <vector>
 // Opengl packages
 #include <GL/glew.h> 
@@ -19,12 +20,15 @@
     #include <GL/glu.h>
 #endif
 
+#include "../dictionary.h"
+
 namespace buffer2
 {
   
   int MAX_QUADS = 2000;
   unsigned int VBO, VAO, EBO;
-  int VBO_size = buffer2::MAX_QUADS*quads2::COUNT_VERTEX_ATTRIBUTES*sizeof(float)*4;
+  int COUNT_VERTEX_ATTRIBUTES = 14;
+  int VBO_size = buffer2::MAX_QUADS*buffer2::COUNT_VERTEX_ATTRIBUTES*sizeof(float)*4;
   int VBO_array_size;
   float VBO_buffer_usage;
   int EBO_size =  buffer2::MAX_QUADS*sizeof(float)*6;
@@ -56,42 +60,42 @@ namespace buffer2
 
     // Set attributes
     // position attribute:
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     // color attribute:
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     // frame_id attribute
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(7 * sizeof(float)));
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(7 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
     // in texture coordinates attribute
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(8 * sizeof(float)));
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(8 * sizeof(float)));
     glEnableVertexAttribArray(3);
 
     // in texture id attribute
-    glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(10 * sizeof(float)));
+    glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(10 * sizeof(float)));
     glEnableVertexAttribArray(4);
 
     // is_clicked  attribute
-    glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(11 * sizeof(float)));
+    glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(11 * sizeof(float)));
     glEnableVertexAttribArray(5);
 
     // quad type id  attribute
-    glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
+    glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
     glEnableVertexAttribArray(6);
 
     // is_static attribute
-    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, quads2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
+    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
     glEnableVertexAttribArray(7);
 
   }
 
-  void _make_vertex_array(std::vector<quads2::QuadData>& quads, float* arr)
+  void _make_vertex_array_from_quads(std::vector<quads2::QuadData>& quads, float* arr)
   {
-    int cva = quads2::COUNT_VERTEX_ATTRIBUTES; 
+    int cva = buffer2::COUNT_VERTEX_ATTRIBUTES; 
     for(int t=0; t<quads.size(); t++)
     {
       int start_position = t*cva*4;
@@ -158,7 +162,7 @@ namespace buffer2
     }
   }
 
-  void _make_index_array(std::vector<quads2::QuadData>& quads, unsigned int* arr)
+  void _make_index_array_from_quads(std::vector<quads2::QuadData>& quads, unsigned int* arr)
   {
     for(int t=0; t<quads.size(); t++)
     {
@@ -173,33 +177,78 @@ namespace buffer2
     }
   }
 
-  void update(std::vector<quads2::QuadData>& quads)
-  { 
-    // Assigning vertex index and vertex positions here, on the final table
-    for(int q=0; q < quads.size(); q++ )
-    { 
-      quads2::_fill_quad_vertex_data(quads[q]);
-    }
+  void _make_vertex_array_from_lines(std::vector<debug2::LineData>& lines, float* arr)
+  {
+    int cva = buffer2::COUNT_VERTEX_ATTRIBUTES; 
+    for(int t=0; t<lines.size(); t++)
+    {
+      int start_position = t*cva*2;
+      arr[(start_position)] = lines[t].x1;
+      arr[(start_position+1)] = lines[t].y1;
+      arr[(start_position+2)] = 1; // z
+      arr[(start_position+3)] = lines[t].r;
+      arr[(start_position+4)] = lines[t].g;
+      arr[(start_position+5)] = lines[t].b;
+      arr[(start_position+6)] = lines[t].a;
+      arr[(start_position+7)] = 0; //frame_id
+      arr[(start_position+8)] = 0; // tx_x
+      arr[(start_position+9)] = 0; // tx_y
+      arr[(start_position+10)] = 0; // texture_id
+      arr[(start_position+11)] = 0; // is_clicked
+      arr[(start_position+12)] = OBJECT_TYPE_DEBUG;
+      arr[(start_position+13)] = CAMERA_STATIC;
 
-    int n_vertex_array = quads2::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
+      arr[(start_position+cva)] = lines[t].x2;
+      arr[(start_position+(cva+1))] = lines[t].y2;
+      arr[(start_position+(cva+2))] = 1; // z
+      arr[(start_position+(cva+3))] = lines[t].r;
+      arr[(start_position+(cva+4))] = lines[t].g;
+      arr[(start_position+(cva+5))] = lines[t].b;
+      arr[(start_position+(cva+6))] = lines[t].a;
+      arr[(start_position+(cva+7))] = 0; //frame_id
+      arr[(start_position+(cva+8))] = 0; // tx_x
+      arr[(start_position+(cva+9))] = 0; // tx_y
+      arr[(start_position+(cva+10))] = 0; // texture_id
+      arr[(start_position+(cva+11))] = 0; // is_clicked
+      arr[(start_position+(cva+12))] = OBJECT_TYPE_DEBUG;
+      arr[(start_position+(cva+13))] = CAMERA_STATIC;
+    }
+  }
+
+  void _make_index_array_from_lines(std::vector<debug2::LineData>& lines, unsigned int* arr)
+  {
+    // this might not be necessary
+  }
+
+  void update_quads(std::vector<quads2::QuadData>& quads)
+  {
+    int n_vertex_array = buffer2::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
     float vertex_array[n_vertex_array];
 
     int n_index_array = 3*quads.size()*2;
     unsigned int index_array[n_index_array];
 
-    buffer2::_make_vertex_array(quads, vertex_array);
-    utils2::array_to_file("buffer_update_vertex_array", vertex_array, n_vertex_array, quads2::COUNT_VERTEX_ATTRIBUTES);
-    buffer2::_make_index_array(quads, index_array);
+    buffer2::_make_vertex_array_from_quads(quads, vertex_array);
+    buffer2::_make_index_array_from_quads(quads, index_array);
 
     buffer2::VBO_array_size = sizeof(float)*n_vertex_array;
-    buffer2::VBO_buffer_usage = std::round(((float)VBO_array_size/(float)VBO_size) * 1000.0)/1000.0;
+    buffer2::EBO_array_size = sizeof(float)*n_index_array;
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferSubData(GL_ARRAY_BUFFER, 0, buffer2::VBO_array_size, vertex_array);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    buffer2::EBO_array_size = sizeof(float)*n_index_array;
-    buffer2::EBO_buffer_usage = std::round(((float)EBO_array_size/(float)EBO_size) * 1000.0)/1000.0;
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer2::EBO_array_size, index_array);
+  }
+
+  void update_lines(std::vector<debug2::LineData>& lines)
+  {
+    int n_vertex_array = buffer2::COUNT_VERTEX_ATTRIBUTES*lines.size()*2;
+    float vertex_array[n_vertex_array];
+    buffer2::VBO_array_size = sizeof(float)*n_vertex_array;
+    buffer2::_make_vertex_array_from_lines(lines, vertex_array);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer2::VBO_array_size, vertex_array);
   }
 
   void drop()
@@ -227,12 +276,5 @@ namespace buffer2
     debug2::clear();
   }
 
-
-
-  void update_buffer_lines(std::vector<quads2::QuadData>& quads)
-  {
-
-
-  }
 
 }
