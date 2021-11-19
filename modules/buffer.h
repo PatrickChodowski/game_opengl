@@ -34,9 +34,6 @@ namespace buffer2
   // Method propagating vertex array from lines inside buffer::update
   void _make_vertex_array_from_lines(std::vector<debug2::LineData>& lines, float* arr);
 
-  // Method propagating index array from quads inside buffer::update
-  void _make_index_array_from_lines(std::vector<debug2::LineData>& lines, unsigned int* arr);
-
   // Gets main quads vector, transforms it and uses it to update the main gpu buffer
   void update_quads(std::vector<quads2::QuadData>& quads);
 
@@ -45,9 +42,6 @@ namespace buffer2
 
   // Drop buffers
   void drop();
-
-  // Draws the lines, hopefully
-  void draw_lines();
 
 }
 

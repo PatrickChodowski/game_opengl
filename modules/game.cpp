@@ -155,11 +155,12 @@ namespace game2
     // draw scene
     glDrawElements(GL_TRIANGLES, quads2::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
 
-    //////// TEST CODE
-    // debug2::render_line(50,50,800,800, 1,1,1,1);
-    // buffer2::draw_lines();
+    // draw debug lines here
+    buffer2::update_lines(debug2::lines);
+    glDrawArrays(GL_LINES, 0, debug2::lines.size()*2);
 
-
+    // clean debug data:
+    debug2::clear();
   }
 
 
