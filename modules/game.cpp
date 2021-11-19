@@ -1,3 +1,5 @@
+
+#include <chrono>
 #include <iostream>
 #include <map>
 #include <SDL2/SDL.h>
@@ -39,10 +41,15 @@ namespace game2
   float WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
   float WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
   const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
+  std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME = std::chrono::high_resolution_clock::now();
 
 
   void init_scene(int scene_id, bool is_new_game)
   {
+    logger::log(LOG_LVL_INFO, 
+                "start game::init_scene","game::init_scene",
+               __FILE__,__LINE__, LOG_START_TIMER);
+
     if (scene_id < MAIN_MENU_SCENE_ID)
     {
       if(is_new_game)
@@ -59,6 +66,10 @@ namespace game2
     menu2::load(scene_id);
     game2::SCENE_ID = scene_id;
     game2::_check_if_menu();
+
+    logger::log(LOG_LVL_INFO, 
+                "finish game::init_scene","game::init_scene",
+               __FILE__,__LINE__, LOG_END_TIMER);
   }
 
   void _check_if_menu()
@@ -97,6 +108,7 @@ namespace game2
     events2::init();
     fonts2::init("arial"); // its important to keep it before textures becuase of bindings
     items2::init();
+    logger::init();
     maps2::init();
     menu2::init();
     mobs2::init();
@@ -116,7 +128,7 @@ namespace game2
 
     quads2::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
-    logger2::log();
+    logger::log_data();
     textures2::bind();
 
     buffer2::update_quads(quads2::AllQuads);
