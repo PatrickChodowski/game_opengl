@@ -3,9 +3,12 @@
 #include <iostream>
 #include <map>
 #include <ostream>
+#include <string>
 #include <vector>
 
 #include "entity.h"
+#include "fonts.h"
+#include "gui.h"
 #include "hero.h"
 #include "items.h"
 #include "mobs.h"
@@ -47,27 +50,32 @@ namespace entity
     return edd.id;
   }
 
-  int drop(int entity_id)
-  { 
-    entity::UsedEntityIds.erase(std::remove(entity::UsedEntityIds.begin(), 
-                                            entity::UsedEntityIds.end(), entity_id), 
-                                            entity::UsedEntityIds.end());
-    entity::entities.erase(entity_id);
-    return entity_id;
-  }
-
   void render()
   {
     entity::EntityQuads.clear();
     entity::EntityQuads = quads2::make_quads(entity::entities, OBJECT_TYPE_ENTITY);
-  }
+  };
 
   void clear()
   {
     entity::UsedEntityIds.clear();
     entity::entities.clear();
     entity::EntityQuads.clear();
-  }
+  };
+
+  int display(int entity_id, int gui_slot_id)
+  {
+    std::string entity_info;
+    entity::EntityData edd = entity::entities[entity_id];
+    entity_info = "Entity ID: " + utils2::str(entity_id);
+    int label_id = fonts2::add(entity_info, 
+                gui2::guislots[gui_slot_id].x + 5, 
+                gui2::guislots[gui_slot_id].y + 50, 
+                CAMERA_STATIC, 
+                0.8,
+                0.0f, 0.0f, 0.0f);
+    return label_id;
+  };
 
   template int entity::create<hero2::HeroData>(hero2::HeroData, int, float);
   template int entity::create<items2::ItemData>(items2::ItemData, int, float);

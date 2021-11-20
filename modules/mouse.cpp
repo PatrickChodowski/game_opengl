@@ -52,7 +52,7 @@ namespace mouse2
     {
       if(!entity::entities[object_id].is_clicked)
       {
-        entity::entities[object_id].gui_popup_id = gui2::add(object_id, OBJECT_TYPE_ENTITY);
+        entity::entities[object_id].gui_popup_id = gui2::add_context_menu(object_id, OBJECT_TYPE_ENTITY);
       } else 
       {
         gui2::drop(entity::entities[object_id].gui_popup_id);

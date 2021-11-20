@@ -38,6 +38,10 @@ namespace utils2
   //  Drop ID from provided IndexTable
   void drop_id(std::vector<int>& used_ids_table, int id);
 
+  // Convert number to string
+   template <typename T>
+  std::string str(T number);
+
   #define ASSERT(x) if(!(x)) raise(SIGTRAP);
   #define GlCall(x) GlClearError();x;ASSERT(GlLogCall(#x, __FILE__, __LINE__));
 

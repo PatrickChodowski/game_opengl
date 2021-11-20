@@ -45,6 +45,10 @@ namespace gui2
   extern std::map<int, gui2::GuiSlotData> guislots;
   extern std::vector<quads2::QuadData> GuiQuads;
 
+  typedef int (*sig_ptr)(int, int);
+  // Catalog of functions to be chosen based on the object_type_id. Takes object_id and gui_slot_id as arguments
+  extern std::map <int , sig_ptr> display;
+
   // Initialize objects and logic for gui
   void init();
 
@@ -54,8 +58,8 @@ namespace gui2
   // Returns slot id for given gui
   int _free_slot();
 
-  // Adds new gui to guis list, returns gui id
-  int add(int object_id, int object_type_id);
+  // Add context menu for specific object in the game
+  int add_context_menu(int object_id, int object_type_id);
 
   // Makes quads - GuiQuads from guis
   void render();
