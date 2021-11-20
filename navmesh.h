@@ -133,16 +133,6 @@ namespace nav
         break;
       }
     }
-
-    // if(t.id == 12009){
-    //   std::cout << "12009 x : " << t.x << std::endl; // 2
-    //   std::cout << "12009 y : " << t.y << std::endl; // 1
-    //   // std::cout << "Polygon 1 min_x: " << polygons[1].min_x << std::endl;
-    //   // std::cout << "Polygon 1 max_x: " << polygons[1].max_x << std::endl;
-    //   // std::cout << "Polygon 1 min_y: " << polygons[1].min_y << std::endl;
-    //   // std::cout << "Polygon 1 max_y: " << polygons[1].max_y << std::endl;
-    // }
-
     return polygon_id;
   }
 

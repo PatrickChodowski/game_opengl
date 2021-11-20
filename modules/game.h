@@ -14,6 +14,7 @@ namespace game2
   // Game running variables
   extern bool PAUSE;
   extern bool RUNNING;
+  extern bool IS_DEBUG_MODE;
   extern int IS_MENU;
   extern int CURRENT_SHADER_ID;
   extern int SCENE_ID;

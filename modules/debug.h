@@ -47,9 +47,6 @@ namespace debug2
   // Renders debugquads from points
   void render();
 
-  // Renders popup menu with information and functions about the game object
-  void render_popup();
-
   // Remove debug data after drawing, called from buffer
   void clear();
 

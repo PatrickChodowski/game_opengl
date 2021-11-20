@@ -53,11 +53,6 @@ namespace debug2
     debug2::DebugQuads = quads2::make_quads(debug2::points, OBJECT_TYPE_DEBUG);
   }
 
-  void render_popup()
-  {
-
-  };
-
   void clear()
   {
     debug2::UsedDebugIds.clear();

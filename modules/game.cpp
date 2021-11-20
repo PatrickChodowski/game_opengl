@@ -15,6 +15,7 @@
 #include "entity.h"
 #include "events.h"
 #include "fonts.h"
+#include "gui.h"
 #include "hero.h"
 #include "items.h"
 #include "logger.h"
@@ -33,6 +34,7 @@ namespace game2
   bool RUNNING = true;
   bool PAUSE = false;
   int IS_MENU = IN_GAME_SCENE_ID; // 200 if in game, some menu ID if a menu
+  bool IS_DEBUG_MODE = true;
   int CURRENT_SHADER_ID = 0;
   int SCENE_ID = 2;
   float TILE_DIM = 96;
@@ -98,6 +100,7 @@ namespace game2
     menu2::clear();
     quads2::clear();
     debug2::clear();
+    gui2::clear();
 
     // saves::save()
   }
@@ -124,7 +127,9 @@ namespace game2
     entity::render();
     debug2::render();
     menu2::render();
+    gui2::render();
     fonts2::render();
+  
 
     quads2::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
