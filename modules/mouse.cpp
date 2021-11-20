@@ -1,4 +1,6 @@
 
+#include "entity.h"
+#include "game.h"
 #include "gui.h"
 #include "logger.h"
 #include "menu.h"
@@ -44,7 +46,19 @@ namespace mouse2
   void _click_entity(int object_id, int mouse_button_id)
   {
     logger::print("Clicked on entity object id: " + std::to_string(object_id) + " with mouse  button id: " + std::to_string(mouse_button_id));
-    gui2::add(300,300);
+    // entity::EntityData edd = entity::entities[object_id];
+    // if right click and debug mode is on
+    if((mouse_button_id == MOUSE_BUTTON_RIGHT) & game2::IS_DEBUG_MODE)
+    {
+      if(!entity::entities[object_id].is_clicked)
+      {
+        entity::entities[object_id].gui_popup_id = gui2::add(750, 10, object_id, OBJECT_TYPE_ENTITY);
+      } else 
+      {
+        gui2::drop(entity::entities[object_id].gui_popup_id);
+      }
+      entity::entities[object_id].is_clicked  = !entity::entities[object_id].is_clicked;
+    } 
   };
 
   void _click_map(int object_id, int mouse_button_id)

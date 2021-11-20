@@ -16,6 +16,7 @@ namespace entity
     int event_id;
     int status;
     int entity_type_id;
+    int gui_popup_id;
 
     // original space
     float x, y;

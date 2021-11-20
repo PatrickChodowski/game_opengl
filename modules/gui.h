@@ -38,7 +38,7 @@ namespace gui2
   extern std::vector<quads2::QuadData> GuiQuads;
 
   // Adds new gui to guis list, returns gui id
-  int add(float x, float y);
+  int add(float x, float y, int object_id, int object_type_id);
 
   // Makes quads - GuiQuads from guis
   void render();

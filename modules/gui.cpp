@@ -15,15 +15,15 @@ namespace gui2
   std::map<int, gui2::GuiData> guis;
   std::vector<quads2::QuadData> GuiQuads;
 
-  int add(float x, float y)
+  int add(float x, float y, int object_id, int object_type_id)
   {
     gui2::GuiData gdd;
     gdd.id = utils2::generate_id(gui2::UsedGuiIds);
     gdd.x = x;
     gdd.y = y;
 
-    gdd.w = 100;
-    gdd.h = 200;
+    gdd.w = 200;
+    gdd.h = 400;
     gdd.r = 1.0;
     gdd.g = 1.0;
     gdd.b = 1.0;
@@ -50,6 +50,7 @@ namespace gui2
 
   void drop(int gui_id)
   {
+    guis.erase(gui_id);
     gui2::active_guis -= 1;
   }
   
