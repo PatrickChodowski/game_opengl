@@ -100,32 +100,11 @@ namespace events2
             break;
 
             case SDLK_p:
-              if(game2::PAUSE)
-              {
-                game2::PAUSE = false;
-              } else 
-              {
-                game2::PAUSE = true;
-              }      
+              game2::PAUSE = !game2::PAUSE;    
             break;
 
             case SDLK_d:
-              // if(DEBUG_MODE)
-              // {
-              //   DEBUG_MODE = false;
-              // } else {
-              //   DEBUG_MODE = true;
-              // }
-            break;
-
-            case SDLK_l:
-              // toggle between base and light shader
-              // if(CURRENT_SHADER_ID == 0)
-              // {
-              //   CURRENT_SHADER_ID = 1;
-              // } else {
-              //   CURRENT_SHADER_ID = 0;
-              // }
+              game2::IS_DEBUG_MODE = !game2::IS_DEBUG_MODE;
             break;
           }
         break;

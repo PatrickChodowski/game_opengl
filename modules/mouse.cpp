@@ -1,4 +1,6 @@
 
+#include "gui.h"
+#include "logger.h"
 #include "menu.h"
 #include "mouse.h"
 #include "quads.h"
@@ -41,7 +43,8 @@ namespace mouse2
 
   void _click_entity(int object_id, int mouse_button_id)
   {
-    std::cout << "Clicked on entity object id: " << object_id  << " with button id: " << mouse_button_id <<  std::endl;
+    logger::print("Clicked on entity object id: " + std::to_string(object_id) + " with mouse  button id: " + std::to_string(mouse_button_id));
+    gui2::add(300,300);
   };
 
   void _click_map(int object_id, int mouse_button_id)
