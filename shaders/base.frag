@@ -22,6 +22,7 @@ void main()
   if(out_type_id == 1.0 || out_type_id == 0.0)
   {
     frag_color = texture(textures[texture_index], out_tex_coord);
+    frag_color.r = (1-out_is_clicked)*frag_color.r;
   } 
   // menu:
   else if (out_type_id == 2.0)
@@ -43,8 +44,6 @@ void main()
 
   //frag_color = texture(textures[texture_index], out_tex_coord);
   // frag_color.r = (1-out_is_clicked)*frag_color.r; // for clicking 
-  //frag_color = texture(textures[texture_index], out_tex_coord);
-  // frag_color = texture(textures[texture_index], out_tex_coord);
   // frag_color.g = 0.2f;
   // 1,1,1,1 for white
   // 0,0,0,1 for black
