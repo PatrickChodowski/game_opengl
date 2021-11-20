@@ -54,12 +54,11 @@ namespace fonts2
   struct LabelData 
   {
     int id;
-
+    float r, g, b;
     float x_start;
     float y_start;
     float camera_type;
     float scale;
-
     std::string text;
   };
 
@@ -92,7 +91,7 @@ namespace fonts2
   void init(std::string font_name);
 
   // Add new label to labels. Returns label_id
-  int add(std::string& text, float x_start, float y_start, float camera_type, float scale);
+  int add(std::string& text, float x_start, float y_start, float camera_type, float scale, float r, float g, float b);
 
   // Render characters of selected label data
   void render_chars(fonts2::LabelData ldd);
@@ -102,6 +101,9 @@ namespace fonts2
 
   // Clear all texts related data
   void clear();
+
+  // Deletes label by label id
+  void drop(int label_id);
 
 }
 

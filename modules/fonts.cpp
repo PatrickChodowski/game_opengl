@@ -163,14 +163,18 @@ namespace fonts2
     textures2::BoundTextures.push_back(TD.opengl_texture_id);
   };
 
-  int add(std::string& text, float x_start, float y_start, float camera_type, float scale)
+  int add(std::string& text, float x_start, float y_start, float camera_type, float scale, float r, float g, float b)
   {
+    std::cout << "adding label " << text << std::endl;
     fonts2::LabelData ldd;
     ldd.id = utils2::generate_id(fonts2::UsedLabelIds);
     ldd.text = text;
     ldd.x_start = x_start;
     ldd.y_start = y_start;
     ldd.camera_type = camera_type;
+    ldd.r = r;
+    ldd.g = g;
+    ldd.b = b;
     ldd.scale = scale;
     labels[ldd.id] = ldd;
     return ldd.id;
@@ -193,9 +197,12 @@ namespace fonts2
       tdd.w = chars[*p].bitmap_width * ldd.scale;
       tdd.h = chars[*p].bitmap_height * ldd.scale;
 
-      tdd.r = 1.0;
-      tdd.g = 1.0;
-      tdd.b = 1.0;
+      tdd.r = ldd.r;
+      tdd.g = ldd.g;
+      tdd.b = ldd.b;
+      // tdd.r = 1.0;
+      // tdd.g = 1.0;
+      // tdd.b = 1.0;
       tdd.a = 1.0;
       tdd.camera_type = ldd.camera_type;
       tdd.is_clicked = false;
@@ -220,6 +227,12 @@ namespace fonts2
     fonts2::TextQuads = quads2::make_quads(fonts2::texts, OBJECT_TYPE_TEXT);
   };
 
+
+  void drop(int label_id)
+  {
+    fonts2::labels.erase(label_id);
+    utils2::drop_id(fonts2::UsedLabelIds, label_id);
+  }
 
   void clear()
   {

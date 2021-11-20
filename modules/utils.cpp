@@ -128,6 +128,12 @@ namespace utils2
     used_ids_table.erase(std::remove(used_ids_table.begin(), used_ids_table.end(), id), used_ids_table.end());
   };
 
+  template <typename T>
+  std::string str(T number)
+  {
+    return std::to_string(number);
+  }
+
   static void GlClearError()
   {
     while(glGetError() != GL_NO_ERROR);
@@ -142,5 +148,9 @@ namespace utils2
     }
     return true;
   };
+
+
+  template std::string utils2::str<int>(int);
+  template std::string utils2::str<float>(float);
 
 }

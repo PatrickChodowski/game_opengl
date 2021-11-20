@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "entity.h"
+#include "fonts.h"
 #include "gui.h"
 #include "quads.h"
 #include "utils.h"
@@ -15,6 +17,7 @@ namespace gui2
   std::map<int, gui2::GuiData> guis;
   std::map<int, gui2::GuiSlotData> guislots = {};
   std::vector<quads2::QuadData> GuiQuads;
+  std::map <int , sig_ptr> display = {};
 
   void init()
   {
@@ -33,6 +36,8 @@ namespace gui2
     gsd1.y = 10;
     gsd1.gui_id = -1;
     guislots[1] = gsd1;
+
+    gui2::display[OBJECT_TYPE_ENTITY] = entity::display;
   }
 
   int _get_free_slot()
@@ -61,7 +66,7 @@ namespace gui2
     }
   }
 
-  int add(int object_id, int object_type_id)
+  int add_context_menu(int object_id, int object_type_id)
   {
     int free_slot = gui2::_get_free_slot();
     if(free_slot > -1)
@@ -87,8 +92,14 @@ namespace gui2
       gdd.camera_type = CAMERA_STATIC;
 
       gui2::guis[gdd.id] = gdd;
+
+
       gui2::guislots[free_slot].gui_id = gdd.id;
       gui2::guislots[free_slot].free = false;
+
+      int label_id = gui2::display[object_type_id](object_id, free_slot);
+      gdd.labels.push_back(label_id);
+      gui2::guis[gdd.id] = gdd;
 
       return gdd.id;
     } else 
@@ -107,9 +118,16 @@ namespace gui2
 
   void drop(int gui_id)
   {
+    // Delete labels assigned to this gui
+    for(int l=0; l<gui2::guis[gui_id].labels.size(); l++)
+    {
+      fonts2::drop(gui2::guis[gui_id].labels[l]);
+    }
+
     gui2::_free_slot(gui_id);
     guis.erase(gui_id);
     utils2::drop_id(gui2::UsedGuiIds, gui_id);
+
   }
   
 

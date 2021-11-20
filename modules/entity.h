@@ -51,17 +51,14 @@ namespace entity
   template <typename T>
   int create(T data, int entity_type_id, float camera_type);
 
-  // Updates entity in the table
-  int update(int entity_id);
-
-  // Deletes entity from the table
-  int drop(int entity_id);
-
   // Creates quads for the entity table
   void render();
 
   // Clears entity table
   void clear();
+
+  // Dislays info in Debug Gui popup 
+  int display(int entity_id, int gui_slot_id);
 
 }
 

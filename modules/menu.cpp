@@ -84,14 +84,14 @@ namespace menu2
             bdd.id = bdd.id + (s+100);
             bdd.label = menu2::saves[s];
             bdd.y = bdd.y + (bdd.h*(s+1)) + 5;
-            bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
+            bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0f, 1.0f, 1.0f, 1.0f);
             menu2::CurrentMenuButtons[bdd.id] = bdd;
           }
 
         } else 
         {
           menu2::ButtonData bdd = menu2::menubuttons[button_list[b]];
-          bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0);
+          bdd.label_id = fonts2::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0f, 1.0f, 1.0f, 1.0f);
           if(bdd.id == MENU_BUTTON_NEWGAME_NAME)
           {
             fonts2::NEW_GAME_LABEL_ID = bdd.label_id;
