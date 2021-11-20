@@ -35,6 +35,9 @@ namespace utils2
   //  Generate (find and insert) next available ID for provided IndexTable
   int generate_id(std::vector<int>& used_ids_table);
 
+  //  Drop ID from provided IndexTable
+  void drop_id(std::vector<int>& used_ids_table, int id);
+
   #define ASSERT(x) if(!(x)) raise(SIGTRAP);
   #define GlCall(x) GlClearError();x;ASSERT(GlLogCall(#x, __FILE__, __LINE__));
 

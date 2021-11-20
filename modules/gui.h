@@ -12,6 +12,14 @@
 
 namespace gui2
 {
+  struct GuiSlotData
+  {
+    int id;
+    int gui_id;
+    float x, y;
+    bool free;
+  };
+
   struct GuiData
   {
     int id;
@@ -32,13 +40,22 @@ namespace gui2
 
   };
 
-  extern int active_guis;
   extern std::vector<int> UsedGuiIds;
   extern std::map<int, gui2::GuiData> guis;
+  extern std::map<int, gui2::GuiSlotData> guislots;
   extern std::vector<quads2::QuadData> GuiQuads;
 
+  // Initialize objects and logic for gui
+  void init();
+
+  // Returns minimum free slot id
+  int _get_free_slot();
+
+  // Returns slot id for given gui
+  int _free_slot();
+
   // Adds new gui to guis list, returns gui id
-  int add(float x, float y, int object_id, int object_type_id);
+  int add(int object_id, int object_type_id);
 
   // Makes quads - GuiQuads from guis
   void render();

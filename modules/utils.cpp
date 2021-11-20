@@ -1,11 +1,14 @@
-#include <string>
-#include <vector>
-#include <dirent.h>
-#include "utils.h"
+#include <algorithm>
 #include <fstream>
-#include <sstream>
 #include <iostream>
 #include <random>
+#include <sstream>
+#include <string>
+#include <vector>
+
+#include <dirent.h>
+#include "utils.h"
+
 #include "../dependencies/json_struct.h"
 #include <GL/glew.h> 
 
@@ -118,7 +121,12 @@ namespace utils2
     int next_id = utils2::_find_next_id(used_ids_table);
     used_ids_table.push_back(next_id);
     return next_id;
-  }
+  };
+
+  void drop_id(std::vector<int>& used_ids_table, int id)
+  {
+    used_ids_table.erase(std::remove(used_ids_table.begin(), used_ids_table.end(), id), used_ids_table.end());
+  };
 
   static void GlClearError()
   {

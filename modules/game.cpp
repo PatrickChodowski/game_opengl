@@ -110,6 +110,7 @@ namespace game2
     buffer2::init();
     events2::init();
     fonts2::init("arial"); // its important to keep it before textures becuase of bindings
+    gui2::init();
     items2::init();
     logger::init();
     maps2::init();
