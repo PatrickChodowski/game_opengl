@@ -63,6 +63,7 @@ namespace game2
       }
       maps2::init_map(scene_id);
       mobs2::spawn(scene_id);
+      gui2::init();
       items2::put_item_on_ground(0, 600, 500);
     }
     menu2::load(scene_id);

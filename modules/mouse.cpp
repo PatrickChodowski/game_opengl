@@ -71,6 +71,11 @@ namespace mouse2
     std::cout << "Clicked on text object id: " << object_id<< " with button id: " << mouse_button_id << std::endl;
   };
 
+  void _click_gui(int object_id, int mouse_button_id)
+  {
+    std::cout << "Clicked on gui object id: " << object_id << " with button id: " << mouse_button_id << std::endl;
+  };
+
 
   void init()
   {
@@ -78,6 +83,7 @@ namespace mouse2
     mouse2::click[OBJECT_TYPE_MAP] = _click_map;
     mouse2::click[OBJECT_TYPE_MENU] = _click_menu;
     mouse2::click[OBJECT_TYPE_TEXT] = _click_text;
+    mouse2::click[OBJECT_TYPE_GUI] = _click_gui;
   }
 
 
