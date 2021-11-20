@@ -42,6 +42,9 @@ namespace mouse2
   // Click logic for given text
   void _click_text(int object_id, int mouse_button_id);
 
+  // Click logic for gui
+  void _click_gui(int object_id, int mouse_button_id);
+
   // Initialize Mouse logic
   void init();
 

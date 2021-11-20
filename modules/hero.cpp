@@ -32,7 +32,7 @@ namespace hero2
     hero.current_movement_state = ENTITY_STATE_CALM;
     hero.name = name;
     hero.type = type;
-    entity::create(hero2::hero, OBJECT_TYPE_ENTITY, CAMERA_STATIC);
+    entity::create(hero2::hero, OBJECT_TYPE_ENTITY, CAMERA_ZOOM_ONLY);
   };
 
 

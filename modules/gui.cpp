@@ -107,7 +107,6 @@ namespace gui2
 
   void drop(int gui_id)
   {
-    std::cout<< "dropping gui id: " << gui_id << std::endl;
     gui2::_free_slot(gui_id);
     guis.erase(gui_id);
     utils2::drop_id(gui2::UsedGuiIds, gui_id);

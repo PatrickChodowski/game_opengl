@@ -1,7 +1,7 @@
 
 # done:
 - buffer
-- camera
+- camera -> hero still loses position on zoom + move
 - collisions
 - debug -> todo debug popup menu
 - entity
