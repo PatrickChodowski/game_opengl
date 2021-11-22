@@ -3,6 +3,7 @@ ifeq ($(UNAME),Darwin)
 output: game
 	g++ -std=c++17 main.cpp \
 	modules/buffer.cpp \
+	modules/buttons.cpp \
 	modules/camera.cpp \
 	modules/collisions.cpp \
 	modules/debug.cpp \
@@ -31,6 +32,7 @@ ifeq ($(UNAME),Linux)
 output: game
 	g++ -std=c++17 main.cpp \
 	modules/buffer.cpp \
+	modules/buttons.cpp \
 	modules/camera.cpp \
 	modules/collisions.cpp \
 	modules/debug.cpp \

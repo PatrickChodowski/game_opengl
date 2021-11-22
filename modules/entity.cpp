@@ -72,7 +72,7 @@ namespace entity
                 gui2::guislots[gui_slot_id].x + 5, 
                 gui2::guislots[gui_slot_id].y + 50, 
                 CAMERA_STATIC, 
-                0.8,
+                0.7,
                 0.0f, 0.0f, 0.0f);
     return label_id;
   };
