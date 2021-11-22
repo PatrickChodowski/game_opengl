@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "buttons.h"
 #include "entity.h"
 #include "fonts.h"
 #include "gui.h"
@@ -97,8 +98,16 @@ namespace gui2
       gui2::guislots[free_slot].gui_id = gdd.id;
       gui2::guislots[free_slot].free = false;
 
+      // Add labels
       int label_id = gui2::display[object_type_id](object_id, free_slot);
       gdd.labels.push_back(label_id);
+      
+      // Add buttons (menu? entity menu? - redefine menu?)
+      int button_id = buttons::add("click", 
+                                   gdd.x+5, 
+                                   gdd.y+70, 1);
+      gdd.buttons.push_back(button_id);
+
       gui2::guis[gdd.id] = gdd;
 
       return gdd.id;
@@ -119,6 +128,11 @@ namespace gui2
   void drop(int gui_id)
   {
     // Delete labels assigned to this gui
+    for(int b=0; b<gui2::guis[gui_id].buttons.size(); b++)
+    {
+      buttons::drop(gui2::guis[gui_id].buttons[b]);
+    }
+
     for(int l=0; l<gui2::guis[gui_id].labels.size(); l++)
     {
       fonts2::drop(gui2::guis[gui_id].labels[l]);

@@ -3,7 +3,7 @@
 - buffer
 - camera -> hero still loses position on zoom + move
 - collisions
-- debug -> todo debug popup menu
+- debug
 - entity
 - events
 - fonts

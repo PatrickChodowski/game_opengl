@@ -37,6 +37,16 @@ for (auto const& [key, val] : symbolTable)
  
 ```
 
+### function pointers
+```c++
+  // .h:
+  typedef void (*sig_ptr)(SDL_Event event);
+  // Catalog of functions to be chosen based on the scene id
+  extern std::map <int , sig_ptr> EventsHandler;
+
+  // .cpp:
+  std::map <int , sig_ptr> EventsHandler = {};
+```
 
 
 ### good practice:

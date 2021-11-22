@@ -10,6 +10,7 @@
 #include "game.h"
 
 #include "buffer.h"
+#include "buttons.h"
 #include "camera.h"
 #include "debug.h"
 #include "entity.h"
@@ -102,6 +103,7 @@ namespace game2
     quads2::clear();
     debug2::clear();
     gui2::clear();
+    buttons::clear();
 
     // saves::save()
   }
@@ -109,8 +111,9 @@ namespace game2
   void init()
   {
     buffer2::init();
+    buttons::init();
     events2::init();
-    fonts2::init("arial"); // its important to keep it before textures becuase of bindings
+    fonts2::init("Ignotum"); // its important to keep it before textures becuase of bindings
     gui2::init();
     items2::init();
     logger::init();
@@ -130,6 +133,7 @@ namespace game2
     debug2::render();
     menu2::render();
     gui2::render();
+    buttons::render();
     fonts2::render();
   
 
