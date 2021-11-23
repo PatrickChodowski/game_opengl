@@ -35,8 +35,8 @@ void main()
   {
     frag_color = vec4(out_color.rgb, texture(textures[texture_index], out_tex_coord).r);
   }
-  // debug lines:
-    else if (out_type_id == 4.0 || out_type_id == 5.0)
+  // debug lines, gui, buttons:
+    else if (out_type_id >= 4.0 || out_type_id == 5.0)
   {
     frag_color = out_color.rgba;
   }

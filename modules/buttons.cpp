@@ -55,7 +55,7 @@ namespace buttons
   void render()
   {
     buttons::GuiButtonQuads.clear();
-    buttons::GuiButtonQuads = quads2::make_quads(buttons::guibuttons, OBJECT_TYPE_GUI);
+    buttons::GuiButtonQuads = quads2::make_quads(buttons::guibuttons, OBJECT_TYPE_BUTTON);
   }
 
 

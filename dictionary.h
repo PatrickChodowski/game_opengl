@@ -35,6 +35,7 @@
 #define OBJECT_TYPE_TEXT 3
 #define OBJECT_TYPE_DEBUG 4
 #define OBJECT_TYPE_GUI 5
+#define OBJECT_TYPE_BUTTON 6
 
 // entity collision sensors
 #define SENSOR_TOP 0
