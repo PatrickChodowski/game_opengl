@@ -40,6 +40,10 @@ namespace utils2
   //  Drop ID from provided IndexTable
   void drop_id(std::vector<int>& used_ids_table, int id);
 
+  // Calculates distance between two points
+  float get_distance_between_points(float x1, float y1, float x2, float y2);
+
+
   // Convert number to string
    template <typename T>
   std::string str(T number);

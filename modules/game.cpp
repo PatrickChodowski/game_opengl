@@ -28,6 +28,7 @@
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
+#include "travel.h"
 
 #include "../dictionary.h"
 
@@ -106,6 +107,7 @@ namespace game2
     debug2::clear();
     gui2::clear();
     buttons::clear();
+    travel::clear();
 
     // saves::save()
   }

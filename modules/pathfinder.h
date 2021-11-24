@@ -16,6 +16,7 @@ namespace paths
 
   extern std::map<int, std::map<int, DjikstraStep>> PathMap;
 
+  int get_navnode_id(float x, float y);
 
   int get_min_distance(std::vector<float> distances, 
                        std::vector<bool> polygon_included,

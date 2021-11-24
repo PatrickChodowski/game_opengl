@@ -53,9 +53,6 @@ namespace collisions
     bool is_near;
   };
 
-  // Calculates distance between two points
-  float get_distance_between_points(float x1, float y1, float x2, float y2);
-
   // Gets vector of entity distances to other entities
   std::vector<collisions::DistanceToObject> get_entity_to_entity_distances(int entity_id);
 

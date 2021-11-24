@@ -22,6 +22,7 @@ namespace entity
     float x, y;
     float h, w;
     float r, g, b, a;
+    float speed;
 
     float mid_x, mid_y;
     float diag;

@@ -1,10 +1,13 @@
+
+#include <algorithm>
+#include <math.h>
 #include <vector>
+
+#include "camera.h"
 #include "collisions.h"
 #include "entity.h"
-#include "camera.h"
 #include "maps.h"
-#include <math.h>
-#include <algorithm>
+#include "utils.h"
 #include "../dictionary.h"
 
 // Note: I dont really like this implementation.
@@ -18,12 +21,6 @@ namespace collisions
   int SENSOR_OFFSET = 1;
   int ABS_COUNT = 1;
 
-  float get_distance_between_points(float x1, float y1, float x2, float y2)
-  {
-    float distance = std::sqrt(std::pow((x2 - x1), 2) + std::pow((y2-y1), 2));
-    return distance;
-  }
-
   std::vector<collisions::DistanceToObject> get_entity_to_entity_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
@@ -31,7 +28,7 @@ namespace collisions
     {
       if(k != entity_id)
       {
-        float dist = get_distance_between_points(v.x, 
+        float dist = utils2::get_distance_between_points(v.x, 
                                                  v.y, 
                                                  entity::entities[entity_id].x, 
                                                  entity::entities[entity_id].y);
@@ -58,10 +55,10 @@ namespace collisions
     std::vector<collisions::DistanceToObject> distances = {};
     for (auto const& [k, v]: maps2::tiles)
     {
-      float dist = get_distance_between_points(v.x, 
-                                               v.y, 
-                                               entity::entities[entity_id].x, 
-                                               entity::entities[entity_id].y);
+      float dist = utils2::get_distance_between_points(v.x, 
+                                                       v.y, 
+                                                       entity::entities[entity_id].x, 
+                                                       entity::entities[entity_id].y);
       float dist_limit = entity::entities[entity_id].diag + v.diag;
       if(dist <= dist_limit)
       {

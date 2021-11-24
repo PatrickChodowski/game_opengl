@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <cmath>
 #include <random>
 #include <set>
 #include <sstream>
@@ -126,15 +127,18 @@ namespace utils2
     return next_id;
   };
 
-
-
-
-  // TEST END
-
   void drop_id(std::vector<int>& used_ids_table, int id)
   {
     used_ids_table.erase(std::remove(used_ids_table.begin(), used_ids_table.end(), id), used_ids_table.end());
   };
+
+  float get_distance_between_points(float x1, float y1, float x2, float y2)
+  {
+    float distance = std::sqrt(std::pow((x2 - x1), 2) + std::pow((y2-y1), 2));
+    return distance;
+  }
+
+
 
   template <typename T>
   std::string str(T number)

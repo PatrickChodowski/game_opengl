@@ -25,6 +25,7 @@ output: game
 	modules/saves.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
+	modules/travel.cpp \
 	modules/timer.cpp \
 	modules/utils.cpp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
 game: main.cpp
@@ -56,6 +57,7 @@ output: game
 	modules/saves.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
+	modules/travel.cpp \
 	modules/timer.cpp \
 	modules/utils.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
 game: main.cpp
