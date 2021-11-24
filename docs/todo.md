@@ -1,5 +1,10 @@
 
 
+### 0) 
+  - test if IDS can be stored in the set and if it produces the right results-> utils2::generate_id_set(). Fonts will use Set  (ordered set) to store unsigned ints
+  - write first tests for this -> generating and deleting IDS
+
+
 ### 1) ./modules/collisions.cpp
 
 - dont really like the implementation of near distances, set_abs etc. splitting between two object types. 
@@ -25,6 +30,10 @@ Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it
  ### 5) saves scrolling
 
  ### 6) Debug -> want to display right click menu with information
+
+ ### 7) 
+  -> hero still loses position on zoom + move
+
 
 
 

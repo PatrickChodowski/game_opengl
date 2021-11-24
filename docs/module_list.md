@@ -1,7 +1,7 @@
 
 # done:
 - buffer
-- camera -> hero still loses position on zoom + move
+- camera
 - collisions
 - debug
 - entity
@@ -26,6 +26,7 @@
 - variables.h -> to remove
 
 # doing:
+- buttons.
 - navmesh
 - pathfinder
 
