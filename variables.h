@@ -65,45 +65,5 @@ namespace anims
   std::vector<int> PAsToRemove = {};
 }
 
-namespace nav
-{
- // almost navigate, but no, its Nav Gate (gate between 2 polygons). Why I am not a comedian
-  struct NavGate 
-  {
-    int id;
-    int a_id;
-    int b_id;
-    float gate_min_x;
-    float gate_max_x;
-    float gate_min_y;
-    float gate_max_y;
-    float gate_s_min_x;
-    float gate_s_max_x;
-    float gate_s_min_y;
-    float gate_s_max_y;
-    int orientation;
-  };
-
-  // NavNode store information about AABB box, scaled AABB box, edges(map) and tile count
-  struct NavNode
-  {
-    int id;
-    float min_y;
-    float min_x;
-    float max_y;
-    float max_x;
-    float s_min_y;
-    float s_min_x;
-    float s_max_y;
-    float s_max_x;
-    std::map<int, NavGate> edges;
-    int count_tiles;
-  };
-
-  // Map of NavNodeID (int) and NavNode
-  std::map<int, NavNode> NavMesh;
-  std::vector<std::vector<int>> NavMeshGraph;
-}
-
 
 #endif

@@ -2,8 +2,10 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "quads.h"
+
 #include "maps.h"
+#include "navmesh.h"
+#include "quads.h"
 #include "textures.h"
 #include "utils.h"
 #include "../dictionary.h"
@@ -94,9 +96,8 @@ namespace maps2
              maps2::maps[map_id].vertex_height,
              maps2::maps[map_id].texture_id);
 
-    // nav::init(maps::Catalog[map_id].name, 
-    //           maps::Catalog[map_id].vertex_width, 
-    //           maps::Catalog[map_id].vertex_height);
+    // Generate navmesh based on the map_id
+    nav::init(map_id);
     // paths::make_path_map();
 
     // Make map quads:

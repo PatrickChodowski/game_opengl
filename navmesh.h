@@ -296,7 +296,6 @@ namespace nav
     // Polygon_id, Gate =  edge
     // uh, thats solid plan
 
-
     for (auto const& nn : nav_nodes)
     { 
 
@@ -390,32 +389,8 @@ void make_navmesh_graph()
     nav::log_navmesh();    
   }
 
-  // Scaling navmesh info -> Polygons boundaries and gates
-  void scale(int camera_x=0, int camera_y=0, float camera_zoom=1.0)
-  {
 
-    float scale_factor = (1.0f/float(camera_zoom));
-    camera::tile_dim = (float)TILE_DIM*scale_factor;
-    camera_x = (-1)*camera_x;
-
-    for (auto const& nn : nav::NavMesh)
-    { 
-
-      nav::NavMesh[nn.first].s_max_x = (nn.second.max_x + (float)camera_x)*scale_factor;
-      nav::NavMesh[nn.first].s_min_x = (nn.second.min_x + (float)camera_x)*scale_factor;
-      nav::NavMesh[nn.first].s_max_y = (nn.second.max_y + (float)camera_y)*scale_factor;
-      nav::NavMesh[nn.first].s_min_y = (nn.second.min_y + (float)camera_y)*scale_factor;
-
-      for (auto const& ed : nn.second.edges)
-      {
-        nav::NavMesh[nn.first].edges[ed.first].gate_s_max_x = (ed.second.gate_max_x + (float)camera_x)*scale_factor;
-        nav::NavMesh[nn.first].edges[ed.first].gate_s_min_x = (ed.second.gate_min_x + (float)camera_x)*scale_factor;
-        nav::NavMesh[nn.first].edges[ed.first].gate_s_max_y = (ed.second.gate_max_y + (float)camera_y)*scale_factor;
-        nav::NavMesh[nn.first].edges[ed.first].gate_s_min_y = (ed.second.gate_min_y + (float)camera_y)*scale_factor;
-      }
-    }
-    nav::log_navmesh();  
-  }
+  
 }
 
 
