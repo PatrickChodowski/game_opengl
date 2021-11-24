@@ -26,10 +26,8 @@
 - variables.h -> to remove
 
 # doing:
-- buttons
-- navmesh
 - pathfinder
+- travel
 
 # todo:
 - anims
-- travel
