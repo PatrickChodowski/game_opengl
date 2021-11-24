@@ -67,10 +67,10 @@ namespace fonts2
   extern std::vector<quads2::QuadData> TextQuads;
 
   // Vector of used Text Ids
-  extern std::vector<int> UsedTextIds;
+  extern std::vector<int> TextIndex;
 
-  // Vector of used Text Ids
-  extern std::vector<int> UsedLabelIds;
+  // Vector of used Label Ids
+  extern std::vector<int> LabelIndex;
 
   // Map of character and character data in the texture
   extern std::map<char, CharacterData> chars;

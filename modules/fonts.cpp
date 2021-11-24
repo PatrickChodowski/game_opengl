@@ -6,7 +6,6 @@
 #include <iostream>
 #include <map>
 
-#include <set>
 #include <string>
 #include <vector>
 
@@ -34,8 +33,8 @@ namespace fonts2
   std::vector<quads2::QuadData> TextQuads = {};
   std::map<int, TextData> texts = {};
   std::map<int, LabelData> labels;
-  std::set<int> TextIndex = {};
-  std::set<int> LabelIndex = {};
+  std::vector<int> TextIndex = {};
+  std::vector<int> LabelIndex = {};
   textures2::TextureData FontTDD;
   int NEW_GAME_LABEL_ID = 0;
 
@@ -167,10 +166,8 @@ namespace fonts2
 
   int add(std::string& text, float x_start, float y_start, float camera_type, float scale, float r, float g, float b)
   {
-    std::cout << "adding label " << text << std::endl;
     fonts2::LabelData ldd;
-    ldd.id = utils2::generate_id(fonts2::UsedLabelIds);
-    std::cout << "label id: " << ldd.id << std::endl;
+    ldd.id = utils2::generate_id(fonts2::LabelIndex);
     ldd.text = text;
     ldd.x_start = x_start;
     ldd.y_start = y_start;
@@ -191,7 +188,7 @@ namespace fonts2
     for(const char *p = ldd.text.c_str(); *p; p++) 
     { 
       fonts2::TextData tdd;
-      tdd.id = utils2::generate_id(fonts2::UsedTextIds);
+      tdd.id = utils2::generate_id(fonts2::TextIndex);
       tdd.texture_id = chars[*p].texture_id;
       tdd.frame_id = chars[*p].frame_id;
 
@@ -220,7 +217,7 @@ namespace fonts2
 
   void render()
   { 
-    fonts2::UsedTextIds.clear();
+    fonts2::TextIndex.clear();
     fonts2::texts.clear();
     for (auto const& [k, v] : fonts2::labels)
     { 
@@ -233,9 +230,8 @@ namespace fonts2
 
   void drop(int label_id)
   {
-    std::cout << "dropping label " << fonts2::labels[label_id].text << std::endl;
     fonts2::labels.erase(label_id);
-    utils2::drop_id(fonts2::UsedLabelIds, label_id);
+    utils2::drop_id(fonts2::LabelIndex, label_id);
   }
 
   void clear()
@@ -243,8 +239,8 @@ namespace fonts2
     fonts2::TextQuads.clear();
     fonts2::texts.clear();
     fonts2::labels.clear();
-    fonts2::UsedTextIds.clear();
-    fonts2::UsedLabelIds.clear();
+    fonts2::TextIndex.clear();
+    fonts2::LabelIndex.clear();
   };
 
 
