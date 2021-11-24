@@ -29,6 +29,7 @@ namespace items2
     int max_speed;
     int current_frame;
 
+    float speed;
     float x, y;
     float w, h;
     std::string type;

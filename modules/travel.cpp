@@ -3,12 +3,19 @@
 #include <string>
 #include <vector>
 
+#include "entity.h"
+#include "maps.h"
+#include "navmesh.h"
+#include "pathfinder.h"
 #include "travel.h"
 #include "utils.h"
+
+#include "../dictionary.h"
 
 namespace travel
 {
   std::map<int, travel::TravelData> travels;
+  std::vector<int> travels_to_cancel;
 
   float _get_angle_between_points(float e_x, float e_y, float p_x, float p_y)
   {
@@ -39,6 +46,11 @@ namespace travel
     return correct_node;
   }
 
+  bool _check_if_entity_already_moving(int entity_id)
+  {
+    return travel::travels.count(entity_id) > 0;
+  }
+
   travel::TravelData make_basic_plan(int current_node_id, int target_node_id)
   {
     travel::TravelData tp;
@@ -57,12 +69,103 @@ namespace travel
 
   }
 
-  void go(travel::TravelData)
+  void go(travel::TravelData tp)
   {
-    int checked_real_node = travel::sanity_check_replace_tp(tp.current_x, tp.current_y, tp.current_node);
+    int checked_real_node = travel::_sanity_check_replace_tp(tp.current_x, tp.current_y, tp.current_node);
+    // if not correct then adjust plan
+    if(checked_real_node != tp.current_node & checked_real_node != -1)
+    {
+      travel::TravelData tp_adj = make_basic_plan(checked_real_node, tp.target_node);
+      tp.current_node = tp_adj.current_node;
+      tp.next_node = tp_adj.next_node;
+      tp.full_path = tp_adj.full_path;
+    }
 
+    // if we are not at the target yet, we move
+    float dist_to_target = utils2::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+    if(dist_to_target > entity::entities[tp.entity_id].speed)
+    {
+      // if we are not at the target node
+      if(tp.current_node != tp.target_node)
+      {
+        travel::TravelPoint c_point;
+        nav::NavGateData gate = nav::navnodes[tp.current_node].edges[tp.next_node];
+        tp.next_gate = gate.id;
+        if(gate.orientation == NAVGATE_HORIZONTAL_ORIENTATION)
+        {
+          c_point = travel::_get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
+                                              gate.gate_max_x, gate.gate_min_y, 
+                                              tp.current_x, tp.current_y);
 
+        } else if (gate.orientation == NAVGATE_VERTICAL_ORIENTATION)
+        {
+          c_point = travel::_get_nearest_point_on_line(gate.gate_min_x, gate.gate_min_y, 
+                                              gate.gate_min_x, gate.gate_max_y, 
+                                              tp.current_x, tp.current_y);
+        }
+        tp.cpoint_x = c_point.x;
+        tp.cpoint_y = c_point.y;
+        float dist = utils2::get_distance_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
+        float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
+        float x1 = entity::entities[tp.entity_id].x + (cos(angle) * entity::entities[tp.entity_id].speed);
+        float y1 = entity::entities[tp.entity_id].y + (sin(angle) * entity::entities[tp.entity_id].speed);
 
+        tp.current_x = x1;
+        tp.current_y = y1;
+        entity::entities[tp.entity_id].x = x1;
+        entity::entities[tp.entity_id].y = y1;
+
+        // update the current and next node information if we are almost at the gate
+        if(dist <= entity::entities[tp.entity_id].speed)
+        {
+          tp.current_step_index += 1;
+          tp.current_node = tp.full_path[tp.current_step_index];
+          if(tp.current_node != tp.target_node)
+          {
+            tp.next_node = tp.full_path[(tp.current_step_index+1)];
+          }
+        }
+
+      } else if (tp.current_node == tp.target_node)
+      {
+        float dist = utils2::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+        float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+        float x1 = entity::entities[tp.entity_id].x + cos(angle) * entity::entities[tp.entity_id].speed;
+        float y1 = entity::entities[tp.entity_id].y + sin(angle) * entity::entities[tp.entity_id].speed;
+        tp.current_x = x1;
+        tp.current_y = y1;
+        entity::entities[tp.entity_id].x = x1;
+        entity::entities[tp.entity_id].y = y1;
+      }
+      travel::travels[tp.entity_id] = tp;
+    } else 
+    {
+      travel::travels_to_cancel.push_back(tp.entity_id);
+    }
   }
 
+  void update()
+  {
+    travel::travels_to_cancel.clear();
+    for (auto & tp: travel::travels)
+    {  
+      travel::go(tp.second);
+    }
+    for(int i=0; i < travel::travels_to_cancel.size(); i++)
+    {
+      travel::drop(travel::travels_to_cancel[i]);
+    }
+  }
+
+  void drop(int travel_id)
+  {
+    travel::travels.erase(travel_id); 
+  }
+
+  void clear()
+  {
+    travel::travels.clear();
+    travel::travels_to_cancel.clear();
+
+  }
 }

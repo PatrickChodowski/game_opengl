@@ -27,13 +27,14 @@ namespace mobs2
     int min_def;
     int max_def;
 
+    float speed;
     float x, y;
     float w, h;
 
     std::string type;
 
     JS_OBJ(id, type, w, h, texture_id, min_dmg, max_dmg, min_speed,
-    max_speed, min_hp, max_hp, min_def, max_def);
+    max_speed, min_hp, max_hp, min_def, max_def, speed);
   };
 
   extern std::map<int, MobData> mobs;

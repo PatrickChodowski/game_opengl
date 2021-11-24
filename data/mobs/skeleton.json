@@ -11,5 +11,6 @@
   "min_hp": 10,
   "max_hp": 50,
   "min_def": 10,
-  "max_def": 20
+  "max_def": 20,
+  "speed": 10
 }
