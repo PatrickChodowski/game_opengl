@@ -9,6 +9,10 @@
 
 namespace mouse2
 {
+  // For travelling purposes
+  extern float last_click_x;
+  extern float last_click_y;
+
   struct MouseData
   {
     int x, y;

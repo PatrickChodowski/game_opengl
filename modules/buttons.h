@@ -54,8 +54,8 @@ namespace buttons
   // Clear all buttons data
   void clear();
 
-
   // functions
+  void _button_travel(int object_id);
 
 }
 

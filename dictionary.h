@@ -69,4 +69,8 @@
 #define LOG_GAME_START 3
 #define LOG_GAME_END 4
 
+
+// GUI/MENU BUTTONS?
+#define GUI_BUTTON_TRAVEL 0
+
 #endif

@@ -20,6 +20,7 @@ namespace buttons
 
   void init()
   {
+    ButtonFunctions[GUI_BUTTON_TRAVEL] = buttons::_button_travel;
 
   };
 
@@ -73,6 +74,17 @@ namespace buttons
     buttons::GuiButtonQuads.clear();
   }
 
+  // Rick click on entity, open entity gui
+  void _button_travel(int object_id)
+  {   
+    // Button travel
+    // how to implement that? lolz
+    // x,y = mouse2::_request_position();
+    // travel2::goto(x,y)
 
+    // OR 
+    // Create travel option but in idle state
+    // Next click on the map will add x y for travel and change the idle state to active
+  };
 
 }

@@ -16,7 +16,10 @@
 
 namespace mouse2
 {
-
+  // for travelling purposes
+  float last_click_x;
+  float last_click_y;
+  
   std::map <int , sig_ptr> click = {};
   std::map <int, int> ClickPriorities;
 
