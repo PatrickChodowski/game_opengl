@@ -2,8 +2,10 @@
 #include <fstream>
 #include <iostream>
 #include <random>
+#include <set>
 #include <sstream>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include <dirent.h>
@@ -105,15 +107,16 @@ namespace utils2
 
   int _find_next_id(std::vector<int>& used_ids_table)
   {
-    int n = used_ids_table.size();
-    // for whole vector, find value that would be bigger than (index + 1)
-    for (int i = 0; i < n; i++)
+    std::unordered_set<int> distinct(used_ids_table.begin(), used_ids_table.end());
+    int index = 1;
+    while (true)
     {
-      if (used_ids_table[i] > (i+1)){
-        return i+1;
+      if (distinct.find(index) == distinct.end()) 
+      {
+        return index;
       }
+      index++;
     }
-    return n+1;
   }
 
   int generate_id(std::vector<int>& used_ids_table)
@@ -122,6 +125,11 @@ namespace utils2
     used_ids_table.push_back(next_id);
     return next_id;
   };
+
+
+
+
+  // TEST END
 
   void drop_id(std::vector<int>& used_ids_table, int id)
   {
