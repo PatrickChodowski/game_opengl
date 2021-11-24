@@ -5,6 +5,7 @@
 
 #include "maps.h"
 #include "navmesh.h"
+#include "pathfinder.h"
 #include "quads.h"
 #include "textures.h"
 #include "utils.h"
@@ -98,9 +99,9 @@ namespace maps2
 
     // Generate navmesh based on the map_id
     nav::init(map_id);
-    // paths::make_path_map();
 
-    // Make map quads:
+    // Generate Path map
+    paths::make_path_map();
   };
 
   void render()

@@ -1,6 +1,46 @@
 #ifndef ANIMS_H
 #define ANIMS_H
 
+//VARIABLES:
+// namespace anims
+// {
+//   // Play Animation data - event_id, quad_id, entity_id, current_frame, next_frame, delay, time_since_last_update, frame_update_time
+//   struct PlayAnimation
+//   {
+//     bool breakable;
+
+//     int event_id;
+//     int quad_id;
+//     int entity_id;
+//     int current_frame;
+//     int texture_id;
+//     int seq_index;
+//     int length;
+//     int delay;
+//     int idle_frame;
+
+//     float time_since_last_update;
+
+//     //auto frame_update_time = std::chrono::system_clock::now();
+//     // std::time_t frame_update_time;
+//     std::chrono::milliseconds frame_update_time = timer::get_current_ms_time();
+//     std::string animation_label;
+//   };
+
+
+//   // Gathers current playanimation objects. <entity_id, Play Animation object>
+//   //std::map<int, PlayAnimation> PlayAnimationControl;
+
+//   // Gathers current playanimation objects. vector::<Play Animation object>
+//   std::vector<PlayAnimation> PlayAnimationControl;  
+
+//   // Contains entity IDs of which animation should be removed
+//   std::vector<int> PAsToRemove = {};
+// }
+
+
+
+
 // it should be similar, but shorter than TravelPlans
 namespace anims
 {

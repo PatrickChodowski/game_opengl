@@ -14,6 +14,7 @@ namespace nav
   std::map<int, NavNodeData> navnodes = {};
   std::map<int, NavPolygonData> navpolygons = {};
   std::map<int, NavTileData> navtiles = {};
+  std::vector<std::vector<int>> navmesh = {};
   int MAX_ROW;
   int MAX_COL;
   int MAX_TILE_ID;
@@ -229,12 +230,35 @@ namespace nav
     }
   }
 
+
+  void _load_navmesh()
+  {
+    int value;
+    int polygon_count = nav::navnodes.size();
+    nav::navmesh.clear();
+    for(int a = 0; a < polygon_count; a++)
+    {
+      std::vector<int> row = {};
+      for(int b = 0; b < polygon_count; b++)
+      {
+        if(nav::navnodes[(a+1)].edges.count((b+1)) > 0){
+          value = 1;
+        } else {
+          value = 0;
+        }
+        row.push_back(value);
+      }
+      nav::navmesh.push_back(row);
+    }
+  }
+
   void init(int map_id)
   {
     nav::_load_navtiles(map_id);
     nav::_load_navpolygons();
     nav::_load_navnodes();
     nav::_join_navnodes();
+    nav::_load_navmesh();
 
   };
 
@@ -243,6 +267,7 @@ namespace nav
     nav::navnodes.clear();
     nav::navpolygons.clear();
     nav::navtiles.clear();
+    nav::navmesh.clear();
     MAX_ROW = 0;
     MAX_COL = 0;
     MAX_TILE_ID = 0;

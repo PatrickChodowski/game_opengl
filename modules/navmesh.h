@@ -61,6 +61,7 @@ namespace nav
   extern std::map<int, NavNodeData> navnodes;
   extern std::map<int, NavPolygonData> navpolygons;
   extern std::map<int, NavTileData> navtiles;
+  extern std::vector<std::vector<int>> navmesh;
   extern int MAX_ROW;
   extern int MAX_COL;
   extern int MAX_TILE_ID;
@@ -82,6 +83,9 @@ namespace nav
 
   // Finds edges between navnodes. Populates edges for each Node
   void _join_navnodes();
+
+  // Loads the navmesh map
+  void _load_navmesh();
 
   // Initialize the navmesh, nav polygons, graph
   void init(int map_id);

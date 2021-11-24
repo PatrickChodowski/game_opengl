@@ -2,6 +2,35 @@
 #ifndef TRAVEL_H
 #define TRAVEL_H
 
+// VARIABLES:
+// namespace travel
+// {
+//   struct TravelPlan
+//   {
+//     int quad_id;
+//     int entity_id;
+//     std::vector<int> full_path;
+//     int current_step_index = 0;
+//     int current_node;
+//     float current_x;
+//     float current_y;
+
+//     int target_node;
+//     float target_x;
+//     float target_y;
+//     int next_node;
+
+//     int next_gate;
+//     float cpoint_x;
+//     float cpoint_y;
+//   };
+
+//   // entity_id, TravelPlan object
+//   std::map<int, TravelPlan> TravelControl;
+//   std::vector<int> TPsToRemove = {};
+// }
+
+
 namespace travel
 {
   float get_distance_between_points(float a_x, float a_y, float b_x, float b_y)
