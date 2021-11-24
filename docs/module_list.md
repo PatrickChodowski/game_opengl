@@ -26,7 +26,7 @@
 - variables.h -> to remove
 
 # doing:
-- buttons.
+- buttons
 - navmesh
 - pathfinder
 
