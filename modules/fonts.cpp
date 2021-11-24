@@ -5,6 +5,8 @@
 
 #include <iostream>
 #include <map>
+
+#include <set>
 #include <string>
 #include <vector>
 
@@ -32,8 +34,8 @@ namespace fonts2
   std::vector<quads2::QuadData> TextQuads = {};
   std::map<int, TextData> texts = {};
   std::map<int, LabelData> labels;
-  std::vector<int> UsedTextIds = {};
-  std::vector<int> UsedLabelIds = {};
+  std::set<int> TextIndex = {};
+  std::set<int> LabelIndex = {};
   textures2::TextureData FontTDD;
   int NEW_GAME_LABEL_ID = 0;
 
@@ -168,6 +170,7 @@ namespace fonts2
     std::cout << "adding label " << text << std::endl;
     fonts2::LabelData ldd;
     ldd.id = utils2::generate_id(fonts2::UsedLabelIds);
+    std::cout << "label id: " << ldd.id << std::endl;
     ldd.text = text;
     ldd.x_start = x_start;
     ldd.y_start = y_start;
@@ -230,6 +233,7 @@ namespace fonts2
 
   void drop(int label_id)
   {
+    std::cout << "dropping label " << fonts2::labels[label_id].text << std::endl;
     fonts2::labels.erase(label_id);
     utils2::drop_id(fonts2::UsedLabelIds, label_id);
   }

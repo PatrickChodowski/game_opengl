@@ -43,15 +43,6 @@ namespace mouse2
       }
     };
 
-    // Resolve some logic:
-    // 1) if clicked on button -> remove everything else
-    // 2) if clicked on gui -> remove everything else
-    // 2) if clicked on entity -> remove everything else
-
-    // object_types.count(OBJECT_TYPE_BUTTON)
-    // object_types.count(OBJECT_TYPE_GUI)
-    // object_types.count(OBJECT_TYPE_ENTITY)
-
     if(object_types.count(OBJECT_TYPE_ENTITY))
     {
       min_click_priority = mouse2::ClickPriorities[OBJECT_TYPE_ENTITY];
@@ -70,7 +61,7 @@ namespace mouse2
     {
       if(clicks[c].priority >= min_click_priority)
       {
-        std::cout << " Clicked on quad: " << clicks[c].quad_id  << std::endl;
+        // std::cout << " Clicked on quad: " << clicks[c].quad_id  << std::endl;
         mouse2::click[clicks[c].object_type_id](clicks[c].object_id, clicks[c].mouse_button_id);
       }
     }
