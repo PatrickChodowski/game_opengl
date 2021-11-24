@@ -1,75 +1,4 @@
 
-#ifndef TRAVEL_H
-#define TRAVEL_H
-
-// VARIABLES:
-// namespace travel
-// {
-//   struct TravelPlan
-//   {
-//     int quad_id;
-//     int entity_id;
-//     std::vector<int> full_path;
-//     int current_step_index = 0;
-//     int current_node;
-//     float current_x;
-//     float current_y;
-
-//     int target_node;
-//     float target_x;
-//     float target_y;
-//     int next_node;
-
-//     int next_gate;
-//     float cpoint_x;
-//     float cpoint_y;
-//   };
-
-//   // entity_id, TravelPlan object
-//   std::map<int, TravelPlan> TravelControl;
-//   std::vector<int> TPsToRemove = {};
-// }
-
-
-namespace travel
-{
-  float get_distance_between_points(float a_x, float a_y, float b_x, float b_y)
-  {
-    float distance = std::sqrt(std::pow((a_x - b_x), 2) + std::pow((a_y-b_y), 2));
-    return distance;
-  }
-
-  // Gets angle between entity loc and point loc in reference to X axis. Returns radians
-  float get_angle_between_points(float e_x, float e_y, float p_x, float p_y)
-  {
-    float angle = (atan2((p_y - e_y), (p_x - e_x)));
-    return angle;
-  }
-
-  std::pair<float, float> get_nearest_point_on_line(float l_x1, float l_y1, float l_x2, float l_y2, float p_x, float p_y)
-  {
-    float dx = l_x2 - l_x1;
-    float dy = l_y2 - l_y1;
-    float det = (dx*dx) + (dy*dy);
-    float a = abs(((dy*(p_y-l_y1))+(dx*(p_x-l_x1)))/det);
-    float c_x = l_x1+(a*dx);
-    float c_y = l_y1+(a*dy);
-    std::pair<float, float> point = {c_x, c_y};
-    return point;
-  }
-
-  // Method to reset travel plan if current node is not equal to real current node
-  int sanity_check_replace_tp(float x, float y, int tp_current_node_id)
-  {
-    int correct_node = tp_current_node_id;
-    int real_node_id = paths::get_navnode_id(x, y);
-    if(tp_current_node_id != real_node_id)
-    {
-      correct_node = real_node_id;
-    }
-    return correct_node;
-  }
-
   travel::TravelPlan make_basic_plan(int current_node_id, int target_node_id)
   {
     travel::TravelPlan tp;
@@ -214,7 +143,3 @@ namespace travel
     std::cout << entity_id << " had some plans already! Cancelling!" << std::endl;
     travel::TravelControl.erase(entity_id);
   }
-
-}
-
-#endif

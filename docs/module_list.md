@@ -23,10 +23,7 @@
 - timer
 - utils
 
-- variables.h -> to remove
-
 # doing:
-- pathfinder
 - travel
 
 # todo:
