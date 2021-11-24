@@ -24,6 +24,7 @@
 #include "menu.h"
 #include "mobs.h"
 #include "mouse.h"
+#include "navmesh.h"
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
@@ -96,6 +97,7 @@ namespace game2
   void clear_scene()
   {
     maps2::clear();
+    nav::clear();
     camera::reset();
     entity::clear();
     fonts2::clear();

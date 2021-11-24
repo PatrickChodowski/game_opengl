@@ -19,6 +19,7 @@ output: game
 	modules/menu.cpp \
 	modules/mobs.cpp \
 	modules/mouse.cpp \
+	modules/navmesh.cpp \
 	modules/quads.cpp \
 	modules/saves.cpp \
 	modules/shaders.cpp \
@@ -48,6 +49,7 @@ output: game
 	modules/menu.cpp \
 	modules/mobs.cpp \
 	modules/mouse.cpp \
+	modules/navmesh.cpp \
 	modules/quads.cpp \
 	modules/saves.cpp \
 	modules/shaders.cpp \
