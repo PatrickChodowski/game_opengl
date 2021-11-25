@@ -79,8 +79,8 @@ namespace quads2
   };
 
   extern std::vector<QuadData> AllQuads;
-  extern std::vector<int> UsedQuadIds;
-  extern std::vector<int> UsedVertexIds;
+  extern std::vector<int> QuadIndex;
+  extern std::vector<int> VertexIndex;
   extern float VERTEX_OFFSET;
   extern int COUNT_QUADS;
   extern int REQ_SIZE_BUFFER;

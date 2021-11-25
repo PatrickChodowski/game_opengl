@@ -15,7 +15,6 @@
 #include "menu.h"
 #include "quads.h"
 #include "textures.h"
-#include "utils.h"
 #include "../dictionary.h"
 
 
@@ -26,8 +25,8 @@ namespace quads2
   int REQ_SIZE_BUFFER = 0;
 
   std::vector<quads2::QuadData> AllQuads;
-  std::vector<int> UsedQuadIds = {};
-  std::vector<int> UsedVertexIds = {};
+  std::vector<int> QuadIndex = {};
+  std::vector<int> VertexIndex = {};
 
   VertexData _fill_quad_vertex_data(quads2::QuadData& q)
   {
@@ -74,11 +73,11 @@ namespace quads2
 
   int _find_next_quad_id()
   {
-    int n = quads2::UsedQuadIds.size();
+    int n = quads2::QuadIndex.size();
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
-      if (quads2::UsedQuadIds[i] > (i+1)){
+      if (quads2::QuadIndex[i] > (i+1)){
         return i+1;
       }
     }
@@ -88,17 +87,17 @@ namespace quads2
   int gen_quad_id()
   {
     int next_quad_id = quads2::_find_next_quad_id();
-    quads2::UsedQuadIds.push_back(next_quad_id);
+    quads2::QuadIndex.push_back(next_quad_id);
     return next_quad_id;
   }
 
   int _find_next_vertex_id()
   {
-    int n = quads2::UsedVertexIds.size();
+    int n = quads2::VertexIndex.size();
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
-      if (quads2::UsedVertexIds[i] > i){
+      if (quads2::VertexIndex[i] > i){
         return i;
       }
     }
@@ -108,22 +107,22 @@ namespace quads2
   int gen_vertex_id()
   {
     int next_vertex_id = quads2::_find_next_vertex_id();
-    quads2::UsedVertexIds.push_back(next_vertex_id);
+    quads2::VertexIndex.push_back(next_vertex_id);
     return next_vertex_id;
   }
 
   void clear()
   {
     quads2::AllQuads.clear();
-    quads2::UsedVertexIds.clear();
-    quads2::UsedQuadIds.clear();
+    quads2::VertexIndex.clear();
+    quads2::QuadIndex.clear();
   }
 
   void accumulate()
   {
     quads2::AllQuads.clear();
-    quads2::UsedVertexIds.clear();
-    quads2::UsedQuadIds.clear();
+    quads2::VertexIndex.clear();
+    quads2::QuadIndex.clear();
 
     // // assign menu quads
     if(menu2::MenuQuads.size() > 0)
