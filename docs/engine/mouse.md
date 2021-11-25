@@ -49,7 +49,7 @@ void handle_mouse(SDL_MouseMotionEvent e, SDL_MouseButtonEvent b);
 ```
 
 ### _find_clicked_quads
-Search for the clicked quads and select them based on priority
+Search for the clicked quads from [quads::AllQuads](quads.md#AllQuads) and select them based on priority
 ```c++
 void _find_clicked_quads(float click_x, float click_y, int mouse_button_id);
 ```
