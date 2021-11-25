@@ -15,50 +15,53 @@ std::map <int , sig_ptr> EventsHandler
 ## Functions
 
 ### init
+Fills out the EventsHandler object with pairs of (scene_id, function pointer) 
 ```c++
 void init();
 ```
-Fills out the EventsHandler object with pairs of (scene_id, function pointer) 
 
 
 ### handle_events
+Takes the event as argument and passes it to correct function from EventsHandler based on the current [game::IS_MENU](game.md#IS_MENU) variable which contains information if we are in the menu or ingame.
 
 ```c++
 void handle_events(SDL_Event event);
 ```
-Takes the event as argument and passes it to correct function from EventsHandler based on the current [game::IS_MENU](game.md#IS_MENU) variable which contains information if we are in the menu or ingame.
-
 
 ### _handle_menu
+Handles input when in menu: basically mouse click and clicking on Quit
 ```c++
 void _handle_menu(SDL_Event event);
 ```
-Handles input when in menu: basically mouse click and clicking on Quit
+
 
 ### _handle_in_game
+Handles input when in game scene: Mouse, Quiting, KeyDown, KeyboardScan
 ```c++
 void _handle_in_game(SDL_Event event);
 ```
-Handles input when in game scene: Mouse, Quiting, KeyDown, KeyboardScan
+
 
 ### _handle_new_game
+Handles input when in new_game_menu scene: Mouse, quit, name input backspace, name validation, start new game
 ```c++
 void _handle_new_game(SDL_Event event);
 ```
-Handles input when in new_game_menu scene: Mouse, quit, name input backspace, name validation, start new game
 
 ### _handle_load_game
+Handles input when in load_game_menu scene: Mouse, quit, start new game from drop down list of saved games
+
 ```c++
 void _handle_load_game(SDL_Event event);
 ```
-Handles input when in load_game_menu scene: Mouse, quit, start new game from drop down list of saved games
 
 ### _scan_for_camera_move
+Scan the [game::KEYBOARD](game.md#KEYBOARD) if any of the arrows (left, right, up, down) are being pressed, and updates the camera accordingly.
+
 ```c++
 void _scan_for_camera_move());
 ```
-Scan the [game::KEYBOARD](game.md#KEYBOARD) if any of the arrows (left, right, up, down) are being pressed, and updates the camera accordingly.
 
 
 ## Tests
-Too complex functions to test anything
+- 
