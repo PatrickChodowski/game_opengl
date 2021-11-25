@@ -15,6 +15,7 @@
 #include "menu.h"
 #include "quads.h"
 #include "textures.h"
+#include "utils.h"
 #include "../dictionary.h"
 
 
