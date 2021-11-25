@@ -30,15 +30,35 @@ Takes the event as argument and passes it to correct function from EventsHandler
 
 
 ### _handle_menu
+```c++
+void _handle_menu(SDL_Event event);
+```
+Handles input when in menu: basically mouse click and clicking on Quit
 
 ### _handle_in_game
+```c++
+void _handle_in_game(SDL_Event event);
+```
+Handles input when in game scene: Mouse, Quiting, KeyDown, KeyboardScan
 
 ### _handle_new_game
+```c++
+void _handle_new_game(SDL_Event event);
+```
+Handles input when in new_game_menu scene: Mouse, quit, name input backspace, name validation, start new game
 
 ### _handle_load_game
+```c++
+void _handle_load_game(SDL_Event event);
+```
+Handles input when in load_game_menu scene: Mouse, quit, start new game from drop down list of saved games
 
 ### _scan_for_camera_move
+```c++
+void _scan_for_camera_move());
+```
+Scan the [game::KEYBOARD](game.md#KEYBOARD) if any of the arrows (left, right, up, down) are being pressed, and updates the camera accordingly.
 
 
 ## Tests
-Dont see any ideas for now
+Too complex functions to test anything
