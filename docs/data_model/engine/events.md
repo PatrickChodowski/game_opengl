@@ -40,7 +40,5 @@ Takes the event as argument and passes it to correct function from EventsHandler
 ### _scan_for_camera_move
 
 
-
-
-
 ## Tests
+Dont see any ideas for now

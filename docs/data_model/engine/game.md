@@ -98,7 +98,7 @@ Calls ::drop method on every module that requires it - mostly the OpenGL communi
 ```c++
 void init_scene(int scene_id, bool is_new_game);
 ```
-Starts new scene based on scene_id and on is_new_game boolean. If its new, it will call [hero::create_new()](hero.md#create_new). If scene_id is in_game scene, it will initialize map and spawn entities.
+Starts new scene based on scene_id and on is_new_game boolean. If its new, it will call [hero::create_new](hero.md#create_new). If scene_id is in_game scene, it will initialize map and spawn entities.
 
 
 ### switch_scene
@@ -121,3 +121,4 @@ void _check_if_menu();
 Updates the game::IS_MENU based on the game::SCENE_ID. If the scene_id is under 100, then it receives 200 value (in_game_scene_id)
 
 ## Tests
+On _check_if_menu

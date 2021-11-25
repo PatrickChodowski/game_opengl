@@ -8,6 +8,7 @@
 // #include "catch.hpp"
 
 #include "tests_utils.h"
+#include "tests_game.h"
 
 typedef bool (*sig_ptr)();
 std::map<std::string,sig_ptr> tests;
@@ -19,11 +20,16 @@ std::vector<std::string> failed_tests;
 
 void init()
 {
+  //utils
   tests["test_utils_generate_id_first_id_is_1"] = test_utils_generate_id_first_id_is_1;
   tests["test_utils_drop_id_empty_index"] = test_utils_drop_id_empty_index;
   tests["test_utils_re_generate_ids"] = test_utils_re_generate_ids;
   tests["test_utils_re_generate_ids2"] = test_utils_re_generate_ids2;
   tests["test_utils_re_generate_ids3"] = test_utils_re_generate_ids3;
+  //game
+  tests["test_game__check_if_menu_scene_1"] = test_game__check_if_menu_scene_1;
+  tests["test_game__check_if_menu_scene_100"] = test_game__check_if_menu_scene_100;
+  tests["test_game__check_if_menu_scene_150"] = test_game__check_if_menu_scene_150;
 };
 
 

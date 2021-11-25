@@ -2,9 +2,6 @@
 #include <chrono>
 #include <ctime> 
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "dependencies/stb_image.h"
-
 #include "modules/events.h"
 #include "modules/game.h"
 #include "modules/hero.h"
