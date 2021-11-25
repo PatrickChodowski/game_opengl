@@ -1,16 +1,51 @@
 # Quads
 
 ## Objects
-struct VertexData
-struct VertexIndex
-struct QuadData
-std::vector<QuadData> AllQuads;
-std::vector<int> QuadIndex;
-std::vector<int> VertexIndex;
-float VERTEX_OFFSET;
-int COUNT_QUADS;
-int REQ_SIZE_BUFFER;
 
+### VertexData
+```c++
+struct VertexData
+```
+
+### VertexIndex
+```c++
+struct VertexIndex
+```
+
+### QuadData
+```c++
+struct QuadData
+```
+
+### AllQuads
+```c++
+std::vector<QuadData> AllQuads
+```
+
+### QuadIndex
+```c++
+std::vector<int> QuadIndex
+```
+
+### VertexIndex
+```c++
+std::vector<int> VertexIndex
+```
+
+### VERTEX_OFFSET
+```c++
+float VERTEX_OFFSET
+```
+
+### COUNT_QUADS
+```c++
+int COUNT_QUADS
+```
+
+### REQ_SIZE_BUFFER
+```c++
+int REQ_SIZE_BUFFER
+```
 
 ## Functions
 
@@ -47,7 +82,7 @@ void log();
 
 ### _fill_quad_vertex_data
 ```c++
-VertexData _fill_quad_vertex_data(quads2::QuadData& q);
+struct VertexData _fill_quad_vertex_data(quads2::QuadData& q);
 ```
 
 ### _find_next_quad_id
@@ -56,6 +91,7 @@ int _find_next_quad_id();
 ```
 
 ### _find_next_vertex_id
+
 ```c++
 int _find_next_vertex_id();
 ```
