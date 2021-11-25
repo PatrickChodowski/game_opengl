@@ -105,9 +105,4 @@ namespace camera
   }
 
 
-  void inverse_scale()
-  {
-
-  };
-
 }

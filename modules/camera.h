@@ -40,9 +40,6 @@ namespace camera
   // Scale quadData objects
   void scale_quads(float camera_x, float camera_y, float camera_zoom);
 
-  // Inverse the scaled items to original space
-  void inverse_scale();
-
   // generate dynamic MVP transformation matrix
   glm::mat4 gen_dynamic_mvp(float camera_move_x, float camera_move_y, float camera_zoom);
 
