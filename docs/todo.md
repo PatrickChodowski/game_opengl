@@ -1,3 +1,6 @@
+### 0) Can I replace the gen_quad_id, gen_vertex_id functions from quads.md?
+Its lagging  a lot when I try to use the one from utils
+
 
 ### 1) ./modules/collisions.cpp
 
