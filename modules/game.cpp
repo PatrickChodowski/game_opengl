@@ -40,11 +40,8 @@ namespace game2
   bool IS_DEBUG_MODE = true;
   int CURRENT_SHADER_ID = 0;
   int SCENE_ID = 2;
-  float TILE_DIM = 96;
-  float WINDOW_VERTEX_WIDTH = 10;
-  float WINDOW_VERTEX_HEIGHT = 8;
-  float WINDOW_WIDTH = WINDOW_VERTEX_WIDTH*TILE_DIM;
-  float WINDOW_HEIGHT = WINDOW_VERTEX_HEIGHT*TILE_DIM;
+  float WINDOW_WIDTH = 960;
+  float WINDOW_HEIGHT = 768;
   const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
   std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME = std::chrono::high_resolution_clock::now();
 
@@ -189,7 +186,6 @@ namespace game2
     glDrawArrays(GL_LINES, 0, debug2::lines.size()*2);
 
   }
-
 
   void drop()
   {

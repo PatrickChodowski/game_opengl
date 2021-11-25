@@ -15,12 +15,9 @@ namespace game2
   extern bool PAUSE;
   extern bool RUNNING;
   extern bool IS_DEBUG_MODE;
+  extern int SCENE_ID;
   extern int IS_MENU;
   extern int CURRENT_SHADER_ID;
-  extern int SCENE_ID;
-  extern float TILE_DIM;
-  extern float WINDOW_VERTEX_WIDTH;
-  extern float WINDOW_VERTEX_HEIGHT;
   extern float WINDOW_WIDTH;
   extern float WINDOW_HEIGHT;
   extern const Uint8 *KEYBOARD;
