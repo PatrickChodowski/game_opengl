@@ -13,7 +13,7 @@ namespace debug2
   std::vector<debug2::LineData> lines = {};
   std::map<int, debug2::PointData> points = {};
   std::vector<quads2::QuadData> DebugQuads = {};
-  std::vector<int> UsedDebugIds = {};
+  std::vector<int> Index = {};
 
   void render_line(float x1, float y1, float x2, float y2, float r, float g, float b, float a)
   {
@@ -32,7 +32,7 @@ namespace debug2
   void render_point(float x, float y, float r, float g, float b, float a)
   {
     debug2::PointData pdd;
-    pdd.id = utils2::generate_id(debug2::UsedDebugIds);
+    pdd.id = utils2::generate_id(debug2::Index);
     pdd.x = x;
     pdd.y = y;
     pdd.r = r;
@@ -55,7 +55,7 @@ namespace debug2
 
   void clear()
   {
-    debug2::UsedDebugIds.clear();
+    debug2::Index.clear();
     debug2::DebugQuads.clear();
     lines.clear();
     points.clear();
