@@ -21,7 +21,7 @@ namespace collisions
   int SENSOR_OFFSET = 1;
   int ABS_COUNT = 1;
 
-  std::vector<collisions::DistanceToObject> get_entity_to_entity_distances(int entity_id)
+  std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
     for (auto const& [k, v]: entity::entities)
@@ -50,7 +50,7 @@ namespace collisions
     return distances;
   }
 
-  std::vector<collisions::DistanceToObject> get_entity_to_map_distances(int entity_id)
+  std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
     for (auto const& [k, v]: maps2::tiles)
@@ -76,11 +76,11 @@ namespace collisions
     return distances;
   }
 
-  std::vector<collisions::DistanceToObject> find_entity_broad_collisions(int entity_id = 0)
+  std::vector<collisions::DistanceToObject> _find_entity_broad_collisions(int entity_id = 0)
   {
     std::vector<collisions::DistanceToObject> near_distances = {};
-    std::vector<collisions::DistanceToObject> map_near_distances = get_entity_to_map_distances(entity_id);
-    std::vector<collisions::DistanceToObject> entity_near_distances = get_entity_to_entity_distances(entity_id);
+    std::vector<collisions::DistanceToObject> map_near_distances = _get_entity_to_map_distances(entity_id);
+    std::vector<collisions::DistanceToObject> entity_near_distances = _get_entity_to_entity_distances(entity_id);
 
     if(map_near_distances.size() > 0)
     {
@@ -93,7 +93,7 @@ namespace collisions
     return near_distances;
   }
 
-  void resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_distances)
+  void _resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_distances)
   {
     struct SolidLimits limits;
     for(int i=0; i<near_distances.size(); i++)
@@ -189,7 +189,7 @@ namespace collisions
     } 
   }
 
-  void set_sensors(int entity_id)
+  void _set_sensors(int entity_id)
   {
     // entity::entities[entity_id].sensors.clear();
     // entity::entities.at(entity_id).sensors.clear();
@@ -293,7 +293,7 @@ namespace collisions
     }    
   }
 
-  void set_abs(std::vector<collisions::DistanceToObject>& near_distances)
+  void _set_abs(std::vector<collisions::DistanceToObject>& near_distances)
   {
     for(int i = 0; i < near_distances.size(); i++)
     {
@@ -313,9 +313,9 @@ namespace collisions
     std::vector<collisions::DistanceToObject> near_distances = collisions::find_entity_broad_collisions(entity_id);
     if(near_distances.size() > 0)
     {
-      collisions::set_sensors(entity_id);
-      collisions::set_abs(near_distances);
-      collisions::resolve_solid_collisions(near_distances);
+      collisions::_set_sensors(entity_id);
+      collisions::_set_abs(near_distances);
+      collisions::_resolve_solid_collisions(near_distances);
     }
   }
 

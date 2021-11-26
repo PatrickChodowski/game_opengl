@@ -54,28 +54,28 @@ namespace collisions
   };
 
   // Gets vector of entity distances to other entities
-  std::vector<collisions::DistanceToObject> get_entity_to_entity_distances(int entity_id);
+  std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id);
 
   // Gets vector of entity distances to map objects
-  std::vector<collisions::DistanceToObject> get_entity_to_map_distances(int entity_id);
+  std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entity_id);
 
   // Find broad collisions for entity (by default its the hero, but lets leave the option)
-  std::vector<collisions::DistanceToObject> find_entity_broad_collisions(int entity_id);
+  std::vector<collisions::DistanceToObject> _find_entity_broad_collisions(int entity_id);
 
   // Analyze solid collisions from near distances from find_entity_broad_collisions
-  void resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_distances);
+  void _resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_distances);
 
   // Sets sensors on selected entity
-  void set_sensors(int entity_id);
+  void _set_sensors(int entity_id);
 
-  // Set abs on entities - hidden
+  // Set abs on entities
   void _set_abs_entities(int entity_id);
  
-  // Set abs on tiles - hidden
+  // Set abs on tiles
   void _set_abs_maps(int tile_id);
 
   // Sets AABBs boxes on objects flagged by near distances
-  void set_abs(std::vector<collisions::DistanceToObject>& near_distances);
+  void _set_abs(std::vector<collisions::DistanceToObject>& near_distances);
 
   // Calculates near distances to entities and map objects. Sets sensors, abs and resolves collisions
   void handle_entity_collisions(int entity_id);
