@@ -46,7 +46,7 @@ namespace entity
 
   // Entities data -> entity_id, EntityData
   extern std::map<int, EntityData> entities;
-  extern std::vector<int> UsedEntityIds;
+  extern std::vector<int> Index;
 
   // Creates entity and adds it to the table. Uses the data structure different based on entity type
   template <typename T>
