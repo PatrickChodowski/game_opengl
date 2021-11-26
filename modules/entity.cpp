@@ -21,14 +21,14 @@ namespace entity
 {
 
   std::map<int, EntityData> entities;
-  std::vector<int> UsedEntityIds = {};
+  std::vector<int> Index = {};
   std::vector<quads2::QuadData> EntityQuads = {};
 
   template <typename T>
   int create(T data, int entity_type_id, float camera_type)
   { 
     entity::EntityData edd;
-    edd.id = utils2::generate_id(entity::UsedEntityIds);
+    edd.id = utils2::generate_id(entity::Index);
     edd.texture_id = data.texture_id;
     edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
@@ -59,7 +59,7 @@ namespace entity
 
   void clear()
   {
-    entity::UsedEntityIds.clear();
+    entity::Index.clear();
     entity::entities.clear();
     entity::EntityQuads.clear();
   };
