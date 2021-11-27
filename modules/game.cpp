@@ -12,6 +12,7 @@
 #include "buffer.h"
 #include "buttons.h"
 #include "camera.h"
+#include "collisions.h"
 #include "debug.h"
 #include "entity.h"
 #include "events.h"
@@ -32,7 +33,7 @@
 
 #include "../dictionary.h"
 
-namespace game2
+namespace game
 {
   bool RUNNING = true;
   bool PAUSE = false;
@@ -56,19 +57,19 @@ namespace game2
     {
       if(is_new_game)
       {
-        hero2::create_new("john","barbarian");
+        hero::create_new("john","barbarian");
       } else 
       {
         // saves::load()
       }
-      maps2::init_map(scene_id);
-      mobs2::spawn(scene_id);
-      gui2::init();
-      items2::put_item_on_ground(0, 600, 500);
+      maps::init_map(scene_id);
+      mobs::spawn(scene_id);
+      gui::init();
+      items::put_item_on_ground(0, 600, 500);
     }
-    menu2::load(scene_id);
-    game2::SCENE_ID = scene_id;
-    game2::_check_if_menu();
+    menu::load(scene_id);
+    game::SCENE_ID = scene_id;
+    game::_check_if_menu();
 
     logger::log(LOG_LVL_INFO, 
                 "finish game::init_scene","game::init_scene",
@@ -77,32 +78,32 @@ namespace game2
 
   void _check_if_menu()
   { 
-    if(game2::SCENE_ID < MAIN_MENU_SCENE_ID)
+    if(game::SCENE_ID < MAIN_MENU_SCENE_ID)
     {
-      game2::IS_MENU = IN_GAME_SCENE_ID;
+      game::IS_MENU = IN_GAME_SCENE_ID;
     } else 
     {
-      game2::IS_MENU = game2::SCENE_ID;
+      game::IS_MENU = game::SCENE_ID;
     }
   }
 
   void switch_scene(int scene_id, bool is_new_game = false)
   {
-    game2::clear_scene();
-    game2::init_scene(scene_id, is_new_game);
+    game::clear_scene();
+    game::init_scene(scene_id, is_new_game);
   }
 
   void clear_scene()
   {
-    maps2::clear();
+    maps::clear();
     nav::clear();
     camera::reset();
     entity::clear();
-    fonts2::clear();
-    menu2::clear();
-    quads2::clear();
-    debug2::clear();
-    gui2::clear();
+    fonts::clear();
+    menu::clear();
+    quads::clear();
+    debug::clear();
+    gui::clear();
     buttons::clear();
     travel::clear();
 
@@ -111,50 +112,51 @@ namespace game2
 
   void init()
   {
-    buffer2::init();
+    buffer::init();
     buttons::init();
-    events2::init();
-    fonts2::init("Ignotum"); // its important to keep it before textures becuase of bindings
-    gui2::init();
-    items2::init();
+    collisions::init();
+    events::init();
+    fonts::init("Ignotum"); // its important to keep it before textures becuase of bindings
+    gui::init();
+    items::init();
     logger::init();
-    maps2::init();
-    menu2::init();
-    mobs2::init();
-    mouse2::init();
-    shaders2::init();
-    textures2::init();
-    game2::init_scene(2, true);
+    maps::init();
+    menu::init();
+    mobs::init();
+    mouse::init();
+    shaders::init();
+    textures::init();
+    game::init_scene(2, true);
   };
 
   void update()
   {
-    maps2::render();
+    maps::render();
     entity::render();
-    debug2::render();
-    menu2::render();
-    gui2::render();
+    debug::render();
+    menu::render();
+    gui::render();
     buttons::render();
-    fonts2::render();
+    fonts::render();
   
 
-    quads2::accumulate();
+    quads::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
-    textures2::bind();
+    textures::bind();
 
-    buffer2::update_quads(quads2::AllQuads);
+    buffer::update_quads(quads::AllQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
-    int sampler_size = (textures2::BoundTextures.size() + 1);
+    int sampler_size = (textures::BoundTextures.size() + 1);
     int sampler[sampler_size]; 
     sampler[0] = 0;
-    for (int i = 0; i < textures2::BoundTextures.size(); i++)
+    for (int i = 0; i < textures::BoundTextures.size(); i++)
     {
-      sampler[(i+1)] = textures2::BoundTextures[i];
+      sampler[(i+1)] = textures::BoundTextures[i];
     } 
 
     // react to camera changes
@@ -168,31 +170,31 @@ namespace game2
   
     // set light source coordinates
     float light_coords[3] = {100, 200, 300};
-    glUniform3fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_coords"), 1, light_coords);
+    glUniform3fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_coords"), 1, light_coords);
 
     // set uniforms
-    glUniform1iv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
-    glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "static_mvp"), 1, GL_FALSE, glm::value_ptr(camera::STATIC_MVP));
-    glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "dynamic_mvp"), 1, GL_FALSE, glm::value_ptr(camera::DYNAMIC_MVP));
-    glUniformMatrix4fv(glGetUniformLocation(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id, "zoom_mvp"), 1, GL_FALSE, glm::value_ptr(camera::ZOOM_MVP));
+    glUniform1iv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
+    glUniformMatrix4fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "static_mvp"), 1, GL_FALSE, glm::value_ptr(camera::STATIC_MVP));
+    glUniformMatrix4fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "dynamic_mvp"), 1, GL_FALSE, glm::value_ptr(camera::DYNAMIC_MVP));
+    glUniformMatrix4fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "zoom_mvp"), 1, GL_FALSE, glm::value_ptr(camera::ZOOM_MVP));
     
     // set shader
-    glUseProgram(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id);
+    glUseProgram(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id);
     // draw scene
-    glDrawElements(GL_TRIANGLES, quads2::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, quads::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
 
     // draw debug lines here
-    buffer2::update_lines(debug2::lines);
-    glDrawArrays(GL_LINES, 0, debug2::lines.size()*2);
+    buffer::update_lines(debug::lines);
+    glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
 
   }
 
   void drop()
   {
-    buffer2::drop();
-    mobs2::clear();
-    shaders2::drop();
-    textures2::drop();
+    buffer::drop();
+    mobs::clear();
+    shaders::drop();
+    textures::drop();
   }
 
 

@@ -42,7 +42,7 @@ namespace entity
     // std::vector<QuadLabel> labels;
   };
 
-  extern std::vector<quads2::QuadData> EntityQuads;
+  extern std::vector<quads::QuadData> EntityQuads;
 
   // Entities data -> entity_id, EntityData
   extern std::map<int, EntityData> entities;

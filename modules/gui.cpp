@@ -12,17 +12,17 @@
 #include "utils.h"
 #include "../dictionary.h"
 
-namespace gui2
+namespace gui
 {
-  std::vector<int> UsedGuiIds = {};
-  std::map<int, gui2::GuiData> guis;
-  std::map<int, gui2::GuiSlotData> guislots = {};
-  std::vector<quads2::QuadData> GuiQuads;
+  std::vector<int> Index = {};
+  std::map<int, gui::GuiData> guis;
+  std::map<int, gui::GuiSlotData> guislots = {};
+  std::vector<quads::QuadData> GuiQuads;
   std::map <int , sig_ptr> display = {};
 
   void init()
   {
-    gui2::GuiSlotData gsd0;
+    gui::GuiSlotData gsd0;
     gsd0.id = 0;
     gsd0.free = true;
     gsd0.x = 550;
@@ -30,7 +30,7 @@ namespace gui2
     gsd0.gui_id = -1;
     guislots[0] = gsd0;
 
-    gui2::GuiSlotData gsd1;
+    gui::GuiSlotData gsd1;
     gsd1.id = 1;
     gsd1.free = true;
     gsd1.x = 755;
@@ -38,7 +38,7 @@ namespace gui2
     gsd1.gui_id = -1;
     guislots[1] = gsd1;
 
-    gui2::display[OBJECT_TYPE_ENTITY] = entity::display;
+    gui::display[OBJECT_TYPE_ENTITY] = entity::display;
   }
 
   int _get_free_slot()
@@ -69,14 +69,14 @@ namespace gui2
 
   int add_context_menu(int object_id, int object_type_id)
   {
-    int free_slot = gui2::_get_free_slot();
+    int free_slot = gui::_get_free_slot();
     if(free_slot > -1)
     {
-      gui2::GuiData gdd;
-      gdd.id = utils2::generate_id(gui2::UsedGuiIds);
+      gui::GuiData gdd;
+      gdd.id = utils::generate_id(gui::Index);
 
-      gdd.x = gui2::guislots[free_slot].x;
-      gdd.y = gui2::guislots[free_slot].y;
+      gdd.x = gui::guislots[free_slot].x;
+      gdd.y = gui::guislots[free_slot].y;
 
       gdd.w = 200;
       gdd.h = 400;
@@ -92,14 +92,14 @@ namespace gui2
       gdd.norm_x_end = 0.0;
       gdd.camera_type = CAMERA_STATIC;
 
-      gui2::guis[gdd.id] = gdd;
+      gui::guis[gdd.id] = gdd;
 
 
-      gui2::guislots[free_slot].gui_id = gdd.id;
-      gui2::guislots[free_slot].free = false;
+      gui::guislots[free_slot].gui_id = gdd.id;
+      gui::guislots[free_slot].free = false;
 
       // Add labels
-      int label_id = gui2::display[object_type_id](object_id, free_slot);
+      int label_id = gui::display[object_type_id](object_id, free_slot);
       gdd.labels.push_back(label_id);
       
       // Add buttons (menu? entity menu? - redefine menu?)
@@ -108,7 +108,7 @@ namespace gui2
                                    gdd.y+70, 1);
       gdd.buttons.push_back(button_id);
 
-      gui2::guis[gdd.id] = gdd;
+      gui::guis[gdd.id] = gdd;
 
       return gdd.id;
     } else 
@@ -120,37 +120,37 @@ namespace gui2
 
   void render()
   {
-    gui2::GuiQuads.clear();
-    gui2::GuiQuads = quads2::make_quads(gui2::guis, OBJECT_TYPE_GUI);
+    gui::GuiQuads.clear();
+    gui::GuiQuads = quads::make_quads(gui::guis, OBJECT_TYPE_GUI);
   }
 
 
   void drop(int gui_id)
   {
     // Delete labels assigned to this gui
-    for(int b=0; b<gui2::guis[gui_id].buttons.size(); b++)
+    for(int b=0; b<gui::guis[gui_id].buttons.size(); b++)
     {
-      buttons::drop(gui2::guis[gui_id].buttons[b]);
+      buttons::drop(gui::guis[gui_id].buttons[b]);
     }
 
-    for(int l=0; l<gui2::guis[gui_id].labels.size(); l++)
+    for(int l=0; l<gui::guis[gui_id].labels.size(); l++)
     {
-      fonts2::drop(gui2::guis[gui_id].labels[l]);
+      fonts::drop(gui::guis[gui_id].labels[l]);
     }
 
-    gui2::_free_slot(gui_id);
+    gui::_free_slot(gui_id);
     guis.erase(gui_id);
-    utils2::drop_id(gui2::UsedGuiIds, gui_id);
+    utils::drop_id(gui::Index, gui_id);
 
   }
   
 
   void clear()
   {
-    gui2::UsedGuiIds.clear();
-    gui2::guis.clear();
-    gui2::guislots.clear();
-    gui2::GuiQuads.clear();
+    gui::Index.clear();
+    gui::guis.clear();
+    gui::guislots.clear();
+    gui::GuiQuads.clear();
   }
 
 }

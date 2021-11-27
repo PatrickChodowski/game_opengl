@@ -4,7 +4,7 @@
 #ifndef MODULES_EVENTS_H
 #define MODULES_EVENTS_H
 
-namespace events2
+namespace events
 {
   typedef void (*sig_ptr)(SDL_Event event);
   // Catalog of functions to be chosen based on the scene id

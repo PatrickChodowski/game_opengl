@@ -7,7 +7,7 @@
 #define MODULES_QUAD_H
 
 // Frame data. Table of quads and all operations on this table
-namespace quads2
+namespace quads
 {
   // Struct containing only vertex specific data - locations and texture querying params
   struct VertexData
@@ -86,7 +86,7 @@ namespace quads2
   extern int REQ_SIZE_BUFFER;
 
   // Takes some quad information and produces vertex data struct to be added to quad;
-  VertexData _fill_quad_vertex_data(quads2::QuadData& q);
+  VertexData _fill_quad_vertex_data(quads::QuadData& q);
 
   // Finds next available quad id
   int _find_next_quad_id();
@@ -108,7 +108,7 @@ namespace quads2
 
   // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc.
   template <typename T>
-  std::vector<quads2::QuadData> make_quads(std::map<int, T> data, int object_type_id);
+  std::vector<quads::QuadData> make_quads(std::map<int, T> data, int object_type_id);
 
   // Writes down the quads data to ./logs/all_quads.json on every frame
   void log();

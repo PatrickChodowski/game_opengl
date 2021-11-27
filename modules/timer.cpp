@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-namespace timer2
+namespace timer
 {
   std::time_t get_current_time()
   {
@@ -65,7 +65,7 @@ namespace timer2
 
   float get_elapsed_ms(std::chrono::milliseconds start)
   {
-    std::chrono::milliseconds now_time = timer2::get_current_ms_time();
+    std::chrono::milliseconds now_time = timer::get_current_ms_time();
     float elapsed_ms = now_time.count() - start.count();
     return elapsed_ms;
   }

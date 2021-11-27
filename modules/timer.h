@@ -6,7 +6,7 @@
 #define MODULES_TIMER_H
 
 // timer functionality
-namespace timer2
+namespace timer
 {
   // Provides current time
   std::time_t get_current_time();

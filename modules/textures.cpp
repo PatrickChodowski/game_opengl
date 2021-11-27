@@ -24,9 +24,9 @@
 
 #include "../dictionary.h"
 
-namespace textures2
+namespace textures
 {
-  std::map<int, textures2::TextureData> textures = {};
+  std::map<int, textures::TextureData> textures = {};
   std::vector<unsigned int> BoundTextures = {};
 
   unsigned int _load_texture_to_opengl(unsigned int texture_id, int w, int h, int n_channels, std::string name)
@@ -69,8 +69,8 @@ namespace textures2
   void read_data(std::string name)
   {
     std::string data_path = "./data/assets/"+name+".json";
-    textures2::TextureData TD;
-    std::string json_data = utils2::read_text_file(data_path);
+    textures::TextureData TD;
+    std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(TD);
 
@@ -89,71 +89,71 @@ namespace textures2
 
     TD.frames_list.clear();
 
-    textures2::textures.insert({TD.id, TD});
+    textures::textures.insert({TD.id, TD});
   };
 
   void load(int texture_id)
   {
-    unsigned int opengl_texture_id = textures2::_load_texture_to_opengl(textures2::textures[texture_id].id, 
-                                                                        textures2::textures[texture_id].w, 
-                                                                        textures2::textures[texture_id].h, 
+    unsigned int opengl_texture_id = textures::_load_texture_to_opengl(textures::textures[texture_id].id, 
+                                                                        textures::textures[texture_id].w, 
+                                                                        textures::textures[texture_id].h, 
                                                                         4, 
-                                                                        textures2::textures[texture_id].name);
-    textures2::textures[texture_id].opengl_texture_id = opengl_texture_id;
-    textures2::BoundTextures.push_back(textures2::textures[texture_id].opengl_texture_id);
+                                                                        textures::textures[texture_id].name);
+    textures::textures[texture_id].opengl_texture_id = opengl_texture_id;
+    textures::BoundTextures.push_back(textures::textures[texture_id].opengl_texture_id);
 
   };
 
   void bind()
   {
-    for(int t=0; t<textures2::BoundTextures.size(); t++)
+    for(int t=0; t<textures::BoundTextures.size(); t++)
     {
-      //std::cout << " Binding texture " <<  textures2::BoundTextures[t] << std::endl;
+      //std::cout << " Binding texture " <<  textures::BoundTextures[t] << std::endl;
       // which texture slot we are actually binding 
       // first slot -> GL_TEXTURE0
       // Max 32, but depends on platform
-      glActiveTexture(GL_TEXTURE0 + textures2::BoundTextures[t]);
-      glBindTexture(GL_TEXTURE_2D, textures2::BoundTextures[t]);
+      glActiveTexture(GL_TEXTURE0 + textures::BoundTextures[t]);
+      glBindTexture(GL_TEXTURE_2D, textures::BoundTextures[t]);
     } 
   };
 
   void init()
   {
-    std::vector<std::string> texture_list = utils2::list_json_files("data/assets/");
+    std::vector<std::string> texture_list = utils::list_json_files("data/assets/");
     // read texture data by name
     for(int t=0; t<texture_list.size(); t++)
     {
-      textures2::read_data(texture_list[t]);
+      textures::read_data(texture_list[t]);
     }
 
     // load to opengl by texture_id
-    for (auto const &x : textures2::textures)
+    for (auto const &x : textures::textures)
     {
       if(x.first != FONT_TEXTURE_ID)
       {
-        textures2::load(x.first);
+        textures::load(x.first);
       }
     }
   };
 
   void drop()
   {
-    for(int t=0; t<textures2::BoundTextures.size(); t++)
+    for(int t=0; t<textures::BoundTextures.size(); t++)
     {
-      glDeleteTextures(1, &textures2::BoundTextures[t]);
+      glDeleteTextures(1, &textures::BoundTextures[t]);
     } 
-    textures2::BoundTextures.clear();
+    textures::BoundTextures.clear();
   };
 
   float _get_normalized_frame_start(int texture_id, int frame_id)
   {
-    textures2::TextureData tdd = textures2::textures[texture_id];
+    textures::TextureData tdd = textures::textures[texture_id];
     return tdd.frames[frame_id].x/tdd.w;
   };
 
   float _get_normalized_frame_end(int texture_id, int frame_id)
   {
-    textures2::TextureData tdd = textures2::textures[texture_id];
+    textures::TextureData tdd = textures::textures[texture_id];
     return (tdd.frames[frame_id].x + tdd.frames[frame_id].w)/tdd.w;
   };
 
@@ -166,9 +166,9 @@ namespace textures2
     if (log_file.is_open())
     {
       log_file << "[ \n";
-      for (auto const& [k, v] : textures2::textures)
+      for (auto const& [k, v] : textures::textures)
       {
-        // if(i == (textures2::textures.size() - 1))
+        // if(i == (textures::textures.size() - 1))
         // {
         //   end_str = " } \n";
         // }

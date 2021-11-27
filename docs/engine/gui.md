@@ -16,10 +16,10 @@ Temporary(it should be menu) - GuiInformation quad
 struct GuiData
 ```
 
-### UsedGuiIds
+### Index
 Index of GUIs
 ```c++
-std::vector<int> UsedGuiIds;
+std::vector<int> Index;
 ```
 
 ### guislots
@@ -54,12 +54,12 @@ Create [guislots](gui.md#guislots) and [display](gui.md#display)
 void init();
 ```
 ### clear
-Remove data from [guislots](gui.md#guislots), [guis](gui.md#guis),  [GuiQuads](gui.md#GuiQuads) and  [UsedGuiIds](gui.md#UsedGuiIds)
+Remove data from [guislots](gui.md#guislots), [guis](gui.md#guis),  [GuiQuads](gui.md#GuiQuads) and  [Index](gui.md#Index)
 ```c++
 void clear();
 ```
 ### drop
-Drop GUI by id from [guis](gui.md#guis), delete index from [UsedGuiIds](gui.md#UsedGuiIds). Free slot from [guislots](gui.md#guislots). Drops associated [labels](fonts.md#drop) and [buttons](buttons.md#drop)
+Drop GUI by id from [guis](gui.md#guis), delete index from [Index](gui.md#Index). Free slot from [guislots](gui.md#guislots). Drops associated [labels](fonts.md#drop) and [buttons](buttons.md#drop)
 ```c++
 void drop(int gui_id);
 ```

@@ -16,7 +16,7 @@
 #ifndef MODULES_SHADERS_H
 #define MODULES_SHADERS_H
 
-namespace shaders2
+namespace shaders
 {
   // Contains information about the shader
   struct ShaderData

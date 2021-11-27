@@ -23,25 +23,25 @@ namespace nav
   void _load_navtiles(int map_id)
   {
     nav::navtiles.clear();
-    std::string file_path = "data/maps/" + maps2::maps[map_id].name;
+    std::string file_path = "data/maps/" + maps::maps[map_id].name;
     std::ifstream in_file;
     in_file.open(file_path.c_str());
 
-    MAX_ROW = (maps2::maps[map_id].vertex_height - 1);
-    MAX_COL = (maps2::maps[map_id].vertex_width - 1);
+    MAX_ROW = (maps::maps[map_id].vertex_height - 1);
+    MAX_COL = (maps::maps[map_id].vertex_width - 1);
     MAX_TILE_ID = (MAX_COL*1000)+MAX_ROW;
 
     if (in_file.is_open())
     {
-      for (int r = 0; r < maps2::maps[map_id].vertex_height; r++)
+      for (int r = 0; r < maps::maps[map_id].vertex_height; r++)
       {
-        for (int c = 0; c < maps2::maps[map_id].vertex_width; c++)
+        for (int c = 0; c < maps::maps[map_id].vertex_width; c++)
         {
           struct nav::NavTileData t;
           t.x = c;
           t.y = r;
-          t.x_real = c * maps2::default_tile_width;
-          t.y_real = r * maps2::default_tile_height;
+          t.x_real = c * maps::default_tile_width;
+          t.y_real = r * maps::default_tile_height;
           in_file >> t.frame_id;
 
           if(t.frame_id > 10 && t.frame_id < 20){
@@ -179,10 +179,10 @@ namespace nav
       nav::NavNodeData node;
       node.id = cp.first;
       node.count_tiles = 0;
-      node.min_x = cp.second.min_x * maps2::default_tile_width;
-      node.max_x = (cp.second.max_x * maps2::default_tile_width) + maps2::default_tile_width;
-      node.min_y = cp.second.min_y * maps2::default_tile_height;
-      node.max_y = (cp.second.max_y * maps2::default_tile_height) + maps2::default_tile_height;
+      node.min_x = cp.second.min_x * maps::default_tile_width;
+      node.max_x = (cp.second.max_x * maps::default_tile_width) + maps::default_tile_width;
+      node.min_y = cp.second.min_y * maps::default_tile_height;
+      node.max_y = (cp.second.max_y * maps::default_tile_height) + maps::default_tile_height;
       for(int t=0; t < cp.second.tiles.size(); t++)
       {
         node.count_tiles += 1;

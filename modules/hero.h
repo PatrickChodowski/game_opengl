@@ -13,7 +13,7 @@
 // should not have much about the quads, entities etc, its mostly data here
 // any logic here? dont think so
 
-namespace hero2
+namespace hero
 {
 
   struct HeroData
@@ -45,7 +45,7 @@ namespace hero2
     JS_OBJ(x, y, w, h, map_id, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, name, type);
   }; 
 
-  extern hero2::HeroData hero;
+  extern hero::HeroData hero;
 
   // Reads default data for character type 
   void _read_data(std::string char_type);

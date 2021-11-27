@@ -82,7 +82,7 @@ namespace travel
     }
 
     // if we are not at the target yet, we move
-    float dist_to_target = utils2::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+    float dist_to_target = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
     if(dist_to_target > entity::entities[tp.entity_id].speed)
     {
       // if we are not at the target node
@@ -105,7 +105,7 @@ namespace travel
         }
         tp.cpoint_x = c_point.x;
         tp.cpoint_y = c_point.y;
-        float dist = utils2::get_distance_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
+        float dist = utils::get_distance_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
         float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
         float x1 = entity::entities[tp.entity_id].x + (cos(angle) * entity::entities[tp.entity_id].speed);
         float y1 = entity::entities[tp.entity_id].y + (sin(angle) * entity::entities[tp.entity_id].speed);
@@ -128,7 +128,7 @@ namespace travel
 
       } else if (tp.current_node == tp.target_node)
       {
-        float dist = utils2::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+        float dist = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
         float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
         float x1 = entity::entities[tp.entity_id].x + cos(angle) * entity::entities[tp.entity_id].speed;
         float y1 = entity::entities[tp.entity_id].y + sin(angle) * entity::entities[tp.entity_id].speed;

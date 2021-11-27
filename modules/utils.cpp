@@ -17,7 +17,7 @@
 
 
 // Random reused utility functions
-namespace utils2
+namespace utils
 {
   std::string read_text_file(std::string path)
   {
@@ -122,7 +122,7 @@ namespace utils2
 
   int generate_id(std::vector<int>& used_ids_table)
   {
-    int next_id = utils2::_find_next_id(used_ids_table);
+    int next_id = utils::_find_next_id(used_ids_table);
     used_ids_table.push_back(next_id);
     return next_id;
   };
@@ -162,7 +162,7 @@ namespace utils2
   };
 
 
-  template std::string utils2::str<int>(int);
-  template std::string utils2::str<float>(float);
+  template std::string utils::str<int>(int);
+  template std::string utils::str<float>(float);
 
 }

@@ -7,7 +7,7 @@
 #define MODULES_TEXTURES_H
 
 // Textures - Persistent data. Loaded once on the beginning of the level/scene
-namespace textures2
+namespace textures
 {
   // Frame data - id, position, dimensions and label
   struct Frame
@@ -62,7 +62,7 @@ namespace textures2
   };
 
   // Persisten table of textures data
-  extern std::map<int, textures2::TextureData> textures;
+  extern std::map<int, textures::TextureData> textures;
 
   // Vector of bound textures to opengl
   extern std::vector<unsigned int> BoundTextures;

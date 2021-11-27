@@ -35,8 +35,8 @@ namespace camera
 
   glm::mat4 gen_dynamic_mvp(float camera_move_x=0, float camera_move_y=0, float camera_zoom=1)
   {
-    float z_window_width = game2::WINDOW_WIDTH * camera_zoom;
-    float z_window_height = game2::WINDOW_HEIGHT * camera_zoom;
+    float z_window_width = game::WINDOW_WIDTH * camera_zoom;
+    float z_window_height = game::WINDOW_HEIGHT * camera_zoom;
     glm::mat4 proj = glm::ortho(0.0f, z_window_width, z_window_height, 0.0f, -1.0f, 1.0f);
     // glm::vec3(0, 10, 0) moves tiles down
     // glm::vec3(10, 0, 0) moves tiles right
@@ -48,7 +48,7 @@ namespace camera
 
   glm::mat4 gen_static_mvp()
   {
-    glm::mat4 proj = glm::ortho(0.0f, game2::WINDOW_WIDTH, game2::WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
+    glm::mat4 proj = glm::ortho(0.0f, game::WINDOW_WIDTH, game::WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
     glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
     glm::mat4 mvp = proj*view*model;
@@ -58,8 +58,8 @@ namespace camera
 
   glm::mat4 gen_zoom_only_mvp(float camera_zoom)
   {
-    float z_window_width = game2::WINDOW_WIDTH * camera_zoom;
-    float z_window_height = game2::WINDOW_HEIGHT * camera_zoom;
+    float z_window_width = game::WINDOW_WIDTH * camera_zoom;
+    float z_window_height = game::WINDOW_HEIGHT * camera_zoom;
     glm::mat4 proj = glm::ortho(0.0f, z_window_width, z_window_height, 0.0f, -1.0f, 1.0f);
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
     glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
@@ -73,12 +73,12 @@ namespace camera
     camera_x = (-1.0)*camera_x;
     float final_camera_x; 
     float final_camera_y;
-    //std::cout << " Scale quads quads::AllQuads.size: " << quads2::AllQuads.size() << std::endl;
+    //std::cout << " Scale quads quads::AllQuads.size: " << quads::AllQuads.size() << std::endl;
 
-    for(int q = 0; q < quads2::AllQuads.size(); q++)
+    for(int q = 0; q < quads::AllQuads.size(); q++)
     {
       
-      if(quads2::AllQuads[q].camera_type == CAMERA_STATIC)
+      if(quads::AllQuads[q].camera_type == CAMERA_STATIC)
       {
         final_camera_x = 0.0; 
         final_camera_y = 0.0;
@@ -87,10 +87,10 @@ namespace camera
         final_camera_x = camera_x; 
         final_camera_y = camera_y;
       }
-      quads2::AllQuads[q].window_x = (quads2::AllQuads[q].x + final_camera_x)*scale_factor;
-      quads2::AllQuads[q].window_y = (quads2::AllQuads[q].y + final_camera_y)*scale_factor;
-      quads2::AllQuads[q].window_h = quads2::AllQuads[q].h*scale_factor;
-      quads2::AllQuads[q].window_w = quads2::AllQuads[q].w*scale_factor;
+      quads::AllQuads[q].window_x = (quads::AllQuads[q].x + final_camera_x)*scale_factor;
+      quads::AllQuads[q].window_y = (quads::AllQuads[q].y + final_camera_y)*scale_factor;
+      quads::AllQuads[q].window_h = quads::AllQuads[q].h*scale_factor;
+      quads::AllQuads[q].window_w = quads::AllQuads[q].w*scale_factor;
 
       // if(q.id == 1)
       // {

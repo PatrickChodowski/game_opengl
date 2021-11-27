@@ -8,7 +8,7 @@
 #ifndef MODULES_UTILS_H
 #define MODULES_UTILS_H
 
-namespace utils2
+namespace utils
 {
   // Reads in the text file
   std::string read_text_file(std::string path);

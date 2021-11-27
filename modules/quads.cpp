@@ -18,17 +18,17 @@
 #include "../dictionary.h"
 
 
-namespace quads2
+namespace quads
 {
   float VERTEX_OFFSET = 1;
   int COUNT_QUADS = 0;
   int REQ_SIZE_BUFFER = 0;
 
-  std::vector<quads2::QuadData> AllQuads;
+  std::vector<quads::QuadData> AllQuads;
   std::vector<int> QuadIndex = {};
   std::vector<int> VertexIndex = {};
 
-  VertexData _fill_quad_vertex_data(quads2::QuadData& q)
+  VertexData _fill_quad_vertex_data(quads::QuadData& q)
   {
     VertexData v;
     v.v1_id = gen_vertex_id();
@@ -43,20 +43,20 @@ namespace quads2
     v.v1_tx_y = 0.0f;
 
     // B
-    v.v2_x = q.x + q.w - quads2::VERTEX_OFFSET;
+    v.v2_x = q.x + q.w - quads::VERTEX_OFFSET;
     v.v2_y = q.y;
     v.v2_tx_x = q.norm_x_end;
     v.v2_tx_y = 0.0f;
 
     // C
     v.v3_x = q.x;
-    v.v3_y = q.y + q.h - quads2::VERTEX_OFFSET;
+    v.v3_y = q.y + q.h - quads::VERTEX_OFFSET;
     v.v3_tx_x = q.norm_x_start;
     v.v3_tx_y = 1.0f;
 
     // D
-    v.v4_x = q.x + q.w - quads2::VERTEX_OFFSET;
-    v.v4_y = q.y + q.h - quads2::VERTEX_OFFSET;
+    v.v4_x = q.x + q.w - quads::VERTEX_OFFSET;
+    v.v4_y = q.y + q.h - quads::VERTEX_OFFSET;
     v.v4_tx_x = q.norm_x_end;
     v.v4_tx_y = 1.0f;
 
@@ -73,11 +73,11 @@ namespace quads2
 
   int _find_next_quad_id()
   {
-    int n = quads2::QuadIndex.size();
+    int n = quads::QuadIndex.size();
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
-      if (quads2::QuadIndex[i] > (i+1)){
+      if (quads::QuadIndex[i] > (i+1)){
         return i+1;
       }
     }
@@ -86,18 +86,18 @@ namespace quads2
 
   int gen_quad_id()
   {
-    int next_quad_id = quads2::_find_next_quad_id();
-    quads2::QuadIndex.push_back(next_quad_id);
+    int next_quad_id = quads::_find_next_quad_id();
+    quads::QuadIndex.push_back(next_quad_id);
     return next_quad_id;
   }
 
   int _find_next_vertex_id()
   {
-    int n = quads2::VertexIndex.size();
+    int n = quads::VertexIndex.size();
     // for whole vector, find value that would be bigger than (index + 1)
     for (int i = 0; i < n; i++)
     {
-      if (quads2::VertexIndex[i] > i){
+      if (quads::VertexIndex[i] > i){
         return i;
       }
     }
@@ -106,83 +106,83 @@ namespace quads2
 
   int gen_vertex_id()
   {
-    int next_vertex_id = quads2::_find_next_vertex_id();
-    quads2::VertexIndex.push_back(next_vertex_id);
+    int next_vertex_id = quads::_find_next_vertex_id();
+    quads::VertexIndex.push_back(next_vertex_id);
     return next_vertex_id;
   }
 
   void clear()
   {
-    quads2::AllQuads.clear();
-    quads2::VertexIndex.clear();
-    quads2::QuadIndex.clear();
+    quads::AllQuads.clear();
+    quads::VertexIndex.clear();
+    quads::QuadIndex.clear();
   }
 
   void accumulate()
   {
-    quads2::AllQuads.clear();
-    quads2::VertexIndex.clear();
-    quads2::QuadIndex.clear();
+    quads::AllQuads.clear();
+    quads::VertexIndex.clear();
+    quads::QuadIndex.clear();
 
     // // assign menu quads
-    if(menu2::MenuQuads.size() > 0)
+    if(menu::MenuQuads.size() > 0)
     {
-      quads2::AllQuads.insert(quads2::AllQuads.end(), menu2::MenuQuads.begin(), menu2::MenuQuads.end());
+      quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
     }
 
     // assign map quads
-    if(maps2::MapQuads.size() > 0)
+    if(maps::MapQuads.size() > 0)
     {
-      quads2::AllQuads.insert(quads2::AllQuads.end(), maps2::MapQuads.begin(), maps2::MapQuads.end());
+      quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
     }
 
     // assign entity quads
     if(entity::EntityQuads.size() > 0)
     {
-      quads2::AllQuads.insert(quads2::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
+      quads::AllQuads.insert(quads::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
     }
 
-    if(debug2::DebugQuads.size() > 0)
+    if(debug::DebugQuads.size() > 0)
     {
-      quads2::AllQuads.insert(quads2::AllQuads.end(), debug2::DebugQuads.begin(), debug2::DebugQuads.end());
+      quads::AllQuads.insert(quads::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
     }
 
-    if(gui2::GuiQuads.size() > 0)
+    if(gui::GuiQuads.size() > 0)
     {
-      quads2::AllQuads.insert(quads2::AllQuads.end(), gui2::GuiQuads.begin(), gui2::GuiQuads.end());
+      quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
     }
 
     if(buttons::GuiButtonQuads.size() > 0)
     {
-      quads2::AllQuads.insert(quads2::AllQuads.end(), buttons::GuiButtonQuads.begin(), buttons::GuiButtonQuads.end());
+      quads::AllQuads.insert(quads::AllQuads.end(), buttons::GuiButtonQuads.begin(), buttons::GuiButtonQuads.end());
     }
 
-    if(fonts2::TextQuads.size() > 0)
+    if(fonts::TextQuads.size() > 0)
     {
-      quads2::AllQuads.insert(quads2::AllQuads.end(), fonts2::TextQuads.begin(), fonts2::TextQuads.end());
+      quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
     }
 
     // Assigning vertex index and vertex positions here, on the final table
-    for(int q=0; q < quads2::AllQuads.size(); q++ )
+    for(int q=0; q < quads::AllQuads.size(); q++ )
     { 
-      quads2::_fill_quad_vertex_data(quads2::AllQuads[q]);
+      quads::_fill_quad_vertex_data(quads::AllQuads[q]);
     }
 
-    quads2::COUNT_QUADS = quads2::AllQuads.size();
-    quads2::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
+    quads::COUNT_QUADS = quads::AllQuads.size();
+    quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
     // std::cout << "count entity quads: " << entity::EntityQuads.size() << std::endl;
 
   }
 
 
   template <typename T>
-  std::vector<quads2::QuadData> make_quads(std::map<int, T> data, int object_type_id)
+  std::vector<quads::QuadData> make_quads(std::map<int, T> data, int object_type_id)
   {
-    std::vector<quads2::QuadData> quads = {};
+    std::vector<quads::QuadData> quads = {};
     for (auto const& [k, v] : data)
     {
-      quads2::QuadData quad;
-      quad.id = quads2::gen_quad_id();
+      quads::QuadData quad;
+      quad.id = quads::gen_quad_id();
       quad.texture_id = v.texture_id;
       quad.frame_id = v.frame_id;
 
@@ -223,35 +223,35 @@ namespace quads2
     if (quads_file.is_open())
     {
       quads_file << "[ \n";
-      for(int i = 0; i < quads2::AllQuads.size(); i++)
+      for(int i = 0; i < quads::AllQuads.size(); i++)
       {
-        if(i == (quads2::AllQuads.size() - 1))
+        if(i == (quads::AllQuads.size() - 1))
         {
           end_str = " } \n";
         }
 
         quads_file << " { \n" <<
-                      "    \"id\": " << quads2::AllQuads[i].id                         << ",\n"
-                      "    \"object_id\": " << quads2::AllQuads[i].object_id           << ",\n"
-                      "    \"texture_id\": " << quads2::AllQuads[i].texture_id         << ",\n"
-                      "    \"frame_id\": " << quads2::AllQuads[i].frame_id             << ",\n"
-                      "    \"r\": " << quads2::AllQuads[i].r                           << ",\n"
-                      "    \"g\": " << quads2::AllQuads[i].g                           << ",\n"
-                      "    \"b\": " << quads2::AllQuads[i].b                           << ",\n"
-                      "    \"a\": " << quads2::AllQuads[i].a                           << ",\n"
-                      "    \"x\": " << quads2::AllQuads[i].x                           << ",\n"
-                      "    \"y\": " << quads2::AllQuads[i].y                           << ",\n"
-                      "    \"w\": " << quads2::AllQuads[i].w                           << ",\n"
-                      "    \"h\": " << quads2::AllQuads[i].h                           << ",\n"
-                      "    \"object_type_id\": " << quads2::AllQuads[i].object_type_id << ",\n"
-                      "    \"camera_type\": " << quads2::AllQuads[i].camera_type       << ",\n"
-                      "    \"window_x\": " << quads2::AllQuads[i].window_x             << ",\n"
-                      "    \"window_y\": " << quads2::AllQuads[i].window_y             << ",\n"
-                      "    \"window_w\": " << quads2::AllQuads[i].window_w             << ",\n"
-                      "    \"window_h\": " << quads2::AllQuads[i].window_h             << ",\n"
-                      "    \"norm_x_start\": " << quads2::AllQuads[i].norm_x_start     << ",\n"
-                      "    \"norm_x_end\": " << quads2::AllQuads[i].norm_x_end         << ",\n"
-                      "    \"is_clicked\": " << quads2::AllQuads[i].is_clicked         << "\n"
+                      "    \"id\": " << quads::AllQuads[i].id                         << ",\n"
+                      "    \"object_id\": " << quads::AllQuads[i].object_id           << ",\n"
+                      "    \"texture_id\": " << quads::AllQuads[i].texture_id         << ",\n"
+                      "    \"frame_id\": " << quads::AllQuads[i].frame_id             << ",\n"
+                      "    \"r\": " << quads::AllQuads[i].r                           << ",\n"
+                      "    \"g\": " << quads::AllQuads[i].g                           << ",\n"
+                      "    \"b\": " << quads::AllQuads[i].b                           << ",\n"
+                      "    \"a\": " << quads::AllQuads[i].a                           << ",\n"
+                      "    \"x\": " << quads::AllQuads[i].x                           << ",\n"
+                      "    \"y\": " << quads::AllQuads[i].y                           << ",\n"
+                      "    \"w\": " << quads::AllQuads[i].w                           << ",\n"
+                      "    \"h\": " << quads::AllQuads[i].h                           << ",\n"
+                      "    \"object_type_id\": " << quads::AllQuads[i].object_type_id << ",\n"
+                      "    \"camera_type\": " << quads::AllQuads[i].camera_type       << ",\n"
+                      "    \"window_x\": " << quads::AllQuads[i].window_x             << ",\n"
+                      "    \"window_y\": " << quads::AllQuads[i].window_y             << ",\n"
+                      "    \"window_w\": " << quads::AllQuads[i].window_w             << ",\n"
+                      "    \"window_h\": " << quads::AllQuads[i].window_h             << ",\n"
+                      "    \"norm_x_start\": " << quads::AllQuads[i].norm_x_start     << ",\n"
+                      "    \"norm_x_end\": " << quads::AllQuads[i].norm_x_end         << ",\n"
+                      "    \"is_clicked\": " << quads::AllQuads[i].is_clicked         << "\n"
                       << end_str;
       }
       quads_file << "] \n";
@@ -259,13 +259,13 @@ namespace quads2
     }
   }
 
-  template std::vector<quads2::QuadData> quads2::make_quads<buttons::GuiButtonData>(std::map<int, buttons::GuiButtonData>, int);
-  template std::vector<quads2::QuadData> quads2::make_quads<debug2::PointData>(std::map<int, debug2::PointData>, int);
-  template std::vector<quads2::QuadData> quads2::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
-  template std::vector<quads2::QuadData> quads2::make_quads<fonts2::TextData>(std::map<int, fonts2::TextData>, int);
-  template std::vector<quads2::QuadData> quads2::make_quads<gui2::GuiData>(std::map<int, gui2::GuiData>, int);
-  template std::vector<quads2::QuadData> quads2::make_quads<maps2::TileData>(std::map<int, maps2::TileData>, int);
-  template std::vector<quads2::QuadData> quads2::make_quads<menu2::ButtonData>(std::map<int, menu2::ButtonData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<buttons::GuiButtonData>(std::map<int, buttons::GuiButtonData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<debug::PointData>(std::map<int, debug::PointData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<fonts::TextData>(std::map<int, fonts::TextData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<gui::GuiData>(std::map<int, gui::GuiData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<maps::TileData>(std::map<int, maps::TileData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<menu::ButtonData>(std::map<int, menu::ButtonData>, int);
   
 
 }
