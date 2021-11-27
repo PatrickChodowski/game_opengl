@@ -8,10 +8,13 @@
 // timer functionality
 namespace timer2
 {
+  // Provides current time
   std::time_t get_current_time();
 
+  // Get elapsed time from starting point
   float get_elapsed_time(std::chrono::time_point<std::chrono::high_resolution_clock> start_time);
 
+  // Print elapsed time with provided message
   void print_elapsed_time(std::chrono::time_point<std::chrono::high_resolution_clock> start_time,
                           std::string message);
 
@@ -24,8 +27,10 @@ namespace timer2
   float get_delay_ms(std::chrono::time_point<std::chrono::high_resolution_clock> start_time,
                      std::chrono::time_point<std::chrono::high_resolution_clock> end_time);
 
+  // Get Current time in miliseconds
   std::chrono::milliseconds get_current_ms_time();
 
+  // Get elapsed miliseconds from start time
   float get_elapsed_ms(std::chrono::milliseconds start);
 
 }
