@@ -35,7 +35,7 @@ namespace saves2
     level, mobs_killed, name, type);
   };
 
-  // Writes the save json file to saves firectory
+  // Writes the save json file to saves directory
   void _write_save_json(std::string& str_to_write);
 
   // Saves game data to struct and saves it further to the file
