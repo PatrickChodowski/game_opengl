@@ -62,7 +62,6 @@ namespace maps2
   struct MapData
   {
     int id;
-    std::string name;
     int vertex_width;
     int vertex_height;
     int texture_id;
@@ -70,6 +69,7 @@ namespace maps2
     int default_player_y;
     std::vector<Door> doors;
     std::vector<Nest> nests;
+    std::string name;
 
     JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors, nests);
   };
@@ -82,7 +82,7 @@ namespace maps2
 
   //  TileID, TileData
   extern std::map<int, maps2::TileData> tiles;
-  extern std::vector<int> UsedTileIds;
+  extern std::vector<int> Index;
   extern std::vector<quads2::QuadData> MapQuads;
 
 
@@ -93,11 +93,8 @@ namespace maps2
   // read_map_data function. Thats reads json into maps::maps
   void init();
 
-  // Loads map tiles from map file by map name to maps2::tiles
-  void load_map(std::string map_name, 
-                int vertex_width, 
-                int vertex_height, 
-                int texture_id);
+  // Loads map tiles from map file by map id
+  void load(int map_id);
 
   // Loads selected map to game
   void init_map(int map_id);
