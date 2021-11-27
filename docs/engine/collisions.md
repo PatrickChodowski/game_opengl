@@ -9,6 +9,12 @@ AABB box collision box with min_x, min_y, max_x,max_y and id
 struct AABB
 ```
 
+### AABBsHandler
+Catalog of functions for setting AABB per object_type
+```c++
+std::map <int,sig_ptr> AABBsHandler;
+```
+
 ### Sensor
 Sensor point with x,y and id
 ```c++
@@ -46,6 +52,12 @@ int ABS_COUNT
 ```
 
 ## Functions
+
+### init
+Fill out SetAABBsHandler
+```c++
+void init();
+```
 
 ### handle_entity_collisions
 Handle collisions for  [entity](entity.md#Entity)
@@ -102,7 +114,5 @@ std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entit
 ```
 
 ## Tests
-- check distance measuring I assume
-- check if sensors and AABB boxes work together
-- check handle of the collisions
+-
 

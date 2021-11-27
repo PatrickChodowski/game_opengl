@@ -10,7 +10,7 @@
 #define MODULES_MOBS_H
 
 // Persistent data. Table of mobs and all operations on this table. Loaded on new level
-namespace mobs2
+namespace mobs
 {
 
   struct MobData

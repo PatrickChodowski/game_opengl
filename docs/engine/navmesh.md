@@ -130,6 +130,4 @@ void _load_navmesh();
 
 
 ## Tests
-- if navmesh is created
-- if there are edges made correctly
-- if it creates correct nubmer of polygons
+-

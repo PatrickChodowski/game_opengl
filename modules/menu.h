@@ -9,7 +9,7 @@
 #define MODULES_MENU_H
 
 // Persistent data. Table of current menu button and all operations on this table. Level -> 99
-namespace menu2
+namespace menu
 {
 
   struct ButtonData
@@ -50,10 +50,10 @@ namespace menu2
   extern std::vector<std::string> saves;
 
   // Map of scene_id (100,101,102 and buttons: (std::vector<int> buttons))
-  extern std::map<int, menu2::MenuData> menus;
-  extern std::map<int, menu2::ButtonData> menubuttons;
-  extern std::map<int, menu2::ButtonData> CurrentMenuButtons;
-  extern std::vector<quads2::QuadData> MenuQuads;
+  extern std::map<int, menu::MenuData> menus;
+  extern std::map<int, menu::ButtonData> menubuttons;
+  extern std::map<int, menu::ButtonData> CurrentMenuButtons;
+  extern std::vector<quads::QuadData> MenuQuads;
   extern std::string NewGameName;
 
   // Initialize different menu data and load into menu catalog (menus)
@@ -65,7 +65,7 @@ namespace menu2
   // Reads in menu data
   void _read_menu_data(std::string& name);
 
-  // Lists saves file to menu2::saves;
+  // Lists saves file to menu::saves;
   void list_saves();
 
   // Load correct menu buttons to CurrentMenuButtons for selected level. Levels 100, 101, 102 etc. mean menus

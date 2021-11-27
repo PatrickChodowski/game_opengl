@@ -37,7 +37,7 @@ namespace buttons
   extern std::map <int , sig_ptr> ButtonFunctions;
   extern std::vector<int> Index;
   extern std::map <int, buttons::GuiButtonData> guibuttons;
-  extern std::vector<quads2::QuadData> GuiButtonQuads;
+  extern std::vector<quads::QuadData> GuiButtonQuads;
 
   // Initialize GuiButtons logic and data
   void init();

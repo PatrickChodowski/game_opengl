@@ -7,7 +7,7 @@
 #define MODULES_MOUSE_H
 
 
-namespace mouse2
+namespace mouse
 {
   // For travelling purposes
   extern float last_click_x;

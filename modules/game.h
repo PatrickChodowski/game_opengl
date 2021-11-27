@@ -9,7 +9,7 @@
 #define MODULES_GAME_H
 
 
-namespace game2
+namespace game
 {
   // Game running variables
   extern bool PAUSE;

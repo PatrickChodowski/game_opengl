@@ -10,7 +10,7 @@
 #ifndef MODULES_GUI_H
 #define MODULES_GUI_H
 
-namespace gui2
+namespace gui
 {
   struct GuiSlotData
   {
@@ -40,10 +40,10 @@ namespace gui2
 
   };
 
-  extern std::vector<int> UsedGuiIds;
-  extern std::map<int, gui2::GuiData> guis;
-  extern std::map<int, gui2::GuiSlotData> guislots;
-  extern std::vector<quads2::QuadData> GuiQuads;
+  extern std::vector<int> Index;
+  extern std::map<int, gui::GuiData> guis;
+  extern std::map<int, gui::GuiSlotData> guislots;
+  extern std::vector<quads::QuadData> GuiQuads;
 
   typedef int (*sig_ptr)(int, int);
   // Catalog of functions to be chosen based on the object_type_id. Takes object_id and gui_slot_id as arguments

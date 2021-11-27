@@ -27,15 +27,15 @@
 #include "../dictionary.h"
 
 
-namespace fonts2
+namespace fonts
 {
   std::map<char, CharacterData> chars = {};
-  std::vector<quads2::QuadData> TextQuads = {};
+  std::vector<quads::QuadData> TextQuads = {};
   std::map<int, TextData> texts = {};
   std::map<int, LabelData> labels;
   std::vector<int> TextIndex = {};
   std::vector<int> LabelIndex = {};
-  textures2::TextureData FontTDD;
+  textures::TextureData FontTDD;
   int NEW_GAME_LABEL_ID = 0;
 
   void init(std::string font_name)
@@ -127,7 +127,7 @@ namespace fonts2
         continue;
         //https://learnopengl.com/In-Practice/Text-Rendering
 
-      fonts2::CharacterData character;
+      fonts::CharacterData character;
       character.advance_x = g->advance.x;
       character.advance_y = g->advance.y;
       character.bitmap_width = g->bitmap.width;
@@ -138,7 +138,7 @@ namespace fonts2
       character.offset = ((float)x/ (float)atlas_width);
       character.frame_id = c_id;
       character.texture_id = (int)texture_id;
-      chars.insert(std::pair<GLchar, fonts2::CharacterData>(i, character));
+      chars.insert(std::pair<GLchar, fonts::CharacterData>(i, character));
 
       //GLchar test_i = i;
       //std::cout << "font " << test_i << " " << character.bitmap_height << " " << character.bitmap_top << " " << character.align << std::endl;
@@ -151,7 +151,7 @@ namespace fonts2
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
 
-    textures2::TextureData TD;
+    textures::TextureData TD;
     TD.id = texture_id;
     TD.type = "font";
     TD.name = "font";
@@ -159,15 +159,15 @@ namespace fonts2
     TD.h = atlas_height;
     TD.opengl_texture_id = texture_id;
 
-    fonts2::FontTDD = TD;
-    textures2::textures[texture_id] = TD;
-    textures2::BoundTextures.push_back(TD.opengl_texture_id);
+    fonts::FontTDD = TD;
+    textures::textures[texture_id] = TD;
+    textures::BoundTextures.push_back(TD.opengl_texture_id);
   };
 
   int add(std::string& text, float x_start, float y_start, float camera_type, float scale, float r, float g, float b)
   {
-    fonts2::LabelData ldd;
-    ldd.id = utils2::generate_id(fonts2::LabelIndex);
+    fonts::LabelData ldd;
+    ldd.id = utils::generate_id(fonts::LabelIndex);
     ldd.text = text;
     ldd.x_start = x_start;
     ldd.y_start = y_start;
@@ -180,15 +180,15 @@ namespace fonts2
     return ldd.id;
   };
 
-  void render_chars(fonts2::LabelData ldd)
+  void render_chars(fonts::LabelData ldd)
   { 
     float x = ldd.x_start;
     float y = ldd.y_start;
 
     for(const char *p = ldd.text.c_str(); *p; p++) 
     { 
-      fonts2::TextData tdd;
-      tdd.id = utils2::generate_id(fonts2::TextIndex);
+      fonts::TextData tdd;
+      tdd.id = utils::generate_id(fonts::TextIndex);
       tdd.texture_id = chars[*p].texture_id;
       tdd.frame_id = chars[*p].frame_id;
 
@@ -211,36 +211,36 @@ namespace fonts2
       tdd.norm_x_end = chars[*p].offset + (chars[*p].bitmap_width/FontTDD.w);
 
       x += ((chars[*p].bitmap_width * ldd.scale)+5);
-      fonts2::texts[tdd.id] = tdd;
+      fonts::texts[tdd.id] = tdd;
     }
   };
 
   void render()
   { 
-    fonts2::TextIndex.clear();
-    fonts2::texts.clear();
-    for (auto const& [k, v] : fonts2::labels)
+    fonts::TextIndex.clear();
+    fonts::texts.clear();
+    for (auto const& [k, v] : fonts::labels)
     { 
-      fonts2::render_chars(v);
+      fonts::render_chars(v);
     } 
-    fonts2::TextQuads.clear();
-    fonts2::TextQuads = quads2::make_quads(fonts2::texts, OBJECT_TYPE_TEXT);
+    fonts::TextQuads.clear();
+    fonts::TextQuads = quads::make_quads(fonts::texts, OBJECT_TYPE_TEXT);
   };
 
 
   void drop(int label_id)
   {
-    fonts2::labels.erase(label_id);
-    utils2::drop_id(fonts2::LabelIndex, label_id);
+    fonts::labels.erase(label_id);
+    utils::drop_id(fonts::LabelIndex, label_id);
   }
 
   void clear()
   {
-    fonts2::TextQuads.clear();
-    fonts2::texts.clear();
-    fonts2::labels.clear();
-    fonts2::TextIndex.clear();
-    fonts2::LabelIndex.clear();
+    fonts::TextQuads.clear();
+    fonts::texts.clear();
+    fonts::labels.clear();
+    fonts::TextIndex.clear();
+    fonts::LabelIndex.clear();
   };
 
 

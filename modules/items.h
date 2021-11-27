@@ -12,7 +12,7 @@
 
 // Persistent data. Table of tiles and all operations on this table. 
 
-namespace items2
+namespace items
 {
   struct ItemData
   {

@@ -16,7 +16,7 @@ namespace buttons
   std::map <int , sig_ptr> ButtonFunctions;
   std::vector<int> Index = {};
   std::map <int, buttons::GuiButtonData> guibuttons;
-  std::vector<quads2::QuadData> GuiButtonQuads;
+  std::vector<quads::QuadData> GuiButtonQuads;
 
   void init()
   {
@@ -27,7 +27,7 @@ namespace buttons
   int add(std::string text, float x, float y, int button_function_id)
   {
     buttons::GuiButtonData bdd;
-    bdd.id = utils2::generate_id(buttons::Index);
+    bdd.id = utils::generate_id(buttons::Index);
     bdd.x = x;
     bdd.y = y;
     bdd.w = 100;
@@ -40,7 +40,7 @@ namespace buttons
     bdd.button_function_id = button_function_id;
     bdd.camera_type = CAMERA_STATIC;
 
-    bdd.label_id = fonts2::add(text, 
+    bdd.label_id = fonts::add(text, 
                                x + 15, 
                                y + 50, 
                                CAMERA_STATIC, 
@@ -56,15 +56,15 @@ namespace buttons
   void render()
   {
     buttons::GuiButtonQuads.clear();
-    buttons::GuiButtonQuads = quads2::make_quads(buttons::guibuttons, OBJECT_TYPE_BUTTON);
+    buttons::GuiButtonQuads = quads::make_quads(buttons::guibuttons, OBJECT_TYPE_BUTTON);
   }
 
 
   void drop(int button_id)
   {
-    fonts2::drop(buttons::guibuttons[button_id].label_id);
+    fonts::drop(buttons::guibuttons[button_id].label_id);
     buttons::guibuttons.erase(button_id);
-    utils2::drop_id(buttons::Index, button_id);
+    utils::drop_id(buttons::Index, button_id);
   };
 
   void clear()
@@ -79,8 +79,8 @@ namespace buttons
   {   
     // Button travel
     // how to implement that? lolz
-    // x,y = mouse2::_request_position();
-    // travel2::goto(x,y)
+    // x,y = mouse::_request_position();
+    // travel::goto(x,y)
 
     // OR 
     // Create travel option but in idle state

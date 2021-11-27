@@ -13,18 +13,18 @@
 
 #include "../dictionary.h"
 
-namespace events2
+namespace events
 {
 
   std::map <int , sig_ptr> EventsHandler = {};
 
   void init()
   {
-    events2::EventsHandler[IN_GAME_SCENE_ID] = _handle_in_game;
-    events2::EventsHandler[MAIN_MENU_SCENE_ID] = _handle_menu;
-    events2::EventsHandler[NEWGAME_MENU_SCENE_ID] = _handle_new_game;
-    events2::EventsHandler[LOADGAME_MENU_SCENE_ID] = _handle_load_game;
-    events2::EventsHandler[SETTINGS_MENU_SCENE_ID] = _handle_menu;
+    events::EventsHandler[IN_GAME_SCENE_ID] = _handle_in_game;
+    events::EventsHandler[MAIN_MENU_SCENE_ID] = _handle_menu;
+    events::EventsHandler[NEWGAME_MENU_SCENE_ID] = _handle_new_game;
+    events::EventsHandler[LOADGAME_MENU_SCENE_ID] = _handle_load_game;
+    events::EventsHandler[SETTINGS_MENU_SCENE_ID] = _handle_menu;
   }
 
   void _scan_for_camera_move()
@@ -32,20 +32,20 @@ namespace events2
     camera::cam.move_x = 0;
     camera::cam.move_y = 0;
 
-    if(game2::KEYBOARD[SDL_SCANCODE_LEFT])
+    if(game::KEYBOARD[SDL_SCANCODE_LEFT])
     {
       camera::cam.move_x -= camera::cam.speed;
       //hero::update_frame(MOVE_LEFT);
     } 
-    else if(game2::KEYBOARD[SDL_SCANCODE_RIGHT])
+    else if(game::KEYBOARD[SDL_SCANCODE_RIGHT])
     {
       camera::cam.move_x += camera::cam.speed;
     }
-    else if(game2::KEYBOARD[SDL_SCANCODE_UP])
+    else if(game::KEYBOARD[SDL_SCANCODE_UP])
     {
       camera::cam.move_y += camera::cam.speed;
     }
-    else if(game2::KEYBOARD[SDL_SCANCODE_DOWN])
+    else if(game::KEYBOARD[SDL_SCANCODE_DOWN])
     {
       camera::cam.move_y -= camera::cam.speed;
     } else 
@@ -76,18 +76,18 @@ namespace events2
           break;
 
         case SDL_MOUSEBUTTONDOWN:
-          mouse2::handle_mouse(event.motion, event.button);
+          mouse::handle_mouse(event.motion, event.button);
         break;
 
         case SDL_QUIT:
-          game2::RUNNING = false;
+          game::RUNNING = false;
         break;
 
         case SDL_KEYDOWN: 
           switch (event.key.keysym.sym)
           { 
             case SDLK_ESCAPE:
-              game2::switch_scene(MAIN_MENU_SCENE_ID, false);    
+              game::switch_scene(MAIN_MENU_SCENE_ID, false);    
             break;
             
             case SDLK_x:
@@ -96,15 +96,15 @@ namespace events2
             break; 
 
             case SDLK_s:
-              saves2::save_game();
+              saves::save_game();
             break;
 
             case SDLK_p:
-              game2::PAUSE = !game2::PAUSE;    
+              game::PAUSE = !game::PAUSE;    
             break;
 
             case SDLK_d:
-              game2::IS_DEBUG_MODE = !game2::IS_DEBUG_MODE;
+              game::IS_DEBUG_MODE = !game::IS_DEBUG_MODE;
             break;
           }
         break;
@@ -120,43 +120,43 @@ namespace events2
       switch (event.type)
       {
         case SDL_MOUSEBUTTONDOWN:
-          mouse2::handle_mouse(event.motion, event.button);
+          mouse::handle_mouse(event.motion, event.button);
         break;
 
         case SDL_QUIT:
-          game2::RUNNING = false;
+          game::RUNNING = false;
         break;
 
         case SDL_KEYDOWN: 
           switch (event.key.keysym.sym)
           {
             case SDLK_BACKSPACE:
-              if(menu2::NewGameName.size() > 0)
+              if(menu::NewGameName.size() > 0)
               {
-                menu2::NewGameName.pop_back();
-                fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
+                menu::NewGameName.pop_back();
+                fonts::labels[fonts::NEW_GAME_LABEL_ID].text = menu::NewGameName;
               }
             break;
 
             case SDLK_RETURN:
-              if(menu2::_validate_name())
+              if(menu::_validate_name())
               {
-                game2::switch_scene(2, true);
+                game::switch_scene(2, true);
               }
             break;
 
             case SDLK_ESCAPE:
-              game2::switch_scene(MAIN_MENU_SCENE_ID, false);  
+              game::switch_scene(MAIN_MENU_SCENE_ID, false);  
             break;
           }
 
         break;
 
         case SDL_TEXTINPUT:
-          if(menu2::_validate_input(event.text.text) && menu2::NewGameName.size() < 8)
+          if(menu::_validate_input(event.text.text) && menu::NewGameName.size() < 8)
           {
-            menu2::NewGameName += event.text.text;
-            fonts2::labels[fonts2::NEW_GAME_LABEL_ID].text = menu2::NewGameName;
+            menu::NewGameName += event.text.text;
+            fonts::labels[fonts::NEW_GAME_LABEL_ID].text = menu::NewGameName;
           }
         break;
       }
@@ -170,18 +170,18 @@ namespace events2
       switch (event.type)
       {
         case SDL_MOUSEBUTTONDOWN:
-          mouse2::handle_mouse(event.motion, event.button);
+          mouse::handle_mouse(event.motion, event.button);
         break;
 
         case SDL_QUIT:
-          game2::RUNNING = false;
+          game::RUNNING = false;
         break;
 
         case SDL_KEYDOWN: 
           switch (event.key.keysym.sym)
           {     
             case SDLK_ESCAPE:
-              game2::switch_scene(MAIN_MENU_SCENE_ID, false);  
+              game::switch_scene(MAIN_MENU_SCENE_ID, false);  
             break;
           }
         break;
@@ -196,11 +196,11 @@ namespace events2
       switch (event.type)
       {
         case SDL_MOUSEBUTTONDOWN:
-          mouse2::handle_mouse(event.motion, event.button);
+          mouse::handle_mouse(event.motion, event.button);
         break;
 
         case SDL_QUIT:
-          game2::RUNNING = false;
+          game::RUNNING = false;
         break;
       }
     }
@@ -208,6 +208,6 @@ namespace events2
 
   void handle_events(SDL_Event event)
   {
-    events2::EventsHandler[game2::IS_MENU](event);
+    events::EventsHandler[game::IS_MENU](event);
   }
 }

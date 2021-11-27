@@ -12,6 +12,10 @@ namespace collisions
   extern int SENSOR_OFFSET;
   extern int ABS_COUNT;
 
+  typedef void (*sig_ptr)(int);
+  // Catalog of functions to be chosen based on the object_type_id
+  extern std::map <int,sig_ptr> AABBsHandler;
+
   // AABB data for the entity
   struct AABB
   {
@@ -79,6 +83,9 @@ namespace collisions
 
   // Calculates near distances to entities and map objects. Sets sensors, abs and resolves collisions
   void handle_entity_collisions(int entity_id);
+
+  // Fill out AABBsHandler
+  void init();
 
 }
 

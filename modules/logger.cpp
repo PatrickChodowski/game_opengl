@@ -42,7 +42,7 @@ namespace logger
       LOG_PATH_RUN = new_dir_run;
     } else {
       // directory exists - lets find new run number
-      std::vector<std::string> run_list = utils2::list_any_files(logger::LOG_PATH+today_date);
+      std::vector<std::string> run_list = utils::list_any_files(logger::LOG_PATH+today_date);
       std::vector<int> run_list_int = {};
       for(int r=0; r<run_list.size(); r++)
       {
@@ -85,10 +85,10 @@ namespace logger
         fte = 0;
       } else if (type == LOG_END_TIMER)
       {
-        fte = timer2::get_elapsed_time(logger::function_start_time);
+        fte = timer::get_elapsed_time(logger::function_start_time);
       }
 
-      float time_since_game_start = timer2::get_elapsed_time(game2::GAME_START_TIME);
+      float time_since_game_start = timer::get_elapsed_time(game::GAME_START_TIME);
       std::string file_path = LOG_PATH_RUN + "/full.json";
 
       logger::print(msg);
@@ -103,7 +103,7 @@ namespace logger
       lm.time_since_game_start = time_since_game_start;
       lm.function_time_elapsed = fte;
       lm.type = type;
-      lm.current_time = timer2::get_current_time();
+      lm.current_time = timer::get_current_time();
 
       std::string lm_json_string = JS::serializeStruct(lm);
       std::ofstream json_file (file_path.c_str(), std::ios_base::app);
@@ -133,8 +133,8 @@ namespace logger
 
   void log_data()
   {
-    quads2::log();
-    // textures2::log();
+    quads::log();
+    // textures::log();
   };
 
 }

@@ -7,7 +7,7 @@
 #define MODULES_SAVES_H
 
 
-namespace saves2
+namespace saves
 {
 
   struct SaveData

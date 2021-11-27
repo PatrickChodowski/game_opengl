@@ -7,7 +7,7 @@
 #ifndef MODULES_FONTS_H
 #define MODULES_FONTS_H
 
-namespace fonts2
+namespace fonts
 {  
   
   struct CharacterData 
@@ -64,7 +64,7 @@ namespace fonts2
 
 
   // Vector of text quads to render 
-  extern std::vector<quads2::QuadData> TextQuads;
+  extern std::vector<quads::QuadData> TextQuads;
 
   // Vector of used Text Ids
   extern std::vector<int> TextIndex;
@@ -82,7 +82,7 @@ namespace fonts2
   extern std::map<int, LabelData> labels;
 
   // Font's texture data 
-  extern textures2::TextureData FontTDD;
+  extern textures::TextureData FontTDD;
 
   // ID of the label for new game name input
   extern int NEW_GAME_LABEL_ID;
@@ -94,7 +94,7 @@ namespace fonts2
   int add(std::string& text, float x_start, float y_start, float camera_type, float scale, float r, float g, float b);
 
   // Render characters of selected label data
-  void render_chars(fonts2::LabelData ldd);
+  void render_chars(fonts::LabelData ldd);
 
   // Render charcters from the texts map
   void render();

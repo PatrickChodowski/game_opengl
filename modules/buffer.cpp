@@ -22,80 +22,76 @@
 
 #include "../dictionary.h"
 
-namespace buffer2
+namespace buffer
 {
   
   int MAX_QUADS = 2000;
   unsigned int VBO, VAO, EBO;
   int COUNT_VERTEX_ATTRIBUTES = 14;
-  int VBO_size = buffer2::MAX_QUADS*buffer2::COUNT_VERTEX_ATTRIBUTES*sizeof(float)*4;
+  int VBO_size = buffer::MAX_QUADS*buffer::COUNT_VERTEX_ATTRIBUTES*sizeof(float)*4;
   int VBO_array_size;
   float VBO_buffer_usage;
-  int EBO_size =  buffer2::MAX_QUADS*sizeof(float)*6;
+  int EBO_size =  buffer::MAX_QUADS*sizeof(float)*6;
   int EBO_array_size;
   float EBO_buffer_usage;
 
   void init()
   {
-    // std::cout << " quads2::COUNT_VERTEX_ATTRIBUTES on buffer init: " << quads2::COUNT_VERTEX_ATTRIBUTES << std::endl;
-    // std::cout << " max quads on buffer init: " << buffer2::MAX_QUADS << std::endl;
-    // std::cout << " VBO_size on buffer init: " << buffer2::VBO_size << std::endl;
-    // std::cout << " EBO_size on buffer init: " << buffer2::EBO_size << std::endl;
     // OpenGL options:
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Generate buffers:
-    glGenVertexArrays(1, &buffer2::VAO);
-    glGenBuffers(1, &buffer2::VBO);
-    glGenBuffers(1, &buffer2::EBO);
+    glGenVertexArrays(1, &buffer::VAO);
+    glGenBuffers(1, &buffer::VBO);
+    glGenBuffers(1, &buffer::EBO);
 
     // Bind buffers
-    glBindVertexArray(buffer2::VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, buffer2::VBO);
-    glBufferData(GL_ARRAY_BUFFER, buffer2::VBO_size, nullptr, GL_DYNAMIC_DRAW);
+    glBindVertexArray(buffer::VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer::VBO);
+    glBufferData(GL_ARRAY_BUFFER, buffer::VBO_size, nullptr, GL_DYNAMIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer2::EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer2::EBO_size, nullptr, GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer::EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer::EBO_size, nullptr, GL_DYNAMIC_DRAW);
 
     // Set attributes
     // position attribute:
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     // color attribute:
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     // frame_id attribute
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(7 * sizeof(float)));
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(7 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
     // in texture coordinates attribute
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(8 * sizeof(float)));
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(8 * sizeof(float)));
     glEnableVertexAttribArray(3);
 
     // in texture id attribute
-    glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(10 * sizeof(float)));
+    glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(10 * sizeof(float)));
     glEnableVertexAttribArray(4);
 
     // is_clicked  attribute
-    glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(11 * sizeof(float)));
+    glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(11 * sizeof(float)));
     glEnableVertexAttribArray(5);
 
     // quad type id  attribute
-    glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
+    glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
     glEnableVertexAttribArray(6);
 
     // is_static attribute
-    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, buffer2::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
+    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
     glEnableVertexAttribArray(7);
 
   }
 
-  void _make_vertex_array_from_quads(std::vector<quads2::QuadData>& quads, float* arr)
+  void _make_vertex_array_from_quads(std::vector<quads::QuadData>& quads, float* arr)
   {
-    int cva = buffer2::COUNT_VERTEX_ATTRIBUTES; 
+    int cva = buffer::COUNT_VERTEX_ATTRIBUTES; 
     for(int t=0; t<quads.size(); t++)
     {
       int start_position = t*cva*4;
@@ -162,7 +158,7 @@ namespace buffer2
     }
   }
 
-  void _make_index_array_from_quads(std::vector<quads2::QuadData>& quads, unsigned int* arr)
+  void _make_index_array_from_quads(std::vector<quads::QuadData>& quads, unsigned int* arr)
   {
     for(int t=0; t<quads.size(); t++)
     {
@@ -177,9 +173,9 @@ namespace buffer2
     }
   }
 
-  void _make_vertex_array_from_lines(std::vector<debug2::LineData>& lines, float* arr)
+  void _make_vertex_array_from_lines(std::vector<debug::LineData>& lines, float* arr)
   {
-    int cva = buffer2::COUNT_VERTEX_ATTRIBUTES; 
+    int cva = buffer::COUNT_VERTEX_ATTRIBUTES; 
     for(int t=0; t<lines.size(); t++)
     {
       int start_position = t*cva*2;
@@ -215,42 +211,42 @@ namespace buffer2
     }
   }
 
-  void update_quads(std::vector<quads2::QuadData>& quads)
+  void update_quads(std::vector<quads::QuadData>& quads)
   {
-    int n_vertex_array = buffer2::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
+    int n_vertex_array = buffer::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
     float vertex_array[n_vertex_array];
 
     int n_index_array = 3*quads.size()*2;
     unsigned int index_array[n_index_array];
 
-    buffer2::_make_vertex_array_from_quads(quads, vertex_array);
-    buffer2::_make_index_array_from_quads(quads, index_array);
+    buffer::_make_vertex_array_from_quads(quads, vertex_array);
+    buffer::_make_index_array_from_quads(quads, index_array);
 
-    buffer2::VBO_array_size = sizeof(float)*n_vertex_array;
-    buffer2::EBO_array_size = sizeof(float)*n_index_array;
+    buffer::VBO_array_size = sizeof(float)*n_vertex_array;
+    buffer::EBO_array_size = sizeof(float)*n_index_array;
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer2::VBO_array_size, vertex_array);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertex_array);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer2::EBO_array_size, index_array);
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer::EBO_array_size, index_array);
   }
 
-  void update_lines(std::vector<debug2::LineData>& lines)
+  void update_lines(std::vector<debug::LineData>& lines)
   {
-    int n_vertex_array = buffer2::COUNT_VERTEX_ATTRIBUTES*lines.size()*2;
+    int n_vertex_array = buffer::COUNT_VERTEX_ATTRIBUTES*lines.size()*2;
     float vertex_array[n_vertex_array];
-    buffer2::VBO_array_size = sizeof(float)*n_vertex_array;
-    buffer2::_make_vertex_array_from_lines(lines, vertex_array);
+    buffer::VBO_array_size = sizeof(float)*n_vertex_array;
+    buffer::_make_vertex_array_from_lines(lines, vertex_array);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer2::VBO_array_size, vertex_array);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertex_array);
   }
 
   void drop()
   {
-    glDeleteVertexArrays(1, &buffer2::VAO);
-    glDeleteBuffers(1, &buffer2::VBO);
-    glDeleteBuffers(1, &buffer2::EBO);
+    glDeleteVertexArrays(1, &buffer::VAO);
+    glDeleteBuffers(1, &buffer::VBO);
+    glDeleteBuffers(1, &buffer::EBO);
   }
 
 }

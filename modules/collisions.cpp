@@ -20,6 +20,7 @@ namespace collisions
   int SENSOR_COUNT = 9;
   int SENSOR_OFFSET = 1;
   int ABS_COUNT = 1;
+  std::map <int,sig_ptr> AABBsHandler = {};
 
   std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id)
   {
@@ -28,7 +29,7 @@ namespace collisions
     {
       if(k != entity_id)
       {
-        float dist = utils2::get_distance_between_points(v.x, 
+        float dist = utils::get_distance_between_points(v.x, 
                                                  v.y, 
                                                  entity::entities[entity_id].x, 
                                                  entity::entities[entity_id].y);
@@ -53,9 +54,9 @@ namespace collisions
   std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
-    for (auto const& [k, v]: maps2::tiles)
+    for (auto const& [k, v]: maps::tiles)
     {
-      float dist = utils2::get_distance_between_points(v.x, 
+      float dist = utils::get_distance_between_points(v.x, 
                                                        v.y, 
                                                        entity::entities[entity_id].x, 
                                                        entity::entities[entity_id].y);
@@ -113,7 +114,7 @@ namespace collisions
           aabb = entity::entities[object_id].abs[AABB_FULL];
         } else if (object_type == OBJECT_TYPE_MAP)
         {
-          aabb = maps2::tiles[object_id].abs[AABB_FULL];
+          aabb = maps::tiles[object_id].abs[AABB_FULL];
         }
 
 
@@ -279,7 +280,7 @@ namespace collisions
 
   void _set_abs_maps(int tile_id)
   {
-    maps2::TileData tdd = maps2::tiles.at(tile_id);
+    maps::TileData tdd = maps::tiles.at(tile_id);
     tdd.abs.clear();
     for(int a = 0; a < collisions::ABS_COUNT; a++)
     {
@@ -293,17 +294,18 @@ namespace collisions
     }    
   }
 
+  void init()
+  {
+    collisions::AABBsHandler[OBJECT_TYPE_ENTITY] = _set_abs_entities;
+    collisions::AABBsHandler[OBJECT_TYPE_MAP] = _set_abs_maps;
+  }
+
+
   void _set_abs(std::vector<collisions::DistanceToObject>& near_distances)
   {
     for(int i = 0; i < near_distances.size(); i++)
     {
-      if(near_distances[i].object_type == OBJECT_TYPE_ENTITY)
-      {
-        collisions::_set_abs_entities(near_distances[i].object_id);
-      } else if (near_distances[i].object_type == OBJECT_TYPE_MAP)
-      {
-        collisions::_set_abs_maps(near_distances[i].object_id);
-      }
+      collisions::AABBsHandler[near_distances[i].object_type](near_distances[i].object_id);
     }
   }
 

@@ -22,13 +22,13 @@ namespace entity
 
   std::map<int, EntityData> entities;
   std::vector<int> Index = {};
-  std::vector<quads2::QuadData> EntityQuads = {};
+  std::vector<quads::QuadData> EntityQuads = {};
 
   template <typename T>
   int create(T data, int entity_type_id, float camera_type)
   { 
     entity::EntityData edd;
-    edd.id = utils2::generate_id(entity::Index);
+    edd.id = utils::generate_id(entity::Index);
     edd.texture_id = data.texture_id;
     edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
@@ -44,8 +44,8 @@ namespace entity
     edd.is_clicked = false;
     edd.speed = data.speed;
 
-    edd.norm_x_start = textures2::_get_normalized_frame_start(data.texture_id, data.current_frame);
-    edd.norm_x_end = textures2::_get_normalized_frame_end(data.texture_id, data.current_frame);
+    edd.norm_x_start = textures::_get_normalized_frame_start(data.texture_id, data.current_frame);
+    edd.norm_x_end = textures::_get_normalized_frame_end(data.texture_id, data.current_frame);
 
     entity::entities[edd.id] = edd;
     return edd.id;
@@ -54,7 +54,7 @@ namespace entity
   void render()
   {
     entity::EntityQuads.clear();
-    entity::EntityQuads = quads2::make_quads(entity::entities, OBJECT_TYPE_ENTITY);
+    entity::EntityQuads = quads::make_quads(entity::entities, OBJECT_TYPE_ENTITY);
   };
 
   void clear()
@@ -68,18 +68,18 @@ namespace entity
   {
     std::string entity_info;
     entity::EntityData edd = entity::entities[entity_id];
-    entity_info = "Entity ID: " + utils2::str(entity_id);
-    int label_id = fonts2::add(entity_info, 
-                gui2::guislots[gui_slot_id].x + 5, 
-                gui2::guislots[gui_slot_id].y + 50, 
+    entity_info = "Entity ID: " + utils::str(entity_id);
+    int label_id = fonts::add(entity_info, 
+                gui::guislots[gui_slot_id].x + 5, 
+                gui::guislots[gui_slot_id].y + 50, 
                 CAMERA_STATIC, 
                 0.7,
                 0.0f, 0.0f, 0.0f);
     return label_id;
   };
 
-  template int entity::create<hero2::HeroData>(hero2::HeroData, int, float);
-  template int entity::create<items2::ItemData>(items2::ItemData, int, float);
-  template int entity::create<mobs2::MobData>(mobs2::MobData, int, float);
+  template int entity::create<hero::HeroData>(hero::HeroData, int, float);
+  template int entity::create<items::ItemData>(items::ItemData, int, float);
+  template int entity::create<mobs::MobData>(mobs::MobData, int, float);
 
 }

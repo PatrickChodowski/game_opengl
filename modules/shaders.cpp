@@ -20,7 +20,7 @@
 #endif
 
 
-namespace shaders2
+namespace shaders
 {
   std::map<int, ShaderData> shaders = {};
   GLuint shading_program;
@@ -30,30 +30,30 @@ namespace shaders2
   {
     ShaderData SD;
     std::string data_path = "./data/shaders/"+name+".json";
-    std::string json_data = utils2::read_text_file(data_path);
+    std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(SD);
-    shaders2::shaders.insert({SD.id, SD});
+    shaders::shaders.insert({SD.id, SD});
   }
 
   void init()
   {
-    std::vector<std::string> shaders_list = utils2::list_json_files("data/shaders/");
+    std::vector<std::string> shaders_list = utils::list_json_files("data/shaders/");
     for(int s=0; s < shaders_list.size(); s++)
     {
-      shaders2::read_data(shaders_list[s]);
+      shaders::read_data(shaders_list[s]);
     };
 
-    for (auto const& x : shaders2::shaders)
+    for (auto const& x : shaders::shaders)
     {
-      shaders2::shaders[x.first].gl_shader_id = shaders2::build(x.second.name.c_str());
+      shaders::shaders[x.first].gl_shader_id = shaders::build(x.second.name.c_str());
     }
     glReleaseShaderCompiler();
   };
 
   void drop()
   {
-    glDeleteProgram(shaders2::shaders[CURRENT_SHADER_ID].gl_shader_id);
+    glDeleteProgram(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id);
   }
 
   std::string _read_file_as_string(const char *filename)
@@ -68,7 +68,7 @@ namespace shaders2
       std::string slots = "32";
     #endif
       
-    std::string shader_source = utils2::read_text_file(filename);
+    std::string shader_source = utils::read_text_file(filename);
 
     shader_source = std::regex_replace(shader_source, std::regex("\\$version"), version);
     shader_source = std::regex_replace(shader_source, std::regex("\\$slots"), slots);
@@ -149,8 +149,8 @@ namespace shaders2
     std::string vsPath = std::string("./shaders/")+std::string(shader_name)+std::string(".vert");
     std::string fsPath = std::string("./shaders/")+std::string(shader_name)+std::string(".frag");
 
-    vertexShader = shaders2::_get_shader(GL_VERTEX_SHADER, vsPath.c_str());
-    fragmentShader = shaders2::_get_shader(GL_FRAGMENT_SHADER, fsPath.c_str());
+    vertexShader = shaders::_get_shader(GL_VERTEX_SHADER, vsPath.c_str());
+    fragmentShader = shaders::_get_shader(GL_FRAGMENT_SHADER, fsPath.c_str());
     shading_program = glCreateProgram();
 
     glAttachShader(shading_program, vertexShader);

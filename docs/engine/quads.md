@@ -121,6 +121,4 @@ int _find_next_vertex_id();
 
 
 ## Tests
-- gen_quad_id
-- gen_vertex_id
-- make_quads
+-

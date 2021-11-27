@@ -7,7 +7,7 @@
 #ifndef MODULES_DEBUG_H
 #define MODULES_DEBUG_H
 
-namespace debug2
+namespace debug
 {
   struct LineData
   {
@@ -33,9 +33,9 @@ namespace debug2
     bool is_clicked;
   };
   
-  extern std::vector<debug2::LineData> lines;
-  extern std::map<int, debug2::PointData> points;
-  extern std::vector<quads2::QuadData> DebugQuads;
+  extern std::vector<debug::LineData> lines;
+  extern std::map<int, debug::PointData> points;
+  extern std::vector<quads::QuadData> DebugQuads;
   extern std::vector<int> Index;
 
   // Renders straight line between start and endpoint

@@ -9,7 +9,7 @@
 #define MODULES_MAPS_H
 
 // Persistent data. Table of tiles and all operations on this table. Loaded on new level
-namespace maps2
+namespace maps
 {
   struct TileData
   {
@@ -81,9 +81,9 @@ namespace maps2
   extern std::map<int, MapData> maps;
 
   //  TileID, TileData
-  extern std::map<int, maps2::TileData> tiles;
+  extern std::map<int, maps::TileData> tiles;
   extern std::vector<int> Index;
-  extern std::vector<quads2::QuadData> MapQuads;
+  extern std::vector<quads::QuadData> MapQuads;
 
 
   // Reads json data by map name and stores it inside maps::maps
@@ -99,7 +99,7 @@ namespace maps2
   // Loads selected map to game
   void init_map(int map_id);
 
-  // Make map quads from maps2::tiles
+  // Make map quads from maps::tiles
   void render();
 
   // clears the currently loaded map -> erases used tiles ids and tiles catalog

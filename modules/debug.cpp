@@ -7,17 +7,17 @@
 #include <map>
 #include <vector>
 
-namespace debug2
+namespace debug
 {
 
-  std::vector<debug2::LineData> lines = {};
-  std::map<int, debug2::PointData> points = {};
-  std::vector<quads2::QuadData> DebugQuads = {};
+  std::vector<debug::LineData> lines = {};
+  std::map<int, debug::PointData> points = {};
+  std::vector<quads::QuadData> DebugQuads = {};
   std::vector<int> Index = {};
 
   void render_line(float x1, float y1, float x2, float y2, float r, float g, float b, float a)
   {
-    debug2::LineData ldd;
+    debug::LineData ldd;
     ldd.x1 = x1;
     ldd.y1 = y1;
     ldd.x2 = x2;
@@ -31,8 +31,8 @@ namespace debug2
 
   void render_point(float x, float y, float r, float g, float b, float a)
   {
-    debug2::PointData pdd;
-    pdd.id = utils2::generate_id(debug2::Index);
+    debug::PointData pdd;
+    pdd.id = utils::generate_id(debug::Index);
     pdd.x = x;
     pdd.y = y;
     pdd.r = r;
@@ -49,14 +49,14 @@ namespace debug2
 
   void render()
   {
-    debug2::DebugQuads.clear();
-    debug2::DebugQuads = quads2::make_quads(debug2::points, OBJECT_TYPE_DEBUG);
+    debug::DebugQuads.clear();
+    debug::DebugQuads = quads::make_quads(debug::points, OBJECT_TYPE_DEBUG);
   }
 
   void clear()
   {
-    debug2::Index.clear();
-    debug2::DebugQuads.clear();
+    debug::Index.clear();
+    debug::DebugQuads.clear();
     lines.clear();
     points.clear();
   };

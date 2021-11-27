@@ -108,6 +108,4 @@ void _make_vertex_array_from_lines(std::vector<debug2::LineData>& lines, float* 
 
 
 ## Tests
-- _make_vertex_array_from_quads
-- _make_index_array_from_quads
-- _make_vertex_array_from_lines
+-

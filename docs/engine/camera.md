@@ -63,5 +63,5 @@ glm::mat4 gen_zoom_only_mvp(float camera_zoom);
 ```
 
 ## Tests
-- scale_quads
-- reset
+-
+
