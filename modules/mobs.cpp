@@ -37,7 +37,7 @@ namespace mobs2
     }
   };
 
-  void drop()
+  void clear()
   {
     mobs2::mobs.clear();
   }

@@ -46,7 +46,7 @@ namespace mobs2
   void init();
 
   // clears Mobs information
-  void drop();
+  void clear();
 
   // Spawns mob entities according to the map - in the nests. Creates entities and adds to entity list
   void spawn(int map_id);
