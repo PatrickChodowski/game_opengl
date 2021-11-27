@@ -14,7 +14,7 @@
 namespace maps2
 {
   std::map<int, maps2::TileData> tiles;
-  std::vector<int> UsedTileIds = {};
+  std::vector<int> Index = {};
   std::map<int, maps2::MapData> maps = {};
   float default_tile_width = 96;
   float default_tile_height = 96;
@@ -41,26 +41,23 @@ namespace maps2
   };
 
 
-  void load_map(std::string map_name, 
-                int vertex_width, 
-                int vertex_height, 
-                int texture_id)
+  void load(int map_id)
   {
     maps2::clear();
-    std::string file_path = "data/maps/" + map_name;
+    std::string file_path = "data/maps/" + maps2::maps[map_id].name;
     std::ifstream in_file;
     in_file.open(file_path.c_str());
-    int n_tiles = vertex_width*vertex_height;
+    int n_tiles =  maps2::maps[map_id].vertex_width*maps2::maps[map_id].vertex_height;
 
     // read in the tile info
     if (in_file.is_open())
     {
-      for (int r = 0; r < vertex_height; r++)
+      for (int r = 0; r < maps2::maps[map_id].vertex_height; r++)
         {
-          for (int c = 0; c < vertex_width; c++)
+          for (int c = 0; c < maps2::maps[map_id].vertex_width; c++)
           {
             struct maps2::TileData tile;
-            tile.id = utils2::generate_id(maps2::UsedTileIds);
+            tile.id = utils2::generate_id(maps2::Index);
 
             tile.x = c * maps2::default_tile_width;
             tile.y = r * maps2::default_tile_height;
@@ -68,14 +65,14 @@ namespace maps2
             tile.h = maps2::default_tile_height;
             in_file >> tile.frame_id;
 
-            tile.texture_id = texture_id;
+            tile.texture_id = maps2::maps[map_id].texture_id;
             
             tile.camera_type = CAMERA_DYNAMIC;
             tile.is_clicked = false;
             tile.is_solid = false;
 
-            tile.norm_x_start = textures2::_get_normalized_frame_start(texture_id, tile.frame_id);
-            tile.norm_x_end = textures2::_get_normalized_frame_end(texture_id, tile.frame_id);
+            tile.norm_x_start = textures2::_get_normalized_frame_start(maps2::maps[map_id].texture_id, tile.frame_id);
+            tile.norm_x_end = textures2::_get_normalized_frame_end(maps2::maps[map_id].texture_id, tile.frame_id);
 
             // if frame_id is between 10 and 20, then its solid (11-19)
             if(tile.frame_id > 10 && tile.frame_id < 20)
@@ -92,10 +89,7 @@ namespace maps2
 
   void init_map(int map_id)
   {
-    load_map(maps2::maps[map_id].name,
-             maps2::maps[map_id].vertex_width,
-             maps2::maps[map_id].vertex_height,
-             maps2::maps[map_id].texture_id);
+    maps2::load(map_id);
 
     // Generate navmesh based on the map_id
     nav::init(map_id);
@@ -112,7 +106,7 @@ namespace maps2
 
   void clear()
   {
-    maps2::UsedTileIds.clear();
+    maps2::Index.clear();
     maps2::tiles.clear();
     maps2::MapQuads.clear();
   }
