@@ -190,7 +190,7 @@ namespace game2
   void drop()
   {
     buffer2::drop();
-    mobs2::drop();
+    mobs2::clear();
     shaders2::drop();
     textures2::drop();
   }

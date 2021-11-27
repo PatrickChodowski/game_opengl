@@ -310,7 +310,7 @@ namespace collisions
   void handle_entity_collisions(int entity_id)
   {
     // for hero only currently
-    std::vector<collisions::DistanceToObject> near_distances = collisions::find_entity_broad_collisions(entity_id);
+    std::vector<collisions::DistanceToObject> near_distances = collisions::_find_entity_broad_collisions(entity_id);
     if(near_distances.size() > 0)
     {
       collisions::_set_sensors(entity_id);
