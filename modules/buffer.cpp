@@ -83,7 +83,7 @@ namespace buffer
     glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(12 * sizeof(float)));
     glEnableVertexAttribArray(6);
 
-    // is_static attribute
+    // camera_type attribute
     glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
     glEnableVertexAttribArray(7);
 

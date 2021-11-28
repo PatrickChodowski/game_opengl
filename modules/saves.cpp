@@ -60,7 +60,7 @@ namespace saves
     hero::hero.type = SD.type;
     camera::cam.x = SD.x;
     camera::cam.y = SD.y;
-    camera::cam.speed = SD.speed;
+    hero::hero.speed = SD.speed;
     hero::hero.map_id = SD.map_id;
   }
 

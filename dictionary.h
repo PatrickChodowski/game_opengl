@@ -26,7 +26,6 @@
 // camera types
 #define CAMERA_DYNAMIC 0.0f
 #define CAMERA_STATIC 1.0f
-#define CAMERA_ZOOM_ONLY 2.0f
 
 // object types
 #define OBJECT_TYPE_ENTITY 0

@@ -26,12 +26,6 @@ MVP matrix for dynamic objects
 glm::mat4 DYNAMIC_MVP;
 ```
 
-### ZOOM_MVP
-MVP matrix for zoom-only objects
-```c++
-glm::mat4 ZOOM_MVP;
-```
-
 ## Functions
 ### reset
 Resets [camera::cam](camera.md#cam) to default parameters
@@ -54,12 +48,6 @@ glm::mat4 gen_dynamic_mvp(float camera_move_x, float camera_move_y, float camera
 Generates [camera::STATIC_MVP](camera.md#STATIC_MVP) 
 ```c++
 glm::mat4 gen_static_mvp();
-```
-
-### gen_zoom_only_mvp
-Generates [camera::ZOOM_MVP](camera.md#ZOOM_MVP) 
-```c++
-glm::mat4 gen_zoom_only_mvp(float camera_zoom);
 ```
 
 ## Tests

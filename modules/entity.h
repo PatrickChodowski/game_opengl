@@ -48,7 +48,7 @@ namespace entity
   extern std::map<int, EntityData> entities;
   extern std::vector<int> Index;
 
-  // Creates entity and adds it to the table. Uses the data structure different based on entity type
+  // Creates entity and adds it to the table. Uses the data structure different based on entity type. Returns entity_id
   template <typename T>
   int create(T data, int entity_type_id, float camera_type);
 

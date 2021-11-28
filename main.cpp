@@ -1,7 +1,9 @@
+#include <iostream>
 #include <SDL2/SDL.h>
 #include <chrono>
 #include <ctime> 
 
+#include "modules/collisions.h"
 #include "modules/events.h"
 #include "modules/game.h"
 #include "modules/hero.h"
@@ -38,6 +40,9 @@ int main()
     auto game_loop_start_time = std::chrono::high_resolution_clock::now();
     SDL_Event event;
     events::handle_events(event);
+    // Mobs/NPCs movements here?
+    // std::cout << hero::hero.entity_id << std::endl;
+    collisions::handle_entity_collisions(hero::hero.entity_id);
     game::update();
     SDL_GL_SwapWindow(WINDOW);
     auto game_loop_end_time = std::chrono::high_resolution_clock::now();

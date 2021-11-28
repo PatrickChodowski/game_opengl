@@ -15,12 +15,9 @@ namespace camera
   Camera cam;
   glm::mat4 STATIC_MVP;
   glm::mat4 DYNAMIC_MVP;
-  glm::mat4 ZOOM_MVP;
 
   void reset()
   {
-    cam.base_speed = 6;
-    cam.speed = 6;
     cam.previous_x = 0;
     cam.previous_y = 0;
     cam.x = 0;
@@ -49,18 +46,6 @@ namespace camera
   glm::mat4 gen_static_mvp()
   {
     glm::mat4 proj = glm::ortho(0.0f, game::WINDOW_WIDTH, game::WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
-    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-    glm::mat4 mvp = proj*view*model;
-    return mvp;
-  }
-
-
-  glm::mat4 gen_zoom_only_mvp(float camera_zoom)
-  {
-    float z_window_width = game::WINDOW_WIDTH * camera_zoom;
-    float z_window_height = game::WINDOW_HEIGHT * camera_zoom;
-    glm::mat4 proj = glm::ortho(0.0f, z_window_width, z_window_height, 0.0f, -1.0f, 1.0f);
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
     glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
     glm::mat4 mvp = proj*view*model;
