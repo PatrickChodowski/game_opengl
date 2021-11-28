@@ -165,8 +165,6 @@ namespace game
     // independent of camera moving
     camera::STATIC_MVP = camera::gen_static_mvp();
 
-    // zoom only
-    camera::ZOOM_MVP = camera::gen_zoom_only_mvp(camera::cam.zoom);
   
     // set light source coordinates
     float light_coords[3] = {100, 200, 300};
@@ -176,8 +174,7 @@ namespace game
     glUniform1iv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
     glUniformMatrix4fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "static_mvp"), 1, GL_FALSE, glm::value_ptr(camera::STATIC_MVP));
     glUniformMatrix4fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "dynamic_mvp"), 1, GL_FALSE, glm::value_ptr(camera::DYNAMIC_MVP));
-    glUniformMatrix4fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "zoom_mvp"), 1, GL_FALSE, glm::value_ptr(camera::ZOOM_MVP));
-    
+
     // set shader
     glUseProgram(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id);
     // draw scene

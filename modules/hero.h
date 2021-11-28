@@ -22,6 +22,7 @@ namespace hero
     float x, y;
     float w, h;
 
+    int entity_id;
     int current_frame;
     int map_id;
 
@@ -52,6 +53,9 @@ namespace hero
 
   // Loads hero struct information from save 
   void _load_from_save(std::string save_name);
+  
+  // Update hero position
+  void update_position(float camera_move_x, float camera_move_y);
 
   // Creates new character of certain type. Will have default stats
   void create_new(std::string name, std::string type);

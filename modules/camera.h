@@ -14,8 +14,6 @@ namespace camera
   // Singleton struct (there is only one camera) with all camera parameters
   struct Camera
   {
-    float base_speed = 6;
-    float speed = 6;
     float previous_x = 0;
     float previous_y = 0;
     float x = 0;
@@ -32,7 +30,6 @@ namespace camera
   extern Camera cam;
   extern glm::mat4 STATIC_MVP;
   extern glm::mat4 DYNAMIC_MVP;
-  extern glm::mat4 ZOOM_MVP;
 
   // Re-set camera struct "cam" to default values
   void reset();
@@ -45,9 +42,6 @@ namespace camera
 
   // generate static MVP
   glm::mat4 gen_static_mvp();
-
-  // generate zoom only MVP
-  glm::mat4 gen_zoom_only_mvp(float camera_zoom);
 
 }
 

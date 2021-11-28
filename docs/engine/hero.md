@@ -23,6 +23,12 @@ Creates new hero character
 void create_new(std::string name, std::string type);
 ```
 
+### update_position
+Updates position of the hero character in the ehro data and entity data
+```c++
+void update_position(float camera_move_x, float camera_move_y);
+```
+
 ### _load_from_save
 Loads data to [hero::hero](hero.md#hero) from selected save_name
 ```c++

@@ -34,28 +34,33 @@ namespace events
 
     if(game::KEYBOARD[SDL_SCANCODE_LEFT])
     {
-      camera::cam.move_x -= camera::cam.speed;
-      //hero::update_frame(MOVE_LEFT);
+      camera::cam.move_x -= hero::hero.speed;
     } 
     else if(game::KEYBOARD[SDL_SCANCODE_RIGHT])
     {
-      camera::cam.move_x += camera::cam.speed;
+      camera::cam.move_x += hero::hero.speed;
     }
     else if(game::KEYBOARD[SDL_SCANCODE_UP])
     {
-      camera::cam.move_y += camera::cam.speed;
+      camera::cam.move_y += hero::hero.speed;
     }
     else if(game::KEYBOARD[SDL_SCANCODE_DOWN])
     {
-      camera::cam.move_y -= camera::cam.speed;
+      camera::cam.move_y -= hero::hero.speed;
     } else 
     {
       //hero::update_frame(STAND_STILL);
     }
-    camera::cam.previous_x = camera::cam.x;
-    camera::cam.previous_y = camera::cam.y;
-    camera::cam.x += camera::cam.move_x;
-    camera::cam.y += camera::cam.move_y;
+    if(camera::cam.move_x != 0 | camera::cam.move_y !=0 )
+    {
+
+      camera::cam.previous_x = camera::cam.x;
+      camera::cam.previous_y = camera::cam.y;
+      camera::cam.x += camera::cam.move_x;
+      camera::cam.y += camera::cam.move_y;
+
+      hero::update_position(camera::cam.move_x, camera::cam.move_y);
+    }
 
   }
 

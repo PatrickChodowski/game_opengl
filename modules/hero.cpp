@@ -1,3 +1,6 @@
+
+#include <iostream>
+
 #include "entity.h"
 #include "hero.h"
 #include "../dependencies/json_struct.h"
@@ -32,8 +35,19 @@ namespace hero
     hero.current_movement_state = ENTITY_STATE_CALM;
     hero.name = name;
     hero.type = type;
-    entity::create(hero::hero, OBJECT_TYPE_ENTITY, CAMERA_ZOOM_ONLY);
+    hero.entity_id = entity::create(hero::hero, OBJECT_TYPE_ENTITY, CAMERA_DYNAMIC);
   };
+
+
+  void update_position(float camera_move_x, float camera_move_y)
+  { 
+    float new_hero_x = hero::hero.x + camera_move_x;
+    float new_hero_y = hero::hero.y - camera_move_y;
+    hero::hero.x = new_hero_x;
+    hero::hero.y = new_hero_y;
+    entity::entities[hero.entity_id].x = new_hero_x;
+    entity::entities[hero.entity_id].y = new_hero_y;
+  }
 
 
 }
