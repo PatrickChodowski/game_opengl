@@ -44,6 +44,9 @@ namespace debug
   // Render point (small quad in specific place)
   void render_point(float x, float y, float r, float g, float b, float a);
 
+  // Well, it renders 4 lines
+  void render_square(float x, float y, float w, float h, float r, float g, float b, float a);
+
   // Renders debugquads from points
   void render();
 

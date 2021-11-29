@@ -60,22 +60,25 @@ namespace collisions
     std::vector<collisions::DistanceToObject> distances = {};
     for (auto const& [k, v]: maps::tiles)
     {
-      float dist = utils::get_distance_between_points(v.x, 
-                                                      v.y, 
-                                                      entity::entities[entity_id].x, 
-                                                      entity::entities[entity_id].y);
-      float dist_limit = entity::entities[entity_id].diag + v.diag;
-      if(dist <= dist_limit)
+      if (v.is_solid)
       {
-        DistanceToObject dto;
-        dto.entity_id = entity_id;
-        dto.object_id = k;
-        dto.object_type = OBJECT_TYPE_MAP;
-        dto.distance = dist;
-        dto.limit = dist_limit;
-        dto.is_solid = v.is_solid;
-        dto.is_near = true;
-        distances.push_back(dto);
+        float dist = utils::get_distance_between_points(v.x, 
+                                                        v.y, 
+                                                        entity::entities[entity_id].x, 
+                                                        entity::entities[entity_id].y);
+        float dist_limit = entity::entities[entity_id].diag + v.diag;
+        if(dist <= dist_limit)
+        {
+          DistanceToObject dto;
+          dto.entity_id = entity_id;
+          dto.object_id = k;
+          dto.object_type = OBJECT_TYPE_MAP;
+          dto.distance = dist;
+          dto.limit = dist_limit;
+          dto.is_solid = v.is_solid;
+          dto.is_near = true;
+          distances.push_back(dto);
+        }
       }
     }
     return distances;
@@ -85,16 +88,16 @@ namespace collisions
   {
     std::vector<collisions::DistanceToObject> near_distances = {};
     std::vector<collisions::DistanceToObject> map_near_distances = _get_entity_to_map_distances(entity_id);
-    //std::vector<collisions::DistanceToObject> entity_near_distances = _get_entity_to_entity_distances(entity_id);
+    std::vector<collisions::DistanceToObject> entity_near_distances = _get_entity_to_entity_distances(entity_id);
 
     if(map_near_distances.size() > 0)
     {
       near_distances.insert(near_distances.end(), map_near_distances.begin(), map_near_distances.end());
     }
-    // if(entity_near_distances.size() > 0)
-    // {
-    //   near_distances.insert(near_distances.end(), entity_near_distances.begin(), entity_near_distances.end());
-    // }
+    if(entity_near_distances.size() > 0)
+    {
+      near_distances.insert(near_distances.end(), entity_near_distances.begin(), entity_near_distances.end());
+    }
     return near_distances;
   }
 
@@ -276,6 +279,11 @@ namespace collisions
       aabb.max_x = (entity::entities[entity_id].x + entity::entities[entity_id].w - collisions::SENSOR_OFFSET);
       aabb.id = AABB_FULL;
       entity::entities[entity_id].abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
+
+      if(game::IS_DEBUG_MODE)
+      {
+        debug::render_square(entity::entities[entity_id].x, entity::entities[entity_id].y, entity::entities[entity_id].w, entity::entities[entity_id].h, 0.6, 0.6, 0.0, 1.0);
+      }
     }
   }
 
@@ -291,6 +299,13 @@ namespace collisions
       aabb.max_x = (maps::tiles[tile_id].x + maps::tiles[tile_id].w - collisions::SENSOR_OFFSET);
       aabb.id = AABB_FULL;
       maps::tiles[tile_id].abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
+
+      if(game::IS_DEBUG_MODE)
+      {
+        debug::render_square(maps::tiles[tile_id].x, maps::tiles[tile_id].y, maps::tiles[tile_id].w, maps::tiles[tile_id].h, 0.6, 0.6, 0.0, 1.0);
+      }
+
+
     }    
   }
 
