@@ -38,15 +38,39 @@ namespace hero
     hero.entity_id = entity::create(hero::hero, OBJECT_TYPE_ENTITY, CAMERA_DYNAMIC);
   };
 
+  void revert_position_x()
+  {
+    hero::hero.x = hero::hero.prev_x;
+    entity::entities[hero.entity_id].x = entity::entities[hero.entity_id].prev_x;
+  }
+
+  void revert_position_y()
+  {
+    hero::hero.y = hero::hero.prev_y;
+    entity::entities[hero.entity_id].y = entity::entities[hero.entity_id].prev_y;
+  }
+
 
   void update_position(float camera_move_x, float camera_move_y)
   { 
     float new_hero_x = hero::hero.x + camera_move_x;
     float new_hero_y = hero::hero.y - camera_move_y;
+
+    hero::hero.prev_x = hero::hero.x;
+    hero::hero.prev_y = hero::hero.y;
+
     hero::hero.x = new_hero_x;
     hero::hero.y = new_hero_y;
+    
+    
+    entity::entities[hero.entity_id].prev_x = entity::entities[hero.entity_id].x;
+    entity::entities[hero.entity_id].prev_y = entity::entities[hero.entity_id].y;
+
     entity::entities[hero.entity_id].x = new_hero_x;
     entity::entities[hero.entity_id].y = new_hero_y;
+    entity::entities[hero.entity_id].mid_x = new_hero_x + (entity::entities[hero.entity_id].w/2);
+    entity::entities[hero.entity_id].mid_y = new_hero_y + (entity::entities[hero.entity_id].h/2);
+
   }
 
 

@@ -36,6 +36,8 @@ namespace entity
     edd.y = data.y;
     edd.h = data.h;
     edd.w = data.w;
+    edd.prev_x = data.x;
+    edd.prev_y = data.y;
     edd.mid_x = edd.x + (edd.w/2);
     edd.mid_y = edd.y + (edd.h/2);
     edd.diag = std::sqrt(std::pow((edd.w/2),2) + std::pow((edd.h/2),2));

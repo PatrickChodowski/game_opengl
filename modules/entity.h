@@ -20,6 +20,7 @@ namespace entity
 
     // original space
     float x, y;
+    float prev_x, prev_y;
     float h, w;
     float r, g, b, a;
     float speed;
