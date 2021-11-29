@@ -184,6 +184,7 @@ namespace game
     buffer::update_lines(debug::lines);
     glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
 
+    debug::clear();
   }
 
   void drop()
