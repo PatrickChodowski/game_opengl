@@ -59,7 +59,7 @@ namespace mobs
 
         // logic for creating alive entity?
 
-        entity::create(mdd, OBJECT_TYPE_ENTITY, CAMERA_DYNAMIC);
+        entity::create(mdd, ENTITY_TYPE_MOB, CAMERA_DYNAMIC);
       }
     }
   };

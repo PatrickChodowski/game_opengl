@@ -35,7 +35,7 @@ namespace hero
     hero.current_movement_state = ENTITY_STATE_CALM;
     hero.name = name;
     hero.type = type;
-    hero.entity_id = entity::create(hero::hero, OBJECT_TYPE_ENTITY, CAMERA_DYNAMIC);
+    hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
   };
 
   void revert_position_x()

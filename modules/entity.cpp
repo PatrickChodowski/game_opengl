@@ -42,7 +42,11 @@ namespace entity
     edd.mid_y = edd.y + (edd.h/2);
     edd.diag = std::sqrt(std::pow((edd.w/2),2) + std::pow((edd.h/2),2));
     edd.camera_type = camera_type;
-    edd.is_solid = true;
+    edd.is_solid = false;
+    if(entity_type_id == ENTITY_TYPE_MOB || entity_type_id == ENTITY_TYPE_HERO)
+    {
+      edd.is_solid = true;
+    }
     edd.is_clicked = false;
     edd.speed = data.speed;
 

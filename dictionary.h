@@ -27,6 +27,11 @@
 #define CAMERA_DYNAMIC 0.0f
 #define CAMERA_STATIC 1.0f
 
+// entity types
+#define ENTITY_TYPE_MOB 0
+#define ENTITY_TYPE_ITEM 1
+#define ENTITY_TYPE_HERO 2
+
 // object types
 #define OBJECT_TYPE_ENTITY 0
 #define OBJECT_TYPE_MAP 1

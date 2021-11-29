@@ -3,8 +3,6 @@
 
 ### scene management, data in the scene stored inside files
 
-### debugger for collisions -> points for sensors, lines for AABB boxes
-
 ### 2) How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
 Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it 
 

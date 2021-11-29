@@ -48,7 +48,7 @@ namespace items
     tdd.texture_id = items::items[item_id].items_texture_id;
 
     // logic for items to be stored in different table? Same as alive mobs
-    entity::create(tdd, OBJECT_TYPE_ENTITY, CAMERA_DYNAMIC);
+    entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
   }
 
 }
