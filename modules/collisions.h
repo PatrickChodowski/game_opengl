@@ -52,7 +52,6 @@ namespace collisions
 
     float distance;
     float limit; // sum of entity diagonals
-
     bool is_solid;
     bool is_near;
   };
@@ -60,8 +59,14 @@ namespace collisions
   // Gets vector of entity distances to other entities
   std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id);
 
+  // Gets distance from entity to single entity object
+  collisions::DistanceToObject _get_entity_to_single_entity_distance(int entity_id, int target_entity_id);
+
   // Gets vector of entity distances to map objects
   std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entity_id);
+
+  // Gets distance from entity to single map object
+  collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id);
 
   // Find broad collisions for entity (by default its the hero, but lets leave the option)
   std::vector<collisions::DistanceToObject> _find_entity_broad_collisions(int entity_id);

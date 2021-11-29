@@ -28,7 +28,7 @@ namespace items
     int min_speed;
     int max_speed;
     int current_frame;
-
+  
     float speed;
     float x, y;
     float w, h;
@@ -41,6 +41,7 @@ namespace items
   
   struct GeneratedItemData
   {
+    int entity_id;
     int type_id;
     int dmg;  
     int speed;

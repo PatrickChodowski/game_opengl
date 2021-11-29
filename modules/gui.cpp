@@ -103,7 +103,7 @@ namespace gui
       gdd.labels.push_back(label_id);
       
       // Add buttons (menu? entity menu? - redefine menu?)
-      int button_id = buttons::add("click", 
+      int button_id = buttons::add("Travel", 
                                    gdd.x+5, 
                                    gdd.y+70, 1);
       gdd.buttons.push_back(button_id);

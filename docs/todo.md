@@ -1,12 +1,18 @@
 
+### collisions -> tests on AABBs, Sensors, distance calculation
+
+### convert menu to be a container for labels and buttons. Assign buttons to functions. Define menus and buttons
+
+### Travel -> initialize travel when on click
+
 ### shaders management -> remove if elses from shaders
 
 ### scene management, data in the scene stored inside files
 
-### 2) How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
+### How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
 Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it 
 
-### 3) 3d models instead of spritesheets:
+### 3d models instead of spritesheets:
  - photogrammetry
  - meshroom 
  - https://www.mixamo.com/
@@ -18,9 +24,9 @@ Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it
  https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
 
 
- ### 3) menu highliting -> nice feature to have :)
+ ### menu highliting -> nice feature to have :)
 
- ### 4) saves scrolling
+ ### saves scrolling
 
 
 

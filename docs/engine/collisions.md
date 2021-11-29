@@ -102,9 +102,21 @@ void _resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_d
 ```
 
 ### _get_entity_to_entity_distances
+Gets distance from entity to single entity object
+```c++
+collisions::DistanceToObject _get_entity_to_single_entity_distance(int entity_id, int target_entity_id);
+```
+
+### _get_entity_to_entity_distances
 Function to retrieve [near distances](collisions.md#DistanceToObject) from [entity](entity.md#Entity) to another entities
 ```c++
 std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id);
+```
+
+### _get_entity_to_single_tile_distance
+Gets distance from entity to single map object
+```c++
+collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id);
 ```
 
 ### _get_entity_to_map_distances
@@ -114,5 +126,7 @@ std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entit
 ```
 
 ## Tests
--
+- set_sensors
+- set_aabs (by debugging lines)
+- get distance to single map or entity
 

@@ -63,6 +63,9 @@ namespace hero
   // Revert to previous hero position y
   void revert_position_y();
   
+  // Sets arbitrary position of the hero
+  void set_position(float x, float y);
+
   // Update hero position
   void update_position(float camera_move_x, float camera_move_y);
 
