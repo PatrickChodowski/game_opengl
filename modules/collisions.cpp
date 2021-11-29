@@ -1,11 +1,13 @@
 
 #include <algorithm>
+#include <iostream>
 #include <math.h>
 #include <vector>
 
 #include "camera.h"
 #include "collisions.h"
 #include "entity.h"
+#include "hero.h"
 #include "maps.h"
 #include "utils.h"
 #include "../dictionary.h"
@@ -80,13 +82,13 @@ namespace collisions
   std::vector<collisions::DistanceToObject> _find_entity_broad_collisions(int entity_id = 0)
   {
     std::vector<collisions::DistanceToObject> near_distances = {};
-    std::vector<collisions::DistanceToObject> map_near_distances = _get_entity_to_map_distances(entity_id);
+    //std::vector<collisions::DistanceToObject> map_near_distances = _get_entity_to_map_distances(entity_id);
     std::vector<collisions::DistanceToObject> entity_near_distances = _get_entity_to_entity_distances(entity_id);
 
-    if(map_near_distances.size() > 0)
-    {
-      near_distances.insert(near_distances.end(), map_near_distances.begin(), map_near_distances.end());
-    }
+    // if(map_near_distances.size() > 0)
+    // {
+    //   near_distances.insert(near_distances.end(), map_near_distances.begin(), map_near_distances.end());
+    // }
     if(entity_near_distances.size() > 0)
     {
       near_distances.insert(near_distances.end(), entity_near_distances.begin(), entity_near_distances.end());
@@ -169,94 +171,92 @@ namespace collisions
     { 
       float min_x_border = *std::min_element(limits.right_borders.begin(), limits.right_borders.end());
       camera::cam.x = camera::cam.previous_x;
+      hero::revert_position_x();
     } 
     // hero on the right   |_| x 
     if (limits.left_borders.size() > 0)
     { 
       float max_x_border = *std::max_element(limits.left_borders.begin(), limits.left_borders.end());
       camera::cam.x = camera::cam.previous_x;
+      hero::revert_position_x();
     } 
     // hero on the top 
     if (limits.bottom_borders.size() > 0)
     { 
       float min_y_border = *std::min_element(limits.bottom_borders.begin(), limits.bottom_borders.end());
       camera::cam.y = camera::cam.previous_y;
+      hero::revert_position_y();
     } 
     // hero on the bottom 
     if (limits.top_borders.size() > 0)
     { 
       float max_y_border = *std::min_element(limits.top_borders.begin(), limits.top_borders.end());
       camera::cam.y = camera::cam.previous_y;
+      hero::revert_position_y();
     } 
   }
 
   void _set_sensors(int entity_id)
   {
-    // entity::entities[entity_id].sensors.clear();
-    // entity::entities.at(entity_id).sensors.clear();
-
-    // NOTE: dont know if that really works
-    // copied over just to search for it once
-    entity::EntityData edd = entity::entities.at(entity_id);
-    edd.sensors.clear();
+    entity::entities[entity_id].sensors.clear();
 
     for(int i=0; i < collisions::SENSOR_COUNT; i++)
     {
       collisions::Sensor s;
       switch(i) {
         case SENSOR_TOP:
-            s.x = edd.mid_x;
-            s.y = (edd.y - collisions::SENSOR_OFFSET);
+            s.x = entity::entities[entity_id].mid_x;
+            s.y = (entity::entities[entity_id].y - collisions::SENSOR_OFFSET);
             s.id = SENSOR_TOP;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP, s));
         break;
         case SENSOR_TOP_RIGHT:
-            s.x = (edd.x + edd.w + collisions::SENSOR_OFFSET);
-            s.y = (edd.y  - collisions::SENSOR_OFFSET);
+            s.x = (entity::entities[entity_id].x + entity::entities[entity_id].w + collisions::SENSOR_OFFSET);
+            s.y = (entity::entities[entity_id].y  - collisions::SENSOR_OFFSET);
             s.id = SENSOR_TOP_RIGHT;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_RIGHT, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_RIGHT, s));
         break;
         case SENSOR_RIGHT:
-            s.x = (edd.x + edd.w  + collisions::SENSOR_OFFSET);
-            s.y = (edd.y) ;
+            s.x = (entity::entities[entity_id].x + entity::entities[entity_id].w  + collisions::SENSOR_OFFSET);
+            s.y = (entity::entities[entity_id].y) ;
             s.id = SENSOR_RIGHT;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_RIGHT, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_RIGHT, s));
         break;
         case SENSOR_BOTTOM_RIGHT:
-            s.x = (edd.x + edd.w + collisions::SENSOR_OFFSET);
-            s.y = (edd.y + edd.h + collisions::SENSOR_OFFSET);
+            s.x = (entity::entities[entity_id].x + entity::entities[entity_id].w + collisions::SENSOR_OFFSET);
+            s.y = (entity::entities[entity_id].y + entity::entities[entity_id].h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM_RIGHT;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_RIGHT, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_RIGHT, s));
         break;
         case SENSOR_BOTTOM:
-            s.x = edd.mid_x;
-            s.y = (edd.y + edd.h + collisions::SENSOR_OFFSET);
+            s.x = entity::entities[entity_id].mid_x;
+            s.y = (entity::entities[entity_id].y + entity::entities[entity_id].h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM, s));
         break;
         case SENSOR_BOTTOM_LEFT:
-            s.x = edd.x - collisions::SENSOR_OFFSET;
-            s.y = (edd.y + edd.h + collisions::SENSOR_OFFSET);
+            s.x = entity::entities[entity_id].x - collisions::SENSOR_OFFSET;
+            s.y = (entity::entities[entity_id].y + entity::entities[entity_id].h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM_LEFT;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_LEFT, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_LEFT, s));
         break;
         case SENSOR_LEFT:
-            s.x = edd.x - collisions::SENSOR_OFFSET ;
-            s.y = edd.mid_y;
+            s.x = entity::entities[entity_id].x - collisions::SENSOR_OFFSET ;
+            s.y = entity::entities[entity_id].mid_y;
             s.id = SENSOR_LEFT;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_LEFT, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_LEFT, s));
         break;
         case SENSOR_TOP_LEFT:
-            s.x = edd.x - collisions::SENSOR_OFFSET;
-            s.y = edd.y - collisions::SENSOR_OFFSET;
+            s.x = entity::entities[entity_id].x - collisions::SENSOR_OFFSET;
+            s.y = entity::entities[entity_id].y - collisions::SENSOR_OFFSET;
             s.id = SENSOR_TOP_LEFT;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_LEFT, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_LEFT, s));
         break;
         case SENSOR_CENTER:
-            s.x = edd.mid_x;
-            s.y = edd.mid_y;
+            s.x = entity::entities[entity_id].mid_x;
+            s.y = entity::entities[entity_id].mid_y;
             s.id = SENSOR_CENTER;
-            edd.sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_CENTER, s));
+            entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_CENTER, s));
         break;
       }  
     }
@@ -264,33 +264,31 @@ namespace collisions
 
   void _set_abs_entities(int entity_id)
   {
-    entity::EntityData edd = entity::entities.at(entity_id);
-    edd.abs.clear();
+    entity::entities[entity_id].abs.clear();
     for(int a = 0; a < collisions::ABS_COUNT; a++)
     {
       collisions::AABB aabb;
-      aabb.min_x = (edd.x + collisions::SENSOR_OFFSET);
-      aabb.min_y = (edd.y + collisions::SENSOR_OFFSET);
-      aabb.max_y = (edd.y + edd.h - collisions::SENSOR_OFFSET);
-      aabb.max_x = (edd.x + edd.w - collisions::SENSOR_OFFSET);
+      aabb.min_x = (entity::entities[entity_id].x + collisions::SENSOR_OFFSET);
+      aabb.min_y = (entity::entities[entity_id].y + collisions::SENSOR_OFFSET);
+      aabb.max_y = (entity::entities[entity_id].y + entity::entities[entity_id].h - collisions::SENSOR_OFFSET);
+      aabb.max_x = (entity::entities[entity_id].x + entity::entities[entity_id].w - collisions::SENSOR_OFFSET);
       aabb.id = AABB_FULL;
-      edd.abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
+      entity::entities[entity_id].abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
     }
   }
 
   void _set_abs_maps(int tile_id)
   {
-    maps::TileData tdd = maps::tiles.at(tile_id);
-    tdd.abs.clear();
+    maps::tiles[tile_id].abs.clear();
     for(int a = 0; a < collisions::ABS_COUNT; a++)
     {
       collisions::AABB aabb;
-      aabb.min_x = (tdd.x + collisions::SENSOR_OFFSET);
-      aabb.min_y = (tdd.y + collisions::SENSOR_OFFSET);
-      aabb.max_y = (tdd.y + tdd.h - collisions::SENSOR_OFFSET);
-      aabb.max_x = (tdd.x + tdd.w - collisions::SENSOR_OFFSET);
+      aabb.min_x = (maps::tiles[tile_id].x + collisions::SENSOR_OFFSET);
+      aabb.min_y = (maps::tiles[tile_id].y + collisions::SENSOR_OFFSET);
+      aabb.max_y = (maps::tiles[tile_id].y + maps::tiles[tile_id].h - collisions::SENSOR_OFFSET);
+      aabb.max_x = (maps::tiles[tile_id].x + maps::tiles[tile_id].w - collisions::SENSOR_OFFSET);
       aabb.id = AABB_FULL;
-      tdd.abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
+      maps::tiles[tile_id].abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
     }    
   }
 

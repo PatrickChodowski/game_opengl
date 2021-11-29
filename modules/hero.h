@@ -22,6 +22,9 @@ namespace hero
     float x, y;
     float w, h;
 
+    // Previous position for collisions
+    float prev_x, prev_y;
+
     int entity_id;
     int current_frame;
     int map_id;
@@ -53,6 +56,12 @@ namespace hero
 
   // Loads hero struct information from save 
   void _load_from_save(std::string save_name);
+
+  // Revert to previous hero position x 
+  void revert_position_x();
+
+  // Revert to previous hero position y
+  void revert_position_y();
   
   // Update hero position
   void update_position(float camera_move_x, float camera_move_y);
