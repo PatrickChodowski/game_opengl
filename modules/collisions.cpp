@@ -82,13 +82,13 @@ namespace collisions
   std::vector<collisions::DistanceToObject> _find_entity_broad_collisions(int entity_id = 0)
   {
     std::vector<collisions::DistanceToObject> near_distances = {};
-    //std::vector<collisions::DistanceToObject> map_near_distances = _get_entity_to_map_distances(entity_id);
+    std::vector<collisions::DistanceToObject> map_near_distances = _get_entity_to_map_distances(entity_id);
     std::vector<collisions::DistanceToObject> entity_near_distances = _get_entity_to_entity_distances(entity_id);
 
-    // if(map_near_distances.size() > 0)
-    // {
-    //   near_distances.insert(near_distances.end(), map_near_distances.begin(), map_near_distances.end());
-    // }
+    if(map_near_distances.size() > 0)
+    {
+      near_distances.insert(near_distances.end(), map_near_distances.begin(), map_near_distances.end());
+    }
     if(entity_near_distances.size() > 0)
     {
       near_distances.insert(near_distances.end(), entity_near_distances.begin(), entity_near_distances.end());
