@@ -18,13 +18,21 @@ namespace menu2
 {
   struct MenuData
   {
-    int menu_id;
+    int id;
     int menu_slot_id;
+    int texture_id;
+    int frame_id;
+
+    float r, g, b, a;
+    float camera_type;
+
     std::vector<int> button_ids;
     std::vector<int> label_ids;
     std::vector<buttons::GuiButtonData> buttons;
     std::vector<fonts::LabelData> labels;
     std::string menu_name;
+
+    bool is_clicked;
   };
 
   std::vector<int> Index;
