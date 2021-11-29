@@ -78,6 +78,12 @@ Reads and inserts single [MapData](maps.md#MapData) to [maps](maps.md#maps) by f
 void read_map_data(std::string name);
 ```
 
+### generate_tile
+Generate single tile out of position, texture_id and frame_id
+```c++
+maps::TileData generate_tile(float x, float y, int texture_id, int frame_id);
+```
+
 ### load
 Load tiles to [tiles](maps.md#tiles) based on map_id and [MapData](maps.md#MapData) from [maps](maps.md#maps)
 ```c++

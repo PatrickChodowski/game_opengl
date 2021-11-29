@@ -35,6 +35,12 @@ Revert to previous hero position y
 void revert_position_y();
 ```
   
+### set_position
+Sets arbitrary position of the hero
+```c++
+void set_position(float x, float y);
+```
+
 ### update_position
 Updates position of the hero character in the ehro data and entity data
 ```c++

@@ -85,6 +85,8 @@ namespace maps
   extern std::vector<int> Index;
   extern std::vector<quads::QuadData> MapQuads;
 
+  // Generate single tile out of position, texture_id and frame_id
+  maps::TileData generate_tile(float x, float y, int texture_id, int frame_id);
 
   // Reads json data by map name and stores it inside maps::maps
   void read_map_data(std::string name);

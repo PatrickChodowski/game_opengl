@@ -43,6 +43,31 @@ namespace maps
   };
 
 
+  maps::TileData generate_tile(float x, float y, int texture_id, int frame_id)
+  {
+    maps::TileData tile;
+    tile.id = utils::generate_id(maps::Index);
+    tile.x = x;
+    tile.y = y;
+    tile.w = maps::default_tile_width;
+    tile.h = maps::default_tile_height;
+    tile.diag = std::sqrt(std::pow((tile.w/2),2) + std::pow((tile.h/2),2));
+    tile.frame_id = frame_id;
+    tile.texture_id = texture_id;
+    tile.camera_type = CAMERA_DYNAMIC;
+    tile.is_clicked = false;
+    tile.is_solid = false;
+
+    tile.norm_x_start = textures::_get_normalized_frame_start(texture_id, tile.frame_id);
+    tile.norm_x_end = textures::_get_normalized_frame_end(texture_id, tile.frame_id);
+    // if frame_id is between 10 and 20, then its solid (11-19)
+    if(tile.frame_id > 10 && tile.frame_id < 20)
+    {
+      tile.is_solid = true;
+    } 
+    return tile;
+  }
+
   void load(int map_id)
   {
     maps::clear();
@@ -50,6 +75,7 @@ namespace maps
     std::ifstream in_file;
     in_file.open(file_path.c_str());
     int n_tiles =  maps::maps[map_id].vertex_width*maps::maps[map_id].vertex_height;
+    int texture_id = maps::maps[map_id].texture_id;
 
     // read in the tile info
     if (in_file.is_open())
@@ -58,31 +84,12 @@ namespace maps
         {
           for (int c = 0; c < maps::maps[map_id].vertex_width; c++)
           {
-            struct maps::TileData tile;
-            tile.id = utils::generate_id(maps::Index);
-
-            tile.x = c * maps::default_tile_width;
-            tile.y = r * maps::default_tile_height;
-            tile.w = maps::default_tile_width;
-            tile.h = maps::default_tile_height;
-            tile.diag = std::sqrt(std::pow((tile.w/2),2) + std::pow((tile.h/2),2));
-            in_file >> tile.frame_id;
-
-            tile.texture_id = maps::maps[map_id].texture_id;
-            
-            tile.camera_type = CAMERA_DYNAMIC;
-            tile.is_clicked = false;
-            tile.is_solid = false;
-
-            tile.norm_x_start = textures::_get_normalized_frame_start(maps::maps[map_id].texture_id, tile.frame_id);
-            tile.norm_x_end = textures::_get_normalized_frame_end(maps::maps[map_id].texture_id, tile.frame_id);
-
-            // if frame_id is between 10 and 20, then its solid (11-19)
-            if(tile.frame_id > 10 && tile.frame_id < 20)
-            {
-              tile.is_solid = true;
-            } 
-
+            int frame_id;
+            in_file >> frame_id;
+            maps::TileData tile = maps::generate_tile(c * maps::default_tile_width, 
+                                                      r * maps::default_tile_height, 
+                                                      texture_id, 
+                                                      frame_id);
             maps::tiles[tile.id] = tile;
           };
         } 

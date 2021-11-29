@@ -26,6 +26,30 @@ namespace collisions
   int ABS_COUNT = 1;
   std::map <int,sig_ptr> AABBsHandler = {};
 
+
+
+  collisions::DistanceToObject _get_entity_to_single_entity_distance(int entity_id, int target_entity_id)
+  {
+    float dist = utils::get_distance_between_points(entity::entities[target_entity_id].x, 
+                                                    entity::entities[target_entity_id].y, 
+                                                    entity::entities[entity_id].x, 
+                                                    entity::entities[entity_id].y);
+    float dist_limit = entity::entities[entity_id].diag + entity::entities[target_entity_id].diag;
+    collisions::DistanceToObject dto;
+    dto.entity_id = entity_id;
+    dto.object_id = target_entity_id;
+    dto.object_type = OBJECT_TYPE_ENTITY;
+    dto.distance = dist;
+    dto.limit = dist_limit;
+    dto.is_solid = entity::entities[target_entity_id].is_solid;
+    dto.is_near = false;
+    if(dist <= dist_limit)
+    {
+      dto.is_near = true;
+    }
+    return dto;
+  }
+
   std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
@@ -33,27 +57,39 @@ namespace collisions
     {
       if(k != entity_id)
       {
-        float dist = utils::get_distance_between_points(v.x, 
-                                                 v.y, 
-                                                 entity::entities[entity_id].x, 
-                                                 entity::entities[entity_id].y);
-        float dist_limit = entity::entities[entity_id].diag + v.diag;
-        if(dist <= dist_limit)
+        collisions::DistanceToObject dto = _get_entity_to_single_entity_distance(entity_id, k);
+        if(dto.is_near)
         {
-          DistanceToObject dto;
-          dto.entity_id = entity_id;
-          dto.object_id = k;
-          dto.object_type = OBJECT_TYPE_ENTITY;
-          dto.distance = dist;
-          dto.limit = dist_limit;
-          dto.is_solid = v.is_solid;
-          dto.is_near = true;
           distances.push_back(dto);
         }
       }
     }
     return distances;
   }
+
+  collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id)
+  {
+    float dist = utils::get_distance_between_points(maps::tiles[tile_id].x, 
+                                                    maps::tiles[tile_id].y, 
+                                                    entity::entities[entity_id].x, 
+                                                    entity::entities[entity_id].y);
+    float dist_limit = entity::entities[entity_id].diag + maps::tiles[tile_id].diag;
+    collisions::DistanceToObject dto;
+    dto.entity_id = entity_id;
+    dto.object_id = tile_id;
+    dto.object_type = OBJECT_TYPE_MAP;
+    dto.distance = dist;
+    dto.limit = dist_limit;
+    dto.is_solid = maps::tiles[tile_id].is_solid;
+    dto.is_near = false;
+    if(dist <= dist_limit)
+    {
+      dto.is_near = true;
+    }
+    return dto;
+  }
+  
+
 
   std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entity_id)
   {
@@ -62,21 +98,9 @@ namespace collisions
     {
       if (v.is_solid)
       {
-        float dist = utils::get_distance_between_points(v.x, 
-                                                        v.y, 
-                                                        entity::entities[entity_id].x, 
-                                                        entity::entities[entity_id].y);
-        float dist_limit = entity::entities[entity_id].diag + v.diag;
-        if(dist <= dist_limit)
+        collisions::DistanceToObject dto = _get_entity_to_single_tile_distance(entity_id, k);
+        if(dto.is_near)
         {
-          DistanceToObject dto;
-          dto.entity_id = entity_id;
-          dto.object_id = k;
-          dto.object_type = OBJECT_TYPE_MAP;
-          dto.distance = dist;
-          dto.limit = dist_limit;
-          dto.is_solid = v.is_solid;
-          dto.is_near = true;
           distances.push_back(dto);
         }
       }
@@ -326,9 +350,7 @@ namespace collisions
 
   void handle_entity_collisions(int entity_id)
   {
-    // for hero only currently
     std::vector<collisions::DistanceToObject> near_distances = collisions::_find_entity_broad_collisions(entity_id);
-    //std::cout << "near distances size" << near_distances.size() << std::endl;
     if(near_distances.size() > 0)
     {
       collisions::_set_sensors(entity_id);

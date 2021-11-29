@@ -50,6 +50,20 @@ namespace hero
     entity::entities[hero.entity_id].y = entity::entities[hero.entity_id].prev_y;
   }
 
+  void set_position(float x, float y)
+  {
+    hero::hero.prev_x = hero::hero.x;
+    hero::hero.prev_y = hero::hero.y;
+    hero::hero.x = x;
+    hero::hero.y = y;
+    entity::entities[hero.entity_id].prev_x = entity::entities[hero.entity_id].x;
+    entity::entities[hero.entity_id].prev_y = entity::entities[hero.entity_id].y;
+    entity::entities[hero.entity_id].x = x;
+    entity::entities[hero.entity_id].y = y;
+    entity::entities[hero.entity_id].mid_x = x + (entity::entities[hero.entity_id].w/2);
+    entity::entities[hero.entity_id].mid_y = y + (entity::entities[hero.entity_id].h/2);
+  }
+
 
   void update_position(float camera_move_x, float camera_move_y)
   { 
