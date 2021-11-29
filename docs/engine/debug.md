@@ -56,6 +56,13 @@ Render debug point (creates new [point data](debug.md#PointData))
 void render_point(float x, float y, float r, float g, float b, float a);
 ```
 
+### render_square
+Well, it renders 4 lines
+```c++
+void render_square(float x, float y, float w, float h, float r, float g, float b, float a);
+
+```
+
 
 ### render
 Populates [DebugQuads](debug.md#DebugQuads) from [points](debug.md#points)
