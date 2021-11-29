@@ -23,6 +23,18 @@ Creates new hero character
 void create_new(std::string name, std::string type);
 ```
 
+### revert_position_x
+Revert to previous hero position x
+```c++
+void revert_position_x();
+```
+
+### revert_position_y
+Revert to previous hero position y
+```c++
+void revert_position_y();
+```
+  
 ### update_position
 Updates position of the hero character in the ehro data and entity data
 ```c++
