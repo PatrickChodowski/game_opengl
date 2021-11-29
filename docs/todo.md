@@ -1,6 +1,4 @@
 
-### collisions -> tests on AABBs, Sensors, distance calculation
-
 ### convert menu to be a container for labels and buttons. Assign buttons to functions. Define menus and buttons
 
 ### Travel -> initialize travel when on click
@@ -28,7 +26,9 @@ Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it
 
  ### saves scrolling
 
+ ### Position struct in utils
 
+ ### color structs in  utils
 
 
 # Notes:
