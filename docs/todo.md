@@ -1,9 +1,14 @@
 
-###  1) How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
+### shaders management -> remove if elses from shaders
+
+### scene management, data in the scene stored inside files
+
+### debugger for collisions -> points for sensors, lines for AABB boxes
+
+### 2) How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
 Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it 
 
-
-### 2) 3d models instead of spritesheets:
+### 3) 3d models instead of spritesheets:
  - photogrammetry
  - meshroom 
  - https://www.mixamo.com/
@@ -18,9 +23,6 @@ Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it
  ### 3) menu highliting -> nice feature to have :)
 
  ### 4) saves scrolling
-
- ### 6) 
-  -> hero still loses position on zoom + move
 
 
 

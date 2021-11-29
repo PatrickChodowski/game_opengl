@@ -1,3 +1,5 @@
+
+#include <cmath>
 #include <fstream>
 #include <map>
 #include <string>
@@ -63,6 +65,7 @@ namespace maps
             tile.y = r * maps::default_tile_height;
             tile.w = maps::default_tile_width;
             tile.h = maps::default_tile_height;
+            tile.diag = std::sqrt(std::pow((tile.w/2),2) + std::pow((tile.h/2),2));
             in_file >> tile.frame_id;
 
             tile.texture_id = maps::maps[map_id].texture_id;

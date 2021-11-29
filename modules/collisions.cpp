@@ -6,7 +6,9 @@
 
 #include "camera.h"
 #include "collisions.h"
+#include "debug.h"
 #include "entity.h"
+#include "game.h"
 #include "hero.h"
 #include "maps.h"
 #include "utils.h"
@@ -59,9 +61,9 @@ namespace collisions
     for (auto const& [k, v]: maps::tiles)
     {
       float dist = utils::get_distance_between_points(v.x, 
-                                                       v.y, 
-                                                       entity::entities[entity_id].x, 
-                                                       entity::entities[entity_id].y);
+                                                      v.y, 
+                                                      entity::entities[entity_id].x, 
+                                                      entity::entities[entity_id].y);
       float dist_limit = entity::entities[entity_id].diag + v.diag;
       if(dist <= dist_limit)
       {
@@ -83,16 +85,16 @@ namespace collisions
   {
     std::vector<collisions::DistanceToObject> near_distances = {};
     std::vector<collisions::DistanceToObject> map_near_distances = _get_entity_to_map_distances(entity_id);
-    std::vector<collisions::DistanceToObject> entity_near_distances = _get_entity_to_entity_distances(entity_id);
+    //std::vector<collisions::DistanceToObject> entity_near_distances = _get_entity_to_entity_distances(entity_id);
 
     if(map_near_distances.size() > 0)
     {
       near_distances.insert(near_distances.end(), map_near_distances.begin(), map_near_distances.end());
     }
-    if(entity_near_distances.size() > 0)
-    {
-      near_distances.insert(near_distances.end(), entity_near_distances.begin(), entity_near_distances.end());
-    }
+    // if(entity_near_distances.size() > 0)
+    // {
+    //   near_distances.insert(near_distances.end(), entity_near_distances.begin(), entity_near_distances.end());
+    // }
     return near_distances;
   }
 
@@ -311,6 +313,7 @@ namespace collisions
   {
     // for hero only currently
     std::vector<collisions::DistanceToObject> near_distances = collisions::_find_entity_broad_collisions(entity_id);
+    //std::cout << "near distances size" << near_distances.size() << std::endl;
     if(near_distances.size() > 0)
     {
       collisions::_set_sensors(entity_id);

@@ -54,7 +54,7 @@ int ABS_COUNT
 ## Functions
 
 ### init
-Fill out SetAABBsHandler
+Fill out AABBsHandler
 ```c++
 void init();
 ```
