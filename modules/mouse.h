@@ -45,23 +45,17 @@ namespace mouse
   // Find which quads are clicked on:
   void _find_clicked_quads(float click_x, float click_y, int mouse_button_id);
 
-  // Click logic for given menu button and mouse button
-  void _click_menu(int object_id, int mouse_button_id);
-
   // Click logic for given entity
   void _click_entity(int object_id, int mouse_button_id);
 
   // Click logic for given map
   void _click_map(int object_id, int mouse_button_id);
 
-  // Click logic for given text
-  void _click_text(int object_id, int mouse_button_id);
-
-  // Click logic for gui
-  void _click_gui(int object_id, int mouse_button_id);
-
-  // Click logic for gui
+  // Click logic for buttons
   void _click_button(int object_id, int mouse_button_id);
+
+  // Click logic for menu
+  void _click_menu(int object_id, int mouse_button_id);
 
   // Initialize Mouse logic
   void init();

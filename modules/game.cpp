@@ -26,7 +26,6 @@
 #include "mouse.h"
 #include "navmesh.h"
 #include "quads.h"
-#include "scenes.h"
 #include "shaders.h"
 #include "textures.h"
 #include "travel.h"
@@ -44,38 +43,67 @@ namespace game
   const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
   std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME = std::chrono::high_resolution_clock::now();
 
+    // Current scene event handler
+  int SCENE_ID = SCENE_ID_MAIN_MENU;
+  int EVENT_HANDLER_ID;
+  int MAP_ID;
+  float HERO_START_X;
+  float HERO_START_y;
+  std::map<int, game::SceneData> scenes;
 
-  void init_scene(int scene_id, bool is_new_game)
+
+
+  void read_data(std::string& name)
   {
-    logger::log(LOG_LVL_INFO, 
-                "start game::init_scene","game::init_scene",
-               __FILE__,__LINE__, LOG_START_TIMER);
+    game::SceneData SD;
+    std::string data_path = "./data/scenes/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(SD);
+    game::scenes.insert({SD.id, SD});
+  };
 
-    if (scene_id < MAIN_MENU_SCENE_ID)
+  void init_scenes()
+  {
+    std::vector<std::string> scene_list = utils::list_json_files("data/scenes");
+    for(int s=0; s < scene_list.size(); s++)
     {
-      if(is_new_game)
-      {
-        hero::create_new("john","barbarian");
-      } else 
-      {
-        // saves::load()
-      }
-      maps::init_map(scenes::MAP_ID);
-      mobs::spawn(scenes::MAP_ID);
-      //items::put_item_on_ground(0, 600, 500);
-    }
-    //menu::load(scene_id);
-
-    logger::log(LOG_LVL_INFO, 
-                "finish game::init_scene","game::init_scene",
-               __FILE__,__LINE__, LOG_END_TIMER);
+      game::read_data(scene_list[s]);
+    };
   }
 
+  void load_scene(int scene_id)
+  {
+    if(game::scenes.count(scene_id) > 0)
+    {    
+      game::SCENE_ID = scene_id;
+      game::EVENT_HANDLER_ID = game::scenes[scene_id].events_handler_id;
+      game::MAP_ID = game::scenes[scene_id].map_id;
+      game::HERO_START_X = game::scenes[scene_id].hero_start_x;
+      game::HERO_START_y = game::scenes[scene_id].hero_start_y;
 
-  void switch_scene(int scene_id, bool is_new_game = false)
+      // Load maps
+      maps::load(game::MAP_ID);
+
+      // Load menu slots
+      for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)
+      {
+        int slot_id = game::scenes[scene_id].menu_slots[s];
+        menu::currentmenuslots[slot_id] = menu::menuslots[slot_id];
+      }
+      // Load menus
+      for(int t=0; t<game::scenes[scene_id].menu_types.size(); t++)
+      {
+        int menu_type_id = game::scenes[scene_id].menu_types[t];
+        menu::add(menu_type_id);
+      }
+    }
+  }
+  
+  void switch_scene(int scene_id)
   {
     game::clear_scene();
-    game::init_scene(scene_id, is_new_game);
+    game::load_scene(scene_id);
   }
 
   void clear_scene()
@@ -107,12 +135,12 @@ namespace game
     menu::init();
     mobs::init();
     mouse::init();
-    scenes::init();
+    game::init_scenes();
     shaders::init();
     textures::init();
 
     // Loads scene based on SCENE_ID
-    scenes::load(SCENE_ID_MAIN_MENU);
+    game::load_scene(SCENE_ID_MAIN_MENU);
   };
 
   void update()

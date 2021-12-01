@@ -5,6 +5,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+#include "../dependencies/json_struct.h"
+
 #ifndef MODULES_GAME_H
 #define MODULES_GAME_H
 
@@ -23,8 +25,33 @@ namespace game
   extern const Uint8 *KEYBOARD;
   extern std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME;
 
+  struct SceneData 
+  {
+    int id;
+    int events_handler_id;
+    int map_id;
+    std::vector<int> menu_slots;
+    std::vector<int> menu_types;
+    float hero_start_x, hero_start_y;
+    std::string label;
+
+    JS_OBJ(id, events_handler_id, map_id, hero_start_x, hero_start_y, menu_slots, menu_types, label);
+  };
+
+  extern int EVENT_HANDLER_ID;
+  extern int MAP_ID;
+  extern float HERO_START_X;
+  extern float HERO_START_y;
+  extern std::map<int, game::SceneData> scenes;
+
+  // Reads scene data to struct
+  void read_data(std::string &name);
+
+  // Reads all scenes data to scenes catalog
+  void init_scenes();
+
   // Initialize all systems for new scene
-  void init_scene(int scene_id, bool is_new_game);
+  void load_scene(int scene_id);
 
   // checks if next scene id is a menu
   void _check_if_menu();
@@ -33,7 +60,7 @@ namespace game
   void clear_scene();
 
   // Switches scene. Clears current scene data and initializes new one
-  void switch_scene(int scene_id, bool is_new_game);
+  void switch_scene(int scene_id);
 
   // Initialize all in-game systems inside single game::init()
   void init();

@@ -70,19 +70,6 @@ namespace mouse
     }
   }
 
-  void _click_menu(int object_id, int mouse_button_id)
-  {
-    // std::cout << "Clicked on menu object id: " << object_id << " with button id: " << mouse_button_id << std::endl;
-    // std::cout << "is clicked current value: " <<  menu::menu[object_id].is_clicked << std::endl;
-
-    // Making sure its clicking on button_id type 6 to trigger the logic, not the save ID (over > 100)
-    // int logic_object_id = menu::_check_if_load_game(object_id);
-
-    // menu::CurrentMenuButtons[object_id].is_clicked = !menu::CurrentMenuButtons[object_id].is_clicked;
-    // menu::ClickButton[logic_object_id]();
-
-  };
-
   void _click_entity(int object_id, int mouse_button_id)
   {
     logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
@@ -106,14 +93,20 @@ namespace mouse
     std::cout << "Clicked on MAP object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
   };
 
-  void _click_text(int object_id, int mouse_button_id)
-  {
-    std::cout << "Clicked on TEXT object id: " << object_id<< " with mouse button id: " << mouse_button_id << std::endl;
-  };
-
   void _click_button(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on BUTTON object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
+    // int logic_object_id = menu::_check_if_load_game(object_id);
+    // menu::CurrentMenuButtons[object_id].is_clicked = !menu::CurrentMenuButtons[object_id].is_clicked;
+    // menu::ClickButton[object_id]();
+    buttons::ButtonFunctions[object_id](object_id);
+
+
+  };
+
+  void _click_menu(int object_id, int mouse_button_id)
+  {
+    std::cout << "Clicked on MENU object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
   };
 
 
@@ -121,9 +114,8 @@ namespace mouse
   {
     mouse::click[OBJECT_TYPE_ENTITY] = _click_entity;
     mouse::click[OBJECT_TYPE_MAP] = _click_map;
-    mouse::click[OBJECT_TYPE_MENU] = _click_menu;
-    mouse::click[OBJECT_TYPE_TEXT] = _click_text;
     mouse::click[OBJECT_TYPE_BUTTON] = _click_button;
+    mouse::click[OBJECT_TYPE_MENU] = _click_menu;
 
     mouse::ClickPriorities[OBJECT_TYPE_BUTTON] = 6;
     mouse::ClickPriorities[OBJECT_TYPE_MENU] = 5;
