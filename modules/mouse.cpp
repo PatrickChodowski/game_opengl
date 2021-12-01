@@ -1,7 +1,6 @@
 
 #include "entity.h"
 #include "game.h"
-#include "gui.h"
 #include "logger.h"
 #include "menu.h"
 #include "mouse.h"

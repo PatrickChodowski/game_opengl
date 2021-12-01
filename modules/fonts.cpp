@@ -241,6 +241,7 @@ namespace fonts
     fonts::labels.clear();
     fonts::TextIndex.clear();
     fonts::LabelIndex.clear();
+    fonts::NEW_GAME_LABEL_ID = -1;
   };
 
 
