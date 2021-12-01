@@ -1,7 +1,7 @@
 
-### convert menu to be a container for labels and buttons. Assign buttons to functions. Define menus and buttons
+### Menu todo: brincg back new game name and load games from save functionality
 
-### scene management, data in the scene stored inside files
+### scene management, data in the scene stored inside files -> to finish
 
 ### Full data refresh during game
 

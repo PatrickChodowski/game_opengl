@@ -56,6 +56,12 @@ namespace buttons
                                0.0f, 
                                0.0f);
 
+    // not so nice exception for new game name button
+    if(button_function_id == BUTTON_NEWGAME_NAME)
+    {
+      fonts::NEW_GAME_LABEL_ID = bdd.label_id;
+    }
+
     buttons::buttons[bdd.id] = bdd;
     return bdd.id;
   };

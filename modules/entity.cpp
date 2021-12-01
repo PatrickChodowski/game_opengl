@@ -8,7 +8,6 @@
 
 #include "entity.h"
 #include "fonts.h"
-#include "gui.h"
 #include "hero.h"
 #include "items.h"
 #include "mobs.h"
