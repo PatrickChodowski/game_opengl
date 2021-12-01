@@ -121,7 +121,7 @@ namespace menu
   int _get_free_slot();
 
   // Frees slot id for given menu
-  int _free_slot(int menu_id);
+  void _free_slot(int menu_id);
 
 
 }

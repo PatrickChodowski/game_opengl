@@ -3,7 +3,7 @@
 #include "game.h"
 #include "gui.h"
 #include "logger.h"
-#include "menu.h"
+#include "menu2.h"
 #include "mouse.h"
 #include "quads.h"
 
@@ -50,9 +50,9 @@ namespace mouse
     {
       min_click_priority = mouse::ClickPriorities[OBJECT_TYPE_ENTITY];
     }
-    if(object_types.count(OBJECT_TYPE_GUI))
+    if(object_types.count(OBJECT_TYPE_MENU))
     {
-      min_click_priority = mouse::ClickPriorities[OBJECT_TYPE_GUI];
+      min_click_priority = mouse::ClickPriorities[OBJECT_TYPE_MENU];
     }
     if(object_types.count(OBJECT_TYPE_BUTTON))
     {
@@ -72,14 +72,14 @@ namespace mouse
 
   void _click_menu(int object_id, int mouse_button_id)
   {
-    std::cout << "Clicked on menu object id: " << object_id << " with button id: " << mouse_button_id << std::endl;
-    std::cout << "is clicked current value: " <<  menu::CurrentMenuButtons[object_id].is_clicked << std::endl;
+    // std::cout << "Clicked on menu object id: " << object_id << " with button id: " << mouse_button_id << std::endl;
+    // std::cout << "is clicked current value: " <<  menu::menu[object_id].is_clicked << std::endl;
 
     // Making sure its clicking on button_id type 6 to trigger the logic, not the save ID (over > 100)
-    int logic_object_id = menu::_check_if_load_game(object_id);
+    // int logic_object_id = menu::_check_if_load_game(object_id);
 
-    menu::CurrentMenuButtons[object_id].is_clicked = !menu::CurrentMenuButtons[object_id].is_clicked;
-    menu::ClickButton[logic_object_id]();
+    // menu::CurrentMenuButtons[object_id].is_clicked = !menu::CurrentMenuButtons[object_id].is_clicked;
+    // menu::ClickButton[logic_object_id]();
 
   };
 
@@ -88,17 +88,17 @@ namespace mouse
     logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
     // entity::EntityData edd = entity::entities[object_id];
     // if right click and debug mode is on
-    if((mouse_button_id == MOUSE_BUTTON_RIGHT) & game::IS_DEBUG_MODE)
-    {
-      if(!entity::entities[object_id].is_clicked)
-      {
-        entity::entities[object_id].gui_popup_id = gui::add_context_menu(object_id, OBJECT_TYPE_ENTITY);
-      } else 
-      {
-        gui::drop(entity::entities[object_id].gui_popup_id);
-      }
-      entity::entities[object_id].is_clicked  = !entity::entities[object_id].is_clicked;
-    } 
+    // if((mouse_button_id == MOUSE_BUTTON_RIGHT) & game::IS_DEBUG_MODE)
+    // {
+    //   if(!entity::entities[object_id].is_clicked)
+    //   {
+    //     entity::entities[object_id].gui_popup_id = gui::add_context_menu(object_id, OBJECT_TYPE_ENTITY);
+    //   } else 
+    //   {
+    //     gui::drop(entity::entities[object_id].gui_popup_id);
+    //   }
+    //   entity::entities[object_id].is_clicked  = !entity::entities[object_id].is_clicked;
+    // } 
   };
 
   void _click_map(int object_id, int mouse_button_id)
@@ -109,11 +109,6 @@ namespace mouse
   void _click_text(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on TEXT object id: " << object_id<< " with mouse button id: " << mouse_button_id << std::endl;
-  };
-
-  void _click_gui(int object_id, int mouse_button_id)
-  {
-    std::cout << "Clicked on GUI object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
   };
 
   void _click_button(int object_id, int mouse_button_id)
@@ -128,12 +123,10 @@ namespace mouse
     mouse::click[OBJECT_TYPE_MAP] = _click_map;
     mouse::click[OBJECT_TYPE_MENU] = _click_menu;
     mouse::click[OBJECT_TYPE_TEXT] = _click_text;
-    mouse::click[OBJECT_TYPE_GUI] = _click_gui;
     mouse::click[OBJECT_TYPE_BUTTON] = _click_button;
 
     mouse::ClickPriorities[OBJECT_TYPE_BUTTON] = 6;
-    mouse::ClickPriorities[OBJECT_TYPE_MENU] = 6;
-    mouse::ClickPriorities[OBJECT_TYPE_GUI] = 5;
+    mouse::ClickPriorities[OBJECT_TYPE_MENU] = 5;
     mouse::ClickPriorities[OBJECT_TYPE_ENTITY] = 4;
     mouse::ClickPriorities[OBJECT_TYPE_MAP] = 1;
     mouse::ClickPriorities[OBJECT_TYPE_TEXT] = 0;

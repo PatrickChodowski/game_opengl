@@ -10,9 +10,9 @@
 #include "debug.h"
 #include "entity.h"
 #include "fonts.h"
-#include "gui.h"
+//#include "gui.h"
 #include "maps.h"
-#include "menu.h"
+#include "menu2.h"
 #include "quads.h"
 #include "textures.h"
 #include "../dictionary.h"
@@ -147,14 +147,14 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
     }
 
-    if(gui::GuiQuads.size() > 0)
-    {
-      quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
-    }
+    // if(gui::GuiQuads.size() > 0)
+    // {
+    //   quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
+    // }
 
-    if(buttons::GuiButtonQuads.size() > 0)
+    if(buttons::ButtonQuads.size() > 0)
     {
-      quads::AllQuads.insert(quads::AllQuads.end(), buttons::GuiButtonQuads.begin(), buttons::GuiButtonQuads.end());
+      quads::AllQuads.insert(quads::AllQuads.end(), buttons::ButtonQuads.begin(), buttons::ButtonQuads.end());
     }
 
     if(fonts::TextQuads.size() > 0)
@@ -259,13 +259,11 @@ namespace quads
     }
   }
 
-  template std::vector<quads::QuadData> quads::make_quads<buttons::GuiButtonData>(std::map<int, buttons::GuiButtonData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<buttons::ButtonData>(std::map<int, buttons::ButtonData>, int);
+  template std::vector<quads::QuadData> quads::make_quads<menu::MenuData>(std::map<int, menu::MenuData>, int);
   template std::vector<quads::QuadData> quads::make_quads<debug::PointData>(std::map<int, debug::PointData>, int);
   template std::vector<quads::QuadData> quads::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
   template std::vector<quads::QuadData> quads::make_quads<fonts::TextData>(std::map<int, fonts::TextData>, int);
-  template std::vector<quads::QuadData> quads::make_quads<gui::GuiData>(std::map<int, gui::GuiData>, int);
   template std::vector<quads::QuadData> quads::make_quads<maps::TileData>(std::map<int, maps::TileData>, int);
-  template std::vector<quads::QuadData> quads::make_quads<menu::ButtonData>(std::map<int, menu::ButtonData>, int);
-  
 
 }

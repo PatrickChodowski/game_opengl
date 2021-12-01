@@ -38,7 +38,7 @@ namespace menu
     MD.camera_type = CAMERA_STATIC;
     MD.norm_x_start = 0.0f;
     MD.norm_x_end = 1.0f;
-    MD.slot_id = -1;
+    MD.menu_slot_id = -1;
     MD.z = 0;
 
     menu::menus.insert({MD.menu_type_id, MD});
@@ -178,7 +178,7 @@ namespace menu
     // Over 100 will be a loaded save
     if(button_id > 100)
     {
-      button_id = GUI_BUTTON_LOADGAME_NAME;
+      button_id = BUTTON_LOADGAME_NAME;
     }
     return button_id;
   }
