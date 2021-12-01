@@ -3,7 +3,7 @@
 #include "game.h"
 #include "gui.h"
 #include "logger.h"
-#include "menu2.h"
+#include "menu.h"
 #include "mouse.h"
 #include "quads.h"
 
@@ -99,9 +99,7 @@ namespace mouse
     // int logic_object_id = menu::_check_if_load_game(object_id);
     // menu::CurrentMenuButtons[object_id].is_clicked = !menu::CurrentMenuButtons[object_id].is_clicked;
     // menu::ClickButton[object_id]();
-    buttons::ButtonFunctions[object_id](object_id);
-
-
+    buttons::ButtonFunctions[buttons::buttons[object_id].button_function_id](object_id);
   };
 
   void _click_menu(int object_id, int mouse_button_id)

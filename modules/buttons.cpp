@@ -103,7 +103,7 @@ namespace buttons
 
   void _click_newgame_name(int placeholder)
   {
-    game::switch_scene(SCENE_ID_NEW_GAME_MENU);
+    game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1);
   }
 
   void _click_loadgame_name(int placeholder)
