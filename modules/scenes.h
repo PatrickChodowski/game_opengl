@@ -18,18 +18,15 @@ namespace scenes
   struct SceneData
   {
     int id;
-    int events_handler;
+    int events_handler_id;
     int map_id;
-
     std::vector<int> menu_slots;
-    std::vector<int> menu_type_ids;
-
-
-
+    std::vector<int> menu_types;
     float hero_x, hero_y;
-
-
     std::string label;
+
+    JS_OBJ(id, events_handler_id, map_id, 
+    hero_x, hero_y, menu_slots, menu_types, label);
   };
 
 

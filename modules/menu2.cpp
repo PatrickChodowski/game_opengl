@@ -17,16 +17,17 @@ namespace menu
 {
 
   std::vector<int> Index;
-  std::map<int, MenuData> menus;
-  std::map<int, MenuData> currentmenus;
+  std::map<int, menu::MenuSlotData> menuslots = {};
+  std::map<int, menu::MenuData> menus;
+  std::map<int, menu::MenuData> currentmenus;
   std::vector<quads::QuadData> MenuQuads;
-
+  
   std::vector<std::string> saves;
   std::string NewGameName;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
   
 
-  void read_data(std::string& name)
+  void read_menu_data(std::string& name)
   {
     menu::MenuData MD;
     std::string data_path = "./data/menu2/"+name+".json";
@@ -43,12 +44,28 @@ namespace menu
     menu::menus.insert({MD.menu_type_id, MD});
   };
 
+  void read_menu_slot_data(std::string& name)
+  {
+    menu::MenuSlotData MD;
+    std::string data_path = "./data/menuslots/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(MD);
+    menu::menuslots.insert({MD.id, MD});
+  };
+
   void init()
   {
     std::vector<std::string> menu_list = utils::list_json_files("data/menu2");
     for(int m=0; m < menu_list.size(); m++)
     {
-      menu::read_data(menu_list[m]);
+      menu::read_menu_data(menu_list[m]);
+    };
+
+    std::vector<std::string> menu_slot_list = utils::list_json_files("data/menuslots");
+    for(int m=0; m < menu_slot_list.size(); m++)
+    {
+      menu::read_menu_slot_data(menu_slot_list[m]);
     };
   }
 
@@ -104,7 +121,7 @@ namespace menu
       fonts::drop(menu::currentmenus[menu_id].label_ids[l]);
     }
 
-    //gui::_free_slot(menu_id);
+    menu::_free_slot(menu_id);
     menu::currentmenus.erase(menu_id);
     utils::drop_id(menu::Index, menu_id);
   }
@@ -164,6 +181,33 @@ namespace menu
       button_id = GUI_BUTTON_LOADGAME_NAME;
     }
     return button_id;
+  }
+
+
+  int _get_free_slot()
+  {
+    int min_slot_id = -1;
+    for (auto const& [k, v] : menu::menuslots)
+    {
+      if(v.free)
+      {
+        min_slot_id = k;
+        break;
+      }
+    }
+    return min_slot_id;
+  }
+
+  void _free_slot(int menu_id)
+  { 
+    for (auto & [k, v] : menu::menuslots)
+    {
+      if(v.menu_id == menu_id)
+      {
+        v.free = true;
+        v.menu_id = -1;
+      }
+    }
   }
 }
 

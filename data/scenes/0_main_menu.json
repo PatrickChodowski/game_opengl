@@ -1,0 +1,10 @@
+{
+  "id": 0,
+  "events_handler_id": 0,
+  "map_id": -1,
+  "hero_x": -1,
+  "hero_y": -1,
+  "menu_slots": [0],
+  "menu_types": [1],
+  "label": "Main Menu"
+}

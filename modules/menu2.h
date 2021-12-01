@@ -17,6 +17,16 @@
 namespace menu
 {
 
+  struct MenuSlotData
+  {
+    int id;
+    int menu_id;
+    float x, y;
+    bool free;
+
+    JS_OBJ(id, x, y);
+  };
+
   // Button data read from the file
   struct MenuButtonData
   {
@@ -42,7 +52,7 @@ namespace menu
   {
     int id;
     int menu_type_id;
-    int slot_id;
+    int menu_slot_id;
     int texture_id;
     int frame_id;
 
@@ -67,13 +77,17 @@ namespace menu
 
   extern std::vector<int> Index;
   extern std::map<int, MenuData> menus;
+  extern std::map<int, menu::MenuSlotData> menuslots;
   extern std::map<int, MenuData> currentmenus;
   extern std::vector<quads::QuadData> MenuQuads;
   extern std::vector<std::string> saves;
   extern std::string NewGameName;
 
   // Read menu data from the file
-  void read_data(std::string& name);
+  void read_menu_data(std::string& name);
+
+  // Read menu slot data from the file
+  void read_menu_slot_data(std::string& name);
 
   // Read all menu datas
   void init();
@@ -102,6 +116,13 @@ namespace menu
 
   // Checks if clicked button was for a load game
   int _check_if_load_game(int button_id);
+
+  // Returns minimum free menu slot id
+  int _get_free_slot();
+
+  // Frees slot id for given menu
+  int _free_slot(int menu_id);
+
 
 }
 
