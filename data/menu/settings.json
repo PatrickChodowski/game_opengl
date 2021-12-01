@@ -11,6 +11,6 @@
   "g": 0.5,
   "b": 0.5,
   "a": 1.0,
-  "button_data": [{"label": "Back", "button_function_id": 5, "x":350, "y":180, "w": 200, "h": 70}],
+  "button_data": [{"label": "Back", "button_function_id": 5, "x":350, "y":180, "w": 210, "h": 70}],
   "label_data": []
 }

@@ -70,6 +70,8 @@ namespace menu
     {
       menu::read_menu_slot_data(menu_slot_list[m]);
     };
+
+    menu::_list_saves();
   }
 
   int add(int menu_type_id)
@@ -80,14 +82,32 @@ namespace menu
 
     // Add button objects to the menu
     for(int b=0; b<currentmenus[menu_id].button_data.size(); b++)
-    {
-      int button_id = buttons::add(currentmenus[menu_id].button_data[b].label,
+    { 
+      int button_id;
+      // Exception for saves
+      if(currentmenus[menu_id].button_data[b].button_function_id != BUTTON_LOADGAME_NAME)
+      {
+        button_id = buttons::add(currentmenus[menu_id].button_data[b].label,
+                                    currentmenus[menu_id].button_data[b].x,
+                                    currentmenus[menu_id].button_data[b].y,
+                                    currentmenus[menu_id].button_data[b].w,
+                                    currentmenus[menu_id].button_data[b].h,
+                                    currentmenus[menu_id].button_data[b].button_function_id);
+        currentmenus[menu_id].button_ids.push_back(button_id);  
+      } else 
+      {
+        // Saves buttons
+        for(int m=0; m<menu::saves.size(); m++)
+        {
+          button_id = buttons::add(menu::saves[m],
                                    currentmenus[menu_id].button_data[b].x,
-                                   currentmenus[menu_id].button_data[b].y,
+                                   (currentmenus[menu_id].button_data[b].y + (m*70)),
                                    currentmenus[menu_id].button_data[b].w,
                                    currentmenus[menu_id].button_data[b].h,
                                    currentmenus[menu_id].button_data[b].button_function_id);
-      currentmenus[menu_id].button_ids.push_back(button_id);   
+          currentmenus[menu_id].button_ids.push_back(button_id); 
+        }
+      }
     }
 
     // Add Labels to the menu
