@@ -15,21 +15,24 @@
 // makes it easy to load/unload levels and spawn new levels.
 namespace scenes
 {
-  struct SceneData
+  struct SceneData 
   {
     int id;
     int events_handler_id;
     int map_id;
     std::vector<int> menu_slots;
     std::vector<int> menu_types;
-    float hero_x, hero_y;
+    float hero_start_x, hero_start_y;
     std::string label;
 
     JS_OBJ(id, events_handler_id, map_id, 
-    hero_x, hero_y, menu_slots, menu_types, label);
+    hero_start_x, hero_start_y, menu_slots, menu_types, label);
   };
 
-
+  extern int EVENT_HANDLER_ID;
+  extern int MAP_ID;
+  extern float HERO_START_X;
+  extern float HERO_START_y;
   extern std::map<int, scenes::SceneData> scenes;
 
   // Reads scene data to struct
@@ -39,7 +42,7 @@ namespace scenes
   void init();
 
   // Loads new scene to memory
-  void load();
+  void load(int scene_id);
 
   // Clears the scene completely
   void clear();

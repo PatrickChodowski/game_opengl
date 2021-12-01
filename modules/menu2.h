@@ -33,8 +33,9 @@ namespace menu
     std::string label;
     int button_function_id; // reference to button type from buttons
     float x, y;
+    float w, h;
 
-    JS_OBJ(label, button_function_id, x, y);
+    JS_OBJ(label, button_function_id, x, y, w, h);
   };
 
   // Label data read from the file
@@ -78,6 +79,8 @@ namespace menu
   extern std::vector<int> Index;
   extern std::map<int, MenuData> menus;
   extern std::map<int, menu::MenuSlotData> menuslots;
+  extern std::map<int, menu::MenuSlotData> currentmenuslots; 
+
   extern std::map<int, MenuData> currentmenus;
   extern std::vector<quads::QuadData> MenuQuads;
   extern std::vector<std::string> saves;

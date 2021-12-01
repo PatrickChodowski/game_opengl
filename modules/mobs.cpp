@@ -45,21 +45,24 @@ namespace mobs
 
   void spawn(int map_id)
   {
-    int MOB_ID = 0;
-    // unpack each nest
-    for(int i=0; i < maps::maps[map_id].nests.size(); i++)
+    if(map_id > -1)
     {
-      // for each mob of the nest
-      for(int m=0; m<maps::maps[map_id].nests[i].n; m++)
+      int MOB_ID = 0;
+      // unpack each nest
+      for(int i=0; i < maps::maps[map_id].nests.size(); i++)
       {
-        mobs::MobData mdd = mobs::mobs[MOB_ID];
-        mdd.x = maps::maps[map_id].nests[i].x;
-        mdd.y = maps::maps[map_id].nests[i].y;
-        mdd.current_frame = 0;
+        // for each mob of the nest
+        for(int m=0; m<maps::maps[map_id].nests[i].n; m++)
+        {
+          mobs::MobData mdd = mobs::mobs[MOB_ID];
+          mdd.x = maps::maps[map_id].nests[i].x;
+          mdd.y = maps::maps[map_id].nests[i].y;
+          mdd.current_frame = 0;
 
-        // logic for creating alive entity?
+          // logic for creating alive entity?
 
-        entity::create(mdd, ENTITY_TYPE_MOB, CAMERA_DYNAMIC);
+          entity::create(mdd, ENTITY_TYPE_MOB, CAMERA_DYNAMIC);
+        }
       }
     }
   };

@@ -10,6 +10,7 @@
 #include "menu2.h"
 #include "mouse.h"
 #include "saves.h"
+#include "scenes.h"
 
 #include "../dictionary.h"
 
@@ -20,11 +21,10 @@ namespace events
 
   void init()
   {
-    events::EventsHandler[IN_GAME_SCENE_ID] = _handle_in_game;
-    events::EventsHandler[MAIN_MENU_SCENE_ID] = _handle_menu;
-    events::EventsHandler[NEWGAME_MENU_SCENE_ID] = _handle_new_game;
-    events::EventsHandler[LOADGAME_MENU_SCENE_ID] = _handle_load_game;
-    events::EventsHandler[SETTINGS_MENU_SCENE_ID] = _handle_menu;
+    events::EventsHandler[EVENT_HANDLER_MENU] = _handle_menu;
+    events::EventsHandler[EVENT_HANDLER_NEW_GAME_MENU] = _handle_new_game;
+    events::EventsHandler[EVENT_HANDLER_LOAD_GAME_MENU] = _handle_load_game;
+    events::EventsHandler[EVENT_HANDLER_IN_GAME] = _handle_in_game;
   }
 
   void _scan_for_camera_move()
@@ -213,6 +213,6 @@ namespace events
 
   void handle_events(SDL_Event event)
   {
-    events::EventsHandler[game::IS_MENU](event);
+    events::EventsHandler[scenes::EVENT_HANDLER_ID](event);
   }
 }

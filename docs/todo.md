@@ -1,11 +1,14 @@
 
 ### convert menu to be a container for labels and buttons. Assign buttons to functions. Define menus and buttons
 
+### scene management, data in the scene stored inside files
+
+### Full data refresh during game
+
+
 ### Travel -> initialize travel when on click
 
 ### shaders management -> remove if elses from shaders
-
-### scene management, data in the scene stored inside files
 
 ### How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
 Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it 

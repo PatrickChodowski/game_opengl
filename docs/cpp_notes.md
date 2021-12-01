@@ -48,6 +48,13 @@ for (auto const& [key, val] : symbolTable)
   std::map <int , sig_ptr> EventsHandler = {};
 ```
 
+### find if key in map
+```c++
+m.count(key)
+
+
+```
+
 
 ### good practice:
  - avoid bools in structs and if(isActive) stuff
