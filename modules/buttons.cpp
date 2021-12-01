@@ -16,24 +16,24 @@ namespace buttons
 {
   std::map <int,sig_ptr> ButtonFunctions;
   std::vector<int> Index = {};
-  std::map <int, buttons::GuiButtonData> guibuttons;
-  std::vector<quads::QuadData> GuiButtonQuads;
+  std::map <int, buttons::ButtonData> buttons;
+  std::vector<quads::QuadData> ButtonQuads;
 
   void init()
   {
-    buttons::ButtonFunctions[GUI_BUTTON_NEWGAME] = buttons::_click_new_game;
-    buttons::ButtonFunctions[GUI_BUTTON_LOADGAME] = buttons::_click_load_game;
-    buttons::ButtonFunctions[GUI_BUTTON_SETTINGS] = buttons::_click_settings;
-    buttons::ButtonFunctions[GUI_BUTTON_EXIT] = buttons::_click_exit;
-    buttons::ButtonFunctions[GUI_BUTTON_NEWGAME_NAME] = buttons::_click_newgame_name;
-    buttons::ButtonFunctions[GUI_BUTTON_BACK] = buttons::_click_back;
-    buttons::ButtonFunctions[GUI_BUTTON_LOADGAME_NAME] = buttons::_click_loadgame_name;
-    buttons::ButtonFunctions[GUI_BUTTON_TRAVEL] = buttons::_button_travel;
+    buttons::ButtonFunctions[BUTTON_NEWGAME] = buttons::_click_new_game;
+    buttons::ButtonFunctions[BUTTON_LOADGAME] = buttons::_click_load_game;
+    buttons::ButtonFunctions[BUTTON_SETTINGS] = buttons::_click_settings;
+    buttons::ButtonFunctions[BUTTON_EXIT] = buttons::_click_exit;
+    buttons::ButtonFunctions[BUTTON_NEWGAME_NAME] = buttons::_click_newgame_name;
+    buttons::ButtonFunctions[BUTTON_BACK] = buttons::_click_back;
+    buttons::ButtonFunctions[BUTTON_LOADGAME_NAME] = buttons::_click_loadgame_name;
+    buttons::ButtonFunctions[BUTTON_TRAVEL] = buttons::_button_travel;
   };
 
   int add(std::string text, float x, float y, int button_function_id)
   {
-    buttons::GuiButtonData bdd;
+    buttons::ButtonData bdd;
     bdd.id = utils::generate_id(buttons::Index);
     bdd.x = x;
     bdd.y = y;
@@ -56,29 +56,29 @@ namespace buttons
                                0.0f, 
                                0.0f);
 
-    buttons::guibuttons[bdd.id] = bdd;
+    buttons::buttons[bdd.id] = bdd;
     return bdd.id;
   };
 
   void render()
   {
-    buttons::GuiButtonQuads.clear();
-    buttons::GuiButtonQuads = quads::make_quads(buttons::guibuttons, OBJECT_TYPE_BUTTON);
+    buttons::ButtonQuads.clear();
+    buttons::ButtonQuads = quads::make_quads(buttons::buttons, OBJECT_TYPE_BUTTON);
   }
 
 
   void drop(int button_id)
   {
-    fonts::drop(buttons::guibuttons[button_id].label_id);
-    buttons::guibuttons.erase(button_id);
+    fonts::drop(buttons::buttons[button_id].label_id);
+    buttons::buttons.erase(button_id);
     utils::drop_id(buttons::Index, button_id);
   };
 
   void clear()
   {
     buttons::Index.clear();
-    buttons::guibuttons.clear();
-    buttons::GuiButtonQuads.clear();
+    buttons::buttons.clear();
+    buttons::ButtonQuads.clear();
   }
 
   void _click_new_game(int placeholder)
@@ -116,7 +116,7 @@ namespace buttons
     game::switch_scene(MAIN_MENU_SCENE_ID, false);
   };
 
-  // Rick click on entity, open entity gui
+  // Rick click on entity, open entity menu
   void _button_travel(int object_id)
   {   
     // Button travel

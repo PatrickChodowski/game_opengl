@@ -43,7 +43,6 @@ output: game
 	modules/events.cpp \
 	modules/fonts.cpp \
 	modules/game.cpp \
-	modules/gui.cpp \
 	modules/hero.cpp \
 	modules/items.cpp \
 	modules/logger.cpp \
@@ -55,6 +54,7 @@ output: game
 	modules/pathfinder.cpp \
 	modules/quads.cpp \
 	modules/saves.cpp \
+	modules/scenes.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
 	modules/travel.cpp \

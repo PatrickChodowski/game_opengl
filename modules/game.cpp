@@ -17,7 +17,7 @@
 #include "entity.h"
 #include "events.h"
 #include "fonts.h"
-#include "gui.h"
+// #include "gui.h"
 #include "hero.h"
 #include "items.h"
 #include "logger.h"
@@ -64,10 +64,10 @@ namespace game
       }
       maps::init_map(scene_id);
       mobs::spawn(scene_id);
-      gui::init();
+      //gui::init();
       items::put_item_on_ground(0, 600, 500);
     }
-    menu::load(scene_id);
+    //menu::load(scene_id);
     game::SCENE_ID = scene_id;
     game::_check_if_menu();
 
@@ -103,7 +103,7 @@ namespace game
     menu::clear();
     quads::clear();
     debug::clear();
-    gui::clear();
+    //gui::clear();
     buttons::clear();
     travel::clear();
 
@@ -117,7 +117,7 @@ namespace game
     collisions::init();
     events::init();
     fonts::init("Ignotum"); // its important to keep it before textures becuase of bindings
-    gui::init();
+    //gui::init();
     items::init();
     logger::init();
     maps::init();
@@ -135,7 +135,7 @@ namespace game
     entity::render();
     debug::render();
     menu::render();
-    gui::render();
+    //gui::render();
     buttons::render();
     fonts::render();
   

@@ -13,7 +13,7 @@
 namespace buttons
 {
   // It should trigger a function when clicked
-  struct GuiButtonData
+  struct ButtonData
   {
     int id;
     int label_id;
@@ -36,19 +36,19 @@ namespace buttons
   // Catalog of functions to be chosen based on the button_function_id
   extern std::map <int , sig_ptr> ButtonFunctions;
   extern std::vector<int> Index;
-  extern std::map <int, buttons::GuiButtonData> guibuttons;
-  extern std::vector<quads::QuadData> GuiButtonQuads;
+  extern std::map <int, buttons::ButtonData> buttons;
+  extern std::vector<quads::QuadData> ButtonQuads;
 
-  // Initialize GuiButtons logic and data
+  // Initialize Buttons logic and data
   void init();
 
-  // Add GUI button. Returns button_id
+  // Add button. Returns button_id
   int add(std::string text, float x, float y, int button_function_id);
 
   // Render quads
   void render();
 
-  // Drop selected Gui button by button_id
+  // Drop selected button by button_id
   void drop(int button_id);
 
   // Clear all buttons data
