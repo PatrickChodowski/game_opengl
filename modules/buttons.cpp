@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "fonts.h"
+#include "game.h"
 #include "quads.h"
 #include "utils.h"
 
@@ -13,15 +14,21 @@
 
 namespace buttons
 {
-  std::map <int , sig_ptr> ButtonFunctions;
+  std::map <int,sig_ptr> ButtonFunctions;
   std::vector<int> Index = {};
   std::map <int, buttons::GuiButtonData> guibuttons;
   std::vector<quads::QuadData> GuiButtonQuads;
 
   void init()
   {
-    ButtonFunctions[GUI_BUTTON_TRAVEL] = buttons::_button_travel;
-
+    buttons::ButtonFunctions[GUI_BUTTON_NEWGAME] = buttons::_click_new_game;
+    buttons::ButtonFunctions[GUI_BUTTON_LOADGAME] = buttons::_click_load_game;
+    buttons::ButtonFunctions[GUI_BUTTON_SETTINGS] = buttons::_click_settings;
+    buttons::ButtonFunctions[GUI_BUTTON_EXIT] = buttons::_click_exit;
+    buttons::ButtonFunctions[GUI_BUTTON_NEWGAME_NAME] = buttons::_click_newgame_name;
+    buttons::ButtonFunctions[GUI_BUTTON_BACK] = buttons::_click_back;
+    buttons::ButtonFunctions[GUI_BUTTON_LOADGAME_NAME] = buttons::_click_loadgame_name;
+    buttons::ButtonFunctions[GUI_BUTTON_TRAVEL] = buttons::_button_travel;
   };
 
   int add(std::string text, float x, float y, int button_function_id)
@@ -74,6 +81,41 @@ namespace buttons
     buttons::GuiButtonQuads.clear();
   }
 
+  void _click_new_game(int placeholder)
+  {
+    game::switch_scene(NEWGAME_MENU_SCENE_ID, false);
+  };
+
+  void _click_load_game(int placeholder)
+  {
+    game::switch_scene(LOADGAME_MENU_SCENE_ID, false);
+  };
+
+  void _click_settings(int placeholder)
+  {
+    game::switch_scene(SETTINGS_MENU_SCENE_ID, false);
+  };
+
+  void _click_exit(int placeholder)
+  {
+    game::RUNNING = false;
+  };
+
+  void _click_newgame_name(int placeholder)
+  {
+    game::switch_scene(2, true);
+  }
+
+  void _click_loadgame_name(int placeholder)
+  {
+    game::switch_scene(2, true);
+  }
+
+  void _click_back(int placeholder)
+  {
+    game::switch_scene(MAIN_MENU_SCENE_ID, false);
+  };
+
   // Rick click on entity, open entity gui
   void _button_travel(int object_id)
   {   
@@ -86,5 +128,7 @@ namespace buttons
     // Create travel option but in idle state
     // Next click on the map will add x y for travel and change the idle state to active
   };
+
+
 
 }
