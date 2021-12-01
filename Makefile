@@ -54,7 +54,6 @@ output: game
 	modules/pathfinder.cpp \
 	modules/quads.cpp \
 	modules/saves.cpp \
-	modules/scenes.cpp \
 	modules/shaders.cpp \
 	modules/textures.cpp \
 	modules/travel.cpp \

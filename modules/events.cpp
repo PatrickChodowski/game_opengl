@@ -10,7 +10,7 @@
 #include "menu2.h"
 #include "mouse.h"
 #include "saves.h"
-#include "scenes.h"
+
 
 #include "../dictionary.h"
 
@@ -92,7 +92,7 @@ namespace events
           switch (event.key.keysym.sym)
           { 
             case SDLK_ESCAPE:
-              game::switch_scene(MAIN_MENU_SCENE_ID, false);    
+              game::switch_scene(SCENE_ID_MAIN_MENU);   
             break;
             
             case SDLK_x:
@@ -146,12 +146,12 @@ namespace events
             case SDLK_RETURN:
               if(menu::_validate_name())
               {
-                game::switch_scene(2, true);
+                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1);  
               }
             break;
 
             case SDLK_ESCAPE:
-              game::switch_scene(MAIN_MENU_SCENE_ID, false);  
+              game::switch_scene(SCENE_ID_MAIN_MENU);  
             break;
           }
 
@@ -186,7 +186,7 @@ namespace events
           switch (event.key.keysym.sym)
           {     
             case SDLK_ESCAPE:
-              game::switch_scene(MAIN_MENU_SCENE_ID, false);  
+              game::switch_scene(SCENE_ID_MAIN_MENU);
             break;
           }
         break;
@@ -213,6 +213,6 @@ namespace events
 
   void handle_events(SDL_Event event)
   {
-    events::EventsHandler[scenes::EVENT_HANDLER_ID](event);
+    events::EventsHandler[game::EVENT_HANDLER_ID](event);
   }
 }

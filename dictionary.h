@@ -7,13 +7,6 @@
 #define MOUSE_BUTTON_LEFT 0
 #define MOUSE_BUTTON_RIGHT 1
 
-// level ids have to match data/menu IDS 
-#define MAIN_MENU_SCENE_ID 100
-#define NEWGAME_MENU_SCENE_ID 101
-#define LOADGAME_MENU_SCENE_ID 102
-#define SETTINGS_MENU_SCENE_ID 103
-#define IN_GAME_SCENE_ID 200
-
 // camera types
 #define CAMERA_DYNAMIC 0.0f
 #define CAMERA_STATIC 1.0f

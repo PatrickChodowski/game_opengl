@@ -83,17 +83,17 @@ namespace buttons
 
   void _click_new_game(int placeholder)
   {
-    game::switch_scene(NEWGAME_MENU_SCENE_ID, false);
+    game::switch_scene(SCENE_ID_NEW_GAME_MENU);
   };
 
   void _click_load_game(int placeholder)
   {
-    game::switch_scene(LOADGAME_MENU_SCENE_ID, false);
+    game::switch_scene(SCENE_ID_LOAD_GAME_MENU);
   };
 
   void _click_settings(int placeholder)
   {
-    game::switch_scene(SETTINGS_MENU_SCENE_ID, false);
+    game::switch_scene(SCENE_ID_SETTINGS_MENU);
   };
 
   void _click_exit(int placeholder)
@@ -103,17 +103,17 @@ namespace buttons
 
   void _click_newgame_name(int placeholder)
   {
-    game::switch_scene(2, true);
+    game::switch_scene(SCENE_ID_NEW_GAME_MENU);
   }
 
   void _click_loadgame_name(int placeholder)
   {
-    game::switch_scene(2, true);
+    game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1);
   }
 
   void _click_back(int placeholder)
   {
-    game::switch_scene(MAIN_MENU_SCENE_ID, false);
+    game::switch_scene(SCENE_ID_MAIN_MENU);
   };
 
   // Rick click on entity, open entity menu
