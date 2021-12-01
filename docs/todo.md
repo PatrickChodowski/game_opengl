@@ -1,10 +1,7 @@
 
-### Menu todo: brincg back new game name and load games from save functionality
-
-### scene management, data in the scene stored inside files -> to finish
+### scene management, data in the scene stored inside files -> to finish - load entities, hero, from save and new one
 
 ### Full data refresh during game
-
 
 ### Travel -> initialize travel when on click
 
