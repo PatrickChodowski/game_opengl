@@ -31,14 +31,14 @@ namespace buttons
     buttons::ButtonFunctions[BUTTON_TRAVEL] = buttons::_button_travel;
   };
 
-  int add(std::string text, float x, float y, int button_function_id)
+  int add(std::string text, float x, float y, float w, float h, int button_function_id)
   {
     buttons::ButtonData bdd;
     bdd.id = utils::generate_id(buttons::Index);
     bdd.x = x;
     bdd.y = y;
-    bdd.w = 100;
-    bdd.h = 60;
+    bdd.w = w;
+    bdd.h = h;
     bdd.is_clicked = false;
     bdd.r = 0.8;
     bdd.g = 0.5;
@@ -49,9 +49,9 @@ namespace buttons
 
     bdd.label_id = fonts::add(text, 
                                x + 15, 
-                               y + 50, 
+                               y + 55, 
                                CAMERA_STATIC, 
-                               0.7,
+                               1.0f,
                                0.0f, 
                                0.0f, 
                                0.0f);

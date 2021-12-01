@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
@@ -18,6 +19,8 @@ namespace menu
 
   std::vector<int> Index;
   std::map<int, menu::MenuSlotData> menuslots = {};
+  std::map<int, menu::MenuSlotData> currentmenuslots = {}; 
+
   std::map<int, menu::MenuData> menus;
   std::map<int, menu::MenuData> currentmenus;
   std::vector<quads::QuadData> MenuQuads;
@@ -81,6 +84,8 @@ namespace menu
       int button_id = buttons::add(currentmenus[menu_id].button_data[b].label,
                                    currentmenus[menu_id].button_data[b].x,
                                    currentmenus[menu_id].button_data[b].y,
+                                   currentmenus[menu_id].button_data[b].w,
+                                   currentmenus[menu_id].button_data[b].h,
                                    currentmenus[menu_id].button_data[b].button_function_id);
       currentmenus[menu_id].button_ids.push_back(button_id);   
     }
@@ -104,6 +109,7 @@ namespace menu
 
   void render()
   {
+    //std::cout << "current menus size:" << menu::currentmenus.size() << std::endl;
     menu::MenuQuads.clear();
     menu::MenuQuads = quads::make_quads(menu::currentmenus, OBJECT_TYPE_MENU);
   }
@@ -135,6 +141,7 @@ namespace menu
     menu::Index.clear();
     menu::MenuQuads.clear();
     menu::currentmenus.clear();
+    menu::currentmenuslots.clear();
     menu::NewGameName = "";
   };
 

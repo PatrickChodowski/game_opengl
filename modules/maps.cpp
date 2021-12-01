@@ -99,13 +99,16 @@ namespace maps
 
   void init_map(int map_id)
   {
-    maps::load(map_id);
+    if(map_id > -1)
+    {
+      maps::load(map_id);
 
-    // Generate navmesh based on the map_id
-    nav::init(map_id);
+      // Generate navmesh based on the map_id
+      nav::init(map_id);
 
-    // Generate Path map
-    paths::make_path_map();
+      // Generate Path map
+      paths::make_path_map();
+    }
   };
 
   void render()

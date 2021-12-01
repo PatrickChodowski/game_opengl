@@ -17,7 +17,6 @@
 #include "entity.h"
 #include "events.h"
 #include "fonts.h"
-// #include "gui.h"
 #include "hero.h"
 #include "items.h"
 #include "logger.h"
@@ -27,6 +26,7 @@
 #include "mouse.h"
 #include "navmesh.h"
 #include "quads.h"
+#include "scenes.h"
 #include "shaders.h"
 #include "textures.h"
 #include "travel.h"
@@ -37,10 +37,8 @@ namespace game
 {
   bool RUNNING = true;
   bool PAUSE = false;
-  int IS_MENU = IN_GAME_SCENE_ID; // 200 if in game, some menu ID if a menu
   bool IS_DEBUG_MODE = true;
   int CURRENT_SHADER_ID = 0;
-  int SCENE_ID = 2;
   float WINDOW_WIDTH = 960;
   float WINDOW_HEIGHT = 768;
   const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
@@ -62,30 +60,17 @@ namespace game
       {
         // saves::load()
       }
-      maps::init_map(scene_id);
-      mobs::spawn(scene_id);
-      //gui::init();
-      items::put_item_on_ground(0, 600, 500);
+      maps::init_map(scenes::MAP_ID);
+      mobs::spawn(scenes::MAP_ID);
+      //items::put_item_on_ground(0, 600, 500);
     }
     //menu::load(scene_id);
-    game::SCENE_ID = scene_id;
-    game::_check_if_menu();
 
     logger::log(LOG_LVL_INFO, 
                 "finish game::init_scene","game::init_scene",
                __FILE__,__LINE__, LOG_END_TIMER);
   }
 
-  void _check_if_menu()
-  { 
-    if(game::SCENE_ID < MAIN_MENU_SCENE_ID)
-    {
-      game::IS_MENU = IN_GAME_SCENE_ID;
-    } else 
-    {
-      game::IS_MENU = game::SCENE_ID;
-    }
-  }
 
   void switch_scene(int scene_id, bool is_new_game = false)
   {
@@ -103,7 +88,6 @@ namespace game
     menu::clear();
     quads::clear();
     debug::clear();
-    //gui::clear();
     buttons::clear();
     travel::clear();
 
@@ -117,16 +101,18 @@ namespace game
     collisions::init();
     events::init();
     fonts::init("Ignotum"); // its important to keep it before textures becuase of bindings
-    //gui::init();
     items::init();
     logger::init();
     maps::init();
     menu::init();
     mobs::init();
     mouse::init();
+    scenes::init();
     shaders::init();
     textures::init();
-    game::init_scene(2, true);
+
+    // Loads scene based on SCENE_ID
+    scenes::load(SCENE_ID_MAIN_MENU);
   };
 
   void update()
@@ -135,7 +121,6 @@ namespace game
     entity::render();
     debug::render();
     menu::render();
-    //gui::render();
     buttons::render();
     fonts::render();
   
