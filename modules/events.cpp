@@ -7,7 +7,7 @@
 #include "fonts.h"
 #include "game.h"
 #include "hero.h"
-#include "menu2.h"
+#include "menu.h"
 #include "mouse.h"
 #include "saves.h"
 

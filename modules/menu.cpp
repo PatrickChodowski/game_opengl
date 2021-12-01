@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "buttons.h"
 #include "fonts.h"
-#include "game.h"
 #include "menu.h"
 #include "mouse.h"
 #include "quads.h"
@@ -16,170 +16,139 @@
 
 namespace menu
 {
-  std::map <int , sig_ptr> ClickButton = {};
-  int CLICKED_BUTTON_ID;
+
+  std::vector<int> Index;
+  std::map<int, menu::MenuSlotData> menuslots = {};
+  std::map<int, menu::MenuSlotData> currentmenuslots = {}; 
+
+  std::map<int, menu::MenuData> menus;
+  std::map<int, menu::MenuData> currentmenus;
+  std::vector<quads::QuadData> MenuQuads;
+  
   std::vector<std::string> saves;
   std::string NewGameName;
-  std::map<int, menu::MenuData> menus;
-  std::map<int, menu::ButtonData> menubuttons;
-  std::map<int, menu::ButtonData> CurrentMenuButtons;
-  std::vector<quads::QuadData> MenuQuads;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
   
-  void _read_button_data(std::string& name)
-  {
-    menu::ButtonData BD;
-    std::string data_path = "./data/menubuttons/"+name+".json";
-    std::string json_data = utils::read_text_file(data_path);
-    JS::ParseContext context(json_data);
-    context.parseTo(BD);
-    BD.camera_type = CAMERA_STATIC;
-    BD.frame_id = 0;
-    BD.is_clicked = 0;
-    BD.r = 0.5;
-    BD.g = 0.5;
-    BD.b = 0.5;
-    BD.a = 0.5;
-    BD.norm_x_start = 0;
-    BD.norm_x_end = 0;
-    BD.button_type_id = BD.id;
-    menu::menubuttons.insert({BD.id, BD});
-  };
 
-  void _read_menu_data(std::string& name)
+  void read_menu_data(std::string& name)
   {
     menu::MenuData MD;
     std::string data_path = "./data/menu/"+name+".json";
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(MD);
-    menu::menus.insert({MD.id, MD});
+
+    MD.camera_type = CAMERA_STATIC;
+    MD.norm_x_start = 0.0f;
+    MD.norm_x_end = 1.0f;
+    MD.menu_slot_id = -1;
+    MD.z = 0;
+
+    menu::menus.insert({MD.menu_type_id, MD});
   };
 
-  void list_saves()
+  void read_menu_slot_data(std::string& name)
   {
-    menu::saves = utils::list_json_files("saves");
+    menu::MenuSlotData MD;
+    std::string data_path = "./data/menuslots/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(MD);
+    menu::menuslots.insert({MD.id, MD});
   };
-
-  void load(int scene_id)
-  {
-    // check if level_id exists in the menus
-    if (menu::menus.find(scene_id) != menu::menus.end()) 
-    {
-      menu::CurrentMenuButtons.clear();
-      // Get level button list
-      std::vector<int> button_list =  menu::menus[scene_id].buttons;
-
-      // Recreate button data for selected level
-      for(int b=0; b<button_list.size(); b++)
-      {
-        
-        // saves handling
-        if(button_list[b] == 6)
-        {
-          // create button for each save
-          for(int s=0; s<menu::saves.size(); s++)
-          {
-            menu::ButtonData bdd = menu::menubuttons[button_list[b]];
-            bdd.id = bdd.id + (s+100);
-            bdd.label = menu::saves[s];
-            bdd.y = bdd.y + (bdd.h*(s+1)) + 5;
-            bdd.label_id = fonts::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0f, 1.0f, 1.0f, 1.0f);
-            menu::CurrentMenuButtons[bdd.id] = bdd;
-          }
-
-        } else 
-        {
-          menu::ButtonData bdd = menu::menubuttons[button_list[b]];
-          bdd.label_id = fonts::add(bdd.label, bdd.x + 5, bdd.y + (bdd.h/1.5), CAMERA_STATIC, 1.0f, 1.0f, 1.0f, 1.0f);
-          if(bdd.id == MENU_BUTTON_NEWGAME_NAME)
-          {
-            fonts::NEW_GAME_LABEL_ID = bdd.label_id;
-          }
-          menu::CurrentMenuButtons[button_list[b]] = bdd;
-        }
-      }
-    }
-  };
-
-  void render()
-  {
-    // Clear quads data
-    menu::MenuQuads.clear();
-
-    // Create new quads
-    menu::MenuQuads = quads::make_quads(menu::CurrentMenuButtons, OBJECT_TYPE_MENU);
-  }
-
-  void _click_new_game()
-  {
-    game::switch_scene(NEWGAME_MENU_SCENE_ID, false);
-  };
-
-  void _click_load_game()
-  {
-    game::switch_scene(LOADGAME_MENU_SCENE_ID, false);
-  };
-
-  void _click_settings()
-  {
-    game::switch_scene(SETTINGS_MENU_SCENE_ID, false);
-  };
-
-  void _click_exit()
-  {
-    game::RUNNING = false;
-  };
-
-  void _click_newgame_name()
-  {
-    game::switch_scene(2, true);
-  }
-
-  void _click_loadgame_name()
-  {
-    game::switch_scene(2, true);
-  }
-
-  void _click_back()
-  {
-    game::switch_scene(MAIN_MENU_SCENE_ID, false);
-  };
-
-
 
   void init()
   {
-    menu::ClickButton[MENU_BUTTON_NEWGAME] = _click_new_game;
-    menu::ClickButton[MENU_BUTTON_LOADGAME] = _click_load_game;
-    menu::ClickButton[MENU_BUTTON_SETTINGS] = _click_settings;
-    menu::ClickButton[MENU_BUTTON_EXIT] = _click_exit;
-    menu::ClickButton[MENU_BUTTON_NEWGAME_NAME] = _click_newgame_name;
-    menu::ClickButton[MENU_BUTTON_BACK] = _click_back;
-    menu::ClickButton[MENU_BUTTON_LOADGAME_NAME] = _click_loadgame_name;
-
-    std::vector<std::string> button_list = utils::list_json_files("data/menubuttons");
-    for(int b=0; b < button_list.size(); b++)
-    {
-      menu::_read_button_data(button_list[b]);
-    };
-
     std::vector<std::string> menu_list = utils::list_json_files("data/menu");
     for(int m=0; m < menu_list.size(); m++)
     {
-      menu::_read_menu_data(menu_list[m]);
+      menu::read_menu_data(menu_list[m]);
     };
 
+    std::vector<std::string> menu_slot_list = utils::list_json_files("data/menuslots");
+    for(int m=0; m < menu_slot_list.size(); m++)
+    {
+      menu::read_menu_slot_data(menu_slot_list[m]);
+    };
+  }
 
-    menu::list_saves();
+  int add(int menu_type_id)
+  {
+    int menu_id = utils::generate_id(menu::Index);
+    currentmenus[menu_id] = menus[menu_type_id];
+    currentmenus[menu_id].id = menu_id;
+
+    // Add button objects to the menu
+    for(int b=0; b<currentmenus[menu_id].button_data.size(); b++)
+    {
+      int button_id = buttons::add(currentmenus[menu_id].button_data[b].label,
+                                   currentmenus[menu_id].button_data[b].x,
+                                   currentmenus[menu_id].button_data[b].y,
+                                   currentmenus[menu_id].button_data[b].w,
+                                   currentmenus[menu_id].button_data[b].h,
+                                   currentmenus[menu_id].button_data[b].button_function_id);
+      currentmenus[menu_id].button_ids.push_back(button_id);   
+    }
+
+    // Add Labels to the menu
+    for(int l=0; l<currentmenus[menu_id].label_data.size(); l++)
+    {
+      int label_id = fonts::add(currentmenus[menu_id].label_data[l].label,
+                                currentmenus[menu_id].label_data[l].x,
+                                currentmenus[menu_id].label_data[l].y,
+                                CAMERA_STATIC,
+                                1.0f,
+                                currentmenus[menu_id].label_data[l].r,
+                                currentmenus[menu_id].label_data[l].g,
+                                currentmenus[menu_id].label_data[l].b);
+
+      currentmenus[menu_id].label_ids.push_back(label_id);
+    }
+    return menu_id;
+  }
+
+  void render()
+  {
+    //std::cout << "current menus size:" << menu::currentmenus.size() << std::endl;
+    menu::MenuQuads.clear();
+    menu::MenuQuads = quads::make_quads(menu::currentmenus, OBJECT_TYPE_MENU);
+  }
+
+  void drop(int menu_id)
+  {
+    // Delete labels assigned to this menu
+    for(int b=0; b<menu::currentmenus[menu_id].button_ids.size(); b++)
+    {
+      buttons::drop(menu::currentmenus[menu_id].button_ids[b]);
+    }
+
+    for(int l=0; l<menu::currentmenus[menu_id].label_ids.size(); l++)
+    {
+      fonts::drop(menu::currentmenus[menu_id].label_ids[l]);
+    }
+
+    menu::_free_slot(menu_id);
+    menu::currentmenus.erase(menu_id);
+    utils::drop_id(menu::Index, menu_id);
   }
 
   void clear()
   {
-    menu::NewGameName = "";
-    menu::CurrentMenuButtons.clear();
+    for(int i = 0; i < menu::Index.size(); i++)
+    {
+      menu::drop(menu::Index[i]);
+    }
+    menu::Index.clear();
     menu::MenuQuads.clear();
-  }
+    menu::currentmenus.clear();
+    menu::currentmenuslots.clear();
+    menu::NewGameName = "";
+  };
+
+  void _list_saves()
+  {
+    menu::saves = utils::list_json_files("saves");
+  };
 
   bool _validate_input(std::string input)
   {
@@ -216,10 +185,36 @@ namespace menu
     // Over 100 will be a loaded save
     if(button_id > 100)
     {
-      button_id = MENU_BUTTON_LOADGAME_NAME;
+      button_id = BUTTON_LOADGAME_NAME;
     }
     return button_id;
   }
 
 
-} 
+  int _get_free_slot()
+  {
+    int min_slot_id = -1;
+    for (auto const& [k, v] : menu::menuslots)
+    {
+      if(v.free)
+      {
+        min_slot_id = k;
+        break;
+      }
+    }
+    return min_slot_id;
+  }
+
+  void _free_slot(int menu_id)
+  { 
+    for (auto & [k, v] : menu::menuslots)
+    {
+      if(v.menu_id == menu_id)
+      {
+        v.free = true;
+        v.menu_id = -1;
+      }
+    }
+  }
+}
+

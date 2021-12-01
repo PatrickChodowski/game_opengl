@@ -21,7 +21,7 @@
 #include "items.h"
 #include "logger.h"
 #include "maps.h"
-#include "menu2.h"
+#include "menu.h"
 #include "mobs.h"
 #include "mouse.h"
 #include "navmesh.h"
