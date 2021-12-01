@@ -48,7 +48,7 @@ output: game
 	modules/items.cpp \
 	modules/logger.cpp \
 	modules/maps.cpp \
-	modules/menu.cpp \
+	modules/menu2.cpp \
 	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/navmesh.cpp \

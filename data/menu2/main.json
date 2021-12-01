@@ -1,0 +1,19 @@
+{
+  "menu_name": "main_menu",
+  "menu_type_id": 1,
+  "x": 0,
+  "y": 0,
+  "h": 960,
+  "w": 768,
+  "texture_id": 0,
+  "frame_id": 0,
+  "r": 0.6,
+  "g": 0.6,
+  "b": 0.6,
+  "a": 1.0,
+  "button_data": [{"label": "New Game", "button_function_id": 0, "x":300, "y":100}, 
+                  {"label": "Load Game", "button_function_id": 1, "x":300, "y":150},
+                  {"label": "Settings", "button_function_id": 2, "x":300, "y":200},
+                  {"label": "Exit", "button_function_id": 3, "x":300, "y":250}],
+  "label_data": []
+}
