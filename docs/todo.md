@@ -1,5 +1,5 @@
 
-### Full data refresh during game
+### bringback the entity menu in new setup
 
 ### Travel -> initialize travel when on click
 

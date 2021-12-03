@@ -107,6 +107,9 @@ namespace maps
   // clears the currently loaded map -> erases used tiles ids and tiles catalog
   void clear();
 
+  // Clears all data
+  void refresh();
+
 }
 
 

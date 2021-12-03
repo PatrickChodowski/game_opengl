@@ -75,6 +75,13 @@ namespace menu
     menu::_list_saves();
   }
 
+  void refresh()
+  {
+    menu::menuslots.clear();
+    menu::menus.clear();
+    menu::saves.clear();
+  }
+
   int add(int menu_type_id)
   {
     int menu_id = utils::generate_id(menu::Index);

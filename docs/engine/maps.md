@@ -102,6 +102,12 @@ Populates [MapQuads](maps.md#MapQuads) from [tiles](maps.md#tiles)
 void render();
 ```
 
+### refresh
+Resets the data read in from files in the game
+```c++
+void refresh();
+```
+
 ### clear
 Clears [MapQuads](maps.md#MapQuads), [Index](maps.md#Index), [tiles](maps.md#tiles)
 ```c++

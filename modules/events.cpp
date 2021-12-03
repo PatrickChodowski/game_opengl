@@ -100,6 +100,10 @@ namespace events
               //hero::update_frame(ATTACK);
             break; 
 
+            case SDLK_r:
+              game::refresh();
+            break;
+
             case SDLK_s:
               saves::save_game();
             break;

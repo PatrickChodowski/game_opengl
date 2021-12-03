@@ -38,6 +38,8 @@ namespace mobs
   };
 
   extern std::map<int, MobData> mobs;
+  extern std::vector<int> Index;
+  extern std::map<int, MobData> spawnedmobs;
 
   // Reads mobs data
   void read_data(std::string name);
@@ -45,18 +47,14 @@ namespace mobs
   // Initialize Mobs. Reads data for all mobs in data/mobs
   void init();
 
+  // Clears all data
+  void refresh();
+
   // clears Mobs information
   void clear();
 
   // Spawns mob entities according to the map - in the nests. Creates entities and adds to entity list
   void spawn(int map_id);
-
-
-
-
-
-
-
 
 }
 

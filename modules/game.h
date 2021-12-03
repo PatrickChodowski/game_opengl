@@ -67,6 +67,9 @@ namespace game
   // Cleanup after game loop is closed
   void drop();
 
+  // Clear all data and re-initialize
+  void refresh();
+
 }
 
 

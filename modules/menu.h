@@ -96,6 +96,9 @@ namespace menu
   // Read all menu datas
   void init();
 
+  // Clears all data
+  void refresh();
+
   // Adds menu into currentmenus by menu_type_id, creates button and labels objects
   // Returns unique menu_id
   int add(int menu_type_id);

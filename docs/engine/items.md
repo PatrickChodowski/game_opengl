@@ -47,6 +47,12 @@ Generates the item - adds to [GeneratedItems](items.md#GeneratedItems)
 void put_item_on_ground(int item_id, float x, float y);
 ```
 
+### refresh
+Resets the data read in from files in the game
+```c++
+void refresh();
+```
+
 
 
 ## Tests
