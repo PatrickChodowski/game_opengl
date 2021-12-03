@@ -203,17 +203,6 @@ namespace menu
     return good;
   };
 
-  int _check_if_load_game(int button_id)
-  { 
-    // Over 100 will be a loaded save
-    if(button_id > 100)
-    {
-      button_id = BUTTON_LOADGAME_NAME;
-    }
-    return button_id;
-  }
-
-
   int _get_free_slot()
   {
     int min_slot_id = -1;

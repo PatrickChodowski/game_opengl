@@ -208,6 +208,15 @@ namespace events
         case SDL_QUIT:
           game::RUNNING = false;
         break;
+
+        case SDL_KEYDOWN: 
+          switch (event.key.keysym.sym)
+          {     
+            case SDLK_ESCAPE:
+              game::switch_scene(SCENE_ID_MAIN_MENU, false);
+            break;
+          }
+        break;
       }
     }
   };

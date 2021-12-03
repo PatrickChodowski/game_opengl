@@ -18,7 +18,6 @@ namespace game
   extern bool RUNNING;
   extern bool IS_DEBUG_MODE;
   extern int SCENE_ID;
-  extern int IS_MENU;
   extern int CURRENT_SHADER_ID;
   extern float WINDOW_WIDTH;
   extern float WINDOW_HEIGHT;
@@ -52,9 +51,6 @@ namespace game
 
   // Initialize all systems for new scene
   void load_scene(int scene_id, bool from_save);
-
-  // checks if next scene id is a menu
-  void _check_if_menu();
 
   // Delete all data necessary for clear the scene
   void clear_scene();

@@ -118,9 +118,6 @@ namespace menu
   // Validates new character name - if exists or is it have more than 0 characters
   bool _validate_name();
 
-  // Checks if clicked button was for a load game
-  int _check_if_load_game(int button_id);
-
   // Returns minimum free menu slot id
   int _get_free_slot();
 

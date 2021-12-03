@@ -8,7 +8,6 @@
 
 
 #include "tests_collisions.h"
-#include "tests_game.h"
 #include "tests_utils.h"
 
 
@@ -31,11 +30,6 @@ void init()
   tests["test_collisions__get_entity_to_map_dto_solidpass"] = test_collisions__get_entity_to_map_dto_solidpass;
   tests["test_collisions__get_entity_to_map_dto_is_near"] = test_collisions__get_entity_to_map_dto_is_near;
   // tests["test_collisions__get_entity_to_entity_dto_solidpass"] = test_collisions__get_entity_to_entity_dto_solidpass;
-
-  // game
-  tests["test_game__check_if_menu_scene_1"] = test_game__check_if_menu_scene_1;
-  tests["test_game__check_if_menu_scene_100"] = test_game__check_if_menu_scene_100;
-  tests["test_game__check_if_menu_scene_150"] = test_game__check_if_menu_scene_150;
 
   // utils
   tests["test_utils_generate_id_first_id_is_1"] = test_utils_generate_id_first_id_is_1;
