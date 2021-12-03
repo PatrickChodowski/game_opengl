@@ -32,11 +32,6 @@ Scene, 0-100 are in game levels, over 100 are main menu, new game menu etc.
 int SCENE_ID;
 ```
 
-### IS_MENU 
-Derivative of the SCENE_ID, keeps 200 for any in-game scene and menu_id for menu's
-```c++
-int IS_MENU;
-```
 
 ### CURRENT_SHADER_ID 
 Current shader used in the game. I guess that will be removed once I add shaders per object type etc.
@@ -69,6 +64,42 @@ Filled on the start of the game
 std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME;
 ```
 
+### SceneData
+Data about a scene (scene is anything visible on the screen - menu, entities, map etc.)
+```c++
+struct SceneData 
+```
+
+### EVENT_HANDLER_ID 
+Current event handler id
+```c++
+int EVENT_HANDLER_ID;
+```
+
+### MAP_ID 
+Current map id
+```c++
+int MAP_ID;
+```
+
+### HERO_START_X 
+Current hero start x
+```c++
+float HERO_START_X;
+```
+
+### HERO_START_Y 
+Current hero start y
+```c++
+float HERO_START_Y;
+```
+
+### scenes 
+Scenes catalog
+```c++
+std::map<int, game::SceneData> scenes;
+```
+
 
 ## Functions
 
@@ -76,6 +107,18 @@ std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME;
 Initialize all modules having **::init()** method and also [game::init_scene](game.md#init_scene) with defualt scene_id
 ```c++
 void init();
+```
+
+### read_data
+Reads [scene data](game.md#SceneData) to struct
+```c++
+void read_data(std::string &name);
+```
+
+### init_scenes
+Reads all scenes data to scenes catalog
+```c++
+void init_scenes();
 ```
 
 ### update
@@ -106,11 +149,10 @@ void drop();
 ```
 
 ### init_scene
-Starts new scene based on scene_id and on is_new_game boolean. If its new, it will call [hero::create_new](hero.md#create_new). If scene_id is in_game scene, it will initialize map and spawn entities.
+Starts new scene based on scene_id and on from_save boolean. If scene_id is in_game scene, it will initialize map and spawn entities.
 ```c++
-void init_scene(int scene_id, bool is_new_game);
+void load_scene(int scene_id, bool from_save);
 ```
-
 
 ### switch_scene
 Clears current scene with game::clear_scene and initializes new scene
@@ -124,12 +166,5 @@ Calls ::clear() method on every module that requires it. Clear() methods are sup
 void clear_scene();
 ```
 
-### _check_if_menu
-Updates the game::IS_MENU based on the game::SCENE_ID. If the scene_id is under 100, then it receives 200 value (in_game_scene_id)
-
-```c++
-void _check_if_menu();
-```
-
 ## Tests
-- _check_if_menu
+-

@@ -72,18 +72,6 @@ Function triggered when clicking on [map object](maps.md#Map)
 void _click_map(int object_id, int mouse_button_id);
 ```
 
-### _click_text
-Function triggered when clicking on [text object](fonts.md#Fonts)
-```c++
-void _click_text(int object_id, int mouse_button_id);
-```
-
-### _click_gui
-Function triggered when clicking on [GUI object](gui.md#GUI)
-```c++
-void _click_gui(int object_id, int mouse_button_id);
-```
-
 ### _click_button
 Function triggered when clicking on [buttons object](buttons.md#Buttons)
 ```c++

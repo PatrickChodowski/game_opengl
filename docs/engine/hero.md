@@ -47,12 +47,6 @@ Updates position of the hero character in the ehro data and entity data
 void update_position(float camera_move_x, float camera_move_y);
 ```
 
-### _load_from_save
-Loads data to [hero::hero](hero.md#hero) from selected save_name
-```c++
-void _load_from_save(std::string save_name);
-```
-
 ### _read_data
 Reads data from specified character type (like barbarian)
 ```c++

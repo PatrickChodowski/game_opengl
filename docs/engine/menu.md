@@ -1,26 +1,18 @@
 # Menu
 Path: ./modules/menu.cpp   ./modules/menu.h
 
-This module probably will be refactored to use buttons module. Menu will become just a GUI object -> set of buttons and labels
-
 ## Objects
 
-### ButtonData
-(Temporary) Button Data for menu
-```c++
-struct ButtonData
-```
-
 ### MenuData
-(Temporary) Menu data -> id and buttons
+Menu data -> id and buttons
 ```c++
 struct MenuData
 ```
 
-### ClickButton
-(Temporary) Handler for different buttons 
+### MenuSlotData
+Menu Slot Data -> information about in game menu slot
 ```c++
-std::map <int,sig_ptr> ClickButton;
+struct MenuSlotData
 ```
 
 ### saves
@@ -29,22 +21,27 @@ List of available saves in /saves folder
 std::vector<std::string> saves;
 ```
 
+### saves_buttons_map
+Mapping of buttons to the save names
+```c++
+std::map<int, std::string> saves_buttons_map;
+```
+
 ### menus
-(Temporary) Menu's data
+Current Menu's data
 ```c++
 std::map<int, menu2::MenuData> menus;
 ```
-
-### menubuttons
-(Temporary) all menubuttons logic
+### currentmenus
+Current menu data
 ```c++
-std::map<int, menu2::ButtonData> menubuttons;
+std::map<int, MenuData> currentmenus;
 ```
 
-### CurrentMenuButtons
-(Temporary) Menu buttons currently displayed
+### currentmenuslots
+Current menu slots data
 ```c++
-std::map<int, menu2::ButtonData> CurrentMenuButtons;
+std::map<int, menu::MenuSlotData> currentmenuslots = {}; 
 ```
 
 ### MenuQuads
@@ -59,23 +56,35 @@ New game name string
 std::string NewGameName;
 ```
 
+### Index
+Index of current menus
+```c++
+std::string Index;
+```
 
 ## Functions
 
 ### init
-Initialize [ClickButton](menu.md#ClickButton), read menu button data, read menu data, list saves
+Reads in all menu's data, all menu slot_data and lists saves
 ```c++
 void init();
 ```
 
-### load
-Load [CurrentMenuButtons](menu.md#CurrentMenuButtons) based on the scene_id, reads  all the necessery buttons from menu data and load them to CurrentMenuButtons container
+### add
+Adds menu into currentmenus by menu_type_id, creates button and labels objects.
+Returns unique menu_id
 ```c++
-void load(int scene_id);
+int add(int menu_type_id)
+```
+
+### drop
+Drops menu from [currentmenus](menu.md#currentmenus) by menu_id, removes assigned [buttons](buttons.md#ButtonData) and [labels](fonts.md#LabelData). Frees the menu slot. 
+```c++
+void drop(int menu_id)
 ```
 
 ### render
-Populates [MenuQuads](menu.md#MenuQuads) from [CurrentMenuButtons](menu.md#CurrentMenuButtons)
+Populates [MenuQuads](menu.md#MenuQuads) from [currentmenus](menu.md#currentmenus)
 ```c++
 void render();
 ```
@@ -83,61 +92,25 @@ void render();
 ### list_saves
 Populates [saves](menu.md#saves)
 ```c++
-void list_saves();
+void _list_saves();
 ```
 
 ### clear
-Clears MenuQuads, CurrentMenuButtons and NewGameName
+Clears Index, MenuQuads, currentmenus, currentmenuslots, NewGameName, saves_buttons_map
 ```c++
 void clear();
 ```
 
-### _read_button_data
-Reads in data files to [ButtonData objects](menu.md#ButtonData)
-```c++
-void _read_button_data(std::string& name);
-```
-
-### _read_menu_data_
+### read_menu_data
 Reads in data files to [MenuData objects](menu.md#MenuData)
 ```c++
-void _read_menu_data_(std::string& name);
+void read_menu_data(std::string& name);
 ```
 
-### _click_new_game
-Functionality for NewGame Button. Calls [game::switch_scene](game.md#switch_scene) to switch to New Game Menu
+### read_menu_slot_data
+Reads in data files to [MenuSlotData objects](menu.md#MenuSlotData)
 ```c++
-void _click_new_game();
-```
-
-### _click_load_game
-Functionality for LoadGame Button. Calls [game::switch_scene](game.md#switch_scene) to switch to Load Game Menu
-```c++
-void _click_load_game();
-```
-
-### _click_settings
-Functionality for Settings Button. Calls [game::switch_scene](game.md#switch_scene) to switch to Settings Menu
-```c++
-void _click_settings();
-```
-
-### _click_exit
-Functionality for Exit Button  sets [game::RUNNING](game.md#RUNNING) to false
-```c++
-void _click_exit();
-```
-
-### _click_newgame_name
-Functionality for NewGame(name) Button. Calls [game::switch_scene](game.md#switch_scene) to start new game
-```c++
-void _click_newgame_name();
-```
-
-### _click_back
-Functionality for Click Back Button. Calls [game::switch_scene](game.md#switch_scene) to go back to main menu
-```c++
-void _click_back();
+void read_menu_slot_data(std::string& name);
 ```
 
 ### _validate_input
@@ -152,10 +125,16 @@ Validates full new game name
 bool _validate_name();
 ```
 
-### _check_if_load_game
-Checks if given button loads a saved game (might be temporary)
+### _get_free_slot
+Returns minimum free menu slot id
 ```c++
-int _check_if_load_game(int button_id);
+int _get_free_slot();
+```
+
+### _free_slot
+Free slot occupied by given menu_id
+```c++
+void _free_slot(int menu_id);
 ```
 
 ## Tests
