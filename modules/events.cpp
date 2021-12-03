@@ -92,7 +92,7 @@ namespace events
           switch (event.key.keysym.sym)
           { 
             case SDLK_ESCAPE:
-              game::switch_scene(SCENE_ID_MAIN_MENU);   
+              game::switch_scene(SCENE_ID_MAIN_MENU, false);   
             break;
             
             case SDLK_x:
@@ -146,12 +146,13 @@ namespace events
             case SDLK_RETURN:
               if(menu::_validate_name())
               {
-                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1);  
+                hero::create_new(menu::NewGameName, "barbarian");
+                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, false);  
               }
             break;
 
             case SDLK_ESCAPE:
-              game::switch_scene(SCENE_ID_MAIN_MENU);  
+              game::switch_scene(SCENE_ID_MAIN_MENU, false);  
             break;
           }
 
@@ -186,7 +187,7 @@ namespace events
           switch (event.key.keysym.sym)
           {     
             case SDLK_ESCAPE:
-              game::switch_scene(SCENE_ID_MAIN_MENU);
+              game::switch_scene(SCENE_ID_MAIN_MENU, false);
             break;
           }
         break;

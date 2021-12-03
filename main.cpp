@@ -41,7 +41,7 @@ int main()
     SDL_Event event;
     events::handle_events(event);
     // Mobs/NPCs movements here?
-    // std::cout << hero::hero.entity_id << std::endl;
+
     collisions::handle_entity_collisions(hero::hero.entity_id);
     game::update();
     SDL_GL_SwapWindow(WINDOW);

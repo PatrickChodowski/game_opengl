@@ -1,13 +1,17 @@
 
 #include "buttons.h"
 
+#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 
 #include "fonts.h"
 #include "game.h"
+#include "hero.h"
+#include "menu.h"
 #include "quads.h"
+#include "saves.h"
 #include "utils.h"
 
 #include "../dictionary.h"
@@ -89,17 +93,17 @@ namespace buttons
 
   void _click_new_game(int placeholder)
   {
-    game::switch_scene(SCENE_ID_NEW_GAME_MENU);
+    game::switch_scene(SCENE_ID_NEW_GAME_MENU, false);
   };
 
   void _click_load_game(int placeholder)
   {
-    game::switch_scene(SCENE_ID_LOAD_GAME_MENU);
+    game::switch_scene(SCENE_ID_LOAD_GAME_MENU, false);
   };
 
   void _click_settings(int placeholder)
   {
-    game::switch_scene(SCENE_ID_SETTINGS_MENU);
+    game::switch_scene(SCENE_ID_SETTINGS_MENU, false);
   };
 
   void _click_exit(int placeholder)
@@ -109,17 +113,24 @@ namespace buttons
 
   void _click_newgame_name(int placeholder)
   {
-    game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1);
+    if(menu::_validate_name())
+    {
+      std::string new_game_name = menu::NewGameName;
+      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, false);  
+      hero::create_new(new_game_name, "barbarian");
+    }
   }
 
-  void _click_loadgame_name(int placeholder)
+  void _click_loadgame_name(int button_id)
   {
-    game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1);
+    std::string load_game_name = menu::saves_buttons_map[button_id];
+    game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, true);
+    saves::load_game(load_game_name);
   }
 
   void _click_back(int placeholder)
   {
-    game::switch_scene(SCENE_ID_MAIN_MENU);
+    game::switch_scene(SCENE_ID_MAIN_MENU, false);
   };
 
   // Rick click on entity, open entity menu

@@ -1,9 +1,9 @@
 {
   "id": 4,
   "events_handler_id": 3,
-  "map_id": 0,
-  "hero_start_x": 200,
-  "hero_start_y": 200,
+  "map_id": 2,
+  "hero_start_x": 100,
+  "hero_start_y": 100,
   "menu_slots": [1, 2],
   "menu_types": [],
   "label": "Dungeon Level 1"

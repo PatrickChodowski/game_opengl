@@ -41,7 +41,7 @@ namespace game
   extern int EVENT_HANDLER_ID;
   extern int MAP_ID;
   extern float HERO_START_X;
-  extern float HERO_START_y;
+  extern float HERO_START_Y;
   extern std::map<int, game::SceneData> scenes;
 
   // Reads scene data to struct
@@ -51,7 +51,7 @@ namespace game
   void init_scenes();
 
   // Initialize all systems for new scene
-  void load_scene(int scene_id);
+  void load_scene(int scene_id, bool from_save);
 
   // checks if next scene id is a menu
   void _check_if_menu();
@@ -60,7 +60,7 @@ namespace game
   void clear_scene();
 
   // Switches scene. Clears current scene data and initializes new one
-  void switch_scene(int scene_id);
+  void switch_scene(int scene_id, bool from_save);
 
   // Initialize all in-game systems inside single game::init()
   void init();

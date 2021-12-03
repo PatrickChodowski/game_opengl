@@ -20,7 +20,9 @@ namespace hero
   {
     // position
     float x, y;
-    float w, h;
+    // dimensions
+    float w = 70;
+    float h = 70;
 
     // Previous position for collisions
     float prev_x, prev_y;
@@ -46,16 +48,13 @@ namespace hero
     std::string name;
     std::string type;
 
-    JS_OBJ(x, y, w, h, map_id, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, name, type);
+    JS_OBJ(w, h, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, name, type);
   }; 
 
   extern hero::HeroData hero;
 
   // Reads default data for character type 
   void _read_data(std::string char_type);
-
-  // Loads hero struct information from save 
-  void _load_from_save(std::string save_name);
 
   // Revert to previous hero position x 
   void revert_position_x();

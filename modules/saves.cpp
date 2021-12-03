@@ -1,10 +1,15 @@
+#include <iostream>
 #include <fstream>
 #include <string>
 
 #include "camera.h"
+#include "entity.h"
+#include "game.h"
 #include "hero.h"
 #include "saves.h"
 #include "utils.h"
+
+#include "../dictionary.h"
 
 namespace saves
 {
@@ -26,8 +31,8 @@ namespace saves
   {
     // uses current campaign name to save to file
     SaveData sd;
-    sd.x = camera::cam.x;
-    sd.y = camera::cam.y;
+    sd.x = hero::hero.x;
+    sd.y = hero::hero.y;
     sd.w = hero::hero.w;
     sd.h = hero::hero.h;
     sd.map_id = hero::hero.map_id;
@@ -47,7 +52,7 @@ namespace saves
   }
 
 
-  void load_game(std::string name)
+  void load_game(std::string& name)
   { // loads hero, campaign, map and camera information
 
     SaveData SD;
@@ -56,12 +61,18 @@ namespace saves
     JS::ParseContext context(json_data);
     context.parseTo(SD);
 
+    hero::hero.h = SD.h;
+    hero::hero.w = SD.w;
+    hero::hero.texture_id = SD.texture_id;
     hero::hero.name = SD.name;
     hero::hero.type = SD.type;
-    camera::cam.x = SD.x;
-    camera::cam.y = SD.y;
     hero::hero.speed = SD.speed;
-    hero::hero.map_id = SD.map_id;
+    // save rest of the statistics here later
+
+    hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
+    hero::set_position(SD.x, SD.y);
+    camera::cam.x = (SD.x - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
+    camera::cam.y = - (SD.y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
   }
 
 

@@ -2,8 +2,8 @@
   "id": 1,
   "events_handler_id": 1,
   "map_id": -1,
-  "hero_start_x": -1,
-  "hero_start_y": -1,
+  "hero_start_x": -1000,
+  "hero_start_y": -1000,
   "menu_slots": [0],
   "menu_types": [2],
   "label": "New Game Menu"
