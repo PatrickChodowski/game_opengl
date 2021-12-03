@@ -84,6 +84,7 @@ namespace menu
   extern std::map<int, MenuData> currentmenus;
   extern std::vector<quads::QuadData> MenuQuads;
   extern std::vector<std::string> saves;
+  extern std::map<int, std::string> saves_buttons_map;
   extern std::string NewGameName;
 
   // Read menu data from the file

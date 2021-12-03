@@ -42,7 +42,7 @@ namespace saves
   void save_game();
   
   // Load game data from the file
-  void load_game();
+  void load_game(std::string& name);
   
 
 }

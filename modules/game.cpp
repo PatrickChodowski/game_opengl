@@ -48,7 +48,7 @@ namespace game
   int EVENT_HANDLER_ID;
   int MAP_ID;
   float HERO_START_X;
-  float HERO_START_y;
+  float HERO_START_Y;
   std::map<int, game::SceneData> scenes;
 
 
@@ -72,7 +72,7 @@ namespace game
     };
   }
 
-  void load_scene(int scene_id)
+  void load_scene(int scene_id, bool from_save)
   {
     if(game::scenes.count(scene_id) > 0)
     {    
@@ -80,10 +80,13 @@ namespace game
       game::EVENT_HANDLER_ID = game::scenes[scene_id].events_handler_id;
       game::MAP_ID = game::scenes[scene_id].map_id;
       game::HERO_START_X = game::scenes[scene_id].hero_start_x;
-      game::HERO_START_y = game::scenes[scene_id].hero_start_y;
+      game::HERO_START_Y = game::scenes[scene_id].hero_start_y;
 
       // Load maps
       maps::load(game::MAP_ID);
+
+      // load mobs based on the map
+      mobs::spawn(game::MAP_ID);
 
       // Load menu slots
       for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)
@@ -97,13 +100,21 @@ namespace game
         int menu_type_id = game::scenes[scene_id].menu_types[t];
         menu::add(menu_type_id);
       }
+
+      // Set hero position and centralize camera if new game or switch level but not from save
+      if((game::HERO_START_X != -1000 & game::HERO_START_Y != -1000) & !from_save)
+      {
+        hero::set_position(game::HERO_START_X, game::HERO_START_Y);
+        camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
+        camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
+      }
     }
   }
   
-  void switch_scene(int scene_id)
+  void switch_scene(int scene_id, bool from_save)
   {
     game::clear_scene();
-    game::load_scene(scene_id);
+    game::load_scene(scene_id, from_save);
   }
 
   void clear_scene()
@@ -140,7 +151,7 @@ namespace game
     textures::init();
 
     // Loads scene based on SCENE_ID
-    game::load_scene(SCENE_ID_MAIN_MENU);
+    game::load_scene(SCENE_ID_MAIN_MENU, false);
   };
 
   void update()
@@ -152,12 +163,10 @@ namespace game
     buttons::render();
     fonts::render();
   
-
     quads::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
     textures::bind();
-
     buffer::update_quads(quads::AllQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

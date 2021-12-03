@@ -1,14 +1,15 @@
 
-### scene management, data in the scene stored inside files -> to finish - load entities, hero, from save and new one
-
 ### Full data refresh during game
 
 ### Travel -> initialize travel when on click
 
-### shaders management -> remove if elses from shaders
+### shaders management -> remove if elses from shaders -> one shader per draw call
 
-### How to deal with Mob Entity right way - I want to avoid enum/bool in entity search - shall I have additional table with SpawnedMobs. It will have entity Id?
-Maybe just keep all of it in entities. It cant be that bad? Dont overengineer it 
+### OpenGL book
+
+### Shaders book
+
+### Mob entity -> spawn multiples into spawnedmobs
 
 ### 3d models instead of spritesheets:
  - photogrammetry

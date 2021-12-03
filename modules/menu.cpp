@@ -26,6 +26,7 @@ namespace menu
   std::vector<quads::QuadData> MenuQuads;
   
   std::vector<std::string> saves;
+  std::map<int, std::string> saves_buttons_map;
   std::string NewGameName;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
   
@@ -106,6 +107,7 @@ namespace menu
                                    currentmenus[menu_id].button_data[b].h,
                                    currentmenus[menu_id].button_data[b].button_function_id);
           currentmenus[menu_id].button_ids.push_back(button_id); 
+          menu::saves_buttons_map[button_id] = menu::saves[m];
         }
       }
     }
@@ -163,6 +165,7 @@ namespace menu
     menu::currentmenus.clear();
     menu::currentmenuslots.clear();
     menu::NewGameName = "";
+    menu::saves_buttons_map.clear();
   };
 
   void _list_saves()
