@@ -14,8 +14,9 @@
 
 namespace mobs
 {
-
+  std::vector<int> Index;
   std::map<int, MobData> mobs = {};
+  std::map<int, MobData> spawnedmobs;
 
   void read_data(std::string name)
   {
@@ -37,9 +38,15 @@ namespace mobs
     }
   };
 
-  void clear()
+  void refresh()
   {
     mobs::mobs.clear();
+  }
+
+  void clear()
+  {
+    mobs::Index.clear();
+    mobs::spawnedmobs.clear();
   }
 
 

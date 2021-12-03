@@ -59,6 +59,13 @@ namespace items
   // Render item object (entity) on the ground
   void put_item_on_ground(int item_id, float x, float y);
 
+  // Clear temporary data
+  void clear();
+
+  // Clear all data
+  void refresh();
+
+
 }
 
 #endif

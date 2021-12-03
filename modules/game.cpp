@@ -115,6 +115,7 @@ namespace game
   {
     game::clear_scene();
     game::load_scene(scene_id, from_save);
+    game::SCENE_ID = scene_id;
   }
 
   void clear_scene()
@@ -125,6 +126,7 @@ namespace game
     entity::clear();
     fonts::clear();
     menu::clear();
+    mobs::clear();
     quads::clear();
     debug::clear();
     buttons::clear();
@@ -212,10 +214,31 @@ namespace game
   void drop()
   {
     buffer::drop();
-    mobs::clear();
     shaders::drop();
     textures::drop();
   }
+
+  void refresh()
+  {
+    game::clear_scene();
+    game::scenes.clear();
+
+    hero::refresh();
+    items::refresh();
+    maps::refresh();
+    menu::refresh();
+    mobs::refresh();
+
+    items::init();
+    maps::init();
+    menu::init();
+    mobs::init();
+    game::init_scenes();
+
+    hero::create_new("test", "barbarian");
+    game::load_scene(game::SCENE_ID, false);
+
+  };
 
 
 }

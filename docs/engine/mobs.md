@@ -14,6 +14,18 @@ Catalog of mob types
 std::map<int, MobData> mobs;
 ```
 
+### spawnedmobs
+Spawned mobs information
+```c++
+std::map<int, MobData> spawnedmobs;
+```
+
+### Index
+Index of spawned mobs
+```c++
+std::vector<int> Index;
+```
+
 ## Functions
 
 ### read_data
@@ -28,8 +40,14 @@ Read in all mob type datas
 void init();
 ```
 
+### refresh
+Resets the data read in from files in the game
+```c++
+void refresh();
+```
+
 ### clear
-Clear [mobs](mobs.md#mobs)
+Clear [spawnedmobs](mobs.md#spawnedmobs)
 ```c++
 void clear();
 ```

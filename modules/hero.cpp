@@ -79,5 +79,11 @@ namespace hero
 
   }
 
+  void refresh()
+  {
+    hero::HeroData new_hero;
+    hero::hero = new_hero;
+  }
+
 
 }

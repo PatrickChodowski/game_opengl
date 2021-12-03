@@ -101,6 +101,12 @@ Clears Index, MenuQuads, currentmenus, currentmenuslots, NewGameName, saves_butt
 void clear();
 ```
 
+### refresh
+Resets the data read in from files in the game
+```c++
+void refresh();
+```
+
 ### read_menu_data
 Reads in data files to [MenuData objects](menu.md#MenuData)
 ```c++

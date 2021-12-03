@@ -42,6 +42,11 @@ namespace maps
     }
   };
 
+  void refresh()
+  {
+    maps::maps.clear();
+  }
+
 
   maps::TileData generate_tile(float x, float y, int texture_id, int frame_id)
   {

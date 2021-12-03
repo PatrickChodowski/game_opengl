@@ -71,6 +71,9 @@ namespace hero
   // Creates new character of certain type. Will have default stats
   void create_new(std::string name, std::string type);
 
+  // Refresh data
+  void refresh();
+
 }
 
 #endif

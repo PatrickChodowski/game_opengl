@@ -148,6 +148,12 @@ Calls ::drop method on every module that requires it - mostly the OpenGL communi
 void drop();
 ```
 
+### refresh
+Calls ::refresh method on every module that requires it to reset the data read in from files in the game
+```c++
+void refresh();
+```
+
 ### init_scene
 Starts new scene based on scene_id and on from_save boolean. If scene_id is in_game scene, it will initialize map and spawn entities.
 ```c++

@@ -53,6 +53,12 @@ Reads data from specified character type (like barbarian)
 void _read_data(std::string char_type);
 ```
 
+### refresh
+Resets the data read in from files in the game
+```c++
+void refresh();
+```
+
 
 ## Tests
 -
