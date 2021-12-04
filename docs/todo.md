@@ -1,6 +1,4 @@
 
-### fonts size options?
-
 ### Travel -> initialize travel when on click
 
 ### shaders management -> remove if elses from shaders -> one shader per draw call
@@ -28,6 +26,8 @@
  ### Position struct in utils
 
  ### color structs in  utils
+
+ ### fonts size options? :( :( :(:( maybe another day...
 
 
 # Notes:
