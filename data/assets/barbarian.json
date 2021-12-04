@@ -22,24 +22,5 @@
     {"frame_id": 14, "x": 815, "y": 0, "w": 58, "h": 63, "label": "attack_1"},
     {"frame_id": 15, "x": 874, "y": 0, "w": 58, "h": 63, "label": "attack_2"},
     {"frame_id": 16, "x": 931, "y": 0, "w": 58, "h": 63, "label": "attack_3"}
-  ],
-
-  "anims_list": [
-    {
-      "label": "move_left", 
-      "event_id": 0, 
-      "length": 2,
-      "sequence": [{"id": 7, "ms_delay": 200},
-                   {"id": 6, "ms_delay": 200}],
-      "idle_frame":  5        
-    },
-    {
-      "label": "move_right", 
-      "event_id": 1, 
-      "length": 2,
-      "sequence": [{"id": 9, "ms_delay": 200},
-                   {"id": 10, "ms_delay": 200}],
-      "idle_frame":  8
-    }
   ]
 }

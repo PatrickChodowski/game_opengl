@@ -1,0 +1,11 @@
+{
+  "id": 8,
+  "w": 993,
+  "h": 63,
+  "type": "person",
+  "name": "dark_soldier_dragonrider",
+  "frames_list": [
+    {"frame_id": 0, "x": 0, "y": 0, "w": 58, "h": 63, "label": "stand_1"}
+
+  ]
+}
