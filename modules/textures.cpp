@@ -74,13 +74,6 @@ namespace textures
     JS::ParseContext context(json_data);
     context.parseTo(TD);
 
-    // list animations available for texture (event_id_list)
-    for(int a = 0; a < TD.anims_list.size(); a++)
-    {
-      TD.anims.insert({TD.anims_list[a].event_id, TD.anims_list[a]});
-    }
-    TD.anims_list.clear();
-
     // propagate TD.frames(map) from frames_list(vector)
     for(int f=0; f < TD.frames_list.size(); f++)
     {

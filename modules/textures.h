@@ -20,27 +20,6 @@ namespace textures
     JS_OBJ(frame_id, x, y, w, h, label);
   };
 
-  // Animation key data - id and delay
-  struct AnimationKey
-  {
-    int id;
-    int ms_delay;
-
-    JS_OBJ(id, ms_delay);
-  };
-
-  // Animation information
-  struct Animation
-  {
-    std::string label;
-    int event_id;
-    int length;
-    int idle_frame;
-    std::vector<AnimationKey> sequence;
-    std::vector<int> key_list;
-    JS_OBJ(label, event_id, length, sequence, idle_frame);
-  };
-
   // Texture data for the catalog
   struct TextureData
   {
@@ -54,11 +33,9 @@ namespace textures
     std::string name;
 
     std::vector<Frame> frames_list;
-    std::vector<Animation> anims_list;
     std::map<int, Frame> frames;
-    std::map<int, Animation> anims;
 
-    JS_OBJ(id, w, h, type, name, frames_list, anims_list);
+    JS_OBJ(id, w, h, type, name, frames_list);
   };
 
   // Persisten table of textures data
