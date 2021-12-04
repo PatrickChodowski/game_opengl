@@ -1,7 +1,5 @@
 
-### Travel -> initialize travel when on click -
-
-### animations :( :( :( 
+### animations! new texture!
 
 ### shaders management -> remove if elses from shaders -> one shader per draw call
 

@@ -43,7 +43,7 @@ void init();
 ### add 
 Add new [ButtonData](buttons.md#ButtonData) to [buttons](buttons.md#buttons) 
 ```c++
-int add(std::string text, float x, float y, float w, float h, int button_function_id);
+int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id);
 ```
 
 ### render
@@ -94,6 +94,12 @@ Functionality for NewGame(name) Button. Calls [game::switch_scene](game.md#switc
 void _click_newgame_name();
 ```
 
+### _click_loadgame_name
+Functionality for Loadgame(name) Button. Calls [game::switch_scene](game.md#switch_scene) to load game from save
+```c++
+void _click_loadgame_name();
+```
+
 ### _click_back
 Functionality for Click Back Button. Calls [game::switch_scene](game.md#switch_scene) to go back to main menu
 ```c++
@@ -103,7 +109,7 @@ void _click_back();
 ### _button_travel
 Functionality of the Travel Button. Starts [Travel Object](travel.md#TravelData)
 ```c++
-void _button_travel(int object_id);
+void _button_travel(int button_id);
 ```
 
 

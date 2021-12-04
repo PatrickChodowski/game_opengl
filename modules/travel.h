@@ -44,6 +44,7 @@ namespace travel
   extern std::map<int, travel::TravelData> travels;
   extern std::vector<int> travels_to_cancel;
 
+  // Method to reset last click info for starting travel from debug menu
   void reset_last_click();
 
   // Calculates angle between 2 points
