@@ -100,6 +100,7 @@ namespace menu
       mdd.assigned_entity_id = object_id;
       menu::currentmenuslots[menu_slot_id].free = false;
       menu::currentmenuslots[menu_slot_id].menu_id = menu_id;
+      mdd.camera_type = CAMERA_STATIC;
       menu::currentmenus[menu_id] = mdd;
 
       // Later will be changed to ContextManager, but for now just entity::info() ... later maps.info(), door.info() etc.
