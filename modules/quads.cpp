@@ -39,24 +39,28 @@ namespace quads
     v.v1_x = q.x;
     v.v1_y = q.y;
     v.v1_tx_x = q.norm_x_start;
+    //v.v1_tx_y = q.norm_y_start;
     v.v1_tx_y = 0.0f;
 
     // B
     v.v2_x = q.x + q.w - quads::VERTEX_OFFSET;
     v.v2_y = q.y;
     v.v2_tx_x = q.norm_x_end;
+    //v.v2_tx_y = q.norm_y_start;
     v.v2_tx_y = 0.0f;
 
     // C
     v.v3_x = q.x;
     v.v3_y = q.y + q.h - quads::VERTEX_OFFSET;
     v.v3_tx_x = q.norm_x_start;
+    //v.v3_tx_y = q.norm_y_end;
     v.v3_tx_y = 1.0f;
 
     // D
     v.v4_x = q.x + q.w - quads::VERTEX_OFFSET;
     v.v4_y = q.y + q.h - quads::VERTEX_OFFSET;
     v.v4_tx_x = q.norm_x_end;
+    //v.v4_tx_y = q.norm_y_end;
     v.v4_tx_y = 1.0f;
 
     q.v = v;

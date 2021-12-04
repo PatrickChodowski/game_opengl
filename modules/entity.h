@@ -30,6 +30,7 @@ namespace entity
     float camera_type;
 
     float norm_x_start, norm_x_end;
+    float norm_y_start, norm_y_end;
     
     bool is_solid;
     bool is_clicked;

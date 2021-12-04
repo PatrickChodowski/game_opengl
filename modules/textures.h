@@ -66,10 +66,16 @@ namespace textures
   void log();
 
   // Calculates the normalized X position of frame start
-  float _get_normalized_frame_start(int texture_id, int frame_id);
+  float _get_normalized_frame_x_start(int texture_id, int frame_id);
 
   // Calculates the normalized X position of frame end
-  float _get_normalized_frame_end(int texture_id, int frame_id);
+  float _get_normalized_frame_x_end(int texture_id, int frame_id);
+
+  // Calculates the normalized Y position of frame start
+  float _get_normalized_frame_y_start(int texture_id, int frame_id);
+
+  // Calculates the normalized Y position of frame end
+  float _get_normalized_frame_y_end(int texture_id, int frame_id);
 }
 
 

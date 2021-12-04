@@ -49,8 +49,10 @@ namespace entity
     edd.is_clicked = false;
     edd.speed = data.speed;
 
-    edd.norm_x_start = textures::_get_normalized_frame_start(data.texture_id, data.current_frame);
-    edd.norm_x_end = textures::_get_normalized_frame_end(data.texture_id, data.current_frame);
+    edd.norm_x_start = textures::_get_normalized_frame_x_start(data.texture_id, data.current_frame);
+    edd.norm_x_end = textures::_get_normalized_frame_x_end(data.texture_id, data.current_frame);
+    edd.norm_y_start = textures::_get_normalized_frame_y_start(data.texture_id, data.current_frame);
+    edd.norm_y_end = textures::_get_normalized_frame_y_end(data.texture_id, data.current_frame);
 
     entity::entities[edd.id] = edd;
     return edd.id;
