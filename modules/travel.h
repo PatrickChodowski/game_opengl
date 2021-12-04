@@ -17,6 +17,12 @@ namespace travel
     int next_gate;
     int next_node;
 
+    // #define TRAVEL_STATE_IDLE 0
+    // #define TRAVEL_STATE_ACTIVE 1
+    // #define TRAVEL_STATE_FINISHED 2
+    int state;
+
+
     float current_x;
     float current_y;
     float target_x;
@@ -34,8 +40,11 @@ namespace travel
     float y;
   };
 
+  extern travel::TravelPoint last_click;
   extern std::map<int, travel::TravelData> travels;
   extern std::vector<int> travels_to_cancel;
+
+  void reset_last_click();
 
   // Calculates angle between 2 points
   float _get_angle_between_points(float e_x, float e_y, float p_x, float p_y);
@@ -65,6 +74,9 @@ namespace travel
 
   // Remove data from travels and travels_to_cancel
   void clear();
+
+  // initialize travel object without knowing the end yet, keeping in idle state
+  void init_travel(int entity_id);
 
 
 

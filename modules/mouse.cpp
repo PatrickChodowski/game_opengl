@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "mouse.h"
 #include "quads.h"
+#include "travel.h"
 
 #include <iostream>
 #include <map>
@@ -15,9 +16,12 @@
 
 namespace mouse
 {
-  // for travelling purposes
+  // (work in progress) for travelling purposes
   float last_click_x;
   float last_click_y;
+  float last_map_click_x;
+  float last_map_click_y;
+  // (work in progress) for travelling purposes
   
   std::map <int , sig_ptr> click = {};
   std::map <int, int> ClickPriorities;
@@ -63,7 +67,8 @@ namespace mouse
     {
       if(clicks[c].priority >= min_click_priority)
       {
-        // std::cout << " Clicked on quad: " << clicks[c].quad_id  << std::endl;
+        mouse::last_click_x = click_x;
+        mouse::last_click_y = click_y;
         mouse::click[clicks[c].object_type_id](clicks[c].object_id, clicks[c].mouse_button_id);
       }
     }
@@ -91,6 +96,8 @@ namespace mouse
   void _click_map(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on MAP object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
+    travel::last_click.x = mouse::last_click_x;
+    travel::last_click.y = mouse::last_click_y;
   };
 
   void _click_button(int object_id, int mouse_button_id)

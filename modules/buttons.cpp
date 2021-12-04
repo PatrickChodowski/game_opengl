@@ -12,6 +12,7 @@
 #include "menu.h"
 #include "quads.h"
 #include "saves.h"
+#include "travel.h"
 #include "utils.h"
 
 #include "../dictionary.h"
@@ -35,7 +36,7 @@ namespace buttons
     buttons::ButtonFunctions[BUTTON_TRAVEL] = buttons::_button_travel;
   };
 
-  int add(std::string text, float x, float y, float w, float h, int button_function_id)
+  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id)
   {
     buttons::ButtonData bdd;
     bdd.id = utils::generate_id(buttons::Index);
@@ -50,6 +51,7 @@ namespace buttons
     bdd.a = 1.0;
     bdd.button_function_id = button_function_id;
     bdd.camera_type = CAMERA_STATIC;
+    bdd.menu_id = menu_id;
 
     bdd.label_id = fonts::add(text, 
                                x + 15, 
@@ -134,9 +136,14 @@ namespace buttons
   };
 
   // Rick click on entity, open entity menu
-  void _button_travel(int object_id)
+  void _button_travel(int button_id)
   {   
-    std::cout << "clicked on travel button, object id:  " << object_id << std::endl;
+    int entity_id = menu::currentmenus[buttons::buttons[button_id].menu_id].assigned_entity_id;
+    std::cout << "clicked on travel button, entity id:  " << entity_id << std::endl;
+    // next click on the map will be next travel point, hence resetting it now
+    travel::reset_last_click();
+    travel::init_travel(entity_id);
+
     // Button travel
     // how to implement that? lolz
     // x,y = mouse::_request_position();

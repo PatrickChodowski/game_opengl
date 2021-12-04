@@ -20,6 +20,7 @@ namespace buttons
     int button_function_id;
     int texture_id = 0;
     int frame_id = 0;
+    int menu_id; // menu that the button belongs to
 
     float x, y;
     float w, h;
@@ -43,7 +44,7 @@ namespace buttons
   void init();
 
   // Add button. Returns button_id
-  int add(std::string text, float x, float y, float w, float h, int button_function_id);
+  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id);
 
   // Render quads
   void render();

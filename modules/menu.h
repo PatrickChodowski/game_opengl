@@ -57,6 +57,7 @@ namespace menu
     int texture_id;
     int frame_id;
     int object_type_id;
+    int assigned_entity_id;
 
     float x, y, z;
     float w, h;

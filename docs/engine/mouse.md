@@ -17,6 +17,18 @@ Struct of mouse click on object -> object_id, quad_id, object_type, mouse_button
 struct ClickData
 ```
 
+### last_click_x
+Last click X coordinate
+```c++
+float last_click_x
+```
+
+### last_click_y
+Last map click Y coordinate
+```c++
+float last_click_y
+```
+
 ### ClickPriorities
 Table of clickpriorities per object_type
 ```c++
