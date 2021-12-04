@@ -9,6 +9,7 @@
 #include "modules/hero.h"
 #include "modules/utils.h"
 #include "modules/timer.h"
+#include "modules/travel.h"
 
 #include "dictionary.h"
 
@@ -41,7 +42,7 @@ int main()
     SDL_Event event;
     events::handle_events(event);
     // Mobs/NPCs movements here?
-
+    travel::update();
     collisions::handle_entity_collisions(hero::hero.entity_id);
     game::update();
     SDL_GL_SwapWindow(WINDOW);

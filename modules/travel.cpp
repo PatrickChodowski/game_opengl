@@ -170,10 +170,43 @@ namespace travel
 
   void update()
   {
+    bool can_activate = false;
+    int target_navnode_id = -1;
+
+    // Check if can activate idle travels
+    if(travel::last_click.x != -1000 & travel::last_click.x != -1000)
+    {
+      target_navnode_id = paths::get_navnode_id(travel::last_click.x, travel::last_click.y);
+      can_activate = true;
+    }
+
     travel::travels_to_cancel.clear();
-    for (auto & tp: travel::travels)
+    for (auto & [k, v] : travel::travels)
     {  
-      travel::go(tp.second);
+      // Activate idle travels if possible
+      if(v.state == TRAVEL_STATE_IDLE & can_activate)
+      {
+        v.target_x = travel::last_click.x;
+        v.target_y = travel::last_click.y;
+        v.target_node = target_navnode_id;
+
+        if(v.current_node != v.target_node)
+        {
+          std::vector<int> path = paths::find_path(v.current_node, v.target_node);
+          v.full_path = path;
+          v.next_node = path[1];
+        } else if (v.current_node == v.target_node){
+          v.full_path = {};
+          v.next_node = v.target_node;
+        }
+        v.state = TRAVEL_STATE_ACTIVE;
+      }
+
+      if(v.state == TRAVEL_STATE_ACTIVE)
+      {
+        travel::go(v);
+      }
+
     }
     for(int i=0; i < travel::travels_to_cancel.size(); i++)
     {

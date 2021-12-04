@@ -1,5 +1,5 @@
 
-### Travel -> initialize travel when on click
+### Travel -> initialize travel when on click -
 
 ### animations :( :( :( 
 
@@ -20,7 +20,6 @@
 
  https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
 
-
  ### menu highliting -> nice feature to have :)
 
  ### saves scrolling
@@ -31,6 +30,7 @@
 
  ### fonts size options? :( :( :(:( maybe another day...
 
+ ### travels code is messy and probably will enjoy another iteration later 
 
 # Notes:
 
