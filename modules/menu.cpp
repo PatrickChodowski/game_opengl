@@ -108,9 +108,9 @@ namespace menu
       {
         int label_id = fonts::add(infos[i],
                                   mdd.x,
-                                  mdd.y + 60 + (i*50),
+                                  mdd.y + 40 + (i*40),
                                   CAMERA_STATIC,
-                                  1.0f,
+                                  0.6f,
                                   1.0f,
                                   1.0f,
                                   1.0f);

@@ -194,9 +194,10 @@ namespace fonts
 
       tdd.x = x + chars[*p].bitmap_left * ldd.scale;
       tdd.y = y - ((chars[*p].bitmap_height - chars[*p].align) * ldd.scale);
-      tdd.w = chars[*p].bitmap_width * ldd.scale;
+      tdd.w = chars[*p].bitmap_width;
       tdd.h = chars[*p].bitmap_height * ldd.scale;
-
+      //tdd.h = chars[*p].bitmap_height;
+    
       tdd.r = ldd.r;
       tdd.g = ldd.g;
       tdd.b = ldd.b;
