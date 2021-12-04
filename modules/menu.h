@@ -103,6 +103,9 @@ namespace menu
   // Returns unique menu_id
   int add(int menu_type_id);
 
+  // Add menu to free slot
+  int add_to_slot(int menu_type_id);
+
   // Creates quads out of the currentmenus
   void render();
 
