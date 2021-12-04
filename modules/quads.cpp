@@ -123,12 +123,6 @@ namespace quads
     quads::VertexIndex.clear();
     quads::QuadIndex.clear();
 
-    // // assign menu quads
-    if(menu::MenuQuads.size() > 0)
-    {
-      quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
-    }
-
     // assign map quads
     if(maps::MapQuads.size() > 0)
     {
@@ -146,10 +140,11 @@ namespace quads
       quads::AllQuads.insert(quads::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
     }
 
-    // if(gui::GuiQuads.size() > 0)
-    // {
-    //   quads::AllQuads.insert(quads::AllQuads.end(), gui::GuiQuads.begin(), gui::GuiQuads.end());
-    // }
+    // assign menu quads
+    if(menu::MenuQuads.size() > 0)
+    {
+      quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
+    }
 
     if(buttons::ButtonQuads.size() > 0)
     {

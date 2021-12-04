@@ -72,19 +72,20 @@ namespace mouse
   void _click_entity(int object_id, int mouse_button_id)
   {
     logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
-    // entity::EntityData edd = entity::entities[object_id];
+    entity::EntityData edd = entity::entities[object_id];
     // if right click and debug mode is on
-    // if((mouse_button_id == MOUSE_BUTTON_RIGHT) & game::IS_DEBUG_MODE)
-    // {
-    //   if(!entity::entities[object_id].is_clicked)
-    //   {
-    //     entity::entities[object_id].gui_popup_id = gui::add_context_menu(object_id, OBJECT_TYPE_ENTITY);
-    //   } else 
-    //   {
-    //     gui::drop(entity::entities[object_id].gui_popup_id);
-    //   }
-    //   entity::entities[object_id].is_clicked  = !entity::entities[object_id].is_clicked;
-    // } 
+    if((mouse_button_id == MOUSE_BUTTON_RIGHT) & game::IS_DEBUG_MODE)
+    {
+      if(!entity::entities[object_id].is_clicked)
+      {
+        entity::entities[object_id].menu_id = menu::add_to_slot(MENU_ENTITY_ID);
+      } else 
+      {
+        menu::drop(entity::entities[object_id].menu_id);
+      }
+
+      entity::entities[object_id].is_clicked  = !entity::entities[object_id].is_clicked;
+    } 
   };
 
   void _click_map(int object_id, int mouse_button_id)

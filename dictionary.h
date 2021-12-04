@@ -84,5 +84,11 @@
 #define MENU_SLOT_RIGHT_SIDE_1 1
 #define MENU_SLOT_RIGHT_SIDE_2 2
 
+// Mene types
+#define MENU_MAIN_ID 1
+#define MENU_NEWGAME_ID 2
+#define MENU_LOADGAME_ID 3
+#define MENU_SETTINGS_ID 4
+#define MENU_ENTITY_ID 5
 
 #endif

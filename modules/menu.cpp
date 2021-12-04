@@ -82,6 +82,29 @@ namespace menu
     menu::saves.clear();
   }
 
+
+  int add_to_slot(int menu_type_id)
+  {
+    int menu_id = -1;
+    int menu_slot_id = menu::_get_free_slot();
+
+    // if -1 then there is no free slot
+    if(menu_slot_id > -1)
+    {
+      menu_id = utils::generate_id(menu::Index);
+      menu::MenuData mdd = menus[menu_type_id];
+      mdd.id = menu_id;
+      mdd.x = menu::currentmenuslots[menu_slot_id].x;
+      mdd.y = menu::currentmenuslots[menu_slot_id].y;
+      mdd.menu_slot_id = menu_slot_id;
+      menu::currentmenuslots[menu_slot_id].free = false;
+      menu::currentmenuslots[menu_slot_id].menu_id = menu_id;
+      menu::currentmenus[menu_id] = mdd;
+    }
+    return menu_id;
+  }
+
+
   int add(int menu_type_id)
   {
     int menu_id = utils::generate_id(menu::Index);
@@ -212,8 +235,9 @@ namespace menu
 
   int _get_free_slot()
   {
+    std::cout << "current menu slots size: " << menu::currentmenuslots.size() << std::endl;
     int min_slot_id = -1;
-    for (auto const& [k, v] : menu::menuslots)
+    for (auto const& [k, v] : menu::currentmenuslots)
     {
       if(v.free)
       {
@@ -221,12 +245,13 @@ namespace menu
         break;
       }
     }
+    std::cout << "min slot id: " << min_slot_id << std::endl;
     return min_slot_id;
   }
 
   void _free_slot(int menu_id)
   { 
-    for (auto & [k, v] : menu::menuslots)
+    for (auto & [k, v] : menu::currentmenuslots)
     {
       if(v.menu_id == menu_id)
       {
