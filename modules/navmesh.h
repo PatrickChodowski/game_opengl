@@ -93,6 +93,9 @@ namespace nav
   // Clear navmesh data
   void clear();
 
+  // Debug render the lines around polygons
+  void render();
+
 
 
 }
