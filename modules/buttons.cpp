@@ -136,6 +136,7 @@ namespace buttons
   // Rick click on entity, open entity menu
   void _button_travel(int object_id)
   {   
+    std::cout << "clicked on travel button, object id:  " << object_id << std::endl;
     // Button travel
     // how to implement that? lolz
     // x,y = mouse::_request_position();
