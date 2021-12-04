@@ -1,11 +1,21 @@
 {
   "id": 8,
-  "w": 993,
-  "h": 63,
+  "w": 144,
+  "h": 256,
   "type": "person",
   "name": "dark_soldier_dragonrider",
   "frames_list": [
-    {"frame_id": 0, "x": 0, "y": 0, "w": 58, "h": 63, "label": "stand_1"}
-
+    {"frame_id": 0, "x": 0, "y": 0, "w": 48, "h": 64, "label": "up_1"},
+    {"frame_id": 1, "x": 48, "y": 0, "w": 48, "h": 64, "label": "up_0"},
+    {"frame_id": 2, "x": 96, "y": 0, "w": 48, "h": 64, "label": "up_2"},
+    {"frame_id": 3, "x": 0, "y": 64, "w": 48, "h": 64, "label": "right_1"},
+    {"frame_id": 4, "x": 48, "y": 64, "w": 48, "h": 64, "label": "right_0"},
+    {"frame_id": 5, "x": 96, "y": 64, "w": 48, "h": 64, "label": "right_2"},
+    {"frame_id": 6, "x": 0, "y": 128, "w": 48, "h": 64, "label": "down_1"},
+    {"frame_id": 7, "x": 48, "y": 128, "w": 48, "h": 64, "label": "down_0"},
+    {"frame_id": 8, "x": 96, "y": 128, "w": 48, "h": 64, "label": "down_2"},
+    {"frame_id": 9, "x": 0, "y": 192, "w": 48, "h": 64, "label": "left_1"},
+    {"frame_id": 10, "x": 48, "y": 192, "w": 48, "h": 64, "label": "left_0"},
+    {"frame_id": 11, "x": 96, "y": 192, "w": 48, "h": 64, "label": "left_2"}
   ]
 }

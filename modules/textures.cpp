@@ -138,17 +138,31 @@ namespace textures
     textures::BoundTextures.clear();
   };
 
-  float _get_normalized_frame_start(int texture_id, int frame_id)
+  float _get_normalized_frame_x_start(int texture_id, int frame_id)
   {
     textures::TextureData tdd = textures::textures[texture_id];
     return tdd.frames[frame_id].x/tdd.w;
   };
 
-  float _get_normalized_frame_end(int texture_id, int frame_id)
+  float _get_normalized_frame_x_end(int texture_id, int frame_id)
   {
     textures::TextureData tdd = textures::textures[texture_id];
     return (tdd.frames[frame_id].x + tdd.frames[frame_id].w)/tdd.w;
   };
+
+  float _get_normalized_frame_y_start(int texture_id, int frame_id)
+  {
+    textures::TextureData tdd = textures::textures[texture_id];
+    return tdd.frames[frame_id].y/tdd.h;
+  };
+
+  float _get_normalized_frame_y_end(int texture_id, int frame_id)
+  {
+    textures::TextureData tdd = textures::textures[texture_id];
+    return (tdd.frames[frame_id].y + tdd.frames[frame_id].h)/tdd.h;
+  };
+
+
 
   // not the clearest json from here
   void log()
