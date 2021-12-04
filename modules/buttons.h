@@ -73,13 +73,13 @@ namespace buttons
   void _click_newgame_name(int placeholder);
 
   // Logic of what happens after clicking on newgame_name
-  void _click_loadgame_name(int placeholder);
+  void _click_loadgame_name(int button_id);
 
   // Logic of what happens after clicking on back to main menu button
   void _click_back(int placeholder);
 
   // Start new travel object
-  void _button_travel(int object_id);
+  void _button_travel(int button_id);
 
 
 }

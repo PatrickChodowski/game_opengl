@@ -16,6 +16,12 @@ Location(x,y)
 struct TravelPoint
 ```
 
+### last_click
+Instance of [TravelPoint](travel.md#TravelPoint). Keeps last mouse click for travel debug button
+```c++
+travel::TravelPoint last_click;
+```
+
 ### travels
 Catalog of [TravelData](travel.md#TravelData). One per entity
 ```c++
@@ -35,6 +41,12 @@ std::vector<int> travels_to_cancel;
 Make plan of the travel between start node and end node. Calls [pathfinder::find_path](pathfinder.md#find_path)
 ```c++
 travel::TravelData make_basic_plan(int current_node_id, int target_node_id);
+```
+
+### init_travel
+initialize travel object without knowing the end yet, keeping in idle state. Creates [TravelPlan](travel.md#TravelPlan) and adds it to [travels](travel.md#travels).
+```c++
+void init_travel(int entity_id);
 ```
 
 ### go
@@ -60,6 +72,14 @@ Remove data from [travels](travel.md#travels) and [travels_to_cancel](travel.md#
 ```c++
 void clear();
 ```
+
+### reset_last_click
+Method to reset [last click](travel.md#last_click) info for starting travel from debug menu
+```c++
+void reset_last_click();
+```
+
+
 
 ### _get_angle_between_points
 Calculates angle between 2 points

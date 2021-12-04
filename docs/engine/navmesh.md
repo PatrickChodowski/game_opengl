@@ -85,6 +85,12 @@ Remove data from [navmesh](navmesh.md#navmesh), [navtiles](navmesh.md#navtiles),
 void clear();
 ```
 
+### render
+Debug render squares around nav nodes for debugging mode
+```c++
+void render();
+```
+
 ### _load_navtiles
 Loads [navtiles](navmesh.md#navtiles) based on the map data
 ```c++

@@ -11,23 +11,26 @@ Struct of mouse click data (position, timestamp)
 struct MouseData
 ```
 
+### LastClickData
+Struct of mouse last click for mouse - containing world's x,y and window's x,y
+```c++
+struct LastClickData
+```
+
+
 ### ClickData
 Struct of mouse click on object -> object_id, quad_id, object_type, mouse_button, priority
 ```c++
 struct ClickData
 ```
 
-### last_click_x
-Last click X coordinate
+### last_click
+Instance of [LastClickData](mouse.md#LastClickData)
 ```c++
 float last_click_x
 ```
 
-### last_click_y
-Last map click Y coordinate
-```c++
-float last_click_y
-```
+
 
 ### ClickPriorities
 Table of clickpriorities per object_type

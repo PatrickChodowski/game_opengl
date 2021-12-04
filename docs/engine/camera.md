@@ -50,6 +50,20 @@ Generates [camera::STATIC_MVP](camera.md#STATIC_MVP)
 glm::mat4 gen_static_mvp();
 ```
 
+### reverse_coord_x
+Reverse X coordinate from window to world for mouse clicks
+```c++
+float reverse_coord_x(float window_x, float camera_x, float camera_zoom)
+```
+
+### reverse_coord_y
+Reverse Y coordinate from window to world for mouse clicks
+```c++
+float reverse_coord_y(float window_y, float camera_y, float camera_zoom)
+```
+
+
+
 ## Tests
 -
 
