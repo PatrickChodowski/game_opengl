@@ -107,7 +107,7 @@ namespace menu
       for(int i=0; i<infos.size(); i++)
       {
         int label_id = fonts::add(infos[i],
-                                  mdd.x,
+                                  (mdd.x + 10),
                                   mdd.y + 40 + (i*40),
                                   CAMERA_STATIC,
                                   0.6f,
@@ -116,7 +116,17 @@ namespace menu
                                   1.0f);
         menu::currentmenus[menu_id].label_ids.push_back(label_id);
       }
-
+      
+      for(int b=0; b<menu::currentmenus[menu_id].button_data.size(); b++)
+      {
+        int button_id = buttons::add(currentmenus[menu_id].button_data[b].label,
+                                 (mdd.x + 20),
+                                 ((infos.size()+1)*40 + mdd.y),
+                                 150,
+                                 currentmenus[menu_id].button_data[b].h,
+                                 currentmenus[menu_id].button_data[b].button_function_id);
+        currentmenus[menu_id].button_ids.push_back(button_id);  
+      }
     }
     return menu_id;
   }
