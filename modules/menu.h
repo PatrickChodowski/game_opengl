@@ -10,8 +10,8 @@
 
 #include "../dependencies/json_struct.h"
 
-#ifndef MODULES_MENU2_H
-#define MODULES_MENU2_H
+#ifndef MODULES_MENU_H
+#define MODULES_MENU_H
 
 
 namespace menu

@@ -57,17 +57,14 @@ namespace mouse
       min_click_priority = mouse::ClickPriorities[OBJECT_TYPE_BUTTON];
     }
 
-    std::cout << "clicks size: " << clicks.size() << std::endl;
     for(int c=0; c<clicks.size(); c++)
     {
       if(clicks[c].priority >= min_click_priority)
       {
-        std::cout << "min click priority: " << min_click_priority << std::endl;
         mouse::last_click.window_x = click_x;
         mouse::last_click.window_y = click_y;
 
         mouse::last_click.world_x = camera::reverse_coord_x(click_x, camera::cam.x, camera::cam.zoom);
-        //std::cout << "window x: " << click_x <<  " world x: " << mouse::last_click.world_x << std::endl;
         mouse::last_click.world_y = camera::reverse_coord_y(click_y, camera::cam.y, camera::cam.zoom);
         mouse::click[clicks[c].object_type_id](clicks[c].object_id, clicks[c].mouse_button_id);
       }
@@ -106,6 +103,7 @@ namespace mouse
     // int logic_object_id = menu::_check_if_load_game(object_id);
     // menu::CurrentMenuButtons[object_id].is_clicked = !menu::CurrentMenuButtons[object_id].is_clicked;
     // menu::ClickButton[object_id]();
+    buttons::buttons[object_id].is_clicked = !buttons::buttons[object_id].is_clicked;
     buttons::ButtonFunctions[buttons::buttons[object_id].button_function_id](object_id);
   };
 

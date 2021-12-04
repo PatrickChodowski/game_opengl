@@ -2,6 +2,7 @@ UNAME := $(shell uname)
 ifeq ($(UNAME),Darwin)
 output: game
 	g++ -std=c++17 main.cpp \
+	modules/anims.cpp
 	modules/buffer.cpp \
 	modules/buttons.cpp \
 	modules/camera.cpp \
@@ -11,7 +12,6 @@ output: game
 	modules/events.cpp \
 	modules/fonts.cpp \
 	modules/game.cpp \
-	modules/gui.cpp \
 	modules/hero.cpp \
 	modules/items.cpp \
 	modules/logger.cpp \
@@ -34,6 +34,7 @@ endif
 ifeq ($(UNAME),Linux)
 output: game
 	g++ -std=c++17 main.cpp \
+	modules/anims.cpp \
 	modules/buffer.cpp \
 	modules/buttons.cpp \
 	modules/camera.cpp \

@@ -3,6 +3,7 @@
 #include <chrono>
 #include <ctime> 
 
+#include "modules/anims.h"
 #include "modules/collisions.h"
 #include "modules/events.h"
 #include "modules/game.h"
@@ -44,6 +45,7 @@ int main()
     // Mobs/NPCs movements here?
     travel::update();
     collisions::handle_entity_collisions(hero::hero.entity_id);
+    anims::update();
     game::update();
     SDL_GL_SwapWindow(WINDOW);
     auto game_loop_end_time = std::chrono::high_resolution_clock::now();

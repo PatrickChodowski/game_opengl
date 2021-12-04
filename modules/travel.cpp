@@ -177,7 +177,10 @@ namespace travel
     if(travel::last_click.x != -1000 & travel::last_click.x != -1000)
     {
       target_navnode_id = paths::get_navnode_id(travel::last_click.x, travel::last_click.y);
-      can_activate = true;
+      if(target_navnode_id  != -1)
+      {
+        can_activate = true;
+      }
     }
 
     travel::travels_to_cancel.clear();
