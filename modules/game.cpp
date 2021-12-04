@@ -83,7 +83,7 @@ namespace game
       game::HERO_START_Y = game::scenes[scene_id].hero_start_y;
 
       // Load maps
-      maps::load(game::MAP_ID);
+      maps::init_map(game::MAP_ID);
 
       // load mobs based on the map
       mobs::spawn(game::MAP_ID);
@@ -164,6 +164,7 @@ namespace game
     menu::render();
     buttons::render();
     fonts::render();
+    nav::render();
   
     quads::accumulate();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);

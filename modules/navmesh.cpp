@@ -1,8 +1,11 @@
 
+#include <iostream>
 #include <map>
 #include <vector>
 #include <string>
 
+#include "debug.h"
+#include "game.h"
 #include "maps.h"
 #include "navmesh.h"
 #include "utils.h"
@@ -272,4 +275,22 @@ namespace nav
     MAX_COL = 0;
     MAX_TILE_ID = 0;
   }
+
+
+  void render()
+  {
+    //std::cout << "nav polygons size: " << nav::navpolygons.size() << std::endl;
+    if(game::IS_DEBUG_MODE)
+    {
+      for (auto const& [k, v] : nav::navnodes)
+      {
+        float w = v.max_x - v.min_x;
+        float h = v.max_y - v.min_y;
+        debug::render_square(v.min_x, v.min_y, w, h, 0.0, 1.0, 0.0, 1.0);
+
+      } 
+    }
+  }
+
+
 }
