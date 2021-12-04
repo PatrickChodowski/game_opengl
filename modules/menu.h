@@ -56,6 +56,7 @@ namespace menu
     int menu_slot_id;
     int texture_id;
     int frame_id;
+    int object_type_id;
 
     float x, y, z;
     float w, h;
@@ -72,7 +73,7 @@ namespace menu
     
     bool is_clicked;
 
-    JS_OBJ(menu_type_id, x, y, w, h, texture_id, frame_id, 
+    JS_OBJ(menu_type_id, x, y, w, h, texture_id, frame_id, object_type_id,
     r, g, b, a, button_data, label_data);
   };
 
@@ -104,7 +105,7 @@ namespace menu
   int add(int menu_type_id);
 
   // Add menu to free slot
-  int add_to_slot(int menu_type_id);
+  int add_to_slot(int menu_type_id, int object_id);
 
   // Creates quads out of the currentmenus
   void render();

@@ -69,19 +69,18 @@ namespace entity
     entity::EntityQuads.clear();
   };
 
-  // int display(int entity_id, int gui_slot_id)
-  // {
-  //   std::string entity_info;
-  //   entity::EntityData edd = entity::entities[entity_id];
-  //   entity_info = "Entity ID: " + utils::str(entity_id);
-  //   int label_id = fonts::add(entity_info, 
-  //               gui::guislots[gui_slot_id].x + 5, 
-  //               gui::guislots[gui_slot_id].y + 50, 
-  //               CAMERA_STATIC, 
-  //               0.7,
-  //               0.0f, 0.0f, 0.0f);
-  //   return label_id;
-  // };
+  
+  std::vector<std::string> info(int entity_id)
+  {
+    // create a string per row
+    std::vector<std::string> infos = {};
+    entity::EntityData edd = entity::entities[entity_id];
+    std::string label_id = "Entity_ID:_" + utils::str(edd.id);
+    std::string label_pos = "Pos:_" + utils::str(int(edd.x)) + ',' + utils::str(int(edd.y));
+    infos.push_back(label_id);
+    infos.push_back(label_pos);
+    return infos;
+  } 
 
   template int entity::create<hero::HeroData>(hero::HeroData, int, float);
   template int entity::create<items::ItemData>(items::ItemData, int, float);

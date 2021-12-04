@@ -11,6 +11,7 @@
   "g": 0.5,
   "b": 0.5,
   "a": 0.8,
+  "object_type_id": 0,
   "button_data": [{"label": "Travel", "button_function_id": 7, "x":500, "y":100, "w": 100, "h": 70}],
-  "label_data": [{"label": "Entity ID: ", "x": 500, "y":100, "r": 0.5, "g": 0.5, "b": 1.0}]
+  "label_data": [{}]
 }
