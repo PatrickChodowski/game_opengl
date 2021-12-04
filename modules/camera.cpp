@@ -60,15 +60,15 @@ namespace camera
 
     for(int q = 0; q < quads::AllQuads.size(); q++)
     {
-      float final_camera_x = 0.0f; 
-      float final_camera_y = 0.0f;
-      float final_scale_factor = 1.0f;
+      float final_camera_x = camera_x;
+      float final_camera_y = camera_y;
+      float final_scale_factor = scale_factor;
       
-      if(quads::AllQuads[q].camera_type == CAMERA_DYNAMIC)
+      if(quads::AllQuads[q].camera_type == CAMERA_STATIC)
       {
-        final_camera_x = camera_x; 
-        final_camera_y = camera_y;
-        final_scale_factor = scale_factor;
+        final_camera_x = 0.0f;
+        final_camera_y = 0.0f;
+        final_scale_factor = 1.0f;
       } 
       quads::AllQuads[q].window_x = (quads::AllQuads[q].x + final_camera_x)*final_scale_factor;
       quads::AllQuads[q].window_y = (quads::AllQuads[q].y + final_camera_y)*final_scale_factor;
