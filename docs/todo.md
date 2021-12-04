@@ -1,6 +1,8 @@
 
 ### Travel -> initialize travel when on click
 
+### animations :( :( :( 
+
 ### shaders management -> remove if elses from shaders -> one shader per draw call
 
 ### OpenGL book

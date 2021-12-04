@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
@@ -16,6 +17,13 @@ namespace travel
 {
   std::map<int, travel::TravelData> travels;
   std::vector<int> travels_to_cancel;
+  travel::TravelPoint last_click;
+
+  void reset_last_click()
+  {
+    travel::last_click.x = -1000;
+    travel::last_click.y = -1000;
+  }
 
   float _get_angle_between_points(float e_x, float e_y, float p_x, float p_y)
   {
@@ -50,6 +58,22 @@ namespace travel
   {
     return travel::travels.count(entity_id) > 0;
   }
+
+  void init_travel(int entity_id)
+  {
+    // To trigger delayed travel, when we dont know the endpoint yet
+    travel::TravelData tp;
+    tp.state = TRAVEL_STATE_IDLE;
+    int entity_node_id = paths::get_navnode_id(entity::entities[entity_id].x, entity::entities[entity_id].y);
+    tp.entity_id = entity_id;
+    tp.current_node = entity_node_id;
+    tp.current_x = entity::entities[entity_id].x;
+    tp.current_y = entity::entities[entity_id].y;
+
+    travel::travels[entity_id] = tp;
+    std::cout << "initialized travel for " << entity_id << std::endl;
+  }
+
 
   travel::TravelData make_basic_plan(int current_node_id, int target_node_id)
   {

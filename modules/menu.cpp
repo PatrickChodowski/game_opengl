@@ -97,6 +97,7 @@ namespace menu
       mdd.x = menu::currentmenuslots[menu_slot_id].x;
       mdd.y = menu::currentmenuslots[menu_slot_id].y;
       mdd.menu_slot_id = menu_slot_id;
+      mdd.assigned_entity_id = object_id;
       menu::currentmenuslots[menu_slot_id].free = false;
       menu::currentmenuslots[menu_slot_id].menu_id = menu_id;
       menu::currentmenus[menu_id] = mdd;
@@ -124,7 +125,8 @@ namespace menu
                                  ((infos.size()+1)*40 + mdd.y),
                                  150,
                                  currentmenus[menu_id].button_data[b].h,
-                                 currentmenus[menu_id].button_data[b].button_function_id);
+                                 currentmenus[menu_id].button_data[b].button_function_id,
+                                 menu_id);
         currentmenus[menu_id].button_ids.push_back(button_id);  
       }
     }
@@ -150,7 +152,8 @@ namespace menu
                                     currentmenus[menu_id].button_data[b].y,
                                     currentmenus[menu_id].button_data[b].w,
                                     currentmenus[menu_id].button_data[b].h,
-                                    currentmenus[menu_id].button_data[b].button_function_id);
+                                    currentmenus[menu_id].button_data[b].button_function_id,
+                                    menu_id);
         currentmenus[menu_id].button_ids.push_back(button_id);  
       } else 
       {
@@ -162,7 +165,8 @@ namespace menu
                                    (currentmenus[menu_id].button_data[b].y + (m*70)),
                                    currentmenus[menu_id].button_data[b].w,
                                    currentmenus[menu_id].button_data[b].h,
-                                   currentmenus[menu_id].button_data[b].button_function_id);
+                                   currentmenus[menu_id].button_data[b].button_function_id,
+                                   menu_id);
           currentmenus[menu_id].button_ids.push_back(button_id); 
           menu::saves_buttons_map[button_id] = menu::saves[m];
         }
