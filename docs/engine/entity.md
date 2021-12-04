@@ -48,12 +48,12 @@ Clears [EntityQuads](entity.md#EntityQuads), [Index](entity.md#Index), [entities
 void clear();
 ```
 
-### display
-(Work in Progress) method to display debugging/managing menu
+### info
+Returns vector of information strings (id, position etc.)
 ```c++
-int display(int entity_id, int gui_slot_id);
-```
+std::vector<std::string> info(int entity_id);
 
+```
 
 ## Tests
 -

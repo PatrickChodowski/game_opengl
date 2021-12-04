@@ -77,6 +77,12 @@ Returns unique menu_id
 int add(int menu_type_id)
 ```
 
+### add_to_slot
+Add menu to free slot
+```c++
+int add_to_slot(int menu_type_id, int object_id);
+```
+
 ### drop
 Drops menu from [currentmenus](menu.md#currentmenus) by menu_id, removes assigned [buttons](buttons.md#ButtonData) and [labels](fonts.md#LabelData). Frees the menu slot. 
 ```c++

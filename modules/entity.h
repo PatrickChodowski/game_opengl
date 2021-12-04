@@ -59,8 +59,8 @@ namespace entity
   // Clears entity table
   void clear();
 
-  // Dislays info in Debug Gui popup 
-  int display(int entity_id, int gui_slot_id);
+  // Returns vector of strings with entity information
+  std::vector<std::string> info(int entity_id);
 
 }
 

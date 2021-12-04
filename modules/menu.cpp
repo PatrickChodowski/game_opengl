@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "buttons.h"
+#include "entity.h"
 #include "fonts.h"
 #include "menu.h"
 #include "mouse.h"
@@ -83,11 +84,10 @@ namespace menu
   }
 
 
-  int add_to_slot(int menu_type_id)
+  int add_to_slot(int menu_type_id, int object_id)
   {
     int menu_id = -1;
     int menu_slot_id = menu::_get_free_slot();
-
     // if -1 then there is no free slot
     if(menu_slot_id > -1)
     {
@@ -100,6 +100,23 @@ namespace menu
       menu::currentmenuslots[menu_slot_id].free = false;
       menu::currentmenuslots[menu_slot_id].menu_id = menu_id;
       menu::currentmenus[menu_id] = mdd;
+
+      // Later will be changed to ContextManager, but for now just entity::info() ... later maps.info(), door.info() etc.
+      std::vector<std::string> infos = entity::info(object_id);
+
+      for(int i=0; i<infos.size(); i++)
+      {
+        int label_id = fonts::add(infos[i],
+                                  mdd.x,
+                                  mdd.y + 60 + (i*50),
+                                  CAMERA_STATIC,
+                                  1.0f,
+                                  1.0f,
+                                  1.0f,
+                                  1.0f);
+        menu::currentmenus[menu_id].label_ids.push_back(label_id);
+      }
+
     }
     return menu_id;
   }

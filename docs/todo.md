@@ -1,5 +1,5 @@
 
-### bringback the entity menu in new setup
+### fonts size options?
 
 ### Travel -> initialize travel when on click
 
@@ -8,8 +8,6 @@
 ### OpenGL book
 
 ### Shaders book
-
-### Mob entity -> spawn multiples into spawnedmobs
 
 ### 3d models instead of spritesheets:
  - photogrammetry
