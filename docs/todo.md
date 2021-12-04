@@ -28,7 +28,7 @@
 
  ### fonts size options? :( :( :(:( maybe another day...
 
- ### travels code is messy and probably will enjoy another iteration later 
+ ### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
 
 # Notes:
 
@@ -87,3 +87,15 @@ status w kazdym miescie
 banda skogermor i napad na miasto
 mozliwosc zostania earlem/jarlem/krolem
 
+
+
+
+
+
+## assets:
+
+https://opengameart.org/content/grassland-tileset
+https://opengameart.org/content/10-basic-rpg-enemies
+https://opengameart.org/content/four-characters-my-lpc-entries
+https://opengameart.org/content/desert-tileset
+https://opengameart.org/content/stunning-pixel-art-rpg-tileset

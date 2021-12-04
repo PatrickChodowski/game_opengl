@@ -15,10 +15,12 @@ Inside the loop:
 
 4) Check the start time
 5) Read the input from the player: get the queued **SDL_Event event** and pass it to [events::handle_events()](events.md#handle_events);
-6) Find and resolve collisions
-7) [game::update()](game.md#update)
-8) Swap Window with new data from opengl buffer
-9) Time the end of the loop and add the delay to keep 60 frames per second
+6) Update all travel signals
+7) Find and resolve collisions
+8) Update animations
+9) [game::update()](game.md#update)
+10) Swap Window with new data from opengl buffer
+11) Time the end of the loop and add the delay to keep 60 frames per second
 
 After loop is closed:
 

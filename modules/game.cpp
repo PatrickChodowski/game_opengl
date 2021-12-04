@@ -9,6 +9,7 @@
 
 #include "game.h"
 
+#include "anims.h"
 #include "buffer.h"
 #include "buttons.h"
 #include "camera.h"
@@ -120,6 +121,7 @@ namespace game
 
   void clear_scene()
   {
+    anims::clear();
     maps::clear();
     nav::clear();
     camera::reset();
@@ -137,6 +139,7 @@ namespace game
 
   void init()
   {
+    anims::init();
     buffer::init();
     buttons::init();
     collisions::init();
@@ -224,12 +227,14 @@ namespace game
     game::clear_scene();
     game::scenes.clear();
 
+    anims::refresh();
     hero::refresh();
     items::refresh();
     maps::refresh();
     menu::refresh();
     mobs::refresh();
 
+    anims::init();
     items::init();
     maps::init();
     menu::init();
