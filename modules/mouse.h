@@ -9,17 +9,19 @@
 
 namespace mouse
 {
-  // For travelling purposes
-  extern float last_click_x;
-  extern float last_click_y;
-  extern float last_map_click_x;
-  extern float last_map_click_y;
-
   struct MouseData
   {
     int x, y;
     int last_click_timestamp;
     bool was_released;
+  };
+
+  struct LastClickData
+  {
+    float world_x;
+    float world_y;
+    float window_x;
+    float window_y;
   };
 
   struct ClickData
@@ -37,6 +39,7 @@ namespace mouse
   // Catalog of functions to be chosen based on the object_type_id. Takes object_id as argument
   extern std::map <int, sig_ptr> click;
   extern std::map <int, int> ClickPriorities;
+  extern LastClickData last_click;
 
   // Print out click information
   void print_mouse(SDL_MouseMotionEvent e, const char* name);

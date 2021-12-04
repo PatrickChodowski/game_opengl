@@ -43,6 +43,12 @@ namespace camera
   // generate static MVP
   glm::mat4 gen_static_mvp();
 
+  // Reverse X from window to world 
+  float reverse_coord_x(float window_x, float camera_x, float camera_zoom);
+
+  // Reverse Y from window to world 
+  float reverse_coord_y(float window_y, float camera_y, float camera_zoom);
+
 }
 
 

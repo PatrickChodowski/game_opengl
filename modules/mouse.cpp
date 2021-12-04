@@ -1,4 +1,5 @@
 
+#include "camera.h"
 #include "entity.h"
 #include "game.h"
 #include "logger.h"
@@ -16,13 +17,7 @@
 
 namespace mouse
 {
-  // (work in progress) for travelling purposes
-  float last_click_x;
-  float last_click_y;
-  float last_map_click_x;
-  float last_map_click_y;
-  // (work in progress) for travelling purposes
-  
+  mouse::LastClickData last_click;  
   std::map <int , sig_ptr> click = {};
   std::map <int, int> ClickPriorities;
 
@@ -62,13 +57,18 @@ namespace mouse
       min_click_priority = mouse::ClickPriorities[OBJECT_TYPE_BUTTON];
     }
 
-
+    std::cout << "clicks size: " << clicks.size() << std::endl;
     for(int c=0; c<clicks.size(); c++)
     {
       if(clicks[c].priority >= min_click_priority)
       {
-        mouse::last_click_x = click_x;
-        mouse::last_click_y = click_y;
+        std::cout << "min click priority: " << min_click_priority << std::endl;
+        mouse::last_click.window_x = click_x;
+        mouse::last_click.window_y = click_y;
+
+        mouse::last_click.world_x = camera::reverse_coord_x(click_x, camera::cam.x, camera::cam.zoom);
+        //std::cout << "window x: " << click_x <<  " world x: " << mouse::last_click.world_x << std::endl;
+        mouse::last_click.world_y = camera::reverse_coord_y(click_y, camera::cam.y, camera::cam.zoom);
         mouse::click[clicks[c].object_type_id](clicks[c].object_id, clicks[c].mouse_button_id);
       }
     }
@@ -96,8 +96,8 @@ namespace mouse
   void _click_map(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on MAP object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
-    travel::last_click.x = mouse::last_click_x;
-    travel::last_click.y = mouse::last_click_y;
+    travel::last_click.x = mouse::last_click.world_x;
+    travel::last_click.y = mouse::last_click.world_y;
   };
 
   void _click_button(int object_id, int mouse_button_id)
