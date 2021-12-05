@@ -1,0 +1,10 @@
+{
+  "id": 4,
+  "w": 14,
+  "h": 13,
+  "type": "items",
+  "name": "items",
+  "frames_list": [
+    {"frame_id": 0, "x": 0, "y": 0, "w": 14, "h": 13}
+  ]
+}
