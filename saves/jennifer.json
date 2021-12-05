@@ -6,7 +6,7 @@
     "map_id" : 2,
     "name" : "jennifer",
     "type" : "barbarian",
-    "texture_id" : 4,
+    "texture_id" : 2,
     "level" : 1,
     "exp" : 0,
     "speed" : 16,
