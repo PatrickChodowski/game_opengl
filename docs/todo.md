@@ -1,4 +1,12 @@
 
+### how to make it isometric! just for test -> isometric projection
+
+We angle our camera along two axes (swing the camera 45 degrees to one side, then 30 degrees down). This creates a diamond (rhombus) shaped grid where the grid spaces are twice as wide as they are tall. This style was popularized by strategy games and action RPGs. If we look at a cube in this view, three sides are visible (top and two facing sides).
+
+https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-primer-for-game-developers--gamedev-6511
+
+### animate mobs
+
 ### shaders management -> remove if elses from shaders -> one shader per draw call
 
 ### animations of course not perfect- need to breakable, more logic, etc. but looks good!
