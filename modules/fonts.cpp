@@ -210,7 +210,7 @@ namespace fonts
 
       tdd.norm_x_start = chars[*p].offset;
       tdd.norm_x_end = chars[*p].offset + (chars[*p].bitmap_width/FontTDD.w);
-
+ 
       x += ((chars[*p].bitmap_width * ldd.scale)+5);
       fonts::texts[tdd.id] = tdd;
     }

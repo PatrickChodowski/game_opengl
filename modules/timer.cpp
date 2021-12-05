@@ -70,4 +70,9 @@ namespace timer
     return elapsed_ms;
   }
 
+  std::chrono::time_point<std::chrono::high_resolution_clock> get_current_hrc_time()
+  {
+    return std::chrono::high_resolution_clock::now();
+  }
+
 }

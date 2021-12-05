@@ -15,28 +15,26 @@
 
 namespace anims
 {
-  struct KeyFrame
-  {
-    int frame_id;
-    float elapsed_time;
-
-    JS_OBJ(frame_id, elapsed_time);
-  };
-
   struct Animation
   {
     int id;
     int entity_id;
     int texture_id;
+    int next_frame_id;
+    int current_frame_index;
+
+    std::vector<int> frame_ids;
+    std::vector<float> frame_times;
+    float next_e_time;
     float time_length;
     float time_elapsed;
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-    std::vector<anims::KeyFrame> frames;
 
     bool cyclical;
     bool breakable;
 
-    JS_OBJ(id, texture_id, time_length, frames, cyclical, breakable);
+    JS_OBJ(id, texture_id, next_frame_id, time_length, frame_ids, 
+    frame_times, cyclical, breakable);
 
   };
 
@@ -45,6 +43,9 @@ namespace anims
 
   // Catalog of entity_id, Animation - current animations played
   extern std::map<int, anims::Animation> animsplayed;
+
+  // index of animations to delete
+  extern std::vector<int> anims_to_stop;
 
   // Reads in all the data
   void init();
@@ -65,7 +66,16 @@ namespace anims
   void refresh();
 
   // Checks if given entity already is playing animation
-  bool check_if_entity_in_anim(int entity_id);
+  bool _check_if_entity_in_anim(int entity_id);
+
+  // Checks if given entity has animation and if this is the same type
+  bool _check_if_entity_in_anim_same_type(int anim_type_id, int entity_id);
+
+  // Start animation for given entity
+  void start(int anim_type_id, int entity_id);
+
+  // Runs the single animation from animsplayed
+  void play(int entity_id);
 
 }
 

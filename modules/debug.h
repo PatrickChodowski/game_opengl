@@ -23,11 +23,14 @@ namespace debug
     float w, h;
 
     float camera_type;
+    float norm_x_start = 0.0f;
+    float norm_x_end = 1.0f;
+    float norm_y_start = 0.0f;
+    float norm_y_end = 1.0f;
 
     // not used in this case:
-    float norm_x_start, norm_x_end;
-    int texture_id;
-    int frame_id;
+    int texture_id = -1;
+    int frame_id = -1;
     int id;
     
     bool is_clicked;

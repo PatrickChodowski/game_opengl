@@ -38,7 +38,10 @@ namespace fonts
     float r, g, b, a;
     float camera_type;
 
-    float norm_x_start, norm_x_end;
+    float norm_x_start = 0.0f;
+    float norm_x_end = 1.0f;
+    float norm_y_start = 0.0f;
+    float norm_y_end = 1.0f;
 
     float char_width;
     float char_height;

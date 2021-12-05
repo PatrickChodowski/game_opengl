@@ -2,6 +2,7 @@
 #include <map>
 #include <SDL2/SDL.h>
 
+#include "anims.h"
 #include "camera.h"
 #include "events.h"
 #include "fonts.h"
@@ -35,18 +36,22 @@ namespace events
     if(game::KEYBOARD[SDL_SCANCODE_LEFT])
     {
       camera::cam.move_x -= hero::hero.speed;
+      anims::start(2, hero::hero.entity_id);
     } 
     else if(game::KEYBOARD[SDL_SCANCODE_RIGHT])
     {
       camera::cam.move_x += hero::hero.speed;
+      anims::start(3, hero::hero.entity_id);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_UP])
     {
       camera::cam.move_y += hero::hero.speed;
+      anims::start(0, hero::hero.entity_id);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_DOWN])
     {
       camera::cam.move_y -= hero::hero.speed;
+      anims::start(1, hero::hero.entity_id);
     } else 
     {
       //hero::update_frame(STAND_STILL);

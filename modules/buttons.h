@@ -18,17 +18,19 @@ namespace buttons
     int id;
     int label_id;
     int button_function_id;
-    int texture_id = 0;
-    int frame_id = 0;
+    int texture_id = -1;
+    int frame_id = -1;
     int menu_id; // menu that the button belongs to
 
     float x, y;
     float w, h;
 
     float r, g, b, a;
-    float norm_x_start;
-    float norm_x_end;
     float camera_type;
+    float norm_x_start = 0.0f;
+    float norm_x_end = 1.0f;
+    float norm_y_start = 0.0f;
+    float norm_y_end = 1.0f;
 
     bool is_clicked;
   };

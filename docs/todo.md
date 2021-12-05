@@ -1,5 +1,5 @@
 
-### animations! new texture!
+### animations! 
 
 ### shaders management -> remove if elses from shaders -> one shader per draw call
 
@@ -18,13 +18,13 @@
 
  https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
 
+ ### when zoom out, middle mouse button could move the view -> but how? :o
+
  ### menu highliting -> nice feature to have :)
 
  ### saves scrolling
 
- ### Position struct in utils
-
- ### color structs in  utils
+ ### Position, color, normalized vector structs in utils
 
  ### fonts size options? :( :( :(:( maybe another day...
 

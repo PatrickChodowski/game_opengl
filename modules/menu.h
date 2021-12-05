@@ -54,8 +54,8 @@ namespace menu
     int id;
     int menu_type_id;
     int menu_slot_id;
-    int texture_id;
-    int frame_id;
+    int texture_id = -1;
+    int frame_id = -1;
     int object_type_id;
     int assigned_entity_id;
 
@@ -63,7 +63,11 @@ namespace menu
     float w, h;
     float r, g, b, a;
     float camera_type;
-    float norm_x_start, norm_x_end;
+    float norm_x_start = 0.0f;
+    float norm_x_end = 1.0f;
+    float norm_y_start = 0.0f;
+    float norm_y_end = 1.0f;
+
 
     std::string menu_name;
     std::vector<menu::MenuButtonData> button_data;
