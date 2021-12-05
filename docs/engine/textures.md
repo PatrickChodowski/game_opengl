@@ -63,18 +63,29 @@ Log textures to logs/textures.json on every frame
 void log();
 ```
 
-### _get_normalized_frame_start
+### _get_normalized_frame_x_start
 Get normalized (between 0 and 1) X start of the frame in the texture
 ```c++
-float _get_normalized_frame_start(int texture_id, int frame_id);
+float _get_normalized_frame_x_start(int texture_id, int frame_id);
 ```
 
-### _get_normalized_frame_end
+### _get_normalized_frame_x_end
 Get normalized (between 0 and 1) X end of the frame in the texture
 ```c++
-float _get_normalized_frame_end(int texture_id, int frame_id);
+float _get_normalized_frame_x_end(int texture_id, int frame_id);
+```
+
+### _get_normalized_frame_y_start
+Get normalized (between 0 and 1) Y start of the frame in the texture
+```c++
+float _get_normalized_frame_y_start(int texture_id, int frame_id);
+```
+
+### _get_normalized_frame_y_end
+Get normalized (between 0 and 1) Y end of the frame in the texture
+```c++
+float _get_normalized_frame_y_end(int texture_id, int frame_id);
 ```
 
 ## Tests
-- _get_normalized_frame_start
-- _get_normalized_frame_end
+- 

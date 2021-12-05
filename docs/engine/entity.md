@@ -48,6 +48,13 @@ Clears [EntityQuads](entity.md#EntityQuads), [Index](entity.md#Index), [entities
 void clear();
 ```
 
+### update_frame
+Update frame and normalization coordinates of the frame for entity
+```c++
+void update_frame(int entity_id, int frame_id);
+
+```
+
 ### info
 Returns vector of information strings (id, position etc.)
 ```c++
