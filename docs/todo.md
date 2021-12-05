@@ -1,7 +1,7 @@
 
-### animations! 
-
 ### shaders management -> remove if elses from shaders -> one shader per draw call
+
+### animations of course not perfect- need to breakable, more logic, etc. but looks good!
 
 ### OpenGL book
 
