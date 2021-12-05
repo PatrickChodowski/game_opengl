@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "name": "test2",
+  "vertex_width": 5,
+  "vertex_height": 4,
+  "texture_id": 3,
+  "doors": [
+    {"door_id": 0, "x": 0, "y": 0, "dest_map_id": 0, "player_enter_x": 150, "player_enter_y": 500}
+  ],
+  "nests": [
+    {"x": 400, "y": 300, "n": 3}
+  ]
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./static/styles.css">
+    <title>Quads</title>
+</head>
+<body>
+
+<div>
+    <select name="object_types" id="object_types" multiple>
+      <option value="0">Entity</option>
+      <option value="1">Map</option>
+      <option value="2">Menu</option>
+    </select>
+</div>
+
+<div>
+    {% for table in tables %}
+        {{ table|safe }}
+    {% endfor %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "w" : 70,
+  "h" : 70,
+  "texture_id" : 2,
+  "level" : 1,
+  "exp" : 0,
+  "speed" : 8,
+  "hp" : 100,
+  "dmg" : 20,
+  "def" : 100,
+  "mobs_killed" : 0
+}
