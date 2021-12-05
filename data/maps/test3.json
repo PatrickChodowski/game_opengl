@@ -3,7 +3,7 @@
   "name": "test3",
   "vertex_width": 20,
   "vertex_height": 16,
-  "texture_id": 2,
+  "texture_id": 3,
   "doors": [
     {"door_id": 0, "x": 0, "y": 0, "dest_map_id": 1, "player_enter_x": 150, "player_enter_y": 500}
   ],
