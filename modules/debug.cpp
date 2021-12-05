@@ -41,8 +41,6 @@ namespace debug
     pdd.a = a;
     pdd.w = 10;
     pdd.h = 10;
-    pdd.norm_x_start = 0;
-    pdd.norm_x_end = 0;
     pdd.camera_type = CAMERA_DYNAMIC;
     points[pdd.id] = pdd;
   };

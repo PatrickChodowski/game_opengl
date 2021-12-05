@@ -39,7 +39,7 @@ int main()
 
   while(game::RUNNING)
   {
-    auto game_loop_start_time = std::chrono::high_resolution_clock::now();
+    std::chrono::time_point<std::chrono::high_resolution_clock> game_loop_start_time = timer::get_current_hrc_time();
     SDL_Event event;
     events::handle_events(event);
     // Mobs/NPCs movements here?
@@ -48,7 +48,8 @@ int main()
     anims::update();
     game::update();
     SDL_GL_SwapWindow(WINDOW);
-    auto game_loop_end_time = std::chrono::high_resolution_clock::now();
+
+    std::chrono::time_point<std::chrono::high_resolution_clock> game_loop_end_time = timer::get_current_hrc_time();
     float delay = timer::get_delay_ms(game_loop_start_time, game_loop_end_time);
     SDL_Delay(delay);
     FPS = timer::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);

@@ -41,8 +41,6 @@ namespace menu
     context.parseTo(MD);
 
     MD.camera_type = CAMERA_STATIC;
-    MD.norm_x_start = 0.0f;
-    MD.norm_x_end = 1.0f;
     MD.menu_slot_id = -1;
     MD.z = 0;
 

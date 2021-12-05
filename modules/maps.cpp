@@ -63,11 +63,10 @@ namespace maps
     tile.is_clicked = false;
     tile.is_solid = false;
 
-    tile.norm_x_start = textures::_get_normalized_frame_x_start(texture_id, tile.frame_id);
-    tile.norm_x_end = textures::_get_normalized_frame_x_end(texture_id, tile.frame_id);
-    tile.norm_y_start = textures::_get_normalized_frame_y_start(texture_id, tile.frame_id);
-    tile.norm_y_end = textures::_get_normalized_frame_y_end(texture_id, tile.frame_id);
-
+    tile.norm_x_start = textures::_get_normalized_frame_x_start(tile.texture_id, tile.frame_id);
+    tile.norm_x_end = textures::_get_normalized_frame_x_end(tile.texture_id, tile.frame_id);
+    tile.norm_y_start = textures::_get_normalized_frame_y_start(tile.texture_id, tile.frame_id);
+    tile.norm_y_end = textures::_get_normalized_frame_y_end(tile.texture_id, tile.frame_id);
 
     // if frame_id is between 10 and 20, then its solid (11-19)
     if(tile.frame_id > 10 && tile.frame_id < 20)

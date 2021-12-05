@@ -29,9 +29,11 @@ namespace entity
     float diag;
     float camera_type;
 
-    float norm_x_start, norm_x_end;
-    float norm_y_start, norm_y_end;
-    
+    float norm_x_start = 0.0f;
+    float norm_x_end = 1.0f;
+    float norm_y_start = 0.0f;
+    float norm_y_end = 1.0f;
+
     bool is_solid;
     bool is_clicked;
 
@@ -59,6 +61,9 @@ namespace entity
 
   // Clears entity table
   void clear();
+
+  // Update entity's frame
+  void update_frame(int entity_id, int frame_id);
 
   // Returns vector of strings with entity information
   std::vector<std::string> info(int entity_id);

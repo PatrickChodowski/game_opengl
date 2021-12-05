@@ -33,6 +33,9 @@ namespace timer
   // Get elapsed miliseconds from start time
   float get_elapsed_ms(std::chrono::milliseconds start);
 
+  // Get current high resolution clock time
+  std::chrono::time_point<std::chrono::high_resolution_clock> get_current_hrc_time();
+
 }
 
 #endif

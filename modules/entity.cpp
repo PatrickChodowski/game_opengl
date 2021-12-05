@@ -49,10 +49,10 @@ namespace entity
     edd.is_clicked = false;
     edd.speed = data.speed;
 
-    edd.norm_x_start = textures::_get_normalized_frame_x_start(data.texture_id, data.current_frame);
-    edd.norm_x_end = textures::_get_normalized_frame_x_end(data.texture_id, data.current_frame);
-    edd.norm_y_start = textures::_get_normalized_frame_y_start(data.texture_id, data.current_frame);
-    edd.norm_y_end = textures::_get_normalized_frame_y_end(data.texture_id, data.current_frame);
+    edd.norm_x_start = textures::_get_normalized_frame_x_start(edd.texture_id, edd.frame_id);
+    edd.norm_x_end = textures::_get_normalized_frame_x_end(edd.texture_id, edd.frame_id);
+    edd.norm_y_start = textures::_get_normalized_frame_y_start(edd.texture_id, edd.frame_id);
+    edd.norm_y_end = textures::_get_normalized_frame_y_end(edd.texture_id,edd.frame_id);
 
     entity::entities[edd.id] = edd;
     return edd.id;
@@ -83,6 +83,16 @@ namespace entity
     infos.push_back(label_pos);
     return infos;
   } 
+
+  void update_frame(int entity_id, int frame_id)
+  {
+    int texture_id = entity::entities[entity_id].texture_id;
+    entity::entities[entity_id].frame_id = frame_id;
+    entity::entities[entity_id].norm_x_start = textures::_get_normalized_frame_x_start(texture_id, frame_id);
+    entity::entities[entity_id].norm_x_end = textures::_get_normalized_frame_x_end(texture_id, frame_id);
+    entity::entities[entity_id].norm_y_start = textures::_get_normalized_frame_y_start(texture_id, frame_id);
+    entity::entities[entity_id].norm_y_end = textures::_get_normalized_frame_y_end(texture_id, frame_id);
+  }
 
   template int entity::create<hero::HeroData>(hero::HeroData, int, float);
   template int entity::create<items::ItemData>(items::ItemData, int, float);

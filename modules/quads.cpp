@@ -39,29 +39,29 @@ namespace quads
     v.v1_x = q.x;
     v.v1_y = q.y;
     v.v1_tx_x = q.norm_x_start;
-    //v.v1_tx_y = q.norm_y_start;
-    v.v1_tx_y = 0.0f;
+    v.v1_tx_y = q.norm_y_start;
+    //v.v1_tx_y = 0.0f;
 
     // B
     v.v2_x = q.x + q.w - quads::VERTEX_OFFSET;
     v.v2_y = q.y;
     v.v2_tx_x = q.norm_x_end;
-    //v.v2_tx_y = q.norm_y_start;
-    v.v2_tx_y = 0.0f;
+    v.v2_tx_y = q.norm_y_start;
+    //v.v2_tx_y = 0.0f;
 
     // C
     v.v3_x = q.x;
     v.v3_y = q.y + q.h - quads::VERTEX_OFFSET;
     v.v3_tx_x = q.norm_x_start;
-    //v.v3_tx_y = q.norm_y_end;
-    v.v3_tx_y = 1.0f;
+    v.v3_tx_y = q.norm_y_end;
+    //v.v3_tx_y = 1.0f;
 
     // D
     v.v4_x = q.x + q.w - quads::VERTEX_OFFSET;
     v.v4_y = q.y + q.h - quads::VERTEX_OFFSET;
     v.v4_tx_x = q.norm_x_end;
-    //v.v4_tx_y = q.norm_y_end;
-    v.v4_tx_y = 1.0f;
+    v.v4_tx_y = q.norm_y_end;
+    //v.v4_tx_y = 1.0f;
 
     q.v = v;
     q.i_left.v1 =q.v.v1_id;
@@ -206,6 +206,16 @@ namespace quads
 
       quad.norm_x_start = v.norm_x_start;
       quad.norm_x_end = v.norm_x_end;
+      quad.norm_y_start = v.norm_y_start;
+      quad.norm_y_end = v.norm_y_end;
+
+      // if((v.texture_id > -1 & v.frame_id > -1) | )
+      // {
+      //   quad.norm_x_start = textures::_get_normalized_frame_x_start(v.texture_id, v.frame_id);
+      //   quad.norm_x_end = textures::_get_normalized_frame_x_end(v.texture_id, v.frame_id);
+      //   quad.norm_y_start = textures::_get_normalized_frame_y_start(v.texture_id, v.frame_id);
+      //   quad.norm_y_end = textures::_get_normalized_frame_y_end(v.texture_id, v.frame_id);
+      // }
 
       quad.is_clicked = v.is_clicked;
       quads.push_back(quad);
@@ -249,6 +259,8 @@ namespace quads
                       "    \"window_h\": " << quads::AllQuads[i].window_h             << ",\n"
                       "    \"norm_x_start\": " << quads::AllQuads[i].norm_x_start     << ",\n"
                       "    \"norm_x_end\": " << quads::AllQuads[i].norm_x_end         << ",\n"
+                      "    \"norm_y_start\": " << quads::AllQuads[i].norm_y_start     << ",\n"
+                      "    \"norm_y_end\": " << quads::AllQuads[i].norm_y_end         << ",\n"
                       "    \"is_clicked\": " << quads::AllQuads[i].is_clicked         << "\n"
                       << end_str;
       }
