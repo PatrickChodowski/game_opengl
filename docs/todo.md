@@ -1,9 +1,19 @@
 
-### how to make it isometric! just for test -> isometric projection
+### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
-We angle our camera along two axes (swing the camera 45 degrees to one side, then 30 degrees down). This creates a diamond (rhombus) shaped grid where the grid spaces are twice as wide as they are tall. This style was popularized by strategy games and action RPGs. If we look at a cube in this view, three sides are visible (top and two facing sides).
+### personality traits of the leaders -> random
+- random personality traits
+- random relations with other kingdoms
+- personality traits deciding if they start a conflict
 
-https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-primer-for-game-developers--gamedev-6511
+### 3d models instead of spritesheets:
+ - photogrammetry
+ - meshroom 
+ - https://www.mixamo.com/
+ - blender
+ - blender python api
+ - PIFuh by facebook
+ - gITF file format 
 
 ### animate mobs
 
@@ -15,16 +25,17 @@ https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-prime
 
 ### Shaders book
 
-### 3d models instead of spritesheets:
- - photogrammetry
- - meshroom 
- - https://www.mixamo.com/
- - blender
- - blender python api
- - PIFuh by facebook
- - gITF file format 
+
+ ### how to make it isometric! just for test -> isometric projection
+
+We angle our camera along two axes (swing the camera 45 degrees to one side, then 30 degrees down). This creates a diamond (rhombus) shaped grid where the grid spaces are twice as wide as they are tall. This style was popularized by strategy games and action RPGs. If we look at a cube in this view, three sides are visible (top and two facing sides).
+
+https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-primer-for-game-developers--gamedev-6511
 
  https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
+
+https://www.youtube.com/watch?v=04oQ2jOUjkU&ab_channel=JordanWest -> very good instructions
+
 
  ### when zoom out, middle mouse button could move the view -> but how? :o
 
@@ -37,6 +48,10 @@ https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-prime
  ### fonts size options? :( :( :(:( maybe another day...
 
  ### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
+
+ ### optimazatioon :: quads controller, arrays instead of vectors
+
+ ### game should be 2D topdown
 
 # Notes:
 
