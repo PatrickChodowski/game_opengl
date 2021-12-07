@@ -24,13 +24,11 @@ namespace quads
   float VERTEX_OFFSET = 1;
   int COUNT_QUADS = 0;
   int REQ_SIZE_BUFFER = 0;
-  const int MAX_QUADS = 28800;
+  int MAX_QUADS = 28800;
 
 
-  // Array of quads
-  quads::QuadData quads[MAX_QUADS];
-
-  std::vector<quads::QuadData> AllQuads;
+  // vector of quads
+  std::vector<quads::QuadData> AllQuads(MAX_QUADS);
   std::map<int, quads::QuadSetting> QuadsManager;
 
 
@@ -111,10 +109,10 @@ namespace quads
 
   void clear_quads(int min_index, int max_index)
   {
-    for(int i=min_index; i < (max_index+1); i++)
-    {
-      quads::quads[i].is_deleted = true;
-    }
+    // for(int i=min_index; i < (max_index+1); i++)
+    // {
+    //   quads::quads[i].is_deleted = true;
+    // }
   }
 
 
