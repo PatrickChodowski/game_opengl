@@ -1,5 +1,7 @@
 ### how to load really big map -> impossible now, question is why exactly  -> quads optimization, maybe chunks?
 
+lol it works without logging, it was logging all the time
+
 ideas:
   - need to reset all quads all the time
   - but! need the chunk system, only this would allow for bigger maps [160x160 is enough]
@@ -33,6 +35,11 @@ Probably will still need a chunks system on top of the map -> avoid rendering an
  - PIFuh by facebook
  - gITF file format 
 
+
+### goal oriented action planning:
+https://www.youtube.com/watch?v=jUSrVF8mve4&ab_channel=Holistic3d
+
+define goal and go backwards in actions to create chain of actions to achieve the goal based on the output of each action
 
 
 
