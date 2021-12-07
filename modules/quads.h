@@ -125,7 +125,7 @@ namespace quads
 
   // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc. Adds straight to quads array
   template <typename T>
-  void add_quads(std::map<int, T> data, int object_type_id);
+  void add_quads(std::map<int, T>& data, int object_type_id);
 
 
   // Writes down the quads data to ./logs/all_quads.json on every frame
