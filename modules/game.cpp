@@ -139,7 +139,7 @@ namespace game
 
   void init()
   {
-    quads::init();
+    quads::clear();
     anims::init();
     buffer::init();
     buttons::init();
@@ -158,11 +158,12 @@ namespace game
 
     // Loads scene based on SCENE_ID
     game::load_scene(SCENE_ID_MAIN_MENU, false);
+    //game::load_scene(SCENE_ID_DUNGEON_LEVEL_1, false);
   };
 
   void update()
   {
-    quads::AllQuads.clear();
+    quads::clear();
     maps::render();
     entity::render();
     debug::render();

@@ -1,28 +1,20 @@
-ideas:
- - test with static array
- - add function to render one piece of data -> will return quad_id that can be later stored
- - work more on the reset controller
- - avoid resetting whole AllQuads
-
-
 ### how to load really big map -> impossible now, question is why exactly  -> quads optimization, maybe chunks?
 
-- create one big float array for all the quads data instead of AllQuads -> define the ranges for each module
-0-99 menu quads
-100-999 entity quads
-1000-10000 map quads
- etc.
+ideas:
+  - need to reset all quads all the time
+  - but! need the chunk system, only this would allow for bigger maps [160x160 is enough]
 
- have Quads controller keeping track of ranges and flags if given range need an update 
- update -> wipe out the range and assign new values from module's catalog
+  one chunk: visible tiles: 10x8
+  need to load 9 chunks (main one and all surrounding) -> 720 tiles
 
- One array,all quads, no more module quads, just accessing this chunk of memory from all other modules
-
- checks if some modules exceeds the range, then just throw error
-
- ### optimazatioon :: quads controller, arrays instead of vectors
+Probably will still need a chunks system on top of the map -> avoid rendering anything 
+- define chunks on map creation, avoid running stuff based on the chunk player is in
 
 
+### todo: introduce config file for whole game:
+- windows size
+- starting scene
+- max quads
 
 
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
@@ -55,9 +47,6 @@ ideas:
 ### OpenGL book
 
 ### Shaders book
-
-#
-
 
  ### how to make it isometric! just for test -> isometric projection
 

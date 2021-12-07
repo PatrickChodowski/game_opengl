@@ -83,7 +83,7 @@ namespace maps
     int texture_id = maps::maps[map_id].texture_id;
 
     int tile_id = 0;
-    std::cout << "tile count: " << n_tiles << std::endl;  
+    //std::cout << "tile count: " << n_tiles << std::endl;  
     // read in the tile info
     if (in_file.is_open())
     {
@@ -91,7 +91,7 @@ namespace maps
         {
           for (int c = 0; c < maps::maps[map_id].vertex_width; c++)
           {
-            std::cout << "reading tile " << r << ", " << c << std::endl;
+            //std::cout << "reading tile " << r << ", " << c << std::endl;
             int frame_id;
             in_file >> frame_id;
             maps::TileData tile = maps::generate_tile(c * maps::default_tile_width, 
@@ -101,7 +101,7 @@ namespace maps
             tile.id = tile_id;
             tile_id += 1;
             maps::tiles[tile.id] = tile;
-            std::cout << " done tile " << r << ", " << c << std::endl;
+            //std::cout << " done tile " << r << ", " << c << std::endl;
           };
         } 
     }
@@ -110,32 +110,27 @@ namespace maps
 
   void init_map(int map_id)
   { 
-    std::cout <<" started init map " << std::endl;
+    //std::cout <<" started init map " << std::endl;
     if(map_id > -1)
     {
       maps::load(map_id);
-      std::cout <<" finished map load " << std::endl;
-
+      //std::cout <<" finished map load " << std::endl;
       // Generate navmesh based on the map_id
       nav::init(map_id);
 
-      std::cout <<" finished navmesh " << std::endl;
+      //std::cout <<" finished navmesh " << std::endl;
 
       // Generate Path map
       paths::make_path_map();
 
-      std::cout <<" finished path map " << std::endl;
+      //std::cout <<" finished path map " << std::endl;
     }
-    std::cout <<" finished init map " << std::endl;
+    //std::cout <<" finished init map " << std::endl;
   };
 
   void render()
   {
-    //maps::MapQuads.clear();
-    //maps::MapQuads = quads::make_quads(maps::tiles, OBJECT_TYPE_MAP);
-
     quads::add_quads(maps::tiles, OBJECT_TYPE_MAP);
-    //std::cout <<" finished rendering tiles " << std::endl;
   }
 
   void clear()
