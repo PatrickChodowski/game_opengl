@@ -25,13 +25,13 @@
 namespace buffer
 {
   
-  int MAX_QUADS = 2000;
   unsigned int VBO, VAO, EBO;
   int COUNT_VERTEX_ATTRIBUTES = 14;
-  int VBO_size = buffer::MAX_QUADS*buffer::COUNT_VERTEX_ATTRIBUTES*sizeof(float)*4;
+  // 28 800 * 14 * 4 * 4 bytes = 6451200 bytes = 6451,2 kilobytes = 6.45 megabytes
+  int VBO_size = quads::MAX_QUADS*buffer::COUNT_VERTEX_ATTRIBUTES*sizeof(float)*4;
   int VBO_array_size;
   float VBO_buffer_usage;
-  int EBO_size =  buffer::MAX_QUADS*sizeof(float)*6;
+  int EBO_size =  quads::MAX_QUADS*sizeof(float)*6;
   int EBO_array_size;
   float EBO_buffer_usage;
 

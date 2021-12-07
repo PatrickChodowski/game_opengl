@@ -1,5 +1,6 @@
 #include <vector>
 #include <map>
+
 #include "collisions.h"
 
 
@@ -79,27 +80,36 @@ namespace quads
 
   };
 
+  // Manages range of quads per object it and switches the reset of them 
+  struct QuadSetting
+  {
+    int min_index;
+    int max_index;
+    bool needs_reset;
+  };
+
+  extern const int MAX_QUADS;
+  extern quads::QuadData quads[];
   extern std::vector<QuadData> AllQuads;
   extern std::vector<int> QuadIndex;
-  extern std::vector<int> VertexIndex;
   extern float VERTEX_OFFSET;
   extern int COUNT_QUADS;
   extern int REQ_SIZE_BUFFER;
 
+  // Contains quads settings per object_type_id
+  extern std::map<int, quads::QuadSetting> QuadsManager;
+
+  // Setup of Quads manager
+  void init();
+
   // Takes some quad information and produces vertex data struct to be added to quad;
-  VertexData _fill_quad_vertex_data(quads::QuadData& q);
+  VertexData _fill_quad_vertex_data(quads::QuadData& q, int n);
 
   // Finds next available quad id
   int _find_next_quad_id();
 
-  // Finds next available vertex id
-  int _find_next_vertex_id();
-
   // Generate new quad id
   int gen_quad_id();
-
-  // Generate new vertex id
-  int gen_vertex_id();
 
   // Clear all quads data
   void clear();
