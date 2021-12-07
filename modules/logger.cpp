@@ -133,7 +133,7 @@ namespace logger
 
   void log_data()
   {
-    quads::log();
+    // quads::log();
     // textures::log();
   };
 

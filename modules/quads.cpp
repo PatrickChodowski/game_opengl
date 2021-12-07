@@ -24,7 +24,8 @@ namespace quads
   float VERTEX_OFFSET = 1;
   int COUNT_QUADS = 0;
   int REQ_SIZE_BUFFER = 0;
-  int MAX_QUADS = 3920;
+  int MAX_QUADS = 29000;
+  // 4000*312* // this can even go on stack if needed
 
 // MAX 20 menu quads
 // MAX 100 button quads
