@@ -30,8 +30,6 @@ namespace quads
   quads::QuadData quads[MAX_QUADS];
 
   std::vector<quads::QuadData> AllQuads;
-  std::vector<int> QuadIndex = {};
-  std::vector<int> VertexIndex = {};
   std::map<int, quads::QuadSetting> QuadsManager;
 
 
@@ -51,6 +49,53 @@ namespace quads
     quads::QuadsManager[OBJECT_TYPE_ENTITY] = qs_ent;
     quads::QuadsManager[OBJECT_TYPE_MAP] = qs_maps;
   }
+
+
+
+  template <typename T>
+  std::vector<quads::QuadData> add_quads(std::map<int, T> data, int object_type_id)
+  {
+    std::vector<quads::QuadData> quads = {};
+    for (auto const& [k, v] : data)
+    {
+      quads::QuadData quad;
+      quad.texture_id = v.texture_id;
+      quad.frame_id = v.frame_id;
+
+      quad.object_id = v.id;
+      quad.object_type_id = object_type_id;
+      quad.camera_type = v.camera_type;
+
+      quad.r = v.r;
+      quad.g = v.g;
+      quad.b = v.b;
+      quad.a = v.a;
+
+      quad.x = v.x;
+      quad.y = v.y;
+      quad.z = 1.0f;
+      quad.h = v.h;
+      quad.w = v.w;
+
+      quad.window_x = v.x;
+      quad.window_y = v.y;
+      quad.window_h = v.h;
+      quad.window_w = v.w;
+
+      quad.norm_x_start = v.norm_x_start;
+      quad.norm_x_end = v.norm_x_end;
+      quad.norm_y_start = v.norm_y_start;
+      quad.norm_y_end = v.norm_y_end;
+
+
+      quad.is_clicked = v.is_clicked;
+      quads.push_back(quad);
+    }
+    return quads;
+  }
+
+
+
 
   VertexData _fill_quad_vertex_data(quads::QuadData& q, int n)
   {
@@ -99,36 +144,14 @@ namespace quads
     return v;
   }
 
-  int _find_next_quad_id()
-  {
-    int n = quads::QuadIndex.size();
-    // for whole vector, find value that would be bigger than (index + 1)
-    for (int i = 0; i < n; i++)
-    {
-      if (quads::QuadIndex[i] > (i+1)){
-        return i+1;
-      }
-    }
-    return n+1;
-  }
-
-  int gen_quad_id()
-  {
-    int next_quad_id = quads::_find_next_quad_id();
-    quads::QuadIndex.push_back(next_quad_id);
-    return next_quad_id;
-  }
-
   void clear()
   {
     quads::AllQuads.clear();
-    quads::QuadIndex.clear();
   }
 
   void accumulate()
   {
     quads::AllQuads.clear();
-    quads::QuadIndex.clear();
 
     // assign map quads
     if(maps::MapQuads.size() > 0)
@@ -186,7 +209,6 @@ namespace quads
     for (auto const& [k, v] : data)
     {
       quads::QuadData quad;
-      quad.id = quads::gen_quad_id();
       quad.texture_id = v.texture_id;
       quad.frame_id = v.frame_id;
 
@@ -215,13 +237,6 @@ namespace quads
       quad.norm_y_start = v.norm_y_start;
       quad.norm_y_end = v.norm_y_end;
 
-      // if((v.texture_id > -1 & v.frame_id > -1) | )
-      // {
-      //   quad.norm_x_start = textures::_get_normalized_frame_x_start(v.texture_id, v.frame_id);
-      //   quad.norm_x_end = textures::_get_normalized_frame_x_end(v.texture_id, v.frame_id);
-      //   quad.norm_y_start = textures::_get_normalized_frame_y_start(v.texture_id, v.frame_id);
-      //   quad.norm_y_end = textures::_get_normalized_frame_y_end(v.texture_id, v.frame_id);
-      // }
 
       quad.is_clicked = v.is_clicked;
       quads.push_back(quad);
@@ -245,7 +260,6 @@ namespace quads
         }
 
         quads_file << " { \n" <<
-                      "    \"id\": " << quads::AllQuads[i].id                         << ",\n"
                       "    \"object_id\": " << quads::AllQuads[i].object_id           << ",\n"
                       "    \"texture_id\": " << quads::AllQuads[i].texture_id         << ",\n"
                       "    \"frame_id\": " << quads::AllQuads[i].frame_id             << ",\n"

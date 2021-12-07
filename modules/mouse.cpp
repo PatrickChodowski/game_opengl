@@ -34,7 +34,6 @@ namespace mouse
       if((q.window_x <= click_x) & (click_x < q.window_x+q.window_w) & (click_y >= q.window_y & click_y < q.window_y + q.window_h))
       {
         mouse::ClickData cdd;
-        cdd.quad_id = q.id;
         cdd.object_id = q.object_id;
         cdd.object_type_id = q.object_type_id;
         cdd.mouse_button_id = mouse_button_id;
