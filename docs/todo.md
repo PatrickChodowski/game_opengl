@@ -15,6 +15,28 @@
  - PIFuh by facebook
  - gITF file format 
 
+
+
+
+
+
+### how to load really big map -> impossible now, question is why exactly  -> quads optimization, maybe chunks?
+
+- create one big float array for all the quads data instead of AllQuads -> define the ranges for each module
+0-99 menu quads
+100-999 entity quads
+1000-10000 map quads
+ etc.
+
+ have Quads controller keeping track of ranges and flags if given range need an update 
+ update -> wipe out the range and assign new values from module's catalog
+
+ One array,all quads, no more module quads, just accessing this chunk of memory from all other modules
+
+ checks if some modules exceeds the range, then just throw error
+
+
+
 ### animate mobs
 
 ### shaders management -> remove if elses from shaders -> one shader per draw call
@@ -24,6 +46,8 @@
 ### OpenGL book
 
 ### Shaders book
+
+#
 
 
  ### how to make it isometric! just for test -> isometric projection
