@@ -103,8 +103,11 @@ namespace debug
 
   void render()
   {
-    debug::DebugQuads.clear();
-    debug::DebugQuads = quads::make_quads(debug::points, OBJECT_TYPE_DEBUG);
+    // debug::DebugQuads.clear();
+    // debug::DebugQuads = quads::make_quads(debug::points, OBJECT_TYPE_DEBUG);
+
+    quads::add_quads(debug::points, OBJECT_TYPE_DEBUG);
+
   }
 
   void clear()

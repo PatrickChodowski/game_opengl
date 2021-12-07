@@ -192,8 +192,9 @@ namespace menu
   void render()
   {
     //std::cout << "current menus size:" << menu::currentmenus.size() << std::endl;
-    menu::MenuQuads.clear();
-    menu::MenuQuads = quads::make_quads(menu::currentmenus, OBJECT_TYPE_MENU);
+    //menu::MenuQuads.clear();
+    //menu::MenuQuads = quads::make_quads(menu::currentmenus, OBJECT_TYPE_MENU);
+    quads::add_quads(menu::currentmenus, OBJECT_TYPE_MENU);
   }
 
   void drop(int menu_id)

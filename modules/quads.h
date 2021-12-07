@@ -75,6 +75,7 @@ namespace quads
     float norm_y_start, norm_y_end;
 
     bool is_clicked;
+    bool is_deleted;
 
   };
 
@@ -83,6 +84,7 @@ namespace quads
   {
     int min_index;
     int max_index;
+    int size;
     bool needs_reset;
   };
 
@@ -99,6 +101,9 @@ namespace quads
   // Setup of Quads manager
   void init();
 
+  // deletes quads (they stay in array but flags them as deleted)
+  void clear_quads(int min_index, int max_index);
+
   // Takes some quad information and produces vertex data struct to be added to quad;
   VertexData _fill_quad_vertex_data(quads::QuadData& q, int n);
 
@@ -112,11 +117,16 @@ namespace quads
   void clear();
 
   // Accumulate all quad vectors from different components
-  void accumulate();
+  void update();
 
   // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc.
   template <typename T>
   std::vector<quads::QuadData> make_quads(std::map<int, T> data, int object_type_id);
+
+  // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc. Adds straight to quads array
+  template <typename T>
+  void add_quads(std::map<int, T> data, int object_type_id);
+
 
   // Writes down the quads data to ./logs/all_quads.json on every frame
   void log();

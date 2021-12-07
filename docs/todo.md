@@ -1,4 +1,26 @@
 
+
+
+### how to load really big map -> impossible now, question is why exactly  -> quads optimization, maybe chunks?
+
+- create one big float array for all the quads data instead of AllQuads -> define the ranges for each module
+0-99 menu quads
+100-999 entity quads
+1000-10000 map quads
+ etc.
+
+ have Quads controller keeping track of ranges and flags if given range need an update 
+ update -> wipe out the range and assign new values from module's catalog
+
+ One array,all quads, no more module quads, just accessing this chunk of memory from all other modules
+
+ checks if some modules exceeds the range, then just throw error
+
+ ### optimazatioon :: quads controller, arrays instead of vectors
+
+
+
+
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
 ### personality traits of the leaders -> random
@@ -17,23 +39,6 @@
 
 
 
-
-
-
-### how to load really big map -> impossible now, question is why exactly  -> quads optimization, maybe chunks?
-
-- create one big float array for all the quads data instead of AllQuads -> define the ranges for each module
-0-99 menu quads
-100-999 entity quads
-1000-10000 map quads
- etc.
-
- have Quads controller keeping track of ranges and flags if given range need an update 
- update -> wipe out the range and assign new values from module's catalog
-
- One array,all quads, no more module quads, just accessing this chunk of memory from all other modules
-
- checks if some modules exceeds the range, then just throw error
 
 
 
@@ -72,8 +77,6 @@ https://www.youtube.com/watch?v=04oQ2jOUjkU&ab_channel=JordanWest -> very good i
  ### fonts size options? :( :( :(:( maybe another day...
 
  ### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
-
- ### optimazatioon :: quads controller, arrays instead of vectors
 
  ### game should be 2D topdown
 

@@ -11,6 +11,7 @@
 #include "debug.h"
 #include "entity.h"
 #include "fonts.h"
+#include "logger.h"
 #include "maps.h"
 #include "menu.h"
 #include "quads.h"
@@ -35,12 +36,13 @@ namespace quads
 
   void init()
   {
-    quads::QuadSetting qs_menu = {0, 19, true}; // MAX 20 menu quads
-    quads::QuadSetting qs_buttons = {20, 119, true}; // MAX 100 button quads
-    quads::QuadSetting qs_doints = {120, 199, true}; // MAX 80 debug points
-    quads::QuadSetting qs_text = {200, 1199, true}; // MAX 1000 letters
-    quads::QuadSetting qs_ent = {1200, 3199, true}; // MAX 2000 entities
-    quads::QuadSetting qs_maps = {3200, 28799, true}; // MAX 25600 map tiles (160x160)
+    // min index, max index, size, needs reset
+    quads::QuadSetting qs_menu = {0, 19, 20, true}; // MAX 20 menu quads
+    quads::QuadSetting qs_buttons = {20, 119, 100, true}; // MAX 100 button quads
+    quads::QuadSetting qs_doints = {120, 199, 80, true}; // MAX 80 debug points
+    quads::QuadSetting qs_text = {200, 1199, 1000, true}; // MAX 1000 letters
+    quads::QuadSetting qs_ent = {1200, 3199, 2000, true}; // MAX 2000 entities
+    quads::QuadSetting qs_maps = {3200, 28799, 25600, true}; // MAX 25600 map tiles (160x160)
 
     quads::QuadsManager[OBJECT_TYPE_MENU] = qs_menu;
     quads::QuadsManager[OBJECT_TYPE_BUTTON] = qs_buttons;
@@ -48,50 +50,71 @@ namespace quads
     quads::QuadsManager[OBJECT_TYPE_TEXT] = qs_text;
     quads::QuadsManager[OBJECT_TYPE_ENTITY] = qs_ent;
     quads::QuadsManager[OBJECT_TYPE_MAP] = qs_maps;
+
+    std::cout <<  sizeof(quads::QuadData) << std::endl;
   }
 
 
 
   template <typename T>
-  std::vector<quads::QuadData> add_quads(std::map<int, T> data, int object_type_id)
+  void add_quads(std::map<int, T> data, int object_type_id)
   {
-    std::vector<quads::QuadData> quads = {};
-    for (auto const& [k, v] : data)
+    if(quads::QuadsManager[object_type_id].needs_reset)
     {
-      quads::QuadData quad;
-      quad.texture_id = v.texture_id;
-      quad.frame_id = v.frame_id;
+      if(data.size()>quads::QuadsManager[object_type_id].size)
+      {
+        logger::log(LOG_LVL_ERROR, " ERROR: Data to render exceeding its quads space", "quads", __FILE__, __LINE__, LOG_LVL_INFO);
+      }
 
-      quad.object_id = v.id;
-      quad.object_type_id = object_type_id;
-      quad.camera_type = v.camera_type;
+      //quads::clear_quads(quads::QuadsManager[object_type_id].min_index, quads::QuadsManager[object_type_id].max_index);
+      int n = quads::QuadsManager[object_type_id].min_index;
+      for (auto const& [k, v] : data)
+      {
+        quads::QuadData quad;
+        quad.texture_id = v.texture_id;
+        quad.frame_id = v.frame_id;
 
-      quad.r = v.r;
-      quad.g = v.g;
-      quad.b = v.b;
-      quad.a = v.a;
+        quad.object_id = v.id;
+        quad.object_type_id = object_type_id;
+        quad.camera_type = v.camera_type;
 
-      quad.x = v.x;
-      quad.y = v.y;
-      quad.z = 1.0f;
-      quad.h = v.h;
-      quad.w = v.w;
+        quad.r = v.r;
+        quad.g = v.g;
+        quad.b = v.b;
+        quad.a = v.a;
 
-      quad.window_x = v.x;
-      quad.window_y = v.y;
-      quad.window_h = v.h;
-      quad.window_w = v.w;
+        quad.x = v.x;
+        quad.y = v.y;
+        quad.z = 1.0f;
+        quad.h = v.h;
+        quad.w = v.w;
 
-      quad.norm_x_start = v.norm_x_start;
-      quad.norm_x_end = v.norm_x_end;
-      quad.norm_y_start = v.norm_y_start;
-      quad.norm_y_end = v.norm_y_end;
+        quad.window_x = v.x;
+        quad.window_y = v.y;
+        quad.window_h = v.h;
+        quad.window_w = v.w;
 
+        quad.norm_x_start = v.norm_x_start;
+        quad.norm_x_end = v.norm_x_end;
+        quad.norm_y_start = v.norm_y_start;
+        quad.norm_y_end = v.norm_y_end;
 
-      quad.is_clicked = v.is_clicked;
-      quads.push_back(quad);
+        quad.is_clicked = v.is_clicked;
+        quad.is_deleted = false;
+        //quads::quads[n] = quad;
+        n++;
+        quads::AllQuads.push_back(quad);
+      }
     }
-    return quads;
+  }
+
+
+  void clear_quads(int min_index, int max_index)
+  {
+    for(int i=min_index; i < (max_index+1); i++)
+    {
+      quads::quads[i].is_deleted = true;
+    }
   }
 
 
@@ -149,46 +172,46 @@ namespace quads
     quads::AllQuads.clear();
   }
 
-  void accumulate()
+  void update()
   {
-    quads::AllQuads.clear();
+    // quads::AllQuads.clear();
 
-    // assign map quads
-    if(maps::MapQuads.size() > 0)
-    {
-      quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
-    }
+    // // assign map quads
+    // if(maps::MapQuads.size() > 0)
+    // {
+    //   quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
+    // }
 
-    // assign entity quads
-    if(entity::EntityQuads.size() > 0)
-    {
-      quads::AllQuads.insert(quads::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
-    }
+    // // assign entity quads
+    // if(entity::EntityQuads.size() > 0)
+    // {
+    //   quads::AllQuads.insert(quads::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
+    // }
 
-    if(debug::DebugQuads.size() > 0)
-    {
-      quads::AllQuads.insert(quads::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
-    }
+    // if(debug::DebugQuads.size() > 0)
+    // {
+    //   quads::AllQuads.insert(quads::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
+    // }
 
-    // assign menu quads
-    if(menu::MenuQuads.size() > 0)
-    {
-      quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
-    }
+    // // assign menu quads
+    // if(menu::MenuQuads.size() > 0)
+    // {
+    //   quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
+    // }
 
-    if(buttons::ButtonQuads.size() > 0)
-    {
-      quads::AllQuads.insert(quads::AllQuads.end(), buttons::ButtonQuads.begin(), buttons::ButtonQuads.end());
-    }
+    // if(buttons::ButtonQuads.size() > 0)
+    // {
+    //   quads::AllQuads.insert(quads::AllQuads.end(), buttons::ButtonQuads.begin(), buttons::ButtonQuads.end());
+    // }
 
-    if(fonts::TextQuads.size() > 0)
-    {
-      quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
-    }
+    // if(fonts::TextQuads.size() > 0)
+    // {
+    //   quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
+    // }
 
     // Assigning vertex index and vertex positions here, on the final table
 
-     std::cout <<" before fill_quad_vertex_data " << std::endl;
+     //std::cout <<" before fill_quad_vertex_data " << std::endl;
     for(int q=0; q < quads::AllQuads.size(); q++ )
     { 
       quads::_fill_quad_vertex_data(quads::AllQuads[q], q);
@@ -198,7 +221,7 @@ namespace quads
     quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
     // std::cout << "count entity quads: " << entity::EntityQuads.size() << std::endl;
 
-    std::cout <<" finished accumulate " << std::endl;
+    //std::cout <<" finished accumulate " << std::endl;
   }
 
 
@@ -295,5 +318,12 @@ namespace quads
   template std::vector<quads::QuadData> quads::make_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
   template std::vector<quads::QuadData> quads::make_quads<fonts::TextData>(std::map<int, fonts::TextData>, int);
   template std::vector<quads::QuadData> quads::make_quads<maps::TileData>(std::map<int, maps::TileData>, int);
+
+  template void quads::add_quads<buttons::ButtonData>(std::map<int, buttons::ButtonData>, int);
+  template void quads::add_quads<menu::MenuData>(std::map<int, menu::MenuData>, int);
+  template void quads::add_quads<debug::PointData>(std::map<int, debug::PointData>, int);
+  template void quads::add_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
+  template void quads::add_quads<fonts::TextData>(std::map<int, fonts::TextData>, int);
+  template void quads::add_quads<maps::TileData>(std::map<int, maps::TileData>, int);
 
 }

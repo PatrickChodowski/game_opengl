@@ -162,6 +162,7 @@ namespace game
 
   void update()
   {
+    quads::AllQuads.clear();
     maps::render();
     entity::render();
     debug::render();
@@ -170,7 +171,7 @@ namespace game
     fonts::render();
     nav::render();
   
-    quads::accumulate();
+    quads::update();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
     textures::bind();

@@ -60,8 +60,9 @@ namespace entity
 
   void render()
   {
-    entity::EntityQuads.clear();
-    entity::EntityQuads = quads::make_quads(entity::entities, OBJECT_TYPE_ENTITY);
+    // entity::EntityQuads.clear();
+    // entity::EntityQuads = quads::make_quads(entity::entities, OBJECT_TYPE_ENTITY);
+    quads::add_quads(entity::entities, OBJECT_TYPE_ENTITY);
   };
 
   void clear()

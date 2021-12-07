@@ -74,8 +74,10 @@ namespace buttons
 
   void render()
   {
-    buttons::ButtonQuads.clear();
-    buttons::ButtonQuads = quads::make_quads(buttons::buttons, OBJECT_TYPE_BUTTON);
+    // buttons::ButtonQuads.clear();
+    // buttons::ButtonQuads = quads::make_quads(buttons::buttons, OBJECT_TYPE_BUTTON);
+
+    quads::add_quads(buttons::buttons, OBJECT_TYPE_BUTTON);
   }
 
 
