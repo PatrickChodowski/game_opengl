@@ -40,6 +40,7 @@ namespace quads
   // All data needed by buffer and shaders to render image properly
   struct QuadData
   {
+    int id;
     int texture_id;
     int frame_id;
     int object_id;
@@ -81,29 +82,12 @@ namespace quads
 
   };
 
-  // Manages range of quads per object it and switches the reset of them 
-  struct QuadSetting
-  {
-    int min_index;
-    int max_index;
-    int size;
-    bool needs_reset;
-  };
 
   extern int MAX_QUADS;
   extern std::vector<QuadData> AllQuads;
   extern float VERTEX_OFFSET;
   extern int COUNT_QUADS;
   extern int REQ_SIZE_BUFFER;
-
-  // Contains quads settings per object_type_id
-  extern std::map<int, quads::QuadSetting> QuadsManager;
-
-  // Setup of Quads manager
-  void init();
-
-  // deletes quads (they stay in array but flags them as deleted)
-  void clear_quads(int min_index, int max_index);
 
   // Takes some quad information and produces vertex data struct to be added to quad;
   VertexData _fill_quad_vertex_data(quads::QuadData& q, int n);
@@ -114,14 +98,13 @@ namespace quads
   // Accumulate all quad vectors from different components
   void update();
 
-  // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc.
-  template <typename T>
-  std::vector<quads::QuadData> make_quads(std::map<int, T> data, int object_type_id);
-
   // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc. Adds straight to quads array
   template <typename T>
   void add_quads(std::map<int, T>& data, int object_type_id);
 
+  // Makes one quad out of single struct data. Returns quad_id
+  template <typename T>
+  int make_quad(T& data, int object_type_id);
 
   // Writes down the quads data to ./logs/all_quads.json on every frame
   void log();
