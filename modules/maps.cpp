@@ -1,6 +1,7 @@
 
 #include <cmath>
 #include <fstream>
+#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
@@ -16,7 +17,6 @@
 namespace maps
 {
   std::map<int, maps::TileData> tiles;
-  std::vector<int> Index = {};
   std::map<int, maps::MapData> maps = {};
   float default_tile_width = 96;
   float default_tile_height = 96;
@@ -51,7 +51,6 @@ namespace maps
   maps::TileData generate_tile(float x, float y, int texture_id, int frame_id)
   {
     maps::TileData tile;
-    tile.id = utils::generate_id(maps::Index);
     tile.x = x;
     tile.y = y;
     tile.w = maps::default_tile_width;
@@ -85,6 +84,8 @@ namespace maps
     int n_tiles =  maps::maps[map_id].vertex_width*maps::maps[map_id].vertex_height;
     int texture_id = maps::maps[map_id].texture_id;
 
+    int tile_id = 0;
+    std::cout << "tile count: " << n_tiles << std::endl;  
     // read in the tile info
     if (in_file.is_open())
     {
@@ -92,13 +93,17 @@ namespace maps
         {
           for (int c = 0; c < maps::maps[map_id].vertex_width; c++)
           {
+            std::cout << "reading tile " << r << ", " << c << std::endl;
             int frame_id;
             in_file >> frame_id;
             maps::TileData tile = maps::generate_tile(c * maps::default_tile_width, 
                                                       r * maps::default_tile_height, 
                                                       texture_id, 
                                                       frame_id);
+            tile.id = tile_id;
+            tile_id += 1;
             maps::tiles[tile.id] = tile;
+            std::cout << " done tile " << r << ", " << c << std::endl;
           };
         } 
     }
@@ -106,28 +111,35 @@ namespace maps
   }
 
   void init_map(int map_id)
-  {
+  { 
+    std::cout <<" started init map " << std::endl;
     if(map_id > -1)
     {
       maps::load(map_id);
+      std::cout <<" finished map load " << std::endl;
 
       // Generate navmesh based on the map_id
       nav::init(map_id);
 
+      std::cout <<" finished navmesh " << std::endl;
+
       // Generate Path map
       paths::make_path_map();
+
+      std::cout <<" finished path map " << std::endl;
     }
+    std::cout <<" finished init map " << std::endl;
   };
 
   void render()
   {
     maps::MapQuads.clear();
     maps::MapQuads = quads::make_quads(maps::tiles, OBJECT_TYPE_MAP);
+    std::cout <<" finished rendering tiles " << std::endl;
   }
 
   void clear()
   {
-    maps::Index.clear();
     maps::tiles.clear();
     maps::MapQuads.clear();
   }

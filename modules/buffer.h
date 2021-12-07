@@ -19,8 +19,6 @@ namespace buffer
   extern int EBO_size;
   extern int EBO_array_size;
   extern float EBO_buffer_usage;
-  extern int MAX_QUADS;
-
 
   // Initialize opengl buffers, attributes etc.
   void init();

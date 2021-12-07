@@ -139,6 +139,7 @@ namespace game
 
   void init()
   {
+    quads::init();
     anims::init();
     buffer::init();
     buttons::init();

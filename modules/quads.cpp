@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+
 #include "buttons.h"
 #include "debug.h"
 #include "entity.h"
@@ -22,18 +23,42 @@ namespace quads
   float VERTEX_OFFSET = 1;
   int COUNT_QUADS = 0;
   int REQ_SIZE_BUFFER = 0;
+  const int MAX_QUADS = 28800;
+
+
+  // Array of quads
+  quads::QuadData quads[MAX_QUADS];
 
   std::vector<quads::QuadData> AllQuads;
   std::vector<int> QuadIndex = {};
   std::vector<int> VertexIndex = {};
+  std::map<int, quads::QuadSetting> QuadsManager;
 
-  VertexData _fill_quad_vertex_data(quads::QuadData& q)
+
+  void init()
+  {
+    quads::QuadSetting qs_menu = {0, 19, true}; // MAX 20 menu quads
+    quads::QuadSetting qs_buttons = {20, 119, true}; // MAX 100 button quads
+    quads::QuadSetting qs_doints = {120, 199, true}; // MAX 80 debug points
+    quads::QuadSetting qs_text = {200, 1199, true}; // MAX 1000 letters
+    quads::QuadSetting qs_ent = {1200, 3199, true}; // MAX 2000 entities
+    quads::QuadSetting qs_maps = {3200, 28799, true}; // MAX 25600 map tiles (160x160)
+
+    quads::QuadsManager[OBJECT_TYPE_MENU] = qs_menu;
+    quads::QuadsManager[OBJECT_TYPE_BUTTON] = qs_buttons;
+    quads::QuadsManager[OBJECT_TYPE_DEBUG] = qs_doints;
+    quads::QuadsManager[OBJECT_TYPE_TEXT] = qs_text;
+    quads::QuadsManager[OBJECT_TYPE_ENTITY] = qs_ent;
+    quads::QuadsManager[OBJECT_TYPE_MAP] = qs_maps;
+  }
+
+  VertexData _fill_quad_vertex_data(quads::QuadData& q, int n)
   {
     VertexData v;
-    v.v1_id = gen_vertex_id();
-    v.v2_id = gen_vertex_id();
-    v.v3_id = gen_vertex_id();
-    v.v4_id = gen_vertex_id();
+    v.v1_id = (n*4);
+    v.v2_id = (n*4) + 1;
+    v.v3_id = (n*4) + 2;
+    v.v4_id = (n*4) + 3;
 
     // A
     v.v1_x = q.x;
@@ -94,37 +119,15 @@ namespace quads
     return next_quad_id;
   }
 
-  int _find_next_vertex_id()
-  {
-    int n = quads::VertexIndex.size();
-    // for whole vector, find value that would be bigger than (index + 1)
-    for (int i = 0; i < n; i++)
-    {
-      if (quads::VertexIndex[i] > i){
-        return i;
-      }
-    }
-    return n;
-  }
-
-  int gen_vertex_id()
-  {
-    int next_vertex_id = quads::_find_next_vertex_id();
-    quads::VertexIndex.push_back(next_vertex_id);
-    return next_vertex_id;
-  }
-
   void clear()
   {
     quads::AllQuads.clear();
-    quads::VertexIndex.clear();
     quads::QuadIndex.clear();
   }
 
   void accumulate()
   {
     quads::AllQuads.clear();
-    quads::VertexIndex.clear();
     quads::QuadIndex.clear();
 
     // assign map quads
@@ -161,15 +164,18 @@ namespace quads
     }
 
     // Assigning vertex index and vertex positions here, on the final table
+
+     std::cout <<" before fill_quad_vertex_data " << std::endl;
     for(int q=0; q < quads::AllQuads.size(); q++ )
     { 
-      quads::_fill_quad_vertex_data(quads::AllQuads[q]);
+      quads::_fill_quad_vertex_data(quads::AllQuads[q], q);
     }
 
     quads::COUNT_QUADS = quads::AllQuads.size();
     quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
     // std::cout << "count entity quads: " << entity::EntityQuads.size() << std::endl;
 
+    std::cout <<" finished accumulate " << std::endl;
   }
 
 
