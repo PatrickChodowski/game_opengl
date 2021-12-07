@@ -24,7 +24,7 @@ namespace menu
 
   std::map<int, menu::MenuData> menus;
   std::map<int, menu::MenuData> currentmenus;
-  std::vector<quads::QuadData> MenuQuads;
+
   
   std::vector<std::string> saves;
   std::map<int, std::string> saves_buttons_map;
@@ -191,9 +191,6 @@ namespace menu
 
   void render()
   {
-    //std::cout << "current menus size:" << menu::currentmenus.size() << std::endl;
-    //menu::MenuQuads.clear();
-    //menu::MenuQuads = quads::make_quads(menu::currentmenus, OBJECT_TYPE_MENU);
     quads::add_quads(menu::currentmenus, OBJECT_TYPE_MENU);
   }
 
@@ -222,7 +219,6 @@ namespace menu
       menu::drop(menu::Index[i]);
     }
     menu::Index.clear();
-    menu::MenuQuads.clear();
     menu::currentmenus.clear();
     menu::currentmenuslots.clear();
     menu::NewGameName = "";

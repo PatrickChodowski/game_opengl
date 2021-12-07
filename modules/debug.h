@@ -38,7 +38,6 @@ namespace debug
   
   extern std::vector<debug::LineData> lines;
   extern std::map<int, debug::PointData> points;
-  extern std::vector<quads::QuadData> DebugQuads;
   extern std::vector<int> Index;
 
   // Renders straight line between start and endpoint

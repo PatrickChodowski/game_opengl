@@ -85,7 +85,6 @@ namespace maps
 
   //  TileID, TileData
   extern std::map<int, maps::TileData> tiles;
-  extern std::vector<quads::QuadData> MapQuads;
 
   // Generate single tile out of position, texture_id and frame_id
   maps::TileData generate_tile(float x, float y, int texture_id, int frame_id);

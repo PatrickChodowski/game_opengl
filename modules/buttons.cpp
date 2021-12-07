@@ -22,7 +22,6 @@ namespace buttons
   std::map <int,sig_ptr> ButtonFunctions;
   std::vector<int> Index = {};
   std::map <int, buttons::ButtonData> buttons;
-  std::vector<quads::QuadData> ButtonQuads;
 
   void init()
   {
@@ -74,9 +73,6 @@ namespace buttons
 
   void render()
   {
-    // buttons::ButtonQuads.clear();
-    // buttons::ButtonQuads = quads::make_quads(buttons::buttons, OBJECT_TYPE_BUTTON);
-
     quads::add_quads(buttons::buttons, OBJECT_TYPE_BUTTON);
   }
 
@@ -92,7 +88,6 @@ namespace buttons
   {
     buttons::Index.clear();
     buttons::buttons.clear();
-    buttons::ButtonQuads.clear();
   }
 
   void _click_new_game(int placeholder)

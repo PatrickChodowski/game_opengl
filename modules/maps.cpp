@@ -20,8 +20,6 @@ namespace maps
   std::map<int, maps::MapData> maps = {};
   float default_tile_width = 96;
   float default_tile_height = 96;
-  std::vector<quads::QuadData> MapQuads = {};
-
 
   void read_map_data(std::string name)
   {
@@ -143,7 +141,6 @@ namespace maps
   void clear()
   {
     maps::tiles.clear();
-    maps::MapQuads.clear();
   }
 
 

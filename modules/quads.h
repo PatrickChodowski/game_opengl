@@ -107,12 +107,6 @@ namespace quads
   // Takes some quad information and produces vertex data struct to be added to quad;
   VertexData _fill_quad_vertex_data(quads::QuadData& q, int n);
 
-  // Finds next available quad id
-  int _find_next_quad_id();
-
-  // Generate new quad id
-  int gen_quad_id();
-
   // Clear all quads data
   void clear();
 

@@ -174,54 +174,13 @@ namespace quads
 
   void update()
   {
-    // quads::AllQuads.clear();
-
-    // // assign map quads
-    // if(maps::MapQuads.size() > 0)
-    // {
-    //   quads::AllQuads.insert(quads::AllQuads.end(), maps::MapQuads.begin(), maps::MapQuads.end());
-    // }
-
-    // // assign entity quads
-    // if(entity::EntityQuads.size() > 0)
-    // {
-    //   quads::AllQuads.insert(quads::AllQuads.end(), entity::EntityQuads.begin(), entity::EntityQuads.end());
-    // }
-
-    // if(debug::DebugQuads.size() > 0)
-    // {
-    //   quads::AllQuads.insert(quads::AllQuads.end(), debug::DebugQuads.begin(), debug::DebugQuads.end());
-    // }
-
-    // // assign menu quads
-    // if(menu::MenuQuads.size() > 0)
-    // {
-    //   quads::AllQuads.insert(quads::AllQuads.end(), menu::MenuQuads.begin(), menu::MenuQuads.end());
-    // }
-
-    // if(buttons::ButtonQuads.size() > 0)
-    // {
-    //   quads::AllQuads.insert(quads::AllQuads.end(), buttons::ButtonQuads.begin(), buttons::ButtonQuads.end());
-    // }
-
-    // if(fonts::TextQuads.size() > 0)
-    // {
-    //   quads::AllQuads.insert(quads::AllQuads.end(), fonts::TextQuads.begin(), fonts::TextQuads.end());
-    // }
-
     // Assigning vertex index and vertex positions here, on the final table
-
-     //std::cout <<" before fill_quad_vertex_data " << std::endl;
     for(int q=0; q < quads::AllQuads.size(); q++ )
     { 
       quads::_fill_quad_vertex_data(quads::AllQuads[q], q);
     }
-
     quads::COUNT_QUADS = quads::AllQuads.size();
     quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
-    // std::cout << "count entity quads: " << entity::EntityQuads.size() << std::endl;
-
-    //std::cout <<" finished accumulate " << std::endl;
   }
 
 

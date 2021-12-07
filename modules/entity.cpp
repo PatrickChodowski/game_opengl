@@ -21,7 +21,6 @@ namespace entity
 
   std::map<int, EntityData> entities;
   std::vector<int> Index = {};
-  std::vector<quads::QuadData> EntityQuads = {};
 
   template <typename T>
   int create(T data, int entity_type_id, float camera_type)
@@ -60,8 +59,6 @@ namespace entity
 
   void render()
   {
-    // entity::EntityQuads.clear();
-    // entity::EntityQuads = quads::make_quads(entity::entities, OBJECT_TYPE_ENTITY);
     quads::add_quads(entity::entities, OBJECT_TYPE_ENTITY);
   };
 
@@ -69,7 +66,6 @@ namespace entity
   {
     entity::Index.clear();
     entity::entities.clear();
-    entity::EntityQuads.clear();
   };
 
   

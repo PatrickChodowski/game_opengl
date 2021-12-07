@@ -12,7 +12,6 @@ namespace debug
 
   std::vector<debug::LineData> lines = {};
   std::map<int, debug::PointData> points = {};
-  std::vector<quads::QuadData> DebugQuads = {};
   std::vector<int> Index = {};
 
   void render_line(float x1, float y1, float x2, float y2, float r, float g, float b, float a)
@@ -103,17 +102,12 @@ namespace debug
 
   void render()
   {
-    // debug::DebugQuads.clear();
-    // debug::DebugQuads = quads::make_quads(debug::points, OBJECT_TYPE_DEBUG);
-
     quads::add_quads(debug::points, OBJECT_TYPE_DEBUG);
-
   }
 
   void clear()
   {
     debug::Index.clear();
-    debug::DebugQuads.clear();
     lines.clear();
     points.clear();
   };

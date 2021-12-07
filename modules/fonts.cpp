@@ -30,7 +30,6 @@
 namespace fonts
 {
   std::map<char, CharacterData> chars = {};
-  std::vector<quads::QuadData> TextQuads = {};
   std::map<int, TextData> texts = {};
   std::map<int, LabelData> labels;
   std::vector<int> TextIndex = {};
@@ -224,9 +223,6 @@ namespace fonts
     { 
       fonts::render_chars(v);
     } 
-    // fonts::TextQuads.clear();
-    // fonts::TextQuads = quads::make_quads(fonts::texts, OBJECT_TYPE_TEXT);
-
     quads::add_quads(fonts::texts, OBJECT_TYPE_TEXT);
   };
 
@@ -239,7 +235,6 @@ namespace fonts
 
   void clear()
   {
-    fonts::TextQuads.clear();
     fonts::texts.clear();
     fonts::labels.clear();
     fonts::TextIndex.clear();
