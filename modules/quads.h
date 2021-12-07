@@ -38,10 +38,8 @@ namespace quads
   // All data needed by buffer and shaders to render image properly
   struct QuadData
   {
-    int id;
     int texture_id;
     int frame_id;
-
     int object_id;
  
     // a b
@@ -91,7 +89,6 @@ namespace quads
   extern const int MAX_QUADS;
   extern quads::QuadData quads[];
   extern std::vector<QuadData> AllQuads;
-  extern std::vector<int> QuadIndex;
   extern float VERTEX_OFFSET;
   extern int COUNT_QUADS;
   extern int REQ_SIZE_BUFFER;
