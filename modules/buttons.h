@@ -40,7 +40,6 @@ namespace buttons
   extern std::map <int , sig_ptr> ButtonFunctions;
   extern std::vector<int> Index;
   extern std::map <int, buttons::ButtonData> buttons;
-  extern std::vector<quads::QuadData> ButtonQuads;
 
   // Initialize Buttons logic and data
   void init();

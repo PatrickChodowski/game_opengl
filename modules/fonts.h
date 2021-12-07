@@ -65,10 +65,6 @@ namespace fonts
     std::string text;
   };
 
-
-  // Vector of text quads to render 
-  extern std::vector<quads::QuadData> TextQuads;
-
   // Vector of used Text Ids
   extern std::vector<int> TextIndex;
 
