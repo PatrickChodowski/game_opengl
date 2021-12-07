@@ -224,8 +224,10 @@ namespace fonts
     { 
       fonts::render_chars(v);
     } 
-    fonts::TextQuads.clear();
-    fonts::TextQuads = quads::make_quads(fonts::texts, OBJECT_TYPE_TEXT);
+    // fonts::TextQuads.clear();
+    // fonts::TextQuads = quads::make_quads(fonts::texts, OBJECT_TYPE_TEXT);
+
+    quads::add_quads(fonts::texts, OBJECT_TYPE_TEXT);
   };
 
 

@@ -133,9 +133,11 @@ namespace maps
 
   void render()
   {
-    maps::MapQuads.clear();
-    maps::MapQuads = quads::make_quads(maps::tiles, OBJECT_TYPE_MAP);
-    std::cout <<" finished rendering tiles " << std::endl;
+    //maps::MapQuads.clear();
+    //maps::MapQuads = quads::make_quads(maps::tiles, OBJECT_TYPE_MAP);
+
+    quads::add_quads(maps::tiles, OBJECT_TYPE_MAP);
+    //std::cout <<" finished rendering tiles " << std::endl;
   }
 
   void clear()
