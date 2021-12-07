@@ -1,3 +1,5 @@
+
+#include <array>
 #include <vector>
 #include <map>
 
@@ -88,8 +90,7 @@ namespace quads
     bool needs_reset;
   };
 
-  extern const int MAX_QUADS;
-  extern quads::QuadData quads[];
+  extern int MAX_QUADS;
   extern std::vector<QuadData> AllQuads;
   extern float VERTEX_OFFSET;
   extern int COUNT_QUADS;
