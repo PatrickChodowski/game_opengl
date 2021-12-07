@@ -1,4 +1,8 @@
-
+ideas:
+ - test with static array
+ - add function to render one piece of data -> will return quad_id that can be later stored
+ - work more on the reset controller
+ - avoid resetting whole AllQuads
 
 
 ### how to load really big map -> impossible now, question is why exactly  -> quads optimization, maybe chunks?

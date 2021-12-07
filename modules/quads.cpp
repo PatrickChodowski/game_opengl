@@ -57,7 +57,7 @@ namespace quads
 
 
   template <typename T>
-  void add_quads(std::map<int, T> data, int object_type_id)
+  void add_quads(std::map<int, T>& data, int object_type_id)
   {
     if(quads::QuadsManager[object_type_id].needs_reset)
     {
@@ -319,11 +319,11 @@ namespace quads
   template std::vector<quads::QuadData> quads::make_quads<fonts::TextData>(std::map<int, fonts::TextData>, int);
   template std::vector<quads::QuadData> quads::make_quads<maps::TileData>(std::map<int, maps::TileData>, int);
 
-  template void quads::add_quads<buttons::ButtonData>(std::map<int, buttons::ButtonData>, int);
-  template void quads::add_quads<menu::MenuData>(std::map<int, menu::MenuData>, int);
-  template void quads::add_quads<debug::PointData>(std::map<int, debug::PointData>, int);
-  template void quads::add_quads<entity::EntityData>(std::map<int, entity::EntityData>, int);
-  template void quads::add_quads<fonts::TextData>(std::map<int, fonts::TextData>, int);
-  template void quads::add_quads<maps::TileData>(std::map<int, maps::TileData>, int);
+  template void quads::add_quads<buttons::ButtonData>(std::map<int, buttons::ButtonData>&, int);
+  template void quads::add_quads<menu::MenuData>(std::map<int, menu::MenuData>&, int);
+  template void quads::add_quads<debug::PointData>(std::map<int, debug::PointData>&, int);
+  template void quads::add_quads<entity::EntityData>(std::map<int, entity::EntityData>&, int);
+  template void quads::add_quads<fonts::TextData>(std::map<int, fonts::TextData>&, int);
+  template void quads::add_quads<maps::TileData>(std::map<int, maps::TileData>&, int);
 
 }
