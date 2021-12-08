@@ -6,6 +6,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <fstream>
 #include <map>
 #include <vector>
 // Opengl packages
@@ -181,7 +182,7 @@ namespace buffer
       int start_position = t*cva*2;
       arr[(start_position)] = lines[t].x1;
       arr[(start_position+1)] = lines[t].y1;
-      arr[(start_position+2)] = 1.0f; // z
+      arr[(start_position+2)] = 0.0f; // z
       arr[(start_position+3)] = lines[t].r;
       arr[(start_position+4)] = lines[t].g;
       arr[(start_position+5)] = lines[t].b;
@@ -196,7 +197,7 @@ namespace buffer
 
       arr[(start_position+cva)] = lines[t].x2;
       arr[(start_position+(cva+1))] = lines[t].y2;
-      arr[(start_position+(cva+2))] = 1.0f; // z
+      arr[(start_position+(cva+2))] = 0.0f; // z
       arr[(start_position+(cva+3))] = lines[t].r;
       arr[(start_position+(cva+4))] = lines[t].g;
       arr[(start_position+(cva+5))] = lines[t].b;
@@ -215,12 +216,13 @@ namespace buffer
   {
     int n_vertex_array = buffer::COUNT_VERTEX_ATTRIBUTES*quads.size()*4;
     float vertex_array[n_vertex_array];
-
     int n_index_array = 3*quads.size()*2;
     unsigned int index_array[n_index_array];
 
     buffer::_make_vertex_array_from_quads(quads, vertex_array);
     buffer::_make_index_array_from_quads(quads, index_array);
+
+    //buffer::log(vertex_array, n_vertex_array);
 
     buffer::VBO_array_size = sizeof(float)*n_vertex_array;
     buffer::EBO_array_size = sizeof(float)*n_index_array;
@@ -248,5 +250,29 @@ namespace buffer
     glDeleteBuffers(1, &buffer::VBO);
     glDeleteBuffers(1, &buffer::EBO);
   }
+
+
+
+  void log(float* arr, int arr_size)
+  {
+    const char* log_path = "logs/quads_vertex_array.txt";
+    std::ofstream quads_file (log_path);
+    if (quads_file.is_open())
+    {
+      for(int i = 0; i < arr_size; i++)
+      {
+
+        if(i % buffer::COUNT_VERTEX_ATTRIBUTES == 0 && i !=0 )
+        {
+          quads_file << " \n";
+        }
+        quads_file << arr[i] << " ";
+      }
+      quads_file.close();
+    }
+  }
+
+
+
 
 }

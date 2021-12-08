@@ -134,9 +134,9 @@ namespace logger
 
   void log_data()
   {
-    quads::log(); //slows down code A LOT on the bigger maps
+    // quads::log(); //slows down code A LOT on the bigger maps
     // textures::log();
-    debug::log();
+    // debug::log();
   };
 
 }

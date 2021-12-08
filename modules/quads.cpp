@@ -23,7 +23,7 @@ namespace quads
   float VERTEX_OFFSET = 1;
   int COUNT_QUADS = 0;
   int REQ_SIZE_BUFFER = 0;
-  int MAX_QUADS = 29000;
+  int MAX_QUADS = 35000;
   // 4000*312* // this can even go on stack if needed
 
 // MAX 20 menu quads
@@ -62,6 +62,7 @@ namespace quads
     quad.color = data.color;
     quad.pos = data.pos;
     quad.dims =  data.dims;
+    quad.pos.z = 1.0f;
 
     quad.window_x = data.pos.x;
     quad.window_y = data.pos.y;
@@ -85,6 +86,7 @@ namespace quads
     // A
     v.v1_x = q.pos.x;
     v.v1_y = q.pos.y;
+    v.v1_z = q.pos.z;
     v.v1_tx_x = q.norm.x_start;
     v.v1_tx_y = q.norm.y_start;
     //v.v1_tx_y = 0.0f;
@@ -92,6 +94,7 @@ namespace quads
     // B
     v.v2_x = q.pos.x + q.dims.w - quads::VERTEX_OFFSET;
     v.v2_y = q.pos.y;
+    v.v2_z = q.pos.z;
     v.v2_tx_x = q.norm.x_end;
     v.v2_tx_y = q.norm.y_start;
     //v.v2_tx_y = 0.0f;
@@ -99,6 +102,7 @@ namespace quads
     // C
     v.v3_x = q.pos.x;
     v.v3_y = q.pos.y + q.dims.h - quads::VERTEX_OFFSET;
+    v.v3_z = q.pos.z;
     v.v3_tx_x = q.norm.x_start;
     v.v3_tx_y = q.norm.y_end;
     //v.v3_tx_y = 1.0f;
@@ -106,6 +110,7 @@ namespace quads
     // D
     v.v4_x = q.pos.x + q.dims.w - quads::VERTEX_OFFSET;
     v.v4_y = q.pos.y + q.dims.h - quads::VERTEX_OFFSET;
+    v.v4_z = q.pos.z;
     v.v4_tx_x = q.norm.x_end;
     v.v4_tx_y = q.norm.y_end;
     //v.v4_tx_y = 1.0f;
@@ -154,6 +159,13 @@ namespace quads
         }
 
         quads_file << " { \n" <<
+                      "    \"quad_id\": " << quads::AllQuads[i].id                    << ",\n"
+                      "    \"left_v1\": " << quads::AllQuads[i].i_left.v1             << ",\n"
+                      "    \"left_v2\": " << quads::AllQuads[i].i_left.v2             << ",\n"
+                      "    \"left_v3\": " << quads::AllQuads[i].i_left.v3             << ",\n"
+                      "    \"right_v1\": " << quads::AllQuads[i].i_right.v1           << ",\n"
+                      "    \"right_v2\": " << quads::AllQuads[i].i_right.v2           << ",\n"
+                      "    \"right_v3\": " << quads::AllQuads[i].i_right.v3           << ",\n"
                       "    \"object_id\": " << quads::AllQuads[i].object_id           << ",\n"
                       "    \"texture_id\": " << quads::AllQuads[i].texture_id         << ",\n"
                       "    \"frame_id\": " << quads::AllQuads[i].frame_id             << ",\n"

@@ -37,7 +37,7 @@ namespace game
 {
   bool RUNNING = true;
   bool PAUSE = false;
-  bool IS_DEBUG_MODE = true;
+  bool IS_DEBUG_MODE = false;
   int CURRENT_SHADER_ID = 0;
   float WINDOW_WIDTH = 960;
   float WINDOW_HEIGHT = 768;

@@ -279,7 +279,6 @@ namespace nav
 
   void render()
   {
-    //std::cout << "nav polygons size: " << nav::navpolygons.size() << std::endl;
     if(game::IS_DEBUG_MODE)
     {
       for (auto const& [k, v] : nav::navnodes)
