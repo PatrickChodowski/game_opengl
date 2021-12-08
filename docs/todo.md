@@ -1,23 +1,10 @@
-### how to load really big map -> impossible now, question is why exactly  -> quads optimization, maybe chunks?
 
-lol it works without logging, it was logging all the time
-
-ideas:
-  - need to reset all quads all the time
-  - but! need the chunk system, only this would allow for bigger maps [160x160 is enough]
-
-  one chunk: visible tiles: 10x8
-  need to load 9 chunks (main one and all surrounding) -> 720 tiles
-
-Probably will still need a chunks system on top of the map -> avoid rendering anything 
-- define chunks on map creation, avoid running stuff based on the chunk player is in
-
+ ### Position, color, normalized vector structs in utils
 
 ### todo: introduce config file for whole game:
 - windows size
 - starting scene
 - max quads
-
 
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
@@ -41,9 +28,13 @@ https://www.youtube.com/watch?v=jUSrVF8mve4&ab_channel=Holistic3d
 
 define goal and go backwards in actions to create chain of actions to achieve the goal based on the output of each action
 
+### chunk system
+need the chunk system, only this would allow for bigger maps [160x160 is enough]
+one chunk: visible tiles: 10x8
+need to load 9 chunks (main one and all surrounding) -> 720 tiles
 
-
-
+Probably will still need a chunks system on top of the map -> avoid rendering anything 
+- define chunks on map creation, avoid running stuff based on the chunk player is in
 
 ### animate mobs
 
@@ -72,8 +63,6 @@ https://www.youtube.com/watch?v=04oQ2jOUjkU&ab_channel=JordanWest -> very good i
 
  ### saves scrolling
 
- ### Position, color, normalized vector structs in utils
-
  ### fonts size options? :( :( :(:( maybe another day...
 
  ### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
@@ -90,6 +79,7 @@ ksiazka o przeuzywanych cytatach - droga nna ktorej spotykasz wrogow to ta dobra
 fishing mechanic that doesnt do anything
 drugi akt to oczywiscie pustynia
 introdce thor by being part of the ogre (Thrym)
+uchodzenie za pajac na wyspach owczych
 
 TODO:
   - anims:

@@ -191,24 +191,21 @@ namespace fonts
       tdd.texture_id = chars[*p].texture_id;
       tdd.frame_id = chars[*p].frame_id;
 
-      tdd.x = x + chars[*p].bitmap_left * ldd.scale;
-      tdd.y = y - ((chars[*p].bitmap_height - chars[*p].align) * ldd.scale);
-      tdd.w = chars[*p].bitmap_width;
-      tdd.h = chars[*p].bitmap_height * ldd.scale;
-      //tdd.h = chars[*p].bitmap_height;
+      tdd.pos.x = x + chars[*p].bitmap_left * ldd.scale;
+      tdd.pos.y = y - ((chars[*p].bitmap_height - chars[*p].align) * ldd.scale);
+      tdd.dims.w = chars[*p].bitmap_width;
+      tdd.dims.h = chars[*p].bitmap_height * ldd.scale;
+      //tdd.dims.h = chars[*p].bitmap_height;
     
-      tdd.r = ldd.r;
-      tdd.g = ldd.g;
-      tdd.b = ldd.b;
-      // tdd.r = 1.0;
-      // tdd.g = 1.0;
-      // tdd.b = 1.0;
-      tdd.a = 1.0;
+      tdd.color.r = ldd.r;
+      tdd.color.g = ldd.g;
+      tdd.color.b = ldd.b;
+      tdd.color.a = 1.0;
       tdd.camera_type = ldd.camera_type;
       tdd.is_clicked = false;
 
-      tdd.norm_x_start = chars[*p].offset;
-      tdd.norm_x_end = chars[*p].offset + (chars[*p].bitmap_width/FontTDD.w);
+      tdd.norm.x_start = chars[*p].offset;
+      tdd.norm.x_end = chars[*p].offset + (chars[*p].bitmap_width/FontTDD.w);
  
       x += ((chars[*p].bitmap_width * ldd.scale)+5);
       fonts::texts[tdd.id] = tdd;

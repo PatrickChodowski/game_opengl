@@ -33,13 +33,13 @@ namespace hero
   void revert_position_x()
   {
     hero::hero.x = hero::hero.prev_x;
-    entity::entities[hero.entity_id].x = entity::entities[hero.entity_id].prev_x;
+    entity::entities[hero.entity_id].pos.x = entity::entities[hero.entity_id].prev_x;
   }
 
   void revert_position_y()
   {
     hero::hero.y = hero::hero.prev_y;
-    entity::entities[hero.entity_id].y = entity::entities[hero.entity_id].prev_y;
+    entity::entities[hero.entity_id].pos.y = entity::entities[hero.entity_id].prev_y;
   }
 
   void set_position(float x, float y)
@@ -48,12 +48,12 @@ namespace hero
     hero::hero.prev_y = hero::hero.y;
     hero::hero.x = x;
     hero::hero.y = y;
-    entity::entities[hero.entity_id].prev_x = entity::entities[hero.entity_id].x;
-    entity::entities[hero.entity_id].prev_y = entity::entities[hero.entity_id].y;
-    entity::entities[hero.entity_id].x = x;
-    entity::entities[hero.entity_id].y = y;
-    entity::entities[hero.entity_id].mid_x = x + (entity::entities[hero.entity_id].w/2);
-    entity::entities[hero.entity_id].mid_y = y + (entity::entities[hero.entity_id].h/2);
+    entity::entities[hero.entity_id].prev_x = entity::entities[hero.entity_id].pos.x;
+    entity::entities[hero.entity_id].prev_y = entity::entities[hero.entity_id].pos.y;
+    entity::entities[hero.entity_id].pos.x = x;
+    entity::entities[hero.entity_id].pos.y = y;
+    entity::entities[hero.entity_id].mid_x = x + (entity::entities[hero.entity_id].dims.w/2);
+    entity::entities[hero.entity_id].mid_y = y + (entity::entities[hero.entity_id].dims.h/2);
   }
 
 
@@ -69,13 +69,13 @@ namespace hero
     hero::hero.y = new_hero_y;
     
     
-    entity::entities[hero.entity_id].prev_x = entity::entities[hero.entity_id].x;
-    entity::entities[hero.entity_id].prev_y = entity::entities[hero.entity_id].y;
+    entity::entities[hero.entity_id].prev_x = entity::entities[hero.entity_id].pos.x;
+    entity::entities[hero.entity_id].prev_y = entity::entities[hero.entity_id].pos.y;
 
-    entity::entities[hero.entity_id].x = new_hero_x;
-    entity::entities[hero.entity_id].y = new_hero_y;
-    entity::entities[hero.entity_id].mid_x = new_hero_x + (entity::entities[hero.entity_id].w/2);
-    entity::entities[hero.entity_id].mid_y = new_hero_y + (entity::entities[hero.entity_id].h/2);
+    entity::entities[hero.entity_id].pos.x = new_hero_x;
+    entity::entities[hero.entity_id].pos.y = new_hero_y;
+    entity::entities[hero.entity_id].mid_x = new_hero_x + (entity::entities[hero.entity_id].dims.w/2);
+    entity::entities[hero.entity_id].mid_y = new_hero_y + (entity::entities[hero.entity_id].dims.h/2);
 
   }
 

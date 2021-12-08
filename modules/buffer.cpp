@@ -98,10 +98,10 @@ namespace buffer
       arr[(start_position)] = quads[t].v.v1_x;
       arr[(start_position+1)] = quads[t].v.v1_y;
       arr[(start_position+2)] = quads[t].v.v1_z;
-      arr[(start_position+3)] = quads[t].r;
-      arr[(start_position+4)] = quads[t].g;
-      arr[(start_position+5)] = quads[t].b;
-      arr[(start_position+6)] = quads[t].a;
+      arr[(start_position+3)] = quads[t].color.r;
+      arr[(start_position+4)] = quads[t].color.g;
+      arr[(start_position+5)] = quads[t].color.b;
+      arr[(start_position+6)] = quads[t].color.a;
       arr[(start_position+7)] = quads[t].frame_id;
       arr[(start_position+8)] = quads[t].v.v1_tx_x;
       arr[(start_position+9)] = quads[t].v.v1_tx_y;
@@ -113,10 +113,10 @@ namespace buffer
       arr[(start_position+cva)] = quads[t].v.v2_x;
       arr[(start_position+(cva+1))] = quads[t].v.v2_y;
       arr[(start_position+(cva+2))] = quads[t].v.v2_z;
-      arr[(start_position+(cva+3))] = quads[t].r;
-      arr[(start_position+(cva+4))] = quads[t].g;
-      arr[(start_position+(cva+5))] = quads[t].b;
-      arr[(start_position+(cva+6))] = quads[t].a;
+      arr[(start_position+(cva+3))] = quads[t].color.r;
+      arr[(start_position+(cva+4))] = quads[t].color.g;
+      arr[(start_position+(cva+5))] = quads[t].color.b;
+      arr[(start_position+(cva+6))] = quads[t].color.a;
       arr[(start_position+(cva+7))] = quads[t].frame_id;
       arr[(start_position+(cva+8))] = quads[t].v.v2_tx_x;
       arr[(start_position+(cva+9))] = quads[t].v.v2_tx_y;
@@ -128,10 +128,10 @@ namespace buffer
       arr[(start_position+(cva*2))] = quads[t].v.v3_x;
       arr[(start_position+(cva*2) + 1)] = quads[t].v.v3_y;
       arr[(start_position+(cva*2) + 2)] = quads[t].v.v3_z;
-      arr[(start_position+(cva*2) + 3)] = quads[t].r;
-      arr[(start_position+(cva*2) + 4)] = quads[t].g;
-      arr[(start_position+(cva*2) + 5)] = quads[t].b;
-      arr[(start_position+(cva*2) + 6)] = quads[t].a;
+      arr[(start_position+(cva*2) + 3)] = quads[t].color.r;
+      arr[(start_position+(cva*2) + 4)] = quads[t].color.g;
+      arr[(start_position+(cva*2) + 5)] = quads[t].color.b;
+      arr[(start_position+(cva*2) + 6)] = quads[t].color.a;
       arr[(start_position+(cva*2) + 7)] = quads[t].frame_id;
       arr[(start_position+(cva*2) + 8)] = quads[t].v.v3_tx_x;
       arr[(start_position+(cva*2) + 9)] = quads[t].v.v3_tx_y;
@@ -143,10 +143,10 @@ namespace buffer
       arr[(start_position+(cva*3))] = quads[t].v.v4_x;
       arr[(start_position+(cva*3) + 1)] = quads[t].v.v4_y;
       arr[(start_position+(cva*3) + 2)] = quads[t].v.v4_z;
-      arr[(start_position+(cva*3) + 3)] = quads[t].r;
-      arr[(start_position+(cva*3) + 4)] = quads[t].g;
-      arr[(start_position+(cva*3) + 5)] = quads[t].b;
-      arr[(start_position+(cva*3) + 6)] = quads[t].a;
+      arr[(start_position+(cva*3) + 3)] = quads[t].color.r;
+      arr[(start_position+(cva*3) + 4)] = quads[t].color.g;
+      arr[(start_position+(cva*3) + 5)] = quads[t].color.b;
+      arr[(start_position+(cva*3) + 6)] = quads[t].color.a;
       arr[(start_position+(cva*3) + 7)] = quads[t].frame_id;
       arr[(start_position+(cva*3) + 8)] = quads[t].v.v4_tx_x;
       arr[(start_position+(cva*3) + 9)] = quads[t].v.v4_tx_y;
@@ -181,7 +181,7 @@ namespace buffer
       int start_position = t*cva*2;
       arr[(start_position)] = lines[t].x1;
       arr[(start_position+1)] = lines[t].y1;
-      arr[(start_position+2)] = 1; // z
+      arr[(start_position+2)] = 1.0f; // z
       arr[(start_position+3)] = lines[t].r;
       arr[(start_position+4)] = lines[t].g;
       arr[(start_position+5)] = lines[t].b;
@@ -196,7 +196,7 @@ namespace buffer
 
       arr[(start_position+cva)] = lines[t].x2;
       arr[(start_position+(cva+1))] = lines[t].y2;
-      arr[(start_position+(cva+2))] = 1; // z
+      arr[(start_position+(cva+2))] = 1.0f; // z
       arr[(start_position+(cva+3))] = lines[t].r;
       arr[(start_position+(cva+4))] = lines[t].g;
       arr[(start_position+(cva+5))] = lines[t].b;

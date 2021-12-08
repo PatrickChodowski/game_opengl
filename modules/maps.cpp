@@ -49,21 +49,27 @@ namespace maps
   maps::TileData generate_tile(float x, float y, int texture_id, int frame_id)
   {
     maps::TileData tile;
-    tile.x = x;
-    tile.y = y;
-    tile.w = maps::default_tile_width;
-    tile.h = maps::default_tile_height;
-    tile.diag = std::sqrt(std::pow((tile.w/2),2) + std::pow((tile.h/2),2));
+    tile.pos.x = x;
+    tile.pos.y = y;
+    tile.pos.z = 1.0f;
+    tile.dims.w = maps::default_tile_width;
+    tile.dims.h = maps::default_tile_height;
+    tile.diag = std::sqrt(std::pow((tile.dims.w/2),2) + std::pow((tile.dims.h/2),2));
     tile.frame_id = frame_id;
     tile.texture_id = texture_id;
     tile.camera_type = CAMERA_DYNAMIC;
     tile.is_clicked = false;
     tile.is_solid = false;
 
-    tile.norm_x_start = textures::_get_normalized_frame_x_start(tile.texture_id, tile.frame_id);
-    tile.norm_x_end = textures::_get_normalized_frame_x_end(tile.texture_id, tile.frame_id);
-    tile.norm_y_start = textures::_get_normalized_frame_y_start(tile.texture_id, tile.frame_id);
-    tile.norm_y_end = textures::_get_normalized_frame_y_end(tile.texture_id, tile.frame_id);
+    tile.color.r = 0.5f;
+    tile.color.g = 0.5f;
+    tile.color.b = 0.5f;
+    tile.color.a = 1.0f;
+
+    tile.norm.x_start = textures::_get_normalized_frame_x_start(tile.texture_id, tile.frame_id);
+    tile.norm.x_end = textures::_get_normalized_frame_x_end(tile.texture_id, tile.frame_id);
+    tile.norm.y_start = textures::_get_normalized_frame_y_start(tile.texture_id, tile.frame_id);
+    tile.norm.y_end = textures::_get_normalized_frame_y_end(tile.texture_id, tile.frame_id);
 
     // if frame_id is between 10 and 20, then its solid (11-19)
     if(tile.frame_id > 10 && tile.frame_id < 20)
