@@ -18,7 +18,6 @@
 #include "textures.h"
 #include "../dictionary.h"
 
-
 namespace quads
 {
   float VERTEX_OFFSET = 1;
@@ -59,23 +58,16 @@ namespace quads
     quad.object_id = data.id;
     quad.object_type_id = object_type_id;
     quad.camera_type = data.camera_type;
-    quad.r = data.r;
-    quad.g = data.g;
-    quad.b = data.b;
-    quad.a = data.a;
-    quad.x = data.x;
-    quad.y = data.y;
-    quad.z = 1.0f;
-    quad.h = data.h;
-    quad.w = data.w;
-    quad.window_x = data.x;
-    quad.window_y = data.y;
-    quad.window_h = data.h;
-    quad.window_w = data.w;
-    quad.norm_x_start = data.norm_x_start;
-    quad.norm_x_end = data.norm_x_end;
-    quad.norm_y_start = data.norm_y_start;
-    quad.norm_y_end = data.norm_y_end;
+    
+    quad.color = data.color;
+    quad.pos = data.pos;
+    quad.dims =  data.dims;
+
+    quad.window_x = data.pos.x;
+    quad.window_y = data.pos.y;
+    quad.window_h = data.dims.h;
+    quad.window_w = data.dims.w;
+    quad.norm = data.norm;
     quad.is_clicked = data.is_clicked;
     quad.is_deleted = false;
     quads::AllQuads.push_back(quad);
@@ -91,31 +83,31 @@ namespace quads
     v.v4_id = (n*4) + 3;
 
     // A
-    v.v1_x = q.x;
-    v.v1_y = q.y;
-    v.v1_tx_x = q.norm_x_start;
-    v.v1_tx_y = q.norm_y_start;
+    v.v1_x = q.pos.x;
+    v.v1_y = q.pos.y;
+    v.v1_tx_x = q.norm.x_start;
+    v.v1_tx_y = q.norm.y_start;
     //v.v1_tx_y = 0.0f;
 
     // B
-    v.v2_x = q.x + q.w - quads::VERTEX_OFFSET;
-    v.v2_y = q.y;
-    v.v2_tx_x = q.norm_x_end;
-    v.v2_tx_y = q.norm_y_start;
+    v.v2_x = q.pos.x + q.dims.w - quads::VERTEX_OFFSET;
+    v.v2_y = q.pos.y;
+    v.v2_tx_x = q.norm.x_end;
+    v.v2_tx_y = q.norm.y_start;
     //v.v2_tx_y = 0.0f;
 
     // C
-    v.v3_x = q.x;
-    v.v3_y = q.y + q.h - quads::VERTEX_OFFSET;
-    v.v3_tx_x = q.norm_x_start;
-    v.v3_tx_y = q.norm_y_end;
+    v.v3_x = q.pos.x;
+    v.v3_y = q.pos.y + q.dims.h - quads::VERTEX_OFFSET;
+    v.v3_tx_x = q.norm.x_start;
+    v.v3_tx_y = q.norm.y_end;
     //v.v3_tx_y = 1.0f;
 
     // D
-    v.v4_x = q.x + q.w - quads::VERTEX_OFFSET;
-    v.v4_y = q.y + q.h - quads::VERTEX_OFFSET;
-    v.v4_tx_x = q.norm_x_end;
-    v.v4_tx_y = q.norm_y_end;
+    v.v4_x = q.pos.x + q.dims.w - quads::VERTEX_OFFSET;
+    v.v4_y = q.pos.y + q.dims.h - quads::VERTEX_OFFSET;
+    v.v4_tx_x = q.norm.x_end;
+    v.v4_tx_y = q.norm.y_end;
     //v.v4_tx_y = 1.0f;
 
     q.v = v;
@@ -165,24 +157,24 @@ namespace quads
                       "    \"object_id\": " << quads::AllQuads[i].object_id           << ",\n"
                       "    \"texture_id\": " << quads::AllQuads[i].texture_id         << ",\n"
                       "    \"frame_id\": " << quads::AllQuads[i].frame_id             << ",\n"
-                      "    \"r\": " << quads::AllQuads[i].r                           << ",\n"
-                      "    \"g\": " << quads::AllQuads[i].g                           << ",\n"
-                      "    \"b\": " << quads::AllQuads[i].b                           << ",\n"
-                      "    \"a\": " << quads::AllQuads[i].a                           << ",\n"
-                      "    \"x\": " << quads::AllQuads[i].x                           << ",\n"
-                      "    \"y\": " << quads::AllQuads[i].y                           << ",\n"
-                      "    \"w\": " << quads::AllQuads[i].w                           << ",\n"
-                      "    \"h\": " << quads::AllQuads[i].h                           << ",\n"
+                      "    \"r\": " << quads::AllQuads[i].color.r                     << ",\n"
+                      "    \"g\": " << quads::AllQuads[i].color.g                     << ",\n"
+                      "    \"b\": " << quads::AllQuads[i].color.b                     << ",\n"
+                      "    \"a\": " << quads::AllQuads[i].color.a                     << ",\n"
+                      "    \"x\": " << quads::AllQuads[i].pos.x                       << ",\n"
+                      "    \"y\": " << quads::AllQuads[i].pos.y                       << ",\n"
+                      "    \"w\": " << quads::AllQuads[i].dims.w                      << ",\n"
+                      "    \"h\": " << quads::AllQuads[i].dims.h                      << ",\n"
                       "    \"object_type_id\": " << quads::AllQuads[i].object_type_id << ",\n"
                       "    \"camera_type\": " << quads::AllQuads[i].camera_type       << ",\n"
                       "    \"window_x\": " << quads::AllQuads[i].window_x             << ",\n"
                       "    \"window_y\": " << quads::AllQuads[i].window_y             << ",\n"
                       "    \"window_w\": " << quads::AllQuads[i].window_w             << ",\n"
                       "    \"window_h\": " << quads::AllQuads[i].window_h             << ",\n"
-                      "    \"norm_x_start\": " << quads::AllQuads[i].norm_x_start     << ",\n"
-                      "    \"norm_x_end\": " << quads::AllQuads[i].norm_x_end         << ",\n"
-                      "    \"norm_y_start\": " << quads::AllQuads[i].norm_y_start     << ",\n"
-                      "    \"norm_y_end\": " << quads::AllQuads[i].norm_y_end         << ",\n"
+                      "    \"norm_x_start\": " << quads::AllQuads[i].norm.x_start     << ",\n"
+                      "    \"norm_x_end\": " << quads::AllQuads[i].norm.x_end         << ",\n"
+                      "    \"norm_y_start\": " << quads::AllQuads[i].norm.y_start     << ",\n"
+                      "    \"norm_y_end\": " << quads::AllQuads[i].norm.y_end         << ",\n"
                       "    \"is_clicked\": " << quads::AllQuads[i].is_clicked         << "\n"
                       << end_str;
       }

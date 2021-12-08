@@ -12,6 +12,35 @@
 // Frame data. Table of quads and all operations on this table
 namespace quads
 {
+  // Color of the quad -> r,g,b,a
+  struct Color
+  {
+    float r, g, b, a;
+  };
+
+  // Position -> x,y,z
+  struct Position
+  {
+    float x, y;
+    float z = 1.0f;
+  };
+
+  // Dimensions -> w,h
+  struct Dims
+  {
+    float w, h;
+  };
+
+  // Normalized position of frame in texture -> x_start, x_end, y_start, y_end
+  struct Norm
+  {
+    float x_start = 0.0f;
+    float x_end = 1.0f;
+    float y_start = 0.0f;
+    float y_end = 1.0f;
+  };
+
+
   // Struct containing only vertex specific data - locations and texture querying params
   struct VertexData
   {
@@ -56,26 +85,17 @@ namespace quads
     // Vertex specific data
     struct VertexData v;
 
-    // Quad color
-    double r, g, b, a;
+    quads::Color color;
+    quads::Position pos;
+    quads::Dims dims;
+    quads::Norm norm;
 
-    // Quad position
-    float x, y, z;
-
-    // Quad dimensions
-    float w, h;
-
-    // Quad type: 0 - level, 1 - menu, 2 - text, 3 - entity
     float object_type_id;
     float camera_type;
 
     // Window dimensions and coordinates for presenting in the window
     float window_x, window_y;
     float window_w, window_h;
-
-    // normalized start and normalized end for textures
-    float norm_x_start, norm_x_end;
-    float norm_y_start, norm_y_end;
 
     bool is_clicked;
     bool is_deleted;

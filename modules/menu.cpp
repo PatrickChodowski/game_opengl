@@ -44,6 +44,10 @@ namespace menu
     MD.menu_slot_id = -1;
     MD.z = 0;
 
+    MD.color = {MD.r, MD.g, MD.b, MD.a};
+    MD.dims = {MD.w, MD.h};
+    MD.pos = {MD.x, MD.y};
+
     menu::menus.insert({MD.menu_type_id, MD});
   };
 
@@ -92,8 +96,8 @@ namespace menu
       menu_id = utils::generate_id(menu::Index);
       menu::MenuData mdd = menus[menu_type_id];
       mdd.id = menu_id;
-      mdd.x = menu::currentmenuslots[menu_slot_id].x;
-      mdd.y = menu::currentmenuslots[menu_slot_id].y;
+      mdd.pos.x = menu::currentmenuslots[menu_slot_id].x;
+      mdd.pos.y = menu::currentmenuslots[menu_slot_id].y;
       mdd.menu_slot_id = menu_slot_id;
       mdd.assigned_entity_id = object_id;
       menu::currentmenuslots[menu_slot_id].free = false;
@@ -107,8 +111,8 @@ namespace menu
       for(int i=0; i<infos.size(); i++)
       {
         int label_id = fonts::add(infos[i],
-                                  (mdd.x + 10),
-                                  mdd.y + 40 + (i*40),
+                                  (mdd.pos.x + 10),
+                                  mdd.pos.y + 40 + (i*40),
                                   CAMERA_STATIC,
                                   0.6f,
                                   1.0f,
@@ -120,8 +124,8 @@ namespace menu
       for(int b=0; b<menu::currentmenus[menu_id].button_data.size(); b++)
       {
         int button_id = buttons::add(currentmenus[menu_id].button_data[b].label,
-                                 (mdd.x + 20),
-                                 ((infos.size()+1)*40 + mdd.y),
+                                 (mdd.pos.x + 20),
+                                 ((infos.size()+1)*40 + mdd.pos.y),
                                  150,
                                  currentmenus[menu_id].button_data[b].h,
                                  currentmenus[menu_id].button_data[b].button_function_id,

@@ -18,22 +18,17 @@ namespace entity
     int entity_type_id;
     int menu_id;
 
-    // original space
-    float x, y;
-    float prev_x, prev_y;
-    float h, w;
-    float r, g, b, a;
-    float speed;
+    quads::Position pos;
+    quads::Color color;
+    quads::Dims dims;
+    quads::Norm norm;
 
+    float prev_x, prev_y;
+    float speed;
     float mid_x, mid_y;
     float diag;
     float camera_type;
-
-    float norm_x_start = 0.0f;
-    float norm_x_end = 1.0f;
-    float norm_y_start = 0.0f;
-    float norm_y_end = 1.0f;
-
+    
     bool is_solid;
     bool is_clicked;
 

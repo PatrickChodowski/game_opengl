@@ -139,6 +139,8 @@ namespace game
 
   void init()
   {
+    std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
+
     quads::clear();
     anims::init();
     buffer::init();

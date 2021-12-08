@@ -39,15 +39,15 @@ namespace buttons
   {
     buttons::ButtonData bdd;
     bdd.id = utils::generate_id(buttons::Index);
-    bdd.x = x;
-    bdd.y = y;
-    bdd.w = w;
-    bdd.h = h;
+    bdd.pos.x = x;
+    bdd.pos.y = y;
+    bdd.dims.w = w;
+    bdd.dims.h = h;
     bdd.is_clicked = false;
-    bdd.r = 0.8;
-    bdd.g = 0.5;
-    bdd.b = 0.5;
-    bdd.a = 1.0;
+    bdd.color.r = 0.8;
+    bdd.color.g = 0.5;
+    bdd.color.b = 0.5;
+    bdd.color.a = 1.0;
     bdd.button_function_id = button_function_id;
     bdd.camera_type = CAMERA_STATIC;
     bdd.menu_id = menu_id;

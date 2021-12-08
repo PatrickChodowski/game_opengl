@@ -21,17 +21,14 @@ namespace buttons
     int texture_id = -1;
     int frame_id = -1;
     int menu_id; // menu that the button belongs to
-
-    float x, y;
-    float w, h;
-
-    float r, g, b, a;
+    
     float camera_type;
-    float norm_x_start = 0.0f;
-    float norm_x_end = 1.0f;
-    float norm_y_start = 0.0f;
-    float norm_y_end = 1.0f;
 
+    quads::Position pos;
+    quads::Color color;
+    quads::Dims dims;
+    quads::Norm norm;
+    
     bool is_clicked;
   };
 

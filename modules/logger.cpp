@@ -1,4 +1,5 @@
 
+#include "debug.h"
 #include "logger.h"
 #include "game.h"
 #include "quads.h"
@@ -133,8 +134,9 @@ namespace logger
 
   void log_data()
   {
-    // quads::log();
+    quads::log(); //slows down code A LOT on the bigger maps
     // textures::log();
+    debug::log();
   };
 
 }
