@@ -52,12 +52,6 @@ Tiles catalog -> tile_id, [TileData](maps.md#tiles)
 std::map<int, maps::TileData> tiles;
 ```
 
-### Index
-Index of unique Tile IDs
-```c++
-std::vector<int> Index;
-```
-
 ### MapQuads
 Quads made out of the [tiles](maps.md#tiles). Vector of [quads](quads.md#QuadData)
 ```c++

@@ -3,6 +3,30 @@ Path: ./modules/quads.cpp   ./modules/quads.h
 
 ## Objects
 
+### Position
+Universal position struct ->  x,y,z
+```c++
+struct Position
+```
+
+### Color
+Universal color struct ->  r, g, b, a
+```c++
+struct Color
+```
+
+### Dims
+Universal dimensions struct ->  w,h
+```c++
+struct Dims
+```
+
+### Norm
+Universal normalized vector struct ->  x_start, x_end, y_start, y_end
+```c++
+struct Norm
+```
+
 ### VertexData
 Vertex specific data that is contained in QuadData. 
 ```c++
@@ -28,17 +52,6 @@ Main Quads vector on each frame. All the quads inside AllQuads will be rendered 
 std::vector<QuadData> AllQuads
 ```
 
-### QuadIndex
-Index of unique used quad id's
-```c++
-std::vector<int> QuadIndex
-```
-
-### VertexIndex
-Index of unique used vertex id's
-```c++
-std::vector<int> VertexIndex
-```
 
 ### VERTEX_OFFSET
 Offset between quads on the screen
@@ -52,6 +65,12 @@ For debugging only, count of quads in AllQuads
 int COUNT_QUADS
 ```
 
+### MAX_QUADS
+Maximum number of allowed quads
+```c++
+int MAX_QUADS = 29000;
+```
+
 
 ### REQ_SIZE_BUFFER
 For debugging only, required size of buffer for given AllQuads
@@ -61,36 +80,30 @@ int REQ_SIZE_BUFFER
 
 ## Functions
 
-### make_quads
+### add_quads
 Method called by multiple other modules to create quads for specific game objects ->
 entities, texts, buttons, gui objects etc. Any piece of data that need to be rendered using quads will call make_quads while providing catalog (map) of data objects
 
 ```c++
 template <typename T>
-std::vector<quads2::QuadData> make_quads(std::map<int, T> data, int object_type_id)
+std::vector<quads::QuadData> add_quads(std::map<int, T> data, int object_type_id)
 ```
 
-### accumulate
-Collects all QuadData vectors into one vector -> [quads::AllQuads](quads.md#AllQuads)
+### make_quad
+Makes a quad out of single data struct and adds it to allQuads. Returns quad_id
 ```c++
-void accumulate()
+template <typename T>
+int make_quad(T& data, int object_type_id)
 ```
 
-### gen_quad_id
-Generate next available quad id. Used when creating new quad
+### update
+Calls [_fill_quad_vertex_data](quads.md#_fill_quad_vertex_data) on each quad
 ```c++
-int gen_quad_id();
-```
-
-### gen_vertex_id
-Generate next available vertex id. Used when creating new vertex
-
-```c++
-int gen_vertex_id();
+void update();
 ```
 
 ### clear
-Method for clearing all current quads (indexes, AllQuads) data
+Method for clearing all current quads AllQuads data
 ```c++
 void clear();
 ```
@@ -107,17 +120,6 @@ Hidden method for filling up quads' vertices  specific data (VertexData) struct
 struct VertexData _fill_quad_vertex_data(quads2::QuadData& q);
 ```
 
-### _find_next_quad_id
-Hidden method for finding next available vertex_id
-```c++
-int _find_next_quad_id();
-```
-
-### _find_next_vertex_id
-Hidden method for finding next available vertex_id
-```c++
-int _find_next_vertex_id();
-```
 
 
 ## Tests

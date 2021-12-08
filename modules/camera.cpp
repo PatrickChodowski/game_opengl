@@ -70,10 +70,10 @@ namespace camera
         final_camera_y = 0.0f;
         final_scale_factor = 1.0f;
       } 
-      quads::AllQuads[q].window_x = (quads::AllQuads[q].x + final_camera_x)*final_scale_factor;
-      quads::AllQuads[q].window_y = (quads::AllQuads[q].y + final_camera_y)*final_scale_factor;
-      quads::AllQuads[q].window_h = quads::AllQuads[q].h*final_scale_factor;
-      quads::AllQuads[q].window_w = quads::AllQuads[q].w*final_scale_factor;
+      quads::AllQuads[q].window_x = (quads::AllQuads[q].pos.x + final_camera_x)*final_scale_factor;
+      quads::AllQuads[q].window_y = (quads::AllQuads[q].pos.y + final_camera_y)*final_scale_factor;
+      quads::AllQuads[q].window_h = quads::AllQuads[q].dims.h*final_scale_factor;
+      quads::AllQuads[q].window_w = quads::AllQuads[q].dims.w*final_scale_factor;
 
       // if(quads::AllQuads[q].object_type_id == OBJECT_TYPE_MENU)
       // {

@@ -37,7 +37,7 @@ namespace game
 {
   bool RUNNING = true;
   bool PAUSE = false;
-  bool IS_DEBUG_MODE = true;
+  bool IS_DEBUG_MODE = false;
   int CURRENT_SHADER_ID = 0;
   float WINDOW_WIDTH = 960;
   float WINDOW_HEIGHT = 768;
@@ -139,6 +139,9 @@ namespace game
 
   void init()
   {
+    std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
+
+    quads::clear();
     anims::init();
     buffer::init();
     buttons::init();
@@ -157,10 +160,12 @@ namespace game
 
     // Loads scene based on SCENE_ID
     game::load_scene(SCENE_ID_MAIN_MENU, false);
+    //game::load_scene(SCENE_ID_DUNGEON_LEVEL_1, false);
   };
 
   void update()
   {
+    quads::clear();
     maps::render();
     entity::render();
     debug::render();
@@ -169,7 +174,7 @@ namespace game
     fonts::render();
     nav::render();
   
-    quads::accumulate();
+    quads::update();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
     textures::bind();

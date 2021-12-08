@@ -1,5 +1,8 @@
+
+#include <array>
 #include <vector>
 #include <map>
+
 #include "collisions.h"
 
 
@@ -9,6 +12,35 @@
 // Frame data. Table of quads and all operations on this table
 namespace quads
 {
+  // Color of the quad -> r,g,b,a
+  struct Color
+  {
+    float r, g, b, a;
+  };
+
+  // Position -> x,y,z
+  struct Position
+  {
+    float x, y;
+    float z = 1.0f;
+  };
+
+  // Dimensions -> w,h
+  struct Dims
+  {
+    float w, h;
+  };
+
+  // Normalized position of frame in texture -> x_start, x_end, y_start, y_end
+  struct Norm
+  {
+    float x_start = 0.0f;
+    float x_end = 1.0f;
+    float y_start = 0.0f;
+    float y_end = 1.0f;
+  };
+
+
   // Struct containing only vertex specific data - locations and texture querying params
   struct VertexData
   {
@@ -40,7 +72,6 @@ namespace quads
     int id;
     int texture_id;
     int frame_id;
-
     int object_id;
  
     // a b
@@ -54,16 +85,11 @@ namespace quads
     // Vertex specific data
     struct VertexData v;
 
-    // Quad color
-    double r, g, b, a;
+    quads::Color color;
+    quads::Position pos;
+    quads::Dims dims;
+    quads::Norm norm;
 
-    // Quad position
-    float x, y, z;
-
-    // Quad dimensions
-    float w, h;
-
-    // Quad type: 0 - level, 1 - menu, 2 - text, 3 - entity
     float object_type_id;
     float camera_type;
 
@@ -71,45 +97,34 @@ namespace quads
     float window_x, window_y;
     float window_w, window_h;
 
-    // normalized start and normalized end for textures
-    float norm_x_start, norm_x_end;
-    float norm_y_start, norm_y_end;
-
     bool is_clicked;
+    bool is_deleted;
 
   };
 
+
+  extern int MAX_QUADS;
   extern std::vector<QuadData> AllQuads;
-  extern std::vector<int> QuadIndex;
-  extern std::vector<int> VertexIndex;
   extern float VERTEX_OFFSET;
   extern int COUNT_QUADS;
   extern int REQ_SIZE_BUFFER;
 
   // Takes some quad information and produces vertex data struct to be added to quad;
-  VertexData _fill_quad_vertex_data(quads::QuadData& q);
-
-  // Finds next available quad id
-  int _find_next_quad_id();
-
-  // Finds next available vertex id
-  int _find_next_vertex_id();
-
-  // Generate new quad id
-  int gen_quad_id();
-
-  // Generate new vertex id
-  int gen_vertex_id();
+  VertexData _fill_quad_vertex_data(quads::QuadData& q, int n);
 
   // Clear all quads data
   void clear();
 
   // Accumulate all quad vectors from different components
-  void accumulate();
+  void update();
 
-  // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc.
+  // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc. Adds straight to quads array
   template <typename T>
-  std::vector<quads::QuadData> make_quads(std::map<int, T> data, int object_type_id);
+  void add_quads(std::map<int, T>& data, int object_type_id);
+
+  // Makes one quad out of single struct data. Returns quad_id
+  template <typename T>
+  int make_quad(T& data, int object_type_id);
 
   // Writes down the quads data to ./logs/all_quads.json on every frame
   void log();

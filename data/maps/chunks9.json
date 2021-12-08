@@ -1,0 +1,12 @@
+{
+  "id": 6,
+  "name": "chunks9",
+  "vertex_width": 30,
+  "vertex_height": 24,
+  "texture_id": 3,
+  "doors": [{}
+  ],
+  "nests": [
+    {}
+  ]
+}

@@ -30,10 +30,10 @@ namespace collisions
 
   collisions::DistanceToObject _get_entity_to_single_entity_distance(int entity_id, int target_entity_id)
   {
-    float dist = utils::get_distance_between_points(entity::entities[target_entity_id].x, 
-                                                    entity::entities[target_entity_id].y, 
-                                                    entity::entities[entity_id].x, 
-                                                    entity::entities[entity_id].y);
+    float dist = utils::get_distance_between_points(entity::entities[target_entity_id].pos.x, 
+                                                    entity::entities[target_entity_id].pos.y, 
+                                                    entity::entities[entity_id].pos.x, 
+                                                    entity::entities[entity_id].pos.y);
     float dist_limit = entity::entities[entity_id].diag + entity::entities[target_entity_id].diag;
     collisions::DistanceToObject dto;
     dto.entity_id = entity_id;
@@ -69,10 +69,10 @@ namespace collisions
 
   collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id)
   {
-    float dist = utils::get_distance_between_points(maps::tiles[tile_id].x, 
-                                                    maps::tiles[tile_id].y, 
-                                                    entity::entities[entity_id].x, 
-                                                    entity::entities[entity_id].y);
+    float dist = utils::get_distance_between_points(maps::tiles[tile_id].pos.x, 
+                                                    maps::tiles[tile_id].pos.y, 
+                                                    entity::entities[entity_id].pos.x, 
+                                                    entity::entities[entity_id].pos.y);
     float dist_limit = entity::entities[entity_id].diag + maps::tiles[tile_id].diag;
     collisions::DistanceToObject dto;
     dto.entity_id = entity_id;
@@ -235,49 +235,49 @@ namespace collisions
       switch(i) {
         case SENSOR_TOP:
             s.x = entity::entities[entity_id].mid_x;
-            s.y = (entity::entities[entity_id].y - collisions::SENSOR_OFFSET);
+            s.y = (entity::entities[entity_id].pos.y - collisions::SENSOR_OFFSET);
             s.id = SENSOR_TOP;
             entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP, s));
         break;
         case SENSOR_TOP_RIGHT:
-            s.x = (entity::entities[entity_id].x + entity::entities[entity_id].w + collisions::SENSOR_OFFSET);
-            s.y = (entity::entities[entity_id].y  - collisions::SENSOR_OFFSET);
+            s.x = (entity::entities[entity_id].pos.x + entity::entities[entity_id].dims.w + collisions::SENSOR_OFFSET);
+            s.y = (entity::entities[entity_id].pos.y  - collisions::SENSOR_OFFSET);
             s.id = SENSOR_TOP_RIGHT;
             entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_RIGHT, s));
         break;
         case SENSOR_RIGHT:
-            s.x = (entity::entities[entity_id].x + entity::entities[entity_id].w  + collisions::SENSOR_OFFSET);
-            s.y = (entity::entities[entity_id].y) ;
+            s.x = (entity::entities[entity_id].pos.x + entity::entities[entity_id].dims.w  + collisions::SENSOR_OFFSET);
+            s.y = (entity::entities[entity_id].pos.y) ;
             s.id = SENSOR_RIGHT;
             entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_RIGHT, s));
         break;
         case SENSOR_BOTTOM_RIGHT:
-            s.x = (entity::entities[entity_id].x + entity::entities[entity_id].w + collisions::SENSOR_OFFSET);
-            s.y = (entity::entities[entity_id].y + entity::entities[entity_id].h + collisions::SENSOR_OFFSET);
+            s.x = (entity::entities[entity_id].pos.x + entity::entities[entity_id].dims.w + collisions::SENSOR_OFFSET);
+            s.y = (entity::entities[entity_id].pos.y + entity::entities[entity_id].dims.h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM_RIGHT;
             entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_RIGHT, s));
         break;
         case SENSOR_BOTTOM:
             s.x = entity::entities[entity_id].mid_x;
-            s.y = (entity::entities[entity_id].y + entity::entities[entity_id].h + collisions::SENSOR_OFFSET);
+            s.y = (entity::entities[entity_id].pos.y + entity::entities[entity_id].dims.h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM;
             entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM, s));
         break;
         case SENSOR_BOTTOM_LEFT:
-            s.x = entity::entities[entity_id].x - collisions::SENSOR_OFFSET;
-            s.y = (entity::entities[entity_id].y + entity::entities[entity_id].h + collisions::SENSOR_OFFSET);
+            s.x = entity::entities[entity_id].pos.x - collisions::SENSOR_OFFSET;
+            s.y = (entity::entities[entity_id].pos.y + entity::entities[entity_id].dims.h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM_LEFT;
             entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_LEFT, s));
         break;
         case SENSOR_LEFT:
-            s.x = entity::entities[entity_id].x - collisions::SENSOR_OFFSET ;
+            s.x = entity::entities[entity_id].pos.x - collisions::SENSOR_OFFSET ;
             s.y = entity::entities[entity_id].mid_y;
             s.id = SENSOR_LEFT;
             entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_LEFT, s));
         break;
         case SENSOR_TOP_LEFT:
-            s.x = entity::entities[entity_id].x - collisions::SENSOR_OFFSET;
-            s.y = entity::entities[entity_id].y - collisions::SENSOR_OFFSET;
+            s.x = entity::entities[entity_id].pos.x - collisions::SENSOR_OFFSET;
+            s.y = entity::entities[entity_id].pos.y - collisions::SENSOR_OFFSET;
             s.id = SENSOR_TOP_LEFT;
             entity::entities[entity_id].sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_LEFT, s));
         break;
@@ -297,16 +297,16 @@ namespace collisions
     for(int a = 0; a < collisions::ABS_COUNT; a++)
     {
       collisions::AABB aabb;
-      aabb.min_x = (entity::entities[entity_id].x + collisions::SENSOR_OFFSET);
-      aabb.min_y = (entity::entities[entity_id].y + collisions::SENSOR_OFFSET);
-      aabb.max_y = (entity::entities[entity_id].y + entity::entities[entity_id].h - collisions::SENSOR_OFFSET);
-      aabb.max_x = (entity::entities[entity_id].x + entity::entities[entity_id].w - collisions::SENSOR_OFFSET);
+      aabb.min_x = (entity::entities[entity_id].pos.x + collisions::SENSOR_OFFSET);
+      aabb.min_y = (entity::entities[entity_id].pos.y + collisions::SENSOR_OFFSET);
+      aabb.max_y = (entity::entities[entity_id].pos.y + entity::entities[entity_id].dims.h - collisions::SENSOR_OFFSET);
+      aabb.max_x = (entity::entities[entity_id].pos.x + entity::entities[entity_id].dims.w - collisions::SENSOR_OFFSET);
       aabb.id = AABB_FULL;
       entity::entities[entity_id].abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
 
       if(game::IS_DEBUG_MODE)
       {
-        debug::render_square(entity::entities[entity_id].x, entity::entities[entity_id].y, entity::entities[entity_id].w, entity::entities[entity_id].h, 0.6, 0.6, 0.0, 1.0);
+        debug::render_square(entity::entities[entity_id].pos.x, entity::entities[entity_id].pos.y, entity::entities[entity_id].dims.w, entity::entities[entity_id].dims.h, 0.6, 0.6, 0.0, 1.0);
       }
     }
   }
@@ -317,16 +317,16 @@ namespace collisions
     for(int a = 0; a < collisions::ABS_COUNT; a++)
     {
       collisions::AABB aabb;
-      aabb.min_x = (maps::tiles[tile_id].x + collisions::SENSOR_OFFSET);
-      aabb.min_y = (maps::tiles[tile_id].y + collisions::SENSOR_OFFSET);
-      aabb.max_y = (maps::tiles[tile_id].y + maps::tiles[tile_id].h - collisions::SENSOR_OFFSET);
-      aabb.max_x = (maps::tiles[tile_id].x + maps::tiles[tile_id].w - collisions::SENSOR_OFFSET);
+      aabb.min_x = (maps::tiles[tile_id].pos.x + collisions::SENSOR_OFFSET);
+      aabb.min_y = (maps::tiles[tile_id].pos.y + collisions::SENSOR_OFFSET);
+      aabb.max_y = (maps::tiles[tile_id].pos.y + maps::tiles[tile_id].dims.h - collisions::SENSOR_OFFSET);
+      aabb.max_x = (maps::tiles[tile_id].pos.x + maps::tiles[tile_id].dims.w - collisions::SENSOR_OFFSET);
       aabb.id = AABB_FULL;
       maps::tiles[tile_id].abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
 
       if(game::IS_DEBUG_MODE)
       {
-        debug::render_square(maps::tiles[tile_id].x, maps::tiles[tile_id].y, maps::tiles[tile_id].w, maps::tiles[tile_id].h, 0.6, 0.6, 0.0, 1.0);
+        debug::render_square(maps::tiles[tile_id].pos.x, maps::tiles[tile_id].pos.y, maps::tiles[tile_id].dims.w, maps::tiles[tile_id].dims.h, 0.6, 0.6, 0.0, 1.0);
       }
 
 
