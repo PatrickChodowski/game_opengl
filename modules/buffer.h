@@ -41,6 +41,9 @@ namespace buffer
   // Drop buffers
   void drop();
 
+  // Log buffer
+  void log(float* arr, int arr_size);
+
 }
 
 

@@ -76,6 +76,12 @@ Clears [DebugQuads](debug.md#DebugQuads), [Index](debug.md#Index), [lines](debug
 void clear();
 ```
 
+### log
+Method to log LineData to logs/quads.json on every frame basis
+```c++
+void log();
+```
+
 
 ## Tests
 - 

@@ -53,6 +53,12 @@ namespace entity
     edd.norm.y_start = textures::_get_normalized_frame_y_start(edd.texture_id, edd.frame_id);
     edd.norm.y_end = textures::_get_normalized_frame_y_end(edd.texture_id,edd.frame_id);
 
+    edd.color.r = 0.5;
+    edd.color.g = 0.5;
+    edd.color.b = 0.5;
+    edd.color.a = 1.0;
+
+
     entity::entities[edd.id] = edd;
     return edd.id;
   }

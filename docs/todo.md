@@ -1,10 +1,10 @@
 
- ### Position, color, normalized vector structs in utils
-
 ### todo: introduce config file for whole game:
 - windows size
 - starting scene
 - max quads
+
+### Profiler -> aggregate total times from many functions over the course of the game
 
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
