@@ -1,7 +1,8 @@
-#include <iostream>
-#include <SDL2/SDL.h>
 #include <chrono>
 #include <ctime> 
+#include <iostream>
+#include <SDL2/SDL.h>
+#include <string>
 
 #include "modules/anims.h"
 #include "modules/collisions.h"
@@ -16,9 +17,11 @@
 
 int FPS;
 Uint32 flags = SDL_WINDOW_OPENGL;
+std::string GAME_CONFIG_PATH = "config.json";
 
 int main()
-{
+{ 
+  game::read_config(GAME_CONFIG_PATH);
   SDL_Init(SDL_INIT_VIDEO);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);

@@ -1,11 +1,4 @@
 
-### todo: introduce config file for whole game:
-- windows size
-- starting scene
-- max quads
-
-### Profiler -> aggregate total times from many functions over the course of the game
-
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
 ### personality traits of the leaders -> random
@@ -22,6 +15,7 @@
  - PIFuh by facebook
  - gITF file format 
 
+### Profiler -> aggregate total times from many functions over the course of the game
 
 ### goal oriented action planning:
 https://www.youtube.com/watch?v=jUSrVF8mve4&ab_channel=Holistic3d

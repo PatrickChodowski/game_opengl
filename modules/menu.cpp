@@ -46,7 +46,7 @@ namespace menu
 
     MD.color = {MD.r, MD.g, MD.b, MD.a};
     MD.dims = {MD.w, MD.h};
-    MD.pos = {MD.x, MD.y};
+    MD.pos = {MD.x, MD.y, MD.z};
 
     menu::menus.insert({MD.menu_type_id, MD});
   };

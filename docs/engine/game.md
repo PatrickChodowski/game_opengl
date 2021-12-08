@@ -12,8 +12,6 @@ Pause will impact certain modules to not update during the frame. False by defua
 ```c++
 bool PAUSE;
 ```
-
-
 ### RUNNING
 Main loop argument, if true, the game is going on
 ```c++
@@ -56,6 +54,18 @@ Keyboard pointer for the events
 
 ```c++
 const Uint8 *KEYBOARD;
+```
+
+### ExternalConfigData
+Struct for initializing external game config data
+```c++
+struct ExternalConfigData
+```
+
+### Config
+Instance of config
+```c++
+game::ExternalConfigData Config;
 ```
 
 ### GAME_START_TIME
@@ -170,6 +180,12 @@ void switch_scene(int scene_id, bool is_new_game);
 Calls ::clear() method on every module that requires it. Clear() methods are supposed to clean the Permanent and Temporary data objets -> all Indexes, Catalogs etc.
 ```c++
 void clear_scene();
+```
+
+### read_config
+Reads in [config](game.md#Config)
+```c++
+void read_config(std::string& config_path);
 ```
 
 ## Tests
