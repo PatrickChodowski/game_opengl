@@ -59,15 +59,16 @@ namespace menu
     int object_type_id;
     int assigned_entity_id;
 
-    float x, y, z;
-    float w, h;
-    float r, g, b, a;
-    float camera_type;
-    float norm_x_start = 0.0f;
-    float norm_x_end = 1.0f;
-    float norm_y_start = 0.0f;
-    float norm_y_end = 1.0f;
+    quads::Position pos;
+    quads::Color color;
+    quads::Dims dims;
+    quads::Norm norm;
 
+    float r,g,b,a;
+    float x,y,z;
+    float w,h;
+
+    float camera_type;
 
     std::string menu_name;
     std::vector<menu::MenuButtonData> button_data;
@@ -78,8 +79,8 @@ namespace menu
     
     bool is_clicked;
 
-    JS_OBJ(menu_type_id, x, y, w, h, texture_id, frame_id, object_type_id,
-    r, g, b, a, button_data, label_data);
+    JS_OBJ(menu_type_id, r, g, b, a, x , y, w, h, texture_id, frame_id, object_type_id, 
+    button_data, label_data);
   };
 
   extern std::vector<int> Index;
@@ -88,7 +89,6 @@ namespace menu
   extern std::map<int, menu::MenuSlotData> currentmenuslots; 
 
   extern std::map<int, MenuData> currentmenus;
-  extern std::vector<quads::QuadData> MenuQuads;
   extern std::vector<std::string> saves;
   extern std::map<int, std::string> saves_buttons_map;
   extern std::string NewGameName;

@@ -18,19 +18,14 @@ namespace maps
     int frame_id;
     int camera_type;
 
-    float x, y;
-    float h, w;
-    float r, g, b, a;
-
     float mid_x;
     float mid_y;
     float diag;
 
-    float norm_x_start = 0.0f;
-    float norm_x_end = 1.0f;
-    float norm_y_start = 0.0f;
-    float norm_y_end = 1.0f;
-
+    quads::Position pos;
+    quads::Color color;
+    quads::Dims dims;
+    quads::Norm norm;
     // collision boxes
     std::map<int, collisions::AABB> abs;
 
@@ -85,8 +80,6 @@ namespace maps
 
   //  TileID, TileData
   extern std::map<int, maps::TileData> tiles;
-  extern std::vector<int> Index;
-  extern std::vector<quads::QuadData> MapQuads;
 
   // Generate single tile out of position, texture_id and frame_id
   maps::TileData generate_tile(float x, float y, int texture_id, int frame_id);

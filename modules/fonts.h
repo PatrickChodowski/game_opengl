@@ -32,17 +32,12 @@ namespace fonts
     int texture_id;
     int frame_id;
 
-    float x, y;
-    float w, h;
-
-    float r, g, b, a;
+    quads::Color color;
+    quads::Position pos;
+    quads::Dims dims;
+    quads::Norm norm;
+  
     float camera_type;
-
-    float norm_x_start = 0.0f;
-    float norm_x_end = 1.0f;
-    float norm_y_start = 0.0f;
-    float norm_y_end = 1.0f;
-
     float char_width;
     float char_height;
     float atlas_width;
@@ -64,10 +59,6 @@ namespace fonts
     float scale;
     std::string text;
   };
-
-
-  // Vector of text quads to render 
-  extern std::vector<quads::QuadData> TextQuads;
 
   // Vector of used Text Ids
   extern std::vector<int> TextIndex;

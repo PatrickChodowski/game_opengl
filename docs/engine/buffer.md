@@ -63,11 +63,6 @@ Usage of EBO buffer on each update
 float EBO_buffer_usage;
 ```
 
-### MAX_QUADS
-Defines maximum amount of quads engine can render
-```c++
-int MAX_QUADS;
-```
 
 ## Functions
 ### init
@@ -80,6 +75,12 @@ Drop buffers
 ```c++
 void drop();
 ```
+### log
+Log array to file
+```c++
+void log(float* arr, int arr_size);
+```
+
 ### update_quads
 Send [quads::AllQuads data](quads.md#AllQuads) to the buffer
 ```c++

@@ -8,7 +8,8 @@
 #define MODULES_DEBUG_H
 
 namespace debug
-{
+{ 
+  // ZERO IDEA why I cant use structs here, but it just doesnt work
   struct LineData
   {
     float x1, y1;
@@ -18,16 +19,13 @@ namespace debug
   
   struct PointData
   {
-    float x, y, z;
-    float r, g, b, a;
-    float w, h;
+    quads::Position pos;
+    quads::Color color;
+    quads::Dims dims;
+    quads::Norm norm;
 
     float camera_type;
-    float norm_x_start = 0.0f;
-    float norm_x_end = 1.0f;
-    float norm_y_start = 0.0f;
-    float norm_y_end = 1.0f;
-
+    
     // not used in this case:
     int texture_id = -1;
     int frame_id = -1;
@@ -38,7 +36,6 @@ namespace debug
   
   extern std::vector<debug::LineData> lines;
   extern std::map<int, debug::PointData> points;
-  extern std::vector<quads::QuadData> DebugQuads;
   extern std::vector<int> Index;
 
   // Renders straight line between start and endpoint
@@ -55,6 +52,9 @@ namespace debug
 
   // Remove debug data after drawing, called from buffer
   void clear();
+
+  // Log lines information to file
+  void log();
 
 }
 
