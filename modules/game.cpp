@@ -39,20 +39,19 @@ namespace game
   bool PAUSE = false;
   bool IS_DEBUG_MODE = false;
   int CURRENT_SHADER_ID = 0;
-  float WINDOW_WIDTH = 960;
-  float WINDOW_HEIGHT = 768;
+  float WINDOW_WIDTH;
+  float WINDOW_HEIGHT;
   const Uint8 *KEYBOARD = SDL_GetKeyboardState(NULL);
   std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME = std::chrono::high_resolution_clock::now();
+  game::ExternalConfigData Config;
 
     // Current scene event handler
-  int SCENE_ID = SCENE_ID_MAIN_MENU;
+  int SCENE_ID;
   int EVENT_HANDLER_ID;
   int MAP_ID;
   float HERO_START_X;
   float HERO_START_Y;
   std::map<int, game::SceneData> scenes;
-
-
 
   void read_data(std::string& name)
   {
@@ -159,7 +158,7 @@ namespace game
     textures::init();
 
     // Loads scene based on SCENE_ID
-    game::load_scene(SCENE_ID_MAIN_MENU, false);
+    game::load_scene(game::SCENE_ID, false);
     //game::load_scene(SCENE_ID_DUNGEON_LEVEL_1, false);
   };
 
@@ -251,5 +250,15 @@ namespace game
 
   };
 
+
+  void read_config(std::string& config_path)
+  {
+    std::string json_data = utils::read_text_file(config_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(game::Config);
+    game::WINDOW_WIDTH = game::Config.window_width;
+    game::WINDOW_HEIGHT = game::Config.window_height;
+    game::SCENE_ID = game::Config.starting_scene;
+  }
 
 }

@@ -24,6 +24,17 @@ namespace game
   extern const Uint8 *KEYBOARD;
   extern std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME;
 
+  struct ExternalConfigData
+  {
+    float window_width;
+    float window_height;
+    int starting_scene;
+
+    JS_OBJ(window_width, window_height, starting_scene);
+  };
+
+  extern game::ExternalConfigData Config;
+
   struct SceneData 
   {
     int id;
@@ -69,6 +80,9 @@ namespace game
 
   // Clear all data and re-initialize
   void refresh();
+
+  // Reads in game config
+  void read_config(std::string& config_path);
 
 }
 
