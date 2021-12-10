@@ -95,7 +95,7 @@ namespace npcs
   // Current npcs
   extern std::map<int, NPCData> npcs;
 
-  // Current npcs
+  // Table of history of interactions
   extern std::vector<InteractionData> interactions;
 
   // Read npc data from the file
@@ -106,6 +106,9 @@ namespace npcs
 
   // Spawn npc, adds instance to npcs map. Returns entity id
   int spawn(int npc_id, float x, float y); 
+
+  // Spawn group of npcs assigned to the map
+  void spawn_from_map(int map_id);
 
   // Clear temporary data (npcs)
   void clear();
