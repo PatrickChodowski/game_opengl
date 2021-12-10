@@ -80,7 +80,7 @@ namespace npcs
 
     std::string name;
 
-    JS_OBJ(id, texture_id, w, h, speed, name);
+    JS_OBJ(id, texture_id, current_frame, w, h, speed, name);
   };
 
 
