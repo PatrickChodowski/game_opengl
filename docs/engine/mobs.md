@@ -52,10 +52,10 @@ Clear [spawnedmobs](mobs.md#spawnedmobs)
 void clear();
 ```
 
-### spawn
+### spawn_from_nest
 Create new [entity](entity.md#entities) of mob type
 ```c++
-void spawn(int map_id);
+void spawn_from_nest(int map_id);
 ```
 
 

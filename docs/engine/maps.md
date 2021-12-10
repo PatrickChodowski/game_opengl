@@ -22,6 +22,12 @@ Transition to another scene/level
 struct Door
 ```
 
+### MapNPCData
+Maps NPC information (id, position)
+```c++
+struct MapNPCData
+```
+
 ### MapData
 Data about the whole map -> doors, nests, player starting point, dimensions etc.
 ```c++

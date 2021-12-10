@@ -26,6 +26,7 @@
 #include "mobs.h"
 #include "mouse.h"
 #include "navmesh.h"
+#include "npcs.h"
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
@@ -51,6 +52,7 @@ namespace game
   int MAP_ID;
   float HERO_START_X;
   float HERO_START_Y;
+  bool LOG_TO_FILES;
   std::map<int, game::SceneData> scenes;
 
   void read_data(std::string& name)
@@ -86,7 +88,10 @@ namespace game
       maps::init_map(game::MAP_ID);
 
       // load mobs based on the map
-      mobs::spawn(game::MAP_ID);
+      mobs::spawn_from_nest(game::MAP_ID);
+
+      // Spawns npcs for the map
+      npcs::spawn_from_map(game::MAP_ID);
 
       // Load menu slots
       for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)
@@ -128,6 +133,7 @@ namespace game
     fonts::clear();
     menu::clear();
     mobs::clear();
+    npcs::clear();
     quads::clear();
     debug::clear();
     buttons::clear();
@@ -138,7 +144,7 @@ namespace game
 
   void init()
   {
-    std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
+    //std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
 
     quads::clear();
     anims::init();
@@ -153,6 +159,7 @@ namespace game
     menu::init();
     mobs::init();
     mouse::init();
+    npcs::init();
     game::init_scenes();
     shaders::init();
     textures::init();
@@ -237,12 +244,14 @@ namespace game
     maps::refresh();
     menu::refresh();
     mobs::refresh();
+    npcs::refresh();
 
     anims::init();
     items::init();
     maps::init();
     menu::init();
     mobs::init();
+    npcs::init();
     game::init_scenes();
 
     hero::create_new("test", "barbarian");
@@ -259,6 +268,7 @@ namespace game
     game::WINDOW_WIDTH = game::Config.window_width;
     game::WINDOW_HEIGHT = game::Config.window_height;
     game::SCENE_ID = game::Config.starting_scene;
+    game::LOG_TO_FILES  = game::Config.log_to_files;
   }
 
 }

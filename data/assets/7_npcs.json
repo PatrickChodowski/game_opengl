@@ -1,0 +1,11 @@
+{
+  "id": 7,
+  "w": 192,
+  "h": 192,
+  "type": "npcs",
+  "name": "npcs",
+  "frames_list": [
+    {"frame_id": 0, "x": 0, "y": 128, "w": 24, "h": 32, "label": "1_king"},
+    {"frame_id": 1, "x": 72, "y": 128, "w": 24, "h": 32, "label": "2_queen"}
+  ]
+}
