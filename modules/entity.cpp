@@ -11,6 +11,7 @@
 #include "hero.h"
 #include "items.h"
 #include "mobs.h"
+#include "npcs.h"
 #include "quads.h"
 #include "textures.h"
 #include "utils.h"
@@ -40,11 +41,12 @@ namespace entity
     edd.mid_y = edd.pos.y + (edd.dims.h/2);
     edd.diag = std::sqrt(std::pow((edd.dims.w/2),2) + std::pow((edd.dims.h/2),2));
     edd.camera_type = camera_type;
-    edd.is_solid = false;
-    if(entity_type_id == ENTITY_TYPE_MOB || entity_type_id == ENTITY_TYPE_HERO)
-    {
-      edd.is_solid = true;
-    }
+    edd.is_solid = true;
+
+    // if(entity_type_id == ENTITY_TYPE_MOB || entity_type_id == ENTITY_TYPE_HERO)
+    // {
+    //   edd.is_solid = true;
+    // }
     edd.is_clicked = false;
     edd.speed = data.speed;
 
@@ -100,5 +102,6 @@ namespace entity
   template int entity::create<hero::HeroData>(hero::HeroData, int, float);
   template int entity::create<items::ItemData>(items::ItemData, int, float);
   template int entity::create<mobs::MobData>(mobs::MobData, int, float);
+  template int entity::create<npcs::NPCData>(npcs::NPCData, int, float);
 
 }

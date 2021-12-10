@@ -41,7 +41,7 @@ bool test_collisions__set_sensors_on_entity_top()
   collisions::_set_sensors(hero::hero.entity_id);
   if(
     (entity::entities[hero::hero.entity_id].sensors[SENSOR_TOP].x == entity::entities[hero::hero.entity_id].mid_x) &
-    (entity::entities[hero::hero.entity_id].sensors[SENSOR_TOP].y == (entity::entities[hero::hero.entity_id].y  - collisions::SENSOR_OFFSET))
+    (entity::entities[hero::hero.entity_id].sensors[SENSOR_TOP].y == (entity::entities[hero::hero.entity_id].pos.y  - collisions::SENSOR_OFFSET))
   )
   {
     passed = true;
@@ -61,8 +61,8 @@ bool test_collisions__set_sensors_on_entity_bottomleft()
   // set sensors on hero entity
   collisions::_set_sensors(hero::hero.entity_id);
   if(
-    (entity::entities[hero::hero.entity_id].sensors[SENSOR_BOTTOM_LEFT].x == (entity::entities[hero::hero.entity_id].x- collisions::SENSOR_OFFSET)) &
-    (entity::entities[hero::hero.entity_id].sensors[SENSOR_BOTTOM_LEFT].y == (entity::entities[hero::hero.entity_id].y + + entity::entities[hero::hero.entity_id].h + collisions::SENSOR_OFFSET))
+    (entity::entities[hero::hero.entity_id].sensors[SENSOR_BOTTOM_LEFT].x == (entity::entities[hero::hero.entity_id].pos.x- collisions::SENSOR_OFFSET)) &
+    (entity::entities[hero::hero.entity_id].sensors[SENSOR_BOTTOM_LEFT].y == (entity::entities[hero::hero.entity_id].pos.y + entity::entities[hero::hero.entity_id].dims.h + collisions::SENSOR_OFFSET))
   )
   {
     passed = true;
@@ -110,7 +110,7 @@ bool test_collisions__set_sensors_on_entity_top_after_update()
   collisions::_set_sensors(hero::hero.entity_id);
   if(
     (entity::entities[hero::hero.entity_id].sensors[SENSOR_TOP].x == entity::entities[hero::hero.entity_id].mid_x) &
-    (entity::entities[hero::hero.entity_id].sensors[SENSOR_TOP].y == (entity::entities[hero::hero.entity_id].y  - collisions::SENSOR_OFFSET))
+    (entity::entities[hero::hero.entity_id].sensors[SENSOR_TOP].y == (entity::entities[hero::hero.entity_id].pos.y  - collisions::SENSOR_OFFSET))
   )
   {
     passed = true;

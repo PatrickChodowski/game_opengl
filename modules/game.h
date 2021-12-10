@@ -21,6 +21,7 @@ namespace game
   extern int CURRENT_SHADER_ID;
   extern float WINDOW_WIDTH;
   extern float WINDOW_HEIGHT;
+  extern bool LOG_TO_FILES;
   extern const Uint8 *KEYBOARD;
   extern std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME;
 
@@ -29,8 +30,9 @@ namespace game
     float window_width;
     float window_height;
     int starting_scene;
+    bool log_to_files;
 
-    JS_OBJ(window_width, window_height, starting_scene);
+    JS_OBJ(window_width, window_height, starting_scene, log_to_files);
   };
 
   extern game::ExternalConfigData Config;
