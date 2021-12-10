@@ -79,6 +79,13 @@ namespace buttons
   // Start new travel object
   void _button_travel(int button_id);
 
+  // Have positive interaction with npc
+  void _do_good(int button_id);
+
+  // Have negative intervation with npc
+  void _do_bad(int button_id);
+
+
 
 }
 

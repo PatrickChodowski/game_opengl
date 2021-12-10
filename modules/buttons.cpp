@@ -33,6 +33,8 @@ namespace buttons
     buttons::ButtonFunctions[BUTTON_BACK] = buttons::_click_back;
     buttons::ButtonFunctions[BUTTON_LOADGAME_NAME] = buttons::_click_loadgame_name;
     buttons::ButtonFunctions[BUTTON_TRAVEL] = buttons::_button_travel;
+    buttons::ButtonFunctions[BUTTON_DO_GOOD] = buttons::_do_good;
+    buttons::ButtonFunctions[BUTTON_DO_BAD] = buttons::_do_bad;
   };
 
   int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id)
@@ -132,24 +134,27 @@ namespace buttons
     game::switch_scene(SCENE_ID_MAIN_MENU, false);
   };
 
-  // Rick click on entity, open entity menu
   void _button_travel(int button_id)
   {   
     int entity_id = menu::currentmenus[buttons::buttons[button_id].menu_id].assigned_entity_id;
     std::cout << "clicked on travel button, entity id:  " << entity_id << std::endl;
-    // next click on the map will be next travel point, hence resetting it now
     travel::reset_last_click();
     travel::init_travel(entity_id);
-
-    // Button travel
-    // how to implement that? lolz
-    // x,y = mouse::_request_position();
-    // travel::goto(x,y)
-
-    // OR 
-    // Create travel option but in idle state
-    // Next click on the map will add x y for travel and change the idle state to active
   };
+
+  void _do_good(int button_id)
+  {
+    int entity_id = menu::currentmenus[buttons::buttons[button_id].menu_id].assigned_entity_id;
+    std::cout << " do good for entity: " << entity_id << std::endl;
+  }
+
+
+  void _do_bad(int button_id)
+  {
+    int entity_id = menu::currentmenus[buttons::buttons[button_id].menu_id].assigned_entity_id;
+    std::cout << " do bad for entity: " << entity_id << std::endl;
+
+  }
 
 
 
