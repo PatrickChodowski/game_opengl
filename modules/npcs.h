@@ -85,7 +85,7 @@ namespace npcs
   extern std::vector<int> Index;
 
   // Current npcs
-  extern std::vector<int, InteractionData> interactions;
+  extern std::vector<InteractionData> interactions;
 
   // Read npc data from the file
   void read_data(std::string& name);

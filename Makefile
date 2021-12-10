@@ -20,6 +20,7 @@ output: game
 	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/navmesh.cpp \
+	modules/npcs.cpp \
 	modules/pathfinder.cpp \
 	modules/quads.cpp \
 	modules/saves.cpp \
@@ -52,6 +53,7 @@ output: game
 	modules/mobs.cpp \
 	modules/mouse.cpp \
 	modules/navmesh.cpp \
+	modules/npcs.cpp \
 	modules/pathfinder.cpp \
 	modules/quads.cpp \
 	modules/saves.cpp \
