@@ -65,8 +65,22 @@ namespace npcs
   struct NPCData
   {
     int id;
+    int entity_id;
+    int texture_id;
+    int current_frame;
+    int personality_id;
+    int scene_id;
 
-    JS_OBJ(id);
+    float x;
+    float y;
+    float w;
+    float h;
+    float speed;
+
+
+    std::string name;
+
+    JS_OBJ(id, texture_id, w, h, speed, name);
   };
 
 
@@ -81,9 +95,6 @@ namespace npcs
   // Current npcs
   extern std::map<int, NPCData> npcs;
 
-  // Index of npc ids
-  extern std::vector<int> Index;
-
   // Current npcs
   extern std::vector<InteractionData> interactions;
 
@@ -93,8 +104,8 @@ namespace npcs
   // Read all npc data files and fill npcs_data
   void init();
 
-  // Drop npc by id
-  void drop(int npc_id);
+  // Spawn npc, adds instance to npcs map. Returns entity id
+  int spawn(int npc_id, float x, float y); 
 
   // Clear temporary data (npcs)
   void clear();

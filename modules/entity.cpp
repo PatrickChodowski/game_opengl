@@ -11,6 +11,7 @@
 #include "hero.h"
 #include "items.h"
 #include "mobs.h"
+#include "npcs.h"
 #include "quads.h"
 #include "textures.h"
 #include "utils.h"
@@ -100,5 +101,6 @@ namespace entity
   template int entity::create<hero::HeroData>(hero::HeroData, int, float);
   template int entity::create<items::ItemData>(items::ItemData, int, float);
   template int entity::create<mobs::MobData>(mobs::MobData, int, float);
+  template int entity::create<npcs::NPCData>(npcs::NPCData, int, float);
 
 }

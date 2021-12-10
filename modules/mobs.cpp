@@ -50,7 +50,7 @@ namespace mobs
   }
 
 
-  void spawn(int map_id)
+  void spawn_from_nest(int map_id)
   {
     if(map_id > -1)
     {
