@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "entity.h"
+#include "quads.h"
 #include "utils.h"
 
 #include "../dependencies/json_struct.h"
@@ -61,9 +62,46 @@ namespace npcs
 // hashmap of checks of what was done for who
 // different valus based on the sentiments of two kingdoms
 
+  struct NPCData
+  {
+    int id;
+
+    JS_OBJ(id);
+  };
 
 
+  struct InteractionData
+  {
 
+  };
+
+  // Catalog of all npcs
+  extern std::map<int, NPCData> npcs_data;
+
+  // Current npcs
+  extern std::map<int, NPCData> npcs;
+
+  // Index of npc ids
+  extern std::vector<int> Index;
+
+  // Current npcs
+  extern std::vector<int, InteractionData> interactions;
+
+  // Read npc data from the file
+  void read_data(std::string& name);
+
+  // Read all npc data files and fill npcs_data
+  void init();
+
+  // Drop npc by id
+  void drop(int npc_id);
+
+  // Clear temporary data (npcs)
+  void clear();
+
+  // Clear catalog
+  void refresh();
+  
 }
 
 #endif
