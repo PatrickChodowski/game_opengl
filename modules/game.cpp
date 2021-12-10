@@ -242,12 +242,14 @@ namespace game
     maps::refresh();
     menu::refresh();
     mobs::refresh();
+    npcs::refresh();
 
     anims::init();
     items::init();
     maps::init();
     menu::init();
     mobs::init();
+    npcs::init();
     game::init_scenes();
 
     hero::create_new("test", "barbarian");
