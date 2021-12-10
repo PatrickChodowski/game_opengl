@@ -1,5 +1,6 @@
 output: tests
 	g++ -std=c++17 tests_main.cpp \
+	../modules/anims.cpp \
 	../modules/buffer.cpp \
 	../modules/buttons.cpp \
 	../modules/camera.cpp \
@@ -9,7 +10,6 @@ output: tests
 	../modules/events.cpp \
 	../modules/fonts.cpp \
 	../modules/game.cpp \
-	../modules/gui.cpp \
 	../modules/hero.cpp \
 	../modules/items.cpp \
 	../modules/logger.cpp \
