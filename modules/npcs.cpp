@@ -1,8 +1,10 @@
+#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 
 #include "entity.h"
+#include "logger.h"
 #include "npcs.h"
 #include "utils.h"
 
@@ -38,10 +40,11 @@ namespace npcs
 
   int spawn(int npc_id, float x, float y)
   {
+    logger::log(LOG_LVL_INFO, "Spawning npc " + utils::str(npc_id), "npcs",__FILE__,__LINE__,0);
     npcs::NPCData ndd = npcs::npcs_data[npc_id];
     ndd.x = x;
     ndd.y = y;
-
+    std::cout << "ndd.current frame: " << ndd.current_frame << std::endl;
     int entity_id = entity::create(ndd, ENTITY_TYPE_NPC, CAMERA_DYNAMIC);
     ndd.entity_id = entity_id;
 

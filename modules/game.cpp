@@ -26,6 +26,7 @@
 #include "mobs.h"
 #include "mouse.h"
 #include "navmesh.h"
+#include "npcs.h"
 #include "quads.h"
 #include "shaders.h"
 #include "textures.h"
@@ -51,6 +52,7 @@ namespace game
   int MAP_ID;
   float HERO_START_X;
   float HERO_START_Y;
+  bool LOG_TO_FILES;
   std::map<int, game::SceneData> scenes;
 
   void read_data(std::string& name)
@@ -89,7 +91,8 @@ namespace game
       mobs::spawn_from_nest(game::MAP_ID);
 
       // Spawns npcs for the map
-      npcs::spawn(0, 100, 100);
+      npcs::spawn(0, 10, 10);
+      npcs::spawn(1, 90, 10);
 
       // Load menu slots
       for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)
@@ -266,6 +269,7 @@ namespace game
     game::WINDOW_WIDTH = game::Config.window_width;
     game::WINDOW_HEIGHT = game::Config.window_height;
     game::SCENE_ID = game::Config.starting_scene;
+    game::LOG_TO_FILES  = game::Config.log_to_files;
   }
 
 }
