@@ -7,6 +7,7 @@
 #include "utils.h"
 
 #include "../dependencies/json_struct.h"
+#include "../dictionary.h"
 
 namespace npcs
 {
@@ -34,21 +35,29 @@ namespace npcs
     };
   };
 
+
+  int spawn(int npc_id, float x, float y)
+  {
+    npcs::NPCData ndd = npcs::npcs_data[npc_id];
+    ndd.x = x;
+    ndd.y = y;
+
+    int entity_id = entity::create(ndd, ENTITY_TYPE_NPC, CAMERA_DYNAMIC);
+    ndd.entity_id = entity_id;
+
+    npcs::npcs[entity_id] = ndd;
+    return entity_id;
+  }
+
+
   void clear()
   {
     npcs::npcs.clear();
-    npcs::Index.clear();
   };
 
   void refresh()
   {
     npcs::npcs_data.clear();
-  };
-
-  void drop(int npc_id)
-  {
-    npcs::npcs.erase(npc_id);
-    utils::drop_id(npcs::Index, npc_id);
   };
 
 }
