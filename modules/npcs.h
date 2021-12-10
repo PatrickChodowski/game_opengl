@@ -86,7 +86,12 @@ namespace npcs
 
   struct InteractionData
   {
+    int event_type_id;
+    int npc_id;
+    float type; // positive +1, negative -1;
+    float value;
 
+    JS_OBJ(event_type_id, npc_id, type, value);
   };
 
   // Catalog of all npcs

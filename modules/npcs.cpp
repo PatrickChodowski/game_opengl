@@ -69,6 +69,7 @@ namespace npcs
   void refresh()
   {
     npcs::npcs_data.clear();
+    npcs::interactions.clear();
   };
 
 }

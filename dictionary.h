@@ -90,7 +90,10 @@
 #define MENU_NEWGAME_ID 2
 #define MENU_LOADGAME_ID 3
 #define MENU_SETTINGS_ID 4
-#define MENU_ENTITY_ID 5
+#define MENU_ENTITY_MOB_ID 5
+#define MENU_ENTITY_NPC_ID 6
+#define MENU_ENTITY_ITEM_ID -1
+#define MENU_ENTITY_HERO_ID -1
 
 // Travel states
 #define TRAVEL_STATE_IDLE 0

@@ -42,6 +42,7 @@ namespace entity
   // Entities data -> entity_id, EntityData
   extern std::map<int, EntityData> entities;
   extern std::vector<int> Index;
+  extern std::map<int, int> menu_entity_type_map;
 
   // Creates entity and adds it to the table. Uses the data structure different based on entity type. Returns entity_id
   template <typename T>
@@ -49,6 +50,9 @@ namespace entity
 
   // Creates quads for the entity table
   void render();
+
+  // Initialize menu_entity_type_map
+  void init();
 
   // Clears entity table
   void clear();
