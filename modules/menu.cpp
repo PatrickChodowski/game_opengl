@@ -91,7 +91,7 @@ namespace menu
     int menu_id = -1;
     int menu_slot_id = menu::_get_free_slot();
     // if -1 then there is no free slot
-    if(menu_slot_id > -1)
+    if(menu_slot_id > -1 & menu_type_id > -1)
     {
       menu_id = utils::generate_id(menu::Index);
       menu::MenuData mdd = menus[menu_type_id];

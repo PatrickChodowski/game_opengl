@@ -151,6 +151,7 @@ namespace game
     buffer::init();
     buttons::init();
     collisions::init();
+    entity::init();
     events::init();
     fonts::init("Ignotum"); // its important to keep it before textures becuase of bindings
     items::init();
