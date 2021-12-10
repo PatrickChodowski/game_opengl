@@ -1,4 +1,10 @@
 
+### todo: in game console that would manage the events (interaction with npcs:) -> one button "interact" opens up console, insert values, save interaction
+
+- click P -> pause the game, move to another scene
+- add flag on scene moving if we need to reset the game state data (here not!)
+- have new event handler that will handle console
+
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
 ### personality traits of the leaders -> random
