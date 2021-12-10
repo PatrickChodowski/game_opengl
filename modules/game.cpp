@@ -91,8 +91,7 @@ namespace game
       mobs::spawn_from_nest(game::MAP_ID);
 
       // Spawns npcs for the map
-      npcs::spawn(0, 10, 10);
-      npcs::spawn(1, 90, 10);
+      npcs::spawn_from_map(game::MAP_ID);
 
       // Load menu slots
       for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)

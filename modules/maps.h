@@ -44,6 +44,16 @@ namespace maps
     JS_OBJ(x, y, n);
   };
 
+  // Npc assigned to map information
+  struct MapNPCData
+  {
+    int id;
+    float x;
+    float y;
+
+    JS_OBJ(id, x, y);
+  };
+
   // Door information
   struct Door
   {
@@ -67,9 +77,10 @@ namespace maps
     int default_player_y;
     std::vector<Door> doors;
     std::vector<Nest> nests;
+    std::vector<MapNPCData> npcs;
     std::string name;
 
-    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors, nests);
+    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors, nests, npcs);
   };
 
   extern float default_tile_width;

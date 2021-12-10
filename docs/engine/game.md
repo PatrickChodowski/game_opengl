@@ -18,6 +18,12 @@ Main loop argument, if true, the game is going on
 bool RUNNING;
 ```
 
+### LOG_TO_FILES
+Config boolean if game should log to file
+```c++
+bool LOG_TO_FILES;
+```
+
 ### IS_DEBUG_MODE
 Checks if the game is in DEBUG MODE
 ```c++
