@@ -4,6 +4,13 @@
 - click P -> pause the game, move to another scene
 - add flag on scene moving if we need to reset the game state data (here not!)
 - have new event handler that will handle console
+- yyh or a scripting language
+
+https://bitsquid.blogspot.com/2009/10/picking-scripting-language.html
+https://devblogs.microsoft.com/python/embedding-python-in-a-cpp-project-with-visual-studio/
+https://tech.blueyonder.com/python-calling-c++/
+https://www.boost.org/doc/libs/1_78_0/libs/python/doc/html/index.html
+https://www.boost.org/doc/libs/1_78_0/libs/python/doc/html/tutorial/index.html#tutorial.quickstart
 
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
