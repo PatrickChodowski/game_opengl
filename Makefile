@@ -1,67 +1,31 @@
+
+# http://nuclear.mutantstargoat.com/articles/make/#a-makefile-for-99-of-your-programs
+# Check on which platform are we -> Darwin is mac 
 UNAME := $(shell uname)
+CXX=g++
+CXXFLAGS= -MMD -std=c++17
+
 ifeq ($(UNAME),Darwin)
-output: game
-	g++ -std=c++17 main.cpp \
-	modules/anims.cpp
-	modules/buffer.cpp \
-	modules/buttons.cpp \
-	modules/camera.cpp \
-	modules/collisions.cpp \
-	modules/debug.cpp \
-	modules/entity.cpp \
-	modules/events.cpp \
-	modules/fonts.cpp \
-	modules/game.cpp \
-	modules/hero.cpp \
-	modules/items.cpp \
-	modules/logger.cpp \
-	modules/maps.cpp \
-	modules/menu.cpp \
-	modules/mobs.cpp \
-	modules/mouse.cpp \
-	modules/navmesh.cpp \
-	modules/npcs.cpp \
-	modules/pathfinder.cpp \
-	modules/quads.cpp \
-	modules/saves.cpp \
-	modules/shaders.cpp \
-	modules/textures.cpp \
-	modules/travel.cpp \
-	modules/timer.cpp \
-	modules/utils.cpp -o game -lSDL2 -lGLEW -lfreetype -framework OpenGL
-game: main.cpp
-clean: rm *.o
+LDFLAGS = -lSDL2 -lGLEW -lfreetype -framework OpenGL -I /usr/include/python3.8/
 endif
 ifeq ($(UNAME),Linux)
-output: game
-	g++ -std=c++17 main.cpp \
-	modules/anims.cpp \
-	modules/buffer.cpp \
-	modules/buttons.cpp \
-	modules/camera.cpp \
-	modules/collisions.cpp \
-	modules/debug.cpp \
-	modules/entity.cpp \
-	modules/events.cpp \
-	modules/fonts.cpp \
-	modules/game.cpp \
-	modules/hero.cpp \
-	modules/items.cpp \
-	modules/logger.cpp \
-	modules/maps.cpp \
-	modules/menu.cpp \
-	modules/mobs.cpp \
-	modules/mouse.cpp \
-	modules/navmesh.cpp \
-	modules/npcs.cpp \
-	modules/pathfinder.cpp \
-	modules/quads.cpp \
-	modules/saves.cpp \
-	modules/shaders.cpp \
-	modules/textures.cpp \
-	modules/travel.cpp \
-	modules/timer.cpp \
-	modules/utils.cpp -o game -lSDL2 -lGL -lGLEW -lfreetype
-game: main.cpp
-clean: rm *.o
+LDFLAGS = -lSDL2 -lGL -lGLEW -lfreetype -I /usr/include/python3.8/
 endif
+
+src = $(wildcard *.cpp)\
+			$(wildcard modules/*.cpp) 
+obj = $(src:.cpp=.o )
+dep = $(obj:.o=.d)  # one dependency file for each source
+
+game: $(obj)
+	$(CXX) -o $@ $^ $(LDFLAGS)
+
+-include $(dep)   # include all dep files in the makefile
+
+.PHONY: clean
+clean:
+	rm -f $(obj) game
+
+.PHONY: cleandep
+cleandep:
+	rm -f $(dep)
