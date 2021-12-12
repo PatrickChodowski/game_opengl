@@ -15,6 +15,7 @@
 #include <string>
 
 #include "../dictionary.h"
+#include "../dependencies/json_struct.h"
 
 namespace logger
 {

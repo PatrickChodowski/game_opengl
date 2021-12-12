@@ -1,5 +1,7 @@
-modules/shaders.o: modules/shaders.cpp modules/shaders.h \
-  modules/../dependencies/json_struct.h /usr/local/include/GL/glew.h \
+modules/buttons.o: modules/buttons.cpp modules/buttons.h modules/quads.h \
+  modules/collisions.h modules/utils.h /usr/local/include/GL/glew.h \
+  modules/fonts.h modules/textures.h \
+  modules/../dependencies/json_struct.h modules/game.h \
   /usr/local/include/SDL2/SDL.h /usr/local/include/SDL2/SDL_main.h \
   /usr/local/include/SDL2/SDL_stdinc.h \
   /usr/local/include/SDL2/SDL_config.h \
@@ -45,4 +47,6 @@ modules/shaders.o: modules/shaders.cpp modules/shaders.h \
   /usr/local/include/SDL2/SDL_timer.h \
   /usr/local/include/SDL2/SDL_version.h \
   /usr/local/include/SDL2/SDL_locale.h \
-  /usr/local/include/SDL2/SDL_misc.h modules/utils.h
+  /usr/local/include/SDL2/SDL_misc.h modules/hero.h modules/menu.h \
+  modules/mouse.h modules/saves.h modules/travel.h \
+  modules/../dictionary.h
