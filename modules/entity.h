@@ -53,7 +53,7 @@ namespace entity
 
   // Initialize menu_entity_type_map
   void init();
-
+  
   // Clears entity table
   void clear();
 
