@@ -75,7 +75,7 @@ namespace mouse
     logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
     entity::EntityData edd = entity::entities[object_id];
     // if right click
-    if((mouse_button_id == MOUSE_BUTTON_RIGHT))
+    if(mouse_button_id == MOUSE_BUTTON_RIGHT)
     {
       if(!entity::entities[object_id].is_clicked)
       {

@@ -1,6 +1,9 @@
-modules/shaders.o: modules/shaders.cpp modules/shaders.h \
-  modules/../dependencies/json_struct.h /usr/local/include/GL/glew.h \
-  /usr/local/include/SDL2/SDL.h /usr/local/include/SDL2/SDL_main.h \
+modules/quads.o: modules/quads.cpp modules/buttons.h modules/quads.h \
+  modules/collisions.h modules/utils.h /usr/local/include/GL/glew.h \
+  modules/debug.h modules/entity.h modules/fonts.h modules/textures.h \
+  modules/../dependencies/json_struct.h modules/logger.h modules/maps.h \
+  modules/menu.h modules/mouse.h /usr/local/include/SDL2/SDL.h \
+  /usr/local/include/SDL2/SDL_main.h \
   /usr/local/include/SDL2/SDL_stdinc.h \
   /usr/local/include/SDL2/SDL_config.h \
   /usr/local/include/SDL2/SDL_platform.h \
@@ -45,4 +48,4 @@ modules/shaders.o: modules/shaders.cpp modules/shaders.h \
   /usr/local/include/SDL2/SDL_timer.h \
   /usr/local/include/SDL2/SDL_version.h \
   /usr/local/include/SDL2/SDL_locale.h \
-  /usr/local/include/SDL2/SDL_misc.h modules/utils.h
+  /usr/local/include/SDL2/SDL_misc.h modules/../dictionary.h

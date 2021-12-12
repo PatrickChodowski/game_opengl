@@ -1,4 +1,4 @@
-modules/camera.o: modules/camera.cpp modules/camera.h \
+modules/collisions.o: modules/collisions.cpp modules/camera.h \
   modules/../dependencies/glm/mat4x4.hpp \
   modules/../dependencies/glm/./ext/matrix_double4x4.hpp \
   modules/../dependencies/glm/./ext/../detail/type_mat4x4.hpp \
@@ -273,9 +273,8 @@ modules/camera.o: modules/camera.cpp modules/camera.h \
   modules/../dependencies/glm/gtx/../gtc/constants.hpp \
   modules/../dependencies/glm/gtx/dual_quaternion.inl \
   modules/../dependencies/glm/gtx/../geometric.hpp \
-  modules/../dependencies/glm/gtx/string_cast.inl modules/entity.h \
-  modules/quads.h modules/collisions.h modules/maps.h \
-  modules/../dependencies/json_struct.h modules/game.h \
+  modules/../dependencies/glm/gtx/string_cast.inl modules/collisions.h \
+  modules/debug.h modules/quads.h modules/entity.h modules/game.h \
   /usr/local/include/SDL2/SDL.h /usr/local/include/SDL2/SDL_main.h \
   /usr/local/include/SDL2/SDL_stdinc.h \
   /usr/local/include/SDL2/SDL_config.h \
@@ -321,4 +320,6 @@ modules/camera.o: modules/camera.cpp modules/camera.h \
   /usr/local/include/SDL2/SDL_timer.h \
   /usr/local/include/SDL2/SDL_version.h \
   /usr/local/include/SDL2/SDL_locale.h \
-  /usr/local/include/SDL2/SDL_misc.h modules/../dictionary.h
+  /usr/local/include/SDL2/SDL_misc.h \
+  modules/../dependencies/json_struct.h modules/hero.h modules/utils.h \
+  /usr/local/include/GL/glew.h modules/maps.h modules/../dictionary.h
