@@ -1,10 +1,16 @@
 
+### todo: extend makefile to do tests and work with python
+
+### todo: embed python script inside
+- test how far it can be used
+
 ### todo: in game console that would manage the events (interaction with npcs:) -> one button "interact" opens up console, insert values, save interaction
 
 - click P -> pause the game, move to another scene
 - add flag on scene moving if we need to reset the game state data (here not!)
 - have new event handler that will handle console
 - yyh or a scripting language
+
 
 https://bitsquid.blogspot.com/2009/10/picking-scripting-language.html
 https://devblogs.microsoft.com/python/embedding-python-in-a-cpp-project-with-visual-studio/
