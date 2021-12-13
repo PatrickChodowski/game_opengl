@@ -32,6 +32,8 @@
 #include "textures.h"
 #include "travel.h"
 
+#include "../scripts/py.h"
+
 #include "../dictionary.h"
 
 namespace game
@@ -232,6 +234,7 @@ namespace game
     buffer::drop();
     shaders::drop();
     textures::drop();
+    scripts::drop();
   }
 
   void refresh()

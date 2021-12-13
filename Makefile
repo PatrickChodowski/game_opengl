@@ -3,17 +3,19 @@
 # Check on which platform are we -> Darwin is mac 
 UNAME := $(shell uname)
 CXX=g++
-CXXFLAGS= -MMD -std=c++17
+CXXFLAGS= -MMD -std=c++17 -I dependencies/python/include
 
+# LD Flags are added only to the linker
 ifeq ($(UNAME),Darwin)
-LDFLAGS = -lSDL2 -lGLEW -lfreetype -framework OpenGL -I /usr/include/python3.8/
-endif
+LDFLAGS = -lSDL2 -lGLEW -lfreetype -framework OpenGL -lpython3.8
+endif 
 ifeq ($(UNAME),Linux)
-LDFLAGS = -lSDL2 -lGL -lGLEW -lfreetype -I /usr/include/python3.8/
+LDFLAGS = -lSDL2 -lGL -lGLEW -lfreetype -lpython3.8
 endif
 
 src = $(wildcard *.cpp)\
-			$(wildcard modules/*.cpp) 
+			$(wildcard modules/*.cpp) \
+			$(wildcard scripts/*.cpp)
 obj = $(src:.cpp=.o )
 dep = $(obj:.o=.d)  # one dependency file for each source
 

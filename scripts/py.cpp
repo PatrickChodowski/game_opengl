@@ -7,9 +7,11 @@
 #include "../dependencies/pybind11/pybind11.h"
 #include "../dependencies/pybind11/embed.h"
 
-namespace scipts
+namespace py = pybind11;
+
+namespace scripts
 {
-  py::scoped_interpreter guard{};
+  py::scoped_interpreter guard;
   // void init()
   // {
   //   py::scoped_interpreter guard{};
@@ -32,6 +34,11 @@ namespace scipts
     }
   };
 
+
+  void drop()
+  {
+    delete &guard;
+  };
 
   
 
