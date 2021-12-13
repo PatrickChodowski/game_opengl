@@ -1,9 +1,5 @@
 
-### todo: extend makefile to do tests
-
-### doing: python with cpp -> 
-- how to spawn entity from the script?
-- how to cause event (interaction with npc) from the script (like insert do_good/do_bad events) to interactions data
+### cause interaction from the script
 
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
