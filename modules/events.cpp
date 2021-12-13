@@ -232,10 +232,10 @@ namespace events
               game::switch_scene(SCENE_ID_MAIN_MENU, false);
             break;
 
-            case SDLK_0:
-              std::string script_name = "scripts/console.py";
-              scripts::execute(script_name);
-            break;
+            // case SDLK_0:
+            //   std::string script_name = "scripts/console.py";
+            //   scripts::execute(script_name);
+            // break;
           }
         break;
       }

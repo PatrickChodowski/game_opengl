@@ -76,6 +76,7 @@ namespace npcs
     float w;
     float h;
     float speed;
+    float sentiment = 0.5;
 
 
     std::string name;
@@ -120,6 +121,9 @@ namespace npcs
 
   // Clear catalog
   void refresh();
+  
+  // Create interaction with the entity. impact interactions table and NPC's sentiment
+  void interact(int entity_id, float value);
   
 }
 

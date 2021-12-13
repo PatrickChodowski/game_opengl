@@ -12,8 +12,5 @@
   "b": 0.5,
   "a": 0.8,
   "object_type_id": 0,
-  "button_data": [{"label": "Do good", "button_function_id": 8, "x":500, "y":100, "w": 100, "h": 70},
-                  {"label": "Do bad", "button_function_id": 9, "x":500, "y":180, "w": 100, "h": 70}
-  ],
   "label_data": [{}]
 }
