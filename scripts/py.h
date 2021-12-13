@@ -26,6 +26,9 @@ namespace scripts
   // Function 1: drop mob
   void _drop_mob();
 
+  // Function 2: interact_npc
+  void _interact_npc();
+
 
 }
 

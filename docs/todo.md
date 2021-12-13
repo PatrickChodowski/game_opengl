@@ -1,7 +1,5 @@
 
-### cause interaction from the script
-
-### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
+### Different info() methods per entity type id
 
 ### personality traits of the leaders -> random
 - random personality traits

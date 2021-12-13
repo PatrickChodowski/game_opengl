@@ -12,6 +12,7 @@
 
 #include "../modules/entity.h"
 #include "../modules/mobs.h"
+#include "../modules/npcs.h"
 
 namespace py = pybind11;
 
@@ -46,6 +47,7 @@ namespace scripts
   {
     scripts::Handler[0] = _spawn_mob;
     scripts::Handler[1] = _drop_mob;
+    scripts::Handler[2] = _interact_npc;
   }
 
 
@@ -67,6 +69,12 @@ namespace scripts
   {
     // Function 1 -> drop mob
     mobs::drop(args["entity_id"]);
+  }
+
+  void _interact_npc()
+  {
+    // Function 2 -> interact_npc
+    npcs::interact(args["entity_id"], args["interaction_value"]);
   }
 
 
