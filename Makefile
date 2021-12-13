@@ -29,3 +29,7 @@ clean:
 .PHONY: cleandep
 cleandep:
 	rm -f $(dep)
+
+
+scripts: scripts/scripts.cpp
+	g++ -std=c++17 scripts/scripts.cpp -fPIC -shared -o scripts/scripts.so -I dependencies/python/include
