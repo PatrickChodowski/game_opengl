@@ -12,32 +12,26 @@ namespace py = pybind11;
 namespace scripts
 {
   py::scoped_interpreter guard;
-  // void init()
-  // {
-  //   py::scoped_interpreter guard{};
-  // }
 
-  //py::exec("print 1");
+  // this can be good:
+  // py::exec("print 1");
 
 
-  void execute_script(std::string& script_name)
+  void execute(std::string& script_name)
   {
-    std::ifstream script(script_name);
-    std::string line;
-    if(script.is_open())
-    {
-      while(std::getline(script, line))
-      {
-        py::exec(line.c_str());
-      } 
-      script.close();
-    }
-  };
+    // auto kwargs = py::dict("name"_a="World", "number"_a=42);
+    // auto message = "Hello, {name}! The answer is {number}"_s.format(**kwargs);
 
+    auto locals = py::dict();
+    py::eval_file(script_name, py::globals(), locals);
+    auto test_variable = locals["test_variable"].cast<int>();
+    std::cout << "test variable: " << test_variable << std::endl;
+
+  };
 
   void drop()
   {
-    delete &guard;
+    //delete &guard;
   };
 
   

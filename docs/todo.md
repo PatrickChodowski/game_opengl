@@ -1,8 +1,7 @@
 
-### todo: extend makefile to do tests and work with pythontatus
+### todo: extend makefile to do tests
 
-### todo: embed python script inside
-- test how far it can be used
+### doing: python with cpp
 
 ### todo: in game console that would manage the events (interaction with npcs:) -> one button "interact" opens up console, insert values, save interaction
 

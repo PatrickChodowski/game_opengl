@@ -12,6 +12,8 @@
 #include "mouse.h"
 #include "saves.h"
 
+#include "../scripts/py.h"
+
 
 #include "../dictionary.h"
 
@@ -223,6 +225,11 @@ namespace events
           {     
             case SDLK_ESCAPE:
               game::switch_scene(SCENE_ID_MAIN_MENU, false);
+            break;
+
+            case SDLK_0:
+              std::string script_name = "scripts/test.py";
+              scripts::execute(script_name);
             break;
           }
         break;

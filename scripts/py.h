@@ -5,7 +5,7 @@
 
 namespace scripts
 {
-  void execute_script(std::string& script_name);
+  void execute(std::string& script_name);
 
   void drop();
 
