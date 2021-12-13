@@ -3,9 +3,11 @@
 #define SCRIPTS_PY_H
 
 
-namespace scipts
+namespace scripts
 {
   void execute_script(std::string& script_name);
+
+  void drop();
 
 }
 

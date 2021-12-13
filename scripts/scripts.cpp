@@ -9,7 +9,6 @@ namespace py = pybind11;
 char const* greet()
 { 
   std::cout << "hello world2" << std::endl;
-  
   return "hello, world2";
 };
 
