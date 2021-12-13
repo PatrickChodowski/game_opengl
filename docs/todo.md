@@ -66,20 +66,6 @@ drugi akt to oczywiscie pustynia
 introdce thor by being part of the ogre (Thrym)
 uchodzenie za pajac na wyspach owczych
 
-TODO:
-  - anims:
-    - Animations from json file (hero walking)
-    - Animations manager being worked on 
-
-
-  - debug (branch):
-    - render shadow quads
-    - set_labels() definately not set in the right moment (on quads in handle_state, but quads are summarized later :o)
-    
- - mobs
-  - close travel if new started for given mob
-  - travel nie dziala dobrze jak jest zoom i move, ale to dobrze, bo zoom to tylko debug
-
 
 IDEAS:
 - reinforcement learning for monsters play
