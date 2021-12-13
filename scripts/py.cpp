@@ -1,43 +1,74 @@
 
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <string>
+#include <vector>
 
 #include "py.h"
 #include "../dependencies/pybind11/pybind11.h"
 #include "../dependencies/pybind11/embed.h"
+#include "../dependencies/pybind11/stl.h"
+
+#include "../modules/entity.h"
+#include "../modules/mobs.h"
 
 namespace py = pybind11;
 
 namespace scripts
-{
+{ 
+  typedef void (*sig_ptr)();
+  std::map<int,sig_ptr> Handler;
+  std::map<std::string, float> args;
+
   py::scoped_interpreter guard{};
-
-  // this can be good:
-  // py::exec("print 1");
-
 
   void execute(std::string& script_name)
   {
-    // auto kwargs = py::dict("name"_a="World", "number"_a=42);
-    // auto message = "Hello, {name}! The answer is {number}"_s.format(**kwargs);
-
-    // when executing the script, access variables from CPP, copy to python, use this to run python logic, return some data, use this data
-
     using namespace py::literals;
-    auto locals = py::dict("name"_a="World", "number"_a=42);
+    auto locals = py::dict();
     py::eval_file(script_name, py::globals(), locals);
-    auto test_variable = locals["test_variable"].cast<int>();
-    std::cout << "test variable: " << test_variable << std::endl;
+    scripts::args.clear();
+
+    // Retrieve Function ID
+    auto func_id = locals["func_id"].cast<int>();
+
+    // Retrieve dict and assign to external map
+    auto vars = locals["vars"].cast<std::map<std::string, float>>();
+    args = vars;
+
+    std::cout << "Executing function ID: " << func_id << std::endl;
+    scripts::Handler[func_id]();
 
   };
+
+  void init()
+  {
+    scripts::Handler[0] = _spawn_mob;
+    scripts::Handler[1] = _drop_mob;
+  }
+
+
 
   void drop()
   {
     //delete &guard;
   };
 
-  
+
+
+  void _spawn_mob()
+  {
+    // Function 0 -> spawn mob
+    mobs::spawn(args["mob_type_id"], args["x"], args["y"]);
+  };
+
+  void _drop_mob()
+  {
+    // Function 1 -> drop mob
+    mobs::drop(args["entity_id"]);
+  }
+
 
 }
 

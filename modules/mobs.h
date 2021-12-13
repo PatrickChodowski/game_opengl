@@ -37,9 +37,8 @@ namespace mobs
     max_speed, min_hp, max_hp, min_def, max_def, speed);
   };
 
-  extern std::map<int, MobData> mobs;
-  extern std::vector<int> Index;
-  extern std::map<int, MobData> spawnedmobs;
+  extern std::map<int, MobData> mobs_data;
+  extern std::map<int, MobData> SpawnedMobs;
 
   // Reads mobs data
   void read_data(std::string name);
@@ -55,6 +54,12 @@ namespace mobs
 
   // Spawns mob entities according to the map - in the nests. Creates entities and adds to entity list
   void spawn_from_nest(int map_id);
+
+  // Spawn single mob
+  void spawn(int mob_type_id, float x, float y);
+
+  // Drops a mob and corresponding entity data
+  void drop(int entity_id);
 
 }
 

@@ -122,6 +122,11 @@ namespace events
             case SDLK_d:
               game::IS_DEBUG_MODE = !game::IS_DEBUG_MODE;
             break;
+
+            case SDLK_0:
+              std::string script_name = "scripts/console.py";
+              scripts::execute(script_name);
+            break;
           }
         break;
       }
@@ -228,7 +233,7 @@ namespace events
             break;
 
             case SDLK_0:
-              std::string script_name = "scripts/test.py";
+              std::string script_name = "scripts/console.py";
               scripts::execute(script_name);
             break;
           }
