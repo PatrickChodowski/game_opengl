@@ -35,3 +35,17 @@ cleandep:
 # not using right now but keeping as example
 scripts: scripts/scripts.cpp
 	g++ -std=c++17 scripts/scripts.cpp -fPIC -shared -o scripts/scripts.so -I dependencies/python/include
+
+
+# Make for tests
+
+src_tests = $(wildcard tests/*.cpp)\
+			$(wildcard modules/*.cpp) \
+			$(wildcard scripts/*.cpp)
+obj_tests = $(src_tests:.cpp=.o )
+dep_tests = $(obj:.o=.d)  # one dependency file for each source
+
+test: $(obj_tests)
+	$(CXX) -o $@ $^ $(LDFLAGS)
+
+-include $(dep_tests)   # include all dep files in the makefile
