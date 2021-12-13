@@ -164,6 +164,7 @@ namespace game
     mouse::init();
     npcs::init();
     game::init_scenes();
+    scripts::init();
     shaders::init();
     textures::init();
 

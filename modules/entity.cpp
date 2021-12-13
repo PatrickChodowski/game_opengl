@@ -86,6 +86,15 @@ namespace entity
     entity::entities.clear();
   };
 
+  void drop(int entity_id)
+  {
+    if(entity::entities.count(entity_id) > 0)
+    {
+      entity::entities.erase(entity_id);
+      utils::drop_id(entity::Index, entity_id);
+    }
+  }
+
   
   std::vector<std::string> info(int entity_id)
   {

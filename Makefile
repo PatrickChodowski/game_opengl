@@ -32,6 +32,6 @@ clean:
 cleandep:
 	rm -f $(dep)
 
-
+# not using right now but keeping as example
 scripts: scripts/scripts.cpp
 	g++ -std=c++17 scripts/scripts.cpp -fPIC -shared -o scripts/scripts.so -I dependencies/python/include

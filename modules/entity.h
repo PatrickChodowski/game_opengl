@@ -63,6 +63,9 @@ namespace entity
   // Returns vector of strings with entity information
   std::vector<std::string> info(int entity_id);
 
+  // Delete entity
+  void drop(int entity_id);
+
 }
 
 #endif
