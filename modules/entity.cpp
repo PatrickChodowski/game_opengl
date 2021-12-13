@@ -22,6 +22,16 @@ namespace entity
 
   std::map<int, EntityData> entities;
   std::vector<int> Index = {};
+  std::map<int, int> menu_entity_type_map;
+
+
+  void init()
+  {
+    entity::menu_entity_type_map[ENTITY_TYPE_HERO] = MENU_ENTITY_HERO_ID;
+    entity::menu_entity_type_map[ENTITY_TYPE_NPC] = MENU_ENTITY_NPC_ID;
+    entity::menu_entity_type_map[ENTITY_TYPE_MOB] = MENU_ENTITY_MOB_ID;
+    entity::menu_entity_type_map[ENTITY_TYPE_ITEM] = MENU_ENTITY_ITEM_ID;
+  };
 
   template <typename T>
   int create(T data, int entity_type_id, float camera_type)
@@ -75,6 +85,15 @@ namespace entity
     entity::Index.clear();
     entity::entities.clear();
   };
+
+  void drop(int entity_id)
+  {
+    if(entity::entities.count(entity_id) > 0)
+    {
+      entity::entities.erase(entity_id);
+      utils::drop_id(entity::Index, entity_id);
+    }
+  }
 
   
   std::vector<std::string> info(int entity_id)

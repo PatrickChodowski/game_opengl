@@ -76,6 +76,7 @@ namespace npcs
     float w;
     float h;
     float speed;
+    float sentiment = 0.5;
 
 
     std::string name;
@@ -86,7 +87,12 @@ namespace npcs
 
   struct InteractionData
   {
+    int event_type_id;
+    int npc_id;
+    float type; // positive +1, negative -1;
+    float value;
 
+    JS_OBJ(event_type_id, npc_id, type, value);
   };
 
   // Catalog of all npcs
@@ -115,6 +121,9 @@ namespace npcs
 
   // Clear catalog
   void refresh();
+  
+  // Create interaction with the entity. impact interactions table and NPC's sentiment
+  void interact(int entity_id, float value);
   
 }
 

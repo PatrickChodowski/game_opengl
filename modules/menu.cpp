@@ -91,7 +91,7 @@ namespace menu
     int menu_id = -1;
     int menu_slot_id = menu::_get_free_slot();
     // if -1 then there is no free slot
-    if(menu_slot_id > -1)
+    if(menu_slot_id > -1 & menu_type_id > -1)
     {
       menu_id = utils::generate_id(menu::Index);
       menu::MenuData mdd = menus[menu_type_id];
@@ -105,7 +105,6 @@ namespace menu
       mdd.camera_type = CAMERA_STATIC;
       menu::currentmenus[menu_id] = mdd;
 
-      // Later will be changed to ContextManager, but for now just entity::info() ... later maps.info(), door.info() etc.
       std::vector<std::string> infos = entity::info(object_id);
 
       for(int i=0; i<infos.size(); i++)
@@ -125,7 +124,7 @@ namespace menu
       {
         int button_id = buttons::add(currentmenus[menu_id].button_data[b].label,
                                  (mdd.pos.x + 20),
-                                 ((infos.size()+1)*40 + mdd.pos.y),
+                                 ((infos.size()+1)*40 + mdd.pos.y + (b*80)),
                                  150,
                                  currentmenus[menu_id].button_data[b].h,
                                  currentmenus[menu_id].button_data[b].button_function_id,

@@ -66,6 +66,8 @@
 #define BUTTON_BACK 5
 #define BUTTON_LOADGAME_NAME 6
 #define BUTTON_TRAVEL 7
+#define BUTTON_DO_GOOD 8
+#define BUTTON_DO_BAD 9
 
 // Scenes
 #define SCENE_ID_MAIN_MENU 0
@@ -90,7 +92,10 @@
 #define MENU_NEWGAME_ID 2
 #define MENU_LOADGAME_ID 3
 #define MENU_SETTINGS_ID 4
-#define MENU_ENTITY_ID 5
+#define MENU_ENTITY_MOB_ID 5
+#define MENU_ENTITY_NPC_ID 6
+#define MENU_ENTITY_ITEM_ID -1
+#define MENU_ENTITY_HERO_ID -1
 
 // Travel states
 #define TRAVEL_STATE_IDLE 0

@@ -32,6 +32,8 @@
 #include "textures.h"
 #include "travel.h"
 
+#include "../scripts/py.h"
+
 #include "../dictionary.h"
 
 namespace game
@@ -151,6 +153,7 @@ namespace game
     buffer::init();
     buttons::init();
     collisions::init();
+    entity::init();
     events::init();
     fonts::init("Ignotum"); // its important to keep it before textures becuase of bindings
     items::init();
@@ -161,6 +164,7 @@ namespace game
     mouse::init();
     npcs::init();
     game::init_scenes();
+    scripts::init();
     shaders::init();
     textures::init();
 
@@ -231,6 +235,7 @@ namespace game
     buffer::drop();
     shaders::drop();
     textures::drop();
+    scripts::drop();
   }
 
   void refresh()

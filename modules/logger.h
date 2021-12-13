@@ -31,7 +31,8 @@ namespace logger
     std::time_t current_time;
 
     JS_OBJ(file, path, msg, module, time_since_game_start, 
-           function_time_elapsed, line, log_level, type, current_time);
+           function_time_elapsed, line, log_level, type
+           );
   };
 
   // Initialize logger logic

@@ -187,7 +187,7 @@ namespace travel
     for (auto & [k, v] : travel::travels)
     {  
       // Activate idle travels if possible
-      if(v.state == TRAVEL_STATE_IDLE & can_activate)
+      if((v.state == TRAVEL_STATE_IDLE) & can_activate)
       {
         v.target_x = travel::last_click.x;
         v.target_y = travel::last_click.y;
