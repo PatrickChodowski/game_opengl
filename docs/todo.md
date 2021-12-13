@@ -1,14 +1,9 @@
 
 ### todo: extend makefile to do tests
 
-### doing: python with cpp
-
-### todo: in game console that would manage the events (interaction with npcs:) -> one button "interact" opens up console, insert values, save interaction
-
-- click P -> pause the game, move to another scene
-- add flag on scene moving if we need to reset the game state data (here not!)
-- have new event handler that will handle console
-- yyh or a scripting language
+### doing: python with cpp -> 
+- how to spawn entity from the script?
+- how to cause event (interaction with npc) from the script (like insert do_good/do_bad events) to interactions data
 
 ### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
 
@@ -51,28 +46,17 @@ Probably will still need a chunks system on top of the map -> avoid rendering an
 
 ### Shaders book
 
- ### how to make it isometric! just for test -> isometric projection
+### when zoom out, middle mouse button could move the view -> but how? :o
 
-We angle our camera along two axes (swing the camera 45 degrees to one side, then 30 degrees down). This creates a diamond (rhombus) shaped grid where the grid spaces are twice as wide as they are tall. This style was popularized by strategy games and action RPGs. If we look at a cube in this view, three sides are visible (top and two facing sides).
+### menu highliting -> nice feature to have :)
 
-https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-primer-for-game-developers--gamedev-6511
+### saves scrolling
 
- https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
+### fonts size options? :( :( :(:( maybe another day...
 
-https://www.youtube.com/watch?v=04oQ2jOUjkU&ab_channel=JordanWest -> very good instructions
+### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
 
-
- ### when zoom out, middle mouse button could move the view -> but how? :o
-
- ### menu highliting -> nice feature to have :)
-
- ### saves scrolling
-
- ### fonts size options? :( :( :(:( maybe another day...
-
- ### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
-
- ### game should be 2D topdown
+### game should be 2D topdown
 
 # Notes:
 
@@ -133,6 +117,15 @@ banda skogermor i napad na miasto
 mozliwosc zostania earlem/jarlem/krolem
 
 
+### how to make it isometric! just for test -> isometric projection
+
+We angle our camera along two axes (swing the camera 45 degrees to one side, then 30 degrees down). This creates a diamond (rhombus) shaped grid where the grid spaces are twice as wide as they are tall. This style was popularized by strategy games and action RPGs. If we look at a cube in this view, three sides are visible (top and two facing sides).
+
+https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-primer-for-game-developers--gamedev-6511
+
+ https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
+
+https://www.youtube.com/watch?v=04oQ2jOUjkU&ab_channel=JordanWest -> very good instructions
 
 
 
