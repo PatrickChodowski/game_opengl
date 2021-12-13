@@ -1,5 +1,5 @@
 
-### npc interaction system -> heart of the game! heart of the story basically -> introduce npcs -> earls, jarls, kings, gods etc.
+### Different info() methods per entity type id
 
 ### personality traits of the leaders -> random
 - random personality traits
@@ -40,28 +40,17 @@ Probably will still need a chunks system on top of the map -> avoid rendering an
 
 ### Shaders book
 
- ### how to make it isometric! just for test -> isometric projection
+### when zoom out, middle mouse button could move the view -> but how? :o
 
-We angle our camera along two axes (swing the camera 45 degrees to one side, then 30 degrees down). This creates a diamond (rhombus) shaped grid where the grid spaces are twice as wide as they are tall. This style was popularized by strategy games and action RPGs. If we look at a cube in this view, three sides are visible (top and two facing sides).
+### menu highliting -> nice feature to have :)
 
-https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-primer-for-game-developers--gamedev-6511
+### saves scrolling
 
- https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
+### fonts size options? :( :( :(:( maybe another day...
 
-https://www.youtube.com/watch?v=04oQ2jOUjkU&ab_channel=JordanWest -> very good instructions
+### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
 
-
- ### when zoom out, middle mouse button could move the view -> but how? :o
-
- ### menu highliting -> nice feature to have :)
-
- ### saves scrolling
-
- ### fonts size options? :( :( :(:( maybe another day...
-
- ### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
-
- ### game should be 2D topdown
+### game should be 2D topdown
 
 # Notes:
 
@@ -74,20 +63,6 @@ fishing mechanic that doesnt do anything
 drugi akt to oczywiscie pustynia
 introdce thor by being part of the ogre (Thrym)
 uchodzenie za pajac na wyspach owczych
-
-TODO:
-  - anims:
-    - Animations from json file (hero walking)
-    - Animations manager being worked on 
-
-
-  - debug (branch):
-    - render shadow quads
-    - set_labels() definately not set in the right moment (on quads in handle_state, but quads are summarized later :o)
-    
- - mobs
-  - close travel if new started for given mob
-  - travel nie dziala dobrze jak jest zoom i move, ale to dobrze, bo zoom to tylko debug
 
 
 IDEAS:
@@ -122,6 +97,15 @@ banda skogermor i napad na miasto
 mozliwosc zostania earlem/jarlem/krolem
 
 
+### how to make it isometric! just for test -> isometric projection
+
+We angle our camera along two axes (swing the camera 45 degrees to one side, then 30 degrees down). This creates a diamond (rhombus) shaped grid where the grid spaces are twice as wide as they are tall. This style was popularized by strategy games and action RPGs. If we look at a cube in this view, three sides are visible (top and two facing sides).
+
+https://gamedevelopment.tutsplus.com/tutorials/creating-isometric-worlds-a-primer-for-game-developers--gamedev-6511
+
+ https://www.youtube.com/watch?v=RmMDFydHeso&ab_channel=Crompwell  
+
+https://www.youtube.com/watch?v=04oQ2jOUjkU&ab_channel=JordanWest -> very good instructions
 
 
 

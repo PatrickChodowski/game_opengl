@@ -75,11 +75,12 @@ namespace mouse
     logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
     entity::EntityData edd = entity::entities[object_id];
     // if right click
-    if((mouse_button_id == MOUSE_BUTTON_RIGHT))
+    if(mouse_button_id == MOUSE_BUTTON_RIGHT)
     {
       if(!entity::entities[object_id].is_clicked)
       {
-        entity::entities[object_id].menu_id = menu::add_to_slot(MENU_ENTITY_ID, object_id);
+        int menu_type_id = entity::menu_entity_type_map[entity::entities[object_id].entity_type_id];
+        entity::entities[object_id].menu_id = menu::add_to_slot(menu_type_id, object_id);
       } else 
       {
         menu::drop(entity::entities[object_id].menu_id);

@@ -1,0 +1,16 @@
+{
+  "menu_name": "entity_npc_menu",
+  "menu_type_id": 6,
+  "x": 0,
+  "y": 0,
+  "h": 400,
+  "w": 200,
+  "texture_id": 0,
+  "frame_id": 0,
+  "r": 0.5,
+  "g": 0.5,
+  "b": 0.5,
+  "a": 0.8,
+  "object_type_id": 0,
+  "label_data": [{}]
+}

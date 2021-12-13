@@ -67,12 +67,17 @@ Clear temporary data -> [npcs](npcs.md#npcs)
 void clear();
 ```
 
-### clear
+### refresh
 Clear catalog -> [npcs_data](npcs.md#npcs_data)
 ```c++
 void refresh();
 ```
 
+### interact
+Make interaction with NPC
+```c++
+ void interact(int entity_id, float value);
+```
 
 
 ## Tests

@@ -48,6 +48,12 @@ Clears [EntityQuads](entity.md#EntityQuads), [Index](entity.md#Index), [entities
 void clear();
 ```
 
+### drop
+Delete entity from  [entities](entity.md#entities) and [Index](entity.md#Index)
+```c++
+void drop(int entity_id);
+```
+
 ### update_frame
 Update frame and normalization coordinates of the frame for entity
 ```c++
