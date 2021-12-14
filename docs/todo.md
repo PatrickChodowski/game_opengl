@@ -1,5 +1,20 @@
 
+### door making
+- basically collide with doors -> resolve -> change scene
+
+### first set of locations: throne room and bigger room before that
+
+### save table of interactions
+
 ### Different info() methods per entity type id
+- btw why sometimes the menu doesnt show up?
+
+### Console app that would generate the correct python script xd
+- write console command, then it re-generates the python script
+- it clicks the 0 in the game xd
+http://introtopython.org/terminal_apps.html#Building-greeter
+
+### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 
 ### personality traits of the leaders -> random
 - random personality traits
@@ -30,7 +45,6 @@ need to load 9 chunks (main one and all surrounding) -> 720 tiles
 Probably will still need a chunks system on top of the map -> avoid rendering anything 
 - define chunks on map creation, avoid running stuff based on the chunk player is in
 
-### animate mobs
 
 ### shaders management -> remove if elses from shaders -> one shader per draw call
 

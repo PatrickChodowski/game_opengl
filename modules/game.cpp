@@ -128,6 +128,7 @@ namespace game
   void clear_scene()
   {
     anims::clear();
+    collisions::clear();
     maps::clear();
     nav::clear();
     camera::reset();

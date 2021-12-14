@@ -16,6 +16,7 @@ namespace collisions
   // Catalog of functions to be chosen based on the object_type_id
   extern std::map <int,sig_ptr> AABBsHandler;
 
+
   // AABB data for the entity
   struct AABB
   {
@@ -56,23 +57,32 @@ namespace collisions
     bool is_near;
   };
 
+  extern std::vector<collisions::DistanceToObject> distances;
+  extern std::vector<collisions::DistanceToObject> door_distances;
+
   // Gets vector of entity distances to other entities
-  std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id);
+  void _get_entity_to_entity_distances(int entity_id);
 
   // Gets distance from entity to single entity object
   collisions::DistanceToObject _get_entity_to_single_entity_distance(int entity_id, int target_entity_id);
 
   // Gets vector of entity distances to map objects
-  std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entity_id);
+  void _get_entity_to_map_distances(int entity_id);
 
   // Gets distance from entity to single map object
   collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id);
 
+  // Gets vector of entity distances to door objects
+  void _get_entity_to_door_distances(int entity_id, int map_id);
+
+  // Gets distance from entity to the door object
+  collisions::DistanceToObject _get_entity_to_door_distance(int entity_id, int map_id, int door_index);
+
   // Find broad collisions for entity (by default its the hero, but lets leave the option)
-  std::vector<collisions::DistanceToObject> _find_entity_broad_collisions(int entity_id);
+  void _collect_near_distances(int entity_id);
 
   // Analyze solid collisions from near distances from find_entity_broad_collisions
-  void _resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_distances);
+  void _resolve_solid_collisions();
 
   // Sets sensors on selected entity
   void _set_sensors(int entity_id);
@@ -84,13 +94,19 @@ namespace collisions
   void _set_abs_maps(int tile_id);
 
   // Sets AABBs boxes on objects flagged by near distances
-  void _set_abs(std::vector<collisions::DistanceToObject>& near_distances);
+  void _set_abs();
 
   // Calculates near distances to entities and map objects. Sets sensors, abs and resolves collisions
   void handle_entity_collisions(int entity_id);
 
   // Fill out AABBsHandler
   void init();
+
+  // Clear distances data
+  void clear();
+
+  // Resolve doors -> go through doors if there are doors
+  void _resolve_doors();
 
 }
 
