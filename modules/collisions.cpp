@@ -392,6 +392,9 @@ namespace collisions
     for(int i=0; i<collisions::door_distances.size(); i++)
     {
       int dest_scene_id = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].dest_scene_id;
+
+      // Load scene from door? makes a lot of sense to avoid weird arguments and unnecesary branching
+      // Requires also saving the state of previous scene (NPCs and their positions, entities and their positions, items etc.)
       game::switch_scene(dest_scene_id, false);
     }
   }
