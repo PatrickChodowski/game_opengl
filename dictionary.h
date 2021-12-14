@@ -24,6 +24,7 @@
 #define OBJECT_TYPE_TEXT 3
 #define OBJECT_TYPE_DEBUG 4
 #define OBJECT_TYPE_BUTTON 6
+#define OBJECT_TYPE_DOOR 7
 
 // entity collision sensors
 #define SENSOR_TOP 0
@@ -75,6 +76,7 @@
 #define SCENE_ID_LOAD_GAME_MENU 2
 #define SCENE_ID_SETTINGS_MENU 3
 #define SCENE_ID_DUNGEON_LEVEL_1 4
+#define SCENE_ID_DUNGEON_LEVEL_2 5
 
 // Events handlers
 #define EVENT_HANDLER_MENU 0

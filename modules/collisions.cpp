@@ -25,6 +25,8 @@ namespace collisions
   int SENSOR_OFFSET = 1;
   int ABS_COUNT = 1;
   std::map <int,sig_ptr> AABBsHandler = {};
+  std::vector<collisions::DistanceToObject> distances = {};
+  std::vector<collisions::DistanceToObject> door_distances = {};
 
 
 
@@ -50,9 +52,8 @@ namespace collisions
     return dto;
   }
 
-  std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id)
+  void _get_entity_to_entity_distances(int entity_id)
   {
-    std::vector<collisions::DistanceToObject> distances = {};
     for (auto const& [k, v]: entity::entities)
     {
       if(k != entity_id)
@@ -60,11 +61,10 @@ namespace collisions
         collisions::DistanceToObject dto = _get_entity_to_single_entity_distance(entity_id, k);
         if(dto.is_near)
         {
-          distances.push_back(dto);
+          collisions::distances.push_back(dto);
         }
       }
     }
-    return distances;
   }
 
   collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id)
@@ -88,10 +88,46 @@ namespace collisions
     }
     return dto;
   }
+
+
+  void _get_entity_to_door_distances(int entity_id, int map_id)
+  {
+    for(int d = 0; d < maps::maps[map_id].doors.size(); d++)
+    {
+      collisions::DistanceToObject dto = _get_entity_to_door_distance(entity_id, map_id, d);
+      if(dto.is_near)
+      {
+        std::cout << "close distance to door " << std::endl;
+        collisions::door_distances.push_back(dto);
+      }
+    }
+  };
+  
+  collisions::DistanceToObject _get_entity_to_door_distance(int entity_id, int map_id, int door_index)
+  {
+    float dist = utils::get_distance_between_points(maps::maps[map_id].doors[door_index].x,
+                                                    maps::maps[map_id].doors[door_index].y,
+                                                    entity::entities[entity_id].pos.x, 
+                                                    entity::entities[entity_id].pos.y);
+    float dist_limit = entity::entities[entity_id].diag;
+    collisions::DistanceToObject dto;
+    dto.entity_id = entity_id;
+    dto.object_id = maps::maps[map_id].doors[door_index].door_id;
+    dto.object_type = OBJECT_TYPE_DOOR;
+    dto.distance = dist;
+    dto.limit = dist_limit;
+    dto.is_solid = false;
+    dto.is_near = false;
+    if(dist <= dist_limit)
+    {
+      dto.is_near = true;
+    }
+    return dto;
+  }
   
 
 
-  std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entity_id)
+  void _get_entity_to_map_distances(int entity_id)
   {
     std::vector<collisions::DistanceToObject> distances = {};
     for (auto const& [k, v]: maps::tiles)
@@ -101,40 +137,30 @@ namespace collisions
         collisions::DistanceToObject dto = _get_entity_to_single_tile_distance(entity_id, k);
         if(dto.is_near)
         {
-          distances.push_back(dto);
+          collisions::distances.push_back(dto);
         }
       }
     }
-    return distances;
   }
 
-  std::vector<collisions::DistanceToObject> _find_entity_broad_collisions(int entity_id = 0)
+  void _collect_near_distances(int entity_id = 0)
   {
-    std::vector<collisions::DistanceToObject> near_distances = {};
-    std::vector<collisions::DistanceToObject> map_near_distances = _get_entity_to_map_distances(entity_id);
-    std::vector<collisions::DistanceToObject> entity_near_distances = _get_entity_to_entity_distances(entity_id);
-
-    if(map_near_distances.size() > 0)
-    {
-      near_distances.insert(near_distances.end(), map_near_distances.begin(), map_near_distances.end());
-    }
-    if(entity_near_distances.size() > 0)
-    {
-      near_distances.insert(near_distances.end(), entity_near_distances.begin(), entity_near_distances.end());
-    }
-    return near_distances;
+    collisions::clear();
+    collisions::_get_entity_to_map_distances(entity_id);
+    collisions::_get_entity_to_entity_distances(entity_id);
+    collisions::_get_entity_to_door_distances(entity_id, game::MAP_ID);
   }
 
-  void _resolve_solid_collisions(std::vector<collisions::DistanceToObject>& near_distances)
+  void _resolve_solid_collisions()
   {
     struct SolidLimits limits;
-    for(int i=0; i<near_distances.size(); i++)
+    for(int i=0; i<collisions::distances.size(); i++)
     {
-      if(near_distances[i].is_solid)
+      if(collisions::distances[i].is_solid)
       {
-        int entity_id = near_distances[i].entity_id;
-        int object_id = near_distances[i].object_id;
-        int object_type = near_distances[i].object_type;
+        int entity_id = collisions::distances[i].entity_id;
+        int object_id = collisions::distances[i].object_id;
+        int object_type = collisions::distances[i].object_type;
         float sensor_center_x = entity::entities[entity_id].sensors[SENSOR_CENTER].x;
         float sensor_center_y = entity::entities[entity_id].sensors[SENSOR_CENTER].y;
 
@@ -328,8 +354,6 @@ namespace collisions
       {
         debug::render_square(maps::tiles[tile_id].pos.x, maps::tiles[tile_id].pos.y, maps::tiles[tile_id].dims.w, maps::tiles[tile_id].dims.h, 0.6, 0.6, 0.0, 1.0);
       }
-
-
     }    
   }
 
@@ -340,23 +364,43 @@ namespace collisions
   }
 
 
-  void _set_abs(std::vector<collisions::DistanceToObject>& near_distances)
+  void _set_abs()
   {
-    for(int i = 0; i < near_distances.size(); i++)
+    for(int i = 0; i < collisions::distances.size(); i++)
     {
-      collisions::AABBsHandler[near_distances[i].object_type](near_distances[i].object_id);
+      collisions::AABBsHandler[collisions::distances[i].object_type](collisions::distances[i].object_id);
     }
   }
 
   void handle_entity_collisions(int entity_id)
   {
-    std::vector<collisions::DistanceToObject> near_distances = collisions::_find_entity_broad_collisions(entity_id);
-    if(near_distances.size() > 0)
+    collisions::_collect_near_distances(entity_id);
+    if(collisions::distances.size() > 0)
     {
       collisions::_set_sensors(entity_id);
-      collisions::_set_abs(near_distances);
-      collisions::_resolve_solid_collisions(near_distances);
+      collisions::_set_abs();
+      collisions::_resolve_solid_collisions();
     }
+    if(collisions::door_distances.size()>0)
+    {
+      collisions::_resolve_doors();
+    }
+  }
+
+  void _resolve_doors()
+  {
+    for(int i=0; i<collisions::door_distances.size(); i++)
+    {
+      int dest_scene_id = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].dest_scene_id;
+      game::switch_scene(dest_scene_id, false);
+    }
+  }
+
+
+  void clear()
+  {
+    collisions::distances.clear();
+    collisions::door_distances.clear();
   }
 
 

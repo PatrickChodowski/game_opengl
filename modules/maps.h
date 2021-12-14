@@ -58,13 +58,13 @@ namespace maps
   struct Door
   {
     int door_id;
-    int x;
-    int y;
-    int dest_map_id;
-    int player_enter_x;
-    int player_enter_y;
+    int dest_scene_id;
+    float x;
+    float y;
+    float player_enter_x;
+    float player_enter_y;
 
-    JS_OBJ(door_id, x, y, dest_map_id, player_enter_x, player_enter_y);
+    JS_OBJ(door_id, dest_scene_id, x, y, player_enter_x, player_enter_y);
   };
 
   struct MapData
