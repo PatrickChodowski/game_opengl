@@ -59,6 +59,9 @@ namespace travel
   // Checks if entity has already a travelData assigned
   bool _check_if_entity_already_moving(int entity_id);
 
+  // TEMPORARY (decide which animation to play)
+  void _animate_by_direction(int entity_id, float angle);
+
   // Make plan of the travel between start node and end node. 
   // Calls pathfinder::find_path
   travel::TravelData make_basic_plan(int current_node_id, int target_node_id);

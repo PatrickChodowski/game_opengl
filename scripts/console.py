@@ -1,9 +1,9 @@
 
 from scripts.game_api import func_dict
 
-# func_name = "_spawn_mob"
+func_name = "_spawn_mob"
 # func_name = "_drop_mob"
-func_name = "_interact_npc"
+# func_name = "_interact_npc"
 
 func_id = func_dict[func_name]
 
