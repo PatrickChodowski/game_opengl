@@ -60,6 +60,9 @@ namespace entity
   // Update entity's frame
   void update_frame(int entity_id, int frame_id);
 
+  // Update entity's position
+  void update_position(int entity_id, float x, float y);
+
   // Returns vector of strings with entity information
   std::vector<std::string> info(int entity_id);
 

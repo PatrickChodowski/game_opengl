@@ -52,6 +52,9 @@ Probably will still need a chunks system on top of the map -> avoid rendering an
 
 ### game should be 2D topdown
 
+### encouters but not quests -> bag of encounters based on the situation. State machines to keep track of encounters
+https://www.youtube.com/watch?v=HZft_U4Fc-U&list=WL&index=11&ab_channel=GDC
+
 # Notes:
 
 ZARRTY:

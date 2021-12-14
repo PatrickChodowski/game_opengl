@@ -118,6 +118,17 @@ namespace entity
     entity::entities[entity_id].norm.y_end = textures::_get_normalized_frame_y_end(texture_id, frame_id);
   }
 
+
+  void update_position(int entity_id, float x, float y)
+  {
+    entity::entities[entity_id].prev_x = entity::entities[entity_id].pos.x;
+    entity::entities[entity_id].prev_y = entity::entities[entity_id].pos.y;
+    entity::entities[entity_id].pos.x = x;
+    entity::entities[entity_id].pos.y = y;
+    entity::entities[entity_id].mid_x = x + (entity::entities[entity_id].dims.w/2);
+    entity::entities[entity_id].mid_y = y + (entity::entities[entity_id].dims.h/2);
+  }
+
   template int entity::create<hero::HeroData>(hero::HeroData, int, float);
   template int entity::create<items::ItemData>(items::ItemData, int, float);
   template int entity::create<mobs::MobData>(mobs::MobData, int, float);

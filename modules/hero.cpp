@@ -48,12 +48,7 @@ namespace hero
     hero::hero.prev_y = hero::hero.y;
     hero::hero.x = x;
     hero::hero.y = y;
-    entity::entities[hero.entity_id].prev_x = entity::entities[hero.entity_id].pos.x;
-    entity::entities[hero.entity_id].prev_y = entity::entities[hero.entity_id].pos.y;
-    entity::entities[hero.entity_id].pos.x = x;
-    entity::entities[hero.entity_id].pos.y = y;
-    entity::entities[hero.entity_id].mid_x = x + (entity::entities[hero.entity_id].dims.w/2);
-    entity::entities[hero.entity_id].mid_y = y + (entity::entities[hero.entity_id].dims.h/2);
+    entity::update_position(hero.entity_id, x, y);
   }
 
 
@@ -61,22 +56,11 @@ namespace hero
   { 
     float new_hero_x = hero::hero.x + camera_move_x;
     float new_hero_y = hero::hero.y - camera_move_y;
-
     hero::hero.prev_x = hero::hero.x;
     hero::hero.prev_y = hero::hero.y;
-
     hero::hero.x = new_hero_x;
     hero::hero.y = new_hero_y;
-    
-    
-    entity::entities[hero.entity_id].prev_x = entity::entities[hero.entity_id].pos.x;
-    entity::entities[hero.entity_id].prev_y = entity::entities[hero.entity_id].pos.y;
-
-    entity::entities[hero.entity_id].pos.x = new_hero_x;
-    entity::entities[hero.entity_id].pos.y = new_hero_y;
-    entity::entities[hero.entity_id].mid_x = new_hero_x + (entity::entities[hero.entity_id].dims.w/2);
-    entity::entities[hero.entity_id].mid_y = new_hero_y + (entity::entities[hero.entity_id].dims.h/2);
-
+    entity::update_position(hero.entity_id, new_hero_x, new_hero_y);
   }
 
   void refresh()

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "anims.h"
 #include "entity.h"
 #include "maps.h"
 #include "navmesh.h"
@@ -134,10 +135,10 @@ namespace travel
         float x1 = entity::entities[tp.entity_id].pos.x + (cos(angle) * entity::entities[tp.entity_id].speed);
         float y1 = entity::entities[tp.entity_id].pos.y + (sin(angle) * entity::entities[tp.entity_id].speed);
 
+        travel::_animate_by_direction(tp.entity_id, angle);
         tp.current_x = x1;
         tp.current_y = y1;
-        entity::entities[tp.entity_id].pos.x = x1;
-        entity::entities[tp.entity_id].pos.y = y1;
+        entity::update_position(tp.entity_id, x1, y1);
 
         // update the current and next node information if we are almost at the gate
         if(dist <= entity::entities[tp.entity_id].speed)
@@ -156,16 +157,39 @@ namespace travel
         float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
         float x1 = entity::entities[tp.entity_id].pos.x + cos(angle) * entity::entities[tp.entity_id].speed;
         float y1 = entity::entities[tp.entity_id].pos.y + sin(angle) * entity::entities[tp.entity_id].speed;
+        travel::_animate_by_direction(tp.entity_id, angle);
         tp.current_x = x1;
         tp.current_y = y1;
-        entity::entities[tp.entity_id].pos.x = x1;
-        entity::entities[tp.entity_id].pos.y = y1;
+
+        entity::update_position(tp.entity_id, x1, y1);
       }
       travel::travels[tp.entity_id] = tp;
     } else 
     {
       travel::travels_to_cancel.push_back(tp.entity_id);
     }
+  }
+
+  void _animate_by_direction(int entity_id, float angle)
+  {
+    // Looks like very much temporary function
+    if(cos(angle) > 0)
+    {// going right
+      anims::start(6,entity_id);
+    } else if (cos(angle) < 0)
+    {// going left
+      anims::start(7,entity_id);
+    }
+    
+    if(sin(angle) >0.5)
+    {
+      // going up
+      anims::start(4,entity_id);
+    } else if (sin(angle) < -0.5)
+    {// going down
+      anims::start(5,entity_id);
+    }
+
   }
 
   void update()

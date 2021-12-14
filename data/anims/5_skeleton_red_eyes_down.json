@@ -1,6 +1,6 @@
 { 
-  "id": 1,
-  "texture_id": 2,
+  "id": 5,
+  "texture_id": 5,
   "time_length": 0.4,
   "cyclical": true,
   "breakable": true,
