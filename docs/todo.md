@@ -8,12 +8,7 @@
 
 ### Different info() methods per entity type id
 - btw why sometimes the menu doesnt show up?
-
-### Console app that would generate the correct python script xd
-- write console command, then it re-generates the python script
-- it clicks the 0 in the game xd
-http://introtopython.org/terminal_apps.html#Building-greeter
-
+ 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 
 ### personality traits of the leaders -> random
@@ -134,3 +129,4 @@ https://opengameart.org/content/10-basic-rpg-enemies
 https://opengameart.org/content/four-characters-my-lpc-entries
 https://opengameart.org/content/desert-tileset
 https://opengameart.org/content/stunning-pixel-art-rpg-tileset
+https://opengameart.org/content/16x16-town-remix

@@ -6,5 +6,6 @@
   "hero_start_y": 100,
   "menu_slots": [1, 2],
   "menu_types": [],
-  "label": "Dungeon Level 1"
+  "label": "Dungeon Level 1",
+  "is_gp": true
 }

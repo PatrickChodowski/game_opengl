@@ -6,5 +6,6 @@
   "hero_start_y": -1000,
   "menu_slots": [0],
   "menu_types": [4],
-  "label": "Settings"
+  "label": "Settings",
+  "is_gp": false
 }

@@ -33,8 +33,6 @@ namespace buttons
     buttons::ButtonFunctions[BUTTON_BACK] = buttons::_click_back;
     buttons::ButtonFunctions[BUTTON_LOADGAME_NAME] = buttons::_click_loadgame_name;
     buttons::ButtonFunctions[BUTTON_TRAVEL] = buttons::_button_travel;
-    buttons::ButtonFunctions[BUTTON_DO_GOOD] = buttons::_do_good;
-    buttons::ButtonFunctions[BUTTON_DO_BAD] = buttons::_do_bad;
   };
 
   int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id)
@@ -125,8 +123,9 @@ namespace buttons
   void _click_loadgame_name(int button_id)
   {
     std::string load_game_name = menu::saves_buttons_map[button_id];
-    game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, true);
+    game::clear_scene();
     saves::load_game(load_game_name);
+    game::load_scene(game::SCENE_ID, true);
   }
 
   void _click_back(int placeholder)
@@ -141,21 +140,5 @@ namespace buttons
     travel::reset_last_click();
     travel::init_travel(entity_id);
   };
-
-  void _do_good(int button_id)
-  {
-    int entity_id = menu::currentmenus[buttons::buttons[button_id].menu_id].assigned_entity_id;
-    std::cout << " do good for entity: " << entity_id << std::endl;
-  }
-
-
-  void _do_bad(int button_id)
-  {
-    int entity_id = menu::currentmenus[buttons::buttons[button_id].menu_id].assigned_entity_id;
-    std::cout << " do bad for entity: " << entity_id << std::endl;
-
-  }
-
-
 
 }

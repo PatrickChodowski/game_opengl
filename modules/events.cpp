@@ -123,6 +123,10 @@ namespace events
               game::IS_DEBUG_MODE = !game::IS_DEBUG_MODE;
             break;
 
+            case SDLK_l:
+              game::LOG_TO_FILES = !game::LOG_TO_FILES;
+            break;
+
             case SDLK_0:
               std::string script_name = "scripts/console.py";
               scripts::execute(script_name);

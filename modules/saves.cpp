@@ -35,7 +35,8 @@ namespace saves
     sd.y = hero::hero.y;
     sd.w = hero::hero.w;
     sd.h = hero::hero.h;
-    sd.map_id = hero::hero.map_id;
+    sd.scene_id = game::SCENE_ID;
+    sd.map_id = game::scenes[game::SCENE_ID].map_id;
     sd.name = hero::hero.name;
     sd.type = hero::hero.type;
     sd.texture_id = hero::hero.texture_id;
@@ -67,12 +68,16 @@ namespace saves
     hero::hero.name = SD.name;
     hero::hero.type = SD.type;
     hero::hero.speed = SD.speed;
+    hero::hero.current_frame = 0;
     // save rest of the statistics here later
 
     hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
     hero::set_position(SD.x, SD.y);
     camera::cam.x = (SD.x - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
     camera::cam.y = - (SD.y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
+
+    game::SCENE_ID = SD.scene_id;
+    game::MAP_ID = SD.map_id;
   }
 
 

@@ -392,11 +392,15 @@ namespace collisions
     for(int i=0; i<collisions::door_distances.size(); i++)
     {
       int dest_scene_id = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].dest_scene_id;
+      float player_enter_x = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].player_enter_x;
+      float player_enter_y = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].player_enter_y;
 
-      // Load scene from door? makes a lot of sense to avoid weird arguments and unnecesary branching
-      // Requires also saving the state of previous scene (NPCs and their positions, entities and their positions, items etc.)
-      // https://opengameart.org/content/16x16-town-remix
       game::switch_scene(dest_scene_id, false);
+      hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
+
+      hero::set_position(player_enter_x, player_enter_y);
+      camera::cam.x = (player_enter_x - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
+      camera::cam.y = - (player_enter_y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
     }
   }
 
