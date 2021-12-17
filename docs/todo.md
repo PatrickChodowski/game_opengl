@@ -1,7 +1,4 @@
 
-### door making
-- basically collide with doors -> resolve -> change scene
-
 ### first set of locations: throne room and bigger room before that
 
 ### save table of interactions

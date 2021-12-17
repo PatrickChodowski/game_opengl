@@ -5,7 +5,7 @@
   "vertex_height": 4,
   "texture_id": 3,
   "doors": [
-    {"door_id": 0, "x": 192, "y": 288, "dest_scene_id": 5, "player_enter_x": 672, "player_enter_y": 100}
+    {"door_id": 0, "x": 192, "y": 288, "dest_scene_id": 5, "player_enter_x": 870, "player_enter_y": 100}
   ],
   "nests": [
     {}
