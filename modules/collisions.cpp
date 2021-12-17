@@ -395,6 +395,7 @@ namespace collisions
 
       // Load scene from door? makes a lot of sense to avoid weird arguments and unnecesary branching
       // Requires also saving the state of previous scene (NPCs and their positions, entities and their positions, items etc.)
+      // https://opengameart.org/content/16x16-town-remix
       game::switch_scene(dest_scene_id, false);
     }
   }
