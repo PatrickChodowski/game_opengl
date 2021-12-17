@@ -146,6 +146,7 @@ namespace game
     debug::clear();
     buttons::clear();
     travel::clear();
+    hero::hero.entity_id = -1;
 
     // saves::save()
   }

@@ -97,8 +97,8 @@ namespace collisions
       collisions::DistanceToObject dto = _get_entity_to_door_distance(entity_id, map_id, d);
       if(dto.is_near)
       {
-        std::cout << "close distance to door " << std::endl;
         collisions::door_distances.push_back(dto);
+        break;
       }
     }
   };
