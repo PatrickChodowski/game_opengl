@@ -54,7 +54,7 @@ namespace game
   int MAP_ID;
   float HERO_START_X;
   float HERO_START_Y;
-  bool LOG_TO_FILES;
+  bool LOG_TO_FILES = false;
   std::map<int, game::SceneData> scenes;
 
   void read_data(std::string& name)
@@ -85,6 +85,11 @@ namespace game
       game::MAP_ID = game::scenes[scene_id].map_id;
       game::HERO_START_X = game::scenes[scene_id].hero_start_x;
       game::HERO_START_Y = game::scenes[scene_id].hero_start_y;
+
+      if(!game::scenes[scene_id].is_gp)
+      {
+        hero::refresh();
+      }
 
       // Load maps
       maps::init_map(game::MAP_ID);
@@ -176,6 +181,11 @@ namespace game
 
   void update()
   {
+    // std::cout << "hero x y:" << hero::hero.x <<  ", " << hero::hero.y << std::endl;
+    // std::cout << "entities size:" << entity::entities.size() << std::endl;
+    // std::cout << "hero entity id: " << hero::hero.entity_id << std::endl;
+    // std::cout << "entity hero x y " << entity::entities[hero::hero.entity_id].pos.x << ", " << entity::entities[hero::hero.entity_id].pos.y << std::endl;
+
     quads::clear();
     maps::render();
     entity::render();

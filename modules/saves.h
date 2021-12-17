@@ -16,6 +16,7 @@ namespace saves
     float y;
     float w;
     float h;
+    int scene_id;
 
     float exp;
     float speed;
@@ -31,7 +32,7 @@ namespace saves
     std::string name;
     std::string type;
 
-    JS_OBJ(x, y, w, h, exp, speed, hp, dmg, def, map_id, texture_id, 
+    JS_OBJ(x, y, w, h, scene_id, exp, speed, hp, dmg, def, map_id, texture_id, 
     level, mobs_killed, name, type);
   };
 
