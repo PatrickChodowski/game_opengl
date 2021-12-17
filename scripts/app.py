@@ -5,6 +5,7 @@ from game_api import list_funcs, parse_command, print_help
 # python3 ./scripts/app.py
 
 
+
 def display_title_bar():
     # Clears the terminal screen, and displays a title bar.
     os.system('clear')

@@ -1,4 +1,5 @@
-
+import os 
+dir_path = os.path.dirname(os.path.realpath(__file__))
 funcs = {
   "_spawn_mob": {"first": "spawn", 
                  "second": "mob",
@@ -58,7 +59,7 @@ def list_funcs() -> None:
 
 def _build_script(arg_dict: dict, func_id: int) -> None:
   txt = f"""func_id = {func_id}; vars = {str(arg_dict)}"""
-  with open("scripts/console.py",'w') as f:
+  with open(f"{dir_path}/console.py",'w') as f:
     f.write(txt)
 
 def parse_command(command: str) -> None:
@@ -96,7 +97,6 @@ def _request_args(func_name: str) -> dict:
   print("\n")
   for a in funcs[func_name]["args"]:
     args_dict[a] = input(f"{a}: ")
-    #if args_dict[a].isnumeric():
     args_dict[a] = float(args_dict[a])
   return args_dict
 
