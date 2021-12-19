@@ -6,6 +6,7 @@
 #include "entity.h"
 #include "game.h"
 #include "hero.h"
+#include "npcs.h"
 #include "saves.h"
 #include "utils.h"
 
@@ -48,6 +49,8 @@ namespace saves
     sd.def = hero::hero.def;
     sd.mobs_killed = hero::hero.mobs_killed;
 
+    sd.interactions = npcs::interactions;
+
     std::string pretty_json = JS::serializeStruct(sd);
     saves::_write_save_json(pretty_json);
   }
@@ -78,6 +81,8 @@ namespace saves
 
     game::SCENE_ID = SD.scene_id;
     game::MAP_ID = SD.map_id;
+
+    npcs::interactions = SD.interactions;
   }
 
 
