@@ -17,7 +17,7 @@ namespace npcs
   std::vector<int> Index;
   std::map<int, NPCData> npcs_data;
   std::map<int, NPCData> npcs;
-  std::vector<InteractionData> interactions;
+  std::vector<npcs::InteractionData> interactions;
 
   void read_data(std::string& name)
   {

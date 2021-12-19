@@ -4,15 +4,17 @@
     "w" : 70.0,
     "h" : 70.0,
     "scene_id" : 4,
-    "exp" : 4.5915e-41,
+    "exp" : 4.5914e-41,
     "speed" : 6.0,
-    "hp" : 4.5915e-41,
-    "dmg" : 2.6617316e-5,
-    "def" : 4.5915e-41,
+    "hp" : 4.5914e-41,
+    "dmg" : -8860.234,
+    "def" : 4.5914e-41,
     "map_id" : 1,
     "texture_id" : 2,
-    "level" : 22047,
-    "mobs_killed" : 937379932,
+    "level" : 22076,
+    "mobs_killed" : -972394228,
     "name" : "patrick",
-    "type" : "barbarian"
+    "type" : "barbarian",
+    "interactions" : [
+    ]
 }

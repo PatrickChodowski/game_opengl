@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "npcs.h"
+
 #ifndef MODULES_SAVES_H
 #define MODULES_SAVES_H
 
@@ -32,8 +34,12 @@ namespace saves
     std::string name;
     std::string type;
 
+
+    std::vector<npcs::InteractionData> interactions;
+
+
     JS_OBJ(x, y, w, h, scene_id, exp, speed, hp, dmg, def, map_id, texture_id, 
-    level, mobs_killed, name, type);
+    level, mobs_killed, name, type, interactions);
   };
 
   // Writes the save json file to saves directory

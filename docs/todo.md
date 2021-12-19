@@ -1,7 +1,7 @@
 
-### first set of locations: throne room and bigger room before that
+### maps at some point should be converted to vectors, because maps shouldnt be traversed in the loops -> a lot of cache misses
+custom map based on vector
 
-### save table of interactions
 
 ### Different info() methods per entity type id
 - btw why sometimes the menu doesnt show up?
@@ -12,6 +12,7 @@
 - random personality traits
 - random relations with other kingdoms
 - personality traits deciding if they start a conflict
+- save personalities
 
 ### 3d models instead of spritesheets:
  - photogrammetry
