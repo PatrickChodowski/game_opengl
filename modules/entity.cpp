@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
-#include <map>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -15,14 +14,16 @@
 #include "quads.h"
 #include "textures.h"
 #include "utils.h"
+
+#include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dictionary.h"
 
 namespace entity
 {
 
-  std::map<int, EntityData> entities;
+  phmap::flat_hash_map<int, EntityData> entities;
   std::vector<int> Index = {};
-  std::map<int, int> menu_entity_type_map;
+  phmap::flat_hash_map<int, int> menu_entity_type_map;
 
 
   void init()

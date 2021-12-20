@@ -1,6 +1,5 @@
 
 #include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -14,20 +13,21 @@
 
 #include "../dictionary.h"
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace menu
 {
 
   std::vector<int> Index;
-  std::map<int, menu::MenuSlotData> menuslots = {};
-  std::map<int, menu::MenuSlotData> currentmenuslots = {}; 
+  phmap::flat_hash_map<int, menu::MenuSlotData> menuslots = {};
+  phmap::flat_hash_map<int, menu::MenuSlotData> currentmenuslots = {}; 
 
-  std::map<int, menu::MenuData> menus;
-  std::map<int, menu::MenuData> currentmenus;
+  phmap::flat_hash_map<int, menu::MenuData> menus;
+  phmap::flat_hash_map<int, menu::MenuData> currentmenus;
 
   
   std::vector<std::string> saves;
-  std::map<int, std::string> saves_buttons_map;
+  phmap::flat_hash_map<int, std::string> saves_buttons_map;
   std::string NewGameName;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
   

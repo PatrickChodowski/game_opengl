@@ -2,7 +2,6 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -13,11 +12,12 @@
 #include "textures.h"
 #include "utils.h"
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace maps
 {
-  std::map<int, maps::TileData> tiles;
-  std::map<int, maps::MapData> maps = {};
+  phmap::flat_hash_map<int, maps::TileData> tiles;
+  phmap::flat_hash_map<int, maps::MapData> maps = {};
   float default_tile_width = 96;
   float default_tile_height = 96;
 

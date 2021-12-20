@@ -1,9 +1,9 @@
 #include <vector>
-#include <map>
 #include <string>
 #include "quads.h"
 #include "collisions.h"
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_MAPS_H
 #define MODULES_MAPS_H
@@ -27,7 +27,7 @@ namespace maps
     quads::Dims dims;
     quads::Norm norm;
     // collision boxes
-    std::map<int, collisions::AABB> abs;
+    phmap::flat_hash_map<int, collisions::AABB> abs;
 
     bool is_clicked;
     bool is_solid;
@@ -87,10 +87,10 @@ namespace maps
   extern float default_tile_height;
 
   // MapID, MapData
-  extern std::map<int, MapData> maps;
+  extern phmap::flat_hash_map<int, MapData> maps;
 
   //  TileID, TileData
-  extern std::map<int, maps::TileData> tiles;
+  extern phmap::flat_hash_map<int, maps::TileData> tiles;
 
   // Generate single tile out of position, texture_id and frame_id
   maps::TileData generate_tile(float x, float y, int texture_id, int frame_id);

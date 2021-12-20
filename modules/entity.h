@@ -1,4 +1,5 @@
 #include "quads.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_ENTITY_H
 #define MODULES_ENTITY_H
@@ -33,16 +34,16 @@ namespace entity
     bool is_clicked;
 
     // used if given entity has collision sensors
-    std::map<int, collisions::Sensor> sensors;
+    phmap::flat_hash_map<int, collisions::Sensor> sensors;
     // its not abs, its AABBs, but this is what I do to entertain myself
-    std::map<int, collisions::AABB> abs; 
+    phmap::flat_hash_map<int, collisions::AABB> abs; 
 
   };
 
   // Entities data -> entity_id, EntityData
-  extern std::map<int, EntityData> entities;
+  extern phmap::flat_hash_map<int, EntityData> entities;
   extern std::vector<int> Index;
-  extern std::map<int, int> menu_entity_type_map;
+  extern phmap::flat_hash_map<int, int> menu_entity_type_map;
 
   // Creates entity and adds it to the table. Uses the data structure different based on entity type. Returns entity_id
   template <typename T>

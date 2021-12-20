@@ -2,7 +2,6 @@
 #include <cmath> 
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -16,6 +15,8 @@
 #include "menu.h"
 #include "quads.h"
 #include "textures.h"
+
+#include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dictionary.h"
 
 namespace quads
@@ -40,7 +41,7 @@ namespace quads
   std::vector<quads::QuadData> AllQuads(MAX_QUADS);
 
   template <typename T>
-  void add_quads(std::map<int, T>& data, int object_type_id)
+  void add_quads(phmap::flat_hash_map<int, T>& data, int object_type_id)
   {
     for (auto const& [k, v] : data)
     {
@@ -194,13 +195,13 @@ namespace quads
       quads_file.close();
     }
   }
-
-  template void quads::add_quads<buttons::ButtonData>(std::map<int, buttons::ButtonData>&, int);
-  template void quads::add_quads<menu::MenuData>(std::map<int, menu::MenuData>&, int);
-  template void quads::add_quads<debug::PointData>(std::map<int, debug::PointData>&, int);
-  template void quads::add_quads<entity::EntityData>(std::map<int, entity::EntityData>&, int);
-  template void quads::add_quads<fonts::TextData>(std::map<int, fonts::TextData>&, int);
-  template void quads::add_quads<maps::TileData>(std::map<int, maps::TileData>&, int);
+ // #include "../dependencies/parallel_hashmap/phmap.h"
+  template void quads::add_quads<buttons::ButtonData>(phmap::flat_hash_map<int, buttons::ButtonData>&, int);
+  template void quads::add_quads<menu::MenuData>(phmap::flat_hash_map<int, menu::MenuData>&, int);
+  template void quads::add_quads<debug::PointData>(phmap::flat_hash_map<int, debug::PointData>&, int);
+  template void quads::add_quads<entity::EntityData>(phmap::flat_hash_map<int, entity::EntityData>&, int);
+  template void quads::add_quads<fonts::TextData>(phmap::flat_hash_map<int, fonts::TextData>&, int);
+  template void quads::add_quads<maps::TileData>(phmap::flat_hash_map<int, maps::TileData>&, int);
 
   template int quads::make_quad<buttons::ButtonData>(buttons::ButtonData&, int);
   template int quads::make_quad<menu::MenuData>(menu::MenuData&, int);
