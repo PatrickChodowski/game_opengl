@@ -1,15 +1,14 @@
 
-#include <map>
 #include <vector>
 
 #include "quads.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_DEBUG_H
 #define MODULES_DEBUG_H
 
 namespace debug
 { 
-  // ZERO IDEA why I cant use structs here, but it just doesnt work
   struct LineData
   {
     float x1, y1;
@@ -35,7 +34,7 @@ namespace debug
   };
   
   extern std::vector<debug::LineData> lines;
-  extern std::map<int, debug::PointData> points;
+  extern phmap::flat_hash_map<int, debug::PointData> points;
   extern std::vector<int> Index;
 
   // Renders straight line between start and endpoint

@@ -2,7 +2,6 @@
 #include "buttons.h"
 
 #include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -15,13 +14,14 @@
 #include "travel.h"
 #include "utils.h"
 
+#include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dictionary.h"
 
 namespace buttons
 {
-  std::map <int,sig_ptr> ButtonFunctions;
+  phmap::flat_hash_map <int,sig_ptr> ButtonFunctions;
   std::vector<int> Index = {};
-  std::map <int, buttons::ButtonData> buttons;
+  phmap::flat_hash_map <int, buttons::ButtonData> buttons;
 
   void init()
   {
