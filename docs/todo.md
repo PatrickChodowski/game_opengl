@@ -1,8 +1,4 @@
 
-### maps at some point should be converted to vectors, because maps shouldnt be traversed in the loops -> a lot of cache misses
-custom map based on vector
-
-
 ### Different info() methods per entity type id
 - btw why sometimes the menu doesnt show up?
  

@@ -1,10 +1,10 @@
 
-#include <map>
 #include <string>
 #include <vector>
 
 #include "quads.h"
 #include "utils.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_BUTTONS_H
 #define MODULES_BUTTONS_H
@@ -34,9 +34,9 @@ namespace buttons
 
   typedef void (*sig_ptr)(int);
   // Catalog of functions to be chosen based on the button_function_id
-  extern std::map <int , sig_ptr> ButtonFunctions;
+  extern phmap::flat_hash_map <int , sig_ptr> ButtonFunctions;
   extern std::vector<int> Index;
-  extern std::map <int, buttons::ButtonData> buttons;
+  extern phmap::flat_hash_map <int, buttons::ButtonData> buttons;
 
   // Initialize Buttons logic and data
   void init();

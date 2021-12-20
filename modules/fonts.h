@@ -1,8 +1,9 @@
-#include <map>
+
 #include <string>
 
 #include "quads.h"
 #include "textures.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_FONTS_H
 #define MODULES_FONTS_H
@@ -67,13 +68,13 @@ namespace fonts
   extern std::vector<int> LabelIndex;
 
   // Map of character and character data in the texture
-  extern std::map<char, CharacterData> chars;
+  extern phmap::flat_hash_map<char, CharacterData> chars;
 
   // Map of single character id, TextData (single characters stored)
-  extern std::map<int, TextData> texts;
+  extern phmap::flat_hash_map<int, TextData> texts;
 
   // Map of Level's labels stored across frames
-  extern std::map<int, LabelData> labels;
+  extern phmap::flat_hash_map<int, LabelData> labels;
 
   // Font's texture data 
   extern textures::TextureData FontTDD;

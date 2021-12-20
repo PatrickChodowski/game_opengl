@@ -3,17 +3,17 @@
 #include "quads.h"
 #include "utils.h"
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <vector>
 
 namespace debug
 {
 
   std::vector<debug::LineData> lines = {};
-  std::map<int, debug::PointData> points = {};
+  phmap::flat_hash_map<int, debug::PointData> points = {};
   std::vector<int> Index = {};
 
   void render_line(float x1, float y1, float x2, float y2, float r, float g, float b, float a)
