@@ -56,6 +56,20 @@ m.count(key)
 ```
 
 
+### templated argument
+```c++
+
+  template <typename T>
+  std::vector<T> init(T datatype, int max_size);
+
+```
+
+
+
+
 ### good practice:
  - avoid bools in structs and if(isActive) stuff
  bool is one bit, but uses 8 bytes of memory inside struct as it needs whole block
+
+
+ - iterating over maps is not good idea -> a lot of cache misses as data is not contigous

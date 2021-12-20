@@ -4,7 +4,6 @@
 #include "utils.h"
 
 #include <iostream>
-#include <map>
 
 #include <string>
 #include <vector>
@@ -25,13 +24,14 @@
 #include FT_FREETYPE_H  
 
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 
 namespace fonts
 {
-  std::map<char, CharacterData> chars = {};
-  std::map<int, TextData> texts = {};
-  std::map<int, LabelData> labels;
+  phmap::flat_hash_map<char, CharacterData> chars = {};
+  phmap::flat_hash_map<int, TextData> texts = {};
+  phmap::flat_hash_map<int, LabelData> labels;
   std::vector<int> TextIndex = {};
   std::vector<int> LabelIndex = {};
   textures::TextureData FontTDD;

@@ -1,5 +1,5 @@
 
-#include <map>
+
 #include <string>
 #include <vector>
 
@@ -9,6 +9,7 @@
 #include "quads.h"
 
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_MENU_H
 #define MODULES_MENU_H
@@ -84,13 +85,13 @@ namespace menu
   };
 
   extern std::vector<int> Index;
-  extern std::map<int, MenuData> menus;
-  extern std::map<int, menu::MenuSlotData> menuslots;
-  extern std::map<int, menu::MenuSlotData> currentmenuslots; 
+  extern phmap::flat_hash_map<int, MenuData> menus;
+  extern phmap::flat_hash_map<int, menu::MenuSlotData> menuslots;
+  extern phmap::flat_hash_map<int, menu::MenuSlotData> currentmenuslots; 
 
-  extern std::map<int, MenuData> currentmenus;
+  extern phmap::flat_hash_map<int, MenuData> currentmenus;
   extern std::vector<std::string> saves;
-  extern std::map<int, std::string> saves_buttons_map;
+  extern phmap::flat_hash_map<int, std::string> saves_buttons_map;
   extern std::string NewGameName;
 
   // Read menu data from the file

@@ -1,7 +1,7 @@
 
 #include <array>
 #include <vector>
-#include <map>
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include "collisions.h"
 
@@ -120,7 +120,7 @@ namespace quads
 
   // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc. Adds straight to quads array
   template <typename T>
-  void add_quads(std::map<int, T>& data, int object_type_id);
+  void add_quads(phmap::flat_hash_map<int, T>& data, int object_type_id);
 
   // Makes one quad out of single struct data. Returns quad_id
   template <typename T>
