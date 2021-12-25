@@ -48,8 +48,6 @@ Probably will still need a chunks system on top of the map -> avoid rendering an
 
 ### fonts size options? :( :( :(:( maybe another day...
 
-### travels code is messy and probably will enjoy another iteration later + some tests eventually if needed
-
 ### game should be 2D topdown
 
 ### encouters but not quests -> bag of encounters based on the situation. State machines to keep track of encounters
