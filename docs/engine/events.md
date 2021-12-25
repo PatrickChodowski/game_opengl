@@ -8,7 +8,7 @@ Module handling the user input -> mouse, keyboard. Receives SDL_event and passes
 ### EventsHandler
 Events Handler is the map of the function pointers to different events handlers
 ```c++
-std::map <int , sig_ptr> EventsHandler
+phmap::flat_hash_map <int , sig_ptr> EventsHandler
 ```
 
 

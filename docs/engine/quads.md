@@ -86,7 +86,7 @@ entities, texts, buttons, gui objects etc. Any piece of data that need to be ren
 
 ```c++
 template <typename T>
-std::vector<quads::QuadData> add_quads(std::map<int, T> data, int object_type_id)
+std::vector<quads::QuadData> add_quads(phmap::flat_hash_map<int, T> data, int object_type_id)
 ```
 
 ### make_quad
