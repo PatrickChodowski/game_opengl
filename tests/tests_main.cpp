@@ -5,14 +5,14 @@
 #include <set>
 #include <string>
 #include <vector>
-
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include "tests_collisions.h"
 #include "tests_utils.h"
 
 
 typedef bool (*sig_ptr)();
-std::map<std::string,sig_ptr> tests;
+std::map<std::string, sig_ptr> tests;
 float total_tests;
 float passed;
 float failed;

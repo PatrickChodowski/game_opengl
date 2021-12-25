@@ -6,7 +6,7 @@
 #include "../modules/items.h"
 #include "../modules/maps.h"
 #include "../dictionary.h"
-
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 bool test_collisions__set_sensors_on_entity_count()
 {
