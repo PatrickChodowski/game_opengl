@@ -1,4 +1,4 @@
-
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -22,10 +22,13 @@ namespace models
 
   void init()
   {
-    std::vector<std::string> model_list = utils::list_json_files("data/models");
+    std::vector<std::string> model_list = utils::list_gltf_files("data/models");
+    std::string filename;
     for(int n=0; n < model_list.size(); n++)
     {
-      models::read_data(model_list[n]);
+      std::cout << "reading data for model " << model_list[n] << std::endl;
+      filename = "./data/models/"+model_list[n]+".gltf";
+      models::read_data(filename);
     };
   }
 
