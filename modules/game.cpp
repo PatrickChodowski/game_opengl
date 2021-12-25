@@ -23,6 +23,7 @@
 #include "maps.h"
 #include "menu.h"
 #include "mobs.h"
+#include "models.h"
 #include "mouse.h"
 #include "navmesh.h"
 #include "npcs.h"
@@ -168,6 +169,7 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
+    models::init();
     mouse::init();
     npcs::init();
     game::init_scenes();
@@ -261,6 +263,7 @@ namespace game
     maps::refresh();
     menu::refresh();
     mobs::refresh();
+    models::refresh();
     npcs::refresh();
 
     anims::init();
@@ -268,6 +271,7 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
+    models::init();
     npcs::init();
     game::init_scenes();
 
