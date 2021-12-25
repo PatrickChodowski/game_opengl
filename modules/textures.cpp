@@ -23,10 +23,11 @@
 
 #include "../dictionary.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
+#include "../dependencies/parallel_hashmap/btree.h"
 
 namespace textures
 {
-  phmap::flat_hash_map<int, textures::TextureData> textures = {};
+  phmap::btree_map<int, textures::TextureData> textures = {};
   std::vector<unsigned int> BoundTextures = {};
 
   unsigned int _load_texture_to_opengl(unsigned int texture_id, int w, int h, int n_channels, std::string name)
