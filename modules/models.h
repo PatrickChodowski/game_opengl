@@ -25,6 +25,15 @@ namespace models
   void drop(int model_id);
 
 
+  void _print_scenes(int model_id);
+ 
+  void _print_nodes(int model_id);
+
+  void _print_meshes(int model_id);
+
+  void _print_accessors(int model_id);
+
+
 }
 
 #endif

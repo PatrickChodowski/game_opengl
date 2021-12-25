@@ -14,6 +14,8 @@
 #include "../dependencies/tiny_gltf.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
+// https://github.com/KhronosGroup/glTF-Tutorials/tree/master/gltfTutorial
+
 namespace models 
 {
 
@@ -60,6 +62,10 @@ namespace models
 
       model_id = utils::generate_id(models::Index);
       models::models[model_id] = model;
+
+      models::_print_scenes(model_id);
+      models::_print_nodes(model_id);
+      models::_print_meshes(model_id);
     }
   }
 
@@ -79,6 +85,75 @@ namespace models
     }
 
   }
+
+  // Retrieve info from model
+  // scenes 
+  // nodes
+  // meshes
+  // Attributes of the mesh
+  // Accessors
+  // BufferViews
+  // Buffers
+
+  void _print_scenes(int model_id)
+  {
+    for(int s = 0; s < models::models[model_id].scenes.size(); s++)
+    {
+      std::cout << "Scene " << s <<  " name: " << models::models[model_id].scenes[s].name << std::endl;
+
+      for(int n=0; n < models::models[model_id].scenes[s].nodes.size(); n++)
+      {
+        std::cout << "  Node: " << models::models[model_id].scenes[s].nodes[n] << std::endl;
+      }
+    }
+  }
+
+  void _print_nodes(int model_id)
+  {
+    for(int n = 0; n < models::models[model_id].nodes.size(); n++)
+    {
+      std::cout << "Node " << n 
+      << " mesh: " << models::models[model_id].nodes[n].mesh 
+      << " name: " << models::models[model_id].nodes[n].name
+      << " translation size: " << models::models[model_id].nodes[n].translation.size() 
+      << " scale size: " << models::models[model_id].nodes[n].scale.size() 
+      << " rotation size:" << models::models[model_id].nodes[n].rotation.size()
+      << " children size:" << models::models[model_id].nodes[n].children.size() << std::endl;
+    }
+
+  }
+
+  void _print_meshes(int model_id)
+  {
+    for(int m = 0; m < models::models[model_id].meshes.size(); m++)
+    {
+      std::cout << "Mesh " << m
+      << " name: " << models::models[model_id].meshes[m].name << std::endl;
+
+      for(int p = 0; p < models::models[model_id].meshes[m].primitives.size(); p++)
+      {
+        std::cout << "  Primitive " << p 
+        << " indices: " << models::models[model_id].meshes[m].primitives[p].indices 
+        << " material: " << models::models[model_id].meshes[m].primitives[p].material
+        << " attributes: "
+        << std::endl;
+
+        for (auto const& [k, v] : models::models[model_id].meshes[m].primitives[p].attributes)
+        {
+          std::cout << "  -  " << k << ": " << v << std::endl;
+        }
+      }
+    }
+  }
+
+//https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/gltfTutorial_005_BuffersBufferViewsAccessors.md
+  void _print_accessors(int model_id)
+  {
+
+  }
+
+
+
 
 
 }
