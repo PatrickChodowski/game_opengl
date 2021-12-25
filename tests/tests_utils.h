@@ -1,5 +1,6 @@
 
 #include "../modules/utils.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 bool test_utils_generate_id_first_id_is_1()
 {
