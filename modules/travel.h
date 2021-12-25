@@ -1,7 +1,7 @@
 
-#include <map>
 #include <string>
 #include <vector>
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_TRAVEL_H
 #define MODULES_TRAVEL_H
@@ -41,7 +41,7 @@ namespace travel
   };
 
   extern travel::TravelPoint last_click;
-  extern std::map<int, travel::TravelData> travels;
+  extern phmap::flat_hash_map<int, travel::TravelData> travels;
   extern std::vector<int> travels_to_cancel;
 
   // Method to reset last click info for starting travel from debug menu

@@ -1,11 +1,11 @@
 
 #include <chrono>
-#include <map>
 #include <vector>
 #include <SDL2/SDL.h>
 #include <string>
 
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_GAME_H
 #define MODULES_GAME_H
@@ -56,7 +56,7 @@ namespace game
   extern int MAP_ID;
   extern float HERO_START_X;
   extern float HERO_START_Y;
-  extern std::map<int, game::SceneData> scenes;
+  extern phmap::flat_hash_map<int, game::SceneData> scenes;
 
   // Reads scene data to struct
   void read_data(std::string &name);

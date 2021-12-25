@@ -1,7 +1,6 @@
 
 #include <chrono>
 #include <ctime> 
-#include <map>
 #include <string>
 #include <vector>
 
@@ -9,6 +8,7 @@
 #include "utils.h"
 
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_ANIMS_H
 #define MODULES_ANIMS_H
@@ -39,10 +39,10 @@ namespace anims
   };
 
   // Catalog of animation_id, Animation data - all animations in one place
-  extern std::map<int, anims::Animation> anims;
+  extern phmap::flat_hash_map<int, anims::Animation> anims;
 
   // Catalog of entity_id, Animation - current animations played
-  extern std::map<int, anims::Animation> animsplayed;
+  extern phmap::flat_hash_map<int, anims::Animation> animsplayed;
 
   // index of animations to delete
   extern std::vector<int> anims_to_stop;

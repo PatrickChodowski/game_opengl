@@ -9,17 +9,17 @@
 #include "travel.h"
 
 #include <iostream>
-#include <map>
 #include <string>
 #include <set>
 
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace mouse
 {
   mouse::LastClickData last_click;  
-  std::map <int , sig_ptr> click = {};
-  std::map <int, int> ClickPriorities;
+  phmap::flat_hash_map<int , sig_ptr> click = {};
+  phmap::flat_hash_map<int, int> ClickPriorities;
 
   // need to aggregate unique_object_types, object_ids and mouse_buttons
   void _find_clicked_quads(float click_x, float click_y, int mouse_button_id)

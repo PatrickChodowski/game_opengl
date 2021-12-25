@@ -35,13 +35,13 @@ float last_click_x
 ### ClickPriorities
 Table of clickpriorities per object_type
 ```c++
-std::map <int, int> ClickPriorities;
+phmap::flat_hash_map<int, int> ClickPriorities;
 ```
 
 ### click
 Catalog of object_type_id and functions pointers to pick right function while clicking
 ```c++
-std::map <int, sig_ptr> click;
+phmap::flat_hash_map<int, sig_ptr> click;
 ```
 
 ## Functions

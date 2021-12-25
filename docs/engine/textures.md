@@ -17,7 +17,7 @@ struct TextureData
 ### textures
 Persistent table of texture data
 ```c++
-std::map<int, textures2::TextureData> textures;
+phmap::flat_hash_map<int, textures2::TextureData> textures;
 ```
 
 ### BoundTextures

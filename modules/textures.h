@@ -1,7 +1,7 @@
 #include <string>
-#include <map>
 #include <vector>
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_TEXTURES_H
 #define MODULES_TEXTURES_H
@@ -33,13 +33,13 @@ namespace textures
     std::string name;
 
     std::vector<Frame> frames_list;
-    std::map<int, Frame> frames;
+    phmap::flat_hash_map<int, Frame> frames;
 
     JS_OBJ(id, w, h, type, name, frames_list);
   };
 
   // Persisten table of textures data
-  extern std::map<int, textures::TextureData> textures;
+  extern phmap::flat_hash_map<int, textures::TextureData> textures;
 
   // Vector of bound textures to opengl
   extern std::vector<unsigned int> BoundTextures;

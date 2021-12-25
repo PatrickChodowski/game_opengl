@@ -1,5 +1,4 @@
 #include <iostream>
-#include <map>
 #include <SDL2/SDL.h>
 
 #include "anims.h"
@@ -16,11 +15,12 @@
 
 
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace events
 {
 
-  std::map <int , sig_ptr> EventsHandler = {};
+  phmap::flat_hash_map<int,sig_ptr> EventsHandler = {};
 
   void init()
   {

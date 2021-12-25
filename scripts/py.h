@@ -1,4 +1,6 @@
 
+#include <map>
+
 #ifndef SCRIPTS_PY_H
 #define SCRIPTS_PY_H
 
@@ -6,7 +8,7 @@
 namespace scripts
 {
   typedef void (*sig_ptr)();
-  extern std::map <int,sig_ptr> Handler;
+  extern std::map<int,sig_ptr> Handler;
   extern std::map<std::string, float> args;
 
   // Initialize python handler

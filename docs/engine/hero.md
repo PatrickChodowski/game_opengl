@@ -59,6 +59,13 @@ Resets the data read in from files in the game
 void refresh();
 ```
 
+### info
+Returns vector of strings with hero information
+```c++
+std::vector<std::string> info(int entity_id);
+```
+
+
 
 ## Tests
 -

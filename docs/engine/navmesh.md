@@ -31,19 +31,19 @@ struct NavNodeData
 ### navnodes
 Catalog of  [NavNodeData](navmesh.md#NavNodeData)
 ```c++
-std::map<int, NavNodeData> navnodes;
+phmap::flat_hash_map<int, NavNodeData> navnodes;
 ```
 
 ### navpolygons
 Catalog of [NavPolygonData](navmesh.md#NavPolygonData)
 ```c++
-std::map<int, NavPolygonData> navpolygons;
+phmap::flat_hash_map<int, NavPolygonData> navpolygons;
 ```
 
 ### navtiles
 Catalog of [NavTileData](navmesh.md#NavTileData)
 ```c++
-std::map<int, NavTileData> navtiles;
+phmap::flat_hash_map<int, NavTileData> navtiles;
 ```
 
 ### navmesh

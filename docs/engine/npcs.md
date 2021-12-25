@@ -19,13 +19,13 @@ struct InteractionData
 ### npcs_data
 Catalog of all [npcs](npcs.md#NPCData)
 ```c++
-std::map<int, NPCData> npcs_data;
+phmap::flat_hash_map<int, NPCData> npcs_data;
 ```
 
 ### npcs
 Current [npcs](npcs.md#NPCData)
 ```c++
-std::map<int, NPCData> npcs;
+phmap::flat_hash_map<int, NPCData> npcs;
 ```
 
 ### interactions
@@ -77,6 +77,12 @@ void refresh();
 Make interaction with NPC
 ```c++
  void interact(int entity_id, float value);
+```
+
+### info
+Returns vector of strings with npc information
+```c++
+std::vector<std::string> info(int entity_id);
 ```
 
 

@@ -1,5 +1,4 @@
 #include "shaders.h"
-#include <map>
 #include <vector>
 #include <string>
 #include <regex> 
@@ -7,6 +6,7 @@
 
 #include "utils.h"
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include <GL/glew.h> 
 #ifdef TARGET_OS_MAC
@@ -22,7 +22,7 @@
 
 namespace shaders
 {
-  std::map<int, ShaderData> shaders = {};
+  phmap::flat_hash_map<int, ShaderData> shaders = {};
   GLuint shading_program;
   int CURRENT_SHADER_ID = 0;
 

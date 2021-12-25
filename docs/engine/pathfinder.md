@@ -13,7 +13,7 @@ struct DjikstraStep
 ### PathMap
 Precalculated paths between [navnodes](navmesh.md#navnodes)
 ```c++
-std::map<int, std::map<int, DjikstraStep>> PathMap;
+phmap::flat_hash_map<int, phmap::flat_hash_map<int, DjikstraStep>> PathMap;
 ```
 
 ## Functions
@@ -32,7 +32,7 @@ int get_min_distance(float x, float y);
 ### find_paths_djikstra
 Find paths from [NavNode ID](navmesh.md#navnodes) to all other [navnodes](navmesh.md#navnodes) using djikstra algorithm. Results is saved to [PathMap](pathfinder.md#PathMap)
 ```c++
-std::map<int, DjikstraStep> find_paths_djikstra(int node_id);
+phmap::flat_hash_map<int, DjikstraStep> find_paths_djikstra(int node_id);
 ```
 
 ### make_path_map

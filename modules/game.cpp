@@ -1,7 +1,6 @@
 
 #include <chrono>
 #include <iostream>
-#include <map>
 #include <SDL2/SDL.h>
 #include <string>
 #include <vector>
@@ -35,6 +34,7 @@
 #include "../scripts/py.h"
 
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace game
 {
@@ -55,7 +55,7 @@ namespace game
   float HERO_START_X;
   float HERO_START_Y;
   bool LOG_TO_FILES = false;
-  std::map<int, game::SceneData> scenes;
+  phmap::flat_hash_map<int, game::SceneData> scenes;
 
   void read_data(std::string& name)
   {

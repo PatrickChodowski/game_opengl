@@ -3,7 +3,7 @@
 #include "../dependencies/glm/gtc/matrix_transform.hpp"
 #include "../dependencies/glm/gtc/type_ptr.hpp"
 #include "../dependencies/glm/gtx/string_cast.hpp"
-#include <map>
+
 
 #ifndef MODULES_CAMERA_H
 #define MODULES_CAMERA_H

@@ -7,11 +7,12 @@
 #include "timer.h"
 
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace anims
 {
-  std::map<int, anims::Animation> anims;
-  std::map<int, anims::Animation> animsplayed;
+  phmap::flat_hash_map<int, anims::Animation> anims;
+  phmap::flat_hash_map<int, anims::Animation> animsplayed;
   std::vector<int> anims_to_stop;
 
   void init()

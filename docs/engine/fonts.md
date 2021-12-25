@@ -25,25 +25,25 @@ struct LabelData
 ### chars
 Catalog of the characters from the font data ([CharacterData](fonts.md#CharacterData))
 ```c++
-std::map<char, CharacterData> chars;
+phmap::flat_hash_map<char, CharacterData> chars;
 ```
 
 ### texts
 Catalog of the characters with the text data ([TextData](fonts.md#TextData))
 ```c++
-std::map<char, TextData> texts;
+phmap::flat_hash_map<char, TextData> texts;
 ```
 
 ### labels
 Catalog of the labels ([LabelData](fonts.md#LabelData))
 ```c++
-std::map<char, LabelData> labels;
+phmap::flat_hash_map<char, LabelData> labels;
 ```
 
 ### TextQuads
 Quads made out of the [texts](debug.md#texts). Vector of [quads](quads.md#QuadData)
 ```c++
-std::vector<quads2::QuadData> TextQuads;
+std::vector<quads::QuadData> TextQuads;
 ```
 
 ### TextIndex

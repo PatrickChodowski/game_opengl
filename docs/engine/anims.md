@@ -13,13 +13,13 @@ struct Animation
 ### anims
 Catalog of all available animations
 ```c++
-std::map<int, anims::Animation> anims;
+phmap::flat_hash_map<int, anims::Animation> anims;
 ```
 
 ### animsplayed
 Catalog of all active animations
 ```c++
-std::map<int, anims::Animation> animsplayed;
+phmap::flat_hash_map<int, anims::Animation> animsplayed;
 ```
 
 ### anims_to_stop

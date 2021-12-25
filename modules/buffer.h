@@ -2,7 +2,6 @@
 #include "debug.h"
 #include "quads.h"
 
-#include <map>
 #include <vector>
 
 #ifndef MODULES_BUFFER_H

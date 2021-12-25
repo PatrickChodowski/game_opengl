@@ -7,7 +7,6 @@
 #include <cmath>
 #include <iostream>
 #include <fstream>
-#include <map>
 #include <vector>
 // Opengl packages
 #include <GL/glew.h> 
