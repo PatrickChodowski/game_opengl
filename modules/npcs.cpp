@@ -11,12 +11,13 @@
 
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace npcs
 {
   std::vector<int> Index;
-  std::map<int, NPCData> npcs_data;
-  std::map<int, NPCData> npcs;
+  phmap::flat_hash_map<int, NPCData> npcs_data;
+  phmap::flat_hash_map<int, NPCData> npcs;
   std::vector<npcs::InteractionData> interactions;
 
   void read_data(std::string& name)
@@ -87,6 +88,13 @@ namespace npcs
       npcs::npcs[entity_id].sentiment += value;
       std::cout << "NPC: " << entity_id << " Sentiment is now at: " << npcs::npcs[entity_id].sentiment << std::endl;
     }
+  }
+
+  std::vector<std::string> info(int entity_id)
+  {
+    std::vector<std::string> infos = {};
+    infos.push_back(npcs::npcs[entity_id].name);
+    return infos;
   }
 
 }

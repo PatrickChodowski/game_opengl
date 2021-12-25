@@ -5,6 +5,7 @@
 #include "quads.h"
 #include "collisions.h"
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_ITEMS_H
 #define MODULES_ITEMS_H
@@ -41,14 +42,15 @@ namespace items
   
   struct GeneratedItemData
   {
+    int item_id;
     int entity_id;
     int type_id;
     int dmg;  
     int speed;
   };
 
-  extern std::map<int, ItemData> items;
-  extern std::map<int, GeneratedItemData> GeneratedItems;
+  extern phmap::flat_hash_map<int, ItemData> items;
+  extern phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems;
 
   // Reads item data from json file
   void read_data(std::string name);
@@ -64,6 +66,9 @@ namespace items
 
   // Clear all data
   void refresh();
+
+  // Returns vector of strings with item information
+  std::vector<std::string> info(int entity_id);
 
 
 }

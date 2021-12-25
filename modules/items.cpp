@@ -11,12 +11,13 @@
 
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 
 namespace items
 {
-  std::map<int, ItemData> items = {};
-  std::map<int, GeneratedItemData> GeneratedItems = {};
+  phmap::flat_hash_map<int, ItemData> items = {};
+  phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems = {};
 
   void read_data(std::string name)
   {
@@ -59,6 +60,14 @@ namespace items
 
     // logic for items to be stored in different table? Same as alive mobs
     int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
+    //items::GeneratedItems[entity_id] = tdd;
+  }
+
+  std::vector<std::string> info(int entity_id)
+  {
+    std::vector<std::string> infos = {};
+    //infos.push_back(items::GeneratedItems[entity_id].ite);
+    return infos;
   }
 
 }

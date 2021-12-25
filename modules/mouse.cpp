@@ -79,8 +79,7 @@ namespace mouse
     {
       if(!entity::entities[object_id].is_clicked)
       {
-        int menu_type_id = entity::menu_entity_type_map[entity::entities[object_id].entity_type_id];
-        entity::entities[object_id].menu_id = menu::add_to_slot(menu_type_id, object_id);
+        entity::entities[object_id].menu_id = menu::add_to_slot(MENU_ENTITY_ID, object_id);
       } else 
       {
         menu::drop(entity::entities[object_id].menu_id);

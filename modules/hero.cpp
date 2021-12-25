@@ -69,5 +69,13 @@ namespace hero
     hero::hero = new_hero;
   }
 
+  std::vector<std::string> info(int entity_id)
+  {
+    std::vector<std::string> infos = {};
+    infos.push_back(hero::hero.name);
+    infos.push_back(hero::hero.type);
+    return infos;
+  }
+
 
 }

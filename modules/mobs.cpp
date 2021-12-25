@@ -6,6 +6,7 @@
 #include "utils.h"
 
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include <map>
 #include <iostream>
@@ -14,8 +15,8 @@
 
 namespace mobs
 {
-  std::map<int, MobData> mobs_data = {};
-  std::map<int, MobData> SpawnedMobs;
+  phmap::flat_hash_map<int, MobData> mobs_data = {};
+  phmap::flat_hash_map<int, MobData> SpawnedMobs;
 
   void read_data(std::string name)
   {
@@ -83,6 +84,13 @@ namespace mobs
       mobs::SpawnedMobs.erase(entity_id);
       entity::drop(entity_id);
     }
+  }
+
+  std::vector<std::string> info(int entity_id)
+  {
+    std::vector<std::string> infos = {};
+    infos.push_back(mobs::SpawnedMobs[entity_id].type);
+    return infos;
   }
 
 
