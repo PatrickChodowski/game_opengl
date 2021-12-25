@@ -1,12 +1,4 @@
 
-### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
-
-### personality traits of the leaders -> random
-- random personality traits
-- random relations with other kingdoms
-- personality traits deciding if they start a conflict
-- save personalities
-
 ### 3d models instead of spritesheets:
  - photogrammetry
  - meshroom 
@@ -15,6 +7,18 @@
  - blender python api
  - PIFuh by facebook
  - gITF file format 
+
+ - read-in gITF file format
+
+
+
+### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
+
+### personality traits of the leaders -> random
+- random personality traits
+- random relations with other kingdoms
+- personality traits deciding if they start a conflict
+- save personalities
 
 ### Profiler -> aggregate total times from many functions over the course of the game
 
