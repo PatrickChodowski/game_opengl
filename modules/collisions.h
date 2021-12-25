@@ -1,5 +1,6 @@
 #include <vector>
-#include <map>
+#include "../dependencies/parallel_hashmap/phmap.h"
+
 
 #ifndef MODULES_COLLISIONS_H
 #define MODULES_COLLISIONS_H
@@ -14,7 +15,7 @@ namespace collisions
 
   typedef void (*sig_ptr)(int);
   // Catalog of functions to be chosen based on the object_type_id
-  extern std::map <int,sig_ptr> AABBsHandler;
+  extern phmap::flat_hash_map<int,sig_ptr> AABBsHandler;
 
 
   // AABB data for the entity

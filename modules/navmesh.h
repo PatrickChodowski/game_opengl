@@ -1,9 +1,9 @@
 #include <fstream>
-#include <map>
 #include <vector>
 #include <string>
 
 #include "utils.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_NAVMESH_H
 #define MODULES_NAVMESH_H
@@ -55,12 +55,12 @@ namespace nav
     float max_x;
     int id;
     int count_tiles;
-    std::map<int, NavGateData> edges;
+    phmap::flat_hash_map<int, NavGateData> edges;
   };
 
-  extern std::map<int, NavNodeData> navnodes;
-  extern std::map<int, NavPolygonData> navpolygons;
-  extern std::map<int, NavTileData> navtiles;
+  extern phmap::flat_hash_map<int, NavNodeData> navnodes;
+  extern phmap::flat_hash_map<int, NavPolygonData> navpolygons;
+  extern phmap::flat_hash_map<int, NavTileData> navtiles;
   extern std::vector<std::vector<int>> navmesh;
   extern int MAX_ROW;
   extern int MAX_COL;

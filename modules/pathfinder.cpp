@@ -1,17 +1,17 @@
 
 #include <algorithm>
 #include <climits>
-#include <map>
 #include <string>
 #include <vector>
 
 
 #include "navmesh.h"
 #include "pathfinder.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace paths
 {
-  std::map<int, std::map<int, DjikstraStep>> PathMap;
+  phmap::flat_hash_map<int, phmap::flat_hash_map<int, DjikstraStep>> PathMap;
 
   int get_navnode_id(float x, float y)
   {
@@ -45,7 +45,7 @@ namespace paths
 
 
 
-  std::map<int, DjikstraStep> find_paths_djikstra(int node_id)
+  phmap::flat_hash_map<int, DjikstraStep> find_paths_djikstra(int node_id)
   {
     int polygon_count = nav::navnodes.size();
     std::vector<bool> polygon_included = {};
@@ -76,7 +76,7 @@ namespace paths
         }
       }
     }
-    std::map<int, DjikstraStep> djikstra = {};
+    phmap::flat_hash_map<int, DjikstraStep> djikstra = {};
     for (int i = 0; i < polygon_count; i++)
     {
       DjikstraStep ds;
@@ -92,7 +92,7 @@ namespace paths
     paths::PathMap.clear();
     for (auto const& nn : nav::navnodes)
     { 
-      std::map<int, DjikstraStep> djikstra = find_paths_djikstra(nn.first);
+      phmap::flat_hash_map<int, DjikstraStep> djikstra = find_paths_djikstra(nn.first);
       paths::PathMap.insert({nn.first, djikstra});
     }
   }

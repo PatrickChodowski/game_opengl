@@ -1,7 +1,4 @@
 
-### Different info() methods per entity type id
-- btw why sometimes the menu doesnt show up?
- 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 
 ### personality traits of the leaders -> random

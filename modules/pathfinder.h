@@ -1,5 +1,5 @@
 
-#include <map>
+
 #include <string>
 #include <vector>
 
@@ -14,7 +14,7 @@ namespace paths
     int previous_step;
   };
 
-  extern std::map<int, std::map<int, DjikstraStep>> PathMap;
+  extern phmap::flat_hash_map<int, phmap::flat_hash_map<int, DjikstraStep>> PathMap;
 
   //Get nav_node_id based on the X,Y position
   int get_navnode_id(float x, float y);
@@ -26,7 +26,7 @@ namespace paths
 
   //Find paths from nav_node to all other navnodes using djikstra algorithm. 
   // Results is saved to PathMap
-  std::map<int, DjikstraStep> find_paths_djikstra(int node_id);
+  phmap::flat_hash_map<int, DjikstraStep> find_paths_djikstra(int node_id);
 
   // Fills out the PathMap based on the navmesh graph
   void make_path_map();

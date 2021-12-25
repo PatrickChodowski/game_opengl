@@ -1,6 +1,5 @@
 
 #include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -13,10 +12,12 @@
 #include "utils.h"
 
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
+
 
 namespace travel
 {
-  std::map<int, travel::TravelData> travels;
+  phmap::flat_hash_map<int, travel::TravelData> travels;
   std::vector<int> travels_to_cancel;
   travel::TravelPoint last_click;
 

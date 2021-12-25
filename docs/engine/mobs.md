@@ -11,13 +11,13 @@ struct MobData
 ### mobs_data
 Catalog of mob types
 ```c++
-std::map<int, MobData> mobs_data;
+phmap::flat_hash_map<int, MobData> mobs_data;
 ```
 
 ### SpawnedMobs
 Spawned mobs information
 ```c++
-std::map<int, MobData> SpawnedMobs;
+phmap::flat_hash_map<int, MobData> SpawnedMobs;
 ```
 
 ## Functions
@@ -64,6 +64,11 @@ Drops mob  from [entities](entity.md#entities) and [SpawnedMobs](mobs.md#Spawned
 void drop(int entity_id);
 ```
 
+### info
+Returns vector of strings with mob information
+```c++
+std::vector<std::string> info(int entity_id);
+```
 
 ## Tests
 - 

@@ -1,6 +1,7 @@
-#include <map>
+
 #include <string>
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include <GL/glew.h> 
 #ifdef TARGET_OS_MAC
@@ -28,7 +29,7 @@ namespace shaders
     JS_OBJ(id, gl_shader_id, name);
   };
 
-  extern std::map<int, ShaderData> shaders;
+  extern phmap::flat_hash_map<int, ShaderData> shaders;
   extern GLuint shading_program;
 
   // Reads shaders data

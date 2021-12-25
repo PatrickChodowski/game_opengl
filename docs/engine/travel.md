@@ -25,7 +25,7 @@ travel::TravelPoint last_click;
 ### travels
 Catalog of [TravelData](travel.md#TravelData). One per entity
 ```c++
-std::map<int, travel::TravelData> travels;
+phmap::flat_hash_map<int, travel::TravelData> travels;
 ```
 
 ### travels_to_cancel
@@ -103,6 +103,12 @@ int _sanity_check_replace_tp(float x, float y, int tp_current_node_id);
 Checks if entity has already a travelData assigned
 ```c++
 bool _check_if_entity_already_moving(int entity_id);
+```
+
+### _animate_by_direction
+TEMPORARY (decide which animation to play)
+```c++
+  void _animate_by_direction(int entity_id, float angle);
 ```
 
 ## Tests

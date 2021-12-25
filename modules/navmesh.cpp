@@ -1,6 +1,5 @@
 
 #include <iostream>
-#include <map>
 #include <vector>
 #include <string>
 
@@ -11,12 +10,13 @@
 #include "utils.h"
 
 #include "../dictionary.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace nav
 {
-  std::map<int, NavNodeData> navnodes = {};
-  std::map<int, NavPolygonData> navpolygons = {};
-  std::map<int, NavTileData> navtiles = {};
+  phmap::flat_hash_map<int, NavNodeData> navnodes = {};
+  phmap::flat_hash_map<int, NavPolygonData> navpolygons = {};
+  phmap::flat_hash_map<int, NavTileData> navtiles = {};
   std::vector<std::vector<int>> navmesh = {};
   int MAX_ROW;
   int MAX_COL;
@@ -202,7 +202,7 @@ namespace nav
 
     for (auto & nn : nav::navnodes)
     { 
-      std::map<int, NavGateData> _edges = {};
+      phmap::flat_hash_map<int, NavGateData> _edges = {};
       for (auto const& t : nav::navnodes)
       { 
         if(nn.first != t.first){

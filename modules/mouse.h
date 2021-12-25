@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
 
-#include <map>
 #include <string>
 
 #ifndef MODULES_MOUSE_H
@@ -36,8 +35,8 @@ namespace mouse
   // https://gist.github.com/mkawserm/9259513
   typedef void (*sig_ptr)(int, int);
   // Catalog of functions to be chosen based on the object_type_id. Takes object_id as argument
-  extern std::map <int, sig_ptr> click;
-  extern std::map <int, int> ClickPriorities;
+  extern phmap::flat_hash_map<int, sig_ptr> click;
+  extern phmap::flat_hash_map<int, int> ClickPriorities;
   extern LastClickData last_click;
 
   // Print out click information

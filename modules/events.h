@@ -1,5 +1,6 @@
-#include <map>
+
 #include <SDL2/SDL.h>
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_EVENTS_H
 #define MODULES_EVENTS_H
@@ -8,7 +9,7 @@ namespace events
 {
   typedef void (*sig_ptr)(SDL_Event event);
   // Catalog of functions to be chosen based on the scene id
-  extern std::map <int , sig_ptr> EventsHandler;
+  extern phmap::flat_hash_map <int , sig_ptr> EventsHandler;
 
   // Intializies objects in events 
   void init();

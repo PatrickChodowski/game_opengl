@@ -3,6 +3,7 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include "camera.h"
 #include "collisions.h"
@@ -14,17 +15,12 @@
 #include "utils.h"
 #include "../dictionary.h"
 
-// Note: I dont really like this implementation.
-// 2 methods: one for entities and one for maps that just replace the table inside and also the if else in set_abs somehow bug me
-// Need to refactor this later when I have better idea on how to use it
-
-
 namespace collisions
 {
   int SENSOR_COUNT = 9;
   int SENSOR_OFFSET = 1;
   int ABS_COUNT = 1;
-  std::map <int,sig_ptr> AABBsHandler = {};
+  phmap::flat_hash_map<int,sig_ptr> AABBsHandler = {};
   std::vector<collisions::DistanceToObject> distances = {};
   std::vector<collisions::DistanceToObject> door_distances = {};
 

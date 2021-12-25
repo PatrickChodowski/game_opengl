@@ -19,13 +19,13 @@ struct GeneratedItemData
 ### GeneratedItems
 Catalog of generated items [GeneratedItemData](items.md#GeneratedItemData)
 ```c++
-std::map<int, GeneratedItemData> GeneratedItems;
+phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems;
 ```
 
 ### items
 Catalog of item types [ItemData](items.md#ItemData)
 ```c++
-std::map<int, ItemData> items;
+phmap::flat_hash_map<int, ItemData> items;
 ```
 
 ## Functions
@@ -51,6 +51,12 @@ void put_item_on_ground(int item_id, float x, float y);
 Resets the data read in from files in the game
 ```c++
 void refresh();
+```
+
+### info
+Returns vector of strings with item information
+```c++
+std::vector<std::string> info(int entity_id);
 ```
 
 

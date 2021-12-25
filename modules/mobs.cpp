@@ -8,7 +8,6 @@
 #include "../dictionary.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
-#include <map>
 #include <iostream>
 #include <string>
 #include <vector>

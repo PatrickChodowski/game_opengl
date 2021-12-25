@@ -12,7 +12,7 @@ struct AABB
 ### AABBsHandler
 Catalog of functions for setting AABB per object_type
 ```c++
-std::map <int,sig_ptr> AABBsHandler;
+phmap::flat_hash_map<int,sig_ptr> AABBsHandler;
 ```
 
 ### Sensor
@@ -49,6 +49,18 @@ int SENSOR_OFFSET
 Global AABBs count  per entity
 ```c++
 int ABS_COUNT
+```
+
+### distances
+Vector of current near distances
+```c++
+std::vector<collisions::DistanceToObject> distances;
+```
+
+### door_distances
+Vector of current near door distances
+```c++
+std::vector<collisions::DistanceToObject> door_distances;
 ```
 
 ## Functions
@@ -89,10 +101,10 @@ Function to set [AABBs](collisions.md#AABB) for [entity](entity.md#Entity)
 void _set_abs_entities(int entity_id);
 ```
 
-### _find_entity_broad_collisions
+### _collect_near_distances
 Function to retrieve [all near distances](collisions.md#DistanceToObject) from [entity](entity.md#Entity) to all collidables (maps and entities)
 ```c++
-std::vector<collisions::DistanceToObject> _find_entity_broad_collisions(int entity_id);
+ void _collect_near_distances(int entity_id);
 ```
 
 ### _resolve_solid_collisions
@@ -108,9 +120,9 @@ collisions::DistanceToObject _get_entity_to_single_entity_distance(int entity_id
 ```
 
 ### _get_entity_to_entity_distances
-Function to retrieve [near distances](collisions.md#DistanceToObject) from [entity](entity.md#Entity) to another entities
+Gets vector of entity distances to other entities
 ```c++
-std::vector<collisions::DistanceToObject> _get_entity_to_entity_distances(int entity_id);
+void _get_entity_to_entity_distances(int entity_id);
 ```
 
 ### _get_entity_to_single_tile_distance
@@ -119,11 +131,32 @@ Gets distance from entity to single map object
 collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id);
 ```
 
-### _get_entity_to_map_distances
-Function to retrieve [near distances](collisions.md#DistanceToObject) from [entity](entity.md#Entity)to [map object](maps.md#Maps)
+### _get_entity_to_door_distance
+Gets distance from entity to the door object
 ```c++
-std::vector<collisions::DistanceToObject> _get_entity_to_map_distances(int entity_id);
+collisions::DistanceToObject _get_entity_to_door_distance(int entity_id, int map_id, int door_index);
+
 ```
+
+### _get_entity_to_map_distances
+Gets vector of entity distances to map objects
+```c++
+void _get_entity_to_map_distances(int entity_id);
+```
+
+### _get_entity_to_door_distances
+Gets vector of entity distances to door objects
+```c++
+void _get_entity_to_door_distances(int entity_id, int map_id);
+```
+
+
+### _resolve_doors
+Resolve doors -> go through doors if there are doors
+```c++
+ void _resolve_doors();
+```
+
 
 ## Tests
 - set_sensors
