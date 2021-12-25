@@ -113,7 +113,7 @@ float HERO_START_Y;
 ### scenes 
 Scenes catalog
 ```c++
-std::map<int, game::SceneData> scenes;
+phmap::flat_hash_map<int, game::SceneData> scenes;
 ```
 
 

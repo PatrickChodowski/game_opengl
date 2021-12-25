@@ -12,7 +12,7 @@ struct ButtonData
 ### ButtonFunctions
 Catalog of buttons and ButtonFunction pointers
 ```c++
-std::map <int,sig_ptr> ButtonFunctions;
+phmap::flat_hash_map <int,sig_ptr> ButtonFunctions;
 ```
 
 ### Index
@@ -24,7 +24,7 @@ std::vector<int> Index;
 ### buttons
 Catalog of buttons
 ```c++
-std::map <int, buttons::ButtonData> buttons;
+phmap::flat_hash_map <int, buttons::ButtonData> buttons;
 ```
 
 ### ButtonQuads

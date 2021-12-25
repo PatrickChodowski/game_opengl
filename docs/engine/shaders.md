@@ -13,7 +13,7 @@ struct ShaderData
 ### shaders
 Catalog of [ShaderData](shaders.md#ShaderData)
 ```c++
-std::map<int, ShaderData> shaders;
+phmap::flat_hash_map<int, ShaderData> shaders;
 ```
 
 ### shading_program

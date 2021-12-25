@@ -49,13 +49,13 @@ float default_tile_height
 ### maps
 Maps catalog -> map_id, [MapData](maps.md#MapData)
 ```c++
-std::map<int, MapData> maps;
+phmap::flat_hash_map<int, MapData> maps;
 ```
 
 ### tiles
 Tiles catalog -> tile_id, [TileData](maps.md#tiles)
 ```c++
-std::map<int, maps::TileData> tiles;
+phmap::flat_hash_map<int, maps::TileData> tiles;
 ```
 
 ### MapQuads

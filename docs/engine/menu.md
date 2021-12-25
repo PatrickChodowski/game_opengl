@@ -24,24 +24,24 @@ std::vector<std::string> saves;
 ### saves_buttons_map
 Mapping of buttons to the save names
 ```c++
-std::map<int, std::string> saves_buttons_map;
+phmap::flat_hash_map<int, std::string> saves_buttons_map;
 ```
 
 ### menus
 Current Menu's data
 ```c++
-std::map<int, menu2::MenuData> menus;
+phmap::flat_hash_map<int, menu2::MenuData> menus;
 ```
 ### currentmenus
 Current menu data
 ```c++
-std::map<int, MenuData> currentmenus;
+phmap::flat_hash_map<int, MenuData> currentmenus;
 ```
 
 ### currentmenuslots
 Current menu slots data
 ```c++
-std::map<int, menu::MenuSlotData> currentmenuslots = {}; 
+phmap::flat_hash_map<int, menu::MenuSlotData> currentmenuslots = {}; 
 ```
 
 ### MenuQuads
