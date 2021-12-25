@@ -1,6 +1,9 @@
 #include "quads.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
+#include <string>
+#include <vector>
+
 #ifndef MODULES_ENTITY_H
 #define MODULES_ENTITY_H
 
@@ -43,7 +46,10 @@ namespace entity
   // Entities data -> entity_id, EntityData
   extern phmap::flat_hash_map<int, EntityData> entities;
   extern std::vector<int> Index;
-  extern phmap::flat_hash_map<int, int> menu_entity_type_map;
+
+  // Asssigns different info() function based on the entity type
+  typedef std::vector<std::string> (*sig_ptr)(int entity_id);
+  extern phmap::flat_hash_map<int, sig_ptr> menu_entity_type_map;
 
   // Creates entity and adds it to the table. Uses the data structure different based on entity type. Returns entity_id
   template <typename T>

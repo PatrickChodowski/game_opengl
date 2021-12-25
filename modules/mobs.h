@@ -1,4 +1,5 @@
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include <map>
 #include <string>
@@ -37,8 +38,8 @@ namespace mobs
     max_speed, min_hp, max_hp, min_def, max_def, speed);
   };
 
-  extern std::map<int, MobData> mobs_data;
-  extern std::map<int, MobData> SpawnedMobs;
+  extern phmap::flat_hash_map<int, MobData> mobs_data;
+  extern phmap::flat_hash_map<int, MobData> SpawnedMobs;
 
   // Reads mobs data
   void read_data(std::string name);
@@ -60,6 +61,9 @@ namespace mobs
 
   // Drops a mob and corresponding entity data
   void drop(int entity_id);
+
+  // Returns vector of strings with mob information
+  std::vector<std::string> info(int entity_id);
 
 }
 

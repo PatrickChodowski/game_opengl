@@ -12,19 +12,26 @@ struct EntityData
 ### entities
 Catalog of [Entity Data](entity.md#EntityData)
 ```c++
-std::map<int, EntityData> entities;
+phmap::flat_hash_map<int, EntityData> entities;
 ```
 
 ### EntityQuads
 Quads made out of the [entities](entity.md#entities). Vector of [quads](quads.md#QuadData)
 ```c++
-std::vector<quads2::QuadData> EntityQuads;
+std::vector<quads::QuadData> EntityQuads;
 ```
 
 ### Index
 Index of unique Entity IDs
 ```c++
 std::vector<int> Index;
+```
+
+### menu_entity_type_map
+Assigning different info function based on the entity type
+```c++
+typedef std::vector<std::string> (*sig_ptr)(int entity_id);
+phmap::flat_hash_map<int, sig_ptr> menu_entity_type_map;
 ```
 
 
@@ -58,6 +65,13 @@ void drop(int entity_id);
 Update frame and normalization coordinates of the frame for entity
 ```c++
 void update_frame(int entity_id, int frame_id);
+
+```
+
+### update_position
+Update position of entity
+```c++
+void update_position(int entity_id, float x, float y);
 
 ```
 

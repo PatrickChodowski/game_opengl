@@ -1,6 +1,6 @@
 {
-  "menu_name": "entity_npc_menu",
-  "menu_type_id": 6,
+  "menu_name": "entity",
+  "menu_type_id": 5,
   "x": 0,
   "y": 0,
   "h": 400,
@@ -12,5 +12,6 @@
   "b": 0.5,
   "a": 0.8,
   "object_type_id": 0,
+  "button_data": [{}],
   "label_data": [{}]
 }

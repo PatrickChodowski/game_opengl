@@ -7,6 +7,7 @@
 #include "utils.h"
 
 #include "../dependencies/json_struct.h"
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_NPCS_H
 #define MODULES_NPCS_H
@@ -96,10 +97,10 @@ namespace npcs
   };
 
   // Catalog of all npcs
-  extern std::map<int, NPCData> npcs_data;
+  extern phmap::flat_hash_map<int, NPCData> npcs_data;
 
   // Current npcs
-  extern std::map<int, NPCData> npcs;
+  extern phmap::flat_hash_map<int, NPCData> npcs;
 
   // Table of history of interactions
   extern std::vector<InteractionData> interactions;
@@ -124,6 +125,9 @@ namespace npcs
   
   // Create interaction with the entity. impact interactions table and NPC's sentiment
   void interact(int entity_id, float value);
+
+  // Returns vector of strings with npc information
+  std::vector<std::string> info(int entity_id);
   
 }
 

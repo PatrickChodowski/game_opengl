@@ -74,6 +74,9 @@ namespace hero
   // Refresh data
   void refresh();
 
+  // Returns vector of strings with hero information
+  std::vector<std::string> info(int entity_id);
+
 }
 
 #endif

@@ -23,15 +23,15 @@ namespace entity
 
   phmap::flat_hash_map<int, EntityData> entities;
   std::vector<int> Index = {};
-  phmap::flat_hash_map<int, int> menu_entity_type_map;
+  phmap::flat_hash_map<int, sig_ptr> menu_entity_type_map;
 
 
   void init()
   {
-    entity::menu_entity_type_map[ENTITY_TYPE_HERO] = MENU_ENTITY_HERO_ID;
-    entity::menu_entity_type_map[ENTITY_TYPE_NPC] = MENU_ENTITY_NPC_ID;
-    entity::menu_entity_type_map[ENTITY_TYPE_MOB] = MENU_ENTITY_MOB_ID;
-    entity::menu_entity_type_map[ENTITY_TYPE_ITEM] = MENU_ENTITY_ITEM_ID;
+    entity::menu_entity_type_map[ENTITY_TYPE_HERO] = hero::info;
+    entity::menu_entity_type_map[ENTITY_TYPE_NPC] = npcs::info;
+    entity::menu_entity_type_map[ENTITY_TYPE_MOB] = mobs::info;
+    entity::menu_entity_type_map[ENTITY_TYPE_ITEM] = items::info;
   };
 
   template <typename T>
@@ -58,6 +58,7 @@ namespace entity
     // {
     //   edd.is_solid = true;
     // }
+
     edd.is_clicked = false;
     edd.speed = data.speed;
 
@@ -100,9 +101,10 @@ namespace entity
   std::vector<std::string> info(int entity_id)
   {
     // create a string per row
-    std::vector<std::string> infos = {};
     entity::EntityData edd = entity::entities[entity_id];
-    std::string label_id = "Entity_ID:_" + utils::str(edd.id);
+    std::vector<std::string> infos = entity::menu_entity_type_map[edd.entity_type_id](entity_id);
+
+    std::string label_id = "ID:_" + utils::str(edd.id);
     std::string label_pos = "Pos:_" + utils::str(int(edd.pos.x)) + ',' + utils::str(int(edd.pos.y));
     infos.push_back(label_id);
     infos.push_back(label_pos);
