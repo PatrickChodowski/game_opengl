@@ -204,15 +204,7 @@ namespace models
     std::cout << std::endl;
     for(int b = 0; b < models::models[model_id].buffers.size(); b++)
     {
-      std::cout << "Buffer: " << b 
-      //<< " uri: " << models::models[model_id].buffers[b].data
-      << std::endl;
-
-      // for(int v=0; v < models::models[model_id].buffers[b].data.size(); v++)
-      // {
-      //   std::cout << float(models::models[model_id].buffers[b].data[v]);
-      // }
-      // std::cout << std::endl;
+      std::cout << "Buffer: " << b << std::endl;
     }
   }
 
@@ -268,6 +260,7 @@ namespace models
     MMD.model_id = model_id;
     MMD.mesh_id = mesh_id;
     MMD.node_id = node_id;
+    MMD.mesh_name = models::models[model_id].meshes[mesh_id].name;
 
     // loop through Mesh primitives
     for(int p=0; p < models::models[model_id].meshes[mesh_id].primitives.size(); p++)
@@ -291,10 +284,14 @@ namespace models
       // Indices
       int indices_accessor = models::models[model_id].meshes[mesh_id].primitives[p].indices;
       MMD.indices = models::_extract_via_accessor(model_id, indices_accessor);
-
-      MMD.mesh_name = models::models[model_id].meshes[mesh_id].name;
-
-      // int material_id = models::models[model_id].meshes[mesh_id].primitives[p].material;
+      
+      // Material
+      int material_id = models::models[model_id].meshes[mesh_id].primitives[p].material;
+      MMD.color = {};
+      for(int c=0; c< models::models[model_id].materials[material_id].pbrMetallicRoughness.baseColorFactor.size(); c++)
+      {
+        MMD.color.push_back(models::models[model_id].materials[material_id].pbrMetallicRoughness.baseColorFactor[c]);
+      }
     }
 
     return MMD;
