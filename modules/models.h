@@ -21,6 +21,7 @@ namespace models
     std::vector<float> norms;
     std::vector<float> texcoord;
     std::vector<float> indices;
+    std::vector<float> color;
 
 
 
