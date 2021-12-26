@@ -20,6 +20,7 @@ namespace models
     std::vector<float> position;
     std::vector<float> norms;
     std::vector<float> texcoord;
+    std::vector<float> indices;
 
 
 
@@ -61,12 +62,13 @@ namespace models
 
   void _print_buffers(int model_id);
 
-  std::vector<float> _extract_floats(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
+  std::vector<float> _extract_via_accessor(int model_id, int accessor_id);
 
-  void extract_meshes(int model_id);
+  std::vector<float> _extract_floats(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
 
   models::ModelMeshData convert_mesh_data(int model_id, int mesh_id, int node_id); 
 
+  void extract_meshes(int model_id);
 
 }
 

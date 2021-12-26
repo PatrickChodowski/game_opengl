@@ -237,6 +237,30 @@ namespace models
     return mega_vector;
   }
 
+  std::vector<float> _extract_via_accessor(int model_id, int accessor_id)
+  {
+    // buffer view index
+    int bv_id = models::models[model_id].accessors[accessor_id].bufferView;
+    int count = models::models[model_id].accessors[accessor_id].count;
+
+    int buffer_id = models::models[model_id].bufferViews[bv_id].buffer;
+    int byte_length = models::models[model_id].bufferViews[bv_id].byteLength;
+    int byte_offset = models::models[model_id].bufferViews[bv_id].byteOffset;
+
+    std::vector<unsigned char> subdata = {models::models[model_id].buffers[buffer_id].data.begin() + byte_offset, 
+                                          models::models[model_id].buffers[buffer_id].data.begin() + byte_offset + byte_length}; 
+        
+    // SUBDATA SIZE = COUNT * TYPE() * FLOAT SIZE(stride) 1560 = 130*3*4
+
+    int stride = models::map_sizes[models::models[model_id].accessors[accessor_id].componentType];
+    int element_count = models::map_type_count[models::models[model_id].accessors[accessor_id].type];
+    std::vector<float> mega_vector = models::_extract_floats(count, element_count, stride, subdata);
+    return mega_vector;
+  }
+
+
+
+
   // Trying to convert to mesh data I assume
   models::ModelMeshData convert_mesh_data(int model_id, int mesh_id, int node_id) 
   {   
@@ -251,57 +275,32 @@ namespace models
       // map of attributes <name, accessor_id> - POSITION, NORMAL, TEXCOORD_0 
       for (auto const& [attrb_name, accessor_id] : models::models[model_id].meshes[mesh_id].primitives[p].attributes)
       {
-        // buffer view index
-        int bv_id = models::models[model_id].accessors[accessor_id].bufferView;
-        int comp_type = models::models[model_id].accessors[accessor_id].componentType;
-        int type = models::models[model_id].accessors[accessor_id].type;
-        int count = models::models[model_id].accessors[accessor_id].count;
-
-        int buffer_id = models::models[model_id].bufferViews[bv_id].buffer;
-        int byte_length = models::models[model_id].bufferViews[bv_id].byteLength;
-        int byte_offset = models::models[model_id].bufferViews[bv_id].byteOffset;
-
-        std::vector<unsigned char> subdata = {models::models[model_id].buffers[buffer_id].data.begin() + byte_offset, 
-                                              models::models[model_id].buffers[buffer_id].data.begin() + byte_offset + byte_length}; 
-
-        // std::cout << " comp_type : " << comp_type  << std::endl;
-        // std::cout << " count : " << count  << std::endl;
-        // std::cout << " type : " << type  << std::endl;
-        // std::cout << " subdata size :" << subdata.size() << std::endl;
-        
-        // SUBDATA SIZE = COUNT * TYPE() * FLOAT SIZE(stride) 1560 = 130*3*4
-
-        int stride = models::map_sizes[comp_type];
-        int element_count = models::map_type_count[type];
-        // std::cout << " stride : " << stride  << std::endl;
-        // std::cout << " element_count : " << element_count  << std::endl;
-
-        std::vector<float> mega_vector = models::_extract_floats(count, element_count, stride, subdata);
-
+        std::vector<float> mega_vector = models::_extract_via_accessor(model_id, accessor_id);
         // :( I know its a string comparison but cant find any better solution for this right now
         // It doesnt happen often (just on the data reading part)
-        if(attrb_name == "POSITION")
-        {
+        if(attrb_name == "POSITION"){
           MMD.position = mega_vector;
-          MMD.count_vertices = count;
-        }
-
-        if(attrb_name == "NORMAL")
-        {
+          MMD.count_vertices = models::models[model_id].accessors[accessor_id].count;
+        } else if(attrb_name == "NORMAL"){
           MMD.norms = mega_vector;
-        }
-
-        if(attrb_name == "TEXCOORD_0")
-        {
+        } else if(attrb_name == "TEXCOORD_0"){
           MMD.texcoord = mega_vector;
         }
       }
+
+      // Indices
+      int indices_accessor = models::models[model_id].meshes[mesh_id].primitives[p].indices;
+      MMD.indices = models::_extract_via_accessor(model_id, indices_accessor);
+
+      MMD.mesh_name = models::models[model_id].meshes[mesh_id].name;
+
       // int material_id = models::models[model_id].meshes[mesh_id].primitives[p].material;
-      // int indices_acc = models::models[model_id].meshes[mesh_id].primitives[p].indices;
     }
 
     return MMD;
   } 
+
+
 
 
 
