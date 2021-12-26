@@ -10,9 +10,9 @@
 
  - read-in gITF file format
 
-
-
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
+
+### analyse cpp 20 and maybe replace include with imports
 
 ### personality traits of the leaders -> random
 - random personality traits
