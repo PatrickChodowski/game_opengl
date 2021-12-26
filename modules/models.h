@@ -9,8 +9,32 @@
 
 namespace models 
 {
+  // Keeps all the converted meshes data for given models
+  struct ModelMeshData
+  {
+    int model_id;
+    int mesh_id;
+    int node_id;
+    int count_vertices;
+
+    std::vector<float> position;
+    std::vector<float> norms;
+    std::vector<float> texcoord;
+
+
+
+    std::string mesh_name;
+
+
+  };
+
+
+
+
   extern std::vector<int> Index;
   extern phmap::flat_hash_map<int, tinygltf::Model> models;
+  extern phmap::flat_hash_map<int, int> map_sizes;
+  extern phmap::flat_hash_map<int, int> map_type_count;
 
   // Read all model files
   void init();
@@ -37,7 +61,11 @@ namespace models
 
   void _print_buffers(int model_id);
 
-  void get_vertex_data(int model_id);
+  std::vector<float> _extract_floats(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
+
+  void extract_meshes(int model_id);
+
+  models::ModelMeshData convert_mesh_data(int model_id, int mesh_id, int node_id); 
 
 
 }
