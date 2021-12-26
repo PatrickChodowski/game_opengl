@@ -1,8 +1,10 @@
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 
 #include "models.h"
+#include "quads.h"
 #include "utils.h"
 
 
@@ -13,6 +15,7 @@
 // #define TINYGLTF_NOEXCEPTION // optional. disable exception handling.
 #include "../dependencies/tiny_gltf.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
+
 
 // https://github.com/KhronosGroup/glTF-Tutorials/tree/master/gltfTutorial
 
@@ -66,6 +69,10 @@ namespace models
       models::_print_scenes(model_id);
       models::_print_nodes(model_id);
       models::_print_meshes(model_id);
+      models::_print_buffer_views(model_id);
+      models::_print_accessors(model_id);
+      models::_print_buffers(model_id);
+      models::get_vertex_data(model_id);
     }
   }
 
@@ -86,17 +93,10 @@ namespace models
 
   }
 
-  // Retrieve info from model
-  // scenes 
-  // nodes
-  // meshes
-  // Attributes of the mesh
-  // Accessors
-  // BufferViews
-  // Buffers
 
   void _print_scenes(int model_id)
   {
+    std::cout << std::endl;
     for(int s = 0; s < models::models[model_id].scenes.size(); s++)
     {
       std::cout << "Scene " << s <<  " name: " << models::models[model_id].scenes[s].name << std::endl;
@@ -110,6 +110,7 @@ namespace models
 
   void _print_nodes(int model_id)
   {
+    std::cout << std::endl;
     for(int n = 0; n < models::models[model_id].nodes.size(); n++)
     {
       std::cout << "Node " << n 
@@ -125,6 +126,7 @@ namespace models
 
   void _print_meshes(int model_id)
   {
+    std::cout << std::endl;
     for(int m = 0; m < models::models[model_id].meshes.size(); m++)
     {
       std::cout << "Mesh " << m
@@ -149,12 +151,185 @@ namespace models
 //https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/gltfTutorial_005_BuffersBufferViewsAccessors.md
   void _print_accessors(int model_id)
   {
+    // Types:
+    // Scalar (single value)
+    // VEC3, VEC2 etc.
+    // MAT4 etc.
 
+    // componentType:
+    // 5126: Float
+    // 5123: unsigned short
+
+    // bufferView index
+    // byteOffset
+    // componenttype
+    // count - how many data elements it consists of
+    // max, min (observed)
+    // type: VEC3: 3, VEC2: 2, SCALAR: 65
+    std::cout << std::endl;
+    for(int a = 0; a < models::models[model_id].accessors.size(); a++)
+    {
+      std::cout << "Accessor: " << a 
+      << " bufferView: " << models::models[model_id].accessors[a].bufferView
+      << " byteOffset: " << models::models[model_id].accessors[a].byteOffset
+      << " componentType: " << models::models[model_id].accessors[a].componentType
+      << " count: " << models::models[model_id].accessors[a].count
+      << " type: " << models::models[model_id].accessors[a].type
+      << std::endl;
+    }
+  }
+
+  // If mesh has Indices, Normal, Position, Texcoord, then they should have 4 accessors
+  // 2 meshes: 8 accessors
+
+
+  void _print_buffer_views(int model_id)
+  {
+
+    // Targets:
+    // 34962 : ARRAY_BUFFER
+    // 34963 : ELEMENT_ARRAY_BUFFER
+    std::cout << std::endl;
+    for(int b = 0; b < models::models[model_id].bufferViews.size(); b++)
+    {
+      std::cout << "Buffer View: " << b
+      << " buffer: " << models::models[model_id].bufferViews[b].buffer
+      << " byteLength: " << models::models[model_id].bufferViews[b].byteLength
+      << " byteOffset: " << models::models[model_id].bufferViews[b].byteOffset
+      << " target: "  << models::models[model_id].bufferViews[b].target
+      << std::endl;
+    }
   }
 
 
+  void _print_buffers(int model_id)
+  {
+    std::cout << std::endl;
+    for(int b = 0; b < models::models[model_id].buffers.size(); b++)
+    {
+      std::cout << "Buffer: " << b 
+      //<< " uri: " << models::models[model_id].buffers[b].data
+      << std::endl;
+
+      // for(int v=0; v < models::models[model_id].buffers[b].data.size(); v++)
+      // {
+      //   std::cout << float(models::models[model_id].buffers[b].data[v]);
+      // }
+      // std::cout << std::endl;
+    }
+  }
+
+  // Trying to convert to quad I assume
+  void get_vertex_data(int model_id) 
+  {   
+    
+    std::map<int, int> map_sizes;
+    map_sizes[5126] = 4; // float
+    map_sizes[5123] = 2; // unsigned short
+    map_sizes[5120] = 1; // byte
+    map_sizes[5121] = 1; // unsigned byte
+    map_sizes[5124] = 4; // int
+    map_sizes[5125] = 4; // unsigned int
+    map_sizes[5130] = 8; // double
+
+    //quads::QuadData q;
+    std::vector<float> v = {};
+
+    // scene -> nodes -> meshes -> accessors
+    std::cout << "Converting model id: " << model_id << std::endl;
+
+    // scene loop (I assume it will always be one scene)
+    for(int s=0; s < models::models[model_id].scenes.size(); s++)
+    {
+      std::cout << " Scene: " << models::models[model_id].scenes[s].name << std::endl;
+
+      // node loop
+      for(int n=0; n < models::models[model_id].scenes[s].nodes.size(); n++)
+      {
+        int node_id = models::models[model_id].scenes[s].nodes[n];
+        std::cout << "  Node id: " << node_id << std::endl;
+
+        int mesh_id = models::models[model_id].nodes[node_id].mesh;
+        std::cout << "   Mesh id: " << mesh_id << " name: " <<  models::models[model_id].nodes[node_id].name << std::endl;
+        // mesh, name, rotation, translation, scale, children
+
+        // loop through Mesh primitives
+        for(int p=0; p < models::models[model_id].meshes[mesh_id].primitives.size(); p++)
+        {
+          // map of attributes <name, accessor_id> - POSITION, NORMAL, TEXCOORD_0 
+          for (auto const& [attrb_name, accessor_id] : models::models[model_id].meshes[mesh_id].primitives[p].attributes)
+          {
+            std::cout << "    " << attrb_name << ": " << std::endl;
+            // buffer view index
+            int bv_id = models::models[model_id].accessors[accessor_id].bufferView;
+            int comp_type = models::models[model_id].accessors[accessor_id].componentType;
+            int type = models::models[model_id].accessors[accessor_id].type;
+            int count = models::models[model_id].accessors[accessor_id].count;
+
+            int buffer_id = models::models[model_id].bufferViews[bv_id].buffer;
+            int byte_length = models::models[model_id].bufferViews[bv_id].byteLength;
+            int byte_offset = models::models[model_id].bufferViews[bv_id].byteOffset;
+
+            std::vector<unsigned char> subdata = {models::models[model_id].buffers[buffer_id].data.begin() + byte_offset, 
+                                                  models::models[model_id].buffers[buffer_id].data.begin() + byte_offset + byte_length}; 
+
+            std::cout << " comp_type : " << comp_type  << std::endl;
+            std::cout << " count : " << count  << std::endl;
+            std::cout << " type : " << type  << std::endl;
+            std::cout << " subdata size :" << subdata.size() << std::endl;
+            
+            // 1560 = 130*3*4
+            // SUBVECTOR SIZE = COUNT * TYPE() * FLOAT SIZE(stride)
+            // TYPES: 65 SCALAR, 3 VEC3, 2 VEC2
 
 
+            int stride = map_sizes[comp_type];
+            int offset = 0;
+            std::vector<std::vector<float>> megav;
+            megav.reserve(count);
+
+            if(type==3)
+            { 
+              std::vector<float> v;
+              v.reserve(3);
+              for(int i=0; i < count; i++)
+              { 
+
+                v.clear();
+                for(int j=0; j < 3; j++)
+                {
+                  unsigned char byte_arr[stride];
+                  for(int b=0; b < stride; b++)
+                  {
+                    byte_arr[b] = subdata[offset];
+                    offset++;
+                  }
+                  float value = (*(float*)byte_arr);
+                  v.push_back(value);
+                }
+                megav.push_back(v);
+              }
+            }
+
+            std::cout << "megav size: " << megav.size() << std::endl;
+            for(int m=0; m<megav.size(); m++)
+            {
+              std::cout << "[" << m << "]: " << megav[m][0] << ";" << megav[m][1] << ";" << megav[m][2] << ";" << std::endl;
+            }
+
+            
+          }
+
+
+
+
+          // int material_id = models::models[model_id].meshes[mesh_id].primitives[p].material;
+          // int indices_acc = models::models[model_id].meshes[mesh_id].primitives[p].indices;
+
+        }
+      } // end node loop
+    } // end scene loop
+  } // end func
 
 }
 

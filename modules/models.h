@@ -33,6 +33,12 @@ namespace models
 
   void _print_accessors(int model_id);
 
+  void _print_buffer_views(int model_id);
+
+  void _print_buffers(int model_id);
+
+  void get_vertex_data(int model_id);
+
 
 }
 
