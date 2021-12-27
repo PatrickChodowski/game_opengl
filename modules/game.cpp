@@ -194,6 +194,7 @@ namespace game
     entity::render();
     debug::render();
     menu::render();
+    models::render();
     buttons::render();
     fonts::render();
     nav::render();
@@ -242,6 +243,12 @@ namespace game
     glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
 
     debug::clear();
+
+    // draw models here
+    buffer::update_models(models::MeshVertices);
+    glDrawElements(GL_TRIANGLES, models::MeshVertices.size()*6, GL_UNSIGNED_INT, nullptr);
+
+
   }
 
   void drop()

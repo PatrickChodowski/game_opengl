@@ -173,6 +173,40 @@ namespace buffer
     }
   }
 
+  void _make_vertex_array_from_3d_meshes(std::vector<models::ModelMeshVertexData> &mesh_vertices, float* arr)
+  {
+    int cva = buffer::COUNT_VERTEX_ATTRIBUTES; 
+    for(int i=0; i<mesh_vertices.size(); i++)
+    {
+      int start_position = i*cva;
+      arr[(start_position)] = mesh_vertices[i].x;
+      arr[(start_position+1)] = mesh_vertices[i].y;
+      arr[(start_position+2)] = mesh_vertices[i].z;
+      arr[(start_position+3)] = mesh_vertices[i].r;
+      arr[(start_position+4)] = mesh_vertices[i].g;
+      arr[(start_position+5)] = mesh_vertices[i].b;
+      arr[(start_position+6)] = mesh_vertices[i].a;
+      arr[(start_position+7)] = mesh_vertices[i].frame_id;
+      arr[(start_position+8)] = mesh_vertices[i].tx_x;
+      arr[(start_position+9)] = mesh_vertices[i].tx_y;
+      arr[(start_position+10)] = mesh_vertices[i].texture_id;
+      arr[(start_position+11)] = mesh_vertices[i].is_clicked;
+      arr[(start_position+12)] = mesh_vertices[i].object_type;
+      arr[(start_position+13)] = mesh_vertices[i].camera_type;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   void _make_vertex_array_from_lines(std::vector<debug::LineData>& lines, float* arr)
   {
     int cva = buffer::COUNT_VERTEX_ATTRIBUTES; 
@@ -242,6 +276,30 @@ namespace buffer
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertex_array);
   }
+
+  void update_models(std::vector<models::ModelMeshVertexData>& mesh_vertices)
+  {
+    int n_vertex_array = buffer::COUNT_VERTEX_ATTRIBUTES*mesh_vertices.size();
+    float vertex_array[n_vertex_array];
+    int n_index_array = mesh_vertices.size();
+    unsigned int index_array[n_index_array];
+
+    buffer::VBO_array_size = sizeof(float)*n_vertex_array;
+    buffer::EBO_array_size = sizeof(float)*n_index_array;
+
+    buffer::_make_vertex_array_from_3d_meshes(mesh_vertices, vertex_array);
+    buffer::_make_index_array_from_3d_meshes(mesh_vertices, index_array);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertex_array);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer::EBO_array_size, index_array);
+  }
+
+
+
+
 
   void drop()
   {

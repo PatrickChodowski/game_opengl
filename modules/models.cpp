@@ -21,12 +21,12 @@
 
 namespace models 
 {
-
   std::vector<int> Index;
   phmap::flat_hash_map<int, tinygltf::Model> models;
   phmap::flat_hash_map<int, int> map_sizes;
   phmap::flat_hash_map<int, int> map_type_count;
   std::vector<models::ModelMeshData> meshes;
+  std::vector<models::ModelMeshVertexData> MeshVertices;
 
   void init()
   {
@@ -316,6 +316,41 @@ namespace models
       }
     }
   }
+
+
+  void make_mesh_vertex(models::ModelMeshData& MMD)
+  {
+    for(int i=0; i<MMD.count_vertices; i++)
+    {
+      models::ModelMeshVertexData MMVD;
+      MMVD.model_id = MMD.model_id;
+      MMVD.mesh_id = MMD.mesh_id;
+      MMVD.model_vertex_id = i;
+
+      MMVD.x = MMD.position[3*i];
+      MMVD.y = MMD.position[(3*i)+1];
+      MMVD.z = MMD.position[(3*i)+2];
+
+      MMVD.r = MMD.color[4*i];
+      MMVD.g = MMD.color[(4*i)+1];
+      MMVD.b = MMD.color[(4*i)+2];
+      MMVD.a = MMD.color[(4*i)+3];
+
+      MMVD.tx_x = MMD.texcoord[2*i];
+      MMVD.tx_y = MMD.texcoord[(2*i)+1];
+      models::MeshVertices.push_back(MMVD);
+    }
+  }
+
+  void render()
+  {
+    models::MeshVertices.clear();
+    for(int m=0; m<models::meshes.size(); m++)
+    {
+      models::make_mesh_vertex(models::meshes[m]);
+    }
+  }
+
 
 }
 

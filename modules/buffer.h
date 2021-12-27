@@ -1,5 +1,6 @@
 
 #include "debug.h"
+#include "models.h"
 #include "quads.h"
 
 #include <vector>
@@ -31,11 +32,19 @@ namespace buffer
   // Method propagating vertex array from lines inside buffer::update
   void _make_vertex_array_from_lines(std::vector<debug::LineData>& lines, float* arr);
 
+  // Method propagating vertex array from meshes data inside buffer::update
+  void _make_vertex_array_from_3d_meshes(std::vector<models::ModelMeshVertexData>& mesh_vertices, float* arr);
+
+  // Method propagating index array from meshes data inside buffer::update
+  void _make_index_array_from_3d_meshes(std::vector<models::ModelMeshData> &meshes, float* arr);
+
   // Gets main quads vector, transforms it and uses it to update the main gpu buffer
   void update_quads(std::vector<quads::QuadData>& quads);
 
   // Gets main lines vector, transforms it and uses it to update the main gpu buffer
   void update_lines(std::vector<debug::LineData>& lines);
+
+  void update_models(std::vector<models::ModelMeshVertexData>& mesh_vertices);
 
   // Drop buffers
   void drop();
