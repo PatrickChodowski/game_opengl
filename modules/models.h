@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 
+#include "../dictionary.h"
 #include "../dependencies/tiny_gltf.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
@@ -23,10 +24,26 @@ namespace models
     std::vector<float> indices;
     std::vector<float> color;
 
-
-
     std::string mesh_name;
+  };
 
+
+  struct ModelMeshVertexData
+  {
+    int model_vertex_id;
+    int model_id;
+    int mesh_id;
+
+    float x,y,z;
+    float r,g,b,a;
+    float tx_x, tx_y;
+
+    // what to do
+    float frame_id = 0;
+    float texture_id = 0;
+    float is_clicked = 0;
+    float object_type = OBJECT_TYPE_MODEL;
+    float camera_type = CAMERA_DYNAMIC;
 
   };
 
@@ -37,6 +54,7 @@ namespace models
   extern phmap::flat_hash_map<int, tinygltf::Model> models;
   extern phmap::flat_hash_map<int, int> map_sizes;
   extern phmap::flat_hash_map<int, int> map_type_count;
+  extern std::vector<models::ModelMeshVertexData> MeshVertices;
 
   // Read all model files
   void init();
@@ -70,6 +88,11 @@ namespace models
   models::ModelMeshData convert_mesh_data(int model_id, int mesh_id, int node_id); 
 
   void extract_meshes(int model_id);
+
+  void make_mesh_vertex(models::ModelMeshData& MMD);
+
+  void render();
+
 
 }
 
