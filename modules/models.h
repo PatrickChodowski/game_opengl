@@ -24,9 +24,14 @@ namespace models
     std::vector<float> color;
 
     std::vector<unsigned short> indices;
-
     std::string mesh_name;
   };
+
+  // to update position and size of the visible object
+  struct GameModelMeshData
+  {
+
+  }
 
 
   struct ModelMeshVertexData
