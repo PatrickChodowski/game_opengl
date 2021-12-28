@@ -208,6 +208,26 @@ namespace models
     }
   }
 
+  float _convert_bytes_to_float(unsigned char* byte_arr, int size, bool to_print)
+  {
+    float value = (*(float*)byte_arr);
+    if(to_print)
+    {
+      std::printf("Bytes: 0x%02X 0x%02X 0x%02X 0x%02X Value: %f \n", byte_arr[0] , byte_arr[1] , byte_arr[2] , byte_arr[3], value);
+    }
+    return value;
+  }
+
+  void _convert_float_to_bytes(float value)
+  {
+    unsigned char const * p = reinterpret_cast<unsigned char const *>(&value);
+    for (std::size_t i = 0; i != sizeof(float); ++i)
+    {
+        std::printf("The byte #%zu is 0x%02X\n", i, p[i]);
+    }
+  }
+
+
   std::vector<float> _extract_floats(int count, int element_count, int stride, std::vector<unsigned char>& subdata)
   {
     int offset = 0;
@@ -223,7 +243,7 @@ namespace models
         byte_arr[b] = subdata[offset];
         offset++;
       }
-      float value = (*(float*)byte_arr);
+      float value = models::_convert_bytes_to_float(byte_arr, stride);
       mega_vector.push_back(value);
     }
     return mega_vector;
@@ -349,6 +369,9 @@ namespace models
     {
       models::make_mesh_vertex(models::meshes[m]);
     }
+
+    //std::cout << "mesh vertices size: " << models::MeshVertices.size() << std::endl;
+
   }
 
 

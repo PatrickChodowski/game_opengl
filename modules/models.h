@@ -47,13 +47,11 @@ namespace models
 
   };
 
-
-
-
   extern std::vector<int> Index;
   extern phmap::flat_hash_map<int, tinygltf::Model> models;
   extern phmap::flat_hash_map<int, int> map_sizes;
   extern phmap::flat_hash_map<int, int> map_type_count;
+  extern std::vector<models::ModelMeshData> meshes;
   extern std::vector<models::ModelMeshVertexData> MeshVertices;
 
   // Read all model files
@@ -80,6 +78,10 @@ namespace models
   void _print_buffer_views(int model_id);
 
   void _print_buffers(int model_id);
+
+  float _convert_bytes_to_float(unsigned char* byte_arr, int size, bool to_print = false);
+
+  void _convert_float_to_bytes(float value);
 
   std::vector<float> _extract_via_accessor(int model_id, int accessor_id);
 
