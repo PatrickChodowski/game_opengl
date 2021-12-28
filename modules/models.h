@@ -21,8 +21,9 @@ namespace models
     std::vector<float> position;
     std::vector<float> norms;
     std::vector<float> texcoord;
-    std::vector<float> indices;
     std::vector<float> color;
+
+    std::vector<unsigned short> indices;
 
     std::string mesh_name;
   };
@@ -66,26 +67,17 @@ namespace models
   // Drops model by its id
   void drop(int model_id);
 
-
-  void _print_scenes(int model_id);
- 
-  void _print_nodes(int model_id);
-
-  void _print_meshes(int model_id);
-
-  void _print_accessors(int model_id);
-
-  void _print_buffer_views(int model_id);
-
-  void _print_buffers(int model_id);
-
   float _convert_bytes_to_float(unsigned char* byte_arr, int size, bool to_print = false);
+
+  unsigned short _convert_bytes_to_short(unsigned char* byte_arr, int size, bool to_print = false);
 
   void _convert_float_to_bytes(float value);
 
   std::vector<float> _extract_via_accessor(int model_id, int accessor_id);
 
   std::vector<float> _extract_floats(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
+
+  std::vector<unsigned short> _extract_shorts(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
 
   models::ModelMeshData convert_mesh_data(int model_id, int mesh_id, int node_id); 
 
@@ -95,6 +87,9 @@ namespace models
 
   void render();
 
+  void log();
+
+  std::vector<unsigned char> _get_subdata(int model_id, int accessor_id);
 
 }
 

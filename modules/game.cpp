@@ -203,10 +203,10 @@ namespace game
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
     textures::bind();
-    buffer::update_quads(quads::AllQuads);
+    //buffer::update_quads(quads::AllQuads);
 
-    //glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
@@ -237,17 +237,17 @@ namespace game
     // set shader
     glUseProgram(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id);
     // draw scene
-    glDrawElements(GL_TRIANGLES, quads::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
+    // glDrawElements(GL_TRIANGLES, quads::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
 
-    // draw debug lines here
-    buffer::update_lines(debug::lines);
-    glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
+    // // draw debug lines here
+    // buffer::update_lines(debug::lines);
+    // glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
 
-    debug::clear();
+    // debug::clear();
 
     // draw models here
     buffer::update_models(models::MeshVertices, models::meshes);
-    glDrawElements(GL_TRIANGLES, models::MeshVertices.size()*6, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, models::MeshVertices.size(), GL_UNSIGNED_INT, nullptr);
 
 
   }

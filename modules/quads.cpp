@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "../dependencies/parallel_hashmap/phmap.h"
+
 
 #include "buttons.h"
 #include "debug.h"
@@ -16,7 +16,7 @@
 #include "quads.h"
 #include "textures.h"
 
-
+#include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dictionary.h"
 
 namespace quads
