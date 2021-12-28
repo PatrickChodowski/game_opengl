@@ -139,9 +139,9 @@ namespace logger
     if(game::LOG_TO_FILES)
     {
       models::log();
-      quads::log();
-      textures::log();
-      debug::log();
+      // quads::log();
+      // textures::log();
+      // debug::log();
     }
   };
 

@@ -298,10 +298,10 @@ namespace models
       MMVD.y = MMD.position[(3*i)+1];
       MMVD.z = MMD.position[(3*i)+2];
 
-      MMVD.r = MMD.color[4*i];
-      MMVD.g = MMD.color[(4*i)+1];
-      MMVD.b = MMD.color[(4*i)+2];
-      MMVD.a = MMD.color[(4*i)+3];
+      MMVD.r = MMD.color[0];
+      MMVD.g = MMD.color[1];
+      MMVD.b = MMD.color[2];
+      MMVD.a = MMD.color[3];
 
       MMVD.tx_x = MMD.texcoord[2*i];
       MMVD.tx_y = MMD.texcoord[(2*i)+1];
@@ -344,7 +344,29 @@ namespace models
                     " \"count_vertices\": " << models::meshes[i].count_vertices << ",\n"
                     " \"mesh_name\": \"" << models::meshes[i].mesh_name << "\",\n";
 
-        log_file <<        " \"indices\": [";
+        // Position
+        log_file << " \"position\": [";
+        for(int n = 0; n < models::meshes[i].position.size(); n++)
+        {
+          log_file << models::meshes[i].position[n] << ",";
+        } 
+        log_file << "],\n";
+
+        // Color
+        log_file << " \"color\": [";
+        for(int n = 0; n < models::meshes[i].color.size(); n++)
+        {
+          log_file << models::meshes[i].color[n] << ",";
+        } 
+        log_file << "],\n";
+
+
+
+
+
+
+        // indices
+        log_file << " \"indices\": [";
         for(int n = 0; n < models::meshes[i].indices.size(); n++)
         {
           log_file << models::meshes[i].indices[n] << ",";
@@ -355,5 +377,16 @@ namespace models
       log_file << "] \n";
       log_file.close();
     }
+
+    models::log_vertices();
   }
+
+
+  void log_vertices()
+  {
+
+
+
+  }
+
 }
