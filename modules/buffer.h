@@ -36,7 +36,7 @@ namespace buffer
   void _make_vertex_array_from_3d_meshes(std::vector<models::ModelMeshVertexData>& mesh_vertices, float* arr);
 
   // Method propagating index array from meshes data inside buffer::update
-  void _make_index_array_from_3d_meshes(std::vector<models::ModelMeshData> &meshes, float* arr);
+  void _make_index_array_from_3d_meshes(std::vector<models::ModelMeshData> &meshes, unsigned int* arr);
 
   // Gets main quads vector, transforms it and uses it to update the main gpu buffer
   void update_quads(std::vector<quads::QuadData>& quads);
@@ -44,13 +44,14 @@ namespace buffer
   // Gets main lines vector, transforms it and uses it to update the main gpu buffer
   void update_lines(std::vector<debug::LineData>& lines);
 
-  void update_models(std::vector<models::ModelMeshVertexData>& mesh_vertices);
+  void update_models(std::vector<models::ModelMeshVertexData>&mesh_vertices, std::vector<models::ModelMeshData> &meshes);
 
   // Drop buffers
   void drop();
 
   // Log buffer
-  void log(float* arr, int arr_size);
+  template <typename T>
+  void log(T* arr, int arr_size, int row_len, const char* arr_name);
 
 }
 

@@ -205,7 +205,8 @@ namespace game
     textures::bind();
     buffer::update_quads(quads::AllQuads);
 
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    //glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // sampler array creation
@@ -245,7 +246,7 @@ namespace game
     debug::clear();
 
     // draw models here
-    buffer::update_models(models::MeshVertices);
+    buffer::update_models(models::MeshVertices, models::meshes);
     glDrawElements(GL_TRIANGLES, models::MeshVertices.size()*6, GL_UNSIGNED_INT, nullptr);
 
 

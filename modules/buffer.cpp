@@ -197,15 +197,18 @@ namespace buffer
   }
 
 
-
-
-
-
-
-
-
-
-
+  void _make_index_array_from_3d_meshes(std::vector<models::ModelMeshData> &meshes, unsigned int* arr)
+  {
+    int offset = 0;
+    for(int m=0; m<meshes.size(); m++)
+    {
+      for(int i=0; i < meshes[m].indices.size(); i++)
+      {
+        arr[offset] = meshes[m].indices[i];
+        offset++;
+      }
+    }
+  }
 
   void _make_vertex_array_from_lines(std::vector<debug::LineData>& lines, float* arr)
   {
@@ -277,18 +280,22 @@ namespace buffer
     glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertex_array);
   }
 
-  void update_models(std::vector<models::ModelMeshVertexData>& mesh_vertices)
+  void update_models(std::vector<models::ModelMeshVertexData>& mesh_vertices, std::vector<models::ModelMeshData>& meshes)
   {
     int n_vertex_array = buffer::COUNT_VERTEX_ATTRIBUTES*mesh_vertices.size();
     float vertex_array[n_vertex_array];
+
     int n_index_array = mesh_vertices.size();
     unsigned int index_array[n_index_array];
 
     buffer::VBO_array_size = sizeof(float)*n_vertex_array;
     buffer::EBO_array_size = sizeof(float)*n_index_array;
 
-    buffer::_make_vertex_array_from_3d_meshes(mesh_vertices, vertex_array);
-    buffer::_make_index_array_from_3d_meshes(mesh_vertices, index_array);
+    //buffer::_make_vertex_array_from_3d_meshes(mesh_vertices, vertex_array);
+    buffer::_make_index_array_from_3d_meshes(meshes, index_array);
+
+    buffer::log(vertex_array, n_vertex_array, buffer::COUNT_VERTEX_ATTRIBUTES, "model_vertex_array");
+    buffer::log(index_array, n_index_array, 3, "model_index_array");
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertex_array);
@@ -309,23 +316,30 @@ namespace buffer
   }
 
 
-
-  void log(float* arr, int arr_size)
+  template <typename T>
+  //void log(float* arr, int arr_size, int row_len, const char* arr_name);
+  void log(T* arr, int arr_size, int row_len, const char* arr_name)
   {
-    const char* log_path = "logs/quads_vertex_array.txt";
-    std::ofstream quads_file (log_path);
-    if (quads_file.is_open())
+    std::string log_path_str = "logs/";
+    log_path_str += arr_name;
+    log_path_str += ".txt";
+    const char *log_path = log_path_str.c_str();
+
+    std::ofstream data_file (log_path);
+    if (data_file.is_open())
     {
       for(int i = 0; i < arr_size; i++)
       {
 
-        if(i % buffer::COUNT_VERTEX_ATTRIBUTES == 0 && i !=0 )
+        //if(i % buffer::COUNT_VERTEX_ATTRIBUTES == 0 && i !=0 )
+        if(i % row_len == 0 && i != 0)
         {
-          quads_file << " \n";
+          data_file << " \n";
         }
-        quads_file << arr[i] << " ";
+        data_file << arr[i] << " ";
+        //std::cout << arr[i] << " ";
       }
-      quads_file.close();
+      data_file.close();
     }
   }
 
