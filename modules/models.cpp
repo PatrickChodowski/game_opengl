@@ -112,108 +112,22 @@ namespace models
 
   }
 
-
-  void _print_scenes(int model_id)
-  {
-    std::cout << std::endl;
-    for(int s = 0; s < models::models[model_id].scenes.size(); s++)
-    {
-      std::cout << "Scene " << s <<  " name: " << models::models[model_id].scenes[s].name << std::endl;
-
-      for(int n=0; n < models::models[model_id].scenes[s].nodes.size(); n++)
-      {
-        std::cout << "  Node: " << models::models[model_id].scenes[s].nodes[n] << std::endl;
-      }
-    }
-  }
-
-  void _print_nodes(int model_id)
-  {
-    std::cout << std::endl;
-    for(int n = 0; n < models::models[model_id].nodes.size(); n++)
-    {
-      std::cout << "Node " << n 
-      << " mesh: " << models::models[model_id].nodes[n].mesh 
-      << " name: " << models::models[model_id].nodes[n].name
-      << " translation size: " << models::models[model_id].nodes[n].translation.size() 
-      << " scale size: " << models::models[model_id].nodes[n].scale.size() 
-      << " rotation size:" << models::models[model_id].nodes[n].rotation.size()
-      << " children size:" << models::models[model_id].nodes[n].children.size() << std::endl;
-    }
-
-  }
-
-  void _print_meshes(int model_id)
-  {
-    std::cout << std::endl;
-    for(int m = 0; m < models::models[model_id].meshes.size(); m++)
-    {
-      std::cout << "Mesh " << m
-      << " name: " << models::models[model_id].meshes[m].name << std::endl;
-
-      for(int p = 0; p < models::models[model_id].meshes[m].primitives.size(); p++)
-      {
-        std::cout << "  Primitive " << p 
-        << " indices: " << models::models[model_id].meshes[m].primitives[p].indices 
-        << " material: " << models::models[model_id].meshes[m].primitives[p].material
-        << " attributes: "
-        << std::endl;
-
-        for (auto const& [k, v] : models::models[model_id].meshes[m].primitives[p].attributes)
-        {
-          std::cout << "  -  " << k << ": " << v << std::endl;
-        }
-      }
-    }
-  }
-
-//https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/gltfTutorial_005_BuffersBufferViewsAccessors.md
-  void _print_accessors(int model_id)
-  {
-    std::cout << std::endl;
-    for(int a = 0; a < models::models[model_id].accessors.size(); a++)
-    {
-      std::cout << "Accessor: " << a 
-      << " bufferView: " << models::models[model_id].accessors[a].bufferView
-      << " byteOffset: " << models::models[model_id].accessors[a].byteOffset
-      << " componentType: " << models::models[model_id].accessors[a].componentType
-      << " count: " << models::models[model_id].accessors[a].count
-      << " type: " << models::models[model_id].accessors[a].type
-      << std::endl;
-    }
-  }
-
-
-  void _print_buffer_views(int model_id)
-  {
-    std::cout << std::endl;
-    for(int b = 0; b < models::models[model_id].bufferViews.size(); b++)
-    {
-      std::cout << "Buffer View: " << b
-      << " buffer: " << models::models[model_id].bufferViews[b].buffer
-      << " byteLength: " << models::models[model_id].bufferViews[b].byteLength
-      << " byteOffset: " << models::models[model_id].bufferViews[b].byteOffset
-      << " target: "  << models::models[model_id].bufferViews[b].target
-      << std::endl;
-    }
-  }
-
-
-  void _print_buffers(int model_id)
-  {
-    std::cout << std::endl;
-    for(int b = 0; b < models::models[model_id].buffers.size(); b++)
-    {
-      std::cout << "Buffer: " << b << std::endl;
-    }
-  }
-
   float _convert_bytes_to_float(unsigned char* byte_arr, int size, bool to_print)
   {
     float value = (*(float*)byte_arr);
     if(to_print)
     {
       std::printf("Bytes: 0x%02X 0x%02X 0x%02X 0x%02X Value: %f \n", byte_arr[0] , byte_arr[1] , byte_arr[2] , byte_arr[3], value);
+    }
+    return value;
+  }
+
+  unsigned short _convert_bytes_to_short(unsigned char* byte_arr, int size, bool to_print)
+  {
+    unsigned short value = (*(unsigned short*)byte_arr);
+    if(to_print)
+    {
+      std::printf("Bytes: 0x%02X 0x%02X 0x%02X 0x%02X Value: %d \n", byte_arr[0] , byte_arr[1] , byte_arr[2] , byte_arr[3], value);
     }
     return value;
   }
@@ -249,7 +163,29 @@ namespace models
     return mega_vector;
   }
 
-  std::vector<float> _extract_via_accessor(int model_id, int accessor_id)
+
+  std::vector<unsigned short> _extract_shorts(int count, int element_count, int stride, std::vector<unsigned char>& subdata)
+  {
+    int offset = 0;
+    std::vector<unsigned short> mega_vector;
+    int v_size = count*element_count;
+    mega_vector.reserve(v_size);
+
+    for(int i=0; i < v_size; i++)
+    { 
+      unsigned char byte_arr[stride];
+      for(int b=0; b < stride; b++)
+      {
+        byte_arr[b] = subdata[offset];
+        offset++;
+      }
+      unsigned short value = models::_convert_bytes_to_short(byte_arr, stride);
+      mega_vector.push_back(value);
+    }
+    return mega_vector;
+  }
+
+  std::vector<unsigned char> _get_subdata(int model_id, int accessor_id)
   {
     // buffer view index
     int bv_id = models::models[model_id].accessors[accessor_id].bufferView;
@@ -261,9 +197,16 @@ namespace models
 
     std::vector<unsigned char> subdata = {models::models[model_id].buffers[buffer_id].data.begin() + byte_offset, 
                                           models::models[model_id].buffers[buffer_id].data.begin() + byte_offset + byte_length}; 
-        
-    // SUBDATA SIZE = COUNT * TYPE() * FLOAT SIZE(stride) 1560 = 130*3*4
 
+    return subdata;
+  }
+
+
+  std::vector<float> _extract_via_accessor(int model_id, int accessor_id)
+  {
+    std::vector<unsigned char> subdata = _get_subdata(model_id, accessor_id);
+    // SUBDATA SIZE = COUNT * TYPE() * FLOAT SIZE(stride) 1560 = 130*3*4
+    int count = models::models[model_id].accessors[accessor_id].count;
     int stride = models::map_sizes[models::models[model_id].accessors[accessor_id].componentType];
     int element_count = models::map_type_count[models::models[model_id].accessors[accessor_id].type];
     std::vector<float> mega_vector = models::_extract_floats(count, element_count, stride, subdata);
@@ -303,8 +246,12 @@ namespace models
 
       // Indices
       int indices_accessor = models::models[model_id].meshes[mesh_id].primitives[p].indices;
-      MMD.indices = models::_extract_via_accessor(model_id, indices_accessor);
-      
+      int indices_count = models::models[model_id].accessors[indices_accessor].count;
+      std::vector<unsigned char> indices_subdata = _get_subdata(model_id, indices_accessor);
+      int stride = models::map_sizes[models::models[model_id].accessors[indices_accessor].componentType];
+      int element_count = models::map_type_count[models::models[model_id].accessors[indices_accessor].type];
+      MMD.indices = models::_extract_shorts(indices_count, element_count, stride, indices_subdata);
+
       // Material
       int material_id = models::models[model_id].meshes[mesh_id].primitives[p].material;
       MMD.color = {};
@@ -375,5 +322,38 @@ namespace models
   }
 
 
-}
+  void log()
+  {
+    // Log mesh data
+    const char* log_path = "logs/models.json";
+    std::ofstream log_file (log_path);
+    std::string end_str = " }, \n";
+    if (log_file.is_open())
+    {
+      log_file << "[ \n";
+      for(int i = 0; i < models::meshes.size(); i++)
+      {
+        if(i == (models::meshes.size() - 1))
+        {
+          end_str = " } \n";
+        }
+        log_file << " { \n" <<
+                    " \"model_id\": " << models::meshes[i].model_id << ",\n"
+                    " \"mesh_id\": " << models::meshes[i].mesh_id << ",\n"
+                    " \"node_id\": " << models::meshes[i].node_id << ",\n"
+                    " \"count_vertices\": " << models::meshes[i].count_vertices << ",\n"
+                    " \"mesh_name\": \"" << models::meshes[i].mesh_name << "\",\n";
 
+        log_file <<        " \"indices\": [";
+        for(int n = 0; n < models::meshes[i].indices.size(); n++)
+        {
+          log_file << models::meshes[i].indices[n] << ",";
+        } 
+        log_file << "]\n";
+        log_file << end_str;
+      }
+      log_file << "] \n";
+      log_file.close();
+    }
+  }
+}
