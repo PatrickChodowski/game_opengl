@@ -291,7 +291,7 @@ namespace buffer
     buffer::VBO_array_size = sizeof(float)*n_vertex_array;
     buffer::EBO_array_size = sizeof(float)*n_index_array;
 
-    //buffer::_make_vertex_array_from_3d_meshes(mesh_vertices, vertex_array);
+    buffer::_make_vertex_array_from_3d_meshes(mesh_vertices, vertex_array);
     buffer::_make_index_array_from_3d_meshes(meshes, index_array);
 
     buffer::log(vertex_array, n_vertex_array, buffer::COUNT_VERTEX_ATTRIBUTES, "model_vertex_array");

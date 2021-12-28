@@ -89,6 +89,8 @@ namespace models
 
   void log();
 
+  void log_vertices();
+
   std::vector<unsigned char> _get_subdata(int model_id, int accessor_id);
 
 }
