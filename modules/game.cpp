@@ -247,7 +247,7 @@ namespace game
 
     // draw models here
     buffer::update_models(models::MeshVertices, models::meshes);
-    glDrawElements(GL_TRIANGLES, 24 /*models::MeshVertices.size()/3*/, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, models::MeshVertices.size(), GL_UNSIGNED_INT, nullptr);
 
 
   }

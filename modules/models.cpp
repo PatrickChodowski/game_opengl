@@ -360,11 +360,6 @@ namespace models
         } 
         log_file << "],\n";
 
-
-
-
-
-
         // indices
         log_file << " \"indices\": [";
         for(int n = 0; n < models::meshes[i].indices.size(); n++)
@@ -377,16 +372,7 @@ namespace models
       log_file << "] \n";
       log_file.close();
     }
-
-    models::log_vertices();
   }
 
-
-  void log_vertices()
-  {
-
-
-
-  }
 
 }
