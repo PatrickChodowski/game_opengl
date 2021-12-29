@@ -12,6 +12,7 @@ out vec4 frag_color;
 // one texture only as uniform
 uniform sampler2D textures[$slots];
 
+
 void main()
 {
   // if type is maps, use texture
@@ -34,11 +35,17 @@ void main()
     frag_color = out_color.rgba;
   }
   // buttons
-   else if (out_type_id >= 6.0)
+   else if (out_type_id == 6.0)
   {
     frag_color = out_color.rgba;
     frag_color.r = (1-out_is_clicked)*frag_color.r;
   }
+  // models and light
+  else if (out_type_id == 8.0)
+  {
+    frag_color = out_color.rgba;
+  }
+
 
 
   //frag_color = texture(textures[texture_index], out_tex_coord);

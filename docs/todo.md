@@ -9,6 +9,7 @@
  - gITF file format 
 
  - read-in gITF file format
+ - https://sketchfab.com/store/3d-models?q=viking
 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 

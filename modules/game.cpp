@@ -203,12 +203,12 @@ namespace game
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
     textures::bind();
-    //buffer::update_quads(quads::AllQuads);
+    buffer::update_quads(quads::AllQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
+    //glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
 
     // sampler array creation
     int sampler_size = (textures::BoundTextures.size() + 1);
@@ -226,9 +226,18 @@ namespace game
     camera::STATIC_MVP = camera::gen_static_mvp();
 
   
-    // set light source coordinates
+    // Set Light properties
     float light_coords[3] = {100, 200, 300};
     glUniform3fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_coords"), 1, light_coords);
+
+
+    // glm::vec4 light_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    // glm::vec3 light_pos = glm::vec3(0.5f, 0.5f, 0.5f);
+    // glm::mat4 light_model = glm::mat4(1.0f);
+    // light_model = glm::translate(light_model, light_pos);
+
+    // glUniform4f(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_color"), light_color.x, light_color.y, light_color.z, light_color.w);
+	  // glUniform3f(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_pos"), light_pos.x, light_pos.y, light_pos.z);
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
@@ -238,17 +247,17 @@ namespace game
     // set shader
     glUseProgram(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id);
     // draw scene
-    // glDrawElements(GL_TRIANGLES, quads::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, quads::AllQuads.size()*6, GL_UNSIGNED_INT, nullptr);
 
     // draw debug lines here
-    // buffer::update_lines(debug::lines);
-    // glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
+    buffer::update_lines(debug::lines);
+    glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
 
     debug::clear();
 
     // draw models here
-    buffer::update_models(models::MeshVertices, models::meshes);
-    glDrawElements(GL_TRIANGLES, models::MeshVertices.size(), GL_UNSIGNED_INT, nullptr);
+    // buffer::update_models(models::MeshVertices, models::meshes);
+    // glDrawElements(GL_TRIANGLES, models::MeshVertices.size(), GL_UNSIGNED_INT, nullptr);
 
 
   }
