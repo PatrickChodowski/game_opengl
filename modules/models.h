@@ -1,6 +1,8 @@
 #include <string>
 #include <vector>
 
+
+#include "../dependencies/glm/glm.hpp"
 #include "../dictionary.h"
 #include "../dependencies/tiny_gltf.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
@@ -18,11 +20,13 @@ namespace models
     int node_id;
     int count_vertices;
 
-    std::vector<float> position;
-    std::vector<float> norms;
-    std::vector<float> texcoord;
     std::vector<float> color;
-
+    std::vector<glm::vec3> position;
+    std::vector<glm::vec3> norms;
+    std::vector<glm::vec2> texcoord;
+    glm::vec4 rotation;
+    glm::vec3 translation;
+    
     std::vector<unsigned short> indices;
     std::string mesh_name;
   };
@@ -31,7 +35,7 @@ namespace models
   struct GameModelMeshData
   {
 
-  }
+  };
 
 
   struct ModelMeshVertexData
@@ -78,9 +82,9 @@ namespace models
 
   void _convert_float_to_bytes(float value);
 
-  std::vector<float> _extract_via_accessor(int model_id, int accessor_id);
+  std::vector<float> _extract_floats_via_accessor(int model_id, int accessor_id);
 
-  std::vector<float> _extract_floats(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
+  std::vector<float> _extract_floats(int model_id, int accessor_id, std::vector<unsigned char>& subdata);
 
   std::vector<unsigned short> _extract_shorts(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
 
