@@ -302,17 +302,28 @@ namespace models
       }
     }
 
+    // Translation -> convert to glm::vec
+    if(models::models[model_id].nodes[node_id].scale.size() == 3)
+    {
+      for(int i=0; i<3; i++)
+      {
+        MMD.scale[i] = models::models[model_id].nodes[node_id].scale[i];
+      }
+    } else {
+      MMD.scale = glm::vec3(1.0f, 1.0f, 1.0f);
+    }
+
     // TEST
 
     // Initialize matrices
     glm::mat4 trans = glm::mat4(1.0f);
     glm::mat4 rot = glm::mat4(1.0f);
-    //glm::mat4 sca = glm::mat4(1.0f);
+    glm::mat4 sca = glm::mat4(1.0f);
 
     // Use translation, rotation, and scale to change the initialized matrices
     trans = glm::translate(trans, MMD.translation);
     rot = glm::mat4_cast(MMD.rotation);
-    //sca = glm::scale(sca, scale);
+    sca = glm::scale(sca, MMD.scale);
 
     glm::mat4 local_mvp = trans * rot;
 
