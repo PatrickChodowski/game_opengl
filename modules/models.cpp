@@ -81,13 +81,6 @@ namespace models
 
       model_id = utils::generate_id(models::Index);
       models::models[model_id] = model;
-
-      // models::_print_scenes(model_id);
-      // models::_print_nodes(model_id);
-      // models::_print_meshes(model_id);
-      // models::_print_buffer_views(model_id);
-      // models::_print_accessors(model_id);
-      // models::_print_buffers(model_id);
       models::extract_meshes(model_id);
     }
   }
@@ -142,8 +135,12 @@ namespace models
   }
 
 
-  std::vector<float> _extract_floats(int count, int element_count, int stride, std::vector<unsigned char>& subdata)
+  std::vector<float> _extract_floats(int model_id, int accessor_id, std::vector<unsigned char>& subdata)
   {
+    int count = models::models[model_id].accessors[accessor_id].count;
+    int stride = models::map_sizes[models::models[model_id].accessors[accessor_id].componentType];
+    int element_count = models::map_type_count[models::models[model_id].accessors[accessor_id].type];
+
     int offset = 0;
     std::vector<float> mega_vector;
     int v_size = count*element_count;
@@ -201,18 +198,12 @@ namespace models
     return subdata;
   }
 
-
-  std::vector<float> _extract_via_accessor(int model_id, int accessor_id)
+  std::vector<float> _extract_floats_via_accessor(int model_id, int accessor_id)
   {
     std::vector<unsigned char> subdata = _get_subdata(model_id, accessor_id);
-    // SUBDATA SIZE = COUNT * TYPE() * FLOAT SIZE(stride) 1560 = 130*3*4
-    int count = models::models[model_id].accessors[accessor_id].count;
-    int stride = models::map_sizes[models::models[model_id].accessors[accessor_id].componentType];
-    int element_count = models::map_type_count[models::models[model_id].accessors[accessor_id].type];
-    std::vector<float> mega_vector = models::_extract_floats(count, element_count, stride, subdata);
+    std::vector<float> mega_vector = models::_extract_floats(model_id, accessor_id, subdata);
     return mega_vector;
   }
-
 
 
 
@@ -225,32 +216,63 @@ namespace models
     MMD.node_id = node_id;
     MMD.mesh_name = models::models[model_id].meshes[mesh_id].name;
 
-    // loop through Mesh primitives
+    // loop through Mesh primitives -> Extract position, normals, texcoords, indices, material
+
     for(int p=0; p < models::models[model_id].meshes[mesh_id].primitives.size(); p++)
     {
-      // map of attributes <name, accessor_id> - POSITION, NORMAL, TEXCOORD_0 
-      for (auto const& [attrb_name, accessor_id] : models::models[model_id].meshes[mesh_id].primitives[p].attributes)
+      int accessor_id;
+      int count;
+      std::vector<float> mega_vector;
+
+      // Position -> vec3
+      if(models::models[model_id].meshes[mesh_id].primitives[p].attributes.count("POSITION") > 0)
       {
-        std::vector<float> mega_vector = models::_extract_via_accessor(model_id, accessor_id);
-        // :( I know its a string comparison but cant find any better solution for this right now
-        // It doesnt happen often (just on the data reading part)
-        if(attrb_name == "POSITION"){
-          MMD.position = mega_vector;
-          MMD.count_vertices = models::models[model_id].accessors[accessor_id].count;
-        } else if(attrb_name == "NORMAL"){
-          MMD.norms = mega_vector;
-        } else if(attrb_name == "TEXCOORD_0"){
-          MMD.texcoord = mega_vector;
-        }
+        accessor_id = models::models[model_id].meshes[mesh_id].primitives[p].attributes["POSITION"];  
+        mega_vector = models::_extract_floats_via_accessor(model_id, accessor_id);
+        MMD.count_vertices = models::models[model_id].accessors[accessor_id].count;
+        for(int i=0; i<MMD.count_vertices; i++)
+        {
+          glm::vec3 v = {mega_vector[3*i], mega_vector[(3*i)+1], mega_vector[(3*i)+2]};
+          MMD.position.push_back(v);
+        }  
+      }
+
+      // Normals -> vec3
+      if(models::models[model_id].meshes[mesh_id].primitives[p].attributes.count("NORMAL") > 0)
+      {
+        accessor_id = models::models[model_id].meshes[mesh_id].primitives[p].attributes["NORMAL"];  
+        mega_vector = models::_extract_floats_via_accessor(model_id, accessor_id);
+        count = models::models[model_id].accessors[accessor_id].count;
+        for(int i=0; i<count; i++)
+        {
+          glm::vec3 v = {mega_vector[3*i], mega_vector[(3*i)+1], mega_vector[(3*i)+2]};
+          MMD.norms.push_back(v);
+        }  
+      }
+
+      // Texcoords -> vec2
+      if(models::models[model_id].meshes[mesh_id].primitives[p].attributes.count("TEXCOORD_0") > 0)
+      {
+        accessor_id = models::models[model_id].meshes[mesh_id].primitives[p].attributes["TEXCOORD_0"];  
+        mega_vector = models::_extract_floats_via_accessor(model_id, accessor_id);
+        count = models::models[model_id].accessors[accessor_id].count;
+        for(int i=0; i<count; i++)
+        {
+          glm::vec2 v = {mega_vector[2*i], mega_vector[(2*i)+1]};
+          MMD.texcoord.push_back(v);
+        }  
       }
 
       // Indices
-      int indices_accessor = models::models[model_id].meshes[mesh_id].primitives[p].indices;
-      int indices_count = models::models[model_id].accessors[indices_accessor].count;
-      std::vector<unsigned char> indices_subdata = _get_subdata(model_id, indices_accessor);
-      int stride = models::map_sizes[models::models[model_id].accessors[indices_accessor].componentType];
-      int element_count = models::map_type_count[models::models[model_id].accessors[indices_accessor].type];
-      MMD.indices = models::_extract_shorts(indices_count, element_count, stride, indices_subdata);
+      if(models::models[model_id].meshes[mesh_id].primitives[p].indices > -1)
+      {
+        accessor_id = models::models[model_id].meshes[mesh_id].primitives[p].indices;
+        count = models::models[model_id].accessors[accessor_id].count;
+        std::vector<unsigned char> indices_subdata = _get_subdata(model_id, accessor_id);
+        int stride = models::map_sizes[models::models[model_id].accessors[accessor_id].componentType];
+        int element_count = models::map_type_count[models::models[model_id].accessors[accessor_id].type];
+        MMD.indices = models::_extract_shorts(count, element_count, stride, indices_subdata);
+      }
 
       // Material
       int material_id = models::models[model_id].meshes[mesh_id].primitives[p].material;
@@ -258,6 +280,25 @@ namespace models
       for(int c=0; c< models::models[model_id].materials[material_id].pbrMetallicRoughness.baseColorFactor.size(); c++)
       {
         MMD.color.push_back(models::models[model_id].materials[material_id].pbrMetallicRoughness.baseColorFactor[c]);
+      }
+    }
+
+
+    // Rotation -> convert to glm::vec
+    if(models::models[model_id].nodes[node_id].rotation.size() == 4)
+    {
+      for(int i=0; i<4; i++)
+      {
+        MMD.rotation[i] = models::models[model_id].nodes[node_id].rotation[i];
+      }
+    }
+
+    // Translation -> convert to glm::vec
+    if(models::models[model_id].nodes[node_id].translation.size() == 3)
+    {
+      for(int i=0; i<3; i++)
+      {
+        MMD.translation[i] = models::models[model_id].nodes[node_id].translation[i];
       }
     }
 
@@ -294,17 +335,17 @@ namespace models
       MMVD.mesh_id = MMD.mesh_id;
       MMVD.model_vertex_id = i;
 
-      MMVD.x = MMD.position[3*i];
-      MMVD.y = MMD.position[(3*i)+1];
-      MMVD.z = MMD.position[(3*i)+2];
+      MMVD.x = MMD.position[i].x;
+      MMVD.y = MMD.position[i].y;
+      MMVD.z = MMD.position[i].z;
 
       MMVD.r = MMD.color[0];
       MMVD.g = MMD.color[1];
       MMVD.b = MMD.color[2];
       MMVD.a = MMD.color[3];
 
-      MMVD.tx_x = MMD.texcoord[2*i];
-      MMVD.tx_y = MMD.texcoord[(2*i)+1];
+      MMVD.tx_x = MMD.texcoord[i].x;
+      MMVD.tx_y = MMD.texcoord[i].y;
       models::MeshVertices.push_back(MMVD);
     }
   }
@@ -345,12 +386,12 @@ namespace models
                     " \"mesh_name\": \"" << models::meshes[i].mesh_name << "\",\n";
 
         // Position
-        log_file << " \"position\": [";
-        for(int n = 0; n < models::meshes[i].position.size(); n++)
-        {
-          log_file << models::meshes[i].position[n] << ",";
-        } 
-        log_file << "],\n";
+        // log_file << " \"position\": [";
+        // for(int n = 0; n < models::meshes[i].position.size(); n++)
+        // {
+        //   log_file << models::meshes[i].position[n] << ",";
+        // } 
+        // log_file << "],\n";
 
         // Color
         log_file << " \"color\": [";

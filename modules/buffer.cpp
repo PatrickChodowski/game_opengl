@@ -179,8 +179,8 @@ namespace buffer
     for(int i=0; i<mesh_vertices.size(); i++)
     {
       int start_position = i*cva;
-      arr[(start_position)] = mesh_vertices[i].x;
-      arr[(start_position+1)] = mesh_vertices[i].y;
+      arr[(start_position)] = mesh_vertices[i].x*100;
+      arr[(start_position+1)] = mesh_vertices[i].y*100;
       arr[(start_position+2)] = mesh_vertices[i].z;
       arr[(start_position+3)] = mesh_vertices[i].r;
       arr[(start_position+4)] = mesh_vertices[i].g;
