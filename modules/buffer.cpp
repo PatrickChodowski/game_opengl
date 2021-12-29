@@ -87,6 +87,9 @@ namespace buffer
     glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, buffer::COUNT_VERTEX_ATTRIBUTES * sizeof(float), (void*)(13 * sizeof(float)));
     glEnableVertexAttribArray(7);
 
+    // hmmmm
+    glEnable(GL_DEPTH_TEST);
+
   }
 
   void _make_vertex_array_from_quads(std::vector<quads::QuadData>& quads, float* arr)
@@ -179,8 +182,8 @@ namespace buffer
     for(int i=0; i<mesh_vertices.size(); i++)
     {
       int start_position = i*cva;
-      arr[(start_position)] = mesh_vertices[i].x*100;
-      arr[(start_position+1)] = mesh_vertices[i].y*100;
+      arr[(start_position)] = mesh_vertices[i].x;
+      arr[(start_position+1)] = mesh_vertices[i].y;
       arr[(start_position+2)] = mesh_vertices[i].z;
       arr[(start_position+3)] = mesh_vertices[i].r;
       arr[(start_position+4)] = mesh_vertices[i].g;
