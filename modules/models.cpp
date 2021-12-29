@@ -302,6 +302,26 @@ namespace models
       }
     }
 
+    // TEST
+
+    // Initialize matrices
+    glm::mat4 trans = glm::mat4(1.0f);
+    glm::mat4 rot = glm::mat4(1.0f);
+    //glm::mat4 sca = glm::mat4(1.0f);
+
+    // Use translation, rotation, and scale to change the initialized matrices
+    trans = glm::translate(trans, MMD.translation);
+    rot = glm::mat4_cast(MMD.rotation);
+    //sca = glm::scale(sca, scale);
+
+    glm::mat4 local_mvp = trans * rot;
+
+    // update positions
+
+    for(int p=0; p<MMD.position.size(); p++)
+    {
+      MMD.position[p] = local_mvp*glm::vec4(MMD.position[p], 1.0f);
+    }
     return MMD;
   } 
 
@@ -386,12 +406,12 @@ namespace models
                     " \"mesh_name\": \"" << models::meshes[i].mesh_name << "\",\n";
 
         // Position
-        // log_file << " \"position\": [";
-        // for(int n = 0; n < models::meshes[i].position.size(); n++)
-        // {
-        //   log_file << models::meshes[i].position[n] << ",";
-        // } 
-        // log_file << "],\n";
+        log_file << " \"position\": [";
+        for(int n = 0; n < models::meshes[i].position.size(); n++)
+        {
+          log_file << models::meshes[i].position[n].x << "," << models::meshes[i].position[n].y << "," << models::meshes[i].position[n].z << ",\n";
+        } 
+        log_file << "],\n";
 
         // Color
         log_file << " \"color\": [";

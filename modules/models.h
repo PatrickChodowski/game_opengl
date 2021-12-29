@@ -3,6 +3,7 @@
 
 
 #include "../dependencies/glm/glm.hpp"
+#include "../dependencies/glm/gtc/quaternion.hpp"
 #include "../dictionary.h"
 #include "../dependencies/tiny_gltf.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
@@ -24,9 +25,12 @@ namespace models
     std::vector<glm::vec3> position;
     std::vector<glm::vec3> norms;
     std::vector<glm::vec2> texcoord;
-    glm::vec4 rotation;
+
+    glm::quat rotation;
     glm::vec3 translation;
-    
+    glm::vec3 scale;
+    glm::mat4 matrix;
+
     std::vector<unsigned short> indices;
     std::string mesh_name;
   };
