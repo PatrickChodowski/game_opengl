@@ -171,7 +171,7 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
-    models::init();
+    //models::init();
     mouse::init();
     npcs::init();
     game::init_scenes();
@@ -196,7 +196,7 @@ namespace game
     entity::render();
     debug::render();
     menu::render();
-    models::render();
+    //models::render();
     buttons::render();
     fonts::render();
     nav::render();
@@ -283,7 +283,7 @@ namespace game
     maps::refresh();
     menu::refresh();
     mobs::refresh();
-    models::refresh();
+    //models::refresh();
     npcs::refresh();
 
     anims::init();
@@ -291,7 +291,7 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
-    models::init();
+    //models::init();
     npcs::init();
     game::init_scenes();
 
