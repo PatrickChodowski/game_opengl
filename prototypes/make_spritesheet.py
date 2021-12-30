@@ -1,12 +1,13 @@
 import bpy
 import numpy as np
+import math
 #cam = bpy.context.scene.camera
 
 def make_grid_pos(a: float, b: float) -> list:
     main = list()
-    for x in np.arange(a, b, 1.0):
-        for y in np.arange(a, b, 1.0):
-            main.append([x,y,0.0])
+    for y in np.arange(a, b, 1.0):
+        for z in np.arange(a, b, 1.0):
+            main.append([0.0,y,z])
     return main
             
 def get_objects() -> list:
@@ -92,11 +93,47 @@ def copy_coll(coll_name: str, pos: list) -> None:
     new_objs = get_objs_by_names(new_objs_names)
     objs_move_coll(new_objs, new_coll_name)
 
+def make_coll_grid(coll_name: str, n: float) -> None:
+    pos = make_grid_pos(1.0, n+1.0)
+    for p in pos:
+        copy_coll("axe", p)
 
-#copy_coll("axe", [0.0, 1.0, 0.0])
-#copy_coll("axe", [0.0, 2.0, 0.0])
+
+def delete_collection(coll_name: str) -> None:
+    collection = bpy.data.collections.get(coll_name)
+    for obj in collection.objects:
+        bpy.data.objects.remove(obj, do_unlink=True)
+        
+    bpy.data.collections.remove(collection)
 
 
-pos = make_grid_pos(1.0, 4.0)
-for p in pos:
-    copy_coll("axe", p)
+def list_grid_collections(coll_name: str) -> list:
+    coll_list = list()
+    for coll in bpy.data.collections:
+        if (coll_name in coll.name) & (".0" in coll.name):
+            coll_list.append(coll.name)
+            print(f"Found {coll.name}")
+
+def get_collection_rotation(coll_name: str):
+    for obj in bpy.data.collections[coll_name].objects:
+        print(obj.rotation_euler)
+        
+  
+def rotate_collection(coll_name: str, x: int = None, y: int = None, z: int = None) -> None:
+    set_state(bpy.data.collections[coll_name].objects, True)
+    
+    if x is not None:
+        print(f"Rotating X by {math.radians(x)}")
+        bpy.ops.transform.rotate(value=math.radians(x), orient_axis='X', orient_type='GLOBAL')
+                
+    if y is not None:
+        print(f"Rotating Y by {math.radians(y)}")
+        bpy.ops.transform.rotate(value=math.radians(y), orient_axis='Y', orient_type='GLOBAL')
+                
+    if z is not None:
+        print(f"Rotating Z by {math.radians(z)}")
+        bpy.ops.transform.rotate(value=math.radians(z), orient_axis='Z', orient_type='GLOBAL')
+        
+    set_state(bpy.data.collections[coll_name].objects, False)
+         
+get_collection_rotation("axe.005")           
