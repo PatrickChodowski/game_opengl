@@ -110,15 +110,18 @@ def delete_collection(coll_name: str) -> None:
 def list_grid_collections(coll_name: str) -> list:
     coll_list = list()
     for coll in bpy.data.collections:
-        if (coll_name in coll.name) & (".0" in coll.name):
+        if (coll_name in coll.name) & (".0" in coll.name) & (coll.objects.__len__() > 0):
             coll_list.append(coll.name)
             print(f"Found {coll.name}")
+    return coll_list
 
 def get_collection_rotation(coll_name: str):
     for obj in bpy.data.collections[coll_name].objects:
         print(obj.rotation_euler)
+        #print(obj.rotation_quaternion)
         
-  
+    
+
 def rotate_collection(coll_name: str, x: int = None, y: int = None, z: int = None) -> None:
     set_state(bpy.data.collections[coll_name].objects, True)
     
@@ -135,5 +138,15 @@ def rotate_collection(coll_name: str, x: int = None, y: int = None, z: int = Non
         bpy.ops.transform.rotate(value=math.radians(z), orient_axis='Z', orient_type='GLOBAL')
         
     set_state(bpy.data.collections[coll_name].objects, False)
+     
+#bpy.data.collections.remove(bpy.data.collections.get('axe.004'))     
+def make_grid_rotations(coll_name: str) -> None:
+    rots = [-105, -90, -45, -25, 0, 30, 45, 60, 75]
+    make_coll_grid(coll_name, 3)
+    colls = list_grid_collections(coll_name)
+
+    for col, rot in zip(colls, rots):
+        rotate_collection(col, x=rot)
          
-get_collection_rotation("axe.005")           
+make_grid_rotations("axe")
+
