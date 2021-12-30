@@ -1,5 +1,7 @@
 
 ### 3d models instead of spritesheets:
+  - how to automate spritesheet from blender
+
  - photogrammetry
  - meshroom 
  - https://www.mixamo.com/
