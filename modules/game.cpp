@@ -98,6 +98,8 @@ namespace game
       // load mobs based on the map
       mobs::spawn_from_nest(game::MAP_ID);
 
+      //items::put_item_on_ground(1, 200, 200);
+
       // Spawns npcs for the map
       npcs::spawn_from_map(game::MAP_ID);
 
