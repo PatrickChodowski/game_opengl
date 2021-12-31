@@ -53,6 +53,22 @@ namespace utils
     return list_of_files;
   };  
 
+  std::vector<std::string> list_gltf_files(std::string path)
+  {
+    std::vector<std::string> list_of_files = {};
+    struct dirent *entry;
+    DIR *dir = opendir(path.c_str());
+    while ((entry = readdir(dir)) != NULL) {
+      if(has_ending (entry->d_name, ".gltf")){
+        std::string str = entry->d_name;
+        std::string clean_str = str.replace(str.end()-5, str.end(), "");
+        list_of_files.push_back(clean_str);  
+      }
+    }
+    closedir(dir);
+    return list_of_files;
+  };  
+
   std::vector<std::string> list_any_files(std::string path)
   {
     std::vector<std::string> list_of_files = {};

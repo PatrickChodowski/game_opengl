@@ -25,6 +25,12 @@ list all json files in directory that have metadata created, default path
 std::vector<std::string> list_json_files(std::string path);
 ```
 
+### list_gltf_files
+list all gltf files in directory that have metadata created, default path
+```c++
+std::vector<std::string> list_gltf_files(std::string path);
+```
+
 ### list_any_files
 List all files in the directory
 ```c++

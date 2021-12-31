@@ -25,6 +25,7 @@
 #define OBJECT_TYPE_DEBUG 4
 #define OBJECT_TYPE_BUTTON 6
 #define OBJECT_TYPE_DOOR 7
+#define OBJECT_TYPE_MODEL 8
 
 // entity collision sensors
 #define SENSOR_TOP 0
