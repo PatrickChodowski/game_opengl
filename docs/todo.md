@@ -1,16 +1,10 @@
 
 ### 3d models instead of spritesheets:
-  - how to automate spritesheet from blender
+ - automate blender to texture pipeline -> script to setup camera perspective and image export
 
  - photogrammetry
  - meshroom 
  - https://www.mixamo.com/
- - blender
- - blender python api
- - PIFuh by facebook
- - gITF file format 
-
- - read-in gITF file format
  - https://sketchfab.com/store/3d-models?q=viking
 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
