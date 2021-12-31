@@ -1,7 +1,7 @@
+
 import bpy
 import numpy as np
 import math
-#cam = bpy.context.scene.camera
 
 def make_grid_pos(a: float, b: float) -> list:
     main = list()
@@ -33,20 +33,12 @@ def activate(obj_index) -> None:
     bpy.context.view_layer.objects.active = objs[obj_index]
     
 
-def make_copy(objs: list) -> None:
-    local_objs = objs
-    set_state(local_objs, True)
-    transform_dict={"value": (0.0, 1.0, 0.0), 
-                    "constraint_axis": (True, True, True), 
-                    "orient_type" :'NORMAL'}  
-    bpy.ops.object.duplicate_move(TRANSFORM_OT_translate = transform_dict)
-    set_state(local_objs, False)
-    objs2 = get_objects()
-    new_objs = list(set(objs2) - set(local_objs))
-    print(f"New objects count: {new_objs.__len__()}")
-    for nobj in new_objs:
-        print(f"New object: {nobj.name_full}")
-    
+def move_collection(coll_name: str, x: float = None, y: float = None, z: float = None) -> None:
+    set_state(bpy.data.collections[coll_name].objects, True)
+    bpy.ops.transform.translate(value=[x,y,z], orient_type='GLOBAL')  
+    set_state(bpy.data.collections[coll_name].objects, False)
+
+
 def make_new_coll(coll_name: str) -> str:
     collection = bpy.data.collections.new(coll_name)
     bpy.context.scene.collection.children.link(collection)
@@ -62,14 +54,6 @@ def get_objs_by_names(obj_names: list) -> list:
     return objs
     
     
-def objs_move_coll(objs_list: list, coll_name: str) -> None:
-    for obj in objs_list:
-        for coll in obj.users_collection:
-            print(f"Unlinking {obj.name} from {coll.name}")
-            bpy.data.collections[coll.name].objects.unlink(obj)
-        bpy.data.collections[coll_name].objects.link(obj)
-        print(f"Linking {obj.name} to {coll_name}")
-        
 def get_object_location(obj_name: str) -> list:
     obj = bpy.data.objects[obj_name]
     loc = [obj.location.x, obj.location.y, obj.location.z]
@@ -77,27 +61,20 @@ def get_object_location(obj_name: str) -> list:
     return loc
 
 
-def copy_coll(coll_name: str, pos: list) -> None:
+def copy_coll_objects(coll_name: str) -> str:
     new_coll_name = make_new_coll(coll_name)
     objs = bpy.data.collections[coll_name].objects
-    obj_names = [obj.name for obj in objs]
-    set_state(objs, True)
-    transform_dict={"value": (pos[0], pos[1], pos[2]), 
-                    "constraint_axis": (True, True, True), 
-                    "orient_type" :'NORMAL'}  
-    bpy.ops.object.duplicate_move(TRANSFORM_OT_translate = transform_dict)
-    set_state(objs, False)
-    objs2 = bpy.data.collections[coll_name].objects
-    obj_names2 = [obj.name for obj in objs2]
-    new_objs_names = list(set(obj_names2) - set(obj_names))
-    new_objs = get_objs_by_names(new_objs_names)
-    objs_move_coll(new_objs, new_coll_name)
+    for obj in objs:
+        obj_copy = obj.copy()
+        bpy.data.collections[new_coll_name].objects.link(obj_copy)
+    return new_coll_name
 
-def make_coll_grid(coll_name: str, n: float) -> None:
+def make_coll_grid(coll_name: str, n: float) -> list:
     pos = make_grid_pos(1.0, n+1.0)
     for p in pos:
-        copy_coll("axe", p)
-
+        new_coll_name = copy_coll_objects(coll_name)
+        move_collection(new_coll_name, *p)
+    return pos
 
 def delete_collection(coll_name: str) -> None:
     collection = bpy.data.collections.get(coll_name)
@@ -138,15 +115,72 @@ def rotate_collection(coll_name: str, x: int = None, y: int = None, z: int = Non
         bpy.ops.transform.rotate(value=math.radians(z), orient_axis='Z', orient_type='GLOBAL')
         
     set_state(bpy.data.collections[coll_name].objects, False)
-     
+    
+def find_grid_center(pos: list) -> tuple:
+    xx = list()
+    yy = list()
+    zz = list()
+    adj_y = 2
+    adj_z = 2.9
+    for p in pos:
+        xx.append(p[0])
+        yy.append(p[1])
+        zz.append(p[2])
+    return (max(xx) - min(xx))/2, ((max(yy)+adj_y) - min(yy))/2, ((max(zz)+adj_z) - min(zz))/2 
+        
+    
 #bpy.data.collections.remove(bpy.data.collections.get('axe.004'))     
+
+
+def reset_camera():
+    bpy.data.objects['Camera'].location.x = 0.0
+    bpy.data.objects['Camera'].location.y = 0.0
+    bpy.data.objects['Camera'].location.z = 0.0
+    bpy.data.objects['Camera'].rotation_euler.x = 0.0
+    bpy.data.objects['Camera'].rotation_euler.y = 0.0
+    bpy.data.objects['Camera'].rotation_euler.z = 0.0
+
+def align_camera_with_grid(x: float, y: float, z: float, align_on: str = "x"):
+    #  further on X axis, Y and Z the same
+    reset_camera()
+    if align_on == "x":
+        x = 2.0
+
+    if align_on == "y":
+        y = 2.0
+
+    if align_on == "z":
+        z = 2.0
+
+    bpy.data.objects['Camera'].location.x = x
+    bpy.data.objects['Camera'].location.y = y
+    bpy.data.objects['Camera'].location.z = z
+    bpy.data.objects['Camera'].rotation_euler.x = math.radians(90)
+    bpy.data.objects['Camera'].rotation_euler.z = math.radians(+90)
+    
+    
 def make_grid_rotations(coll_name: str) -> None:
     rots = [-105, -90, -45, -25, 0, 30, 45, 60, 75]
-    make_coll_grid(coll_name, 3)
+    pos = make_coll_grid(coll_name, 3)
     colls = list_grid_collections(coll_name)
+    t = find_grid_center(pos)
 
     for col, rot in zip(colls, rots):
         rotate_collection(col, x=rot)
-         
-make_grid_rotations("axe")
+    
+    align_camera_with_grid(*t) 
+    
+def save(file_name: str, res_x: int, res_y: int) -> None:
+    bpy.context.scene.render.image_settings.file_format = 'PNG'
+    bpy.context.scene.render.film_transparent = True
+    bpy.context.scene.render.resolution_x = res_x
+    bpy.context.scene.render.resolution_y = res_y
+#    bpy.context.scene.render.resolution_percentage
+#    bpy.context.scene.render.pixel_aspect_x
+#    bpy.context.scene.render.pixel_aspect_y
+    bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/assets/{file_name}.png"
+    bpy.ops.render.render(write_still = 1)
+    
+make_grid_rotations("donut")
+save("donut")
 
