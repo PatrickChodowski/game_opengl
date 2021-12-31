@@ -139,8 +139,9 @@ namespace events
             case SDLK_q:
               for(int e=0; e<hero::hero.equipped_items.size(); e++)
               {
-                items::yeet(hero::hero.equipped_items[e], hero::hero.x, hero::hero.y);
+                items::yeet(hero::hero.equipped_items[e], (hero::hero.x+(e*10)), (hero::hero.y+(e*10)));
               }
+              hero::hero.equipped_items.clear();
             break;
 
             case SDLK_0:
