@@ -38,7 +38,6 @@ namespace items
     {
       items::read_data(item_list[i]);
     }
-    std::cout << "item size: " << items::items.size() << std::endl;
   };
 
   void refresh()
@@ -80,19 +79,20 @@ namespace items
       items::EquippedItems[entity_id] = items::GeneratedItems[entity_id]; 
       hero::hero.equipped_items.push_back(entity_id);
       entity::hide(entity_id);
+      std::cout << "Hero picked up item " << entity_id << std::endl;
     }
   }
 
   void yeet(int entity_id, float x, float y)
   {
-    if(items::EquippedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
+    if(items::GeneratedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
     {
       items::EquippedItems.erase(entity_id);
       items::ItemsOnGround[entity_id] = items::GeneratedItems[entity_id]; 
       items::ItemsOnGround[entity_id].x = x;
       items::ItemsOnGround[entity_id].y = y;
       int old_entity_id = entity::create(items::ItemsOnGround[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
-      utils::drop_id(hero::hero.equipped_items, entity_id);
+      std::cout << "Hero yeeted item " << entity_id << std::endl;
     }
   }
 
