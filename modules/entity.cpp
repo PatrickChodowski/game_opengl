@@ -54,10 +54,10 @@ namespace entity
     edd.camera_type = camera_type;
     edd.is_solid = true;
 
-    // if(entity_type_id == ENTITY_TYPE_MOB || entity_type_id == ENTITY_TYPE_HERO)
-    // {
-    //   edd.is_solid = true;
-    // }
+    if(entity_type_id == ENTITY_TYPE_ITEM)
+    {
+      edd.is_solid = false;
+    }
 
     edd.is_clicked = false;
     edd.speed = data.speed;

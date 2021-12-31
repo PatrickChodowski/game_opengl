@@ -59,6 +59,8 @@ namespace items
 
   extern phmap::flat_hash_map<int, ItemData> items;
   extern phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems;
+  extern phmap::flat_hash_map<int, GeneratedItemData> VisibleItems;
+  extern phmap::flat_hash_map<int, GeneratedItemData> EquippedItems;
 
   // Reads item data from json file
   void read_data(std::string name);
@@ -71,6 +73,12 @@ namespace items
 
   // Drop item entity 
   void drop(int entity_id);
+
+  // Pickup an item
+  void pickup(int entity_id);
+
+  // Drop item on the ground
+  void yeet(int entity_id);
 
   // Clear temporary data
   void clear();

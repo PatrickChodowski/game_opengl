@@ -17,6 +17,8 @@ namespace items
 {
   phmap::flat_hash_map<int, ItemData> items = {};
   phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems = {};
+  phmap::flat_hash_map<int, GeneratedItemData> VisibleItems = {};
+  phmap::flat_hash_map<int, GeneratedItemData> EquippedItems = {};
 
   void read_data(std::string name)
   {
@@ -54,6 +56,25 @@ namespace items
     {
       items::GeneratedItems.erase(entity_id);
       entity::drop(entity_id);
+    }
+  }
+
+  void pickup(int entity_id)
+  {
+    if(items::GeneratedItems.count(entity_id) > 0)
+    {
+      items::EquippedItems[entity_id] = items::GeneratedItems[entity_id]; 
+      //items::drop(entity_id); // strange but kinda had to drop the item?
+    }
+  }
+
+  void yeet(int entity_id)
+  {
+    if(items::EquippedItems.count(entity_id) > 0)
+    {
+      items::GeneratedItems[entity_id] = items::EquippedItemss[entity_id]; 
+      items::EquippedItems.erase(entity_id);
+      //items::drop(entity_id); // strange but kinda had to drop the item?
     }
   }
 
