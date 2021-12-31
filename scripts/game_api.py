@@ -16,6 +16,15 @@ funcs = {
                     "args": ["entity_id", "interaction_value"],
                     "id": 2},
 
+  "_spawn_item": {"first": "spawn", 
+                  "second": "item",
+                  "args": ["item_id", "x", "y"],
+                  "id": 3},
+
+  "_drop_item": {"first": "drop", 
+                 "second": "item",
+                 "args": ["entity_id"],
+                 "id": 4},
 }
 
 

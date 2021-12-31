@@ -11,6 +11,7 @@
 #include "../dependencies/pybind11/stl.h"
 
 #include "../modules/entity.h"
+#include "../modules/items.h"
 #include "../modules/mobs.h"
 #include "../modules/npcs.h"
 
@@ -48,6 +49,8 @@ namespace scripts
     scripts::Handler[0] = _spawn_mob;
     scripts::Handler[1] = _drop_mob;
     scripts::Handler[2] = _interact_npc;
+    scripts::Handler[3] = _spawn_item;
+    scripts::Handler[4] = _drop_item;
   }
 
 
@@ -75,6 +78,18 @@ namespace scripts
   {
     // Function 2 -> interact_npc
     npcs::interact(args["entity_id"], args["interaction_value"]);
+  }
+
+  void _spawn_item()
+  {
+    // Function 3 -> spawn_item
+    items::spawn(args["item_id"], args["x"], args["y"]);
+  }
+
+  void _drop_item()
+  {
+    // Function 4 -> _drop_item
+    items::drop(args["entity_id"]);
   }
 
 

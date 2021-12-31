@@ -1,1 +1,1 @@
-func_id = 2; vars = {'entity_id': 2.0, 'interaction_value': 0.2}
+func_id = 3; vars = {'item_id': 1.0, 'x': 200.0, 'y': 200.0}

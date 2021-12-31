@@ -133,7 +133,7 @@ namespace entity
   }
 
   template int entity::create<hero::HeroData>(hero::HeroData, int, float);
-  template int entity::create<items::ItemData>(items::ItemData, int, float);
+  template int entity::create<items::GeneratedItemData>(items::GeneratedItemData, int, float);
   template int entity::create<mobs::MobData>(mobs::MobData, int, float);
   template int entity::create<npcs::NPCData>(npcs::NPCData, int, float);
 
