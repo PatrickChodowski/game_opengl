@@ -23,6 +23,7 @@
 #include "maps.h"
 #include "menu.h"
 #include "mobs.h"
+#include "models.h"
 #include "mouse.h"
 #include "navmesh.h"
 #include "npcs.h"
@@ -97,6 +98,8 @@ namespace game
       // load mobs based on the map
       mobs::spawn_from_nest(game::MAP_ID);
 
+      //items::put_item_on_ground(1, 200, 200);
+
       // Spawns npcs for the map
       npcs::spawn_from_map(game::MAP_ID);
 
@@ -168,6 +171,7 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
+    //models::init();
     mouse::init();
     npcs::init();
     game::init_scenes();
@@ -192,6 +196,7 @@ namespace game
     entity::render();
     debug::render();
     menu::render();
+    //models::render();
     buttons::render();
     fonts::render();
     nav::render();
@@ -203,7 +208,9 @@ namespace game
     buffer::update_quads(quads::AllQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    //glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
 
     // sampler array creation
     int sampler_size = (textures::BoundTextures.size() + 1);
@@ -221,9 +228,18 @@ namespace game
     camera::STATIC_MVP = camera::gen_static_mvp();
 
   
-    // set light source coordinates
+    // Set Light properties
     float light_coords[3] = {100, 200, 300};
     glUniform3fv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_coords"), 1, light_coords);
+
+
+    // glm::vec4 light_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    // glm::vec3 light_pos = glm::vec3(0.5f, 0.5f, 0.5f);
+    // glm::mat4 light_model = glm::mat4(1.0f);
+    // light_model = glm::translate(light_model, light_pos);
+
+    // glUniform4f(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_color"), light_color.x, light_color.y, light_color.z, light_color.w);
+	  // glUniform3f(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "light_pos"), light_pos.x, light_pos.y, light_pos.z);
 
     // set uniforms
     glUniform1iv(glGetUniformLocation(shaders::shaders[CURRENT_SHADER_ID].gl_shader_id, "textures"), sampler_size, sampler);
@@ -240,6 +256,12 @@ namespace game
     glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
 
     debug::clear();
+
+    // draw models here
+    // buffer::update_models(models::MeshVertices, models::meshes);
+    // glDrawElements(GL_TRIANGLES, models::MeshVertices.size(), GL_UNSIGNED_INT, nullptr);
+
+
   }
 
   void drop()
@@ -261,6 +283,7 @@ namespace game
     maps::refresh();
     menu::refresh();
     mobs::refresh();
+    //models::refresh();
     npcs::refresh();
 
     anims::init();
@@ -268,6 +291,7 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
+    //models::init();
     npcs::init();
     game::init_scenes();
 

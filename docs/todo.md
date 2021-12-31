@@ -1,20 +1,27 @@
 
+### items
+ - generate items
+ - pickup items
+ - animate items
+
+
+### 3d models instead of spritesheets:
+ - automate blender to texture pipeline -> script to setup camera perspective and image export
+ - make new scripts for humanoid texture
+ - photogrammetry
+ - meshroom 
+ - https://www.mixamo.com/
+ - https://sketchfab.com/store/3d-models?q=viking
+
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
+
+### analyse cpp 20 and maybe replace include with imports
 
 ### personality traits of the leaders -> random
 - random personality traits
 - random relations with other kingdoms
 - personality traits deciding if they start a conflict
 - save personalities
-
-### 3d models instead of spritesheets:
- - photogrammetry
- - meshroom 
- - https://www.mixamo.com/
- - blender
- - blender python api
- - PIFuh by facebook
- - gITF file format 
 
 ### Profiler -> aggregate total times from many functions over the course of the game
 

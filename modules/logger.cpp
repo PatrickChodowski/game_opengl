@@ -1,6 +1,7 @@
 
 #include "debug.h"
 #include "logger.h"
+#include "models.h"
 #include "game.h"
 #include "quads.h"
 #include "textures.h"
@@ -137,9 +138,10 @@ namespace logger
   {
     if(game::LOG_TO_FILES)
     {
-      quads::log();
-      textures::log();
-      debug::log();
+      models::log();
+      // quads::log();
+      // textures::log();
+      // debug::log();
     }
   };
 

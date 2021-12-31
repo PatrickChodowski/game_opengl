@@ -19,6 +19,9 @@ namespace utils
   // list all json files in directory that have metadata created, default path
   std::vector<std::string> list_json_files(std::string path);
 
+  // list all gltf files in directory that have metadata created, default path
+  std::vector<std::string> list_gltf_files(std::string path);
+
   // List all files in the directory
   std::vector<std::string> list_any_files(std::string path);
 

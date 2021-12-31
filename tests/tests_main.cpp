@@ -1,18 +1,16 @@
 
 
 #include <iostream>
-#include <map>
-#include <set>
 #include <string>
 #include <vector>
-
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #include "tests_collisions.h"
+#include "tests_models.h"
 #include "tests_utils.h"
 
-
 typedef bool (*sig_ptr)();
-std::map<std::string,sig_ptr> tests;
+phmap::flat_hash_map<std::string, sig_ptr> tests;
 float total_tests;
 float passed;
 float failed;
@@ -30,6 +28,13 @@ void init()
   tests["test_collisions__get_entity_to_map_dto_solidpass"] = test_collisions__get_entity_to_map_dto_solidpass;
   tests["test_collisions__get_entity_to_map_dto_is_near"] = test_collisions__get_entity_to_map_dto_is_near;
   // tests["test_collisions__get_entity_to_entity_dto_solidpass"] = test_collisions__get_entity_to_entity_dto_solidpass;
+
+  
+  // models
+  // tests["test_models_float_to_bytes_conversion"] = test_models_float_to_bytes_conversion;
+  tests["test_models_bytes_to_float_conversion_05"] = test_models_bytes_to_float_conversion_05;
+  tests["test_models_bytes_to_float_conversion_51"] = test_models_bytes_to_float_conversion_51;
+
 
   // utils
   tests["test_utils_generate_id_first_id_is_1"] = test_utils_generate_id_first_id_is_1;

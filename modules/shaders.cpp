@@ -129,7 +129,7 @@ namespace shaders
       }
       SDL_Log("Error compiling shader.\n");
     }
-    SDL_Log("shader: %u", shader);
+    //SDL_Log("shader: %u", shader);
     return shader;
   }
 
