@@ -23,6 +23,7 @@ namespace collisions
   phmap::flat_hash_map<int,sig_ptr> AABBsHandler = {};
   std::vector<collisions::DistanceToObject> distances = {};
   std::vector<collisions::DistanceToObject> door_distances = {};
+  std::vector<int> near_items = {};
 
 
 
@@ -152,6 +153,16 @@ namespace collisions
     struct SolidLimits limits;
     for(int i=0; i<collisions::distances.size(); i++)
     {
+
+      if(collisions::distances[i].object_type == OBJECT_TYPE_ENTITY)
+      {
+        if(entity::entities[collisions::distances[i].object_id].entity_type_id == ENTITY_TYPE_ITEM)
+        {
+          collisions::near_items.push_back(collisions::distances[i].object_id);
+        }
+      }
+
+
       if(collisions::distances[i].is_solid)
       {
         int entity_id = collisions::distances[i].entity_id;
@@ -405,6 +416,7 @@ namespace collisions
   {
     collisions::distances.clear();
     collisions::door_distances.clear();
+    collisions::near_items.clear();
   }
 
 
