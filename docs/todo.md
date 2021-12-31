@@ -1,7 +1,13 @@
 
+### items
+ - generate items
+ - pickup items
+ - animate items
+
+
 ### 3d models instead of spritesheets:
  - automate blender to texture pipeline -> script to setup camera perspective and image export
-
+ - make new scripts for humanoid texture
  - photogrammetry
  - meshroom 
  - https://www.mixamo.com/
