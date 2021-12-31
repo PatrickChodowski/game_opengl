@@ -35,6 +35,7 @@ namespace items
     {
       items::read_data(item_list[i]);
     }
+    std::cout << "item size: " << items::items.size() << std::endl;
   };
 
   void refresh()
@@ -47,25 +48,36 @@ namespace items
     items::GeneratedItems.clear();
   }
 
-  void put_item_on_ground(int item_id, float x, float y)
+  void drop(int entity_id)
   {
-    items::ItemData tdd = items::items[item_id];
+    if(items::GeneratedItems.count(entity_id) > 0)
+    {
+      items::GeneratedItems.erase(entity_id);
+      entity::drop(entity_id);
+    }
+  }
+
+  void spawn(int item_id, float x, float y)
+  {
+    items::GeneratedItemData tdd;
+
     tdd.x = x;
     tdd.y = y;
-    tdd.w = tdd.width_og;
-    tdd.h = tdd.height_og;
-    tdd.current_frame = tdd.items_frame_id;
+    tdd.w = items::items[item_id].width_og;
+    tdd.h = items::items[item_id].height_og;
+    tdd.current_frame = items::items[item_id].items_frame_id;
     tdd.texture_id = items::items[item_id].items_texture_id;
+    tdd.type = items::items[item_id].type;
 
     // logic for items to be stored in different table? Same as alive mobs
     int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
-    //items::GeneratedItems[entity_id] = tdd;
+    items::GeneratedItems[entity_id] = tdd;
   }
 
   std::vector<std::string> info(int entity_id)
   {
     std::vector<std::string> infos = {};
-    //infos.push_back(items::GeneratedItems[entity_id].ite);
+    infos.push_back(items::GeneratedItems[entity_id].type);
     return infos;
   }
 

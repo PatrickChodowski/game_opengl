@@ -46,6 +46,15 @@ namespace items
     int type_id;
     int dmg;  
     int speed;
+
+    int texture_id;
+    int current_frame;
+
+    float x,y;
+    float w,h;
+
+    std::string type;
+
   };
 
   extern phmap::flat_hash_map<int, ItemData> items;
@@ -58,7 +67,10 @@ namespace items
   void init();
 
   // Render item object (entity) on the ground
-  void put_item_on_ground(int item_id, float x, float y);
+  void spawn(int item_id, float x, float y);
+
+  // Drop item entity 
+  void drop(int entity_id);
 
   // Clear temporary data
   void clear();
