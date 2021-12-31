@@ -1,13 +1,17 @@
-
 import bpy
 import numpy as np
 import math
 
-def make_grid_pos(a: float, b: float) -> list:
+def make_grid_pos(a: float, b: float, axes: list) -> list:
+    # x,y,z -> 0,1,2
     main = list()
-    for y in np.arange(a, b, 1.0):
-        for z in np.arange(a, b, 1.0):
-            main.append([0.0,y,z])
+    if axes.__len__() == 2:
+        for y in np.arange(a, b, 1.0):
+            for z in np.arange(a, b, 1.0):
+                l = [0.0, 0.0, 0.0]
+                l[axes[0]] = y
+                l[axes[1]] = z
+                main.append(l)
     return main
             
 def get_objects() -> list:
@@ -69,8 +73,8 @@ def copy_coll_objects(coll_name: str) -> str:
         bpy.data.collections[new_coll_name].objects.link(obj_copy)
     return new_coll_name
 
-def make_coll_grid(coll_name: str, n: float) -> list:
-    pos = make_grid_pos(1.0, n+1.0)
+def make_coll_grid(coll_name: str, n: float, axes: list) -> list:
+    pos = make_grid_pos(1.0, n+1.0, axes)
     for p in pos:
         new_coll_name = copy_coll_objects(coll_name)
         move_collection(new_coll_name, *p)
@@ -98,7 +102,6 @@ def get_collection_rotation(coll_name: str):
         #print(obj.rotation_quaternion)
         
     
-
 def rotate_collection(coll_name: str, x: int = None, y: int = None, z: int = None) -> None:
     set_state(bpy.data.collections[coll_name].objects, True)
     
@@ -159,9 +162,9 @@ def align_camera_with_grid(x: float, y: float, z: float, align_on: str = "x"):
     bpy.data.objects['Camera'].rotation_euler.z = math.radians(+90)
     
     
-def make_grid_rotations(coll_name: str) -> None:
+def make_grid_rotations(coll_name: str, axes: list) -> None:
     rots = [-105, -90, -45, -25, 0, 30, 45, 60, 75]
-    pos = make_coll_grid(coll_name, 3)
+    pos = make_coll_grid(coll_name, 3, axes)
     colls = list_grid_collections(coll_name)
     t = find_grid_center(pos)
 
@@ -181,6 +184,5 @@ def save(file_name: str, res_x: int, res_y: int) -> None:
     bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/assets/{file_name}.png"
     bpy.ops.render.render(write_still = 1)
     
-make_grid_rotations("donut")
-save("donut")
-
+make_grid_rotations("axe", axes=[1,2])
+#save("axe")
