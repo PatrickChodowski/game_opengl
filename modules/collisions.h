@@ -16,6 +16,7 @@ namespace collisions
   typedef void (*sig_ptr)(int);
   // Catalog of functions to be chosen based on the object_type_id
   extern phmap::flat_hash_map<int,sig_ptr> AABBsHandler;
+  extern std::vector<int> near_items;
 
 
   // AABB data for the entity

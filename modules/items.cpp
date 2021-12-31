@@ -4,6 +4,7 @@
 
 #include "collisions.h"
 #include "entity.h"
+#include "hero.h"
 #include "items.h"
 #include "utils.h"
 #include "quads.h"
@@ -77,6 +78,7 @@ namespace items
     {
       items::ItemsOnGround.erase(entity_id);
       items::EquippedItems[entity_id] = items::GeneratedItems[entity_id]; 
+      hero::hero.equipped_items.push_back(entity_id);
       entity::hide(entity_id);
     }
   }
@@ -87,7 +89,10 @@ namespace items
     {
       items::EquippedItems.erase(entity_id);
       items::ItemsOnGround[entity_id] = items::GeneratedItems[entity_id]; 
-      int old_entity_id = entity::create(items::GeneratedItems[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
+      items::ItemsOnGround[entity_id].x = x;
+      items::ItemsOnGround[entity_id].y = y;
+      int old_entity_id = entity::create(items::ItemsOnGround[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
+      utils::drop_id(hero::hero.equipped_items, entity_id);
     }
   }
 
