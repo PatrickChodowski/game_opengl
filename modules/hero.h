@@ -44,11 +44,14 @@ namespace hero
     float dmg;
     float def;
 
+    // Equipped items (by entity id)
+    std::vector<int> equipped_items;
+
     // personal information
     std::string name;
     std::string type;
 
-    JS_OBJ(w, h, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, name, type);
+    JS_OBJ(w, h, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, equipped_items, name, type);
   }; 
 
   extern hero::HeroData hero;
