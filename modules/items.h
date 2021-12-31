@@ -58,8 +58,9 @@ namespace items
   };
 
   extern phmap::flat_hash_map<int, ItemData> items;
+  // Generated items = Items On Ground + Equipped Items
   extern phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems;
-  extern phmap::flat_hash_map<int, GeneratedItemData> VisibleItems;
+  extern phmap::flat_hash_map<int, GeneratedItemData> ItemsOnGround;
   extern phmap::flat_hash_map<int, GeneratedItemData> EquippedItems;
 
   // Reads item data from json file
@@ -78,7 +79,7 @@ namespace items
   void pickup(int entity_id);
 
   // Drop item on the ground
-  void yeet(int entity_id);
+  void yeet(int entity_id, float x, float y);
 
   // Clear temporary data
   void clear();
