@@ -1,1 +1,1 @@
-func_id = 3; vars = {'item_id': 1.0, 'x': 200.0, 'y': 200.0}
+func_id = 3; vars = {'item_id': 1.0, 'x': 100.0, 'y': 100.0}

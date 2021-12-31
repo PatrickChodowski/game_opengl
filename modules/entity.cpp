@@ -35,10 +35,21 @@ namespace entity
   };
 
   template <typename T>
-  int create(T data, int entity_type_id, float camera_type)
+  int create(T data, int entity_type_id, float camera_type, int entity_id)
   { 
     entity::EntityData edd;
-    edd.id = utils::generate_id(entity::Index);
+
+    if(entity_id == -1)
+    {
+      edd.id = utils::generate_id(entity::Index);
+    } else {
+      if(entity::entities.count(entity_id) > 0)
+      {
+        std::cout << "ERROR DOUBLED ENTITY_ID " << entity_id << std::endl;
+      }
+      edd.id = entity_id;
+    }
+
     edd.texture_id = data.texture_id;
     edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
@@ -95,7 +106,15 @@ namespace entity
       entity::entities.erase(entity_id);
       utils::drop_id(entity::Index, entity_id);
     }
-  }
+  };
+
+  void hide(int entity_id)
+  {
+    if(entity::entities.count(entity_id) > 0)
+    {
+      entity::entities.erase(entity_id);
+    }
+  };
 
   
   std::vector<std::string> info(int entity_id)
@@ -132,9 +151,9 @@ namespace entity
     entity::entities[entity_id].mid_y = y + (entity::entities[entity_id].dims.h/2);
   }
 
-  template int entity::create<hero::HeroData>(hero::HeroData, int, float);
-  template int entity::create<items::GeneratedItemData>(items::GeneratedItemData, int, float);
-  template int entity::create<mobs::MobData>(mobs::MobData, int, float);
-  template int entity::create<npcs::NPCData>(npcs::NPCData, int, float);
+  template int entity::create<hero::HeroData>(hero::HeroData, int, float, int);
+  template int entity::create<items::GeneratedItemData>(items::GeneratedItemData, int, float, int);
+  template int entity::create<mobs::MobData>(mobs::MobData, int, float, int);
+  template int entity::create<npcs::NPCData>(npcs::NPCData, int, float, int);
 
 }

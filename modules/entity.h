@@ -52,8 +52,9 @@ namespace entity
   extern phmap::flat_hash_map<int, sig_ptr> menu_entity_type_map;
 
   // Creates entity and adds it to the table. Uses the data structure different based on entity type. Returns entity_id
+  // Default entity ID is -1, it means it needs to generate a new one. If passing value, it means that this entity id is already in the system
   template <typename T>
-  int create(T data, int entity_type_id, float camera_type);
+  int create(T data, int entity_type_id, float camera_type, int entity_id = -1);
 
   // Creates quads for the entity table
   void render();
@@ -75,6 +76,9 @@ namespace entity
 
   // Delete entity
   void drop(int entity_id);
+
+  // Hide entity (delete from the table, but keep entity_id)
+  void hide(int entity_id);
 
 }
 

@@ -17,7 +17,7 @@ namespace items
 {
   phmap::flat_hash_map<int, ItemData> items = {};
   phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems = {};
-  phmap::flat_hash_map<int, GeneratedItemData> VisibleItems = {};
+  phmap::flat_hash_map<int, GeneratedItemData> ItemsOnGround = {};
   phmap::flat_hash_map<int, GeneratedItemData> EquippedItems = {};
 
   void read_data(std::string name)
@@ -48,6 +48,8 @@ namespace items
   void clear()
   {
     items::GeneratedItems.clear();
+    items::ItemsOnGround.clear();
+    items::EquippedItems.clear();
   }
 
   void drop(int entity_id)
@@ -57,24 +59,35 @@ namespace items
       items::GeneratedItems.erase(entity_id);
       entity::drop(entity_id);
     }
+
+    if(items::ItemsOnGround.count(entity_id) > 0)
+    {
+      items::ItemsOnGround.erase(entity_id);
+    };
+
+    if(items::EquippedItems.count(entity_id) > 0)
+    {
+      items::EquippedItems.erase(entity_id);
+    };
   }
 
   void pickup(int entity_id)
   {
-    if(items::GeneratedItems.count(entity_id) > 0)
+    if(items::GeneratedItems.count(entity_id) > 0 & items::ItemsOnGround.count(entity_id) > 0)
     {
+      items::ItemsOnGround.erase(entity_id);
       items::EquippedItems[entity_id] = items::GeneratedItems[entity_id]; 
-      //items::drop(entity_id); // strange but kinda had to drop the item?
+      entity::hide(entity_id);
     }
   }
 
-  void yeet(int entity_id)
+  void yeet(int entity_id, float x, float y)
   {
-    if(items::EquippedItems.count(entity_id) > 0)
+    if(items::EquippedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
     {
-      items::GeneratedItems[entity_id] = items::EquippedItemss[entity_id]; 
       items::EquippedItems.erase(entity_id);
-      //items::drop(entity_id); // strange but kinda had to drop the item?
+      items::ItemsOnGround[entity_id] = items::GeneratedItems[entity_id]; 
+      int old_entity_id = entity::create(items::GeneratedItems[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
     }
   }
 
@@ -93,6 +106,7 @@ namespace items
     // logic for items to be stored in different table? Same as alive mobs
     int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
     items::GeneratedItems[entity_id] = tdd;
+    items::ItemsOnGround[entity_id] = tdd;
   }
 
   std::vector<std::string> info(int entity_id)
