@@ -55,9 +55,6 @@ namespace collisions
     {
       if(k != entity_id)
       {
-        //std::cout << "entity id :" << entity_id << std::endl;
-        //std::cout << "k :" << k << std::endl;
-        //std::cout << "entities size: " << entity::entities.size() << std::endl;
         collisions::DistanceToObject dto = _get_entity_to_single_entity_distance(entity_id, k);
         if(dto.is_near)
         {

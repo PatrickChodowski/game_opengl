@@ -1,9 +1,13 @@
 
 #include <iostream>
 
+#include "debug.h"
 #include "entity.h"
+#include "game.h"
 #include "hero.h"
 #include "items.h"
+#include "textures.h"
+
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
 
@@ -48,8 +52,13 @@ namespace hero
   void _update_joints()
   {
     // temporarily just fixed point
-    hero::hero.hand_x = hero::hero.x + 15;
-    hero::hero.hand_y = hero::hero.y + 30;
+    hero::hero.hand_x = hero::hero.x + textures::textures[hero::hero.texture_id].frames[entity::entities[hero::hero.entity_id].frame_id].hand_x;
+    hero::hero.hand_y = hero::hero.y + textures::textures[hero::hero.texture_id].frames[entity::entities[hero::hero.entity_id].frame_id].hand_y;
+
+    if(game::IS_DEBUG_MODE)
+    {
+      debug::render_square(hero::hero.hand_x, hero::hero.hand_y, 10, 10, 0.9, 0.0, 0.0, 1.0);
+    }
 
     if(hero::hero.in_hand_entity_id > -1)
     {
