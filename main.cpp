@@ -44,6 +44,7 @@ int main()
   {
     std::chrono::time_point<std::chrono::high_resolution_clock> game_loop_start_time = timer::get_current_hrc_time();
     SDL_Event event;
+
     events::handle_events(event);
     // Mobs/NPCs movements here?
     travel::update();

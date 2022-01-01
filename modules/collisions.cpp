@@ -55,6 +55,9 @@ namespace collisions
     {
       if(k != entity_id)
       {
+        //std::cout << "entity id :" << entity_id << std::endl;
+        //std::cout << "k :" << k << std::endl;
+        //std::cout << "entities size: " << entity::entities.size() << std::endl;
         collisions::DistanceToObject dto = _get_entity_to_single_entity_distance(entity_id, k);
         if(dto.is_near)
         {
@@ -382,16 +385,19 @@ namespace collisions
 
   void handle_entity_collisions(int entity_id)
   {
-    collisions::_collect_near_distances(entity_id);
-    if(collisions::distances.size() > 0)
+    if(entity_id > -1)
     {
-      collisions::_set_sensors(entity_id);
-      collisions::_set_abs();
-      collisions::_resolve_solid_collisions();
-    }
-    if(collisions::door_distances.size()>0)
-    {
-      collisions::_resolve_doors();
+      collisions::_collect_near_distances(entity_id);
+      if(collisions::distances.size() > 0)
+      {
+        collisions::_set_sensors(entity_id);
+        collisions::_set_abs();
+        collisions::_resolve_solid_collisions();
+      }
+      if(collisions::door_distances.size()>0)
+      {
+        collisions::_resolve_doors();
+      }
     }
   }
 
