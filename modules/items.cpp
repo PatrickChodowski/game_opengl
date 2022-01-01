@@ -87,6 +87,12 @@ namespace items
   {
     if(items::GeneratedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
     {
+
+      if(hero::hero.in_hand_entity_id == entity_id)
+      {
+        hero::hero.in_hand_entity_id = -1;
+        entity::hide(entity_id);
+      }
       items::EquippedItems.erase(entity_id);
       items::ItemsOnGround[entity_id] = items::GeneratedItems[entity_id]; 
       items::ItemsOnGround[entity_id].x = x;
@@ -113,6 +119,20 @@ namespace items
     items::GeneratedItems[entity_id] = tdd;
     items::ItemsOnGround[entity_id] = tdd;
   }
+
+  
+  void put_in_hand(int entity_id)
+  {
+    if(items::GeneratedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
+    {
+      items::EquippedItems[entity_id].x = hero::hero.hand_x;
+      items::EquippedItems[entity_id].y = hero::hero.hand_y;
+      int old_entity_id = entity::create(items::EquippedItems[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
+      hero::hero.in_hand_entity_id = entity_id;
+    }
+  };
+
+
 
   std::vector<std::string> info(int entity_id)
   {

@@ -133,6 +133,7 @@ namespace events
               for(int c=0; c<collisions::near_items.size(); c++)
               {
                 items::pickup(collisions::near_items[c]);
+                items::put_in_hand(collisions::near_items[c]);
               }
             break;
 

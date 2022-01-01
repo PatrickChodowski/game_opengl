@@ -45,7 +45,7 @@ namespace entity
     } else {
       if(entity::entities.count(entity_id) > 0)
       {
-        std::cout << "ERROR DOUBLED ENTITY_ID " << entity_id << std::endl;
+        std::cout << "\033[1;31mERROR DOUBLED ENTITY_ID " << entity_id << "\033[0m"<< std::endl;
       }
       edd.id = entity_id;
     }
