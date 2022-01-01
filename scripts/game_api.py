@@ -25,7 +25,13 @@ funcs = {
                  "second": "item",
                  "args": ["entity_id"],
                  "id": 4},
+
+  "_start_animation": {"first": "start", 
+                       "second": "animation",
+                       "args": ["anim_type_id","entity_id"],
+                       "id": 5},                 
 }
+
 
 
 def _print_args(func_name: str) -> None:

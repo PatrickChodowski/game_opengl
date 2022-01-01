@@ -10,6 +10,7 @@
 #include "../dependencies/pybind11/embed.h"
 #include "../dependencies/pybind11/stl.h"
 
+#include "../modules/anims.h"
 #include "../modules/entity.h"
 #include "../modules/items.h"
 #include "../modules/mobs.h"
@@ -51,6 +52,7 @@ namespace scripts
     scripts::Handler[2] = _interact_npc;
     scripts::Handler[3] = _spawn_item;
     scripts::Handler[4] = _drop_item;
+    scripts::Handler[5] = _start_animation;
   }
 
 
@@ -90,6 +92,12 @@ namespace scripts
   {
     // Function 4 -> _drop_item
     items::drop(args["entity_id"]);
+  }
+
+  void _start_animation()
+  {
+    // Function 5 -> _init_animation
+    anims::start(args["anim_type_id"], args["entity_id"]);
   }
 
 

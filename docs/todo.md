@@ -1,6 +1,5 @@
 
 ### items
- - make item visible on character
  - disperse items when dropping them (around character  in some semi randomized way)
  - animate items
  - save equipped items on the character(with stats and re-generation from save)
