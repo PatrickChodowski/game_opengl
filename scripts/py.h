@@ -37,6 +37,9 @@ namespace scripts
   // Function 4: _drop_item
   void _drop_item();
 
+  // Function 5: _start_animation
+  void _start_animation();
+
 
 }
 

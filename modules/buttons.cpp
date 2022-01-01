@@ -115,7 +115,7 @@ namespace buttons
     if(menu::_validate_name())
     {
       std::string new_game_name = menu::NewGameName;
-      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, false);  
+      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, false);  
       hero::create_new(new_game_name, "barbarian");
     }
   }
