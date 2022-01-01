@@ -75,6 +75,7 @@ namespace game
     {
       game::read_data(scene_list[s]);
     };
+    std::cout << "Scenes Initialized" << std::endl;
   }
 
   void load_scene(int scene_id, bool from_save)
@@ -125,6 +126,8 @@ namespace game
         camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
         camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
       }
+
+      std::cout << "Loaded Scene: " << scene_id << std::endl;
     }
   }
   

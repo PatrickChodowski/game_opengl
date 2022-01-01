@@ -38,6 +38,7 @@ namespace items
     {
       items::read_data(item_list[i]);
     }
+    std::cout << "Items Initialized" << std::endl;
   };
 
   void refresh()
@@ -118,6 +119,7 @@ namespace items
     int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
     items::GeneratedItems[entity_id] = tdd;
     items::ItemsOnGround[entity_id] = tdd;
+    std::cout << "Spawned Item of type: " << item_id << std::endl;
   }
 
   

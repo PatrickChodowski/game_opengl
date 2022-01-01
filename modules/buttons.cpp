@@ -33,6 +33,8 @@ namespace buttons
     buttons::ButtonFunctions[BUTTON_BACK] = buttons::_click_back;
     buttons::ButtonFunctions[BUTTON_LOADGAME_NAME] = buttons::_click_loadgame_name;
     buttons::ButtonFunctions[BUTTON_TRAVEL] = buttons::_button_travel;
+
+    std::cout << "Buttons Initialized" << std::endl;
   };
 
   int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id)

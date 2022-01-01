@@ -368,6 +368,7 @@ namespace collisions
   {
     collisions::AABBsHandler[OBJECT_TYPE_ENTITY] = _set_abs_entities;
     collisions::AABBsHandler[OBJECT_TYPE_MAP] = _set_abs_maps;
+    std::cout << "Collisions Initialized" << std::endl;
   }
 
 

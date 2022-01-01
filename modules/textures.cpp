@@ -128,6 +128,7 @@ namespace textures
         textures::load(x.first);
       }
     }
+    std::cout << "Textures Initialized" << std::endl;
   };
 
   void drop()

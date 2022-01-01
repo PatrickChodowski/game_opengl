@@ -53,6 +53,7 @@ namespace scripts
     scripts::Handler[3] = _spawn_item;
     scripts::Handler[4] = _drop_item;
     scripts::Handler[5] = _start_animation;
+    std::cout << "PyScripts Initialized" << std::endl;
   }
 
 

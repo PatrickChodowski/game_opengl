@@ -32,6 +32,7 @@ namespace entity
     entity::menu_entity_type_map[ENTITY_TYPE_NPC] = npcs::info;
     entity::menu_entity_type_map[ENTITY_TYPE_MOB] = mobs::info;
     entity::menu_entity_type_map[ENTITY_TYPE_ITEM] = items::info;
+    std::cout << "Entity Initialized" << std::endl;
   };
 
   template <typename T>

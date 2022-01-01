@@ -54,6 +54,8 @@ namespace quads
   {
     quads::GetVertex[false] = _fill_quad_vertex_data;
     quads::GetVertex[true] = _fill_quad_vertex_data_reversed;
+
+    std::cout << "Quads Initialized" << std::endl;
   }
 
   template <typename T>

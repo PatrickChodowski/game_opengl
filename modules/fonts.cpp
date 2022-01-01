@@ -161,6 +161,8 @@ namespace fonts
     fonts::FontTDD = TD;
     textures::textures[texture_id] = TD;
     textures::BoundTextures.push_back(TD.opengl_texture_id);
+
+    std::cout << "Fonts Initialized" << std::endl;
   };
 
   int add(std::string& text, float x_start, float y_start, float camera_type, float scale, float r, float g, float b)

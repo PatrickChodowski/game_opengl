@@ -30,6 +30,7 @@ namespace events
     events::EventsHandler[EVENT_HANDLER_NEW_GAME_MENU] = _handle_new_game;
     events::EventsHandler[EVENT_HANDLER_LOAD_GAME_MENU] = _handle_load_game;
     events::EventsHandler[EVENT_HANDLER_IN_GAME] = _handle_in_game;
+    std::cout << "Events Initialized" << std::endl;
   }
 
   void _scan_for_camera_move()

@@ -76,6 +76,7 @@ namespace menu
     };
 
     menu::_list_saves();
+    std::cout << "Menu Initialized" << std::endl;
   }
 
   void refresh()

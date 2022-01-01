@@ -38,6 +38,7 @@ namespace maps
     {
       maps::read_map_data(maps_list[m]);
     }
+    std::cout << "Maps Initialized" << std::endl;
   };
 
   void refresh()
