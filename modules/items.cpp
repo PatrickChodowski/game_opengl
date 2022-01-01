@@ -117,9 +117,10 @@ namespace items
 
     // logic for items to be stored in different table? Same as alive mobs
     int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
+    tdd.entity_id = entity_id;
     items::GeneratedItems[entity_id] = tdd;
     items::ItemsOnGround[entity_id] = tdd;
-    std::cout << "Spawned Item of type: " << item_id << std::endl;
+    std::cout << "Spawned Item of type: " << item_id << " entity id : " << entity_id << std::endl;
   }
 
   

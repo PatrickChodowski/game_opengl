@@ -35,7 +35,7 @@ namespace hero
     // Previous position for collisions
     float prev_x, prev_y;
 
-    int entity_id;
+    int entity_id = -1;
     int current_frame;
     int map_id;
 

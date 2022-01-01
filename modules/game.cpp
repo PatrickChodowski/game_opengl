@@ -99,8 +99,6 @@ namespace game
       // load mobs based on the map
       mobs::spawn_from_nest(game::MAP_ID);
 
-      //items::put_item_on_ground(1, 200, 200);
-
       // Spawns npcs for the map
       npcs::spawn_from_map(game::MAP_ID);
 
@@ -196,7 +194,6 @@ namespace game
     // std::cout << "entities size:" << entity::entities.size() << std::endl;
     // std::cout << "hero entity id: " << hero::hero.entity_id << std::endl;
     // std::cout << "entity hero x y " << entity::entities[hero::hero.entity_id].pos.x << ", " << entity::entities[hero::hero.entity_id].pos.y << std::endl;
-
     quads::clear();
     maps::render();
     entity::render();
