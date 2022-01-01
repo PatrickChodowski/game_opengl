@@ -1,5 +1,10 @@
 
 ### items
+  - split TextureData into Characters textures and items texture (items have hooks, character texture will have multiple (hand, head etc.))
+
+ - hero's frame has hooks (items positions on the body to attach items)
+ - each item will have its own hook per frame to be attached as well
+ 
  - disperse items when dropping them (around character  in some semi randomized way)
  - animate items
  - save equipped items on the character(with stats and re-generation from save)

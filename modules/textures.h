@@ -16,9 +16,10 @@ namespace textures
     int frame_id;
     float x, y;
     float w, h; 
+    float hand_x, hand_y;
     std::string label;
 
-    JS_OBJ(frame_id, x, y, w, h, label);
+    JS_OBJ(frame_id, x, y, w, h, hand_x, hand_y, label);
   };
 
   // Texture data for the catalog
