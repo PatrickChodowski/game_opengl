@@ -39,6 +39,7 @@ namespace quads
 
   // vector of quads
   std::vector<quads::QuadData> AllQuads(MAX_QUADS);
+  phmap::flat_hash_map<bool,sig_ptr> GetVertex;
 
   template <typename T>
   void add_quads(phmap::flat_hash_map<int, T>& data, int object_type_id)
@@ -47,6 +48,12 @@ namespace quads
     {
       int quad_id = quads::make_quad(v, object_type_id);
     }
+  }
+
+  void init()
+  {
+    quads::GetVertex[false] = _fill_quad_vertex_data;
+    quads::GetVertex[true] = _fill_quad_vertex_data_reversed;
   }
 
   template <typename T>
@@ -127,6 +134,58 @@ namespace quads
     return v;
   }
 
+  VertexData _fill_quad_vertex_data_reversed(quads::QuadData& q, int n)
+  {
+    VertexData v;
+    v.v1_id = (n*4);
+    v.v2_id = (n*4) + 1;
+    v.v3_id = (n*4) + 2;
+    v.v4_id = (n*4) + 3;
+
+    // A
+    v.v1_x = q.pos.x;
+    v.v1_y = q.pos.y;
+    v.v1_z = q.pos.z;
+    v.v1_tx_x = q.norm.x_end;
+    v.v1_tx_y = q.norm.y_start;
+    //v.v1_tx_y = 0.0f;
+
+    // B
+    v.v2_x = q.pos.x + q.dims.w - quads::VERTEX_OFFSET;
+    v.v2_y = q.pos.y;
+    v.v2_z = q.pos.z;
+    v.v2_tx_x = q.norm.x_start;
+    v.v2_tx_y = q.norm.y_start;
+    //v.v2_tx_y = 0.0f;
+
+    // C
+    v.v3_x = q.pos.x;
+    v.v3_y = q.pos.y + q.dims.h - quads::VERTEX_OFFSET;
+    v.v3_z = q.pos.z;
+    v.v3_tx_x = q.norm.x_end;
+    v.v3_tx_y = q.norm.y_end;
+    //v.v3_tx_y = 1.0f;
+
+    // D
+    v.v4_x = q.pos.x + q.dims.w - quads::VERTEX_OFFSET;
+    v.v4_y = q.pos.y + q.dims.h - quads::VERTEX_OFFSET;
+    v.v4_z = q.pos.z;
+    v.v4_tx_x = q.norm.x_start;
+    v.v4_tx_y = q.norm.y_end;
+    //v.v4_tx_y = 1.0f;
+
+    q.v = v;
+    q.i_left.v1 =q.v.v1_id;
+    q.i_left.v2 = q.v.v2_id;
+    q.i_left.v3 = q.v.v3_id;
+    q.i_right.v1 = q.v.v2_id;
+    q.i_right.v2 = q.v.v3_id;
+    q.i_right.v3 = q.v.v4_id;
+
+    return v;
+  }
+
+
   void clear()
   {
     quads::AllQuads.clear();
@@ -137,7 +196,8 @@ namespace quads
     // Assigning vertex index and vertex positions here, on the final table
     for(int q=0; q < quads::AllQuads.size(); q++ )
     { 
-      quads::_fill_quad_vertex_data(quads::AllQuads[q], q);
+      //quads::_fill_quad_vertex_data(quads::AllQuads[q], q);
+      quads::GetVertex[quads::AllQuads[q].is_reversed](quads::AllQuads[q], q);
     }
     quads::COUNT_QUADS = quads::AllQuads.size();
     quads::REQ_SIZE_BUFFER = COUNT_QUADS*6*sizeof(float);
