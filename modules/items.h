@@ -72,6 +72,9 @@ namespace items
   // Render item object (entity) on the ground
   void spawn(int item_id, float x, float y);
 
+  // Renders in hand item
+  void put_in_hand(int entity_id);
+
   // Drop item entity 
   void drop(int entity_id);
 

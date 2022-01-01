@@ -3,6 +3,7 @@
 
 #include "entity.h"
 #include "hero.h"
+#include "items.h"
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
 
@@ -34,13 +35,30 @@ namespace hero
   {
     hero::hero.x = hero::hero.prev_x;
     entity::entities[hero.entity_id].pos.x = entity::entities[hero.entity_id].prev_x;
+    hero::_update_joints();
   }
 
   void revert_position_y()
   {
     hero::hero.y = hero::hero.prev_y;
     entity::entities[hero.entity_id].pos.y = entity::entities[hero.entity_id].prev_y;
+    hero::_update_joints();
   }
+
+  void _update_joints()
+  {
+    // temporarily just fixed point
+    hero::hero.hand_x = hero::hero.x + 15;
+    hero::hero.hand_y = hero::hero.y + 30;
+
+    if(hero::hero.in_hand_entity_id > -1)
+    {
+      items::EquippedItems[hero::hero.in_hand_entity_id].x = hero::hero.hand_x;
+      items::EquippedItems[hero::hero.in_hand_entity_id].y = hero::hero.hand_y;
+      entity::update_position(hero::hero.in_hand_entity_id, hero::hero.hand_x, hero::hero.hand_y);
+    }
+
+  };
 
   void set_position(float x, float y)
   {
@@ -49,6 +67,7 @@ namespace hero
     hero::hero.x = x;
     hero::hero.y = y;
     entity::update_position(hero.entity_id, x, y);
+    hero::_update_joints();
   }
 
 
@@ -61,6 +80,7 @@ namespace hero
     hero::hero.x = new_hero_x;
     hero::hero.y = new_hero_y;
     entity::update_position(hero.entity_id, new_hero_x, new_hero_y);
+    hero::_update_joints();
   }
 
   void refresh()
