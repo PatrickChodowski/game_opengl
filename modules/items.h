@@ -46,10 +46,22 @@ namespace items
     int type_id;
     int dmg;  
     int speed;
+
+    int texture_id;
+    int current_frame;
+
+    float x,y;
+    float w,h;
+
+    std::string type;
+
   };
 
   extern phmap::flat_hash_map<int, ItemData> items;
+  // Generated items = Items On Ground + Equipped Items
   extern phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems;
+  extern phmap::flat_hash_map<int, GeneratedItemData> ItemsOnGround;
+  extern phmap::flat_hash_map<int, GeneratedItemData> EquippedItems;
 
   // Reads item data from json file
   void read_data(std::string name);
@@ -58,7 +70,19 @@ namespace items
   void init();
 
   // Render item object (entity) on the ground
-  void put_item_on_ground(int item_id, float x, float y);
+  void spawn(int item_id, float x, float y);
+
+  // Renders in hand item
+  void put_in_hand(int entity_id);
+
+  // Drop item entity 
+  void drop(int entity_id);
+
+  // Pickup an item
+  void pickup(int entity_id);
+
+  // Drop item on the ground
+  void yeet(int entity_id, float x, float y);
 
   // Clear temporary data
   void clear();

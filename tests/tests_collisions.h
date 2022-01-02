@@ -161,7 +161,6 @@ bool test_collisions__get_entity_to_map_dto_is_near()
   maps::tiles[tile.id] = tile;
 
   collisions::DistanceToObject dto = collisions::_get_entity_to_single_tile_distance(hero::hero.entity_id, tile.id);
-
   if(dto.is_near)
   {
     passed = true;

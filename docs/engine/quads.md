@@ -78,6 +78,14 @@ For debugging only, required size of buffer for given AllQuads
 int REQ_SIZE_BUFFER
 ```
 
+
+### GetVertex
+Catalog of functions to be chosen based on the quads direction
+```c++
+typedef VertexData (*sig_ptr)(quads::QuadData& q, int n);
+phmap::flat_hash_map<bool,sig_ptr> GetVertex;
+```
+
 ## Functions
 
 ### add_quads
@@ -119,6 +127,13 @@ Hidden method for filling up quads' vertices  specific data (VertexData) struct
 ```c++
 struct VertexData _fill_quad_vertex_data(quads2::QuadData& q);
 ```
+
+### _fill_quad_vertex_data_reversed
+Takes some quad information and produces reversed vertex data struct to be added to quad
+```c++
+struct VertexData _fill_quad_vertex_data_reversed(quads::QuadData& q, int n);
+```
+
 
 
 

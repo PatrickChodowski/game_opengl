@@ -36,6 +36,7 @@ namespace npcs
     {
       npcs::read_data(npc_list[n]);
     };
+    std::cout << "NPCs Initialized" << std::endl;
   };
 
   int spawn(int npc_id, float x, float y)

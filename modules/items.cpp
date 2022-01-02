@@ -4,6 +4,7 @@
 
 #include "collisions.h"
 #include "entity.h"
+#include "hero.h"
 #include "items.h"
 #include "utils.h"
 #include "quads.h"
@@ -17,6 +18,8 @@ namespace items
 {
   phmap::flat_hash_map<int, ItemData> items = {};
   phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems = {};
+  phmap::flat_hash_map<int, GeneratedItemData> ItemsOnGround = {};
+  phmap::flat_hash_map<int, GeneratedItemData> EquippedItems = {};
 
   void read_data(std::string name)
   {
@@ -35,6 +38,7 @@ namespace items
     {
       items::read_data(item_list[i]);
     }
+    std::cout << "Items Initialized" << std::endl;
   };
 
   void refresh()
@@ -45,27 +49,99 @@ namespace items
   void clear()
   {
     items::GeneratedItems.clear();
+    items::ItemsOnGround.clear();
+    items::EquippedItems.clear();
   }
 
-  void put_item_on_ground(int item_id, float x, float y)
+  void drop(int entity_id)
   {
-    items::ItemData tdd = items::items[item_id];
+    if(items::GeneratedItems.count(entity_id) > 0)
+    {
+      items::GeneratedItems.erase(entity_id);
+      entity::drop(entity_id);
+    }
+
+    if(items::ItemsOnGround.count(entity_id) > 0)
+    {
+      items::ItemsOnGround.erase(entity_id);
+    };
+
+    if(items::EquippedItems.count(entity_id) > 0)
+    {
+      items::EquippedItems.erase(entity_id);
+    };
+  }
+
+  void pickup(int entity_id)
+  {
+    if(items::GeneratedItems.count(entity_id) > 0 & items::ItemsOnGround.count(entity_id) > 0)
+    {
+      items::ItemsOnGround.erase(entity_id);
+      items::EquippedItems[entity_id] = items::GeneratedItems[entity_id]; 
+      hero::hero.equipped_items.push_back(entity_id);
+      entity::hide(entity_id);
+      std::cout << "Hero picked up item " << entity_id << std::endl;
+    }
+  }
+
+  void yeet(int entity_id, float x, float y)
+  {
+    if(items::GeneratedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
+    {
+
+      if(hero::hero.in_hand_entity_id == entity_id)
+      {
+        hero::hero.in_hand_entity_id = -1;
+        entity::hide(entity_id);
+      }
+      items::EquippedItems.erase(entity_id);
+      items::ItemsOnGround[entity_id] = items::GeneratedItems[entity_id]; 
+      items::ItemsOnGround[entity_id].x = x;
+      items::ItemsOnGround[entity_id].y = y;
+      int old_entity_id = entity::create(items::ItemsOnGround[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
+      std::cout << "Hero yeeted item " << entity_id << std::endl;
+    }
+  }
+
+  void spawn(int item_id, float x, float y)
+  {
+    items::GeneratedItemData tdd;
+
     tdd.x = x;
     tdd.y = y;
-    tdd.w = tdd.width_og;
-    tdd.h = tdd.height_og;
-    tdd.current_frame = tdd.items_frame_id;
+    tdd.item_id = item_id;
+    tdd.w = items::items[item_id].width_og;
+    tdd.h = items::items[item_id].height_og;
+    tdd.current_frame = items::items[item_id].items_frame_id;
     tdd.texture_id = items::items[item_id].items_texture_id;
+    tdd.type = items::items[item_id].type;
 
     // logic for items to be stored in different table? Same as alive mobs
     int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
-    //items::GeneratedItems[entity_id] = tdd;
+    tdd.entity_id = entity_id;
+    items::GeneratedItems[entity_id] = tdd;
+    items::ItemsOnGround[entity_id] = tdd;
+    std::cout << "Spawned Item of type: " << item_id << " entity id : " << entity_id << std::endl;
   }
+
+  
+  void put_in_hand(int entity_id)
+  {
+    if(items::GeneratedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
+    {
+      items::EquippedItems[entity_id].x = hero::hero.hand_x;
+      items::EquippedItems[entity_id].y = hero::hero.hand_y;
+      int old_entity_id = entity::create(items::EquippedItems[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
+      hero::hero.in_hand_entity_id = entity_id;
+    }
+  };
+
+
 
   std::vector<std::string> info(int entity_id)
   {
     std::vector<std::string> infos = {};
-    //infos.push_back(items::GeneratedItems[entity_id].ite);
+    infos.push_back(items::GeneratedItems[entity_id].type);
     return infos;
   }
 

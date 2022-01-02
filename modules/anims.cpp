@@ -22,6 +22,7 @@ namespace anims
     {
       anims::read_data(anim_list[a]);
     };
+    std::cout << "Anims Initialized" << std::endl;
   }
 
   void read_data(std::string& name)

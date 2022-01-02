@@ -1,0 +1,12 @@
+{ 
+  "id": 8,
+  "texture_id": 8,
+  "time_length": 0.6,
+  "cyclical": true,
+  "breakable": true,
+  "frame_ids": [0,3,0],
+  "frame_times": [0.0, 0.2, 0.4, 0.61],
+  "next_frame_id": 0
+}
+
+ 

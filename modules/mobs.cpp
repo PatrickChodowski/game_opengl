@@ -35,6 +35,7 @@ namespace mobs
     {
       mobs::read_data(mob_list[m]);
     }
+    std::cout << "Mobs Initialized" << std::endl;
   };
 
   void refresh()

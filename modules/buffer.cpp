@@ -89,7 +89,7 @@ namespace buffer
 
     // hmmmm
     //glEnable(GL_DEPTH_TEST);
-
+    std::cout << "Buffer Initialized" << std::endl;
   }
 
   void _make_vertex_array_from_quads(std::vector<quads::QuadData>& quads, float* arr)

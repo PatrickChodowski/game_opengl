@@ -82,5 +82,13 @@ std::vector<std::string> info(int entity_id);
 
 ```
 
+### hide
+Hide entity (delete from the entities table, but keep entity_id)
+```c++
+void hide(int entity_id);
+
+```
+
+
 ## Tests
 -

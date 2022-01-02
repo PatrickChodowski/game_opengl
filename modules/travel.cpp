@@ -73,7 +73,7 @@ namespace travel
     tp.current_y = entity::entities[entity_id].pos.y;
 
     travel::travels[entity_id] = tp;
-    std::cout << "initialized travel for " << entity_id << std::endl;
+    std::cout << "Initialized travel for " << entity_id << std::endl;
   }
 
 
