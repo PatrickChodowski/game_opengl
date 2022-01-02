@@ -109,6 +109,7 @@ namespace items
 
     tdd.x = x;
     tdd.y = y;
+    tdd.item_id = item_id;
     tdd.w = items::items[item_id].width_og;
     tdd.h = items::items[item_id].height_og;
     tdd.current_frame = items::items[item_id].items_frame_id;

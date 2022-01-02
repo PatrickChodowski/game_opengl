@@ -1,0 +1,20 @@
+{
+    "x" : 678.0,
+    "y" : 660.0,
+    "w" : 70.0,
+    "h" : 70.0,
+    "scene_id" : 5,
+    "exp" : 0.0,
+    "speed" : 8.0,
+    "hp" : 100.0,
+    "dmg" : 20.0,
+    "def" : 100.0,
+    "map_id" : 0,
+    "texture_id" : 2,
+    "level" : 1,
+    "mobs_killed" : 0,
+    "name" : "asfasfas",
+    "type" : "barbarian",
+    "interactions" : [
+    ]
+}

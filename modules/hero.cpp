@@ -62,9 +62,26 @@ namespace hero
 
     if(hero::hero.in_hand_entity_id > -1)
     {
-      items::EquippedItems[hero::hero.in_hand_entity_id].x = hero::hero.hand_x;
-      items::EquippedItems[hero::hero.in_hand_entity_id].y = hero::hero.hand_y;
-      entity::update_position(hero::hero.in_hand_entity_id, hero::hero.hand_x, hero::hero.hand_y);
+
+      float item_w_scale = items::items[items::EquippedItems[hero::hero.in_hand_entity_id].item_id].width_og/
+      textures::textures[entity::entities[hero::hero.in_hand_entity_id].texture_id].frames[entity::entities[hero::hero.in_hand_entity_id].frame_id].w;
+
+      float item_h_scale = items::items[items::EquippedItems[hero::hero.in_hand_entity_id].item_id].height_og/
+      textures::textures[entity::entities[hero::hero.in_hand_entity_id].texture_id].frames[entity::entities[hero::hero.in_hand_entity_id].frame_id].h;
+
+      // XD nice clean code
+      float hook_x = textures::textures[entity::entities[hero::hero.in_hand_entity_id].texture_id].frames[entity::entities[hero::hero.in_hand_entity_id].frame_id].hook_x 
+      * item_w_scale;
+
+      float hook_y = textures::textures[entity::entities[hero::hero.in_hand_entity_id].texture_id].frames[entity::entities[hero::hero.in_hand_entity_id].frame_id].hook_y 
+      * item_h_scale;
+
+      items::EquippedItems[hero::hero.in_hand_entity_id].x = hero::hero.hand_x - hook_x;
+      items::EquippedItems[hero::hero.in_hand_entity_id].y = hero::hero.hand_y - hook_y;
+
+      entity::update_position(hero::hero.in_hand_entity_id, 
+                              items::EquippedItems[hero::hero.in_hand_entity_id].x, 
+                              items::EquippedItems[hero::hero.in_hand_entity_id].y);
     }
 
   };
