@@ -77,7 +77,7 @@ namespace entity
   // Delete entity
   void drop(int entity_id);
 
-  // Hide entity (delete from the table, but keep entity_id)
+  // Hide entity (delete from the entities table, but keep entity_id)
   void hide(int entity_id);
 
 }

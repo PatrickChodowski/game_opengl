@@ -47,6 +47,12 @@ Updates position of the hero character in the ehro data and entity data
 void update_position(float camera_move_x, float camera_move_y);
 ```
 
+### _update_joints
+Updates hero joints based on heros position and frame_id (like hold item)
+```c++
+void _update_joints();
+```
+
 ### _read_data
 Reads data from specified character type (like barbarian)
 ```c++
