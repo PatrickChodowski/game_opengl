@@ -1,11 +1,11 @@
 { 
   "id": 0,
+  "main_anim_type_id": 0,
   "texture_id": 2,
   "time_length": 0.4,
   "cyclical": true,
   "breakable": true,
   "frame_ids": [0,2],
-  "frame_times": [0.0, 0.2, 0.41],
-  "next_frame_id": 1
+  "update_times": [0.0, 0.2, 0.41]
 }
 

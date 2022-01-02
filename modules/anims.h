@@ -15,34 +15,56 @@
 
 namespace anims
 {
-  struct Animation
+  // All data needed for all animation types
+  struct BaseAnimation
   {
     int id;
+    int main_anim_type_id;
     int entity_id;
-    int texture_id;
-    int next_frame_id;
-    int current_frame_index;
-
-    std::vector<int> frame_ids;
-    std::vector<float> frame_times;
-    float next_e_time;
+    int current_keyframe_index;
     float time_length;
     float time_elapsed;
+    float next_update_time;
+    std::vector<float> update_times;
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-
     bool cyclical;
     bool breakable;
-
-    JS_OBJ(id, texture_id, next_frame_id, time_length, frame_ids, 
-    frame_times, cyclical, breakable);
-
   };
 
-  // Catalog of animation_id, Animation data - all animations in one place
-  extern phmap::flat_hash_map<int, anims::Animation> anims;
+
+  // Data needed for frame animation only and base animation
+  struct FrameAnimation : BaseAnimation
+  {
+    int texture_id;
+    std::vector<int> frame_ids;
+
+    JS_OBJ(id, main_anim_type_id, texture_id, 
+    time_length, frame_ids, 
+    update_times, cyclical, breakable);
+  }; 
+
+
+  // Data needed for color animation only and base animation
+  struct ColorAnimation : BaseAnimation
+  {
+    std::vector<float> r;
+    std::vector<float> g;
+    std::vector<float> b;
+    std::vector<float> a;
+
+    JS_OBJ(id, main_anim_type_id, r, g, b, a, 
+    time_length, 
+    update_times, cyclical, breakable);
+  }; 
+
+  // Catalog of color Animations
+  extern phmap::flat_hash_map<int, anims::ColorAnimation> color_anims;
+
+  // Catalog of frame Animations
+  extern phmap::flat_hash_map<int, anims::FrameAnimation> frame_anims;
 
   // Catalog of entity_id, Animation - current animations played
-  extern phmap::flat_hash_map<int, anims::Animation> animsplayed;
+  extern phmap::flat_hash_map<int, anims::FrameAnimation> animsplayed;
 
   // index of animations to delete
   extern std::vector<int> anims_to_stop;
@@ -50,8 +72,11 @@ namespace anims
   // Reads in all the data
   void init();
 
-  // Reads data for selected animation
-  void read_data(std::string& name);
+  // Reads data for selected frame animation
+  void _read_frame_anim_data(std::string& name);
+
+  // Reads data for selected color animation
+  void _read_color_anim_data(std::string& name);
 
   // Clear temporary data
   void clear();
