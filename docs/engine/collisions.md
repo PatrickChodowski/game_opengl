@@ -63,6 +63,13 @@ Vector of current near door distances
 std::vector<collisions::DistanceToObject> door_distances;
 ```
 
+### near_items
+Vector of entities - items, that are within collision distance
+```c++
+std::vector<int> near_items;
+
+```
+
 ## Functions
 
 ### init
