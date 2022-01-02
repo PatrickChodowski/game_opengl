@@ -14,6 +14,7 @@ namespace anims
 {
   phmap::flat_hash_map<int, anims::ColorAnimation> color_anims;
   phmap::flat_hash_map<int, anims::FrameAnimation> frame_anims;
+  phmap::flat_hash_map<int, anims::SizeAnimation> size_anims;
 
   phmap::flat_hash_map<int, anims::FrameAnimation> animsplayed;
   std::vector<int> anims_to_stop;
@@ -22,6 +23,7 @@ namespace anims
   {
     std::vector<std::string> frame_anim_list = utils::list_json_files("data/anims/frames");
     std::vector<std::string> color_anim_list = utils::list_json_files("data/anims/color");
+    std::vector<std::string> size_anim_list = utils::list_json_files("data/anims/size");
 
     for(int a=0; a < frame_anim_list.size(); a++)
     {
@@ -31,6 +33,11 @@ namespace anims
     for(int a=0; a < color_anim_list.size(); a++)
     {
       anims::_read_color_anim_data(color_anim_list[a]);
+    };
+
+    for(int a=0; a < size_anim_list.size(); a++)
+    {
+      anims::_read_size_anim_data(size_anim_list[a]);
     };
     std::cout << "Anims Initialized" << std::endl;
   }
@@ -53,6 +60,16 @@ namespace anims
     JS::ParseContext context(json_data);
     context.parseTo(AD);
     anims::color_anims.insert({AD.id, AD});
+  }
+
+  void _read_size_anim_data(std::string& name)
+  {
+    anims::SizeAnimation AD;
+    std::string data_path = "./data/anims/size/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(AD);
+    anims::size_anims.insert({AD.id, AD});
   }
 
 
