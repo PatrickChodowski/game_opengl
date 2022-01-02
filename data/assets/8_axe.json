@@ -1,18 +1,18 @@
 {
   "id": 8,
-  "w": 660,
-  "h": 699,
+  "w": 1080,
+  "h": 1080,
   "type": "item",
   "name": "axe",
   "frames_list": [
-    {"frame_id": 0, "x": 0, "y": 0, "w": 220, "h": 233, "label": "up_1",          "hook_x": 0, "hook_y": 0},
-    {"frame_id": 1, "x": 220, "y": 0, "w": 220, "h": 233, "label": "up_0",        "hook_x": 0, "hook_y": 0},
-    {"frame_id": 2, "x": 440, "y": 0, "w": 220, "h": 233, "label": "up_2",        "hook_x": 0, "hook_y": 0},
-    {"frame_id": 3, "x": 0, "y": 233, "w": 220, "h": 233, "label": "right_1",     "hook_x": 0, "hook_y": 0},
-    {"frame_id": 4, "x": 220, "y": 233, "w": 220, "h": 233, "label": "right_0",   "hook_x": 0, "hook_y": 0},
-    {"frame_id": 5, "x": 440, "y": 233, "w": 220, "h": 233, "label": "right_2",   "hook_x": 0, "hook_y": 0},
-    {"frame_id": 6, "x": 0, "y": 466, "w": 220, "h": 233, "label": "down_1",      "hook_x": 0, "hook_y": 0},
-    {"frame_id": 7, "x": 220, "y": 466, "w": 220, "h": 233, "label": "down_0",    "hook_x": 0, "hook_y": 0},
-    {"frame_id": 8, "x": 440, "y": 466, "w": 220, "h": 233, "label": "down_2",    "hook_x": 0, "hook_y": 0}
+    {"frame_id": 0, "x": 0, "y": 0, "w": 360, "h": 360, "label": "up_1",          "hook_x": 270, "hook_y": 150},
+    {"frame_id": 1, "x": 360, "y": 0, "w": 360, "h": 360, "label": "up_0",        "hook_x": 235, "hook_y": 250},
+    {"frame_id": 2, "x": 720, "y": 0, "w": 360, "h": 360, "label": "up_2",        "hook_x": 160, "hook_y": 240},
+    {"frame_id": 3, "x": 0, "y": 360, "w": 360, "h": 360, "label": "right_1",     "hook_x": 240, "hook_y": 100},
+    {"frame_id": 4, "x": 360, "y": 360, "w": 360, "h": 360, "label": "right_0",   "hook_x": 270, "hook_y": 220},
+    {"frame_id": 5, "x": 720, "y": 360, "w": 360, "h": 360, "label": "right_2",   "hook_x": 195, "hook_y": 250},
+    {"frame_id": 6, "x": 0, "y": 720, "w": 360, "h": 360, "label": "down_1",      "hook_x": 230, "hook_y": 100},
+    {"frame_id": 7, "x": 360, "y": 720, "w": 360, "h": 360, "label": "down_0",    "hook_x": 280, "hook_y": 180},
+    {"frame_id": 8, "x": 720, "y": 720, "w": 360, "h": 360, "label": "down_2",    "hook_x": 220, "hook_y": 240}
   ]
 }
