@@ -57,11 +57,27 @@ namespace anims
     update_times, cyclical, breakable);
   }; 
 
+    // Data needed for color animation only and base animation
+  struct SizeAnimation : BaseAnimation
+  {
+    std::vector<float> w;
+    std::vector<float> h;
+
+    JS_OBJ(id, main_anim_type_id, w, h,
+    time_length, 
+    update_times, cyclical, breakable);
+  }; 
+
+
   // Catalog of color Animations
   extern phmap::flat_hash_map<int, anims::ColorAnimation> color_anims;
 
   // Catalog of frame Animations
   extern phmap::flat_hash_map<int, anims::FrameAnimation> frame_anims;
+
+  // Catalog of size Animations
+  extern phmap::flat_hash_map<int, anims::SizeAnimation> size_anims;
+
 
   // Catalog of entity_id, Animation - current animations played
   extern phmap::flat_hash_map<int, anims::FrameAnimation> animsplayed;
@@ -77,6 +93,9 @@ namespace anims
 
   // Reads data for selected color animation
   void _read_color_anim_data(std::string& name);
+
+  // Reads data for selected size animation
+  void _read_size_anim_data(std::string& name);
 
   // Clear temporary data
   void clear();
