@@ -6,34 +6,55 @@
 #include "utils.h"
 #include "timer.h"
 
+#include "../dictionary.h"
 #include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
 namespace anims
 {
-  phmap::flat_hash_map<int, anims::Animation> anims;
-  phmap::flat_hash_map<int, anims::Animation> animsplayed;
+  phmap::flat_hash_map<int, anims::ColorAnimation> color_anims;
+  phmap::flat_hash_map<int, anims::FrameAnimation> frame_anims;
+
+  phmap::flat_hash_map<int, anims::FrameAnimation> animsplayed;
   std::vector<int> anims_to_stop;
 
   void init()
   {
-    std::vector<std::string> anim_list = utils::list_json_files("data/anims");
-    for(int a=0; a < anim_list.size(); a++)
+    std::vector<std::string> frame_anim_list = utils::list_json_files("data/anims/frames");
+    std::vector<std::string> color_anim_list = utils::list_json_files("data/anims/color");
+
+    for(int a=0; a < frame_anim_list.size(); a++)
     {
-      anims::read_data(anim_list[a]);
+      anims::_read_frame_anim_data(frame_anim_list[a]);
+    };
+
+    for(int a=0; a < color_anim_list.size(); a++)
+    {
+      anims::_read_color_anim_data(color_anim_list[a]);
     };
     std::cout << "Anims Initialized" << std::endl;
   }
 
-  void read_data(std::string& name)
+  void _read_frame_anim_data(std::string& name)
   {
-    anims::Animation AD;
-    std::string data_path = "./data/anims/"+name+".json";
+    anims::FrameAnimation AD;
+    std::string data_path = "./data/anims/frames/"+name+".json";
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(AD);
-    anims::anims.insert({AD.id, AD});
-  };
+    anims::frame_anims.insert({AD.id, AD});
+  }
+
+  void _read_color_anim_data(std::string& name)
+  {
+    anims::ColorAnimation AD;
+    std::string data_path = "./data/anims/color/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(AD);
+    anims::color_anims.insert({AD.id, AD});
+  }
+
 
   void clear()
   {
@@ -47,7 +68,8 @@ namespace anims
 
   void refresh()
   {
-    anims::anims.clear();
+    anims::frame_anims.clear();
+    anims::color_anims.clear();
   }
 
   void start(int anim_type_id, int entity_id)
@@ -56,16 +78,16 @@ namespace anims
     // Later: check if its the same type, check if breakable and can be replaced
     if(!_check_if_entity_in_anim(entity_id))
     {
-      anims::Animation AD  = anims::anims[anim_type_id];
+      anims::FrameAnimation AD  = anims::frame_anims[anim_type_id];
       AD.entity_id = entity_id;
       AD.time_elapsed = 0.0f;
 
-      AD.current_frame_index = 0;
-      AD.next_e_time = AD.frame_times[1];
+      AD.current_keyframe_index = 0;
+      AD.next_update_time = AD.update_times[1];
 
       AD.start_time = timer::get_current_hrc_time();
       anims::animsplayed[entity_id] = AD;
-      entity::update_frame(entity_id, AD.frame_ids[AD.current_frame_index]);
+      entity::update_frame(entity_id, AD.frame_ids[AD.current_keyframe_index]);
     }
     //question to send frame tp entity now?
   }
@@ -76,14 +98,14 @@ namespace anims
     anims::animsplayed[entity_id].time_elapsed = timer::get_elapsed_time(anims::animsplayed[entity_id].start_time);
 
     // Update frame if its passed the next time threshold and is under animation time
-    if(anims::animsplayed[entity_id].time_elapsed >= anims::animsplayed[entity_id].next_e_time & 
+    if(anims::animsplayed[entity_id].time_elapsed >= anims::animsplayed[entity_id].next_update_time & 
       anims::animsplayed[entity_id].time_elapsed  <= anims::animsplayed[entity_id].time_length)
     {
-      anims::animsplayed[entity_id].current_frame_index += 1;
-      anims::animsplayed[entity_id].next_e_time = anims::animsplayed[entity_id].frame_times[(anims::animsplayed[entity_id].current_frame_index+1)];
+      anims::animsplayed[entity_id].current_keyframe_index += 1;
+      anims::animsplayed[entity_id].next_update_time = anims::animsplayed[entity_id].update_times[(anims::animsplayed[entity_id].current_keyframe_index+1)];
 
       // later will be replaced by map of functions I believe
-      int frame_id = anims::animsplayed[entity_id].frame_ids[anims::animsplayed[entity_id].current_frame_index];
+      int frame_id = anims::animsplayed[entity_id].frame_ids[anims::animsplayed[entity_id].current_keyframe_index];
       entity::update_frame(entity_id, frame_id);
     }
 
