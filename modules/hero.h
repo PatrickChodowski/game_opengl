@@ -24,10 +24,18 @@ namespace hero
     float w = 70;
     float h = 70;
 
+
+    // statistics
+    float exp;
+    float speed;
+    float hp;
+    float dmg;
+    float def;
+
     // Previous position for collisions
     float prev_x, prev_y;
 
-    int entity_id;
+    int entity_id = -1;
     int current_frame;
     int map_id;
 
@@ -37,18 +45,21 @@ namespace hero
     int level;
     int mobs_killed;
 
-    // statistics
-    float exp;
-    float speed;
-    float hp;
-    float dmg;
-    float def;
+    // display item data
+    int in_hand_entity_id;
+    float hand_x, hand_y;
+
+
+    // Equipped items (by entity id)
+    std::vector<int> equipped_items;
+
+    
 
     // personal information
     std::string name;
     std::string type;
 
-    JS_OBJ(w, h, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, name, type);
+    JS_OBJ(w, h, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, equipped_items, name, type);
   }; 
 
   extern hero::HeroData hero;
@@ -67,6 +78,9 @@ namespace hero
 
   // Update hero position
   void update_position(float camera_move_x, float camera_move_y);
+
+  // Updates hero joints based on heros position and frame_id
+  void _update_joints();
 
   // Creates new character of certain type. Will have default stats
   void create_new(std::string name, std::string type);

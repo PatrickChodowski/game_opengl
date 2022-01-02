@@ -31,6 +31,15 @@ namespace scripts
   // Function 2: interact_npc
   void _interact_npc();
 
+  // Function 3: _spawn_item
+  void _spawn_item();
+
+  // Function 4: _drop_item
+  void _drop_item();
+
+  // Function 5: _start_animation
+  void _start_animation();
+
 
 }
 

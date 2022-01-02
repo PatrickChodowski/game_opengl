@@ -1,8 +1,13 @@
 
 #include <iostream>
 
+#include "debug.h"
 #include "entity.h"
+#include "game.h"
 #include "hero.h"
+#include "items.h"
+#include "textures.h"
+
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
 
@@ -34,13 +39,52 @@ namespace hero
   {
     hero::hero.x = hero::hero.prev_x;
     entity::entities[hero.entity_id].pos.x = entity::entities[hero.entity_id].prev_x;
+    hero::_update_joints();
   }
 
   void revert_position_y()
   {
     hero::hero.y = hero::hero.prev_y;
     entity::entities[hero.entity_id].pos.y = entity::entities[hero.entity_id].prev_y;
+    hero::_update_joints();
   }
+
+  void _update_joints()
+  {
+    // temporarily just fixed point
+    hero::hero.hand_x = hero::hero.x + textures::textures[hero::hero.texture_id].frames[entity::entities[hero::hero.entity_id].frame_id].hand_x;
+    hero::hero.hand_y = hero::hero.y + textures::textures[hero::hero.texture_id].frames[entity::entities[hero::hero.entity_id].frame_id].hand_y;
+
+    if(game::IS_DEBUG_MODE)
+    {
+      debug::render_square(hero::hero.hand_x, hero::hero.hand_y, 10, 10, 0.9, 0.0, 0.0, 1.0);
+    }
+
+    if(hero::hero.in_hand_entity_id > -1)
+    {
+
+      float item_w_scale = items::items[items::EquippedItems[hero::hero.in_hand_entity_id].item_id].width_og/
+      textures::textures[entity::entities[hero::hero.in_hand_entity_id].texture_id].frames[entity::entities[hero::hero.in_hand_entity_id].frame_id].w;
+
+      float item_h_scale = items::items[items::EquippedItems[hero::hero.in_hand_entity_id].item_id].height_og/
+      textures::textures[entity::entities[hero::hero.in_hand_entity_id].texture_id].frames[entity::entities[hero::hero.in_hand_entity_id].frame_id].h;
+
+      // XD nice clean code
+      float hook_x = textures::textures[entity::entities[hero::hero.in_hand_entity_id].texture_id].frames[entity::entities[hero::hero.in_hand_entity_id].frame_id].hook_x 
+      * item_w_scale;
+
+      float hook_y = textures::textures[entity::entities[hero::hero.in_hand_entity_id].texture_id].frames[entity::entities[hero::hero.in_hand_entity_id].frame_id].hook_y 
+      * item_h_scale;
+
+      items::EquippedItems[hero::hero.in_hand_entity_id].x = hero::hero.hand_x - hook_x;
+      items::EquippedItems[hero::hero.in_hand_entity_id].y = hero::hero.hand_y - hook_y;
+
+      entity::update_position(hero::hero.in_hand_entity_id, 
+                              items::EquippedItems[hero::hero.in_hand_entity_id].x, 
+                              items::EquippedItems[hero::hero.in_hand_entity_id].y);
+    }
+
+  };
 
   void set_position(float x, float y)
   {
@@ -49,6 +93,7 @@ namespace hero
     hero::hero.x = x;
     hero::hero.y = y;
     entity::update_position(hero.entity_id, x, y);
+    hero::_update_joints();
   }
 
 
@@ -61,6 +106,7 @@ namespace hero
     hero::hero.x = new_hero_x;
     hero::hero.y = new_hero_y;
     entity::update_position(hero.entity_id, new_hero_x, new_hero_y);
+    hero::_update_joints();
   }
 
   void refresh()

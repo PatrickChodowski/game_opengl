@@ -75,6 +75,7 @@ namespace game
     {
       game::read_data(scene_list[s]);
     };
+    std::cout << "Scenes Initialized" << std::endl;
   }
 
   void load_scene(int scene_id, bool from_save)
@@ -98,10 +99,10 @@ namespace game
       // load mobs based on the map
       mobs::spawn_from_nest(game::MAP_ID);
 
-      //items::put_item_on_ground(1, 200, 200);
-
       // Spawns npcs for the map
       npcs::spawn_from_map(game::MAP_ID);
+
+      items::spawn(1, 200, 300);
 
       // Load menu slots
       for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)
@@ -123,6 +124,8 @@ namespace game
         camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
         camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
       }
+
+      std::cout << "Loaded Scene: " << scene_id << std::endl;
     }
   }
   
@@ -159,6 +162,7 @@ namespace game
     //std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
 
     quads::clear();
+    quads::init();
     anims::init();
     buffer::init();
     buttons::init();
@@ -190,7 +194,6 @@ namespace game
     // std::cout << "entities size:" << entity::entities.size() << std::endl;
     // std::cout << "hero entity id: " << hero::hero.entity_id << std::endl;
     // std::cout << "entity hero x y " << entity::entities[hero::hero.entity_id].pos.x << ", " << entity::entities[hero::hero.entity_id].pos.y << std::endl;
-
     quads::clear();
     maps::render();
     entity::render();

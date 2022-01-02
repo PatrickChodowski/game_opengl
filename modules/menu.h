@@ -23,7 +23,7 @@ namespace menu
     int id;
     int menu_id;
     float x, y;
-    bool free;
+    bool free = true;
 
     JS_OBJ(id, x, y);
   };

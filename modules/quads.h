@@ -99,6 +99,7 @@ namespace quads
 
     bool is_clicked;
     bool is_deleted;
+    bool is_reversed = false;
 
   };
 
@@ -111,6 +112,16 @@ namespace quads
 
   // Takes some quad information and produces vertex data struct to be added to quad;
   VertexData _fill_quad_vertex_data(quads::QuadData& q, int n);
+
+  // Takes some quad information and produces reversed vertex data struct to be added to quad;
+  VertexData _fill_quad_vertex_data_reversed(quads::QuadData& q, int n);
+
+  typedef VertexData (*sig_ptr)(quads::QuadData& q, int n);
+  // Catalog of functions to be chosen based on the quads direction
+  extern phmap::flat_hash_map<bool,sig_ptr> GetVertex;
+
+  // Initialize quads
+  void init();
 
   // Clear all quads data
   void clear();

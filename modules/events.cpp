@@ -3,10 +3,12 @@
 
 #include "anims.h"
 #include "camera.h"
+#include "collisions.h"
 #include "events.h"
 #include "fonts.h"
 #include "game.h"
 #include "hero.h"
+#include "items.h"
 #include "menu.h"
 #include "mouse.h"
 #include "saves.h"
@@ -28,6 +30,7 @@ namespace events
     events::EventsHandler[EVENT_HANDLER_NEW_GAME_MENU] = _handle_new_game;
     events::EventsHandler[EVENT_HANDLER_LOAD_GAME_MENU] = _handle_load_game;
     events::EventsHandler[EVENT_HANDLER_IN_GAME] = _handle_in_game;
+    std::cout << "Events Initialized" << std::endl;
   }
 
   void _scan_for_camera_move()
@@ -125,6 +128,22 @@ namespace events
 
             case SDLK_l:
               game::LOG_TO_FILES = !game::LOG_TO_FILES;
+            break;
+
+            case SDLK_e:
+              for(int c=0; c<collisions::near_items.size(); c++)
+              {
+                items::pickup(collisions::near_items[c]);
+                items::put_in_hand(collisions::near_items[c]);
+              }
+            break;
+
+            case SDLK_q:
+              for(int e=0; e<hero::hero.equipped_items.size(); e++)
+              {
+                items::yeet(hero::hero.equipped_items[e], (hero::hero.x+(e*10)), (hero::hero.y+(e*10)));
+              }
+              hero::hero.equipped_items.clear();
             break;
 
             case SDLK_0:

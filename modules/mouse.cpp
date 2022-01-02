@@ -125,7 +125,7 @@ namespace mouse
     mouse::ClickPriorities[OBJECT_TYPE_MAP] = 1;
     mouse::ClickPriorities[OBJECT_TYPE_TEXT] = 0;
     mouse::ClickPriorities[OBJECT_TYPE_DEBUG] = 0;
-
+    std::cout << "Mouse Initialized" << std::endl;
   }
 
 

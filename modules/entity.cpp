@@ -32,13 +32,25 @@ namespace entity
     entity::menu_entity_type_map[ENTITY_TYPE_NPC] = npcs::info;
     entity::menu_entity_type_map[ENTITY_TYPE_MOB] = mobs::info;
     entity::menu_entity_type_map[ENTITY_TYPE_ITEM] = items::info;
+    std::cout << "Entity Initialized" << std::endl;
   };
 
   template <typename T>
-  int create(T data, int entity_type_id, float camera_type)
+  int create(T data, int entity_type_id, float camera_type, int entity_id)
   { 
     entity::EntityData edd;
-    edd.id = utils::generate_id(entity::Index);
+
+    if(entity_id == -1)
+    {
+      edd.id = utils::generate_id(entity::Index);
+    } else {
+      if(entity::entities.count(entity_id) > 0)
+      {
+        std::cout << "\033[1;31mERROR DOUBLED ENTITY_ID " << entity_id << "\033[0m"<< std::endl;
+      }
+      edd.id = entity_id;
+    }
+
     edd.texture_id = data.texture_id;
     edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
@@ -54,10 +66,10 @@ namespace entity
     edd.camera_type = camera_type;
     edd.is_solid = true;
 
-    // if(entity_type_id == ENTITY_TYPE_MOB || entity_type_id == ENTITY_TYPE_HERO)
-    // {
-    //   edd.is_solid = true;
-    // }
+    if(entity_type_id == ENTITY_TYPE_ITEM)
+    {
+      edd.is_solid = false;
+    }
 
     edd.is_clicked = false;
     edd.speed = data.speed;
@@ -95,7 +107,15 @@ namespace entity
       entity::entities.erase(entity_id);
       utils::drop_id(entity::Index, entity_id);
     }
-  }
+  };
+
+  void hide(int entity_id)
+  {
+    if(entity::entities.count(entity_id) > 0)
+    {
+      entity::entities.erase(entity_id);
+    }
+  };
 
   
   std::vector<std::string> info(int entity_id)
@@ -132,9 +152,9 @@ namespace entity
     entity::entities[entity_id].mid_y = y + (entity::entities[entity_id].dims.h/2);
   }
 
-  template int entity::create<hero::HeroData>(hero::HeroData, int, float);
-  template int entity::create<items::ItemData>(items::ItemData, int, float);
-  template int entity::create<mobs::MobData>(mobs::MobData, int, float);
-  template int entity::create<npcs::NPCData>(npcs::NPCData, int, float);
+  template int entity::create<hero::HeroData>(hero::HeroData, int, float, int);
+  template int entity::create<items::GeneratedItemData>(items::GeneratedItemData, int, float, int);
+  template int entity::create<mobs::MobData>(mobs::MobData, int, float, int);
+  template int entity::create<npcs::NPCData>(npcs::NPCData, int, float, int);
 
 }

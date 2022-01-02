@@ -61,6 +61,7 @@ namespace logger
       std::filesystem::create_directory(dir_run);
       LOG_PATH_RUN = dir_run;
     }
+    std::cout << "Logger Initialized" << std::endl;
   }
 
   template<typename T>

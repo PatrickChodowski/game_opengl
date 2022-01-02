@@ -1,9 +1,11 @@
-#include "shaders.h"
+
+#include <iostream>
 #include <vector>
 #include <string>
 #include <regex> 
 #include <SDL2/SDL.h>
 
+#include "shaders.h"
 #include "utils.h"
 #include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
@@ -49,6 +51,7 @@ namespace shaders
       shaders::shaders[x.first].gl_shader_id = shaders::build(x.second.name.c_str());
     }
     glReleaseShaderCompiler();
+    std::cout << "Shaders Initialized" << std::endl;
   };
 
   void drop()

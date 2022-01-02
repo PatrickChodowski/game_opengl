@@ -1,8 +1,17 @@
 
+### anims
+ - different types: frame, texture, size, position, color, direction
+ - each entity can have one animation per type 
+ - can be looped
+ - tempo parameter for speed changes
+ - weapons -> idle, walk, swing, attack
+ - humans -> idle, walk, swing, jump, attack etc.
+ - armors -> ?
+
+
 ### items
- - generate items
- - pickup items
- - animate items
+ - disperse items when dropping them (around character  in some semi randomized way)
+ - save equipped items on the character(with stats and re-generation from save)
 
 
 ### 3d models instead of spritesheets:
@@ -12,6 +21,14 @@
  - meshroom 
  - https://www.mixamo.com/
  - https://sketchfab.com/store/3d-models?q=viking
+
+
+### 3d pipeline ideas:
+ - read in blender object -> create spritesheet in blender 
+ - move spritesheet to spritesheet editor and produce data -> height, weight, texture_id, frames split, number of frames, hook points
+ - export data as json
+ - IN GENERAL: game gets more and more data and it will get harder to manage all data files (and reproduce them easily). 
+ Might need some SQL solution to store and easily reproduce jsons 
 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 
