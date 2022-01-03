@@ -102,13 +102,24 @@
 #define TRAVEL_STATE_ACTIVE 1
 #define TRAVEL_STATE_FINISHED 2
 
-
 // Main animation types
-#define MAIN_ANIM_TYPE_FRAME 0
-#define MAIN_ANIM_TYPE_COLOR 1
-#define MAIN_ANIM_TYPE_POSITION 2
-#define MAIN_ANIM_TYPE_SIZE 3
-#define MAIN_ANIM_TYPE_DIRECTION 4
-#define MAIN_ANIM_TYPE_TEXTURE 5
+#define ANIM_TYPE_FRAME 0
+#define ANIM_TYPE_COLOR 1
+#define ANIM_TYPE_POSITION 2
+#define ANIM_TYPE_SIZE 3
+#define ANIM_TYPE_DIRECTION 4
+#define ANIM_TYPE_TEXTURE 5
+#define ANIM_TYPE_FRAME_DIRECTION 6
+
+// Animated objects IDs (not entities, not objects)
+#define ANIM_OBJECT_HUMAN 0
+#define ANIM_OBJECT_ITEM_WEAPON 1
+#define ANIM_OBJECT_ITEM_ARMOR 2
+
+// Anim Directions
+#define ANIM_DIRECTION_LEFT 0
+#define ANIM_DIRECTION_RIGHT 1
+
+
 
 #endif

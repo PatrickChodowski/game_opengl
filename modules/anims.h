@@ -19,7 +19,7 @@ namespace anims
   struct Animation
   {
     int id;
-    int main_anim_type_id;
+    int anim_type_id;
     int anim_object_id;
 
     // Provided while initializing the animation
@@ -48,13 +48,16 @@ namespace anims
     float time_length;
     float time_elapsed;
     float next_update_time;
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+    
     bool cyclical;
     bool breakable;
 
-    JS_OBJ(id, main_anim_type_id, anim_object_id, 
-    time_length, frame_id, 
-    update_times, cyclical, breakable);
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+
+    JS_OBJ(id, anim_type_id, anim_object_id, 
+    frame_id, direction, r, g, b, a, w, h, x, y, z,
+    update_times, time_length,
+    cyclical, breakable);
   };
 
   // Catalog of all animations
@@ -88,10 +91,10 @@ namespace anims
   bool _check_if_entity_in_anim(int entity_id);
 
   // Checks if given entity has animation and if this is the same type
-  bool _check_if_entity_in_anim_same_type(int anim_type_id, int entity_id);
+  bool _check_if_entity_in_anim_same_type(int anim_id, int entity_id);
 
   // Start animation for given entity
-  void start(int anim_type_id, int entity_id);
+  void start(int anim_id, int entity_id);
 
   // Runs the single animation from animsplayed
   void play(int entity_id);
