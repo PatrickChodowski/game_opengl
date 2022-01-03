@@ -51,15 +51,19 @@ namespace anims
     anims::anims.clear();
   }
 
-  void start(int anim_type_id, int entity_id)
+  void start(int anim_id, int entity_id)
   {
-    // If entity not in animation right now
-    // Later: check if its the same type, check if breakable and can be replaced
-    if(!_check_if_entity_in_anim(entity_id))
+    // If entity not in animation right now OR is in animation of different type and this animation is breakable
+    if((!_check_if_entity_in_anim(entity_id)) || 
+       (anims::_check_if_entity_in_anim(entity_id) & 
+              !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
+              anims::anims[anim_id].breakable))
     {
-      anims::Animation AD  = anims::anims[anim_type_id];
+
+      anims::Animation AD  = anims::anims[anim_id];
       AD.entity_id = entity_id;
       AD.time_elapsed = 0.0f;
+      AD.texture_id = entity::entities[entity_id].texture_id;
 
       AD.current_keyframe_index = 0;
       AD.next_update_time = AD.update_times[1];
@@ -67,8 +71,13 @@ namespace anims
       AD.start_time = timer::get_current_hrc_time();
       anims::animsplayed[entity_id] = AD;
       entity::update_frame(entity_id, AD.frame_id[AD.current_keyframe_index]);
-    }
-    //question to send frame tp entity now?
+
+    } //else if (anims::_check_if_entity_in_anim(entity_id) & anims::_check_if_entity_in_anim_same_type(anim_id, entity_id)){
+      // if entity in animation right now and its the animation of the same id -> do nothing :)
+      //else if (anims::_check_if_entity_in_anim(entity_id) & 
+              // !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
+              // anims::anims[anim_id].breakable
+              // )
   }
 
 
@@ -121,12 +130,12 @@ namespace anims
     return has_anim;
   }
 
-  bool _check_if_entity_in_anim_same_type(int anim_type_id, int entity_id)
+  bool _check_if_entity_in_anim_same_type(int anim_id, int entity_id)
   {
     bool has_anim_same_type = false;
     if(anims::animsplayed.count(entity_id) > 0)
     {
-      if(anims::animsplayed[entity_id].id == anim_type_id)
+      if(anims::animsplayed[entity_id].id == anim_id)
       {
         has_anim_same_type = true;
       }
