@@ -16,71 +16,52 @@
 namespace anims
 {
   // All data needed for all animation types
-  struct BaseAnimation
+  struct Animation
   {
     int id;
     int main_anim_type_id;
+    int anim_object_id;
+
+    // Provided while initializing the animation
     int entity_id;
     int current_keyframe_index;
-    float time_length;
-    float time_elapsed;
-    float next_update_time;
-    std::vector<float> update_times;
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-    bool cyclical;
-    bool breakable;
-  };
-
-
-  // Data needed for frame animation only and base animation
-  struct FrameAnimation : BaseAnimation
-  {
     int texture_id;
-    std::vector<int> frame_ids;
 
-    JS_OBJ(id, main_anim_type_id, texture_id, 
-    time_length, frame_ids, 
-    update_times, cyclical, breakable);
-  }; 
-
-
-  // Data needed for color animation only and base animation
-  struct ColorAnimation : BaseAnimation
-  {
+    // frames
+    std::vector<int> frame_id;
+    std::vector<int> direction;
+    // color
     std::vector<float> r;
     std::vector<float> g;
     std::vector<float> b;
     std::vector<float> a;
-
-    JS_OBJ(id, main_anim_type_id, r, g, b, a, 
-    time_length, 
-    update_times, cyclical, breakable);
-  }; 
-
-    // Data needed for color animation only and base animation
-  struct SizeAnimation : BaseAnimation
-  {
+    // dimension
     std::vector<float> w;
     std::vector<float> h;
+    // position
+    std::vector<float> x;
+    std::vector<float> y;
+    std::vector<float> z;
 
-    JS_OBJ(id, main_anim_type_id, w, h,
-    time_length, 
+    std::vector<float> update_times;
+
+    float time_length;
+    float time_elapsed;
+    float next_update_time;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+    bool cyclical;
+    bool breakable;
+
+    JS_OBJ(id, main_anim_type_id, anim_object_id, 
+    time_length, frame_id, 
     update_times, cyclical, breakable);
-  }; 
+  };
 
-
-  // Catalog of color Animations
-  extern phmap::flat_hash_map<int, anims::ColorAnimation> color_anims;
-
-  // Catalog of frame Animations
-  extern phmap::flat_hash_map<int, anims::FrameAnimation> frame_anims;
-
-  // Catalog of size Animations
-  extern phmap::flat_hash_map<int, anims::SizeAnimation> size_anims;
-
+  // Catalog of all animations
+  extern phmap::flat_hash_map<int, anims::Animation> anims;
 
   // Catalog of entity_id, Animation - current animations played
-  extern phmap::flat_hash_map<int, anims::FrameAnimation> animsplayed;
+  extern phmap::flat_hash_map<int, anims::Animation> animsplayed;
 
   // index of animations to delete
   extern std::vector<int> anims_to_stop;
@@ -88,14 +69,8 @@ namespace anims
   // Reads in all the data
   void init();
 
-  // Reads data for selected frame animation
-  void _read_frame_anim_data(std::string& name);
-
-  // Reads data for selected color animation
-  void _read_color_anim_data(std::string& name);
-
-  // Reads data for selected size animation
-  void _read_size_anim_data(std::string& name);
+  // Reads data for selected animation
+  void read_data(std::string& name);
 
   // Clear temporary data
   void clear();

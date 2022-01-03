@@ -5,7 +5,7 @@
   "time_length": 0.4,
   "cyclical": true,
   "breakable": true,
-  "frame_ids": [3,5],
+  "frame_id": [3,5],
   "update_times": [0.0, 0.2, 0.41]
 }
 
