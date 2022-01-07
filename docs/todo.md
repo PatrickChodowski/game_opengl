@@ -1,14 +1,10 @@
 
 ### anims
- - can be looped
+ - work on looped animatin (trigger when finished)
  - tempo parameter for speed changes
+ - animate items on the hero (hero::animate_items()) hero::current_anim?
  - weapons -> idle, walk, swing, attack
  - humans -> idle, walk, swing, jump, attack etc.
- - armors -> ?
- - entity_id - 1? from hero probably?
- - bug  with travel for mob
-  
-
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
