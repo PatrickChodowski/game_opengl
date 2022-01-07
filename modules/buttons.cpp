@@ -32,7 +32,6 @@ namespace buttons
     buttons::ButtonFunctions[BUTTON_NEWGAME_NAME] = buttons::_click_newgame_name;
     buttons::ButtonFunctions[BUTTON_BACK] = buttons::_click_back;
     buttons::ButtonFunctions[BUTTON_LOADGAME_NAME] = buttons::_click_loadgame_name;
-    buttons::ButtonFunctions[BUTTON_TRAVEL] = buttons::_button_travel;
 
     std::cout << "Buttons Initialized" << std::endl;
   };
@@ -117,6 +116,7 @@ namespace buttons
     if(menu::_validate_name())
     {
       game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);
+
     }
   }
 
@@ -130,14 +130,6 @@ namespace buttons
   void _click_back(int placeholder)
   {
     game::switch_scene(SCENE_ID_MAIN_MENU, false);
-  };
-
-  void _button_travel(int button_id)
-  {   
-    int entity_id = menu::currentmenus[buttons::buttons[button_id].menu_id].assigned_entity_id;
-    std::cout << "clicked on travel button, entity id:  " << entity_id << std::endl;
-    travel::reset_last_click();
-    travel::init_travel(entity_id);
   };
 
 }
