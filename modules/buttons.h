@@ -76,12 +76,6 @@ namespace buttons
   // Logic of what happens after clicking on back to main menu button
   void _click_back(int placeholder);
 
-  // Start new travel object
-  void _button_travel(int button_id);
-
-
-
-
 }
 
 #endif

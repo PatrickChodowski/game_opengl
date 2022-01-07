@@ -19,13 +19,6 @@ namespace travel
 {
   phmap::flat_hash_map<int, travel::TravelData> travels;
   std::vector<int> travels_to_cancel;
-  travel::TravelPoint last_click;
-
-  void reset_last_click()
-  {
-    travel::last_click.x = -1000;
-    travel::last_click.y = -1000;
-  }
 
   float _get_angle_between_points(float e_x, float e_y, float p_x, float p_y)
   {
@@ -78,9 +71,10 @@ namespace travel
 
   void init_travel_with_target(int entity_id, float target_x, float target_y)
   {
-    // To trigger delayed travel, when we dont know the endpoint yet
-    travel::TravelData tp;
     int entity_node_id = paths::get_navnode_id(entity::entities.at(entity_id).pos.x, entity::entities.at(entity_id).pos.y);
+    int target_node = paths::get_navnode_id(target_x, target_y);
+    travel::TravelData tp = travel::make_basic_plan(entity_node_id, target_node);
+  
     tp.entity_id = entity_id;
     tp.current_node = entity_node_id;
     tp.current_x = entity::entities.at(entity_id).pos.x;
@@ -213,51 +207,20 @@ namespace travel
 
   void update()
   {
-    bool can_activate = false;
-    int target_navnode_id = -1;
-
-    // Check if can activate idle travels
-    if(travel::last_click.x != -1000 & travel::last_click.x != -1000)
-    {
-      target_navnode_id = paths::get_navnode_id(travel::last_click.x, travel::last_click.y);
-      if(target_navnode_id  != -1)
-      {
-        can_activate = true;
-      }
-    }
-
     travel::travels_to_cancel.clear();
     for (auto & [k, v] : travel::travels)
     {  
-      // Activate idle travels if possible
-      if((v.state == TRAVEL_STATE_IDLE) & can_activate)
-      {
-        v.target_x = travel::last_click.x;
-        v.target_y = travel::last_click.y;
-        v.target_node = target_navnode_id;
-
-        if(v.current_node != v.target_node)
-        {
-          std::vector<int> path = paths::find_path(v.current_node, v.target_node);
-          v.full_path = path;
-          v.next_node = path[1];
-        } else if (v.current_node == v.target_node){
-          v.full_path = {};
-          v.next_node = v.target_node;
-        }
-        v.state = TRAVEL_STATE_ACTIVE;
-      }
-
       if(v.state == TRAVEL_STATE_ACTIVE)
       {
         travel::go(v);
       }
-
     }
+
     for(int i=0; i < travel::travels_to_cancel.size(); i++)
     {
       travel::drop(travel::travels_to_cancel[i]);
     }
+
   }
 
   void drop(int travel_id)

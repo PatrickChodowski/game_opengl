@@ -92,8 +92,6 @@ namespace mouse
   void _click_map(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on MAP object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
-    travel::last_click.x = mouse::last_click.world_x;
-    travel::last_click.y = mouse::last_click.world_y;
   };
 
   void _click_button(int object_id, int mouse_button_id)
