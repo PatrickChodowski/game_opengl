@@ -63,7 +63,7 @@ namespace anims
       anims::Animation AD  = anims::anims[anim_id];
       AD.entity_id = entity_id;
       AD.time_elapsed = 0.0f;
-      AD.texture_id = entity::entities[entity_id].texture_id;
+      AD.texture_id = entity::entities.at(entity_id).texture_id;
 
       AD.current_keyframe_index = 0;
       AD.next_update_time = AD.update_times[1];

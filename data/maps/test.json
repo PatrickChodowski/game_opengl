@@ -8,7 +8,7 @@
     {"door_id": 0, "x": 864, "y": 0, "dest_scene_id": 4, "player_enter_x": 192, "player_enter_y": 190}
   ],
   "nests": [
-    {}
+    {"x": 200, "y": 200, "n": 1}
   ],
   "npcs": [
   ]

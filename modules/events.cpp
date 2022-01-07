@@ -185,8 +185,7 @@ namespace events
             case SDLK_RETURN:
               if(menu::_validate_name())
               {
-                hero::create_new(menu::NewGameName, "barbarian");
-                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, false);  
+                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);  
               }
             break;
 

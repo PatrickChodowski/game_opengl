@@ -29,7 +29,18 @@ funcs = {
   "_start_animation": {"first": "start", 
                        "second": "animation",
                        "args": ["anim_type_id","entity_id"],
-                       "id": 5},                 
+                       "id": 5}, 
+
+  "_init_travel": {"first": "init", 
+                   "second": "travel",
+                   "args": ["entity_id", "target_x", "target_y"],
+                   "id": 6},  
+
+  "_print_entity": {"first": "print", 
+                   "second": "entity",
+                   "args": [],
+                   "id": 7},    
+
 }
 
 

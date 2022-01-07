@@ -15,6 +15,7 @@
 #include "../modules/items.h"
 #include "../modules/mobs.h"
 #include "../modules/npcs.h"
+#include "../modules/travel.h"
 
 namespace py = pybind11;
 
@@ -53,6 +54,8 @@ namespace scripts
     scripts::Handler[3] = _spawn_item;
     scripts::Handler[4] = _drop_item;
     scripts::Handler[5] = _start_animation;
+    scripts::Handler[6] = _init_travel;
+    scripts::Handler[7] = _print_entity;
     std::cout << "PyScripts Initialized" << std::endl;
   }
 
@@ -97,8 +100,20 @@ namespace scripts
 
   void _start_animation()
   {
-    // Function 5 -> _init_animation
+    // Function 5 -> _start_animation
     anims::start(args["anim_type_id"], args["entity_id"]);
+  }
+
+  void _init_travel()
+  {
+    // Function 6 -> _init_travel
+    travel::init_travel_with_target(args["entity_id"], args["target_x"], args["target_y"]);
+  }
+
+  void _print_entity()
+  {
+    // Function 7 -> _print_entity
+    entity::print_entity_data();
   }
 
 

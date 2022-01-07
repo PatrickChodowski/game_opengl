@@ -80,6 +80,9 @@ namespace entity
   // Hide entity (delete from the entities table, but keep entity_id)
   void hide(int entity_id);
 
+  // Prints out entity data
+  void print_entity_data();
+
 }
 
 #endif

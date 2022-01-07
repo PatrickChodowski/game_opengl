@@ -116,18 +116,14 @@ namespace buttons
   {
     if(menu::_validate_name())
     {
-      std::string new_game_name = menu::NewGameName;
-      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, false);  
-      hero::create_new(new_game_name, "barbarian");
+      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);  
     }
   }
 
   void _click_loadgame_name(int button_id)
   {
-    std::string load_game_name = menu::saves_buttons_map[button_id];
-    game::clear_scene();
-    saves::load_game(load_game_name);
-    game::load_scene(game::SCENE_ID, true);
+    menu::LoadGameName = menu::saves_buttons_map[button_id];
+    game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_LOAD);  
   }
 
   void _click_back(int placeholder)
