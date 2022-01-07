@@ -17,15 +17,14 @@ namespace saves
     float y;
     float w;
     float h;
-    int scene_id;
-
+  
     float exp;
     float speed;
     float hp;
     float dmg;
     float def;
 
-    int map_id;
+    int scene_id;
     int texture_id;
     int level;
     int mobs_killed;
@@ -37,7 +36,7 @@ namespace saves
     std::vector<npcs::InteractionData> interactions;
 
 
-    JS_OBJ(x, y, w, h, scene_id, exp, speed, hp, dmg, def, map_id, texture_id, 
+    JS_OBJ(x, y, w, h, exp, speed, hp, dmg, def, scene_id, texture_id, 
     level, mobs_killed, name, type, interactions);
   };
 
@@ -49,6 +48,9 @@ namespace saves
   
   // Load game data from the file
   void load_game(std::string& name);
+
+  // Reads save data fom file
+  saves::SaveData read_save_data(std::string& name);
   
 
 }
