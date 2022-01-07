@@ -86,6 +86,8 @@ namespace entity
 
 
     entity::entities[edd.id] = edd;
+
+    std::cout << "Created Entity ID: " <<  edd.id << " of type: " << edd.entity_type_id << std::endl; 
     return edd.id;
   }
 
@@ -98,6 +100,7 @@ namespace entity
   {
     entity::Index.clear();
     entity::entities.clear();
+    std::cout << "Clearing Entities" << std::endl;
   };
 
   void drop(int entity_id)
@@ -121,7 +124,7 @@ namespace entity
   std::vector<std::string> info(int entity_id)
   {
     // create a string per row
-    entity::EntityData edd = entity::entities[entity_id];
+    entity::EntityData edd = entity::entities.at(entity_id);
     std::vector<std::string> infos = entity::menu_entity_type_map[edd.entity_type_id](entity_id);
 
     std::string label_id = "ID:_" + utils::str(edd.id);
@@ -133,24 +136,38 @@ namespace entity
 
   void update_frame(int entity_id, int frame_id)
   {
-    int texture_id = entity::entities[entity_id].texture_id;
-    entity::entities[entity_id].frame_id = frame_id;
-    entity::entities[entity_id].norm.x_start = textures::_get_normalized_frame_x_start(texture_id, frame_id);
-    entity::entities[entity_id].norm.x_end = textures::_get_normalized_frame_x_end(texture_id, frame_id);
-    entity::entities[entity_id].norm.y_start = textures::_get_normalized_frame_y_start(texture_id, frame_id);
-    entity::entities[entity_id].norm.y_end = textures::_get_normalized_frame_y_end(texture_id, frame_id);
+    int texture_id = entity::entities.at(entity_id).texture_id;
+    entity::entities.at(entity_id).frame_id = frame_id;
+    entity::entities.at(entity_id).norm.x_start = textures::_get_normalized_frame_x_start(texture_id, frame_id);
+    entity::entities.at(entity_id).norm.x_end = textures::_get_normalized_frame_x_end(texture_id, frame_id);
+    entity::entities.at(entity_id).norm.y_start = textures::_get_normalized_frame_y_start(texture_id, frame_id);
+    entity::entities.at(entity_id).norm.y_end = textures::_get_normalized_frame_y_end(texture_id, frame_id);
   }
 
 
   void update_position(int entity_id, float x, float y)
   {
-    entity::entities[entity_id].prev_x = entity::entities[entity_id].pos.x;
-    entity::entities[entity_id].prev_y = entity::entities[entity_id].pos.y;
-    entity::entities[entity_id].pos.x = x;
-    entity::entities[entity_id].pos.y = y;
-    entity::entities[entity_id].mid_x = x + (entity::entities[entity_id].dims.w/2);
-    entity::entities[entity_id].mid_y = y + (entity::entities[entity_id].dims.h/2);
+    entity::entities.at(entity_id).prev_x = entity::entities.at(entity_id).pos.x;
+    entity::entities.at(entity_id).prev_y = entity::entities.at(entity_id).pos.y;
+    entity::entities.at(entity_id).pos.x = x;
+    entity::entities.at(entity_id).pos.y = y;
+    entity::entities.at(entity_id).mid_x = x + (entity::entities.at(entity_id).dims.w/2);
+    entity::entities.at(entity_id).mid_y = y + (entity::entities.at(entity_id).dims.h/2);
   }
+
+
+  void print_entity_data()
+  {
+    for (auto const& [k, v] : entity::entities)
+    {
+      std::cout << "Entity ID: " << k 
+                << " pos: (" << v.pos.x << ',' << v.pos.y 
+                << ") texture_id: " << v.texture_id 
+                << " entity_type_id: " << v.entity_type_id
+                << std::endl;
+    }
+  }
+
 
   template int entity::create<hero::HeroData>(hero::HeroData, int, float, int);
   template int entity::create<items::GeneratedItemData>(items::GeneratedItemData, int, float, int);

@@ -46,7 +46,7 @@ namespace hero
     int mobs_killed;
 
     // display item data
-    int in_hand_entity_id;
+    int in_hand_entity_id = -1;
     float hand_x, hand_y;
 
 

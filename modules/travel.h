@@ -82,6 +82,9 @@ namespace travel
   // initialize travel object without knowing the end yet, keeping in idle state
   void init_travel(int entity_id);
 
+  // Initialize travel object with target
+  void init_travel_with_target(int entity_id, float target_x, float target_y);
+
 
 
 }

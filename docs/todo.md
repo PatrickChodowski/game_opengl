@@ -1,12 +1,13 @@
 
 ### anims
- - different types: frame, texture, size, position, color, direction
- - each entity can have one animation per type 
  - can be looped
  - tempo parameter for speed changes
  - weapons -> idle, walk, swing, attack
  - humans -> idle, walk, swing, jump, attack etc.
  - armors -> ?
+ - entity_id - 1? from hero probably?
+ - bug  with travel for mob
+  
 
 
 ### items
@@ -57,8 +58,6 @@ Probably will still need a chunks system on top of the map -> avoid rendering an
 
 
 ### shaders management -> remove if elses from shaders -> one shader per draw call
-
-### animations of course not perfect- need to breakable, more logic, etc. but looks good!
 
 ### OpenGL book
 

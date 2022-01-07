@@ -93,6 +93,7 @@ namespace menu
   extern std::vector<std::string> saves;
   extern phmap::flat_hash_map<int, std::string> saves_buttons_map;
   extern std::string NewGameName;
+  extern std::string LoadGameName;
 
   // Read menu data from the file
   void read_menu_data(std::string& name);

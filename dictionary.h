@@ -79,6 +79,12 @@
 #define SCENE_ID_DUNGEON_LEVEL_1 4
 #define SCENE_ID_DUNGEON_LEVEL_2 5
 
+
+// Scene Loading
+#define SCENE_LOAD_FROM_NEW 0
+#define SCENE_LOAD_FROM_LOAD 1
+#define SCENE_LOAD_CHANGE_LEVEL 2
+
 // Events handlers
 #define EVENT_HANDLER_MENU 0
 #define EVENT_HANDLER_NEW_GAME_MENU 1

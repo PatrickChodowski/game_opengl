@@ -1,1 +1,1 @@
-func_id = 5; vars = {'anim_type_id': 8.0, 'entity_id': 1.0}
+func_id = 7; vars = {}

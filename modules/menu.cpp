@@ -29,6 +29,7 @@ namespace menu
   std::vector<std::string> saves;
   phmap::flat_hash_map<int, std::string> saves_buttons_map;
   std::string NewGameName;
+  std::string LoadGameName;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
   
 
@@ -226,6 +227,7 @@ namespace menu
     menu::currentmenus.clear();
     menu::currentmenuslots.clear();
     menu::NewGameName = "";
+    menu::LoadGameName = "";
     menu::saves_buttons_map.clear();
   };
 

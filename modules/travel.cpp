@@ -66,16 +66,34 @@ namespace travel
     // To trigger delayed travel, when we dont know the endpoint yet
     travel::TravelData tp;
     tp.state = TRAVEL_STATE_IDLE;
-    int entity_node_id = paths::get_navnode_id(entity::entities[entity_id].pos.x, entity::entities[entity_id].pos.y);
+    int entity_node_id = paths::get_navnode_id(entity::entities.at(entity_id).pos.x, entity::entities.at(entity_id).pos.y);
     tp.entity_id = entity_id;
     tp.current_node = entity_node_id;
-    tp.current_x = entity::entities[entity_id].pos.x;
-    tp.current_y = entity::entities[entity_id].pos.y;
+    tp.current_x = entity::entities.at(entity_id).pos.x;
+    tp.current_y = entity::entities.at(entity_id).pos.y;
 
     travel::travels[entity_id] = tp;
     std::cout << "Initialized travel for " << entity_id << std::endl;
   }
 
+  void init_travel_with_target(int entity_id, float target_x, float target_y)
+  {
+    // To trigger delayed travel, when we dont know the endpoint yet
+    travel::TravelData tp;
+    int entity_node_id = paths::get_navnode_id(entity::entities.at(entity_id).pos.x, entity::entities.at(entity_id).pos.y);
+    tp.entity_id = entity_id;
+    tp.current_node = entity_node_id;
+    tp.current_x = entity::entities.at(entity_id).pos.x;
+    tp.current_y = entity::entities.at(entity_id).pos.y;
+
+    tp.target_node = paths::get_navnode_id(target_x, target_y);
+    tp.target_x = target_x;
+    tp.target_y = target_y;
+    tp.state = TRAVEL_STATE_ACTIVE;
+
+    travel::travels[entity_id] = tp;
+    std::cout << "Initialized travel to  (" << target_x << "," << target_y <<  ") for " << entity_id << std::endl;
+  }
 
   travel::TravelData make_basic_plan(int current_node_id, int target_node_id)
   {
@@ -109,7 +127,7 @@ namespace travel
 
     // if we are not at the target yet, we move
     float dist_to_target = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
-    if(dist_to_target > entity::entities[tp.entity_id].speed)
+    if(dist_to_target > entity::entities.at(tp.entity_id).speed)
     {
       // if we are not at the target node
       if(tp.current_node != tp.target_node)
@@ -133,8 +151,8 @@ namespace travel
         tp.cpoint_y = c_point.y;
         float dist = utils::get_distance_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
         float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
-        float x1 = entity::entities[tp.entity_id].pos.x + (cos(angle) * entity::entities[tp.entity_id].speed);
-        float y1 = entity::entities[tp.entity_id].pos.y + (sin(angle) * entity::entities[tp.entity_id].speed);
+        float x1 = entity::entities.at(tp.entity_id).pos.x + (cos(angle) * entity::entities.at(tp.entity_id).speed);
+        float y1 = entity::entities.at(tp.entity_id).pos.y + (sin(angle) * entity::entities.at(tp.entity_id).speed);
 
         travel::_animate_by_direction(tp.entity_id, angle);
         tp.current_x = x1;
@@ -142,7 +160,7 @@ namespace travel
         entity::update_position(tp.entity_id, x1, y1);
 
         // update the current and next node information if we are almost at the gate
-        if(dist <= entity::entities[tp.entity_id].speed)
+        if(dist <= entity::entities.at(tp.entity_id).speed)
         {
           tp.current_step_index += 1;
           tp.current_node = tp.full_path[tp.current_step_index];
@@ -156,8 +174,8 @@ namespace travel
       {
         float dist = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
         float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
-        float x1 = entity::entities[tp.entity_id].pos.x + cos(angle) * entity::entities[tp.entity_id].speed;
-        float y1 = entity::entities[tp.entity_id].pos.y + sin(angle) * entity::entities[tp.entity_id].speed;
+        float x1 = entity::entities.at(tp.entity_id).pos.x + cos(angle) * entity::entities.at(tp.entity_id).speed;
+        float y1 = entity::entities.at(tp.entity_id).pos.y + sin(angle) * entity::entities.at(tp.entity_id).speed;
         travel::_animate_by_direction(tp.entity_id, angle);
         tp.current_x = x1;
         tp.current_y = y1;
@@ -175,20 +193,20 @@ namespace travel
   {
     // Looks like very much temporary function
     if(cos(angle) > 0)
-    {// going right
-      anims::start(6,entity_id);
-    } else if (cos(angle) < 0)
     {// going left
-      anims::start(7,entity_id);
+      anims::start(2,entity_id);
+    } else if (cos(angle) < 0)
+    {// going right
+      anims::start(3,entity_id);
     }
     
     if(sin(angle) >0.5)
     {
       // going up
-      anims::start(4,entity_id);
+      anims::start(0,entity_id);
     } else if (sin(angle) < -0.5)
     {// going down
-      anims::start(5,entity_id);
+      anims::start(1,entity_id);
     }
 
   }
