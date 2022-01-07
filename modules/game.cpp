@@ -110,6 +110,7 @@ namespace game
     {
       hero::refresh();
     }
+    std::cout << "Menu Load Game Name: " << menu::LoadGameName << std::endl;
     saves::load_game(menu::LoadGameName);
   };
 
@@ -166,6 +167,10 @@ namespace game
     game::clear_scene();
     game::load_scene(scene_id, load_scene_from);
     game::SCENE_ID = scene_id;
+
+    // have to cleared after loading the scene
+    menu::NewGameName = "";
+    menu::LoadGameName = "";
   }
 
   void clear_scene()

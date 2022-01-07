@@ -116,14 +116,15 @@ namespace buttons
   {
     if(menu::_validate_name())
     {
-      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);  
+      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);
     }
   }
 
   void _click_loadgame_name(int button_id)
   {
     menu::LoadGameName = menu::saves_buttons_map[button_id];
-    game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_LOAD);  
+    saves::SaveData SD = saves::read_save_data(menu::LoadGameName);
+    game::switch_scene(SD.scene_id, SCENE_LOAD_FROM_LOAD);  
   }
 
   void _click_back(int placeholder)

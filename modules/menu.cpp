@@ -226,8 +226,6 @@ namespace menu
     menu::Index.clear();
     menu::currentmenus.clear();
     menu::currentmenuslots.clear();
-    menu::NewGameName = "";
-    menu::LoadGameName = "";
     menu::saves_buttons_map.clear();
   };
 

@@ -34,7 +34,6 @@ namespace hero
     hero::hero.type = type;
     hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
     std::cout << "    HERO  entity id: " << hero::hero.entity_id << std::endl;
-    entity::print_entity_data();
   };
 
   void revert_position_x()
@@ -93,8 +92,8 @@ namespace hero
     hero::hero.prev_y = hero::hero.y;
     hero::hero.x = x;
     hero::hero.y = y;
-    std::cout << " HERO ENTITY ID IN SET POSITION: " << hero::hero.entity_id << std::endl;
-    entity::update_position(hero.entity_id, x, y);
+    std::cout << "setting hero position to (" << hero::hero.x << "," << hero::hero.y << ")" << std::endl;
+    entity::update_position(hero::hero.entity_id, x, y);
     hero::_update_joints();
   }
 

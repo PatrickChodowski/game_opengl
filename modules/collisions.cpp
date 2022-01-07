@@ -405,6 +405,7 @@ namespace collisions
       int dest_scene_id = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].dest_scene_id;
       game::HERO_START_X = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].player_enter_x;
       game::HERO_START_Y = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].player_enter_y;
+      std::cout << "Switching level to " << dest_scene_id << std::endl;
       game::switch_scene(dest_scene_id, SCENE_LOAD_CHANGE_LEVEL);
     }
   }
