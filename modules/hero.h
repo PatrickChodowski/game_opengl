@@ -91,6 +91,9 @@ namespace hero
   // Returns vector of strings with hero information
   std::vector<std::string> info(int entity_id);
 
+  // Animate hero items based on hero animation
+  void animate_items(int hero_anim_id);
+
 }
 
 #endif

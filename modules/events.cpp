@@ -42,21 +42,25 @@ namespace events
     {
       camera::cam.move_x -= hero::hero.speed;
       anims::start(2, hero::hero.entity_id);
+      hero::animate_items(2);
     } 
     else if(game::KEYBOARD[SDL_SCANCODE_RIGHT])
     {
       camera::cam.move_x += hero::hero.speed;
       anims::start(3, hero::hero.entity_id);
+      hero::animate_items(3);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_UP])
     {
       camera::cam.move_y += hero::hero.speed;
       anims::start(0, hero::hero.entity_id);
+      hero::animate_items(0);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_DOWN])
     {
       camera::cam.move_y -= hero::hero.speed;
       anims::start(1, hero::hero.entity_id);
+      hero::animate_items(1);
     } else 
     {
       //hero::update_frame(STAND_STILL);
