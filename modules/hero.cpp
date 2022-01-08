@@ -1,6 +1,7 @@
 
 #include <iostream>
 
+#include "anims.h"
 #include "debug.h"
 #include "entity.h"
 #include "game.h"
@@ -95,6 +96,24 @@ namespace hero
     std::cout << "setting hero position to (" << hero::hero.x << "," << hero::hero.y << ")" << std::endl;
     entity::update_position(hero::hero.entity_id, x, y);
     hero::_update_joints();
+  }
+
+  // set items animations based on hero animation
+  void animate_items(int hero_anim_id)
+  {
+    
+    if(hero::hero.in_hand_entity_id > -1)
+    {
+      // LEFT
+      if(hero_anim_id == 2)
+      {
+        anims::start(4, hero::hero.in_hand_entity_id);
+      } else if (hero_anim_id == 3){
+        anims::start(5, hero::hero.in_hand_entity_id);
+      }
+
+    }
+    
   }
 
 
