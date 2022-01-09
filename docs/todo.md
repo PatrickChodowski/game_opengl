@@ -2,9 +2,7 @@
 ### anims
  - work on looped animatin (trigger when finished)
  - tempo parameter for speed changes
- - animate items on the hero (hero::animate_items()) hero::current_anim?
- - weapons -> idle, walk, swing, attack
- - humans -> idle, walk, swing, jump, attack etc.
+ - add frames for up and down for axe
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
