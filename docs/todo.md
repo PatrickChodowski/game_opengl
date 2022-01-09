@@ -2,7 +2,6 @@
 ### anims
  - work on looped animatin (trigger when finished)
  - tempo parameter for speed changes
- - add frames for up and down for axe
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
@@ -11,6 +10,9 @@
 
 ### 3d models instead of spritesheets:
  - automate blender to texture pipeline -> script to setup camera perspective and image export
+ - automate pipeline of data from grid to .json file -> solve hooks issue
+
+
  - make new scripts for humanoid texture
  - photogrammetry
  - meshroom 
