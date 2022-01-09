@@ -1,6 +1,7 @@
 import bpy
 import numpy as np
 import math
+import json
 import importlib
 
 spec_grids = importlib.util.spec_from_file_location("grids", 
@@ -113,7 +114,6 @@ def set_camera_pos(x: float, y: float, z: float) -> None:
     bpy.data.objects['Camera'].rotation_euler.x = math.radians(90)
     bpy.data.objects['Camera'].rotation_euler.z = math.radians(+90)
     
-    
 def save(file_name: str, res_x: int, res_y: int) -> None:
     bpy.context.scene.render.image_settings.file_format = 'PNG'
     bpy.context.scene.render.film_transparent = True
@@ -125,16 +125,9 @@ def save(file_name: str, res_x: int, res_y: int) -> None:
     bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/assets/{file_name}.png"
     bpy.ops.render.render(write_still = 1)
     
-# make_grid_rotations("axe", axes=[1,2])
-# #save("axe")
-
-
-
 def resize_camera_view(x: float, y: float) -> None:
   bpy.context.scene.render.resolution_x = x
   bpy.context.scene.render.resolution_y = y
-
-
 
 def make_new_object(coll_name: str, rot: list, move: list) -> None:
   """
@@ -143,7 +136,6 @@ def make_new_object(coll_name: str, rot: list, move: list) -> None:
   new_coll_name = copy_collection(coll_name)
   rotate_collection(new_coll_name, *rot)
   move_collection(new_coll_name, *move)
-
 
 
 def make_objects_from_grid(coll_name: str, grid: grids.Grid) -> None:
@@ -159,6 +151,30 @@ def make_objects_from_grid(coll_name: str, grid: grids.Grid) -> None:
 
 
   
+def set_camera_topdown() -> None:
+  # one of options: 30, 45, 60 degrees
+  print("")
 
 
+def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
+  path = f"/home/patrick/Documents/projects/game_opengl/blender/{txt.id}_{txt.name}.json"
+  d = dict()
+  d["id"] = txt.id
+  d["w"] = grid.w
+  d["h"] = grid.h
+  d["type"] = grid.type
+  f = list()
+  for t in grid.transforms:
+    x_start = ((t.move[1]/grid.max_y)*grid.w) - txt.frame_width
+    y_start = ((t.move[2]/grid.max_z)*grid.h) - txt.frame_height
+    frame_d = dict()
+    frame_d["x"] = x_start
+    frame_d["y"] = y_start
+    frame_d["w"] = txt.frame_width
+    frame_d["h"] = txt.frame_height
+    # add hooks and labels?
+    f.append(frame_d)
 
+  d["frames_list"] = f
+  with open(path, "w") as outfile:
+    json.dump(d, outfile)
