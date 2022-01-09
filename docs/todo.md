@@ -10,8 +10,6 @@
 
 ### 3d models instead of spritesheets:
  - automate blender to texture pipeline -> script to setup camera perspective and image export
- - automate pipeline of data from grid to .json file -> solve hooks issue
-
 
  - make new scripts for humanoid texture
  - photogrammetry

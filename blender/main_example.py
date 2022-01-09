@@ -15,4 +15,4 @@ spec_grids.loader.exec_module(grids)
 #dupa.save("axe2", grids.weapons_grid.w, grids.weapons_grid.h)
 
 
-dupa.generate_data(axe_txt, grids.weapons_grid)
+dupa.generate_data(grids.axe_txt, grids.weapons_grid)
