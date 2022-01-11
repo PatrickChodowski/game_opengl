@@ -172,6 +172,7 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
     frame_d["y"] = y_start
     frame_d["w"] = txt.frame_width
     frame_d["h"] = txt.frame_height
+    frame_d["label"] = t.tag
     frame_d["hook_x"] = ((t.hook[1]/grid.max_y)*grid.w) - txt.frame_width
     frame_d["hook_y"] = ((t.hook[2]/grid.max_z)*grid.h) - txt.frame_height
     # add hooks
