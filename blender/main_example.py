@@ -14,11 +14,6 @@ spec_grids.loader.exec_module(grids)
 #dupa.make_objects_from_grid("axe", grids.weapons_grid)
 #dupa.save("axe2", grids.weapons_grid.w, grids.weapons_grid.h)
 
-#dupa.get_object_vertices('Cylinder')
-
-#dupa.get_object_bbox_center('Cylinder')
-
-
 hook = grids.Hook("Cylinder", [0.01, 0.66, 0.34])
 hook.get_id()
 
@@ -39,3 +34,11 @@ dupa.generate_data(grids.axe_txt, weapons_grid)
 # get measurements 0> here 7x6
 
 #dupa.make_objects_from_grid("axe", grids.weapons_grid)
+
+
+# make sure axe is in collection
+# align to y,z and set perspective to X
+# resize to fit in 1x1 -> keep center of the object in the center of the square to make sure all rotations will fit
+# origin tile in 0.0 (y,z)
+# get hook -> pick vertex and get its global location rounded to 2 decimal points
+# provide hook and coll name to main script
