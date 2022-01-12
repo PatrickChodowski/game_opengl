@@ -1,8 +1,12 @@
 # Data structure
 # Contains set of rotation and movements of the objects, alongside camera center
 
-from typing import List
+from typing import List, Optional
 from dataclasses import dataclass
+import numpy as np
+import math
+import bpy
+from mathutils import Vector
 
 @dataclass
 class Texture:
@@ -12,11 +16,30 @@ class Texture:
   frame_height: float
 
 @dataclass
+class Hook:
+  object_name: Optional[str] 
+  global_pos: List[float]
+  vertex_id: Optional[int] = None
+
+  def get_id(self) -> None:
+    o = bpy.data.objects[self.object_name]
+    mat = o.matrix_world
+    for v in o.data.vertices:
+      global_pos = mat @ v.co
+      #if v.index == 15:
+        # print(f"{v.index} Vertex global pos: [{round(global_pos[0],2)},{round(global_pos[1],2)},{round(global_pos[2],2)}]")
+        # print(f"Picked point global pos: {self.global_pos}")
+      if (round(global_pos[0],2) == self.global_pos[0]) & \
+         (round(global_pos[1],2) == self.global_pos[1]) & \
+         (round(global_pos[2],2) == self.global_pos[2]):
+        self.vertex_id = v.index
+        print(f"found vertex id: {self.vertex_id}")
+
+@dataclass
 class Transform:
   id: int
   rot: List[float]
   move: List[float]
-  hook: List[float] = None
   tag: str = ""
 
 @dataclass
@@ -27,26 +50,9 @@ class Grid:
   w: float
   h: float 
   type: str
-  hook: List[float]
+  hook: Hook
   max_y: int = 6
   max_z: int = 6
-
-  @staticmethod
-  def _transform_point(p: list, rot: list, move: list) -> list:
-    """
-    Transform collections point (defined on the grind, selected by hand) by all transforms
-    This can be hook, hand, head etc. any useful point on the texture
-    """
-    p2 = list()
-    for i in range(0,3):
-      #print(p[i] + move[i])
-      p2.append(p[i] + move[i])
-    return p2
-
-  def generate_hooks(self) -> None:
-    for t in self.transforms:
-      t.hook = self._transform_point(self.hook, t.rot, t.move)
-
 
 # define textures:
 axe_txt = Texture(8,"axe", 96, 96)
@@ -92,13 +98,5 @@ w_trans.append(Transform(id=24, rot=[45,0, -90], move=[0,4,6],    tag="down_face
 w_trans.append(Transform(id=25, rot=[60,0, -90], move=[0,5,6],    tag="down_face_behind_60"))
 w_trans.append(Transform(id=26, rot=[75,0, -90], move=[0,6,6],    tag="down_face_behind_75"))
 
-# make grid:
-weapons_grid = Grid(id=0, 
-                    transforms=w_trans, 
-                    camera_pos=[8,3.4,3.5], 
-                    w=576,
-                    h=576,
-                    type="weapon",
-                    hook=[-0.05, 0.22, -0.2])
-weapons_grid.generate_hooks()
+
 

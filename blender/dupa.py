@@ -3,13 +3,15 @@ import numpy as np
 import math
 import json
 import importlib
+from typing import List
+from mathutils import Vector
 
 spec_grids = importlib.util.spec_from_file_location("grids", 
 "/home/patrick/Documents/projects/game_opengl/blender/grids.py")
 grids = importlib.util.module_from_spec(spec_grids)
 spec_grids.loader.exec_module(grids)
  
-def get_objects() -> list:
+def get_objects() -> List:
   objs = list()
   objects = bpy.context.editable_objects
   ### get objects that are not Sun and Camera
@@ -19,7 +21,7 @@ def get_objects() -> list:
          objs.append(obj)
   return objs
          
-def set_state(obj_list: list, state: bool) -> None:
+def set_state(obj_list: List, state: bool) -> None:
     msg = ""
     if not state:
         msg = "Un"
@@ -38,7 +40,7 @@ def make_new_coll(coll_name: str) -> str:
     print(f"Making new collection: {collection.name}")
     return collection.name
 
-def get_objs_by_names(obj_names: list) -> list:
+def get_objs_by_names(obj_names: List) -> List:
     objs = list()
     all_objs = get_objects()
     for obj in all_objs:
@@ -46,7 +48,7 @@ def get_objs_by_names(obj_names: list) -> list:
             objs.append(obj)
     return objs
     
-def get_object_location(obj_name: str) -> list:
+def get_object_location(obj_name: str) -> List:
     obj = bpy.data.objects[obj_name]
     loc = [obj.location.x, obj.location.y, obj.location.z]
     print(f"Location of {obj_name}: {loc}")
@@ -68,7 +70,7 @@ def delete_collection(coll_name: str) -> None:
     bpy.data.collections.remove(collection)
 
 
-def list_grid_collections(coll_name: str) -> list:
+def list_grid_collections(coll_name: str) -> List:
     coll_list = list()
     for coll in bpy.data.collections:
         if (coll_name in coll.name) & (".0" in coll.name) & (coll.objects.__len__() > 0):
@@ -129,7 +131,7 @@ def resize_camera_view(x: float, y: float) -> None:
   bpy.context.scene.render.resolution_x = x
   bpy.context.scene.render.resolution_y = y
 
-def make_new_object(coll_name: str, rot: list, move: list) -> None:
+def make_new_object(coll_name: str, rot: List, move: List) -> None:
   """
   Take collection, align it, rotate and move
   """
@@ -155,6 +157,27 @@ def set_camera_topdown() -> None:
   # one of options: 30, 45, 60 degrees
   print("")
 
+def get_object_bbox_center(obj_name: str) -> None:
+  o = bpy.data.objects[obj_name]
+  local_bbox_center = 0.125 * sum((Vector(b) for b in o.bound_box), Vector())
+  global_bbox_center = o.matrix_world @ local_bbox_center
+  print(global_bbox_center)
+
+def get_global_obj_vertex_pos(obj_name: str, vertex_id: int) -> List[float]:
+    o = bpy.data.objects[obj_name]
+    mat = o.matrix_world
+    pos = list()
+    for v in o.data.vertices:
+      if v.index == vertex_id:
+        global_pos = mat @ v.co
+        pos.append(global_pos[0])
+        pos.append(global_pos[1])
+        pos.append(global_pos[2])
+        return pos
+
+
+## TODO: need list of new object names that have the hook -> get them and find global positions for hook vertices
+
 
 def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
   path = f"/home/patrick/Documents/projects/game_opengl/blender/{txt.id}_{txt.name}.json"
@@ -163,18 +186,27 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
   d["w"] = grid.w
   d["h"] = grid.h
   d["type"] = grid.type
+  d["name"] = txt.name
+  d["hook_vertex_id"] = grid.hook.vertex_id
   f = list()
   for t in grid.transforms:
     x_start = ((t.move[1]/grid.max_y)*grid.w) - txt.frame_width
     y_start = ((t.move[2]/grid.max_z)*grid.h) - txt.frame_height
     frame_d = dict()
+    frame_d["frame_id"] = t.id
     frame_d["x"] = x_start
     frame_d["y"] = y_start
     frame_d["w"] = txt.frame_width
     frame_d["h"] = txt.frame_height
     frame_d["label"] = t.tag
-    frame_d["hook_x"] = ((t.hook[1]/grid.max_y)*grid.w) - txt.frame_width
-    frame_d["hook_y"] = ((t.hook[2]/grid.max_z)*grid.h) - txt.frame_height
+
+    # frame_d["hook_x"] = round(t.hook[1]*txt.frame_width) - txt.frame_width
+    # frame_d["hook_y"] = round(t.hook[2]*txt.frame_height) - txt.frame_height
+
+    # if (frame_d["frame_id"] in [0,4]):
+    #   print(f"tag: {frame_d['label']} hook: {t.hook[1]},{t.hook[2]} grid max: {grid.max_y},{grid.max_z} frame: {txt.frame_width},{txt.frame_height}")
+    #   print(f'hook: {frame_d["hook_x"]},{frame_d["hook_y"]}')
+
     # add hooks
     f.append(frame_d)
 
