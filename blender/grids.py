@@ -56,7 +56,7 @@ class Grid:
   max_z: int = 6
 
 # define textures:
-axe_txt = Texture(8,"axe", 96, 96)
+axe_txt = Texture(8,"axe", 100, 100)
 
 
 # make transforms:
