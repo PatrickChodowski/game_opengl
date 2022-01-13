@@ -131,28 +131,29 @@ def resize_camera_view(x: float, y: float) -> None:
   bpy.context.scene.render.resolution_x = x
   bpy.context.scene.render.resolution_y = y
 
-def make_new_object(coll_name: str, rot: List, move: List) -> None:
+def make_new_object(coll_name: str, rot: List, move: List) -> str:
   """
   Take collection, align it, rotate and move
+  Returns ID -> 001, 002, 003 etc.
   """
   new_coll_name = copy_collection(coll_name)
+  coll_id = new_coll_name.split('.')[1]
   rotate_collection(new_coll_name, *rot)
   move_collection(new_coll_name, *move)
+  return coll_id
 
-
-def make_objects_from_grid(coll_name: str, grid: grids.Grid) -> None:
+def make_objects_from_grid(coll_name: str, grid: grids.Grid) -> grids.Grid:
   """
   Transforms collection based on the specified grid
+  Returns updated grid
   """
   print(f"Transforming {coll_name} by grid ID: {grid.id}")
 
   for t in grid.transforms:
-    make_new_object(coll_name, t.rot, t.move)
+    t.coll_id = make_new_object(coll_name, t.rot, t.move)
   set_camera_pos(*grid.camera_pos)
+  return grid
 
-
-
-  
 def set_camera_topdown() -> None:
   # one of options: 30, 45, 60 degrees
   print("")
@@ -176,8 +177,6 @@ def get_global_obj_vertex_pos(obj_name: str, vertex_id: int) -> List[float]:
         return pos
 
 
-## TODO: need list of new object names that have the hook -> get them and find global positions for hook vertices
-
 
 def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
   path = f"/home/patrick/Documents/projects/game_opengl/blender/{txt.id}_{txt.name}.json"
@@ -189,6 +188,7 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
   d["name"] = txt.name
   d["hook_vertex_id"] = grid.hook.vertex_id
   f = list()
+
   for t in grid.transforms:
     x_start = ((t.move[1]/grid.max_y)*grid.w) - txt.frame_width
     y_start = ((t.move[2]/grid.max_z)*grid.h) - txt.frame_height
@@ -200,12 +200,10 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
     frame_d["h"] = txt.frame_height
     frame_d["label"] = t.tag
 
-    # frame_d["hook_x"] = round(t.hook[1]*txt.frame_width) - txt.frame_width
-    # frame_d["hook_y"] = round(t.hook[2]*txt.frame_height) - txt.frame_height
-
-    # if (frame_d["frame_id"] in [0,4]):
-    #   print(f"tag: {frame_d['label']} hook: {t.hook[1]},{t.hook[2]} grid max: {grid.max_y},{grid.max_z} frame: {txt.frame_width},{txt.frame_height}")
-    #   print(f'hook: {frame_d["hook_x"]},{frame_d["hook_y"]}')
+    hook_obj_name = grid.hook.object_name+"."+t.coll_id
+    hook_pos = get_global_obj_vertex_pos(hook_obj_name, grid.hook.vertex_id)
+    frame_d["hook_x"] = round((hook_pos[1] - 1)  * txt.frame_width)
+    frame_d["hook_y"] = round((hook_pos[2] - 1)  * txt.frame_height)
 
     # add hooks
     f.append(frame_d)

@@ -2,6 +2,7 @@
 ### anims
  - work on looped animatin (trigger when finished)
  - tempo parameter for speed changes
+ - define animations on assets? if there is none, then just dont animate -> keep idle
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
