@@ -40,7 +40,8 @@ class Transform:
   id: int
   rot: List[float]
   move: List[float]
-  tag: str = ""
+  tag: str
+  coll_id: Optional[str] = None
 
 @dataclass
 class Grid:
