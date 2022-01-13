@@ -1,4 +1,5 @@
 import bpy
+import bmesh
 import numpy as np
 import math
 import json
@@ -191,7 +192,7 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
 
   for t in grid.transforms:
     x_start = ((t.move[1]/grid.max_y)*grid.w) - txt.frame_width
-    y_start = ((t.move[2]/grid.max_z)*grid.h) - txt.frame_height
+    y_start = grid.h - (((t.move[2]/grid.max_z)*grid.h) - txt.frame_height) - txt.frame_height
     frame_d = dict()
     frame_d["frame_id"] = t.id
     frame_d["x"] = x_start
@@ -203,7 +204,7 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
     hook_obj_name = grid.hook.object_name+"."+t.coll_id
     hook_pos = get_global_obj_vertex_pos(hook_obj_name, grid.hook.vertex_id)
     frame_d["hook_x"] = round((hook_pos[1] - 1)  * txt.frame_width)
-    frame_d["hook_y"] = round((hook_pos[2] - 1)  * txt.frame_height)
+    frame_d["hook_y"] = grid.h - (round((hook_pos[2] - 1)  * txt.frame_height))
 
     # add hooks
     f.append(frame_d)
@@ -211,3 +212,26 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
   d["frames_list"] = f
   with open(path, "w") as outfile:
     json.dump(d, outfile)
+
+
+def create_temp_plane(endf: float = 7.0) -> None:
+    x= 0.0
+    start = 1.0
+    vert = [(x, start, endf), (x, endf, endf), (x, start, start), (x, endf, start)]
+    fac = [(0, 1, 3, 2)]
+    pl_data = bpy.data.meshes.new("TempPlane")
+    pl_data.from_pydata(vert, [], fac)
+    pl_obj = bpy.data.objects.new("TempPlane", pl_data)
+    col = bpy.data.collections.get("Collection")
+    col.objects.link(pl_obj)
+
+def delete_temp_plane() -> None:
+  bpy.data.objects.remove(bpy.data.objects["TempPlane"], do_unlink=True)
+
+def focus_camera_on_grid() -> None:
+  create_temp_plane()
+  bpy.data.objects["TempPlane"].select_set(state=True)
+  bpy.ops.view3d.camera_to_view_selected()
+  bpy.data.objects["TempPlane"].select_set(state=False)
+  delete_temp_plane()
+
