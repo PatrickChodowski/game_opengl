@@ -126,6 +126,13 @@
 #define ANIM_DIRECTION_LEFT 0
 #define ANIM_DIRECTION_RIGHT 1
 
+// Animation collection
+#define ANIM_IDLE 0
+#define ANIM_MOVE_LEFT 1
+#define ANIM_MOVE_RIGHT 2
+#define ANIM_MOVE_UP 3
+#define ANIM_MOVE_DOWN 4
+
 
 
 #endif

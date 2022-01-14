@@ -1,6 +1,10 @@
 # Data structure
 # Contains set of rotation and movements of the objects, alongside camera center
 
+
+
+
+from tkinter import W, Y
 from typing import List, Optional
 from dataclasses import dataclass
 import numpy as np
@@ -26,9 +30,6 @@ class Hook:
     mat = o.matrix_world
     for v in o.data.vertices:
       global_pos = mat @ v.co
-      #if v.index == 15:
-        # print(f"{v.index} Vertex global pos: [{round(global_pos[0],2)},{round(global_pos[1],2)},{round(global_pos[2],2)}]")
-        # print(f"Picked point global pos: {self.global_pos}")
       if (round(global_pos[0],2) == self.global_pos[0]) & \
          (round(global_pos[1],2) == self.global_pos[1]) & \
          (round(global_pos[2],2) == self.global_pos[2]):
@@ -44,6 +45,29 @@ class Transform:
   coll_id: Optional[str] = None
 
 @dataclass
+class Animation:
+  anim_id: int # 
+  anim_type_id: int # those types that define what to update
+  frame_names: List[str]
+  frame_id: List[int]
+  direction: List[int]
+  r: List[float]
+  g: List[float]
+  b: List[float]
+  a: List[float]
+  w: List[float]
+  h: List[float]
+  x: List[float]
+  y: List[float]
+  z: List[float]
+  update_times: List[float]
+  time_length: float 
+  cyclical: bool # this kinda has to be defined on the main anim definiton?
+  breakable: bool 
+
+
+
+@dataclass
 class Grid:
   id: int
   transforms: List[Transform]
@@ -52,6 +76,7 @@ class Grid:
   h: float 
   type: str
   hook: Hook
+  anims: List[Animation]
   max_y: int = 6
   max_z: int = 6
 

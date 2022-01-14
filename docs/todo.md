@@ -6,11 +6,14 @@
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
- - save equipped items on the character(with stats and re-generation from save)
+ - save equipped items on the character(with stats and re-generation from save) 
 
 
 ### 3d models instead of spritesheets:
- - automate blender to texture pipeline -> script to setup camera perspective and image export
+ - automate animations 
+ - automate blender to texture pipeline -> script to setup camera perspective
+ - define animation in game level
+ - then on each texture -> enable those animations (by defining them) animation will be defined on the asset (on its texture)
 
  - make new scripts for humanoid texture
  - photogrammetry
