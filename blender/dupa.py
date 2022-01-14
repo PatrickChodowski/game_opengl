@@ -203,8 +203,10 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
 
     hook_obj_name = grid.hook.object_name+"."+t.coll_id
     hook_pos = get_global_obj_vertex_pos(hook_obj_name, grid.hook.vertex_id)
-    frame_d["hook_x"] = round((hook_pos[1] - 1)  * txt.frame_width)
-    frame_d["hook_y"] = grid.h - (round((hook_pos[2] - 1)  * txt.frame_height))
+
+
+    frame_d["hook_x"] = round((hook_pos[1] - 1)  * txt.frame_width) - x_start
+    frame_d["hook_y"] = grid.h - (round((hook_pos[2] - 1)  * txt.frame_height)) - y_start
 
     # add hooks
     f.append(frame_d)
