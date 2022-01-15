@@ -99,23 +99,13 @@ namespace hero
   }
 
   // set items animations based on hero animation
-  void animate_items(int hero_anim_id)
+  void animate_items(int anim_id)
   {
-    
     if(hero::hero.in_hand_entity_id > -1)
     {
-      // LEFT
-      if(hero_anim_id == 2)
-      {
-        anims::start(4, hero::hero.in_hand_entity_id);
-      } else if (hero_anim_id == 3){
-        anims::start(5, hero::hero.in_hand_entity_id);
-      }
-
-    }
-    
+      anims::start(anim_id, hero::hero.in_hand_entity_id);
+    }  
   }
-
 
   void update_position(float camera_move_x, float camera_move_y)
   { 

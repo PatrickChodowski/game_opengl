@@ -27,35 +27,28 @@ namespace anims
     anims::animsplayed.erase(entity_id);
   }
 
+
   void start(int anim_id, int entity_id)
   {
-    // If entity not in animation right now OR is in animation of different type and this animation is breakable
-    // if((!_check_if_entity_in_anim(entity_id)) || 
-    //    (anims::_check_if_entity_in_anim(entity_id) & 
-    //           !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
-    //           anims::anims[anim_id].breakable))
-    // {
-
-    //   textures::Animation AD  = anims::anims[anim_id];
-    //   AD.entity_id = entity_id;
-    //   AD.time_elapsed = 0.0f;
-    //   AD.texture_id = entity::entities.at(entity_id).texture_id;
-
-    //   AD.current_keyframe_index = 0;
-    //   AD.next_update_time = AD.update_times[1];
-
-    //   AD.start_time = timer::get_current_hrc_time();
-    //   anims::animsplayed[entity_id] = AD;
-    //   entity::update_frame(entity_id, AD.frame_id[AD.current_keyframe_index]);
-
-    // } //else if (anims::_check_if_entity_in_anim(entity_id) & anims::_check_if_entity_in_anim_same_type(anim_id, entity_id)){
-    //   // if entity in animation right now and its the animation of the same id -> do nothing :)
-    //   //else if (anims::_check_if_entity_in_anim(entity_id) & 
-    //           // !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
-    //           // anims::anims[anim_id].breakable
-    //           // )
+    // Check if given entity's texture has this animation id available in the first place
+    if(textures::textures[entity::entities[entity_id].texture_id].anims.count(anim_id) > 0)
+    {
+      if((!_check_if_entity_in_anim(entity_id)) || 
+        (anims::_check_if_entity_in_anim(entity_id) & 
+                !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
+                anims::animsplayed[anim_id].breakable))
+      {
+        textures::Animation AD  = textures::textures[entity::entities[entity_id].texture_id].anims[anim_id];
+        AD.entity_id = entity_id;
+        AD.time_elapsed = 0.0f;
+        AD.current_keyframe_index = 0;
+        AD.next_update_time = AD.update_times[1];
+        AD.start_time = timer::get_current_hrc_time();
+        anims::animsplayed[entity_id] = AD;
+        entity::update_frame(entity_id, AD.frame_id[AD.current_keyframe_index]);
+      }
+    }
   }
-
 
   void play(int entity_id)
   { 

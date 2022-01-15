@@ -41,29 +41,29 @@ namespace events
     if(game::KEYBOARD[SDL_SCANCODE_LEFT])
     {
       camera::cam.move_x -= hero::hero.speed;
-      anims::start(2, hero::hero.entity_id);
-      hero::animate_items(2);
+      anims::start(ANIM_MOVE_LEFT, hero::hero.entity_id);
+      hero::animate_items(ANIM_MOVE_LEFT);
     } 
     else if(game::KEYBOARD[SDL_SCANCODE_RIGHT])
     {
       camera::cam.move_x += hero::hero.speed;
-      anims::start(3, hero::hero.entity_id);
-      hero::animate_items(3);
+      anims::start(ANIM_MOVE_RIGHT, hero::hero.entity_id);
+      hero::animate_items(ANIM_MOVE_RIGHT);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_UP])
     {
       camera::cam.move_y += hero::hero.speed;
-      anims::start(0, hero::hero.entity_id);
-      hero::animate_items(0);
+      anims::start(ANIM_MOVE_UP, hero::hero.entity_id);
+      hero::animate_items(ANIM_MOVE_UP);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_DOWN])
     {
       camera::cam.move_y -= hero::hero.speed;
-      anims::start(1, hero::hero.entity_id);
-      hero::animate_items(1);
+      anims::start(ANIM_MOVE_DOWN, hero::hero.entity_id);
+      hero::animate_items(ANIM_MOVE_DOWN);
     } else 
     {
-      //hero::update_frame(STAND_STILL);
+      anims::start(ANIM_IDLE, hero::hero.entity_id);
     }
     if(camera::cam.move_x != 0 | camera::cam.move_y !=0 )
     {

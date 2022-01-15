@@ -92,7 +92,7 @@ namespace hero
   std::vector<std::string> info(int entity_id);
 
   // Animate hero items based on hero animation
-  void animate_items(int hero_anim_id);
+  void animate_items(int anim_id);
 
 }
 
