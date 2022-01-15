@@ -118,11 +118,6 @@
 #define ANIM_TYPE_FRAME_DIRECTION 6
 #define ANIM_TYPE_FRAME_POSITION 7
 
-// Animated objects IDs (not entities, not objects)
-#define ANIM_OBJECT_HUMAN 0
-#define ANIM_OBJECT_ITEM_WEAPON 1
-#define ANIM_OBJECT_ITEM_ARMOR 2
-
 // Anim Directions
 #define ANIM_DIRECTION_LEFT 0
 #define ANIM_DIRECTION_RIGHT 1

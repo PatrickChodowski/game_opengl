@@ -197,7 +197,6 @@ namespace game
 
     quads::clear();
     quads::init();
-    anims::init();
     buffer::init();
     buttons::init();
     collisions::init();
@@ -314,7 +313,6 @@ namespace game
     game::clear_scene();
     game::scenes.clear();
 
-    anims::refresh();
     hero::refresh();
     items::refresh();
     maps::refresh();
@@ -322,8 +320,6 @@ namespace game
     mobs::refresh();
     //models::refresh();
     npcs::refresh();
-
-    anims::init();
     items::init();
     maps::init();
     menu::init();

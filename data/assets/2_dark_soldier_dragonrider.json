@@ -20,5 +20,13 @@
     {"frame_id": 9, "x": 0, "y": 192, "w": 48, "h": 64, "label": "left_1",    "hand_x": 30, "hand_y": 38},
     {"frame_id": 10, "x": 48, "y": 192, "w": 48, "h": 64, "label": "left_0",  "hand_x": 28, "hand_y": 40},
     {"frame_id": 11, "x": 96, "y": 192, "w": 48, "h": 64, "label": "left_2",  "hand_x": 37, "hand_y": 38}
+  ],
+  "anims_list": [
+     {"id": 0, "anim_type_id": 0, "update_times": [0.17], "time_length": 0.17, "cyclical": true, "breakable": true, "frame_id": [7]},               
+     {"id": 1, "anim_type_id": 0, "update_times": [0.17, 0.34, 0.35], "time_length": 0.35, "cyclical": true, "breakable": true, "frame_id": [9, 11]},
+     {"id": 2, "anim_type_id": 0, "update_times": [0.17, 0.34, 0.35], "time_length": 0.35, "cyclical": true, "breakable": true, "frame_id": [3, 5]},
+     {"id": 3, "anim_type_id": 0, "update_times": [0.17, 0.34, 0.35], "time_length": 0.35, "cyclical": true, "breakable": true, "frame_id": [0, 2]},
+     {"id": 4, "anim_type_id": 0, "update_times": [0.17, 0.34, 0.35], "time_length": 0.35, "cyclical": true, "breakable": true, "frame_id": [6, 8]}
   ]
 }
+
