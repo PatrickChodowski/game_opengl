@@ -83,6 +83,15 @@ namespace textures
 
     TD.frames_list.clear();
 
+
+    // propagate TD.anims(map) from anims_list(vector)
+    for(int f=0; f < TD.anim_list.size(); f++)
+    {
+      TD.anims.insert({TD.anim_list[f].id, TD.anim_list[f]});
+    }
+    TD.anim_list.clear();
+
+
     textures::textures.insert({TD.id, TD});
   };
 

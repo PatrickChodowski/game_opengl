@@ -10,6 +10,50 @@
 // Textures - Persistent data. Loaded once on the beginning of the level/scene
 namespace textures
 {
+
+  // Animation data read in from the asset/texture file
+  struct Animation
+  {
+    int id;
+    int anim_type_id;
+
+    // Provided while initializing the animation
+    int entity_id = -1;
+    int current_keyframe_index = -1;
+
+    // frames
+    std::vector<int> frame_id;
+    std::vector<int> direction;
+    // color
+    std::vector<float> r;
+    std::vector<float> g;
+    std::vector<float> b;
+    std::vector<float> a;
+    // dimension
+    std::vector<float> w;
+    std::vector<float> h;
+    // position
+    std::vector<float> x;
+    std::vector<float> y;
+    std::vector<float> z;
+
+    std::vector<float> update_times;
+
+    float time_length;
+    float time_elapsed;
+    float next_update_time;
+    
+    bool cyclical;
+    bool breakable;
+
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+
+    JS_OBJ(id, anim_type_id, 
+    frame_id, direction, r, g, b, a, w, h, x, y, z,
+    update_times, time_length,
+    cyclical, breakable);
+  };
+
   // Frame data - id, position, dimensions and label
   struct Frame
   {
@@ -34,10 +78,14 @@ namespace textures
     std::string type;
     std::string name;
 
-    std::vector<Frame> frames_list;
-    phmap::btree_map<int, textures::Frame> frames;
+    std::vector<textures::Frame> frames_list;
+    std::vector<textures::Animation> anim_list;
 
-    JS_OBJ(id, w, h, type, name, frames_list);
+    // Propagated after read:
+    phmap::btree_map<int, textures::Frame> frames;
+    phmap::btree_map<int, textures::Animation> anims;
+
+    JS_OBJ(id, w, h, type, name, frames_list, anim_list);
   };
 
   // Persisten table of textures data
