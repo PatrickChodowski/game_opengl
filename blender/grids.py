@@ -126,8 +126,8 @@ for k, v in frame_map.items():
 w_anims = list()
 w_anims.append(Animation(anim_id=0, # idle
                          anim_type_id=0, #frame
-                         update_times=[0.16],
-                         time_length=0.17,
+                         update_times=[60],
+                         time_length=61,
                          cyclical=True,
                          breakable=True,
                          frame_id=[frame_map["side_original"]["id"]]))

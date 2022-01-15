@@ -6,6 +6,6 @@
 "anim_list": 
 
 
-[{"id": 0, "anim_type_id": 0, "update_times": [0.16], "time_length": 0.17, "cyclical": true, "breakable": true, "frame_id": [4]}, 
+[{"id": 0, "anim_type_id": 0, "update_times": [60], "time_length": 61, "cyclical": true, "breakable": true, "frame_id": [4]}, 
 {"id": 1, "anim_type_id": 7, "update_times": [0.17, 0.34, 0.51, 0.68, 0.85, 1.02, 1.03], "time_length": 1.02, "cyclical": false, "breakable": true, "frame_id": [0, 1, 2, 3, 2, 1], "z": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2]}, 
 {"id": 2, "anim_type_id": 6, "update_times": [0.17, 0.34, 0.51, 0.68, 0.85, 1.02, 1.03], "time_length": 1.02, "cyclical": false, "breakable": true, "frame_id": [0, 1, 2, 3, 2, 1], "direction": [1, 1, 1, 1, 1, 1]}]}
