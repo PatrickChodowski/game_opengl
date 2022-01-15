@@ -4,6 +4,7 @@
 #include "anims.h"
 #include "entity.h"
 #include "utils.h"
+#include "textures.h"
 #include "timer.h"
 
 #include "../dictionary.h"
@@ -12,29 +13,9 @@
 
 namespace anims
 {
-  phmap::flat_hash_map<int, anims::Animation> anims;
-  phmap::flat_hash_map<int, anims::Animation> animsplayed;
+  phmap::flat_hash_map<int, textures::Animation> animsplayed;
   std::vector<int> anims_to_stop;
 
-  void init()
-  {
-    std::vector<std::string> anim_list = utils::list_json_files("data/anims/");
-    for(int a=0; a < anim_list.size(); a++)
-    {
-      anims::read_data(anim_list[a]);
-    };
-    std::cout << "Anims Initialized" << std::endl;
-  };
-
-  void read_data(std::string& name)
-  {
-    anims::Animation AD;
-    std::string data_path = "./data/anims/"+name+".json";
-    std::string json_data = utils::read_text_file(data_path);
-    JS::ParseContext context(json_data);
-    context.parseTo(AD);
-    anims::anims.insert({AD.id, AD});
-  }
 
   void clear()
   {
@@ -46,38 +27,33 @@ namespace anims
     anims::animsplayed.erase(entity_id);
   }
 
-  void refresh()
-  {
-    anims::anims.clear();
-  }
-
   void start(int anim_id, int entity_id)
   {
     // If entity not in animation right now OR is in animation of different type and this animation is breakable
-    if((!_check_if_entity_in_anim(entity_id)) || 
-       (anims::_check_if_entity_in_anim(entity_id) & 
-              !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
-              anims::anims[anim_id].breakable))
-    {
+    // if((!_check_if_entity_in_anim(entity_id)) || 
+    //    (anims::_check_if_entity_in_anim(entity_id) & 
+    //           !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
+    //           anims::anims[anim_id].breakable))
+    // {
 
-      anims::Animation AD  = anims::anims[anim_id];
-      AD.entity_id = entity_id;
-      AD.time_elapsed = 0.0f;
-      AD.texture_id = entity::entities.at(entity_id).texture_id;
+    //   textures::Animation AD  = anims::anims[anim_id];
+    //   AD.entity_id = entity_id;
+    //   AD.time_elapsed = 0.0f;
+    //   AD.texture_id = entity::entities.at(entity_id).texture_id;
 
-      AD.current_keyframe_index = 0;
-      AD.next_update_time = AD.update_times[1];
+    //   AD.current_keyframe_index = 0;
+    //   AD.next_update_time = AD.update_times[1];
 
-      AD.start_time = timer::get_current_hrc_time();
-      anims::animsplayed[entity_id] = AD;
-      entity::update_frame(entity_id, AD.frame_id[AD.current_keyframe_index]);
+    //   AD.start_time = timer::get_current_hrc_time();
+    //   anims::animsplayed[entity_id] = AD;
+    //   entity::update_frame(entity_id, AD.frame_id[AD.current_keyframe_index]);
 
-    } //else if (anims::_check_if_entity_in_anim(entity_id) & anims::_check_if_entity_in_anim_same_type(anim_id, entity_id)){
-      // if entity in animation right now and its the animation of the same id -> do nothing :)
-      //else if (anims::_check_if_entity_in_anim(entity_id) & 
-              // !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
-              // anims::anims[anim_id].breakable
-              // )
+    // } //else if (anims::_check_if_entity_in_anim(entity_id) & anims::_check_if_entity_in_anim_same_type(anim_id, entity_id)){
+    //   // if entity in animation right now and its the animation of the same id -> do nothing :)
+    //   //else if (anims::_check_if_entity_in_anim(entity_id) & 
+    //           // !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
+    //           // anims::anims[anim_id].breakable
+    //           // )
   }
 
 

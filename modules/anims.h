@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "textures.h"
 #include "timer.h"
 #include "utils.h"
 
@@ -15,56 +16,8 @@
 
 namespace anims
 {
-  // All data needed for all animation types
-  struct Animation
-  {
-    int id;
-    int anim_type_id;
-    int anim_object_id;
-
-    // Provided while initializing the animation
-    int entity_id;
-    int current_keyframe_index;
-    int texture_id;
-
-    // frames
-    std::vector<int> frame_id;
-    std::vector<int> direction;
-    // color
-    std::vector<float> r;
-    std::vector<float> g;
-    std::vector<float> b;
-    std::vector<float> a;
-    // dimension
-    std::vector<float> w;
-    std::vector<float> h;
-    // position
-    std::vector<float> x;
-    std::vector<float> y;
-    std::vector<float> z;
-
-    std::vector<float> update_times;
-
-    float time_length;
-    float time_elapsed;
-    float next_update_time;
-    
-    bool cyclical;
-    bool breakable;
-
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-
-    JS_OBJ(id, anim_type_id, anim_object_id, 
-    frame_id, direction, r, g, b, a, w, h, x, y, z,
-    update_times, time_length,
-    cyclical, breakable);
-  };
-
-  // Catalog of all animations
-  extern phmap::flat_hash_map<int, anims::Animation> anims;
-
   // Catalog of entity_id, Animation - current animations played
-  extern phmap::flat_hash_map<int, anims::Animation> animsplayed;
+  extern phmap::flat_hash_map<int, textures::Animation> animsplayed;
 
   // index of animations to delete
   extern std::vector<int> anims_to_stop;
