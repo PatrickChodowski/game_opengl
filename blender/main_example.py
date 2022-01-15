@@ -21,6 +21,7 @@ hook.get_id()
 ## make grid:
 weapons_grid = grids.Grid(id=0, 
                     transforms=grids.w_trans, 
+                    anims=grids.w_anims,
                     camera_pos=[3,4,4], 
                     w=600,
                     h=600,
@@ -28,9 +29,12 @@ weapons_grid = grids.Grid(id=0,
                     hook=hook)
 
 weapons_grid = dupa.make_objects_from_grid("axe", weapons_grid)
-dupa.generate_data(grids.axe_txt, weapons_grid)
-dupa.focus_camera_on_grid()
-dupa.save("axe3", weapons_grid.w, weapons_grid.h)
+
+
+
+#dupa.generate_data(grids.axe_txt, weapons_grid)
+#dupa.focus_camera_on_grid()
+#dupa.save("axe3", weapons_grid.w, weapons_grid.h)
 
 
 # make sure axe is in collection
