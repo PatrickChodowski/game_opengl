@@ -116,6 +116,7 @@
 #define ANIM_TYPE_DIRECTION 4
 #define ANIM_TYPE_TEXTURE 5
 #define ANIM_TYPE_FRAME_DIRECTION 6
+#define ANIM_TYPE_FRAME_POSITION 7
 
 // Animated objects IDs (not entities, not objects)
 #define ANIM_OBJECT_HUMAN 0

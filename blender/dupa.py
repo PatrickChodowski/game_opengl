@@ -188,8 +188,9 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
   d["type"] = grid.type
   d["name"] = txt.name
   d["hook_vertex_id"] = grid.hook.vertex_id
-  f = list()
 
+  # frame transformations
+  _frames = list()
   for t in grid.transforms:
     x_start = ((t.move[1]/grid.max_y)*grid.w) - txt.frame_width
     y_start = grid.h - (((t.move[2]/grid.max_z)*grid.h) - txt.frame_height) - txt.frame_height
@@ -201,17 +202,33 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
     frame_d["h"] = txt.frame_height
     frame_d["label"] = t.tag
 
+    # add hook:
     hook_obj_name = grid.hook.object_name+"."+t.coll_id
     hook_pos = get_global_obj_vertex_pos(hook_obj_name, grid.hook.vertex_id)
-
-
     frame_d["hook_x"] = round((hook_pos[1] - 1)  * txt.frame_width) - x_start
     frame_d["hook_y"] = grid.h - (round((hook_pos[2] - 1)  * txt.frame_height)) - y_start
 
-    # add hooks
-    f.append(frame_d)
+    _frames.append(frame_d)
 
-  d["frames_list"] = f
+  d["frames_list"] = _frames
+
+  a_opts = ['frame_id',"direction","r","g","b","a","w","h","x","y","z"]
+  _anims = list()
+  # animations
+  for a in grid.anims:
+    anim_d = dict()
+    anim_d["id"] = a.anim_id
+    anim_d["anim_type_id"] = a.anim_type_id
+    anim_d["update_times"] = a.update_times
+    anim_d["time_length"] = a.time_length
+    anim_d["cyclical"] = a.cyclical
+    anim_d["breakable"] = a.breakable
+    for ao in a_opts:
+      if a.__dict__[ao] is not None:
+        anim_d[ao] = a.__dict__[ao]
+    _anims.append(anim_d)
+    
+  d["anim_list"] = _anims
   with open(path, "w") as outfile:
     json.dump(d, outfile)
 
