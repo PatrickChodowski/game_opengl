@@ -4,6 +4,7 @@
  - tempo parameter for speed changes
  - 4 directions idle
  - followup anim id?
+ - 
 
 
 ### items

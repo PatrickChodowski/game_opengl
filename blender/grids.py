@@ -75,9 +75,9 @@ class Transform:
 class Animation:
   anim_id: int
   anim_type_id: int
+  next_anim_id: int
   update_times: List[float]
   time_length: float 
-  cyclical: bool
   breakable: bool 
 
   frame_id: Optional[List[int]] = None
@@ -126,17 +126,17 @@ for k, v in frame_map.items():
 w_anims = list()
 w_anims.append(Animation(anim_id=0, # idle
                          anim_type_id=0, #frame
+                         next_anim_id=0,
                          update_times=[60],
                          time_length=61,
-                         cyclical=True,
                          breakable=True,
                          frame_id=[frame_map["side_original"]["id"]]))
 
 w_anims.append(Animation(anim_id=1, # move_left
                          anim_type_id=7, # frame_position
+                         next_anim_id=0,
                          update_times=[0.0, 0.15, 0.30, 0.45, 0.6, 0.75, 0.76],
                          time_length=0.75,
-                         cyclical=False,
                          breakable=True,
                          frame_id=[frame_map["side_face_down_105"]["id"], 
                                    frame_map["side_face_down_90"]["id"], 
@@ -148,9 +148,9 @@ w_anims.append(Animation(anim_id=1, # move_left
 
 w_anims.append(Animation(anim_id=2, # move_right
                          anim_type_id=6, # frame_direction
+                         next_anim_id=0,
                          update_times=[0.0, 0.15, 0.30, 0.45, 0.6, 0.75, 0.76],
                          time_length=0.75,
-                         cyclical=False,
                          breakable=True,
                          frame_id=[frame_map["side_face_down_105"]["id"], 
                                    frame_map["side_face_down_90"]["id"], 

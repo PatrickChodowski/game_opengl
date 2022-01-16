@@ -89,7 +89,10 @@ namespace anims
 
     for(int a=0; a<anims::anims_to_stop.size(); a++)
     {
-      anims::drop(anims::anims_to_stop[a]);
+      int entity_id = anims::anims_to_stop[a];
+      int next_anim_id = anims::animsplayed[entity_id].next_anim_id;
+      anims::drop(entity_id);
+      anims::start(next_anim_id, entity_id);
     }
 
   };

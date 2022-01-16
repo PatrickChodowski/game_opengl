@@ -22,9 +22,6 @@ namespace entity
     int entity_type_id;
     int menu_id;
 
-    int anim_id;
-    int prev_anim_id;
-
     quads::Position pos;
     quads::Color color;
     quads::Dims dims;
