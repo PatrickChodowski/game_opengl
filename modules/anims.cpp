@@ -22,6 +22,7 @@ namespace anims
     anims::AnimsHandler[ANIM_TYPE_FRAME] = anims::update_frame;
     anims::AnimsHandler[ANIM_TYPE_FRAME_DIRECTION] = anims::update_frame_direction;
     anims::AnimsHandler[ANIM_TYPE_FRAME_POSITION] = anims::update_frame_position;
+    anims::AnimsHandler[ANIM_TYPE_FRAME_POSITION_DIRECTION] = anims::update_frame_position_direction;
   }
 
 
@@ -146,6 +147,13 @@ namespace anims
   {
     anims::update_frame(entity_id, AD);
     entity::entities.at(entity_id).pos.z = AD.z[AD.CK_ID];
+  }
+
+  void update_frame_position_direction(int entity_id, textures::Animation &AD)
+  {
+    anims::update_frame(entity_id, AD);
+    entity::entities.at(entity_id).pos.z = AD.z[AD.CK_ID];
+    entity::entities.at(entity_id).is_reversed = AD.direction[AD.CK_ID];
   }
 
 

@@ -124,17 +124,9 @@ for k, v in frame_map.items():
 # ANIM IDLE 0 MOVE_LEFT 1 MOVE_RIGHT 2 MOVE_UP 3 MOVE_DOWN 4
 
 w_anims = list()
-w_anims.append(Animation(anim_id=0, # idle
-                         anim_type_id=0, #frame
-                         next_anim_id=0,
-                         update_times=[60],
-                         time_length=61,
-                         breakable=True,
-                         frame_id=[frame_map["side_original"]["id"]]))
-
 w_anims.append(Animation(anim_id=1, # move_left
-                         anim_type_id=7, # frame_position
-                         next_anim_id=0,
+                         anim_type_id=8, # frame_position_direction
+                         next_anim_id=5,
                          update_times=[0.0, 0.15, 0.30, 0.45, 0.6, 0.75, 0.76],
                          time_length=0.75,
                          breakable=True,
@@ -144,11 +136,12 @@ w_anims.append(Animation(anim_id=1, # move_left
                                    frame_map["side_face_level_25"]["id"], 
                                    frame_map["side_face_level_45"]["id"], 
                                    frame_map["side_face_down_90"]["id"]],
+                         direction=[0, 0, 0, 0, 0, 0],
                          z = [0.2, 0.2, 0.2, 0.2, 0.2, 0.2]))
 
 w_anims.append(Animation(anim_id=2, # move_right
-                         anim_type_id=6, # frame_direction
-                         next_anim_id=0,
+                         anim_type_id=8, # frame_position_direction
+                         next_anim_id=6,
                          update_times=[0.0, 0.15, 0.30, 0.45, 0.6, 0.75, 0.76],
                          time_length=0.75,
                          breakable=True,
@@ -158,6 +151,28 @@ w_anims.append(Animation(anim_id=2, # move_right
                                    frame_map["side_face_level_25"]["id"], 
                                    frame_map["side_face_level_45"]["id"], 
                                    frame_map["side_face_down_90"]["id"]],
-                         direction=[1, 1, 1, 1, 1, 1]
+                         direction=[1, 1, 1, 1, 1, 1],
+                         z = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
                          ))
 
+w_anims.append(Animation(anim_id=5, # idle_left
+                         anim_type_id=8, #frame_position_direction
+                         next_anim_id=5,
+                         update_times=[0.0, 60],
+                         time_length=60,
+                         breakable=True,
+                         frame_id=[frame_map["side_original"]["id"]],
+                         direction=[0],
+                         z = [0.2]
+                         ))
+
+w_anims.append(Animation(anim_id=6, # idle_right
+                         anim_type_id=8, #frame_position_direction
+                         next_anim_id=6,
+                         update_times=[0.0, 60],
+                         time_length=60,
+                         breakable=True,
+                         frame_id=[frame_map["side_original"]["id"]],
+                         direction=[1],
+                         z = [0.8]
+                         ))
