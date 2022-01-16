@@ -61,6 +61,9 @@ namespace anims
   // Update entity's frame and direction
   void update_frame_direction(int entity_id, textures::Animation &AD);
 
+  // Update entitys frame and position (z)
+  void update_frame_position(int entity_id, textures::Animation &AD);
+
 }
 
 #endif
