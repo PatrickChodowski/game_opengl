@@ -185,7 +185,7 @@ namespace travel
 
   void _animate_by_direction(int entity_id, float angle)
   {
-    // Looks like very much temporary function
+    // // Looks like very much temporary function
     if(cos(angle) > 0)
     {// going left
       anims::start(2,entity_id);
