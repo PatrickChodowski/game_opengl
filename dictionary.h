@@ -118,16 +118,16 @@
 #define ANIM_TYPE_FRAME_DIRECTION 6
 #define ANIM_TYPE_FRAME_POSITION 7
 
-// Anim Directions
-#define ANIM_DIRECTION_LEFT 0
-#define ANIM_DIRECTION_RIGHT 1
-
 // Animation collection
-#define ANIM_IDLE 0
 #define ANIM_MOVE_LEFT 1
 #define ANIM_MOVE_RIGHT 2
 #define ANIM_MOVE_UP 3
 #define ANIM_MOVE_DOWN 4
+#define ANIM_IDLE_LEFT 5
+#define ANIM_IDLE_RIGHT 6
+#define ANIM_IDLE_UP 7
+#define ANIM_IDLE_DOWN 8
+
 
 
 

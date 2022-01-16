@@ -16,6 +16,7 @@ namespace textures
   {
     int id;
     int anim_type_id;
+    int next_anim_id;
 
     // Provided while initializing the animation
     int entity_id = -1;
@@ -42,16 +43,13 @@ namespace textures
     float time_length;
     float time_elapsed;
     float next_update_time;
-    
-    bool cyclical;
     bool breakable;
-
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
 
     JS_OBJ(id, anim_type_id, 
     frame_id, direction, r, g, b, a, w, h, x, y, z,
     update_times, time_length,
-    cyclical, breakable);
+    next_anim_id, breakable);
   };
 
   // Frame data - id, position, dimensions and label

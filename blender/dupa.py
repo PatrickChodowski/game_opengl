@@ -221,7 +221,7 @@ def generate_data(txt: grids.Texture, grid: grids.Grid) -> None:
     anim_d["anim_type_id"] = a.anim_type_id
     anim_d["update_times"] = a.update_times
     anim_d["time_length"] = a.time_length
-    anim_d["cyclical"] = a.cyclical
+    anim_d["next_anim_id"] = a.next_anim_id
     anim_d["breakable"] = a.breakable
     for ao in a_opts:
       if a.__dict__[ao] is not None:

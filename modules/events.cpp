@@ -63,7 +63,7 @@ namespace events
       hero::animate_items(ANIM_MOVE_DOWN);
     } else 
     {
-      anims::start(ANIM_IDLE, hero::hero.entity_id);
+      //anims::start(ANIM_IDLE, hero::hero.entity_id);
     }
     if(camera::cam.move_x != 0 | camera::cam.move_y !=0 )
     {
