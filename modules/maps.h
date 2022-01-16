@@ -31,6 +31,7 @@ namespace maps
 
     bool is_clicked;
     bool is_solid;
+    bool is_reversed = false;
 
   };
 

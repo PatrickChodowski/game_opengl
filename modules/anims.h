@@ -19,14 +19,14 @@ namespace anims
   // Catalog of entity_id, Animation - current animations played
   extern phmap::flat_hash_map<int, textures::Animation> animsplayed;
 
+  typedef void (*sig_ptr)(int, textures::Animation&);
+  extern phmap::flat_hash_map<int, sig_ptr> AnimsHandler;
+
   // index of animations to delete
   extern std::vector<int> anims_to_stop;
 
-  // Reads in all the data
+  // Initialize anims handler
   void init();
-
-  // Reads data for selected animation
-  void read_data(std::string& name);
 
   // Clear temporary data
   void clear();
@@ -51,6 +51,15 @@ namespace anims
 
   // Runs the single animation from animsplayed
   void play(int entity_id);
+
+
+  // Anim handlers:
+
+  // Update entity's frame
+  void update_frame(int entity_id, textures::Animation &AD);
+
+  // Update entity's frame and direction
+  void update_frame_direction(int entity_id, textures::Animation &AD);
 
 }
 

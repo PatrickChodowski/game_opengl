@@ -19,7 +19,7 @@ namespace textures
 
     // Provided while initializing the animation
     int entity_id = -1;
-    int current_keyframe_index = -1;
+    int CK_ID = -1;
 
     // frames
     std::vector<int> frame_id;

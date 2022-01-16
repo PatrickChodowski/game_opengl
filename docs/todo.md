@@ -2,19 +2,15 @@
 ### anims
  - work on looped animatin (trigger when finished)
  - tempo parameter for speed changes
- - define animations on assets? if there is none, then just dont animate -> keep idle
+ - 4 directions idle
+ - followup anim id?
+
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
  - save equipped items on the character(with stats and re-generation from save) 
 
-
 ### 3d models instead of spritesheets:
- - automate animations 
- - automate blender to texture pipeline -> script to setup camera perspective
- - define animation in game level
- - then on each texture -> enable those animations (by defining them) animation will be defined on the asset (on its texture)
-
  - make new scripts for humanoid texture
  - photogrammetry
  - meshroom 

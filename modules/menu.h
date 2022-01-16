@@ -79,6 +79,7 @@ namespace menu
     std::vector<int> label_ids;
     
     bool is_clicked;
+    bool is_reversed = false;
 
     JS_OBJ(menu_type_id, r, g, b, a, x , y, w, h, texture_id, frame_id, object_type_id, 
     button_data, label_data);
