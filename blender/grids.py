@@ -155,6 +155,42 @@ w_anims.append(Animation(anim_id=2, # move_right
                          z = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
                          ))
 
+
+w_anims.append(Animation(anim_id=3, # move_up
+                         anim_type_id=8, # frame_position_direction
+                         next_anim_id=7,
+                         update_times=[0.0, 0.15, 0.30, 0.45, 0.6, 0.75, 0.76],
+                         time_length=0.75,
+                         breakable=True,
+                         frame_id=[frame_map["up_face_down_105"]["id"], 
+                                   frame_map["up_face_down_90"]["id"], 
+                                   frame_map["up_face_level_45"]["id"], 
+                                   frame_map["up_face_level_25"]["id"], 
+                                   frame_map["up_face_level_45"]["id"], 
+                                   frame_map["up_face_down_90"]["id"]],
+                         direction=[0, 0, 0, 0, 0, 0],
+                         z = [0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
+                         ))
+
+
+w_anims.append(Animation(anim_id=4, # move_down
+                         anim_type_id=8, # frame_position_direction
+                         next_anim_id=8,
+                         update_times=[0.0, 0.15, 0.30, 0.45, 0.6, 0.75, 0.76],
+                         time_length=0.75,
+                         breakable=True,
+                         frame_id=[frame_map["down_face_down_105"]["id"], 
+                                   frame_map["down_face_down_90"]["id"], 
+                                   frame_map["down_face_level_45"]["id"], 
+                                   frame_map["down_face_level_25"]["id"], 
+                                   frame_map["down_face_level_45"]["id"], 
+                                   frame_map["down_face_down_90"]["id"]],
+                         direction=[0, 0, 0, 0, 0, 0],
+                         z = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
+                         ))
+
+
+
 w_anims.append(Animation(anim_id=5, # idle_left
                          anim_type_id=8, #frame_position_direction
                          next_anim_id=5,
@@ -176,3 +212,26 @@ w_anims.append(Animation(anim_id=6, # idle_right
                          direction=[1],
                          z = [0.8]
                          ))
+
+
+w_anims.append(Animation(anim_id=7, # idle_up
+                         anim_type_id=8, #frame_position_direction
+                         next_anim_id=7,
+                         update_times=[0.0, 60],
+                         time_length=60,
+                         breakable=True,
+                         frame_id=[frame_map["up_original"]["id"]],
+                         direction=[0],
+                         z = [0.2]
+                         ))
+
+w_anims.append(Animation(anim_id=8, # idle_down
+                         anim_type_id=8, #frame_position_direction
+                         next_anim_id=8,
+                         update_times=[0.0, 60],
+                         time_length=60,
+                         breakable=True,
+                         frame_id=[frame_map["down_original"]["id"]],
+                         direction=[0],
+                         z = [0.8]
+                         ))                         
