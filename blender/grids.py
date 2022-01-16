@@ -134,8 +134,8 @@ w_anims.append(Animation(anim_id=0, # idle
 
 w_anims.append(Animation(anim_id=1, # move_left
                          anim_type_id=7, # frame_position
-                         update_times=[0.17, 0.34, 0.51, 0.68, 0.85, 1.02, 1.03],
-                         time_length=1.02,
+                         update_times=[0.0, 0.15, 0.30, 0.45, 0.6, 0.75, 0.76],
+                         time_length=0.75,
                          cyclical=False,
                          breakable=True,
                          frame_id=[frame_map["side_face_down_105"]["id"], 
@@ -148,8 +148,8 @@ w_anims.append(Animation(anim_id=1, # move_left
 
 w_anims.append(Animation(anim_id=2, # move_right
                          anim_type_id=6, # frame_direction
-                         update_times=[0.17, 0.34, 0.51, 0.68, 0.85, 1.02, 1.03],
-                         time_length=1.02,
+                         update_times=[0.0, 0.15, 0.30, 0.45, 0.6, 0.75, 0.76],
+                         time_length=0.75,
                          cyclical=False,
                          breakable=True,
                          frame_id=[frame_map["side_face_down_105"]["id"], 

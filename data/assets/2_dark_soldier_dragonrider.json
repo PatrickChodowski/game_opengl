@@ -23,10 +23,9 @@
   ],
   "anim_list": [
      {"id": 0, "anim_type_id": 0, "update_times": [60], "time_length": 61, "cyclical": true, "breakable": true, "frame_id": [7]},               
-     {"id": 1, "anim_type_id": 0, "update_times": [0.17, 0.34, 0.35], "time_length": 0.35, "cyclical": true, "breakable": true, "frame_id": [9, 11]},
-     {"id": 2, "anim_type_id": 0, "update_times": [0.17, 0.34, 0.35], "time_length": 0.35, "cyclical": true, "breakable": true, "frame_id": [3, 5]},
-     {"id": 3, "anim_type_id": 0, "update_times": [0.17, 0.34, 0.35], "time_length": 0.35, "cyclical": true, "breakable": true, "frame_id": [0, 2]},
-     {"id": 4, "anim_type_id": 0, "update_times": [0.17, 0.34, 0.35], "time_length": 0.35, "cyclical": true, "breakable": true, "frame_id": [6, 8]}
+     {"id": 1, "anim_type_id": 0, "update_times": [0.0, 0.2, 0.41], "time_length": 0.4, "cyclical": false, "breakable": true, "frame_id": [9, 11]},
+     {"id": 2, "anim_type_id": 0, "update_times": [0.0, 0.2, 0.41], "time_length": 0.4, "cyclical": false, "breakable": true, "frame_id": [3, 5]},
+     {"id": 3, "anim_type_id": 0, "update_times": [0.0, 0.2, 0.41], "time_length": 0.4, "cyclical": false, "breakable": true, "frame_id": [0, 2]},
+     {"id": 4, "anim_type_id": 0, "update_times": [0.0, 0.2, 0.41], "time_length": 0.4, "cyclical": false, "breakable": true, "frame_id": [6, 8]}
   ]
 }
-
