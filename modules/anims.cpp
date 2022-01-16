@@ -46,7 +46,7 @@ namespace anims
                 !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
                 anims::animsplayed[entity_id].breakable))
       {
-        std::cout << "Starting animation: " << anim_id << " for entity: " << entity_id << std::endl;
+        //std::cout << "Starting animation: " << anim_id << " for entity: " << entity_id << std::endl;
         textures::Animation AD  = textures::textures[entity::entities[entity_id].texture_id].anims[anim_id];
         AD.id = anim_id;
         AD.entity_id = entity_id;

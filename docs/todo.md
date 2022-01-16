@@ -1,7 +1,7 @@
 
 ### anims
-- implement all axe animations
-- make sure the state doesnt stay outside of animation -> Z, direction have to be reversed
+- bug - hook offset seems not correct
+- implement Z position handling
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
