@@ -81,6 +81,7 @@ namespace quads
     quad.norm = data.norm;
     quad.is_clicked = data.is_clicked;
     quad.is_deleted = false;
+    quad.is_reversed = data.is_reversed;
     quads::AllQuads.push_back(quad);
     return quad.id;
   }

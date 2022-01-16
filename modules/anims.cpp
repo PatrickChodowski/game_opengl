@@ -14,7 +14,14 @@
 namespace anims
 {
   phmap::flat_hash_map<int, textures::Animation> animsplayed;
+  phmap::flat_hash_map<int, sig_ptr> AnimsHandler;
   std::vector<int> anims_to_stop;
+
+  void init()
+  {
+    anims::AnimsHandler[ANIM_TYPE_FRAME] = anims::update_frame;
+    anims::AnimsHandler[ANIM_TYPE_FRAME_DIRECTION] = anims::update_frame_direction;
+  }
 
 
   void clear()
@@ -27,7 +34,6 @@ namespace anims
     anims::animsplayed.erase(entity_id);
   }
 
-
   void start(int anim_id, int entity_id)
   {
     // Check if given entity's texture has this animation id available in the first place
@@ -38,16 +44,16 @@ namespace anims
                 !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
                 anims::animsplayed[entity_id].breakable))
       {
-        //std::cout << "Starting animation " << anim_id << "for entity " << entity_id << std::endl;
+        std::cout << "Starting animation: " << anim_id << " for entity: " << entity_id << std::endl;
         textures::Animation AD  = textures::textures[entity::entities[entity_id].texture_id].anims[anim_id];
         AD.id = anim_id;
         AD.entity_id = entity_id;
         AD.time_elapsed = 0.0f;
-        AD.current_keyframe_index = 0;
+        AD.CK_ID = 0; // current keyframe index
         AD.next_update_time = AD.update_times[1];
         AD.start_time = timer::get_current_hrc_time();
         anims::animsplayed[entity_id] = AD;
-        entity::update_frame(entity_id, AD.frame_id[AD.current_keyframe_index]);
+        anims::AnimsHandler[AD.anim_type_id](entity_id, AD);
       }
     }
   }
@@ -58,14 +64,11 @@ namespace anims
 
     // Update frame if its passed the next time threshold and is under animation time
     if(anims::animsplayed[entity_id].time_elapsed >= anims::animsplayed[entity_id].next_update_time & 
-      anims::animsplayed[entity_id].time_elapsed  <= anims::animsplayed[entity_id].time_length)
+       anims::animsplayed[entity_id].time_elapsed  <= anims::animsplayed[entity_id].time_length)
     {
-      anims::animsplayed[entity_id].current_keyframe_index += 1;
-      anims::animsplayed[entity_id].next_update_time = anims::animsplayed[entity_id].update_times[(anims::animsplayed[entity_id].current_keyframe_index+1)];
-
-      // later will be replaced by map of functions I believe
-      int frame_id = anims::animsplayed[entity_id].frame_id[anims::animsplayed[entity_id].current_keyframe_index];
-      entity::update_frame(entity_id, frame_id);
+      anims::animsplayed[entity_id].CK_ID += 1;
+      anims::animsplayed[entity_id].next_update_time = anims::animsplayed[entity_id].update_times[(anims::animsplayed[entity_id].CK_ID+1)];
+      anims::AnimsHandler[anims::animsplayed[entity_id].anim_type_id](entity_id, anims::animsplayed[entity_id]);
     }
 
     if(anims::animsplayed[entity_id].time_elapsed > anims::animsplayed[entity_id].time_length)
@@ -112,6 +115,30 @@ namespace anims
     }
     return has_anim_same_type;
   }
+
+
+
+
+  // Anim handlers:
+
+  void update_frame(int entity_id, textures::Animation &AD)
+  {
+    int texture_id = entity::entities.at(entity_id).texture_id;
+    int frame_id = AD.frame_id[AD.CK_ID];
+    entity::entities.at(entity_id).frame_id = frame_id;
+    entity::entities.at(entity_id).norm.x_start = textures::_get_normalized_frame_x_start(texture_id, frame_id);
+    entity::entities.at(entity_id).norm.x_end = textures::_get_normalized_frame_x_end(texture_id, frame_id);
+    entity::entities.at(entity_id).norm.y_start = textures::_get_normalized_frame_y_start(texture_id, frame_id);
+    entity::entities.at(entity_id).norm.y_end = textures::_get_normalized_frame_y_end(texture_id, frame_id);
+  }
+
+  void update_frame_direction(int entity_id, textures::Animation &AD)
+  {
+    anims::update_frame(entity_id, AD);
+    entity::entities.at(entity_id).is_reversed = AD.direction[AD.CK_ID];
+  }
+
+
 
 }
 

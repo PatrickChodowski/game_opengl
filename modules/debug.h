@@ -31,6 +31,7 @@ namespace debug
     int id;
     
     bool is_clicked;
+    bool is_reversed = false;
   };
   
   extern std::vector<debug::LineData> lines;

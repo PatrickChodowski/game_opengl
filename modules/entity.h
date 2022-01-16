@@ -22,6 +22,9 @@ namespace entity
     int entity_type_id;
     int menu_id;
 
+    int anim_id;
+    int prev_anim_id;
+
     quads::Position pos;
     quads::Color color;
     quads::Dims dims;
@@ -35,6 +38,7 @@ namespace entity
     
     bool is_solid;
     bool is_clicked;
+    bool is_reversed = false;
 
     // used if given entity has collision sensors
     phmap::flat_hash_map<int, collisions::Sensor> sensors;
@@ -64,9 +68,6 @@ namespace entity
   
   // Clears entity table
   void clear();
-
-  // Update entity's frame
-  void update_frame(int entity_id, int frame_id);
 
   // Update entity's position
   void update_position(int entity_id, float x, float y);

@@ -46,6 +46,7 @@ namespace fonts
     float offset;
 
     bool is_clicked;
+    bool is_reversed = false;
   };
 
   // Persistent across frames for both replaceable and nonreplaceble information.

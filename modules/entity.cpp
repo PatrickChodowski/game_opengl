@@ -134,16 +134,6 @@ namespace entity
     return infos;
   } 
 
-  void update_frame(int entity_id, int frame_id)
-  {
-    int texture_id = entity::entities.at(entity_id).texture_id;
-    entity::entities.at(entity_id).frame_id = frame_id;
-    entity::entities.at(entity_id).norm.x_start = textures::_get_normalized_frame_x_start(texture_id, frame_id);
-    entity::entities.at(entity_id).norm.x_end = textures::_get_normalized_frame_x_end(texture_id, frame_id);
-    entity::entities.at(entity_id).norm.y_start = textures::_get_normalized_frame_y_start(texture_id, frame_id);
-    entity::entities.at(entity_id).norm.y_end = textures::_get_normalized_frame_y_end(texture_id, frame_id);
-  }
-
 
   void update_position(int entity_id, float x, float y)
   {

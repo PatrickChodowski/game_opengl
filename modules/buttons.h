@@ -30,6 +30,7 @@ namespace buttons
     quads::Norm norm;
     
     bool is_clicked;
+    bool is_reversed = false;
   };
 
   typedef void (*sig_ptr)(int);
