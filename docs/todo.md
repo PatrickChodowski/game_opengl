@@ -1,11 +1,7 @@
 
 ### anims
- - work on looped animatin (trigger when finished)
- - tempo parameter for speed changes
- - 4 directions idle
- - followup anim id?
- - 
-
+- implement all axe animations
+- make sure the state doesnt stay outside of animation -> Z, direction have to be reversed
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
@@ -17,14 +13,6 @@
  - meshroom 
  - https://www.mixamo.com/
  - https://sketchfab.com/store/3d-models?q=viking
-
-
-### 3d pipeline ideas:
- - read in blender object -> create spritesheet in blender 
- - move spritesheet to spritesheet editor and produce data -> height, weight, texture_id, frames split, number of frames, hook points
- - export data as json
- - IN GENERAL: game gets more and more data and it will get harder to manage all data files (and reproduce them easily). 
- Might need some SQL solution to store and easily reproduce jsons 
 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 
