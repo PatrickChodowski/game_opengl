@@ -72,8 +72,7 @@ namespace quads
     quad.color = data.color;
     quad.pos = data.pos;
     quad.dims =  data.dims;
-    quad.pos.z = 1.0f;
-
+  
     quad.window_x = data.pos.x;
     quad.window_y = data.pos.y;
     quad.window_h = data.dims.h;

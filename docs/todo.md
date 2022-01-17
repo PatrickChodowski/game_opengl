@@ -1,7 +1,6 @@
 
 ### anims
 - bug - hook offset seems not correct
-- implement Z position handling
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
@@ -9,6 +8,8 @@
 
 ### 3d models instead of spritesheets:
  - make new scripts for humanoid texture
+ - make human
+ - mb labs
  - photogrammetry
  - meshroom 
  - https://www.mixamo.com/

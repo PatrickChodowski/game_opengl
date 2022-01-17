@@ -247,7 +247,7 @@ namespace game
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    //glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
+    glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
 
     // sampler array creation
     int sampler_size = (textures::BoundTextures.size() + 1);
