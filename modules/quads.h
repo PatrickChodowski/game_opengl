@@ -21,8 +21,8 @@ namespace quads
   // Position -> x,y,z
   struct Position
   {
-    float x, y;
-    float z = 1.0f;
+    float x, y, z;
+    //float z = 1.0f;
   };
 
   // Dimensions -> w,h

@@ -52,7 +52,7 @@ namespace maps
     maps::TileData tile;
     tile.pos.x = x;
     tile.pos.y = y;
-    tile.pos.z = 1.0f;
+    tile.pos.z = 0.1f;
     tile.dims.w = maps::default_tile_width;
     tile.dims.h = maps::default_tile_height;
     tile.diag = std::sqrt(std::pow((tile.dims.w/2),2) + std::pow((tile.dims.h/2),2));

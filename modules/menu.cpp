@@ -100,6 +100,7 @@ namespace menu
       mdd.id = menu_id;
       mdd.pos.x = menu::currentmenuslots[menu_slot_id].x;
       mdd.pos.y = menu::currentmenuslots[menu_slot_id].y;
+      mdd.pos.z = 0.85f;
       mdd.menu_slot_id = menu_slot_id;
       mdd.assigned_entity_id = object_id;
       menu::currentmenuslots[menu_slot_id].free = false;

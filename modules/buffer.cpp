@@ -88,7 +88,7 @@ namespace buffer
     glEnableVertexAttribArray(7);
 
     // hmmmm
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     std::cout << "Buffer Initialized" << std::endl;
   }
 
@@ -221,7 +221,7 @@ namespace buffer
       int start_position = t*cva*2;
       arr[(start_position)] = lines[t].x1;
       arr[(start_position+1)] = lines[t].y1;
-      arr[(start_position+2)] = 0.0f; // z
+      arr[(start_position+2)] = 0.99f; // z
       arr[(start_position+3)] = lines[t].r;
       arr[(start_position+4)] = lines[t].g;
       arr[(start_position+5)] = lines[t].b;
@@ -236,7 +236,7 @@ namespace buffer
 
       arr[(start_position+cva)] = lines[t].x2;
       arr[(start_position+(cva+1))] = lines[t].y2;
-      arr[(start_position+(cva+2))] = 0.0f; // z
+      arr[(start_position+(cva+2))] = 0.99f; // z
       arr[(start_position+(cva+3))] = lines[t].r;
       arr[(start_position+(cva+4))] = lines[t].g;
       arr[(start_position+(cva+5))] = lines[t].b;

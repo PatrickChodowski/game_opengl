@@ -56,6 +56,7 @@ namespace entity
     edd.entity_type_id = entity_type_id;
     edd.pos.x = data.x;
     edd.pos.y = data.y;
+    edd.pos.z = 0.5f;
     edd.dims.h = data.h;
     edd.dims.w = data.w;
     edd.prev_x = data.x;

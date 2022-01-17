@@ -42,6 +42,7 @@ namespace buttons
     bdd.id = utils::generate_id(buttons::Index);
     bdd.pos.x = x;
     bdd.pos.y = y;
+    bdd.pos.z = 0.9f;
     bdd.dims.w = w;
     bdd.dims.h = h;
     bdd.is_clicked = false;
