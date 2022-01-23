@@ -12,23 +12,33 @@ spec_grids = importlib.util.spec_from_file_location("grids",
 grids = importlib.util.module_from_spec(spec_grids)
 spec_grids.loader.exec_module(grids)
 
+spec_humans = importlib.util.spec_from_file_location("humans", 
+"/home/patrick/Documents/projects/game_opengl/blender/humans.py")
+humans = importlib.util.module_from_spec(spec_humans)
+spec_humans.loader.exec_module(humans)
+
+
+
+#################################
+## GRID COLLECTION OF ITEM
+#################################
 
 #dupa.make_new_coll("axe")
 
-hook = grids.Hook("Cylinder", [0.01, 0.66, 0.34])
-hook.get_id()
+# hook = grids.Hook("Cylinder", [0.01, 0.66, 0.34])
+# hook.get_id()
 
-## make grid:
-weapons_grid = grids.Grid(id=0, 
-                    transforms=grids.w_trans, 
-                    anims=grids.w_anims,
-                    camera_pos=[3,4,4], 
-                    w=600,
-                    h=600,
-                    type="weapon",
-                    hook=hook)
+# ## make grid:
+# weapons_grid = grids.Grid(id=0, 
+#                     transforms=grids.w_trans, 
+#                     anims=grids.w_anims,
+#                     camera_pos=[3,4,4], 
+#                     w=600,
+#                     h=600,
+#                     type="weapon",
+#                     hook=hook)
 
-weapons_grid = dupa.make_objects_from_grid("axe", weapons_grid)
+# weapons_grid = dupa.make_objects_from_grid("axe", weapons_grid)
 
 
 
@@ -44,3 +54,17 @@ weapons_grid = dupa.make_objects_from_grid("axe", weapons_grid)
 # get hook -> pick vertex and get its global location rounded to 2 decimal points
 # provide hook and coll name to main script
     
+
+
+#################################
+## MAKING NEW CHARACTER
+#################################
+
+humans.make_character("f_la01")
+sk_name = humans.get_skeleton_name()
+humans.set_tpose(sk_name)
+
+final_sk_name = humans.finalize()
+anim_obj_name = humans.import_animation("Taunt")
+
+humans.retarget(anim_obj_name, final_sk_name)
