@@ -8,12 +8,24 @@
 
 ### 3d models instead of spritesheets:
  - make new scripts for humanoid texture
- - make human
- - mb labs
  - photogrammetry
  - meshroom 
  - https://www.mixamo.com/
  - https://sketchfab.com/store/3d-models?q=viking
+ - https://blendermarket.com/products/humgen3d/?ref=110
+ - deepmotion animate 3d https://www.deepmotion.com/pricing
+ - mocap -> rokoko.com
+ - turbosquid
+ - actorcore
+ - mocap online
+ - motek entertainment
+ - motioncapyure library
+ - this playlist https://www.youtube.com/watch?v=ibAGa_v1V7Q&list=PLdcL5aF8ZcJux9f5Bvb1QlByiHWTK3ICP&index=2&ab_channel=CGDive
+ - getrad.co -> own mocap
+ 
+
+### lighting
+ - add constant source of light/shadows and light radius
 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 
@@ -35,7 +47,7 @@ define goal and go backwards in actions to create chain of actions to achieve th
 ### chunk system
 need the chunk system, only this would allow for bigger maps [160x160 is enough]
 one chunk: visible tiles: 10x8
-need to load 9 chunks (main one and all surrounding) -> 720 tiles
+need to load 9 chunks (main one and all surrounding) -> 720 tilesm
 
 Probably will still need a chunks system on top of the map -> avoid rendering anything 
 - define chunks on map creation, avoid running stuff based on the chunk player is in
