@@ -59,12 +59,11 @@ spec_humans.loader.exec_module(humans)
 #################################
 ## MAKING NEW CHARACTER
 #################################
-
 humans.make_character("f_la01")
 sk_name = humans.get_skeleton_name()
 humans.set_tpose(sk_name)
-
 final_sk_name = humans.finalize()
 anim_obj_name = humans.import_animation("Taunt")
-
 humans.retarget(anim_obj_name, final_sk_name)
+humans.render_anim(humans.get_body_name())
+
