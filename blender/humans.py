@@ -35,6 +35,14 @@ def get_skeleton_name() -> Optional[str]:
   return sk_name
 
 
+def get_body_name() -> Optional[str]:
+  bl_obj_name = None
+  for o in bpy.data.objects:
+    if "MBlab_bd" in o.name:
+      bl_obj_name = o.name
+  return bl_obj_name
+
+
 def _set_type(name: str) -> None:
     '''
     specialtype_brute,specialtype_evil_genius,specialtype_fat_brute,
@@ -191,3 +199,27 @@ def retarget(source_name: str, target_name: str) -> None:
   print(f"Finished retargeting, removing source armature {source_name}")
   bpy.data.objects.remove(bpy.data.objects[source_name], do_unlink=True)
   print(f"Source armature {source_name} removed")
+
+
+
+def render_anim(obj_name: str) -> None:
+  # need to change the dir, name etc.
+  bpy.context.scene.render.engine = 'CYCLES'
+  bpy.context.scene.cycles.device = 'GPU'
+  bpy.data.objects[obj_name].select_set(state=True)
+  bpy.ops.view3d.camera_to_view_selected()
+  bpy.data.objects[obj_name].select_set(state=False)
+  bpy.context.scene.render.resolution_x = 100
+  bpy.context.scene.render.resolution_y = 100
+  bpy.context.scene.render.image_settings.file_format = 'PNG'
+  bpy.context.scene.render.filepath = "/home/patrick/Documents/projects/game_opengl/blender/tmp/"
+
+  bpy.context.scene.frame_step = 5
+
+  #bpy.context.scene.frame_start = 1
+  #bpy.context.scene.frame_end = 69
+
+
+  bpy.ops.render.render(animation=True, write_still=True)
+
+
