@@ -6,6 +6,8 @@ import json
 import importlib
 from typing import List
 from mathutils import Vector
+import os
+from PIL import Image
 
 spec_grids = importlib.util.spec_from_file_location("grids", 
 "/home/patrick/Documents/projects/game_opengl/blender/grids.py")
@@ -254,3 +256,26 @@ def focus_camera_on_grid() -> None:
   bpy.data.objects["TempPlane"].select_set(state=False)
   delete_temp_plane()
 
+
+def glue_spritesheet(name: str,
+                     source_dir: str = "/home/patrick/Documents/projects/game_opengl/blender/tmp", 
+                     dest_dir: str = "/home/patrick/Documents/projects/game_opengl/blender/done") -> None:
+  """
+  Takes input directory and glues all images inside together into single spritesheet
+  """
+  #image_dir = "/home/patrick/Documents/projects/game_opengl/blender/tmp"
+  images = list()
+  for img in os.listdir(source_dir):
+      if img.endswith(".png"):
+          images.append(Image.open(f"{source_dir}/{img}"))
+  widths, heights = zip(*(i.size for i in images))
+  total_width = sum(widths)
+  max_height = max(heights)
+
+  new_im = Image.new('RGBA', (total_width, max_height))
+  x_offset = 0
+  for im in images:
+      new_im.paste(im, (x_offset, 0))
+      x_offset += im.size[0]
+
+  new_im.save(f'{dest_dir}/{name}.png')
