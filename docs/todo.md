@@ -7,9 +7,14 @@
  - save equipped items on the character(with stats and re-generation from save) 
 
 ### 3d models instead of spritesheets:
+https://blender.stackexchange.com/questions/176603/automate-the-rotation-of-camera-around-an-object-with-python
+
+
+ - lets automate moving camera around the object
  - make new scripts for humanoid texture
  - photogrammetry
  - meshroom 
+ - cgtrader
  - https://www.mixamo.com/
  - https://sketchfab.com/store/3d-models?q=viking
  - https://blendermarket.com/products/humgen3d/?ref=110

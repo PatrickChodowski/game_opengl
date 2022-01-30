@@ -256,6 +256,15 @@ def focus_camera_on_grid() -> None:
   bpy.data.objects["TempPlane"].select_set(state=False)
   delete_temp_plane()
 
+def create_camera() -> None:
+  """ 
+  Creates new camera
+  """
+  camera_data = bpy.data.cameras.new(name='Camera')
+  camera_object = bpy.data.objects.new('Camera', camera_data)
+  bpy.context.scene.collection.objects.link(camera_object)
+  bpy.context.scene.camera = camera_object
+
 
 def glue_spritesheet(name: str,
                      source_dir: str = "/home/patrick/Documents/projects/game_opengl/blender/tmp", 
