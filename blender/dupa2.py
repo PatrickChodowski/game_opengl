@@ -69,7 +69,7 @@ def get_object_bb(object_name: str) -> List[Vector]:
   Retrieve objects bounding box (dimensions)
   """
   bb = bpy.data.objects[object_name].bound_box
-  global_bb = [bpy.context.object.matrix_world @ Vector(bbox_co[:]) for bbox_co in bb[:]] 
+  global_bb = [bpy.data.objects[object_name].matrix_world @ Vector(bbox_co[:]) for bbox_co in bb[:]] 
   return global_bb
   
 
@@ -168,7 +168,15 @@ def set_camera_angle_circle(angle: int = 45, camera_axis_name: str = "y", up_axi
   Moves camera to the point so it looks at object at given angle
   by default it is set away on Y axis and will move on Z axis by 45 degrees
   We are using circle/triangle method to calculate new coordinates
+
+  angle can be only 45 or 60
   """
+
+  if angle not in [45, 60]:
+    raise ValueError(f"Terrible angle {angle}")
+
+  if up_axis != "z":
+    raise ValueError(f"Terrible up_axis {up_axis}. Adjust the model so the Z is the vertical one")
 
   radius = None
   if camera_axis_name == "x":
@@ -189,6 +197,12 @@ def set_camera_angle_circle(angle: int = 45, camera_axis_name: str = "y", up_axi
   kw_args = {camera_axis_name: new_x, up_axis: new_y}
   print(kw_args)
   set_camera_location(**kw_args)
+
+  # magnificent programming
+  if angle == 45:
+    bpy.data.objects['empty'].location.z += 0.058
+  elif angle == 60:
+    bpy.data.objects['empty'].location.z += 0.13
 
 
 
