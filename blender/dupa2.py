@@ -15,7 +15,7 @@ grids = importlib.util.module_from_spec(spec_grids)
 spec_grids.loader.exec_module(grids)
 
 
-def create_camera() -> None:
+def create_camera(res_x: int = 960, res_y: int = 1080) -> None:
   """ 
   Creates new camera
   """
@@ -23,6 +23,11 @@ def create_camera() -> None:
   camera_object = bpy.data.objects.new('Camera', camera_data)
   bpy.context.scene.collection.objects.link(camera_object)
   bpy.context.scene.camera = camera_object
+
+  bpy.context.scene.render.image_settings.file_format = 'PNG'
+  bpy.context.scene.render.film_transparent = True
+  bpy.context.scene.render.resolution_x = res_x
+  bpy.context.scene.render.resolution_y = res_y
 
 
 def set_camera_location(x: float, y: float, z: float) -> None:
@@ -34,78 +39,98 @@ def set_camera_location(x: float, y: float, z: float) -> None:
   bpy.data.objects['Camera'].location.z = z
 
 
-
-def set_camera_at(object_name: str) -> None:
+def set_camera_at(object_name: str, 
+                  offset_x: Optional[float] = None, 
+                  offset_y: Optional[float] = None, 
+                  offset_z: Optional[float] = None) -> None:
   """
-  Sets camera at object by object name
+  Sets camera at object by object name. Added optional offsets on each axis
   """
   bpy.data.objects[object_name].select_set(state=True)
   bpy.ops.view3d.camera_to_view_selected()
   bpy.data.objects[object_name].select_set(state=False)
 
+  if offset_x is not None:
+    bpy.data.objects['Camera'].location.x += offset_x
 
-def create_temp_plane(endf: float = 7.0) -> None:
-    x= 0.0
-    start = 1.0
-    vert = [(x, start, endf), (x, endf, endf), (x, start, start), (x, endf, start)]
-    fac = [(0, 1, 3, 2)]
-    pl_data = bpy.data.meshes.new("TempPlane")
-    pl_data.from_pydata(vert, [], fac)
-    pl_obj = bpy.data.objects.new("TempPlane", pl_data)
-    col = bpy.data.collections.get("Collection")
-    col.objects.link(pl_obj)
+  if offset_y is not None:
+    bpy.data.objects['Camera'].location.y += offset_y
 
-def delete_temp_plane() -> None:
-  bpy.data.objects.remove(bpy.data.objects["TempPlane"], do_unlink=True)
-
-def focus_camera_on_grid() -> None:
-  create_temp_plane()
-  bpy.data.objects["TempPlane"].select_set(state=True)
-  bpy.ops.view3d.camera_to_view_selected()
-  bpy.data.objects["TempPlane"].select_set(state=False)
-  delete_temp_plane()
+  if offset_z is not None:
+    bpy.data.objects['Camera'].location.z += offset_z
 
 
-def get_object_bb(object_name: str) -> None:
+
+def get_object_bb(object_name: str) -> List[Vector]:
   """
   Retrieve objects bounding box (dimensions)
   """
-  dimx = bpy.data.objects[object_name].dimensions.x
-  dimy = bpy.data.objects[object_name].dimensions.y
-  dimz = bpy.data.objects[object_name].dimensions.z
-
-  locx = bpy.data.objects[object_name].location.x
-  locy = bpy.data.objects[object_name].location.y
-  locz = bpy.data.objects[object_name].location.z
-
-  # local coordinates need to be multiplied by matrix_world to get global one
   bb = bpy.data.objects[object_name].bound_box
   global_bb = [bpy.context.object.matrix_world @ Vector(bbox_co[:]) for bbox_co in bb[:]] 
-  print(f"Objects global bb: {global_bb}")
-  print(f"Objects locs: {locx},{locy},{locz} ")
-  print(f"Objects dims: {dimx},{dimy},{dimz} ")
+  return global_bb
   
 
-def get_min(object_name: str) -> Tuple:
+def _get_min(bb: List[Vector]) -> Tuple[float]:
     """
     Get minimum coordinates of bounding box
     """
-    bb = bpy.data.objects[object_name].bound_box
     min_x = min([bb[i][0] for i in range(0, 8)])
     min_y = min([bb[i][1] for i in range(0, 8)])
     min_z = min([bb[i][2] for i in range(0, 8)])
     return min_x, min_y, min_z
 
 	
-def get_max(object_name: str) -> Tuple:
+def _get_max(bb: List[Vector]) -> Tuple[float]:
     """
     Get maximum coordinates of bounding box
     """
-    bb = bpy.data.objects[object_name].bound_box
     max_x = max([bb[i][0] for i in range(0, 8)])
     max_y = max([bb[i][1] for i in range(0, 8)])
     max_z = max([bb[i][2] for i in range(0, 8)])
     return max_x, max_y, max_z
+
+
+def get_center_bb(object_name: str) -> Tuple[float]:
+  """
+  Get center of the object
+  """
+  gbb = get_object_bb(object_name)
+  min_x, min_y, min_z = _get_min(gbb)
+  max_x, max_y, max_z = _get_max(gbb)
+
+  mid_x = (min_x + max_x)/2
+  mid_y = (min_y + max_y)/2
+  mid_z = (min_z + max_z)/2
+  print(f"Center: {mid_x}, {mid_y}, {mid_z}")
+  return mid_x, mid_y, mid_z
+
+
+def empty_inside(object_name: str) -> None:
+  """
+  Creates empty plain axes object in the middle of the tracked object
+  """
+  mid_x, mid_y, mid_z = get_center_bb(object_name)
+  o = bpy.data.objects.new("empty", None)
+  bpy.context.scene.collection.objects.link(o)
+  o.empty_display_size = 2
+  o.empty_display_type = 'PLAIN_AXES'   
+  o.location.x = mid_x
+  o.location.y = mid_y
+  o.location.z = mid_z
+  print(f"Empty created in {mid_x}, {mid_y}, {mid_z}")
+
+
+def make_camera_track_empty() -> None:
+    ttc = bpy.data.objects['Camera'].constraints.new(type='TRACK_TO')
+    ttc.target = bpy.data.objects['empty']
+
+    ttc.track_axis = 'TRACK_NEGATIVE_Z'
+    ttc.up_axis = 'UP_Y'
+
+    set_camera_location(bpy.data.objects['empty'].location.x, 
+                        -3,
+                        bpy.data.objects['empty'].location.z)
+
 
 
 def get_name_of_selected_object() -> List[str]:
@@ -116,24 +141,30 @@ def get_name_of_selected_object() -> List[str]:
   print(l)
   return l
 
-def create_temp_bb_plane(object_name: str, align_with: str = 'x') -> None:
-  """
-  Creates 2D temp plane around selected object dimensions
-  :param object_name: Name of the object the BB we want to plane
-  :align_with: name of the  axis we want to put the plane (vertically on)
-  """
-  x= 0.0
-  start = 1.0
-  vert = [(x, start, endf), (x, endf, endf), (x, start, start), (x, endf, start)]
-  fac = [(0, 1, 3, 2)]
-
-  pl_data = bpy.data.meshes.new("TempPlane")
-  pl_data.from_pydata(vert, [], fac)
-  pl_obj = bpy.data.objects.new("TempPlane", pl_data)
-  col = bpy.data.collections.get("Collection")
-  col.objects.link(pl_obj)
 
 
+
+# import bpy
+# import math
+# import mathutils
+# import os
+
+# import importlib.util
+# import bpy
+# import bmesh
+# spec_dupa = importlib.util.spec_from_file_location("dupa", 
+# "/home/patrick/Documents/projects/game_opengl/blender/dupa2.py")
+# dupa = importlib.util.module_from_spec(spec_dupa)
+# spec_dupa.loader.exec_module(dupa)\
+
+# dupa.create_camera()
+
+# #target_name = dupa.get_name_of_selected_object()[0]
+
+# target_name = 'Skin_1:body'
+# dupa.empty_inside(target_name)
+# dupa.make_camera_track_empty()
+# dupa.set_camera_at(target_name, offset_y=-0.2)
 
 #dupa.set_camera_location(0, -3, 1)
 
