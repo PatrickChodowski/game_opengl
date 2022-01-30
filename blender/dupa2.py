@@ -30,13 +30,16 @@ def create_camera(res_x: int = 960, res_y: int = 1080) -> None:
   bpy.context.scene.render.resolution_y = res_y
 
 
-def set_camera_location(x: float, y: float, z: float) -> None:
+def set_camera_location(x: Optional[float] = None, y: Optional[float] = None, z: Optional[float] = None) -> None:
   """
   Sets camera location
   """
-  bpy.data.objects['Camera'].location.x = x
-  bpy.data.objects['Camera'].location.y = y
-  bpy.data.objects['Camera'].location.z = z
+  if x is not None:
+    bpy.data.objects['Camera'].location.x = x
+  if y is not None:
+    bpy.data.objects['Camera'].location.y = y
+  if z is not None:
+    bpy.data.objects['Camera'].location.z = z
 
 
 def set_camera_at(object_name: str, 
@@ -120,16 +123,34 @@ def empty_inside(object_name: str) -> None:
   print(f"Empty created in {mid_x}, {mid_y}, {mid_z}")
 
 
-def make_camera_track_empty() -> None:
+def make_camera_track_empty(offset_x: Optional[float] = None, 
+                            offset_y: Optional[float] = None, 
+                            offset_z: Optional[float] = None) -> None:
+
     ttc = bpy.data.objects['Camera'].constraints.new(type='TRACK_TO')
     ttc.target = bpy.data.objects['empty']
 
     ttc.track_axis = 'TRACK_NEGATIVE_Z'
     ttc.up_axis = 'UP_Y'
 
-    set_camera_location(bpy.data.objects['empty'].location.x, 
-                        -3,
-                        bpy.data.objects['empty'].location.z)
+    kw_args = dict()
+
+    if offset_x is not None:
+      kw_args["x"] = offset_x
+    else:
+      kw_args["x"] = bpy.data.objects['empty'].location.x
+
+    if offset_y is not None:
+      kw_args["y"] = offset_y
+    else:
+      kw_args["y"] = bpy.data.objects['empty'].location.y
+
+    if offset_z is not None:
+      kw_args["z"] = offset_z
+    else:
+      kw_args["z"] = bpy.data.objects['empty'].location.z
+
+    set_camera_location(**kw_args)
 
 
 
@@ -142,7 +163,39 @@ def get_name_of_selected_object() -> List[str]:
   return l
 
 
+def set_camera_angle_circle(angle: int = 45, camera_axis_name: str = "y", up_axis: str = "z") -> None:
+  """
+  Moves camera to the point so it looks at object at given angle
+  by default it is set away on Y axis and will move on Z axis by 45 degrees
+  We are using circle/triangle method to calculate new coordinates
+  """
 
+  radius = None
+  if camera_axis_name == "x":
+    radius = math.sqrt((bpy.data.objects['Camera'].location.x - bpy.data.objects['empty'].location.y)**2)
+
+  elif camera_axis_name == "y":
+    radius = math.sqrt((bpy.data.objects['Camera'].location.y - bpy.data.objects['empty'].location.y)**2)
+  
+  elif camera_axis_name == "z":
+    radius = math.sqrt((bpy.data.objects['Camera'].location.z - bpy.data.objects['empty'].location.z)**2)
+
+  print(f"Radius from empty to camera: {radius}")
+
+  new_x = radius*math.cos(math.radians(angle))
+  new_y = radius*math.sin(math.radians(angle))
+  print(f"new point for camera is {new_x}, {new_y}")
+
+  kw_args = {camera_axis_name: new_x, up_axis: new_y}
+  print(kw_args)
+  set_camera_location(**kw_args)
+
+
+
+
+
+
+#### BACKUP ####
 
 # import bpy
 # import math
@@ -157,19 +210,19 @@ def get_name_of_selected_object() -> List[str]:
 # dupa = importlib.util.module_from_spec(spec_dupa)
 # spec_dupa.loader.exec_module(dupa)\
 
-# dupa.create_camera()
-
-# #target_name = dupa.get_name_of_selected_object()[0]
 
 # target_name = 'Skin_1:body'
-# dupa.empty_inside(target_name)
-# dupa.make_camera_track_empty()
-# dupa.set_camera_at(target_name, offset_y=-0.2)
+# #dupa.create_camera()
+# #dupa.empty_inside(target_name)
+# #dupa.make_camera_track_empty(offset_y = 3)
+# #dupa.set_camera_at(target_name, offset_y=0.2)
 
-#dupa.set_camera_location(0, -3, 1)
+# dupa.set_camera_angle_circle(75, "y", "z")
+# dupa.set_camera_at(target_name, offset_y=0.7)
 
-#target_name = 'Skin_1:body'
-##dupa.set_camera_at(target_name)
+
+
+
 
 #target = bpy.data.objects[target_name]
 #cam = bpy.data.objects['Camera']
