@@ -205,24 +205,31 @@ def set_camera_angle_circle(angle: int = 45, camera_axis_name: str = "y", up_axi
     bpy.data.objects['empty'].location.z += 0.13
 
 def _move_camera_by_angle(radius: float, angle: int) -> None:
-      new_x = radius*math.cos(math.radians(angle))
-      new_y = radius*math.sin(math.radians(angle))
+      new_y = bpy.data.objects['empty'].location.y + radius*math.cos(math.radians(angle))
+      new_x = bpy.data.objects['empty'].location.x + radius*math.sin(math.radians(angle))
+      print(f"new x: {new_x}, new y: {new_y}")
       set_camera_location(x=new_x, y=new_y)
   
 
-def orbit_camera(object_file_name: str) -> None:
+def orbit_camera(object_file_name: str = "") -> None:
   """
   Other axis stay the same
   Z axis(height) stays the same
   """
+  base_angle = 0
   # get the radius to the same height
   angles = [0, 45, 90, 135, 180]
   radius = math.sqrt((bpy.data.objects['Camera'].location.x - bpy.data.objects['empty'].location.x)**2 + (bpy.data.objects['Camera'].location.y - bpy.data.objects['empty'].location.y)**2)
 
+  print(f"radius is {radius}")
+  print(f"angle is {angle}")
+
   for angle in angles:
-      _move_camera_by_angle(radius, angle)
+      final_angle = angle - base_angle
+      _move_camera_by_angle(radius, final_angle)
       bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{object_file_name}_{angle}.png"
       bpy.ops.render.render(write_still = 1)
+      base_angle = angle
 
   
 
@@ -255,38 +262,33 @@ def orbit_camera(object_file_name: str) -> None:
 
 
 
+# import bpy
+# import math
+# import mathutils
+# import os
+# import importlib.util
+# import bpy
+# import bmesh
+# spec_dupa = importlib.util.spec_from_file_location("dupa", 
+# "/home/patrick/Documents/projects/game_opengl/blender/dupa2.py")
+# dupa = importlib.util.module_from_spec(spec_dupa)
+# spec_dupa.loader.exec_module(dupa)\
+
+# target_name = 'Skin_1:body'
+# #dupa.create_camera()
+# #dupa.empty_inside(target_name)
+# #dupa.make_camera_track_empty(offset_y = 3)
+# #dupa.set_camera_angle_circle(60, "y", "z")
+# # camera location
+# #Vector((-0.002126455307006836, 1.624737024307251, 2.814126968383789))
+# # and then adjust hte empty
+
+# radius = 1.874
+# #angle = 10
+# dupa._move_camera_by_angle(radius, 90)
+# #Vector((1.8739999532699585, 1.1474940624911219e-16, 2.814126968383789))
+# #dupa.orbit_camera("viking_test")
 
 
-#target = bpy.data.objects[target_name]
-#cam = bpy.data.objects['Camera']
-#t_loc_x = target.location.x
-#t_loc_y = target.location.y
-#cam_loc_x = cam.location.x
-#cam_loc_y = cam.location.y
 
-
-##radius_range = range(2)
-#R = (target.location.xy-cam.location.xy).length # Radius
-
-##print(f"Target location xy : {target.location.xy}")
-##print(f"Cam location xy : {cam.location.xy}")
-#print(f"Radius : {R}")
-
-#init_angle  = (1-2*bool((cam_loc_y-t_loc_y)<0))*math.acos((cam_loc_x-t_loc_x)/R)-2*math.pi*bool((cam_loc_y-t_loc_y)<0) # 8.13 degrees
-#target_angle = (math.pi/2 - init_angle) # Go 90-8 deg more
-#num_steps = 10 #how many rotation steps
-
-#for r in radius_range:
-#    for x in range(num_steps):
-#        alpha = init_angle + (x)*target_angle/num_steps
-#        cam.rotation_euler[2] = math.pi/2 + alpha #
-#        cam.location.x = t_loc_x+math.cos(alpha)*r
-#        cam.location.y = t_loc_y+math.sin(alpha)*r
-
-#        # Define SAVEPATH and output filename
-#        file = os.path.join('/home/patrick/Documents/projects/game_opengl/blender/done', str(x)+'_'+ str(r)+'_'+str(round(alpha,2))+'_'+str(round(cam.location.x, 2))+'_'+str(round(cam.location.y, 2)))
-
-#        # Render
-#        bpy.context.scene.render.filepath = file
-#        bpy.ops.render.render(write_still=True)
 
