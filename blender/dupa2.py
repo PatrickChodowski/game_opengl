@@ -213,20 +213,19 @@ def _move_camera_by_angle(radius: float, angle: int) -> None:
 
 def orbit_camera(object_file_name: str = "") -> None:
   """
-  Other axis stay the same
-  Z axis(height) stays the same
+  Take pictures of different camera angles of the same object
   """
-  base_angle = 0
+  base_camera_x = bpy.data.objects['Camera'].location.x
+  base_camera_y = bpy.data.objects['Camera'].location.y
   # get the radius to the same height
   angles = [0, 45, 90, 135, 180]
   radius = math.sqrt((bpy.data.objects['Camera'].location.x - bpy.data.objects['empty'].location.x)**2 + (bpy.data.objects['Camera'].location.y - bpy.data.objects['empty'].location.y)**2)
 
   for angle in angles:
-      final_angle = angle - base_angle
-      _move_camera_by_angle(radius, final_angle)
+      _move_camera_by_angle(radius, angle)
       bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{object_file_name}_{angle}.png"
       bpy.ops.render.render(write_still = 1)
-      base_angle = angle
+      set_camera_location(x=base_camera_x, y=base_camera_y)
 
   
 
@@ -252,40 +251,10 @@ def orbit_camera(object_file_name: str = "") -> None:
 # #dupa.create_camera()
 # #dupa.empty_inside(target_name)
 # #dupa.make_camera_track_empty(offset_y = 3)
-# #dupa.set_camera_at(target_name, offset_y=0.2)
-
-# dupa.set_camera_angle_circle(75, "y", "z")
-# dupa.set_camera_at(target_name, offset_y=0.7)
-
-
-
-# import bpy
-# import math
-# import mathutils
-# import os
-# import importlib.util
-# import bpy
-# import bmesh
-# spec_dupa = importlib.util.spec_from_file_location("dupa", 
-# "/home/patrick/Documents/projects/game_opengl/blender/dupa2.py")
-# dupa = importlib.util.module_from_spec(spec_dupa)
-# spec_dupa.loader.exec_module(dupa)\
-
-# target_name = 'Skin_1:body'
-# #dupa.create_camera()
-# #dupa.empty_inside(target_name)
-# #dupa.make_camera_track_empty(offset_y = 3)
 # #dupa.set_camera_angle_circle(60, "y", "z")
-# # camera location
-# #Vector((-0.002126455307006836, 1.624737024307251, 2.814126968383789))
-# # and then adjust hte empty
 
-# radius = 1.874
-# #angle = 10
-# dupa._move_camera_by_angle(radius, 90)
-# #Vector((1.8739999532699585, 1.1474940624911219e-16, 2.814126968383789))
-# #dupa.orbit_camera("viking_test")
 
+# dupa.orbit_camera("viking_test")
 
 
 
