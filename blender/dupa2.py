@@ -221,9 +221,6 @@ def orbit_camera(object_file_name: str = "") -> None:
   angles = [0, 45, 90, 135, 180]
   radius = math.sqrt((bpy.data.objects['Camera'].location.x - bpy.data.objects['empty'].location.x)**2 + (bpy.data.objects['Camera'].location.y - bpy.data.objects['empty'].location.y)**2)
 
-  print(f"radius is {radius}")
-  print(f"angle is {angle}")
-
   for angle in angles:
       final_angle = angle - base_angle
       _move_camera_by_angle(radius, final_angle)
