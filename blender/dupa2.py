@@ -204,8 +204,27 @@ def set_camera_angle_circle(angle: int = 45, camera_axis_name: str = "y", up_axi
   elif angle == 60:
     bpy.data.objects['empty'].location.z += 0.13
 
+def _move_camera_by_angle(radius: float, angle: int) -> None:
+      new_x = radius*math.cos(math.radians(angle))
+      new_y = radius*math.sin(math.radians(angle))
+      set_camera_location(x=new_x, y=new_y)
+  
 
+def orbit_camera(object_file_name: str) -> None:
+  """
+  Other axis stay the same
+  Z axis(height) stays the same
+  """
+  # get the radius to the same height
+  angles = [0, 45, 90, 135, 180]
+  radius = math.sqrt((bpy.data.objects['Camera'].location.x - bpy.data.objects['empty'].location.x)**2 + (bpy.data.objects['Camera'].location.y - bpy.data.objects['empty'].location.y)**2)
 
+  for angle in angles:
+      _move_camera_by_angle(radius, angle)
+      bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{object_file_name}_{angle}.png"
+      bpy.ops.render.render(write_still = 1)
+
+  
 
 
 
