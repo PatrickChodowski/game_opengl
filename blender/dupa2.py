@@ -28,6 +28,8 @@ def create_camera(res_x: int = 960, res_y: int = 1080) -> None:
   bpy.context.scene.render.film_transparent = True
   bpy.context.scene.render.resolution_x = res_x
   bpy.context.scene.render.resolution_y = res_y
+  bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[0].default_value = (1, 1, 1, 1)
+
 
 
 def set_camera_location(x: Optional[float] = None, y: Optional[float] = None, z: Optional[float] = None) -> None:
