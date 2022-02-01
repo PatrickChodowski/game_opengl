@@ -42,6 +42,7 @@ https://www.youtube.com/watch?v=Oxiz0UUgbTc
  - sense of the open world that you can go whenever you want 
  - fun to explore
  - adventure role playing in the game
+ 
 
 
 
