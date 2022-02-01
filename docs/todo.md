@@ -36,6 +36,15 @@ https://blender.stackexchange.com/questions/176603/automate-the-rotation-of-came
 
 ### analyse cpp 20 and maybe replace include with imports
 
+
+### inspiration: pirates
+https://www.youtube.com/watch?v=Oxiz0UUgbTc
+ - sense of the open world that you can go whenever you want 
+ - fun to explore
+ - adventure role playing in the game
+
+
+
 ### personality traits of the leaders -> random
 - random personality traits
 - random relations with other kingdoms
