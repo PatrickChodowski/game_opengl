@@ -228,6 +228,11 @@ def orbit_camera(object_file_name: str = "") -> None:
       set_camera_location(x=base_camera_x, y=base_camera_y)
 
   
+def get_materials() -> List[str]:
+  materials = list()
+  for m in bpy.data.materials:
+    materials.append(m.name)
+  return materials
 
 
 
