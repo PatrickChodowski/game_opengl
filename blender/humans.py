@@ -126,12 +126,12 @@ def set_tpose(sk_obj_name: str) -> None:
   print(f"Skeleton {sk_obj_name} set to T-pose")
 
 
-def import_animation(name: str) -> str:
+def import_animation(filepath: str) -> str:
   '''
   Taunt, Unarmed Jump
   Returns armature object name
   '''
-  print(f"Started import of animation {name}")
+
   pre_arms = list()
   post_arms = list()
   pre_obj_arms = list()
@@ -143,7 +143,8 @@ def import_animation(name: str) -> str:
     if "Armature" in o.name:
       pre_obj_arms.append(o.name)
 
-  anim_dir = f"/home/patrick/Downloads/mixamo/noskin/{name}.fbx"
+  anim_dir = filepath
+  #anim_dir = f"/home/patrick/Downloads/mixamo/noskin/{name}.fbx"
   bpy.ops.import_scene.fbx(filepath = anim_dir,
                            use_anim = True,
                            ui_tab="ARMATURE",
@@ -164,7 +165,6 @@ def import_animation(name: str) -> str:
   print(f"  New Armature object name: {arm_obj_name}")
   print(f"  New Armature name: {arm_name}")
   bpy.data.armatures[arm_name].pose_position = 'REST'
-  print(f"Animation {name} imported")
   return arm_obj_name
 
 
