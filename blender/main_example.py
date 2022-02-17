@@ -3,7 +3,7 @@ import importlib.util
 import bpy
 import bmesh
 spec_dupa = importlib.util.spec_from_file_location("dupa", 
-"/home/patrick/Documents/projects/game_opengl/blender/dupa.py")
+"/home/patrick/Documents/projects/game_opengl/blender/dupa2.py")
 dupa = importlib.util.module_from_spec(spec_dupa)
 spec_dupa.loader.exec_module(dupa)\
 
@@ -16,6 +16,19 @@ spec_humans = importlib.util.spec_from_file_location("humans",
 "/home/patrick/Documents/projects/game_opengl/blender/humans.py")
 humans = importlib.util.module_from_spec(spec_humans)
 spec_humans.loader.exec_module(humans)
+
+
+
+target_name = [obj.name for obj in bpy.context.selected_objects][0]
+dupa.create_camera()
+dupa.empty_inside(target_name)
+dupa.make_camera_track_empty(offset_y = 3)
+dupa.set_camera_angle_circle(60, "y", "z")
+
+#dupa.orbit_camera("viking_test")
+
+
+anim_obj_name = humans.import_animation("Taunt")
 
 
 
