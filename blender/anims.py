@@ -30,14 +30,14 @@ def make_camera_loc_grid(distance: float = 3.5) -> Dict:
   """
   z = distance
   angle_distance = math.sqrt(math.pow(distance, 2)/2)
-  grid = {"front": {"x": 0, "y": -distance, "z": z},
-          "back":  {"x": 0, "y": distance, "z": z},
-          "left":  {"x": distance, "y": 0, "z": z},
-          "right": {"x": -distance, "y": 0, "z": z},
-          "front_right": {"x": -angle_distance, "y": -angle_distance, "z": z},
-          "front_left": {"x": angle_distance, "y": -angle_distance, "z": z},
-          "back_left": {"x": angle_distance, "y": angle_distance, "z": z},
-          "back_right": {"x": -angle_distance, "y": angle_distance, "z": z},
+  grid = {"front": {"x": 0, "y": -distance, "z": z}
+          ,"back":  {"x": 0, "y": distance, "z": z}
+          # ,"left":  {"x": distance, "y": 0, "z": z}
+          # ,"right": {"x": -distance, "y": 0, "z": z}
+          # ,"front_right": {"x": -angle_distance, "y": -angle_distance, "z": z}
+          # ,"front_left": {"x": angle_distance, "y": -angle_distance, "z": z}
+          # ,"back_left": {"x": angle_distance, "y": angle_distance, "z": z}
+          # ,"back_right": {"x": -angle_distance, "y": angle_distance, "z": z}
   }
   return grid
 
@@ -45,7 +45,7 @@ def make_camera_loc_grid(distance: float = 3.5) -> Dict:
 
 
 
-def create_camera(res_x: int = 480, res_y: int = 540) -> None:
+def create_camera(res_x: int = 320, res_y: int = 360) -> None:
   """ 
   Creates new camera. 
   """
@@ -248,5 +248,7 @@ def retarget(anim_name: str, target_name: str = "rig") -> None:
   bpy.ops.arp.auto_scale()
   bpy.ops.arp.build_bones_list()
   _set_root_bone()
-  bpy.ops.arp.retarget()
+
+  frame_range = bpy.data.objects[anim_name].animation_data.action.frame_range
+  bpy.ops.arp.retarget(frame_start=int(frame_range[0]), frame_end=int(frame_range[1]))
 
