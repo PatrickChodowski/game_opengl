@@ -45,7 +45,7 @@ def make_camera_loc_grid(distance: float = 3.5) -> Dict:
 
 
 
-def create_camera(res_x: int = 960, res_y: int = 1080) -> None:
+def create_camera(res_x: int = 480, res_y: int = 540) -> None:
   """ 
   Creates new camera. 
   """
@@ -67,11 +67,11 @@ def set_camera_location(x: Optional[float] = None, y: Optional[float] = None, z:
   Sets camera location
   """
   if x is not None:
-    bpy.data.objects['Camera'].location.x = x
+    bpy.data.objects['MainCamera'].location.x = x
   if y is not None:
-    bpy.data.objects['Camera'].location.y = y
+    bpy.data.objects['MainCamera'].location.y = y
   if z is not None:
-    bpy.data.objects['Camera'].location.z = z
+    bpy.data.objects['MainCamera'].location.z = z
 
 
 def get_object_bb(object_name: str) -> List[Vector]:
@@ -134,6 +134,7 @@ def empty_inside(object_name: str) -> None:
   o.location.x = mid_x
   o.location.y = mid_y
   o.location.z = mid_z
+  o.name = "InsideEmpty"
   print(f"Empty created in {mid_x}, {mid_y}, {mid_z}")
 
 
@@ -208,29 +209,24 @@ def import_animation(anim_path: str, anim_name: str) -> str:
 
 
 
-def render_anim(obj_name: str) -> None:
-  # need to change the dir, name etc.
+def render(obj_name: str, anim_name: str, camera_pos: str) -> None:
   bpy.context.scene.render.engine = 'CYCLES'
   bpy.context.scene.cycles.device = 'GPU'
-  bpy.data.objects[obj_name].select_set(state=True)
-  bpy.ops.view3d.camera_to_view_selected()
-  bpy.data.objects[obj_name].select_set(state=False)
-  bpy.context.scene.render.resolution_x = 100
-  bpy.context.scene.render.resolution_y = 100
   bpy.context.scene.render.image_settings.file_format = 'PNG'
-  bpy.context.scene.render.filepath = "/home/patrick/Documents/projects/game_opengl/blender/tmp/"
+  bpy.context.scene.render.fps = 24
+  parent_path = "/home/patrick/Documents/projects/game_opengl/blender/done"
+  bpy.context.scene.render.filepath = f"{parent_path}/{obj_name}/{anim_name.replace(' ','_')}/{camera_pos}"
 
-  bpy.context.scene.frame_step = 5
+  frame_range = bpy.data.objects[anim_name].animation_data.action.frame_range
 
-  #bpy.context.scene.frame_start = 1
-  #bpy.context.scene.frame_end = 69
-
-
+  bpy.context.scene.frame_step = 1
+  bpy.context.scene.frame_start = int(frame_range[0])
+  bpy.context.scene.frame_end = int(frame_range[1])
   bpy.ops.render.render(animation=True, write_still=True)
 
 
 
-def set_root_bone() -> None:
+def _set_root_bone() -> None:
   """
   Sets root bone on target root bone (hips)
   """
@@ -242,10 +238,15 @@ def set_root_bone() -> None:
         break
 
 def retarget(anim_name: str, target_name: str = "rig") -> None:
-
+  """
+  Retargets animation to rig
+  """
 
   bpy.context.scene.source_rig = anim_name
   bpy.context.scene.target_rig = target_name
   bpy.context.scene.arp_retarget_in_place = True
+  bpy.ops.arp.auto_scale()
+  bpy.ops.arp.build_bones_list()
+  _set_root_bone()
+  bpy.ops.arp.retarget()
 
-  pass
