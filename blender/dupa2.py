@@ -235,8 +235,13 @@ def get_materials() -> List[str]:
   for m in bpy.data.materials:
     materials.append(m.name)
   return materials
-
-
+  
+  
+def clear_animations():
+  context = bpy.context
+  for ob in bpy.data.objects:
+    ob.animation_data_clear()
+        
 
 #### BACKUP ####
 
