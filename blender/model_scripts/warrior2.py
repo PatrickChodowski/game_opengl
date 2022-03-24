@@ -48,6 +48,13 @@ for key_part, value_part in parts.items():
       mat.node_tree.links.new(bsdf.inputs[v], texImage.outputs['Color'])
 
 
+## hair colors:
+# Crayola's Gold (230, 190, 138)
+# Liver's dogs RGB: (94, 50, 31)
+# Golden Brown (153, 101, 21)
+# violin brown RGB: (99, 56, 0)
+
+
 ### cleaning object:
 """
 - remove empties
