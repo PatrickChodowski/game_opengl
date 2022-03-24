@@ -9,6 +9,7 @@ import math
 
 ANIM_PATH = "/home/patrick/Documents/projects/game_opengl/blender/anims/"
 ANIM_LIST = ['unarmed walk forward', 'standing idle']
+#ANIM_LIST = ['standing idle']
 
 def clearout() -> None:
   """
@@ -32,12 +33,12 @@ def make_camera_loc_grid(distance: float = 3.5) -> Dict:
   angle_distance = math.sqrt(math.pow(distance, 2)/2)
   grid = {"front": {"x": 0, "y": -distance, "z": z}
           ,"back":  {"x": 0, "y": distance, "z": z}
-          # ,"left":  {"x": distance, "y": 0, "z": z}
-          # ,"right": {"x": -distance, "y": 0, "z": z}
-          # ,"front_right": {"x": -angle_distance, "y": -angle_distance, "z": z}
-          # ,"front_left": {"x": angle_distance, "y": -angle_distance, "z": z}
-          # ,"back_left": {"x": angle_distance, "y": angle_distance, "z": z}
-          # ,"back_right": {"x": -angle_distance, "y": angle_distance, "z": z}
+          ,"left":  {"x": distance, "y": 0, "z": z}
+          ,"right": {"x": -distance, "y": 0, "z": z}
+          ,"front_right": {"x": -angle_distance, "y": -angle_distance, "z": z}
+          ,"front_left": {"x": angle_distance, "y": -angle_distance, "z": z}
+          ,"back_left": {"x": angle_distance, "y": angle_distance, "z": z}
+          ,"back_right": {"x": -angle_distance, "y": angle_distance, "z": z}
   }
   return grid
 
@@ -214,9 +215,17 @@ def render(obj_name: str, anim_name: str, camera_pos: str) -> None:
   bpy.context.scene.cycles.device = 'GPU'
   bpy.context.scene.render.image_settings.file_format = 'PNG'
   bpy.context.scene.render.fps = 24
+
+  # optimization. This setting keeps each frame under 10seconds
+  bpy.context.scene.cycles.tile_size = 1024 # No impact
+  bpy.context.scene.cycles.samples = 1024
+  bpy.context.scene.cycles.adaptive_threshold = 0.01
+  #bpy.context.scene.cycles.adaptive_min_samples = 0, thats default
+  bpy.context.scene.cycles.max_bounces = 4
+  bpy.context.scene.cycles.use_denoising = True
+
   parent_path = "/home/patrick/Documents/projects/game_opengl/blender/done"
   bpy.context.scene.render.filepath = f"{parent_path}/{obj_name}/{anim_name.replace(' ','_')}/{camera_pos}"
-
   frame_range = bpy.data.objects[anim_name].animation_data.action.frame_range
 
   bpy.context.scene.frame_step = 1
