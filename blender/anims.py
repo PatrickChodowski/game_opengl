@@ -7,6 +7,8 @@ from typing import List, Optional, Tuple, Dict
 from mathutils import Vector
 import math
 
+ANIM_PATH = "/home/patrick/Documents/projects/game_opengl/blender/anims/"
+ANIM_LIST = ['unarmed walk forward', 'standing idle']
 
 def clearout() -> None:
   """
@@ -161,7 +163,7 @@ def make_camera_track_empty() -> None:
     ttc.up_axis = 'UP_Y'
 
 
-def import_animation(filepath: str) -> str:
+def import_animation(anim_path: str, anim_name: str) -> str:
   '''
   Taunt, Unarmed Jump
   Returns armature object name
@@ -178,9 +180,8 @@ def import_animation(filepath: str) -> str:
     if "Armature" in o.name:
       pre_obj_arms.append(o.name)
 
-  anim_dir = filepath
-  #anim_dir = f"/home/patrick/Downloads/mixamo/noskin/{name}.fbx"
-  bpy.ops.import_scene.fbx(filepath = anim_dir,
+  file_path = f"{anim_path}{anim_name}.fbx"
+  bpy.ops.import_scene.fbx(filepath = file_path,
                            use_anim = True,
                            ui_tab="ARMATURE",
                            automatic_bone_orientation=True)
@@ -197,9 +198,12 @@ def import_animation(filepath: str) -> str:
   
   arm_name = list(set(post_arms) - set(pre_arms))[0]
   arm_obj_name = list(set(post_obj_arms) - set(pre_obj_arms))[0]
-  print(f"  New Armature object name: {arm_obj_name}")
-  print(f"  New Armature name: {arm_name}")
-  bpy.data.armatures[arm_name].pose_position = 'REST'
+
+  #rename 
+  for o in bpy.data.objects:
+    if arm_obj_name == o.name:
+      o.name = anim_name
+
   return arm_obj_name
 
 
@@ -226,5 +230,22 @@ def render_anim(obj_name: str) -> None:
 
 
 
-def retarget() -> None:
+def set_root_bone() -> None:
+  """
+  Sets root bone on target root bone (hips)
+  """
+  target_root_bone_name = 'c_root_master'
+  for index, bone in enumerate(bpy.context.scene.bones_map):
+    if target_root_bone_name in bone.name:
+        bpy.context.scene.bones_map_index = index
+        bone.set_as_root = True
+        break
+
+def retarget(anim_name: str, target_name: str = "rig") -> None:
+
+
+  bpy.context.scene.source_rig = anim_name
+  bpy.context.scene.target_rig = target_name
+  bpy.context.scene.arp_retarget_in_place = True
+
   pass

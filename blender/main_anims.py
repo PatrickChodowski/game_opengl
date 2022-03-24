@@ -13,4 +13,10 @@ spec_anims.loader.exec_module(anims)
 anims.clearout()
 anims.create_camera()
 anims.create_center_empty()
+anims.make_camera_track_empty()
+camera_grid = anims.make_camera_loc_grid()
 
+for anim_name in anims.ANIM_LIST:
+  anims.import_animation(anims.ANIM_PATH, anim_name)
+
+anims.set_root_bone()
