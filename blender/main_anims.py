@@ -24,3 +24,5 @@ for anim_name in anims.ANIM_LIST:
   for camera_loc_name, camera_loc in camera_grid.items():
     anims.set_camera_location(camera_loc['x'], camera_loc['y'], camera_loc['z'])
     anims.render(MODEL_NAME, anim_name, camera_loc_name)
+
+
