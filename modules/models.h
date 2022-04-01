@@ -3,9 +3,7 @@
 
 
 #include "../dependencies/glm/glm.hpp"
-#include "../dependencies/glm/gtc/quaternion.hpp"
 #include "../dictionary.h"
-#include "../dependencies/tiny_gltf.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_MODELS_H
@@ -13,60 +11,80 @@
 
 namespace models 
 {
-  // Keeps all the converted meshes data for given models
-  struct ModelMeshData
+
+  // Models animation data
+  struct ModelAnimData
   {
-    int model_id;
-    int mesh_id;
-    int node_id;
-    int count_vertices;
+    bool breakable;
 
-    std::vector<float> color;
-    std::vector<glm::vec3> position;
-    std::vector<glm::vec3> norms;
-    std::vector<glm::vec2> texcoord;
+    int anim_id;
+    int frame_count;
+    int next_anim_id;
 
-    glm::quat rotation;
-    glm::vec3 translation;
-    glm::vec3 scale;
-    glm::mat4 matrix;
+    std::vector<int> frame_id;
+    std::vector<int> direction;
+    // color
+    std::vector<float> r;
+    std::vector<float> g;
+    std::vector<float> b;
+    std::vector<float> a;
+    // dimension
+    std::vector<float> w;
+    std::vector<float> h;
+    // position
+    std::vector<float> x;
+    std::vector<float> y;
+    std::vector<float> z;
 
-    std::vector<unsigned short> indices;
-    std::string mesh_name;
-  };
+    std::vector<float> update_times;
+    float time_length;
 
-  // to update position and size of the visible object
-  struct GameModelMeshData
-  {
+    std::string label;
 
-  };
-
-
-  struct ModelMeshVertexData
-  {
-    int model_vertex_id;
-    int model_id;
-    int mesh_id;
-
-    float x,y,z;
-    float r,g,b,a;
-    float tx_x, tx_y;
-
-    // what to do
-    float frame_id = 0;
-    float texture_id = 0;
-    float is_clicked = 0;
-    float object_type = OBJECT_TYPE_MODEL;
-    float camera_type = CAMERA_DYNAMIC;
+    JS_OBJ(breakable, anim_id, frame_count, next_anim_id,
+    frame_id, direction, r, g, b, a, w, h, x, y, z, update_times, time_length, 
+    label);
 
   };
 
+  // Data for model's single frame
+  struct ModelFrameData
+  {
+    int frame_id;
+    int x;
+    int y;
+    int w;
+    int h;
+    int hook_x;
+    int hook_y;
+    int left_hand_x;
+    int left_hand_y;
+    int right_hand_x;
+    int right_hand_y;
+    int head_x;
+    int head_y;
+    std::string label;
+
+    JS_OBJ(frame_id, x, y, w, h, hook_x, hook_y,
+    left_hand_x, left_hand_y, right_hand_x, right_hand_y, head_x, head_y, 
+    label);
+  };
+
+
+
+  // Model data read in from the file
+  struct ModelData
+  {
+    int id;
+    int w;
+    int h;
+    std::vector<models::ModelFrameData> frames_list;
+    std::vector<models::ModelAnimData> anim_list;
+    std::string name;
+    JS_OBJ(id, w, h, name, frames_list, anim_list);
+  };
   extern std::vector<int> Index;
-  extern phmap::flat_hash_map<int, tinygltf::Model> models;
-  extern phmap::flat_hash_map<int, int> map_sizes;
-  extern phmap::flat_hash_map<int, int> map_type_count;
-  extern std::vector<models::ModelMeshData> meshes;
-  extern std::vector<models::ModelMeshVertexData> MeshVertices;
+  extern phmap::flat_hash_map<int, models::ModelData> models;
 
   // Read all model files
   void init();
@@ -80,31 +98,11 @@ namespace models
   // Drops model by its id
   void drop(int model_id);
 
-  float _convert_bytes_to_float(unsigned char* byte_arr, int size, bool to_print = false);
-
-  unsigned short _convert_bytes_to_short(unsigned char* byte_arr, int size, bool to_print = false);
-
-  void _convert_float_to_bytes(float value);
-
-  std::vector<float> _extract_floats_via_accessor(int model_id, int accessor_id);
-
-  std::vector<float> _extract_floats(int model_id, int accessor_id, std::vector<unsigned char>& subdata);
-
-  std::vector<unsigned short> _extract_shorts(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
-
-  models::ModelMeshData convert_mesh_data(int model_id, int mesh_id, int node_id); 
-
-  void extract_meshes(int model_id);
-
-  void make_mesh_vertex(models::ModelMeshData& MMD);
-
+  // Render models
   void render();
 
+  // Log model data if needed
   void log();
-
-  void log_vertices();
-
-  std::vector<unsigned char> _get_subdata(int model_id, int accessor_id);
 
 }
 
