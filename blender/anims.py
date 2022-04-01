@@ -8,7 +8,7 @@ from mathutils import Vector
 import math
 
 ANIM_PATH = "/home/patrick/Documents/projects/game_opengl/blender/anims/"
-ANIM_LIST = ['unarmed walk forward', 'standing idle']
+ANIM_LIST = ['unarmed walk forward', 'standing idle', 'standing taunt chest thump']
 #ANIM_LIST = ['standing idle']
 
 def clearout() -> None:
@@ -228,7 +228,7 @@ def render(obj_name: str, anim_name: str, camera_pos: str) -> None:
   bpy.context.scene.render.filepath = f"{parent_path}/{obj_name}/{anim_name.replace(' ','_')}/{camera_pos}"
   frame_range = bpy.data.objects[anim_name].animation_data.action.frame_range
 
-  bpy.context.scene.frame_step = 1
+  bpy.context.scene.frame_step = 3
   bpy.context.scene.frame_start = int(frame_range[0])
   bpy.context.scene.frame_end = int(frame_range[1])
   bpy.ops.render.render(animation=True, write_still=True)
