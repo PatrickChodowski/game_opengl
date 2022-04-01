@@ -1,7 +1,43 @@
-# Pogromcy Karaluchów
+# Vikings: Odin's wrath
 
-Game/Game engine based on OpenGL and SDL2. Document below is my own manual on how the functions and methods currently developed in the project.
+Build the game:
+
+```{commandline}
+
+make
+```
+
+Run the game:
+
+
+```{commandline}
+
+./game
+```
+
+
+Build the tests:
+
+```{commandline}
+
+make test
+```
+
+run the tests:
+
+```{commandline}
+
+./test
+```
 
 
 
 
+## todo list:
+
+### Models
+- one more, new way of handling textures, frames and animations -> this will be renamed to models. Based on the files provided in ./models folder
+
+Data file will have name format of {model_id}_{model_name}.json
+
+Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
