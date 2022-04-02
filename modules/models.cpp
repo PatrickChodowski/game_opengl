@@ -52,7 +52,9 @@ namespace models
     JS::ParseContext context(json_data);
     context.parseTo(MD);
     models::models.insert(std::pair<int, models::ModelData>{MD.id, MD});
-    //models::_load_texture_to_opengl(MD.id, MD.w, MD.h, 4);
+
+    unsigned int opengl_texture_id = models::_load_texture_to_opengl(MD.id, MD.w, MD.h, 4);
+    models::models.at(MD.id).opengl_texture_id = opengl_texture_id;
   }
 
   void refresh()
@@ -93,9 +95,10 @@ namespace models
       std::cout << "Error while loading texture from " << texture_path << std::endl;
     };
 
+    // We generate texture and assign it to texture/model_id. It doesnt have to be the same, but high chance it will
     glGenTextures(1, &model_id); 
     glBindTexture(GL_TEXTURE_2D, model_id); 
-    std::cout << " OpenGL Model id: " << model_id << std::endl;
+    // std::cout << " OpenGL texture/model_id: " << model_id << std::endl;
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);	
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -118,14 +121,31 @@ namespace models
     return model_id;
   };
 
+  void _activate_texture(int model_id)
+  {
+    unsigned int opengl_texture_id = models::models.at(model_id).opengl_texture_id;
+
+    // Activate selected texture unit
+    glActiveTexture(GL_TEXTURE0 + opengl_texture_id);
+    glBindTexture(GL_TEXTURE_2D, opengl_texture_id);
+  
+  };
+
+  void bind()
+  {
+    for(auto m : models::SceneModels) 
+    {
+      models::_activate_texture(m);
+    } 
+  }
+
   void load(int model_id)
   {
     // Checks if model is already in the scene, if its not, load it
     const bool model_already_in_use = models::SceneModels.find(model_id) != models::SceneModels.end();
     if(!model_already_in_use){
-      // insert the model
-      std::cout << "dupa" << std::endl;
       models::SceneModels.insert(model_id);
+      std::cout << "Loaded model ID:" << model_id << " NAME: " << models::models.at(model_id).name << " to the scene" << std::endl;
     }
   };
 
@@ -135,7 +155,11 @@ namespace models
     if(model_in_use){
       // Delete the model
       models::SceneModels.erase(model_id);
+      std::cout << "Unloaded model ID:" << model_id << " NAME: " << models::models.at(model_id).name << " from the scene" << std::endl;
     }
   }
+
+
+
 
 }
