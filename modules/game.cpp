@@ -143,7 +143,7 @@ namespace game
       // Spawns npcs for the map
       npcs::spawn_from_map(game::MAP_ID);
 
-      items::spawn(1, 200, 300);
+      //items::spawn(1, 200, 300);
 
       // Load menu slots
       for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)
@@ -209,7 +209,7 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
-    //models::init();
+    models::init();
     mouse::init();
     npcs::init();
     game::init_scenes();

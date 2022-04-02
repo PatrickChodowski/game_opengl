@@ -1,9 +1,8 @@
 #include <string>
 #include <vector>
 
-
-#include "../dependencies/glm/glm.hpp"
 #include "../dictionary.h"
+#include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_MODELS_H
@@ -70,8 +69,6 @@ namespace models
     label);
   };
 
-
-
   // Model data read in from the file
   struct ModelData
   {
@@ -83,7 +80,6 @@ namespace models
     std::string name;
     JS_OBJ(id, w, h, name, frames_list, anim_list);
   };
-  extern std::vector<int> Index;
   extern phmap::flat_hash_map<int, models::ModelData> models;
 
   // Read all model files
@@ -104,6 +100,11 @@ namespace models
   // Log model data if needed
   void log();
 
+  // Remove all models data
+  void clear();
+
+  // Loads texture to opengl
+  unsigned int _load_texture_to_opengl(unsigned int model_id, int w, int h, int n_channels);
 }
 
 #endif

@@ -45,6 +45,7 @@ namespace buffer
     glGenVertexArrays(1, &buffer::VAO);
     glGenBuffers(1, &buffer::VBO);
     glGenBuffers(1, &buffer::EBO);
+    
 
     // Bind buffers
     glBindVertexArray(buffer::VAO);
