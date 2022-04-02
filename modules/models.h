@@ -10,7 +10,6 @@
 
 namespace models 
 {
-
   // Models animation data
   struct ModelAnimData
   {
@@ -46,7 +45,7 @@ namespace models
 
   };
 
-  // Data for model's single frame
+  // Data for model's single frame. Frame ID is built as  animation_id*10000 + side_id*100 + frame_index
   struct ModelFrameData
   {
     int frame_id;
@@ -82,6 +81,9 @@ namespace models
   };
   extern phmap::flat_hash_map<int, models::ModelData> models;
 
+  // List of models used in the given scene
+  extern phmap::flat_hash_set<int> SceneModels;
+
   // Read all model files
   void init();
 
@@ -105,6 +107,15 @@ namespace models
 
   // Loads texture to opengl
   unsigned int _load_texture_to_opengl(unsigned int model_id, int w, int h, int n_channels);
+
+  // Loads model by model id (triggered by Scene initialization, map loading, spawning etc.)
+  void load(int model_id);
+
+  // Unload model from scene models by model_id
+  void unload(int model_id);
+
+
+
 }
 
 #endif
