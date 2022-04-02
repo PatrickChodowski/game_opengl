@@ -31,6 +31,16 @@ run the tests:
 ```
 
 
+Check opengl version
+```{commandline}
+glxinfo | grep "OpenGL version"
+```
+
+Ubuntu:
+OpenGL version string: 4.6.0 NVIDIA 470.103.01
+
+
+
 
 
 ## todo list:

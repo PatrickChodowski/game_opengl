@@ -21,6 +21,8 @@ namespace entity
     int status;
     int entity_type_id;
     int menu_id;
+    int model_id;
+    int direction_id;
 
     quads::Position pos;
     quads::Color color;
