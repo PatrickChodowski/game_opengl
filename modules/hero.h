@@ -42,6 +42,7 @@ namespace hero
     // display information
     int current_movement_state;
     int texture_id;
+    int model_id;
     int level;
     int mobs_killed;
 

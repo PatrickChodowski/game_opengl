@@ -33,6 +33,10 @@ namespace hero
     hero::hero.current_movement_state = ENTITY_STATE_CALM;
     hero::hero.name = name;
     hero::hero.type = type;
+
+    // Warrior2 for now
+    hero::hero.model_id = 2;
+
     hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
     std::cout << "    HERO  entity id: " << hero::hero.entity_id << std::endl;
   };
