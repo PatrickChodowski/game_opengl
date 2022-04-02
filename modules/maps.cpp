@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "maps.h"
+#include "models.h"
 #include "navmesh.h"
 #include "pathfinder.h"
 #include "quads.h"
@@ -113,6 +114,10 @@ namespace maps
         } 
     }
     in_file.close();
+
+    // model: TEMP solution. TODO make model display the character frames, not old version
+    int model_id =  3;
+    models::load(model_id);
   }
 
   void init_map(int map_id)

@@ -10,6 +10,7 @@
 #include "hero.h"
 #include "items.h"
 #include "mobs.h"
+#include "models.h"
 #include "npcs.h"
 #include "quads.h"
 #include "textures.h"
@@ -40,12 +41,10 @@ namespace entity
   { 
     entity::EntityData edd;
 
-    if(entity_id == -1)
-    {
+    if(entity_id == -1){
       edd.id = utils::generate_id(entity::Index);
     } else {
-      if(entity::entities.count(entity_id) > 0)
-      {
+      if(entity::entities.count(entity_id) > 0){
         std::cout << "\033[1;31mERROR DOUBLED ENTITY_ID " << entity_id << "\033[0m"<< std::endl;
       }
       edd.id = entity_id;
@@ -85,9 +84,11 @@ namespace entity
     edd.color.b = 0.5;
     edd.color.a = 1.0;
 
+    // model: TEMP solution. TODO make model display the character frames, not old version
+    edd.model_id = 2;
+    models::load(edd.model_id);
 
     entity::entities[edd.id] = edd;
-
     std::cout << "Created Entity ID: " <<  edd.id << " of type: " << edd.entity_type_id << std::endl; 
     return edd.id;
   }
