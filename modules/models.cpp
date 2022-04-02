@@ -27,8 +27,15 @@
 namespace models 
 {
   phmap::flat_hash_map<int, models::ModelData> models;
+  // Maximum 16 models allowed at the same time. Keeps values unique
+  phmap::flat_hash_set<int> SceneModels;
+
+
   void init()
   {
+    // Maximum 16 models allowed at the same time
+    models::SceneModels.reserve(16);
+
     std::vector<std::string> model_list = utils::list_json_files("models");
     for(int m=0; m < model_list.size(); m++)
     {
@@ -45,6 +52,7 @@ namespace models
     JS::ParseContext context(json_data);
     context.parseTo(MD);
     models::models.insert(std::pair<int, models::ModelData>{MD.id, MD});
+    //models::_load_texture_to_opengl(MD.id, MD.w, MD.h, 4);
   }
 
   void refresh()
@@ -70,6 +78,7 @@ namespace models
   void clear()
   {
     models::models.clear();
+    models::SceneModels.clear();
   }
 
   unsigned int _load_texture_to_opengl(unsigned int model_id, int w, int h, int n_channels)
@@ -86,6 +95,7 @@ namespace models
 
     glGenTextures(1, &model_id); 
     glBindTexture(GL_TEXTURE_2D, model_id); 
+    std::cout << " OpenGL Model id: " << model_id << std::endl;
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);	
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -107,5 +117,25 @@ namespace models
     stbi_image_free(image_data);
     return model_id;
   };
+
+  void load(int model_id)
+  {
+    // Checks if model is already in the scene, if its not, load it
+    const bool model_already_in_use = models::SceneModels.find(model_id) != models::SceneModels.end();
+    if(!model_already_in_use){
+      // insert the model
+      std::cout << "dupa" << std::endl;
+      models::SceneModels.insert(model_id);
+    }
+  };
+
+  void unload(int model_id)
+  {
+    const bool model_in_use = models::SceneModels.find(model_id) != models::SceneModels.end();
+    if(model_in_use){
+      // Delete the model
+      models::SceneModels.erase(model_id);
+    }
+  }
 
 }

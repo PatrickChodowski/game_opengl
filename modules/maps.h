@@ -17,6 +17,7 @@ namespace maps
     int texture_id;
     int frame_id;
     int camera_type;
+    int model_id;
 
     float mid_x;
     float mid_y;
@@ -74,6 +75,7 @@ namespace maps
     int vertex_width;
     int vertex_height;
     int texture_id;
+    int model_id;
     int default_player_x;
     int default_player_y;
     std::vector<Door> doors;
@@ -81,7 +83,7 @@ namespace maps
     std::vector<MapNPCData> npcs;
     std::string name;
 
-    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, default_player_x, default_player_y, doors, nests, npcs);
+    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, model_id, default_player_x, default_player_y, doors, nests, npcs);
   };
 
   extern float default_tile_width;

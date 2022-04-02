@@ -79,7 +79,6 @@
 #define SCENE_ID_DUNGEON_LEVEL_1 4
 #define SCENE_ID_DUNGEON_LEVEL_2 5
 
-
 // Scene Loading
 #define SCENE_LOAD_FROM_NEW 0
 #define SCENE_LOAD_FROM_LOAD 1
@@ -119,7 +118,7 @@
 #define ANIM_TYPE_FRAME_POSITION 7
 #define ANIM_TYPE_FRAME_POSITION_DIRECTION 8
 
-// Animation collection
+// [OLD] Animation collection 
 #define ANIM_MOVE_LEFT 1
 #define ANIM_MOVE_RIGHT 2
 #define ANIM_MOVE_UP 3
@@ -129,7 +128,20 @@
 #define ANIM_IDLE_UP 7
 #define ANIM_IDLE_DOWN 8
 
+// Animation Side Index
+#define ANIM_SIDE_FRONT 1
+#define ANIM_SIDE_BACK 2
+#define ANIM_SIDE_RIGHT 3
+#define ANIM_SIDE_LEFT 4
+#define ANIM_SIDE_FRONT_RIGHT 5
+#define ANIM_SIDE_FRONT_LEFT 6
+#define ANIM_SIDE_BACK_RIGHT 7
+#define ANIM_SIDE_BACK_LEFT 8 
 
+// Animation index
+#define ANIM_STANDING_IDLE 1
+#define ANIM_UNARMED_WALK_FORWARD 2
+#define ANIM_STANDING_TAUNT_CHEST_THUMP 3
 
 
 #endif
