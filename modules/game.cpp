@@ -184,6 +184,7 @@ namespace game
     fonts::clear();
     menu::clear();
     mobs::clear();
+    models::clear();
     npcs::clear();
     quads::clear();
     debug::clear();
@@ -233,7 +234,7 @@ namespace game
     entity::render();
     debug::render();
     menu::render();
-    //models::render();
+    models::bind();
     buttons::render();
     fonts::render();
     nav::render();
@@ -325,7 +326,7 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
-    //models::init();
+    models::init();
     npcs::init();
     game::init_scenes();
 

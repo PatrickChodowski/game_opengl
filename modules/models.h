@@ -74,6 +74,7 @@ namespace models
     int id;
     int w;
     int h;
+    unsigned int opengl_texture_id;
     std::vector<models::ModelFrameData> frames_list;
     std::vector<models::ModelAnimData> anim_list;
     std::string name;
@@ -107,6 +108,12 @@ namespace models
 
   // Loads texture to opengl
   unsigned int _load_texture_to_opengl(unsigned int model_id, int w, int h, int n_channels);
+
+  // Activate selected texture before render
+  void _activate_texture(int model_id);
+
+  // Bind all scene models
+  void bind();
 
   // Loads model by model id (triggered by Scene initialization, map loading, spawning etc.)
   void load(int model_id);
