@@ -134,14 +134,14 @@ namespace game
       game::MAP_ID = game::scenes[scene_id].map_id;
       game::HeroLoader[load_scene_from](scene_id);
 
-      // Load maps
-      maps::init_map(game::MAP_ID);
+      // // Load maps
+      // maps::init_map(game::MAP_ID);
 
-      // load mobs based on the map
-      mobs::spawn_from_nest(game::MAP_ID);
+      // // load mobs based on the map
+      // mobs::spawn_from_nest(game::MAP_ID);
 
-      // Spawns npcs for the map
-      npcs::spawn_from_map(game::MAP_ID);
+      // // Spawns npcs for the map
+      // npcs::spawn_from_map(game::MAP_ID);
 
       //items::spawn(1, 200, 300);
 
@@ -216,7 +216,6 @@ namespace game
     game::init_scenes();
     scripts::init();
     shaders::init();
-    textures::init();
 
     // Loads scene based on SCENE_ID
     game::load_scene(game::SCENE_ID, false);
@@ -238,11 +237,15 @@ namespace game
     buttons::render();
     fonts::render();
     nav::render();
+
+    int sampler_size = (models::SceneModels.size() + 1);
+    int sampler[sampler_size]; 
+    models::populate_sampler(sampler);
+
   
     quads::update();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
-    textures::bind();
     buffer::update_quads(quads::AllQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -250,22 +253,6 @@ namespace game
     glClear(GL_COLOR_BUFFER_BIT);
     glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
 
-    // // sampler array creation
-    // int sampler_size = (textures::BoundTextures.size() + 1);
-    // int sampler[sampler_size]; 
-    // sampler[0] = 0;
-    // for (int i = 0; i < textures::BoundTextures.size(); i++)
-    // {
-    //   sampler[(i+1)] = textures::BoundTextures[i];
-    // } 
-
-    int sampler_size = (models::SceneModels.size() + 1);
-    int sampler[sampler_size]; 
-    sampler[0] = 0;
-    for(auto m : models::SceneModels) 
-    {
-      sampler[m] = m;
-    } 
     // react to camera changes
     camera::DYNAMIC_MVP = camera::gen_dynamic_mvp(-camera::cam.x, camera::cam.y, camera::cam.zoom);
 

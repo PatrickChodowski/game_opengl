@@ -92,8 +92,8 @@ namespace models
   };
   extern phmap::flat_hash_map<int, models::ModelData> models;
 
-  // List of models used in the given scene
-  extern phmap::flat_hash_set<int> SceneModels;
+  // List of models used in the given scene. Contains Model_id and sampler_texture_index
+  extern phmap::flat_hash_map<int, int> SceneModels;
 
   // Read all model files
   void init();
@@ -130,6 +130,9 @@ namespace models
 
   // Unload model from scene models by model_id
   void unload(int model_id);
+
+  // Populate sampler
+  void populate_sampler(int* arr);
 
   // Prints out models data
   void print_models_data();

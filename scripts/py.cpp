@@ -58,6 +58,7 @@ namespace scripts
     scripts::Handler[6] = _init_travel;
     scripts::Handler[7] = _print_entity;
     scripts::Handler[8] = _print_models;
+    scripts::Handler[9] = _print_quads;
     std::cout << "PyScripts Initialized" << std::endl;
   }
 
@@ -123,6 +124,12 @@ namespace scripts
   {
     // Function 8 -> _print_models
     models::print_models_data();
+  }
+
+  void _print_quads()
+  {
+    // Function 9 -> _print_quads
+    quads::print_quads_data();
   }
 
 
