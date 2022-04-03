@@ -4,53 +4,26 @@
   "h": 64,
   "name": "dungeon",
   "frames_list": [
-    {
-      "frame_id": 10100,
+    {"frame_id": 10100,
       "x": 0,
       "y": 0,
       "w": 64,
       "h": 64,
-      "label": "dungeon___light_front_0",
-      "hook_x": null,
-      "hook_y": null,
-      "left_hand_x": null,
-      "left_hand_y": null,
-      "right_hand_x": null,
-      "right_hand_y": null,
-      "head_x": null,
-      "head_y": null
+      "label": "dungeon___light_front_0"
     },
-    {
-      "frame_id": 10200,
+    {"frame_id": 10200,
       "x": 64,
       "y": 0,
       "w": 64,
       "h": 64,
-      "label": "dungeon___dark_front_0",
-      "hook_x": null,
-      "hook_y": null,
-      "left_hand_x": null,
-      "left_hand_y": null,
-      "right_hand_x": null,
-      "right_hand_y": null,
-      "head_x": null,
-      "head_y": null
+      "label": "dungeon___dark_front_0"
     },
-    {
-      "frame_id": 10300,
+    {"frame_id": 10300,
       "x": 128,
       "y": 0,
       "w": 64,
       "h": 64,
-      "label": "dungeon___wall_front_0",
-      "hook_x": null,
-      "hook_y": null,
-      "left_hand_x": null,
-      "left_hand_y": null,
-      "right_hand_x": null,
-      "right_hand_y": null,
-      "head_x": null,
-      "head_y": null
+      "label": "dungeon___wall_front_0"
     }
   ],
   "anim_list": []

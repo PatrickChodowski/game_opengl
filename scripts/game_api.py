@@ -41,6 +41,11 @@ funcs = {
                    "args": [],
                    "id": 7},    
 
+  "_print_models": {"first": "print", 
+                   "second": "models",
+                   "args": [],
+                   "id": 8},    
+
 }
 
 

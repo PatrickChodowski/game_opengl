@@ -121,6 +121,9 @@ namespace models
   // Unload model from scene models by model_id
   void unload(int model_id);
 
+  // Prints out models data
+  void print_models_data();
+
 
 
 }
