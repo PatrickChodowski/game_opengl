@@ -46,13 +46,13 @@ namespace models
 
   void read_data(std::string& file_name)
   {
-    ModelData MD;
+    models::ModelData MD;
     std::string file_path = "./models/"+file_name+".json";
     std::string json_data = utils::read_text_file(file_path);
     JS::ParseContext context(json_data);
+    context.allow_missing_members = true;
     context.parseTo(MD);
     models::models.insert(std::pair<int, models::ModelData>{MD.id, MD});
-
     unsigned int opengl_texture_id = models::_load_texture_to_opengl(MD.id, MD.w, MD.h, 4);
     models::models.at(MD.id).opengl_texture_id = opengl_texture_id;
   }
@@ -160,6 +160,29 @@ namespace models
   }
 
 
+  void print_models_data()
+  {
+    std::cout << "### PRINT MODELS DATA ###" << std::endl;
+    for (auto const& [k, v] : models::models)
+    {
+      std::cout << "Model ID: " << v.id
+                << "  Name: " << v.name
+                << "  OpenGl Texture ID: " << v.opengl_texture_id
+                << "  Frame count: " << v.frames_list.size()
+                << "  Anim count: " << v.anim_list.size()
+                << std::endl;
+
+      for(int f = 0; f < v.frames_list.size(); f++)
+      {
+        std::cout << "  - Frame: " << v.frames_list[f].frame_id << " " << v.frames_list[f].label << std::endl;
+      }
+
+      for(int a = 0; a < v.anim_list.size(); a++)
+      {
+        std::cout << "  - Anim: " << v.anim_list[a].anim_id << " " << v.anim_list[a].label << std::endl;
+      }
+    }
+  }
 
 
 }

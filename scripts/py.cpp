@@ -16,6 +16,7 @@
 #include "../modules/mobs.h"
 #include "../modules/npcs.h"
 #include "../modules/travel.h"
+#include "../modules/models.h"
 
 namespace py = pybind11;
 
@@ -56,6 +57,7 @@ namespace scripts
     scripts::Handler[5] = _start_animation;
     scripts::Handler[6] = _init_travel;
     scripts::Handler[7] = _print_entity;
+    scripts::Handler[8] = _print_models;
     std::cout << "PyScripts Initialized" << std::endl;
   }
 
@@ -114,6 +116,13 @@ namespace scripts
   {
     // Function 7 -> _print_entity
     entity::print_entity_data();
+  }
+
+
+  void _print_models()
+  {
+    // Function 8 -> _print_models
+    models::print_models_data();
   }
 
 

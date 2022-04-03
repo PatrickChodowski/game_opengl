@@ -1,1 +1,1 @@
-func_id = 6; vars = {'entity_id': 2.0, 'target_x': 100.0, 'target_y': 100.0}
+func_id = 8; vars = {}

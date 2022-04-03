@@ -46,6 +46,9 @@ namespace scripts
   // Function 7: _print_entity
   void _print_entity();
 
+  // Function 8: _print_models
+  void _print_models();
+
 
 }
 
