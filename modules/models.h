@@ -53,6 +53,12 @@ namespace models
     int y;
     int w;
     int h;
+
+    float norm_x_start;
+    float norm_x_end;
+    float norm_y_start;
+    float norm_y_end;
+
     int hook_x;
     int hook_y;
     int left_hand_x;
@@ -63,9 +69,13 @@ namespace models
     int head_y;
     std::string label;
 
-    JS_OBJ(frame_id, x, y, w, h, hook_x, hook_y,
-    left_hand_x, left_hand_y, right_hand_x, right_hand_y, head_x, head_y, 
-    label);
+    JS_OBJ(frame_id, x, y, w, h, 
+           norm_x_start, norm_x_end, norm_y_start, norm_y_end,
+           hook_x, hook_y,
+           left_hand_x, left_hand_y, 
+           right_hand_x, right_hand_y, 
+           head_x, head_y, 
+           label);
   };
 
   // Model data read in from the file

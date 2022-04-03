@@ -73,6 +73,7 @@ namespace quads
     int texture_id;
     int frame_id;
     int object_id;
+    int model_id;
  
     // a b
     // c

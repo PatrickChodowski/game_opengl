@@ -56,6 +56,7 @@ namespace menu
     int menu_type_id;
     int menu_slot_id;
     int texture_id = -1;
+    int model_id = -1;
     int frame_id = -1;
     int object_type_id;
     int assigned_entity_id;

@@ -109,7 +109,7 @@ namespace buffer
       arr[(start_position+7)] = quads[t].frame_id;
       arr[(start_position+8)] = quads[t].v.v1_tx_x;
       arr[(start_position+9)] = quads[t].v.v1_tx_y;
-      arr[(start_position+10)] = quads[t].texture_id;
+      arr[(start_position+10)] = quads[t].model_id;
       arr[(start_position+11)] = quads[t].is_clicked;
       arr[(start_position+12)] = quads[t].object_type_id;
       arr[(start_position+13)] = quads[t].camera_type;
@@ -124,7 +124,7 @@ namespace buffer
       arr[(start_position+(cva+7))] = quads[t].frame_id;
       arr[(start_position+(cva+8))] = quads[t].v.v2_tx_x;
       arr[(start_position+(cva+9))] = quads[t].v.v2_tx_y;
-      arr[(start_position+(cva+10))] = quads[t].texture_id;
+      arr[(start_position+(cva+10))] = quads[t].model_id;
       arr[(start_position+(cva+11))] = quads[t].is_clicked;
       arr[(start_position+(cva+12))] = quads[t].object_type_id;
       arr[(start_position+(cva+13))] = quads[t].camera_type;
@@ -139,7 +139,7 @@ namespace buffer
       arr[(start_position+(cva*2) + 7)] = quads[t].frame_id;
       arr[(start_position+(cva*2) + 8)] = quads[t].v.v3_tx_x;
       arr[(start_position+(cva*2) + 9)] = quads[t].v.v3_tx_y;
-      arr[(start_position+(cva*2) + 10)] = quads[t].texture_id;
+      arr[(start_position+(cva*2) + 10)] = quads[t].model_id;
       arr[(start_position+(cva*2) + 11)] = quads[t].is_clicked;
       arr[(start_position+(cva*2) + 12)] = quads[t].object_type_id;
       arr[(start_position+(cva*2) + 13)] = quads[t].camera_type;
@@ -154,7 +154,7 @@ namespace buffer
       arr[(start_position+(cva*3) + 7)] = quads[t].frame_id;
       arr[(start_position+(cva*3) + 8)] = quads[t].v.v4_tx_x;
       arr[(start_position+(cva*3) + 9)] = quads[t].v.v4_tx_y;
-      arr[(start_position+(cva*3) + 10)] = quads[t].texture_id;
+      arr[(start_position+(cva*3) + 10)] = quads[t].model_id;
       arr[(start_position+(cva*3) + 11)] = quads[t].is_clicked;
       arr[(start_position+(cva*3) + 12)] = quads[t].object_type_id;
       arr[(start_position+(cva*3) + 13)] = quads[t].camera_type;

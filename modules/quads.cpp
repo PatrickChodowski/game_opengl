@@ -64,7 +64,9 @@ namespace quads
     quads::QuadData quad;
     quad.id = (object_type_id+1)*100000 + data.id;
     quad.texture_id = data.texture_id;
-    quad.frame_id = data.frame_id;
+    quad.model_id = data.model_id;
+    //quad.frame_id = data.frame_id;
+    quad.frame_id = 10100;
     quad.object_id = data.id;
     quad.object_type_id = object_type_id;
     quad.camera_type = data.camera_type;

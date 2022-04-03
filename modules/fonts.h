@@ -31,6 +31,7 @@ namespace fonts
   {
     int id;
     int texture_id;
+    int model_id;
     int frame_id;
 
     quads::Color color;

@@ -27,6 +27,7 @@ namespace debug
     
     // not used in this case:
     int texture_id = -1;
+    int model_id = -1;
     int frame_id = -1;
     int id;
     

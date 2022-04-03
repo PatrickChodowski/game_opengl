@@ -3,20 +3,30 @@
   "w": 1680,
   "h": 2970,
   "name": "warrior2",
-  "frames_list": [{
-    "frame_id": 10100,
-    "x": 0,
-    "y": 0,
-    "w": 240,
-    "h": 270,
-    "label": "warrior2___standing_idle_front_0"},
+  "frames_list": [
+      {
+          "frame_id": 10100,
+          "x": 0,
+          "y": 0,
+          "w": 240,
+          "h": 270,
+          "label": "warrior2___standing_idle_front_0",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.09090909090909091
+      },
       {
           "frame_id": 10101,
           "x": 240,
           "y": 0,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_front_1"
+          "label": "warrior2___standing_idle_front_1",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.09090909090909091
       },
       {
           "frame_id": 10102,
@@ -24,8 +34,11 @@
           "y": 0,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_front_2"
-
+          "label": "warrior2___standing_idle_front_2",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.09090909090909091
       },
       {
           "frame_id": 10200,
@@ -33,7 +46,11 @@
           "y": 0,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_back_0"
+          "label": "warrior2___standing_idle_back_0",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.09090909090909091
       },
       {
           "frame_id": 10201,
@@ -41,7 +58,11 @@
           "y": 0,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_back_1"
+          "label": "warrior2___standing_idle_back_1",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.09090909090909091
       },
       {
           "frame_id": 10202,
@@ -49,7 +70,11 @@
           "y": 0,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_back_2"
+          "label": "warrior2___standing_idle_back_2",
+          "norm_x_start": 0.7142857142857143,
+          "norm_x_end": 0.8571428571428571,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.09090909090909091
       },
       {
           "frame_id": 10300,
@@ -57,7 +82,11 @@
           "y": 0,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_right_0"
+          "label": "warrior2___standing_idle_right_0",
+          "norm_x_start": 0.8571428571428571,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.09090909090909091
       },
       {
           "frame_id": 10301,
@@ -65,7 +94,11 @@
           "y": 270,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_right_1"
+          "label": "warrior2___standing_idle_right_1",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.09090909090909091,
+          "norm_y_end": 0.18181818181818182
       },
       {
           "frame_id": 10302,
@@ -73,7 +106,11 @@
           "y": 270,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_right_2"
+          "label": "warrior2___standing_idle_right_2",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.09090909090909091,
+          "norm_y_end": 0.18181818181818182
       },
       {
           "frame_id": 10400,
@@ -81,7 +118,11 @@
           "y": 270,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_left_0"
+          "label": "warrior2___standing_idle_left_0",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.09090909090909091,
+          "norm_y_end": 0.18181818181818182
       },
       {
           "frame_id": 10401,
@@ -89,7 +130,11 @@
           "y": 270,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_left_1"
+          "label": "warrior2___standing_idle_left_1",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.09090909090909091,
+          "norm_y_end": 0.18181818181818182
       },
       {
           "frame_id": 10402,
@@ -97,7 +142,11 @@
           "y": 270,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_idle_left_2"
+          "label": "warrior2___standing_idle_left_2",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.09090909090909091,
+          "norm_y_end": 0.18181818181818182
       },
       {
           "frame_id": 20100,
@@ -105,7 +154,11 @@
           "y": 540,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_front_0"
+          "label": "warrior2___unarmed_walk_forward_front_0",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.18181818181818182,
+          "norm_y_end": 0.2727272727272727
       },
       {
           "frame_id": 20101,
@@ -113,7 +166,11 @@
           "y": 540,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_front_1"
+          "label": "warrior2___unarmed_walk_forward_front_1",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.18181818181818182,
+          "norm_y_end": 0.2727272727272727
       },
       {
           "frame_id": 20102,
@@ -121,7 +178,11 @@
           "y": 540,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_front_2"
+          "label": "warrior2___unarmed_walk_forward_front_2",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.18181818181818182,
+          "norm_y_end": 0.2727272727272727
       },
       {
           "frame_id": 20103,
@@ -129,7 +190,11 @@
           "y": 540,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_front_3"
+          "label": "warrior2___unarmed_walk_forward_front_3",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.18181818181818182,
+          "norm_y_end": 0.2727272727272727
       },
       {
           "frame_id": 20104,
@@ -137,7 +202,11 @@
           "y": 540,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_front_4"
+          "label": "warrior2___unarmed_walk_forward_front_4",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.18181818181818182,
+          "norm_y_end": 0.2727272727272727
       },
       {
           "frame_id": 20105,
@@ -145,7 +214,11 @@
           "y": 540,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_front_5"
+          "label": "warrior2___unarmed_walk_forward_front_5",
+          "norm_x_start": 0.7142857142857143,
+          "norm_x_end": 0.8571428571428571,
+          "norm_y_start": 0.18181818181818182,
+          "norm_y_end": 0.2727272727272727
       },
       {
           "frame_id": 20106,
@@ -153,7 +226,11 @@
           "y": 540,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_front_6"
+          "label": "warrior2___unarmed_walk_forward_front_6",
+          "norm_x_start": 0.8571428571428571,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.18181818181818182,
+          "norm_y_end": 0.2727272727272727
       },
       {
           "frame_id": 20107,
@@ -161,7 +238,11 @@
           "y": 810,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_front_7"
+          "label": "warrior2___unarmed_walk_forward_front_7",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.2727272727272727,
+          "norm_y_end": 0.36363636363636365
       },
       {
           "frame_id": 20200,
@@ -169,7 +250,11 @@
           "y": 810,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_back_0"
+          "label": "warrior2___unarmed_walk_forward_back_0",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.2727272727272727,
+          "norm_y_end": 0.36363636363636365
       },
       {
           "frame_id": 20201,
@@ -177,7 +262,11 @@
           "y": 810,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_back_1"
+          "label": "warrior2___unarmed_walk_forward_back_1",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.2727272727272727,
+          "norm_y_end": 0.36363636363636365
       },
       {
           "frame_id": 20202,
@@ -185,7 +274,11 @@
           "y": 810,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_back_2"
+          "label": "warrior2___unarmed_walk_forward_back_2",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.2727272727272727,
+          "norm_y_end": 0.36363636363636365
       },
       {
           "frame_id": 20203,
@@ -193,7 +286,11 @@
           "y": 810,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_back_3"
+          "label": "warrior2___unarmed_walk_forward_back_3",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.2727272727272727,
+          "norm_y_end": 0.36363636363636365
       },
       {
           "frame_id": 20204,
@@ -201,7 +298,11 @@
           "y": 810,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_back_4"
+          "label": "warrior2___unarmed_walk_forward_back_4",
+          "norm_x_start": 0.7142857142857143,
+          "norm_x_end": 0.8571428571428571,
+          "norm_y_start": 0.2727272727272727,
+          "norm_y_end": 0.36363636363636365
       },
       {
           "frame_id": 20205,
@@ -209,7 +310,11 @@
           "y": 810,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_back_5"
+          "label": "warrior2___unarmed_walk_forward_back_5",
+          "norm_x_start": 0.8571428571428571,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.2727272727272727,
+          "norm_y_end": 0.36363636363636365
       },
       {
           "frame_id": 20206,
@@ -217,7 +322,11 @@
           "y": 1080,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_back_6"
+          "label": "warrior2___unarmed_walk_forward_back_6",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.36363636363636365,
+          "norm_y_end": 0.45454545454545453
       },
       {
           "frame_id": 20207,
@@ -225,8 +334,11 @@
           "y": 1080,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_back_7"
-
+          "label": "warrior2___unarmed_walk_forward_back_7",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.36363636363636365,
+          "norm_y_end": 0.45454545454545453
       },
       {
           "frame_id": 20300,
@@ -234,8 +346,11 @@
           "y": 1080,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_right_0"
-
+          "label": "warrior2___unarmed_walk_forward_right_0",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.36363636363636365,
+          "norm_y_end": 0.45454545454545453
       },
       {
           "frame_id": 20301,
@@ -243,8 +358,11 @@
           "y": 1080,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_right_1"
-
+          "label": "warrior2___unarmed_walk_forward_right_1",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.36363636363636365,
+          "norm_y_end": 0.45454545454545453
       },
       {
           "frame_id": 20302,
@@ -252,8 +370,11 @@
           "y": 1080,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_right_2"
-
+          "label": "warrior2___unarmed_walk_forward_right_2",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.36363636363636365,
+          "norm_y_end": 0.45454545454545453
       },
       {
           "frame_id": 20303,
@@ -261,8 +382,11 @@
           "y": 1080,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_right_3"
-
+          "label": "warrior2___unarmed_walk_forward_right_3",
+          "norm_x_start": 0.7142857142857143,
+          "norm_x_end": 0.8571428571428571,
+          "norm_y_start": 0.36363636363636365,
+          "norm_y_end": 0.45454545454545453
       },
       {
           "frame_id": 20304,
@@ -270,8 +394,11 @@
           "y": 1080,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_right_4"
-
+          "label": "warrior2___unarmed_walk_forward_right_4",
+          "norm_x_start": 0.8571428571428571,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.36363636363636365,
+          "norm_y_end": 0.45454545454545453
       },
       {
           "frame_id": 20305,
@@ -279,8 +406,11 @@
           "y": 1350,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_right_5"
-
+          "label": "warrior2___unarmed_walk_forward_right_5",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.45454545454545453,
+          "norm_y_end": 0.5454545454545454
       },
       {
           "frame_id": 20306,
@@ -288,8 +418,11 @@
           "y": 1350,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_right_6"
-
+          "label": "warrior2___unarmed_walk_forward_right_6",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.45454545454545453,
+          "norm_y_end": 0.5454545454545454
       },
       {
           "frame_id": 20307,
@@ -297,8 +430,11 @@
           "y": 1350,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_right_7"
-
+          "label": "warrior2___unarmed_walk_forward_right_7",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.45454545454545453,
+          "norm_y_end": 0.5454545454545454
       },
       {
           "frame_id": 20400,
@@ -306,8 +442,11 @@
           "y": 1350,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_left_0"
-
+          "label": "warrior2___unarmed_walk_forward_left_0",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.45454545454545453,
+          "norm_y_end": 0.5454545454545454
       },
       {
           "frame_id": 20401,
@@ -315,8 +454,11 @@
           "y": 1350,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_left_1"
-
+          "label": "warrior2___unarmed_walk_forward_left_1",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.45454545454545453,
+          "norm_y_end": 0.5454545454545454
       },
       {
           "frame_id": 20402,
@@ -324,8 +466,11 @@
           "y": 1350,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_left_2"
-
+          "label": "warrior2___unarmed_walk_forward_left_2",
+          "norm_x_start": 0.7142857142857143,
+          "norm_x_end": 0.8571428571428571,
+          "norm_y_start": 0.45454545454545453,
+          "norm_y_end": 0.5454545454545454
       },
       {
           "frame_id": 20403,
@@ -333,8 +478,11 @@
           "y": 1350,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_left_3"
-
+          "label": "warrior2___unarmed_walk_forward_left_3",
+          "norm_x_start": 0.8571428571428571,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.45454545454545453,
+          "norm_y_end": 0.5454545454545454
       },
       {
           "frame_id": 20404,
@@ -342,8 +490,11 @@
           "y": 1620,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_left_4"
-
+          "label": "warrior2___unarmed_walk_forward_left_4",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.5454545454545454,
+          "norm_y_end": 0.6363636363636364
       },
       {
           "frame_id": 20405,
@@ -351,8 +502,11 @@
           "y": 1620,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_left_5"
-
+          "label": "warrior2___unarmed_walk_forward_left_5",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.5454545454545454,
+          "norm_y_end": 0.6363636363636364
       },
       {
           "frame_id": 20406,
@@ -360,8 +514,11 @@
           "y": 1620,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_left_6"
-
+          "label": "warrior2___unarmed_walk_forward_left_6",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.5454545454545454,
+          "norm_y_end": 0.6363636363636364
       },
       {
           "frame_id": 20407,
@@ -369,8 +526,11 @@
           "y": 1620,
           "w": 240,
           "h": 270,
-          "label": "warrior2___unarmed_walk_forward_left_7"
-
+          "label": "warrior2___unarmed_walk_forward_left_7",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.5454545454545454,
+          "norm_y_end": 0.6363636363636364
       },
       {
           "frame_id": 30100,
@@ -378,8 +538,11 @@
           "y": 1890,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_front_0"
-
+          "label": "warrior2___standing_taunt_chest_thump_front_0",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.6363636363636364,
+          "norm_y_end": 0.7272727272727273
       },
       {
           "frame_id": 30101,
@@ -387,8 +550,11 @@
           "y": 1890,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_front_1"
-
+          "label": "warrior2___standing_taunt_chest_thump_front_1",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.6363636363636364,
+          "norm_y_end": 0.7272727272727273
       },
       {
           "frame_id": 30102,
@@ -396,8 +562,11 @@
           "y": 1890,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_front_2"
-
+          "label": "warrior2___standing_taunt_chest_thump_front_2",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.6363636363636364,
+          "norm_y_end": 0.7272727272727273
       },
       {
           "frame_id": 30103,
@@ -405,8 +574,11 @@
           "y": 1890,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_front_3"
-
+          "label": "warrior2___standing_taunt_chest_thump_front_3",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.6363636363636364,
+          "norm_y_end": 0.7272727272727273
       },
       {
           "frame_id": 30104,
@@ -414,8 +586,11 @@
           "y": 1890,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_front_4"
-
+          "label": "warrior2___standing_taunt_chest_thump_front_4",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.6363636363636364,
+          "norm_y_end": 0.7272727272727273
       },
       {
           "frame_id": 30105,
@@ -423,8 +598,11 @@
           "y": 1890,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_front_5"
-
+          "label": "warrior2___standing_taunt_chest_thump_front_5",
+          "norm_x_start": 0.7142857142857143,
+          "norm_x_end": 0.8571428571428571,
+          "norm_y_start": 0.6363636363636364,
+          "norm_y_end": 0.7272727272727273
       },
       {
           "frame_id": 30200,
@@ -432,8 +610,11 @@
           "y": 1890,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_back_0"
-
+          "label": "warrior2___standing_taunt_chest_thump_back_0",
+          "norm_x_start": 0.8571428571428571,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.6363636363636364,
+          "norm_y_end": 0.7272727272727273
       },
       {
           "frame_id": 30201,
@@ -441,7 +622,11 @@
           "y": 2160,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_back_1"
+          "label": "warrior2___standing_taunt_chest_thump_back_1",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.7272727272727273,
+          "norm_y_end": 0.8181818181818182
       },
       {
           "frame_id": 30202,
@@ -449,8 +634,11 @@
           "y": 2160,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_back_2"
-
+          "label": "warrior2___standing_taunt_chest_thump_back_2",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.7272727272727273,
+          "norm_y_end": 0.8181818181818182
       },
       {
           "frame_id": 30203,
@@ -458,8 +646,11 @@
           "y": 2160,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_back_3"
-
+          "label": "warrior2___standing_taunt_chest_thump_back_3",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.7272727272727273,
+          "norm_y_end": 0.8181818181818182
       },
       {
           "frame_id": 30204,
@@ -467,8 +658,11 @@
           "y": 2160,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_back_4"
-
+          "label": "warrior2___standing_taunt_chest_thump_back_4",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.7272727272727273,
+          "norm_y_end": 0.8181818181818182
       },
       {
           "frame_id": 30205,
@@ -476,8 +670,11 @@
           "y": 2160,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_back_5"
-
+          "label": "warrior2___standing_taunt_chest_thump_back_5",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.7272727272727273,
+          "norm_y_end": 0.8181818181818182
       },
       {
           "frame_id": 30300,
@@ -485,8 +682,11 @@
           "y": 2160,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_right_0"
-
+          "label": "warrior2___standing_taunt_chest_thump_right_0",
+          "norm_x_start": 0.7142857142857143,
+          "norm_x_end": 0.8571428571428571,
+          "norm_y_start": 0.7272727272727273,
+          "norm_y_end": 0.8181818181818182
       },
       {
           "frame_id": 30301,
@@ -494,8 +694,11 @@
           "y": 2160,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_right_1"
-
+          "label": "warrior2___standing_taunt_chest_thump_right_1",
+          "norm_x_start": 0.8571428571428571,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.7272727272727273,
+          "norm_y_end": 0.8181818181818182
       },
       {
           "frame_id": 30302,
@@ -503,8 +706,11 @@
           "y": 2430,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_right_2"
-
+          "label": "warrior2___standing_taunt_chest_thump_right_2",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.8181818181818182,
+          "norm_y_end": 0.9090909090909091
       },
       {
           "frame_id": 30303,
@@ -512,8 +718,11 @@
           "y": 2430,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_right_3"
-
+          "label": "warrior2___standing_taunt_chest_thump_right_3",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.8181818181818182,
+          "norm_y_end": 0.9090909090909091
       },
       {
           "frame_id": 30304,
@@ -521,8 +730,11 @@
           "y": 2430,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_right_4"
-
+          "label": "warrior2___standing_taunt_chest_thump_right_4",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.8181818181818182,
+          "norm_y_end": 0.9090909090909091
       },
       {
           "frame_id": 30305,
@@ -530,8 +742,11 @@
           "y": 2430,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_right_5"
-
+          "label": "warrior2___standing_taunt_chest_thump_right_5",
+          "norm_x_start": 0.42857142857142855,
+          "norm_x_end": 0.5714285714285714,
+          "norm_y_start": 0.8181818181818182,
+          "norm_y_end": 0.9090909090909091
       },
       {
           "frame_id": 30400,
@@ -539,8 +754,11 @@
           "y": 2430,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_left_0"
-
+          "label": "warrior2___standing_taunt_chest_thump_left_0",
+          "norm_x_start": 0.5714285714285714,
+          "norm_x_end": 0.7142857142857143,
+          "norm_y_start": 0.8181818181818182,
+          "norm_y_end": 0.9090909090909091
       },
       {
           "frame_id": 30401,
@@ -548,8 +766,11 @@
           "y": 2430,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_left_1"
-
+          "label": "warrior2___standing_taunt_chest_thump_left_1",
+          "norm_x_start": 0.7142857142857143,
+          "norm_x_end": 0.8571428571428571,
+          "norm_y_start": 0.8181818181818182,
+          "norm_y_end": 0.9090909090909091
       },
       {
           "frame_id": 30402,
@@ -557,8 +778,11 @@
           "y": 2430,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_left_2"
-
+          "label": "warrior2___standing_taunt_chest_thump_left_2",
+          "norm_x_start": 0.8571428571428571,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.8181818181818182,
+          "norm_y_end": 0.9090909090909091
       },
       {
           "frame_id": 30403,
@@ -566,8 +790,11 @@
           "y": 2700,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_left_3"
-
+          "label": "warrior2___standing_taunt_chest_thump_left_3",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.14285714285714285,
+          "norm_y_start": 0.9090909090909091,
+          "norm_y_end": 1.0
       },
       {
           "frame_id": 30404,
@@ -575,8 +802,11 @@
           "y": 2700,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_left_4"
-
+          "label": "warrior2___standing_taunt_chest_thump_left_4",
+          "norm_x_start": 0.14285714285714285,
+          "norm_x_end": 0.2857142857142857,
+          "norm_y_start": 0.9090909090909091,
+          "norm_y_end": 1.0
       },
       {
           "frame_id": 30405,
@@ -584,83 +814,86 @@
           "y": 2700,
           "w": 240,
           "h": 270,
-          "label": "warrior2___standing_taunt_chest_thump_left_5"
-
+          "label": "warrior2___standing_taunt_chest_thump_left_5",
+          "norm_x_start": 0.2857142857142857,
+          "norm_x_end": 0.42857142857142855,
+          "norm_y_start": 0.9090909090909091,
+          "norm_y_end": 1.0
       }
   ],
   "anim_list": [
-        {
-            "anim_id": 1,
-            "label": "warrior2___standing_idle",
-            "frame_count": 3,
-            "update_times": [
-                0.0,
-                200.0,
-                700.0,
-                900.0
-            ],
-            "time_length": 900.0,
-            "next_anim_id": 1,
-            "breakable": true,
-            "frame_id": [
-                0,
-                1,
-                2
-            ]
-        },
-        {
-            "anim_id": 2,
-            "label": "warrior2___unarmed_walk_forward",
-            "frame_count": 8,
-            "update_times": [
-                0.0,
-                95.0,
-                190.0,
-                285.0,
-                380.0,
-                475.0,
-                570.0,
-                665.0,
-                760.0
-            ],
-            "time_length": 760.0,
-            "next_anim_id": 1,
-            "breakable": true,
-            "frame_id": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7
-            ]
-        },
-        {
-            "anim_id": 3,
-            "label": "warrior2___standing_taunt_chest_thump",
-            "frame_count": 6,
-            "update_times": [
-                0.0,
-                100.0,
-                200.0,
-                300.0,
-                400.0,
-                500.0,
-                600.0
-            ],
-            "time_length": 600.0,
-            "next_anim_id": 1,
-            "breakable": true,
-            "frame_id": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5
-            ]
-        }
+      {
+          "anim_id": 1,
+          "label": "warrior2___standing_idle",
+          "frame_count": 3,
+          "update_times": [
+              0.0,
+              200.0,
+              700.0,
+              900.0
+          ],
+          "time_length": 900.0,
+          "next_anim_id": 1,
+          "breakable": true,
+          "frame_id": [
+              0,
+              1,
+              2
+          ]
+      },
+      {
+          "anim_id": 2,
+          "label": "warrior2___unarmed_walk_forward",
+          "frame_count": 8,
+          "update_times": [
+              0.0,
+              95.0,
+              190.0,
+              285.0,
+              380.0,
+              475.0,
+              570.0,
+              665.0,
+              760.0
+          ],
+          "time_length": 760.0,
+          "next_anim_id": 1,
+          "breakable": true,
+          "frame_id": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+          ]
+      },
+      {
+          "anim_id": 3,
+          "label": "warrior2___standing_taunt_chest_thump",
+          "frame_count": 6,
+          "update_times": [
+              0.0,
+              100.0,
+              200.0,
+              300.0,
+              400.0,
+              500.0,
+              600.0
+          ],
+          "time_length": 600.0,
+          "next_anim_id": 1,
+          "breakable": true,
+          "frame_id": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+          ]
+      }
   ]
 }
