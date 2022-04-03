@@ -27,15 +27,11 @@
 namespace models 
 {
   phmap::flat_hash_map<int, models::ModelData> models;
-  // Maximum 16 models allowed at the same time. Keeps values unique
-  phmap::flat_hash_set<int> SceneModels;
+  phmap::flat_hash_map<int, int> SceneModels;
 
 
   void init()
   {
-    // Maximum 16 models allowed at the same time
-    models::SceneModels.reserve(16);
-
     std::vector<std::string> model_list = utils::list_json_files("models");
     for(int m=0; m < model_list.size(); m++)
     {
@@ -96,10 +92,10 @@ namespace models
     };
 
     // We generate texture and assign it to texture/model_id. It doesnt have to be the same, but high chance it will
-    glGenTextures(1, &model_id); 
-    glBindTexture(GL_TEXTURE_2D, model_id); 
-    // std::cout << " OpenGL texture/model_id: " << model_id << std::endl;
-
+    unsigned int texture_id;
+    glGenTextures(1, &texture_id); 
+    glBindTexture(GL_TEXTURE_2D, texture_id); 
+ 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);	
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -118,7 +114,7 @@ namespace models
 
     glBindTexture(GL_TEXTURE_2D, 0);
     stbi_image_free(image_data);
-    return model_id;
+    return texture_id;
   };
 
   void _activate_texture(int model_id)
@@ -133,9 +129,9 @@ namespace models
 
   void bind()
   {
-    for(auto m : models::SceneModels) 
+    for(auto const& [model_id, sampler_texture_index] : models::SceneModels)
     {
-      models::_activate_texture(m);
+      models::_activate_texture(model_id);
     } 
   }
 
@@ -144,7 +140,7 @@ namespace models
     // Checks if model is already in the scene, if its not, load it
     const bool model_already_in_use = models::SceneModels.find(model_id) != models::SceneModels.end();
     if(!model_already_in_use){
-      models::SceneModels.insert(model_id);
+      models::SceneModels.insert(std::pair<int, int>(model_id, -1));
       std::cout << "Loaded model ID:" << model_id << " NAME: " << models::models.at(model_id).name << " to the scene" << std::endl;
     }
   };
@@ -159,6 +155,17 @@ namespace models
     }
   }
 
+  void populate_sampler(int* arr)
+  {
+    int sampler_index = 0;
+    arr[sampler_index] = 0;
+    for(auto const& [model_id, sampler_texture_index] : models::SceneModels) 
+    {
+      sampler_index++;
+      arr[sampler_index] = models::models.at(model_id).opengl_texture_id;
+      models::SceneModels[model_id] = sampler_index;
+    } 
+  }
 
   void print_models_data()
   {
@@ -182,6 +189,12 @@ namespace models
         std::cout << "  - Anim: " << v.anim_list[a].anim_id << " " << v.anim_list[a].label << std::endl;
       }
     }
+    std::cout << " Loaded models:" << std::endl;
+    for(auto const& [model_id, sampler_texture_index] : models::SceneModels) 
+    {
+      std::cout << " " << model_id << ";";
+    } 
+    std::cout << std::endl;
   }
 
 

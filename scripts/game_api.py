@@ -46,6 +46,11 @@ funcs = {
                    "args": [],
                    "id": 8},    
 
+  "_print_quads": {"first": "print", 
+                   "second": "quads",
+                   "args": [],
+                   "id": 9},    
+
 }
 
 

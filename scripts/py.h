@@ -49,6 +49,9 @@ namespace scripts
   // Function 8: _print_models
   void _print_models();
 
+  // Function 9: _print_quads
+  void _print_quads();
+
 
 }
 
