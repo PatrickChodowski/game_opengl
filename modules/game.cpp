@@ -30,7 +30,6 @@
 #include "quads.h"
 #include "saves.h"
 #include "shaders.h"
-#include "textures.h"
 #include "travel.h"
 
 #include "../scripts/py.h"
@@ -300,7 +299,7 @@ namespace game
   {
     buffer::drop();
     shaders::drop();
-    textures::drop();
+    models::drop();
     scripts::drop();
   }
 

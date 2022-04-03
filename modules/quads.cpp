@@ -15,7 +15,7 @@
 #include "menu.h"
 #include "models.h"
 #include "quads.h"
-#include "textures.h"
+
 
 #include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dictionary.h"
@@ -65,13 +65,10 @@ namespace quads
     quads::QuadData quad;
     quad.id = (object_type_id+1)*100000 + data.id;
 
-    // TEMPORARY
-    // quad.texture_id = data.texture_id;  
     quad.model_id = model_id;
     quad.texture_id = models::SceneModels.at(model_id);
     //quad.frame_id = data.frame_id;
     quad.frame_id = frame_id;
-
 
     quad.object_id = data.id;
     quad.object_type_id = object_type_id;
@@ -86,12 +83,10 @@ namespace quads
     quad.window_h = data.dims.h;
     quad.window_w = data.dims.w;
 
-    //quad.norm = data.norm;
-    quad.norm = {models::models[model_id].frames_list[0].norm_x_start,
-                 models::models[model_id].frames_list[0].norm_x_end,
-                 models::models[model_id].frames_list[0].norm_y_start,
-                 models::models[model_id].frames_list[0].norm_y_end
-                };
+    quad.norm = {models::models[model_id].frames.at(frame_id).norm_x_start,
+                 models::models[model_id].frames.at(frame_id).norm_x_end,
+                 models::models[model_id].frames.at(frame_id).norm_y_start,
+                 models::models[model_id].frames.at(frame_id).norm_y_end};
 
     quad.is_clicked = data.is_clicked;
     quad.is_deleted = false;

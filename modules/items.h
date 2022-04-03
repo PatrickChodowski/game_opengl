@@ -22,7 +22,7 @@ namespace items
     int height_og;
     int items_frame_id;
     int items_texture_id;
-    int texture_id;
+    int model_id;
     int min_dmg;
     int max_dmg;
     int min_speed;
@@ -35,7 +35,7 @@ namespace items
     std::string type;
 
     JS_OBJ(id, type, joint_id, width_og, 
-           height_og, items_frame_id, items_texture_id, texture_id,
+           height_og, items_frame_id, items_texture_id, model_id,
            min_dmg, max_dmg, min_speed, max_speed, type);
   };
   
@@ -47,7 +47,7 @@ namespace items
     int dmg;  
     int speed;
 
-    int texture_id;
+    int model_id;
     int current_frame;
 
     float x,y;

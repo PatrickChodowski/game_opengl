@@ -4,6 +4,7 @@
 #include "../dictionary.h"
 #include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
+#include "../dependencies/parallel_hashmap/btree.h"
 
 #ifndef MODULES_MODELS_H
 #define MODULES_MODELS_H
@@ -18,6 +19,13 @@ namespace models
     int anim_id;
     int frame_count;
     int next_anim_id;
+    int anim_type_id = ANIM_TYPE_FRAME; // currently default
+
+    // Provided while initializing the animation
+    int entity_id = -1;
+    int CK_ID = -1;
+    int id; // Unique animation id?
+
 
     std::vector<int> frame_id;
     std::vector<int> direction;
@@ -36,6 +44,9 @@ namespace models
 
     std::vector<float> update_times;
     float time_length;
+    float time_elapsed;
+    float next_update_time;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
 
     std::string label;
 
@@ -87,6 +98,11 @@ namespace models
     unsigned int opengl_texture_id;
     std::vector<models::ModelFrameData> frames_list;
     std::vector<models::ModelAnimData> anim_list;
+
+    // Propagated after reading
+    phmap::btree_map<int, models::ModelFrameData> frames;
+    phmap::btree_map<int, models::ModelAnimData> anims;
+
     std::string name;
     JS_OBJ(id, w, h, name, frames_list, anim_list);
   };
@@ -104,11 +120,8 @@ namespace models
   // Refreshes the data
   void refresh();
 
-  // Drops model by its id
-  void drop(int model_id);
-
-  // Render models
-  void render();
+  // Drops models from OpenGL [gldeletetexture]
+  void drop();
 
   // Log model data if needed
   void log();
@@ -136,8 +149,6 @@ namespace models
 
   // Prints out models data
   void print_models_data();
-
-
 
 }
 
