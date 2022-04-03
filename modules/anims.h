@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "textures.h"
+#include "models.h"
 #include "timer.h"
 #include "utils.h"
 
@@ -17,9 +17,9 @@
 namespace anims
 {
   // Catalog of entity_id, Animation - current animations played
-  extern phmap::flat_hash_map<int, textures::Animation> animsplayed;
+  extern phmap::flat_hash_map<int, models::ModelAnimData> animsplayed;
 
-  typedef void (*sig_ptr)(int, textures::Animation&);
+  typedef void (*sig_ptr)(int, models::ModelAnimData&);
   extern phmap::flat_hash_map<int, sig_ptr> AnimsHandler;
 
   // index of animations to delete
@@ -56,16 +56,16 @@ namespace anims
   // Anim handlers:
 
   // Update entity's frame
-  void update_frame(int entity_id, textures::Animation &AD);
+  void update_frame(int entity_id, models::ModelAnimData &AD);
 
   // Update entity's frame and direction
-  void update_frame_direction(int entity_id, textures::Animation &AD);
+  void update_frame_direction(int entity_id, models::ModelAnimData &AD);
 
   // Update entity's frame and position (z)
-  void update_frame_position(int entity_id, textures::Animation &AD);
+  void update_frame_position(int entity_id, models::ModelAnimData &AD);
 
   // Update entity frame, position and direction
-  void update_frame_position_direction(int entity_id, textures::Animation &AD);
+  void update_frame_position_direction(int entity_id, models::ModelAnimData &AD);
 
 }
 

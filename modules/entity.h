@@ -15,7 +15,6 @@ namespace entity
   struct EntityData
   {
     int id;
-    int texture_id;
     int frame_id;
     int event_id;
     int status;
@@ -27,7 +26,6 @@ namespace entity
     quads::Position pos;
     quads::Color color;
     quads::Dims dims;
-    quads::Norm norm;
 
     float prev_x, prev_y;
     float speed;

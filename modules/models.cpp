@@ -48,22 +48,30 @@ namespace models
     JS::ParseContext context(json_data);
     context.allow_missing_members = true;
     context.parseTo(MD);
+
+    // propagate MD.frames(map) from frames_list(vector)
+    for(int f=0; f < MD.frames_list.size(); f++)
+    {
+      MD.frames.insert({MD.frames_list[f].frame_id, MD.frames_list[f]});
+    }
+    // Later will clean it
+    // MD.frames_list.clear();
+
+
+    // propagate TD.anims(map) from anims_list(vector)
+    for(int a=0; a < MD.anim_list.size(); a++)
+    {
+      MD.anims.insert({MD.anim_list[a].anim_id, MD.anim_list[a]});
+    }
+    // Later will clean it
+    // MD.anim_list.clear();
+
     models::models.insert(std::pair<int, models::ModelData>{MD.id, MD});
     unsigned int opengl_texture_id = models::_load_texture_to_opengl(MD.id, MD.w, MD.h, 4);
     models::models.at(MD.id).opengl_texture_id = opengl_texture_id;
   }
 
   void refresh()
-  {
-
-  }
-
-  void drop(int model_id)
-  {
-
-  }
-
-  void render()
   {
 
   }
@@ -166,6 +174,14 @@ namespace models
       models::SceneModels[model_id] = sampler_index;
     } 
   }
+
+  void drop()
+  {
+    for(auto const& [model_id, model_data] : models::models) 
+    {
+      glDeleteTextures(1, &model_data.opengl_texture_id);
+    } 
+  };
 
   void print_models_data()
   {

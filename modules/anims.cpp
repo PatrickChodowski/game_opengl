@@ -3,8 +3,8 @@
 
 #include "anims.h"
 #include "entity.h"
+#include "models.h"
 #include "utils.h"
-#include "textures.h"
 #include "timer.h"
 
 #include "../dictionary.h"
@@ -13,7 +13,7 @@
 
 namespace anims
 {
-  phmap::flat_hash_map<int, textures::Animation> animsplayed;
+  phmap::flat_hash_map<int, models::ModelAnimData> animsplayed;
   phmap::flat_hash_map<int, sig_ptr> AnimsHandler;
   std::vector<int> anims_to_stop;
 
@@ -39,7 +39,7 @@ namespace anims
   void start(int anim_id, int entity_id)
   {
     // Check if given entity's texture has this animation id available in the first place
-    if(textures::textures[entity::entities[entity_id].texture_id].anims.count(anim_id) > 0)
+    if(models::models[entity::entities[entity_id].model_id].anims.count(anim_id) > 0)
     {
       if((!_check_if_entity_in_anim(entity_id)) || 
         (anims::_check_if_entity_in_anim(entity_id) & 
@@ -47,7 +47,7 @@ namespace anims
                 anims::animsplayed[entity_id].breakable))
       {
         //std::cout << "Starting animation: " << anim_id << " for entity: " << entity_id << std::endl;
-        textures::Animation AD  = textures::textures[entity::entities[entity_id].texture_id].anims[anim_id];
+        models::ModelAnimData AD  = models::models[entity::entities[entity_id].model_id].anims[anim_id];
         AD.id = anim_id;
         AD.entity_id = entity_id;
         AD.time_elapsed = 0.0f;
@@ -126,30 +126,26 @@ namespace anims
 
   // Anim handlers:
 
-  void update_frame(int entity_id, textures::Animation &AD)
+  void update_frame(int entity_id, models::ModelAnimData &AD)
   {
-    int texture_id = entity::entities.at(entity_id).texture_id;
+    int model_id = entity::entities.at(entity_id).model_id;
     int frame_id = AD.frame_id[AD.CK_ID];
     entity::entities.at(entity_id).frame_id = frame_id;
-    entity::entities.at(entity_id).norm.x_start = textures::_get_normalized_frame_x_start(texture_id, frame_id);
-    entity::entities.at(entity_id).norm.x_end = textures::_get_normalized_frame_x_end(texture_id, frame_id);
-    entity::entities.at(entity_id).norm.y_start = textures::_get_normalized_frame_y_start(texture_id, frame_id);
-    entity::entities.at(entity_id).norm.y_end = textures::_get_normalized_frame_y_end(texture_id, frame_id);
   }
 
-  void update_frame_direction(int entity_id, textures::Animation &AD)
+  void update_frame_direction(int entity_id, models::ModelAnimData &AD)
   {
     anims::update_frame(entity_id, AD);
     entity::entities.at(entity_id).is_reversed = AD.direction[AD.CK_ID];
   }
 
-  void update_frame_position(int entity_id, textures::Animation &AD)
+  void update_frame_position(int entity_id, models::ModelAnimData &AD)
   {
     anims::update_frame(entity_id, AD);
     entity::entities.at(entity_id).pos.z = AD.z[AD.CK_ID];
   }
 
-  void update_frame_position_direction(int entity_id, textures::Animation &AD)
+  void update_frame_position_direction(int entity_id, models::ModelAnimData &AD)
   {
     anims::update_frame(entity_id, AD);
     entity::entities.at(entity_id).pos.z = AD.z[AD.CK_ID];

@@ -4,7 +4,6 @@
 #include "models.h"
 #include "game.h"
 #include "quads.h"
-#include "textures.h"
 #include "timer.h"
 #include "utils.h"
 
@@ -141,7 +140,6 @@ namespace logger
     {
       models::log();
       // quads::log();
-      // textures::log();
       // debug::log();
     }
   };

@@ -13,7 +13,6 @@
 #include "models.h"
 #include "npcs.h"
 #include "quads.h"
-#include "textures.h"
 #include "utils.h"
 
 #include "../dependencies/parallel_hashmap/phmap.h"
@@ -50,7 +49,7 @@ namespace entity
       edd.id = entity_id;
     }
 
-    edd.texture_id = data.texture_id;
+    edd.model_id = data.model_id;
     edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
     edd.pos.x = data.x;
@@ -73,11 +72,6 @@ namespace entity
 
     edd.is_clicked = false;
     edd.speed = data.speed;
-
-    edd.norm.x_start = textures::_get_normalized_frame_x_start(edd.texture_id, edd.frame_id);
-    edd.norm.x_end = textures::_get_normalized_frame_x_end(edd.texture_id, edd.frame_id);
-    edd.norm.y_start = textures::_get_normalized_frame_y_start(edd.texture_id, edd.frame_id);
-    edd.norm.y_end = textures::_get_normalized_frame_y_end(edd.texture_id,edd.frame_id);
 
     edd.color.r = 0.5;
     edd.color.g = 0.5;
@@ -154,7 +148,7 @@ namespace entity
     {
       std::cout << "Entity ID: " << k 
                 << " pos: (" << v.pos.x << ',' << v.pos.y 
-                << ") texture_id: " << v.texture_id 
+                << ") model_id: " << v.model_id 
                 << " entity_type_id: " << v.entity_type_id
                 << std::endl;
     }

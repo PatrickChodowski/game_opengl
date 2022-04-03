@@ -62,7 +62,7 @@ python3 app.py
 
 ## todo list:
 
-### Print textures
+### Adjust animations to use models instead of textures
 
 
 ### Models
