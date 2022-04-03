@@ -19,6 +19,7 @@ namespace buttons
     int label_id;
     int button_function_id;
     int texture_id = -1;
+    int model_id = -1;
     int frame_id = -1;
     int menu_id; // menu that the button belongs to
     

@@ -250,15 +250,22 @@ namespace game
     glClear(GL_COLOR_BUFFER_BIT);
     glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
 
-    // sampler array creation
-    int sampler_size = (textures::BoundTextures.size() + 1);
+    // // sampler array creation
+    // int sampler_size = (textures::BoundTextures.size() + 1);
+    // int sampler[sampler_size]; 
+    // sampler[0] = 0;
+    // for (int i = 0; i < textures::BoundTextures.size(); i++)
+    // {
+    //   sampler[(i+1)] = textures::BoundTextures[i];
+    // } 
+
+    int sampler_size = (models::SceneModels.size() + 1);
     int sampler[sampler_size]; 
     sampler[0] = 0;
-    for (int i = 0; i < textures::BoundTextures.size(); i++)
+    for(auto m : models::SceneModels) 
     {
-      sampler[(i+1)] = textures::BoundTextures[i];
+      sampler[m] = m;
     } 
-
     // react to camera changes
     camera::DYNAMIC_MVP = camera::gen_dynamic_mvp(-camera::cam.x, camera::cam.y, camera::cam.zoom);
 
