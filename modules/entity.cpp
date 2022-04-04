@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "anims.h"
 #include "entity.h"
 #include "fonts.h"
 #include "hero.h"
@@ -50,7 +51,7 @@ namespace entity
     }
 
     edd.model_id = data.model_id;
-    edd.frame_id = data.current_frame;
+    // edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
     edd.pos.x = data.x;
     edd.pos.y = data.y;
@@ -78,12 +79,13 @@ namespace entity
     edd.color.b = 0.5;
     edd.color.a = 1.0;
 
-    // model: TEMP solution. TODO make model display the character frames, not old version
-    edd.model_id = 2;
     models::load(edd.model_id);
 
     entity::entities[edd.id] = edd;
     std::cout << "Created Entity ID: " <<  edd.id << " of type: " << edd.entity_type_id << std::endl; 
+
+    // Trigger idle animation
+    anims::start(ANIM_STANDING_IDLE, edd.id);
     return edd.id;
   }
 

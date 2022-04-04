@@ -38,29 +38,31 @@ namespace events
     camera::cam.move_x = 0;
     camera::cam.move_y = 0;
 
+    // TODO: NEED SIDE_ID UPDATE
+
     if(game::KEYBOARD[SDL_SCANCODE_LEFT])
     {
       camera::cam.move_x -= hero::hero.speed;
-      anims::start(ANIM_MOVE_LEFT, hero::hero.entity_id);
-      hero::animate_items(ANIM_MOVE_LEFT);
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      //hero::animate_items(ANIM_MOVE_LEFT);
     } 
     else if(game::KEYBOARD[SDL_SCANCODE_RIGHT])
     {
       camera::cam.move_x += hero::hero.speed;
-      anims::start(ANIM_MOVE_RIGHT, hero::hero.entity_id);
-      hero::animate_items(ANIM_MOVE_RIGHT);
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      //hero::animate_items(ANIM_MOVE_RIGHT);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_UP])
     {
       camera::cam.move_y += hero::hero.speed;
-      anims::start(ANIM_MOVE_UP, hero::hero.entity_id);
-      hero::animate_items(ANIM_MOVE_UP);
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      //hero::animate_items(ANIM_MOVE_UP);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_DOWN])
     {
       camera::cam.move_y -= hero::hero.speed;
-      anims::start(ANIM_MOVE_DOWN, hero::hero.entity_id);
-      hero::animate_items(ANIM_MOVE_DOWN);
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      //hero::animate_items(ANIM_MOVE_DOWN);
     } else 
     {
       //anims::start(ANIM_IDLE, hero::hero.entity_id);

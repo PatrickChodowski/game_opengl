@@ -58,17 +58,12 @@ namespace quads
   template <typename T>
   int make_quad(T& data, int object_type_id)
   { 
-    // TEMPORARY
-    int model_id = 2;
-    int frame_id = 10100;
-
     quads::QuadData quad;
     quad.id = (object_type_id+1)*100000 + data.id;
 
-    quad.model_id = model_id;
-    quad.texture_id = models::SceneModels.at(model_id);
-    //quad.frame_id = data.frame_id;
-    quad.frame_id = frame_id;
+    quad.model_id = data.model_id;
+    quad.texture_id = models::SceneModels.at(quad.model_id);
+    quad.frame_id = data.frame_id;
 
     quad.object_id = data.id;
     quad.object_type_id = object_type_id;
@@ -83,10 +78,10 @@ namespace quads
     quad.window_h = data.dims.h;
     quad.window_w = data.dims.w;
 
-    quad.norm = {models::models[model_id].frames.at(frame_id).norm_x_start,
-                 models::models[model_id].frames.at(frame_id).norm_x_end,
-                 models::models[model_id].frames.at(frame_id).norm_y_start,
-                 models::models[model_id].frames.at(frame_id).norm_y_end};
+    quad.norm = {models::models[quad.model_id].frames.at(quad.frame_id).norm_x_start,
+                 models::models[quad.model_id].frames.at(quad.frame_id).norm_x_end,
+                 models::models[quad.model_id].frames.at(quad.frame_id).norm_y_start,
+                 models::models[quad.model_id].frames.at(quad.frame_id).norm_y_end};
 
     quad.is_clicked = data.is_clicked;
     quad.is_deleted = false;

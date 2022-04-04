@@ -25,7 +25,7 @@ namespace saves
     float def;
 
     int scene_id;
-    int texture_id;
+    int model_id;
     int level;
     int mobs_killed;
 
@@ -36,7 +36,7 @@ namespace saves
     std::vector<npcs::InteractionData> interactions;
 
 
-    JS_OBJ(x, y, w, h, exp, speed, hp, dmg, def, scene_id, texture_id, 
+    JS_OBJ(x, y, w, h, exp, speed, hp, dmg, def, scene_id, model_id, 
     level, mobs_killed, name, type, interactions);
   };
 

@@ -237,6 +237,14 @@ namespace game
     fonts::render();
     nav::render();
 
+    // HOW? Animation before the entity creation???
+//     Loaded model ID:2 NAME: warrior2 to the scene
+//  Initializing animation for entity: 1
+//  model id: 0
+// Created Entity ID: 1 of type: 2
+//     HERO  entity id: 1
+
+
     int sampler_size = (models::SceneModels.size() + 1);
     int sampler[sampler_size]; 
     models::populate_sampler(sampler);

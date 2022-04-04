@@ -39,7 +39,7 @@ namespace saves
     sd.scene_id = game::SCENE_ID;
     sd.name = hero::hero.name;
     sd.type = hero::hero.type;
-    sd.texture_id = hero::hero.texture_id;
+    sd.model_id = hero::hero.model_id;
     sd.level = hero::hero.level;
     sd.exp = hero::hero.exp;
     sd.speed = hero::hero.speed;
@@ -71,7 +71,7 @@ namespace saves
     SaveData SD = saves::read_save_data(name);
     hero::hero.h = SD.h;
     hero::hero.w = SD.w;
-    hero::hero.texture_id = SD.texture_id;
+    hero::hero.model_id = SD.model_id;
     hero::hero.name = SD.name;
     hero::hero.type = SD.type;
     hero::hero.speed = SD.speed;
