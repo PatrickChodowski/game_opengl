@@ -41,7 +41,6 @@ namespace hero
 
     // display information
     int current_movement_state;
-    int texture_id;
     int model_id;
     int level;
     int mobs_killed;
@@ -60,7 +59,7 @@ namespace hero
     std::string name;
     std::string type;
 
-    JS_OBJ(w, h, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, equipped_items, name, type);
+    JS_OBJ(w, h, model_id, level, exp, speed, hp, dmg, def, mobs_killed, equipped_items, name, type);
   }; 
 
   extern hero::HeroData hero;

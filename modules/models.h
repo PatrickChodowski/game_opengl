@@ -18,7 +18,7 @@ namespace models
 
     int anim_id;
     int frame_count;
-    int next_anim_id;
+    int next_anim_id = ANIM_STANDING_IDLE;
     int anim_type_id = ANIM_TYPE_FRAME; // currently default
 
     // Provided while initializing the animation

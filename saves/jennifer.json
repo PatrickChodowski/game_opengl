@@ -9,7 +9,7 @@
     "dmg" : 20.0,
     "def" : 100.0,
     "scene_id" : 4,
-    "texture_id" : 2,
+    "model_id" : 2,
     "level" : 1,
     "mobs_killed" : 0,
     "name" : "jennifer",

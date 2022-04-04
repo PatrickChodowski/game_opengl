@@ -1,7 +1,7 @@
 {
   "w" : 70,
   "h" : 70,
-  "texture_id" : 2,
+  "model_id": 2,
   "level" : 1,
   "exp" : 0,
   "speed" : 8,

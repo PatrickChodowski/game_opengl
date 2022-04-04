@@ -114,16 +114,6 @@
 #define ANIM_TYPE_SIZE 3
 #define ANIM_TYPE_FRAME_POSITION 4
 
-// [OLD] Animation collection 
-#define ANIM_MOVE_LEFT 1
-#define ANIM_MOVE_RIGHT 2
-#define ANIM_MOVE_UP 3
-#define ANIM_MOVE_DOWN 4
-#define ANIM_IDLE_LEFT 5
-#define ANIM_IDLE_RIGHT 6
-#define ANIM_IDLE_UP 7
-#define ANIM_IDLE_DOWN 8
-
 // Animation Side Index
 #define ANIM_SIDE_FRONT 1
 #define ANIM_SIDE_BACK 2

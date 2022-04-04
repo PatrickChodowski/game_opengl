@@ -7,7 +7,6 @@
 #include "game.h"
 #include "hero.h"
 #include "items.h"
-#include "textures.h"
 
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
@@ -34,9 +33,6 @@ namespace hero
     hero::hero.name = name;
     hero::hero.type = type;
 
-    // Warrior2 for now
-    hero::hero.model_id = 2;
-
     hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
     std::cout << "    HERO  entity id: " << hero::hero.entity_id << std::endl;
   };
@@ -58,8 +54,8 @@ namespace hero
   void _update_joints()
   {
     // temporarily just fixed point
-    hero::hero.hand_x = hero::hero.x + textures::textures[hero::hero.texture_id].frames[entity::entities.at(hero::hero.entity_id).frame_id].hand_x;
-    hero::hero.hand_y = hero::hero.y + textures::textures[hero::hero.texture_id].frames[entity::entities.at(hero::hero.entity_id).frame_id].hand_y;
+    hero::hero.hand_x = hero::hero.x + models::models[hero::hero.model_id].frames[entity::entities.at(hero::hero.entity_id).frame_id].right_hand_x;
+    hero::hero.hand_y = hero::hero.y + models::models[hero::hero.model_id].frames[entity::entities.at(hero::hero.entity_id).frame_id].right_hand_y;
 
     if(game::IS_DEBUG_MODE)
     {
@@ -69,16 +65,16 @@ namespace hero
     {
 
       float item_w_scale = items::items[items::EquippedItems[hero::hero.in_hand_entity_id].item_id].width_og/
-      textures::textures[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].w;
+      models::models[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].w;
 
       float item_h_scale = items::items[items::EquippedItems[hero::hero.in_hand_entity_id].item_id].height_og/
-      textures::textures[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].h;
+      models::models[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].h;
 
       // XD nice clean code
-      float hook_x = textures::textures[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].hook_x 
+      float hook_x = models::models[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].hook_x 
       * item_w_scale;
 
-      float hook_y = textures::textures[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].hook_y 
+      float hook_y = models::models[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].hook_y 
       * item_h_scale;
 
       items::EquippedItems[hero::hero.in_hand_entity_id].x = hero::hero.hand_x - hook_x;
