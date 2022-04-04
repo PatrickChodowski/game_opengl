@@ -26,9 +26,7 @@ namespace models
     int CK_ID = -1;
     int id; // Unique animation id?
 
-
     std::vector<int> frame_id;
-    std::vector<int> direction;
     // color
     std::vector<float> r;
     std::vector<float> g;
@@ -51,7 +49,7 @@ namespace models
     std::string label;
 
     JS_OBJ(breakable, anim_id, frame_count, next_anim_id,
-    frame_id, direction, r, g, b, a, w, h, x, y, z, update_times, time_length, 
+    frame_id, r, g, b, a, w, h, x, y, z, update_times, time_length, 
     label);
 
   };

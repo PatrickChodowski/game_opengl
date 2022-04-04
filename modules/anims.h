@@ -58,14 +58,8 @@ namespace anims
   // Update entity's frame
   void update_frame(int entity_id, models::ModelAnimData &AD);
 
-  // Update entity's frame and direction
-  void update_frame_direction(int entity_id, models::ModelAnimData &AD);
-
   // Update entity's frame and position (z)
   void update_frame_position(int entity_id, models::ModelAnimData &AD);
-
-  // Update entity frame, position and direction
-  void update_frame_position_direction(int entity_id, models::ModelAnimData &AD);
 
 }
 
