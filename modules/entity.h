@@ -1,6 +1,7 @@
 #include "quads.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
+#include "../dictionary.h"
 #include <string>
 #include <vector>
 
@@ -21,7 +22,7 @@ namespace entity
     int entity_type_id;
     int menu_id;
     int model_id;
-    int direction_id;
+    int side_id = ANIM_SIDE_FRONT;
 
     quads::Position pos;
     quads::Color color;

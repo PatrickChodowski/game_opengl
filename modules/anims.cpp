@@ -20,9 +20,7 @@ namespace anims
   void init()
   {
     anims::AnimsHandler[ANIM_TYPE_FRAME] = anims::update_frame;
-    anims::AnimsHandler[ANIM_TYPE_FRAME_DIRECTION] = anims::update_frame_direction;
     anims::AnimsHandler[ANIM_TYPE_FRAME_POSITION] = anims::update_frame_position;
-    anims::AnimsHandler[ANIM_TYPE_FRAME_POSITION_DIRECTION] = anims::update_frame_position_direction;
   }
 
 
@@ -129,14 +127,14 @@ namespace anims
   void update_frame(int entity_id, models::ModelAnimData &AD)
   {
     int model_id = entity::entities.at(entity_id).model_id;
-    int frame_id = AD.frame_id[AD.CK_ID];
-    entity::entities.at(entity_id).frame_id = frame_id;
-  }
+    int side_id = entity::entities.at(entity_id).side_id;
 
-  void update_frame_direction(int entity_id, models::ModelAnimData &AD)
-  {
-    anims::update_frame(entity_id, AD);
-    entity::entities.at(entity_id).is_reversed = AD.direction[AD.CK_ID];
+    // Frame ID formula
+    // Final frame_id = ANIM_ID*10000 + SIDE_ID*100 + FRAME_ID
+    // frame_id = self.id*10000 + side_id*100 + img_data.frame_index
+
+    int frame_id = AD.anim_id*10000 + entity::entities.at(entity_id).side_id*100 + AD.frame_id[AD.CK_ID];
+    entity::entities.at(entity_id).frame_id = frame_id;
   }
 
   void update_frame_position(int entity_id, models::ModelAnimData &AD)
@@ -144,14 +142,6 @@ namespace anims
     anims::update_frame(entity_id, AD);
     entity::entities.at(entity_id).pos.z = AD.z[AD.CK_ID];
   }
-
-  void update_frame_position_direction(int entity_id, models::ModelAnimData &AD)
-  {
-    anims::update_frame(entity_id, AD);
-    entity::entities.at(entity_id).pos.z = AD.z[AD.CK_ID];
-    entity::entities.at(entity_id).is_reversed = AD.direction[AD.CK_ID];
-  }
-
 
 
 }
