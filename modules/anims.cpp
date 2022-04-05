@@ -36,20 +36,15 @@ namespace anims
 
   void start(int anim_id, int entity_id)
   { 
-    
-    std::cout << " Initializing animation for entity: " << entity_id << std::endl;
-    std::cout << " model id: " << entity::entities[entity_id].model_id << std::endl;
 
     // Check if given entity's texture has this animation id available in the first place
     if(models::models[entity::entities[entity_id].model_id].anims.count(anim_id) > 0)
     {
-      std::cout << "here?" << std::endl;
-      if((!_check_if_entity_in_anim(entity_id)) || 
+      if((!anims::_check_if_entity_in_anim(entity_id)) || 
         (anims::_check_if_entity_in_anim(entity_id) & 
                 !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
                 anims::animsplayed[entity_id].breakable))
       {
-        std::cout << "  Starting animation for entity: " << entity_id << std::endl;
         models::ModelAnimData AD  = models::models[entity::entities[entity_id].model_id].anims[anim_id];
         AD.id = anim_id;
         AD.entity_id = entity_id;
@@ -58,7 +53,6 @@ namespace anims
         AD.next_update_time = AD.update_times[1];
         AD.start_time = timer::get_current_hrc_time();
         anims::animsplayed[entity_id] = AD;
-        //std::cout << " anim type id: " << AD.anim_type_id << std::endl;
         anims::AnimsHandler[AD.anim_type_id](entity_id, AD);
       }
     }
@@ -66,7 +60,8 @@ namespace anims
 
   void play(int entity_id)
   { 
-    anims::animsplayed[entity_id].time_elapsed = timer::get_elapsed_time(anims::animsplayed[entity_id].start_time);
+    //std::cout << "playing animation for " << entity_id << std::endl;
+    anims::animsplayed[entity_id].time_elapsed = timer::get_elapsed_time_ms(anims::animsplayed[entity_id].start_time);  
 
     // Update frame if its passed the next time threshold and is under animation time
     if(anims::animsplayed[entity_id].time_elapsed >= anims::animsplayed[entity_id].next_update_time & 

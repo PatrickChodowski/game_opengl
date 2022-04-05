@@ -42,7 +42,7 @@ namespace models
 
     std::vector<float> update_times;
     float time_length;
-    float time_elapsed;
+    float time_elapsed; // time elapsed in miliseconds
     float next_update_time;
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
 

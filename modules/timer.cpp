@@ -24,6 +24,14 @@ namespace timer
     return elapsed_time;
   }
 
+  float get_elapsed_time_ms(std::chrono::time_point<std::chrono::high_resolution_clock> start_time)
+  {
+    std::chrono::time_point<std::chrono::high_resolution_clock> end = timer::get_current_hrc_time();
+    std::chrono::duration<double> elapsed_seconds = end-start_time;
+    float elapsed_time = elapsed_seconds.count()*1000;
+    return elapsed_time;
+  }
+
   void print_elapsed_time(std::chrono::time_point<std::chrono::high_resolution_clock> start_time, 
                           std::string message)
   {
