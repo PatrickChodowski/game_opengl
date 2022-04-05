@@ -52,6 +52,9 @@ namespace anims
   // Runs the single animation from animsplayed
   void play(int entity_id);
 
+  // Adds next_anim_id to particular animation played. Will start after the current animation is finished
+  void start_delayed(int anim_id, int entity_id);
+
 
   // Anim handlers:
 

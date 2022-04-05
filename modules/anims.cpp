@@ -36,8 +36,7 @@ namespace anims
 
   void start(int anim_id, int entity_id)
   { 
-
-    // Check if given entity's texture has this animation id available in the first place
+    // Check if given entity's model has this animation id available in the first place
     if(models::models[entity::entities[entity_id].model_id].anims.count(anim_id) > 0)
     {
       if((!anims::_check_if_entity_in_anim(entity_id)) || 
@@ -90,12 +89,29 @@ namespace anims
     for(int a=0; a<anims::anims_to_stop.size(); a++)
     {
       int entity_id = anims::anims_to_stop[a];
-      int next_anim_id = anims::animsplayed[entity_id].next_anim_id;
+      int next_anim_id = anims::animsplayed.at(entity_id).next_anim_id;
       anims::drop(entity_id);
-      anims::start(next_anim_id, entity_id);
-    }
 
+      if(next_anim_id > -1){
+        anims::start(next_anim_id, entity_id);
+      }
+    }
   };
+
+
+  void start_delayed(int anim_id, int entity_id)
+  {
+    // Check if given entity's model has this animation id available in the first place
+    if(models::models[entity::entities[entity_id].model_id].anims.count(anim_id) > 0)
+    {
+      if(anims::_check_if_entity_in_anim(entity_id))
+      {
+        anims::animsplayed.at(entity_id).next_anim_id = anim_id;
+      }
+    }
+  }
+
+
 
   bool _check_if_entity_in_anim(int entity_id)
   {
