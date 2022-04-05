@@ -857,7 +857,7 @@
                 760.0
             ],
             "time_length": 760.0,
-            "next_anim_id": 1,
+            "next_anim_id": -1,
             "breakable": true,
             "frame_id": [
                 0,
@@ -884,7 +884,7 @@
                 600.0
             ],
             "time_length": 600.0,
-            "next_anim_id": 1,
+            "next_anim_id": -1,
             "breakable": true,
             "frame_id": [
                 0,

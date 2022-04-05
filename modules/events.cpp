@@ -166,6 +166,20 @@ namespace events
             break;
           }
         break;
+
+        case SDL_KEYUP:
+
+          // Only when the key is released?
+          switch (event.key.keysym.sym)
+          {
+            case SDLK_LEFT:
+            case SDLK_RIGHT:
+            case SDLK_UP:
+            case SDLK_DOWN:
+              anims::start(ANIM_STANDING_IDLE, hero::hero.entity_id);
+            break;
+          }
+        break;
       }
     }
     _scan_for_camera_move();
