@@ -1,8 +1,8 @@
 
 #include <string>
 
+#include "models.h"
 #include "quads.h"
-#include "textures.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_FONTS_H
@@ -13,7 +13,7 @@ namespace fonts
   
   struct CharacterData 
   {
-    int texture_id;
+    int model_id;
     int frame_id;
 
     float advance_x;
@@ -30,7 +30,6 @@ namespace fonts
   struct TextData
   {
     int id;
-    int texture_id;
     int model_id;
     int frame_id;
 
@@ -38,7 +37,7 @@ namespace fonts
     quads::Position pos;
     quads::Dims dims;
     quads::Norm norm;
-  
+
     float camera_type;
     float char_width;
     float char_height;
@@ -79,7 +78,7 @@ namespace fonts
   extern phmap::flat_hash_map<int, LabelData> labels;
 
   // Font's texture data 
-  extern textures::TextureData FontTDD;
+  extern models::ModelData FontTDD;
 
   // ID of the label for new game name input
   extern int NEW_GAME_LABEL_ID;

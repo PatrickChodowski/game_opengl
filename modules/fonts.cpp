@@ -1,6 +1,6 @@
 
 #include "fonts.h"
-#include "textures.h"
+#include "models.h"
 #include "utils.h"
 
 #include <iostream>
@@ -29,26 +29,18 @@
 
 namespace fonts
 {
+  unsigned int FONT_MODEL_ID = 1;
+
   phmap::flat_hash_map<char, CharacterData> chars = {};
   phmap::flat_hash_map<int, TextData> texts = {};
   phmap::flat_hash_map<int, LabelData> labels;
   std::vector<int> TextIndex = {};
   std::vector<int> LabelIndex = {};
-  textures::TextureData FontTDD;
+  models::ModelData FontTDD;
   int NEW_GAME_LABEL_ID = 0;
 
   void init(std::string font_name)
   {
-    /*
-      Init opens font file .ttf and reads-in all character glyphs into character map and texture that will be later sent to OpenGL 
-
-      :params:
-      font_name: Font name (filename from ./fonts)
-
-      :returns:
-      textures::TextureData  Font Texture Data containing atlas parameters and texture id
-    */
-
     // initialize library
     FT_Face face;
     FT_Library ft;
@@ -94,9 +86,8 @@ namespace fonts
 
 
     // Generate texture - adds new texture id, based on what was generated before
-    GLuint texture_id;
-    glGenTextures(1, &texture_id);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
+    glGenTextures(1, &FONT_MODEL_ID);
+    glBindTexture(GL_TEXTURE_2D, FONT_MODEL_ID);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
       
     //std::cout << "Font texture ID: " << texture_id << std::endl;  
@@ -136,7 +127,7 @@ namespace fonts
       character.align = g->bitmap.rows - g->bitmap_top;
       character.offset = ((float)x/ (float)atlas_width);
       character.frame_id = c_id;
-      character.texture_id = (int)texture_id;
+      character.model_id = FONT_MODEL_ID;
       chars.insert(std::pair<GLchar, fonts::CharacterData>(i, character));
 
       //GLchar test_i = i;
@@ -150,17 +141,18 @@ namespace fonts
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
 
-    textures::TextureData TD;
-    TD.id = texture_id;
-    TD.type = "font";
-    TD.name = "font";
-    TD.w = atlas_width;
-    TD.h = atlas_height;
-    TD.opengl_texture_id = texture_id;
+    // Adjust for models
+    // Font texture sort of another model
 
-    fonts::FontTDD = TD;
-    textures::textures[texture_id] = TD;
-    textures::BoundTextures.push_back(TD.opengl_texture_id);
+    models::ModelData MD;
+    MD.id = FONT_MODEL_ID;
+    MD.name = "font";
+    MD.w = atlas_width;
+    MD.h = atlas_height;
+    MD.opengl_texture_id = FONT_MODEL_ID;
+
+    models::models.insert(std::pair<int, models::ModelData>{FONT_MODEL_ID, MD});
+    models::SceneModels.insert(std::pair<int, int>{FONT_MODEL_ID, FONT_MODEL_ID});
 
     std::cout << "Fonts Initialized" << std::endl;
   };
@@ -190,7 +182,7 @@ namespace fonts
     { 
       fonts::TextData tdd;
       tdd.id = utils::generate_id(fonts::TextIndex);
-      tdd.texture_id = chars[*p].texture_id;
+      tdd.model_id = chars[*p].model_id;
       tdd.frame_id = chars[*p].frame_id;
 
       tdd.pos.x = x + chars[*p].bitmap_left * ldd.scale;
