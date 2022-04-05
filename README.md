@@ -62,7 +62,7 @@ python3 app.py
 
 ## todo list:
 
-### Animations -> next_anim_id vs idle, it has to be different, currently it inserts one idle frame when walking
+### Animations -> make sure the looped animations are looped (checking if next anim id is the same as current one? skip first frame if so?)
 ### Zooming in -> analyse how to zoom in on specific point 
 ### Adjust maps to work with models/animations/frames. I want some part of map to be animated (just in case) but no point in keeping idle animation for each tile
 

@@ -876,16 +876,16 @@
             "frame_count": 6,
             "update_times": [
                 0.0,
+                50.0,
                 100.0,
                 200.0,
                 300.0,
-                400.0,
-                500.0,
-                600.0
+                350.0,
+                400.0
             ],
-            "time_length": 600.0,
+            "time_length": 400.0,
             "next_anim_id": -1,
-            "breakable": true,
+            "breakable": false,
             "frame_id": [
                 0,
                 1,

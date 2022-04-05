@@ -14,7 +14,6 @@ namespace maps
   struct TileData
   {
     int id;
-    int texture_id;
     int frame_id;
     int camera_type;
     int model_id;
@@ -26,13 +25,11 @@ namespace maps
     quads::Position pos;
     quads::Color color;
     quads::Dims dims;
-    quads::Norm norm;
     // collision boxes
     phmap::flat_hash_map<int, collisions::AABB> abs;
 
     bool is_clicked;
     bool is_solid;
-    bool is_reversed = false;
 
   };
 
@@ -74,7 +71,6 @@ namespace maps
     int id;
     int vertex_width;
     int vertex_height;
-    int texture_id;
     int model_id;
     int default_player_x;
     int default_player_y;
@@ -83,7 +79,7 @@ namespace maps
     std::vector<MapNPCData> npcs;
     std::string name;
 
-    JS_OBJ(id, name, vertex_width, vertex_height, texture_id, model_id, default_player_x, default_player_y, doors, nests, npcs);
+    JS_OBJ(id, name, vertex_width, vertex_height, model_id, default_player_x, default_player_y, doors, nests, npcs);
   };
 
   extern float default_tile_width;
@@ -96,7 +92,7 @@ namespace maps
   extern phmap::flat_hash_map<int, maps::TileData> tiles;
 
   // Generate single tile out of position, texture_id and frame_id
-  maps::TileData generate_tile(float x, float y, int texture_id, int frame_id);
+  maps::TileData generate_tile(float x, float y, int model_id, int frame_id);
 
   // Reads json data by map name and stores it inside maps::maps
   void read_map_data(std::string name);

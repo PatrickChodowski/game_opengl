@@ -10,7 +10,6 @@
 #include "navmesh.h"
 #include "pathfinder.h"
 #include "quads.h"
-#include "textures.h"
 #include "utils.h"
 #include "../dictionary.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
@@ -48,7 +47,7 @@ namespace maps
   }
 
 
-  maps::TileData generate_tile(float x, float y, int texture_id, int frame_id)
+  maps::TileData generate_tile(float x, float y, int model_id, int frame_id)
   {
     maps::TileData tile;
     tile.pos.x = x;
@@ -58,7 +57,7 @@ namespace maps
     tile.dims.h = maps::default_tile_height;
     tile.diag = std::sqrt(std::pow((tile.dims.w/2),2) + std::pow((tile.dims.h/2),2));
     tile.frame_id = frame_id;
-    tile.texture_id = texture_id;
+    tile.model_id = model_id;
     tile.camera_type = CAMERA_DYNAMIC;
     tile.is_clicked = false;
     tile.is_solid = false;
@@ -67,11 +66,6 @@ namespace maps
     tile.color.g = 0.5f;
     tile.color.b = 0.5f;
     tile.color.a = 1.0f;
-
-    tile.norm.x_start = textures::_get_normalized_frame_x_start(tile.texture_id, tile.frame_id);
-    tile.norm.x_end = textures::_get_normalized_frame_x_end(tile.texture_id, tile.frame_id);
-    tile.norm.y_start = textures::_get_normalized_frame_y_start(tile.texture_id, tile.frame_id);
-    tile.norm.y_end = textures::_get_normalized_frame_y_end(tile.texture_id, tile.frame_id);
 
     // if frame_id is between 10 and 20, then its solid (11-19)
     if(tile.frame_id > 10 && tile.frame_id < 20)
@@ -88,7 +82,7 @@ namespace maps
     std::ifstream in_file;
     in_file.open(file_path.c_str());
     int n_tiles =  maps::maps[map_id].vertex_width*maps::maps[map_id].vertex_height;
-    int texture_id = maps::maps[map_id].texture_id;
+    int model_id = maps::maps[map_id].model_id;
 
     int tile_id = 0;
     //std::cout << "tile count: " << n_tiles << std::endl;  
@@ -104,7 +98,7 @@ namespace maps
             in_file >> frame_id;
             maps::TileData tile = maps::generate_tile(c * maps::default_tile_width, 
                                                       r * maps::default_tile_height, 
-                                                      texture_id, 
+                                                      model_id, 
                                                       frame_id);
             tile.id = tile_id;
             tile_id += 1;
@@ -115,8 +109,6 @@ namespace maps
     }
     in_file.close();
 
-    // model: TEMP solution. TODO make model display the character frames, not old version
-    int model_id =  3;
     models::load(model_id);
   }
 
