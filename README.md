@@ -62,7 +62,9 @@ python3 app.py
 
 ## todo list:
 
-### Adjust animations to use models instead of textures
+### Animations -> next_anim_id vs idle, it has to be different, currently it inserts one idle frame when walking
+### Zooming in -> analyse how to zoom in on specific point 
+### Adjust maps to work with models/animations/frames. I want some part of map to be animated (just in case) but no point in keeping idle animation for each tile
 
 
 ### Models
