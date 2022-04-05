@@ -7,7 +7,7 @@
 #include "quads.h"
 #include "utils.h"
 
-// #define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
 #include "../dependencies/stb_image.h"
 
 #include <GL/glew.h> 
@@ -137,8 +137,10 @@ namespace models
 
   void bind()
   {
+    
     for(auto const& [model_id, sampler_texture_index] : models::SceneModels)
     {
+      // std::cout << "ModelID: " << model_id << std::endl;
       models::_activate_texture(model_id);
     } 
   }
