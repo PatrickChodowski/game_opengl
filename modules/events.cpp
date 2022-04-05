@@ -67,10 +67,8 @@ namespace events
       entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_FRONT;
       anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
       //hero::animate_items(ANIM_MOVE_DOWN);
-    } else 
-    {
-      //anims::start(ANIM_IDLE, hero::hero.entity_id);
-    }
+    } 
+
     if(camera::cam.move_x != 0 | camera::cam.move_y !=0 )
     {
 
@@ -144,6 +142,10 @@ namespace events
               game::LOG_TO_FILES = !game::LOG_TO_FILES;
             break;
 
+            case SDLK_b:
+              anims::start(ANIM_STANDING_TAUNT_CHEST_THUMP, hero::hero.entity_id);
+            break;
+
             case SDLK_e:
               for(int c=0; c<collisions::near_items.size(); c++)
               {
@@ -168,7 +170,6 @@ namespace events
         break;
 
         case SDL_KEYUP:
-
           // Only when the key is released?
           switch (event.key.keysym.sym)
           {
@@ -182,7 +183,7 @@ namespace events
         break;
       }
     }
-    _scan_for_camera_move();
+    events::_scan_for_camera_move();
   };
 
   void _handle_new_game(SDL_Event event)

@@ -134,7 +134,7 @@ namespace game
       game::HeroLoader[load_scene_from](scene_id);
 
       // // Load maps
-      // maps::init_map(game::MAP_ID);
+      maps::init_map(game::MAP_ID);
 
       // // load mobs based on the map
       // mobs::spawn_from_nest(game::MAP_ID);
