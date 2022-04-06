@@ -104,7 +104,6 @@ bool test_collisions__set_sensors_on_entity_top_after_update()
 
   // set sensors on hero entity
   collisions::_set_sensors(hero::hero.entity_id);
-
   // change position, set sensors again
   hero::set_position(600, 450);
   collisions::_set_sensors(hero::hero.entity_id);
@@ -129,8 +128,8 @@ bool test_collisions__get_entity_to_map_dto_solidpass()
   // Create tile
   maps::TileData tile = maps::generate_tile(200, 
                                             200, 
-                                            2, //dungeon 
-                                            11); //solid frame_id
+                                            3, //dungeon 
+                                            10300); //solid frame_id
   maps::tiles[tile.id] = tile;
 
   // get distance from entity to tile
@@ -156,8 +155,8 @@ bool test_collisions__get_entity_to_map_dto_is_near()
   // Create tile
   maps::TileData tile = maps::generate_tile(450, 
                                             360, 
-                                            2, //dungeon 
-                                            11); //solid frame_id
+                                            3, //dungeon 
+                                            10300); //solid frame_id
   maps::tiles[tile.id] = tile;
 
   collisions::DistanceToObject dto = collisions::_get_entity_to_single_tile_distance(hero::hero.entity_id, tile.id);

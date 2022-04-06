@@ -60,8 +60,6 @@ namespace maps
     tile.model_id = model_id;
     tile.camera_type = CAMERA_DYNAMIC;
     tile.is_clicked = false;
-    tile.is_solid = false;
-
     tile.color.r = 0.5f;
     tile.color.g = 0.5f;
     tile.color.b = 0.5f;
