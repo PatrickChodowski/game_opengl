@@ -91,7 +91,6 @@ namespace models
 
   void clear()
   {
-    models::models.clear();
     models::SceneModels.clear();
   }
 

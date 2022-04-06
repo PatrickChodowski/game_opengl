@@ -1,8 +1,6 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
-#define FONT_TEXTURE_ID 1
-
 // Mouse buttons
 #define MOUSE_BUTTON_LEFT 0
 #define MOUSE_BUTTON_RIGHT 1

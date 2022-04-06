@@ -62,7 +62,7 @@ namespace quads
     // {
     //   std::cout << "Making quad id of type " << object_type_id << "MODEL ID:" << data.model_id<< std::endl;
     // }
-
+    std::cout << "Making quad for model id " << data.model_id << " object type id :" << object_type_id << std::endl;
     quads::QuadData quad;
     quad.id = (object_type_id+1)*100000 + data.id;
     quad.model_id = data.model_id;
@@ -98,6 +98,8 @@ namespace quads
     // {
     //   std::cout << "DONE Making quad id of type " << object_type_id << std::endl;
     // }
+
+    std::cout << "DONE Making quad" << std::endl;
     return quad.id;
   }
 

@@ -70,8 +70,8 @@ namespace fonts
     float x = ldd.x_start;
     float y = ldd.y_start;
     float scale = ldd.size/fonts::ATLAS_CHARACTER_HEIGHT;
+    std::cout << models::models.size() << std::endl;
     models::ModelData FMD = models::models.at(FONT_MODEL_ID);
-
     for(std::string::size_type i = 0; i < ldd.text.size(); i++) 
     { 
       char p = ldd.text[i];
@@ -101,10 +101,13 @@ namespace fonts
   {
     fonts::TextCharacterIndex.clear();
     fonts::text_characters.clear();
+
     for (auto const& [k, v] : fonts::labels)
     { 
       fonts::render_chars(v);
     } 
+
+    std::cout << "before quads::add_quads" << std::endl;
     quads::add_quads(fonts::text_characters, OBJECT_TYPE_TEXT);
   }
 
