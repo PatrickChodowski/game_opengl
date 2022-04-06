@@ -50,6 +50,7 @@ int main()
     // Mobs/NPCs movements here?
     travel::update();
     collisions::handle_entity_collisions(hero::hero.entity_id);
+    
     anims::update();
     game::update();
     SDL_GL_SwapWindow(WINDOW);

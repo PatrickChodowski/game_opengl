@@ -83,7 +83,9 @@ namespace events
   }
 
   void _handle_in_game(SDL_Event event)
-  {
+  { 
+    // Prevents arrow key scan 
+    bool LOCK_CAMERA = false;
     while (SDL_PollEvent(&event))
     {
       switch (event.type)
@@ -104,12 +106,14 @@ namespace events
 
         case SDL_QUIT:
           game::RUNNING = false;
+          LOCK_CAMERA = true;
         break;
 
         case SDL_KEYDOWN: 
           switch (event.key.keysym.sym)
           { 
             case SDLK_ESCAPE:
+              LOCK_CAMERA = true;
               game::switch_scene(SCENE_ID_MAIN_MENU, false);   
             break;
             
@@ -144,6 +148,7 @@ namespace events
 
             case SDLK_b:
               anims::start(ANIM_STANDING_TAUNT_CHEST_THUMP, hero::hero.entity_id);
+              LOCK_CAMERA = true;
             break;
 
             case SDLK_e:
@@ -183,7 +188,10 @@ namespace events
         break;
       }
     }
-    events::_scan_for_camera_move();
+
+    if(!LOCK_CAMERA){
+      events::_scan_for_camera_move();
+    }
   };
 
   void _handle_new_game(SDL_Event event)

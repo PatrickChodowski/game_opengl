@@ -13,7 +13,8 @@
       "norm_x_start": 0.0,
       "norm_x_end": 0.3333333,
       "norm_y_start": 0.0,
-      "norm_y_end": 1.0
+      "norm_y_end": 1.0,
+      "is_solid": false
     },
     {"frame_id": 10200,
       "x": 64,
@@ -24,7 +25,8 @@
       "norm_x_start": 0.3333333,
       "norm_x_end": 0.666666667,
       "norm_y_start": 0.0,
-      "norm_y_end": 1.0
+      "norm_y_end": 1.0,
+      "is_solid": false
     },
     {"frame_id": 10300,
       "x": 128,
@@ -35,7 +37,8 @@
       "norm_x_start": 0.66666667,
       "norm_x_end": 1.0,
       "norm_y_start": 0.0,
-      "norm_y_end": 1.0
+      "norm_y_end": 1.0,
+      "is_solid": false
     }
   ],
   "anim_list": []

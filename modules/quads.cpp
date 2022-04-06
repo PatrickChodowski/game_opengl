@@ -68,6 +68,7 @@ namespace quads
     quad.model_id = data.model_id;
     quad.frame_id = data.frame_id;
 
+    //std::cout << "quad model id" << quad.model_id << "frame_id:" << quad.frame_id << std::endl;
     // Some quads dont have model, just using colors
     if(quad.model_id > -1){
       quad.texture_id = models::SceneModels.at(quad.model_id);

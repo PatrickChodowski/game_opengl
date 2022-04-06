@@ -78,13 +78,15 @@ namespace models
     int head_y;
     std::string label;
 
+    bool is_solid;
+
     JS_OBJ(frame_id, x, y, w, h, 
            norm_x_start, norm_x_end, norm_y_start, norm_y_end,
            hook_x, hook_y,
            left_hand_x, left_hand_y, 
            right_hand_x, right_hand_y, 
            head_x, head_y, 
-           label);
+           label, is_solid);
   };
 
   // Model data read in from the file
