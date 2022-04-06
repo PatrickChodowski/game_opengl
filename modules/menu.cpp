@@ -131,7 +131,12 @@ namespace menu
                                  150,
                                  currentmenus[menu_id].button_data[b].h,
                                  currentmenus[menu_id].button_data[b].button_function_id,
-                                 menu_id);
+                                 menu_id,
+                                 currentmenus[menu_id].button_data[b].r,
+                                 currentmenus[menu_id].button_data[b].g,
+                                 currentmenus[menu_id].button_data[b].b,
+                                 currentmenus[menu_id].button_data[b].a
+                                 );
         currentmenus[menu_id].button_ids.push_back(button_id);  
       }
     }
@@ -158,7 +163,11 @@ namespace menu
                                     currentmenus[menu_id].button_data[b].w,
                                     currentmenus[menu_id].button_data[b].h,
                                     currentmenus[menu_id].button_data[b].button_function_id,
-                                    menu_id);
+                                    menu_id,
+                                    currentmenus[menu_id].button_data[b].r,
+                                    currentmenus[menu_id].button_data[b].g,
+                                    currentmenus[menu_id].button_data[b].b,
+                                    currentmenus[menu_id].button_data[b].a);
         currentmenus[menu_id].button_ids.push_back(button_id);  
       } else 
       {
@@ -171,7 +180,11 @@ namespace menu
                                    currentmenus[menu_id].button_data[b].w,
                                    currentmenus[menu_id].button_data[b].h,
                                    currentmenus[menu_id].button_data[b].button_function_id,
-                                   menu_id);
+                                   menu_id,
+                                   currentmenus[menu_id].button_data[b].r,
+                                   currentmenus[menu_id].button_data[b].g,
+                                   currentmenus[menu_id].button_data[b].b,
+                                   currentmenus[menu_id].button_data[b].a);
           currentmenus[menu_id].button_ids.push_back(button_id); 
           menu::saves_buttons_map[button_id] = menu::saves[m];
         }

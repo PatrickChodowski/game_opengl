@@ -64,7 +64,7 @@ python3 app.py
 
 ### Animations -> make sure the looped animations are looped (checking if next anim id is the same as current one? skip first frame if so?)
 ### Zooming in -> analyse how to zoom in on specific point 
-### Adjust maps to work with models/animations/frames. I want some part of map to be animated (just in case) but no point in keeping idle animation for each tile
+### ACtive/Bind textures should have the same slot as in the sampler (it can come back later)
 
 
 ### Models

@@ -44,7 +44,7 @@ namespace buttons
   void init();
 
   // Add button. Returns button_id
-  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id);
+  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id, float r, float g, float b, float a);
 
   // Render quads
   void render();

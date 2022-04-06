@@ -36,7 +36,7 @@ namespace buttons
     std::cout << "Buttons Initialized" << std::endl;
   };
 
-  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id)
+  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id, float r, float g, float b, float a)
   {
     buttons::ButtonData bdd;
     bdd.id = utils::generate_id(buttons::Index);
@@ -46,19 +46,19 @@ namespace buttons
     bdd.dims.w = w;
     bdd.dims.h = h;
     bdd.is_clicked = false;
-    bdd.color.r = 0.8;
-    bdd.color.g = 0.5;
-    bdd.color.b = 0.5;
-    bdd.color.a = 1.0;
+    bdd.color.r = r;
+    bdd.color.g = g;
+    bdd.color.b = b;
+    bdd.color.a = a;
     bdd.button_function_id = button_function_id;
     bdd.camera_type = CAMERA_STATIC;
     bdd.menu_id = menu_id;
 
     bdd.label_id = fonts::add(text, 
-                               x + 15, 
-                               y + 55, 
+                               x + 5, 
+                               y + 10, 
                                CAMERA_STATIC, 
-                               50, // size of the font
+                               40, // size of the font
                                0.0f, 
                                0.0f, 
                                0.0f);

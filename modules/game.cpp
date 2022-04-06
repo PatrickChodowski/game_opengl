@@ -80,8 +80,6 @@ namespace game
     game::HeroLoader[SCENE_LOAD_FROM_NEW] = game::_load_hero_from_new_game;
     game::HeroLoader[SCENE_LOAD_FROM_LOAD] = game::_load_hero_from_load_game;
     game::HeroLoader[SCENE_LOAD_CHANGE_LEVEL] = game::_load_hero_from_change_level;
-
-
     std::cout << "Scenes Initialized" << std::endl;
   }
 
@@ -94,9 +92,10 @@ namespace game
     {
       hero::refresh();
     }
-    hero::create_new(menu::NewGameName, "barbarian");
+    
     if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
     {
+      hero::create_new(menu::NewGameName, "barbarian");
       hero::set_position(game::HERO_START_X, game::HERO_START_Y);
       camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
       camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
@@ -115,9 +114,9 @@ namespace game
 
   void _load_hero_from_change_level(int scene_id)
   {
-    hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
     if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
     {
+      hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
       hero::set_position(game::HERO_START_X, game::HERO_START_Y);
       camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
       camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
@@ -222,10 +221,6 @@ namespace game
 
   void update()
   {
-    // std::cout << "hero x y:" << hero::hero.x <<  ", " << hero::hero.y << std::endl;
-    // std::cout << "entities size:" << entity::entities.size() << std::endl;
-    // std::cout << "hero entity id: " << hero::hero.entity_id << std::endl;
-    // std::cout << "entity hero x y " << entity::entities[hero::hero.entity_id].pos.x << ", " << entity::entities[hero::hero.entity_id].pos.y << std::endl;
     quads::clear();
     maps::render();
     entity::render();
@@ -240,7 +235,6 @@ namespace game
     int sampler[sampler_size]; 
     models::populate_sampler(sampler);
 
-  
     quads::update();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();

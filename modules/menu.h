@@ -35,8 +35,9 @@ namespace menu
     int button_function_id; // reference to button type from buttons
     float x, y;
     float w, h;
+    float r, g, b, a; 
 
-    JS_OBJ(label, button_function_id, x, y, w, h);
+    JS_OBJ(label, button_function_id, x, y, w, h, r, g, b, a);
   };
 
   // Label data read from the file
