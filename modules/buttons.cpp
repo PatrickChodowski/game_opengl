@@ -99,6 +99,7 @@ namespace buttons
 
   void _click_load_game(int placeholder)
   {
+    menu::_list_saves();
     game::switch_scene(SCENE_ID_LOAD_GAME_MENU, false);
   };
 

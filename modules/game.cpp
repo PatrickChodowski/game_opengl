@@ -170,6 +170,8 @@ namespace game
     // have to cleared after loading the scene
     menu::NewGameName = "";
     menu::LoadGameName = "";
+
+    std::cout << "Finished switching scenes " << std::endl;
   }
 
   void clear_scene()
@@ -229,11 +231,8 @@ namespace game
     menu::render();
     models::bind();
     buttons::render();
-    //std::cout << "before fonts render" << std::endl;
     fonts::render();
-    //std::cout << "after fonts render" << std::endl;
     nav::render();
-
     int sampler_size = (models::SceneModels.size() + 1);
     int sampler[sampler_size]; 
     models::populate_sampler(sampler);

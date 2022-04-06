@@ -35,7 +35,7 @@ namespace anims
   }
 
   void start(int anim_id, int entity_id)
-  { 
+  {  
     // Check if given entity's model has this animation id available in the first place
     if(models::models[entity::entities[entity_id].model_id].anims.count(anim_id) > 0)
     {
