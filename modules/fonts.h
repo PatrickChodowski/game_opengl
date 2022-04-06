@@ -3,40 +3,45 @@
 
 #include "models.h"
 #include "quads.h"
+
+#include "../dictionary.h"
+#include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
+#include "../dependencies/parallel_hashmap/btree.h"
 
 #ifndef MODULES_FONTS_H
 #define MODULES_FONTS_H
 
 namespace fonts
 {  
-  
-  struct CharacterData 
-  {
-    int model_id;
-    int frame_id;
+  extern unsigned int FONT_MODEL_ID;
+  extern std::string FONT_NAME;
 
-    float advance_x;
-    float advance_y;
-    float bitmap_width;
-    float bitmap_height; // or bitmap_rows
-    float bitmap_left;
-    float bitmap_top;
-    float offset;  // offset of glyph
-    float align;
-  };
-
-  // Stores in-game character data -> text, id, position, color. Used to make quads
-  struct TextData
+  // Persistent across frames for both replaceable and nonreplaceble information.
+  // Stores whole text, not single character
+  struct LabelData 
   {
     int id;
-    int model_id;
+    int size;
+
+    float r, g, b;
+    float x_start;
+    float y_start;
+    float camera_type;
+    std::string text;
+  };
+
+
+  // Stores in-game character data -> text, id, position, color. Used to make quads
+  struct TextCharacterData
+  {
+    int id;
+    int model_id = FONT_MODEL_ID;
     int frame_id;
 
     quads::Color color;
     quads::Position pos;
     quads::Dims dims;
-    quads::Norm norm;
 
     float camera_type;
     float char_width;
@@ -49,17 +54,38 @@ namespace fonts
     bool is_reversed = false;
   };
 
-  // Persistent across frames for both replaceable and nonreplaceble information.
-  // Stores whole text, not single character
-  struct LabelData 
+  // Font frame information
+  struct FontsFrameData
   {
-    int id;
-    float r, g, b;
-    float x_start;
-    float y_start;
-    float camera_type;
-    float scale;
-    std::string text;
+    char* frame_id;
+    char  label;
+
+    int x;
+    int y;
+    int w;
+    int h;
+
+    float norm_x_start;
+    float norm_x_end;
+    float norm_y_start;
+    float norm_y_end;
+
+    JS_OBJ(label, x, y, w, h, norm_x_start, norm_x_end, norm_y_start, norm_y_end);
+  };
+
+
+  // Special version of model struct, adjusted for Font texture
+  struct FontsModelData
+  {
+    int id = FONT_MODEL_ID;
+    int w;
+    int h;
+    unsigned int opengl_texture_id;
+    std::vector<fonts::FontsFrameData> frames_list;
+
+    std::string name;
+    phmap::btree_map<int, fonts::FontsFrameData> frames;
+    JS_OBJ(id, w, h, name, frames_list);
   };
 
   // Vector of used Text Ids
@@ -68,26 +94,32 @@ namespace fonts
   // Vector of used Label Ids
   extern std::vector<int> LabelIndex;
 
-  // Map of character and character data in the texture
-  extern phmap::flat_hash_map<char, CharacterData> chars;
-
   // Map of single character id, TextData (single characters stored)
-  extern phmap::flat_hash_map<int, TextData> texts;
+  extern phmap::flat_hash_map<int, fonts::TextCharacterData> texts;
 
   // Map of Level's labels stored across frames
-  extern phmap::flat_hash_map<int, LabelData> labels;
+  extern phmap::flat_hash_map<int, fonts::LabelData> labels;
 
   // Font's texture data 
-  extern models::ModelData FontTDD;
+  extern fonts::FontsModelData FontTDD;
 
   // ID of the label for new game name input
   extern int NEW_GAME_LABEL_ID;
 
-  // Initialize font texture and characters catalog
-  void init(std::string font_name);
+
+
+
+  // Read font model
+  void init();
+
+  // Reads in font model data
+  void read_data(std::string& file_name);
+
+  // Loads texture to opengl
+  unsigned int _load_font_texture_to_opengl(int w, int h, int n_channels);
 
   // Add new label to labels. Returns label_id
-  int add(std::string& text, float x_start, float y_start, float camera_type, float scale, float r, float g, float b);
+  int add(std::string& text, float x_start, float y_start, float camera_type, int size, float r, float g, float b);
 
   // Render characters of selected label data
   void render_chars(fonts::LabelData ldd);
@@ -101,6 +133,8 @@ namespace fonts
   // Deletes label by label id
   void drop(int label_id);
 
+
 }
 
 #endif
+
