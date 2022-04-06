@@ -127,6 +127,7 @@ namespace game
   {
     if(game::scenes.count(scene_id) > 0)
     {    
+      models::load(fonts::FONT_MODEL_ID);
       game::SCENE_ID = scene_id;
       game::EVENT_HANDLER_ID = game::scenes[scene_id].events_handler_id;
       game::MAP_ID = game::scenes[scene_id].map_id;
@@ -228,13 +229,15 @@ namespace game
     menu::render();
     models::bind();
     buttons::render();
+    //std::cout << "before fonts render" << std::endl;
     fonts::render();
+    //std::cout << "after fonts render" << std::endl;
     nav::render();
 
     int sampler_size = (models::SceneModels.size() + 1);
     int sampler[sampler_size]; 
     models::populate_sampler(sampler);
-
+ 
     quads::update();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
