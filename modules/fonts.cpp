@@ -26,82 +26,29 @@
 namespace fonts
 {
   unsigned int FONT_MODEL_ID = 1;
-  std::string FONT_NAME = 'norse';
-
-  std::vector<int> TextIndex;
+  std::vector<int> TextCharacterIndex;
   std::vector<int> LabelIndex;
-  phmap::flat_hash_map<int, fonts::TextCharacterData> texts;
+  phmap::flat_hash_map<int, fonts::TextCharacterData> text_characters;
   phmap::flat_hash_map<int, fonts::LabelData> labels;
-
-
+  phmap::flat_hash_map<char*, int>  CharacterAtlas;
+  int ATLAS_CHARACTER_HEIGHT;
   int NEW_GAME_LABEL_ID;
-  fonts::FontsModelData FontTDD;
+  float CH_OFFSET = 0;
+
 
   void init()
   {
-    std::vector<std::string> fonts_list = utils::list_json_files("fonts");
-    for(int f=0; f < fonts_list.size(); f++)
+    for(int f=0; f < models::models.at(FONT_MODEL_ID).frames_list.size(); f++)
     {
-      fonts::read_data(fonts_list[m]);
-    };
+      char* text_chr = (char*)models::models.at(FONT_MODEL_ID).frames_list[f].label.c_str();
+      int frame_id = models::models.at(FONT_MODEL_ID).frames_list[f].frame_id;
+      fonts::CharacterAtlas.insert(std::pair<char*, int>{text_chr, frame_id});
+    }
+    fonts::ATLAS_CHARACTER_HEIGHT = models::models.at(FONT_MODEL_ID).frames[0].h;\
+
+    models::load(FONT_MODEL_ID);
     std::cout << "Fonts Initialized" << std::endl;
   }
-
-  void read_data(std::string& file_name)
-  {
-    fonts::FontsModelData FMD;
-    std::string file_path = "./fonts/"+file_name+".json";
-    std::string json_data = utils::read_text_file(file_path);
-    JS::ParseContext context(json_data);
-    context.allow_missing_members = true;
-    context.parseTo(FMD);
-
-    // propagate FMD.frames(map) from frames_list(vector)
-    for(int f=0; f < FMD.frames_list.size(); f++)
-    {
-      FMD.frames.insert({FMD.frames_list[f].frame_id, FMD.frames_list[f]});
-    }
-
-    unsigned int opengl_texture_id = fonts::_load_font_texture_to_opengl(FMD.w, FMD.h, 4);
-
-  }
-
-  unsigned int _load_font_texture_to_opengl(int w, int h, int n_channels)
-  {
-    std::string texture_path = std::string("fonts/") + std::to_string(FONT_MODEL_ID) + "_" + FONT_NAME + "___spritesheet.png";
-    stbi_set_flip_vertically_on_load(false);
-    unsigned char *image_data = stbi_load(texture_path.c_str(), &w, &h, &n_channels, 4); 
-
-    if(image_data == NULL)
-    {
-      std::cout << "Error while loading texture from " << texture_path << std::endl;
-    };
-
-    // We generate texture and assign it to texture/model_id. It doesnt have to be the same, but high chance it will
-    unsigned int texture_id;
-    glGenTextures(1, &texture_id); 
-    glBindTexture(GL_TEXTURE_2D, texture_id); 
- 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);	
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    // Send Image data to GPU here
-    glTexImage2D(GL_TEXTURE_2D, //target 
-                0, //level, 0 is base image
-                GL_RGBA, //internalformat
-                w,
-                h,  
-                0,  // border
-                GL_RGBA,  // format
-                GL_UNSIGNED_BYTE,  // type
-                image_data); // data
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-    stbi_image_free(image_data);
-    return texture_id;
-  };
 
   int add(std::string& text, float x_start, float y_start, float camera_type, int size, float r, float g, float b)
   {
@@ -119,26 +66,24 @@ namespace fonts
     return ldd.id;
   };
 
-  // THIS NEEDS CHANGES
   void render_chars(fonts::LabelData ldd)
   {
     float x = ldd.x_start;
     float y = ldd.y_start;
+    float scale = ldd.size/fonts::ATLAS_CHARACTER_HEIGHT;
+    models::ModelData FMD = models::models.at(FONT_MODEL_ID);
 
     for(const char *p = ldd.text.c_str(); *p; p++) 
     { 
       fonts::TextCharacterData tdd;
-      tdd.id = utils::generate_id(fonts::TextIndex);
-      tdd.model_id = chars[*p].model_id;
-      tdd.frame_id = chars[*p].frame_id;
-
-      tdd.pos.x = x + chars[*p].bitmap_left * ldd.scale;
-      tdd.pos.y = y - ((chars[*p].bitmap_height - chars[*p].align) * ldd.scale);
+      tdd.id = utils::generate_id(fonts::TextCharacterIndex);
+      tdd.model_id = fonts::FONT_MODEL_ID;
+      tdd.frame_id = fonts::CharacterAtlas[(char*)p];
+      tdd.pos.x = x;
+      tdd.pos.y = y;
       tdd.pos.z = 0.95f;
-      tdd.dims.w = chars[*p].bitmap_width;
-      tdd.dims.h = chars[*p].bitmap_height * ldd.scale;
-      //tdd.dims.h = chars[*p].bitmap_height;
-    
+      tdd.dims.w = FMD.frames.at(tdd.frame_id).w * scale;
+      tdd.dims.h = FMD.frames.at(tdd.frame_id).h * scale;
       tdd.color.r = ldd.r;
       tdd.color.g = ldd.g;
       tdd.color.b = ldd.b;
@@ -146,27 +91,27 @@ namespace fonts
       tdd.camera_type = ldd.camera_type;
       tdd.is_clicked = false;
 
-      x += ((chars[*p].bitmap_width * ldd.scale)+5);
-      fonts::texts[tdd.id] = tdd;
+      x += tdd.dims.w + (fonts::CH_OFFSET*scale);
+      fonts::text_characters[tdd.id] = tdd;
     }
   };
 
   void render()
   {
-    fonts::TextIndex.clear();
-    fonts::texts.clear();
+    fonts::TextCharacterIndex.clear();
+    fonts::text_characters.clear();
     for (auto const& [k, v] : fonts::labels)
     { 
       fonts::render_chars(v);
     } 
-    quads::add_quads(fonts::texts, OBJECT_TYPE_TEXT);
+    quads::add_quads(fonts::text_characters, OBJECT_TYPE_TEXT);
   }
 
   void clear()
   {
-    fonts::texts.clear();
+    fonts::text_characters.clear();
     fonts::labels.clear();
-    fonts::TextIndex.clear();
+    fonts::TextCharacterIndex.clear();
     fonts::LabelIndex.clear();
     fonts::NEW_GAME_LABEL_ID = -1;
   };

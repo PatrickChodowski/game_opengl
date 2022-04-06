@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "fonts.h"
 #include "models.h"
 #include "quads.h"
 #include "utils.h"
@@ -33,17 +34,24 @@ namespace models
   void init()
   {
     std::vector<std::string> model_list = utils::list_json_files("models");
+    std::sort(model_list.begin(), model_list.end());
+
     for(int m=0; m < model_list.size(); m++)
     {
       models::read_data(model_list[m]);
     };
     std::cout << "Models Initialized" << std::endl;
+
+    // Need to be sure we are doing this after models.
+    // Used Font's model data to create fonts::CharacterAtlas
+    fonts::init();
   }
 
   void read_data(std::string& file_name)
   {
     models::ModelData MD;
     std::string file_path = "./models/"+file_name+".json";
+    std::cout << " [MODELS] Reading data from " << file_path << std::endl;
     std::string json_data = utils::read_text_file(file_path);
     JS::ParseContext context(json_data);
     context.allow_missing_members = true;

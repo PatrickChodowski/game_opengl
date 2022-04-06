@@ -267,14 +267,14 @@ namespace quads
   template void quads::add_quads<menu::MenuData>(phmap::flat_hash_map<int, menu::MenuData>&, int);
   template void quads::add_quads<debug::PointData>(phmap::flat_hash_map<int, debug::PointData>&, int);
   template void quads::add_quads<entity::EntityData>(phmap::flat_hash_map<int, entity::EntityData>&, int);
-  template void quads::add_quads<fonts::TextData>(phmap::flat_hash_map<int, fonts::TextData>&, int);
+  template void quads::add_quads<fonts::TextCharacterData>(phmap::flat_hash_map<int, fonts::TextCharacterData>&, int);
   template void quads::add_quads<maps::TileData>(phmap::flat_hash_map<int, maps::TileData>&, int);
 
   template int quads::make_quad<buttons::ButtonData>(buttons::ButtonData&, int);
   template int quads::make_quad<menu::MenuData>(menu::MenuData&, int);
   template int quads::make_quad<debug::PointData>(debug::PointData&, int);
   template int quads::make_quad<entity::EntityData>(entity::EntityData&, int);
-  template int quads::make_quad<fonts::TextData>(fonts::TextData&, int);
+  template int quads::make_quad<fonts::TextCharacterData>(fonts::TextCharacterData&, int);
   template int quads::make_quad<maps::TileData>(maps::TileData&, int);
 
 }
