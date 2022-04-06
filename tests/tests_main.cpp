@@ -67,6 +67,7 @@ int main()
 
   for (auto const& [k, v]:tests)
   {
+    std::cout << "   [STARTING TEST]   " << k << std::endl;
     total_tests += 1;
     bool test_result = v();
     eval(k, test_result);

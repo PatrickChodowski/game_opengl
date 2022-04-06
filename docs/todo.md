@@ -8,10 +8,6 @@
 
 ### 3d models instead of spritesheets:
 https://blender.stackexchange.com/questions/176603/automate-the-rotation-of-camera-around-an-object-with-python
-
-
- - lets automate moving camera around the object
- - make new scripts for humanoid texture
  - photogrammetry
  - meshroom 
  - cgtrader
@@ -19,7 +15,6 @@ https://blender.stackexchange.com/questions/176603/automate-the-rotation-of-came
  - https://sketchfab.com/store/3d-models?q=viking
  - https://blendermarket.com/products/humgen3d/?ref=110
  - deepmotion animate 3d https://www.deepmotion.com/pricing
- - mocap -> rokoko.com
  - turbosquid
  - actorcore
  - mocap online
@@ -34,18 +29,12 @@ https://blender.stackexchange.com/questions/176603/automate-the-rotation-of-came
 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 
-### analyse cpp 20 and maybe replace include with imports
-
-
 ### inspiration: pirates
 https://www.youtube.com/watch?v=Oxiz0UUgbTc
  - sense of the open world that you can go whenever you want 
  - fun to explore
  - adventure role playing in the game
  
-
-
-
 ### personality traits of the leaders -> random
 - random personality traits
 - random relations with other kingdoms
@@ -74,13 +63,9 @@ Probably will still need a chunks system on top of the map -> avoid rendering an
 
 ### Shaders book
 
-### when zoom out, middle mouse button could move the view -> but how? :o
-
 ### menu highliting -> nice feature to have :)
 
 ### saves scrolling
-
-### fonts size options? :( :( :(:( maybe another day...
 
 ### game should be 2D topdown
 
