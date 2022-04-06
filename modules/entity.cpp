@@ -125,8 +125,8 @@ namespace entity
     entity::EntityData edd = entity::entities.at(entity_id);
     std::vector<std::string> infos = entity::menu_entity_type_map[edd.entity_type_id](entity_id);
 
-    std::string label_id = "ID:_" + utils::str(edd.id);
-    std::string label_pos = "Pos:_" + utils::str(int(edd.pos.x)) + ',' + utils::str(int(edd.pos.y));
+    std::string label_id = "id: " + utils::str(edd.id);
+    std::string label_pos = "pos: " + utils::str(int(edd.pos.x)) + ", " + utils::str(int(edd.pos.y));
     infos.push_back(label_id);
     infos.push_back(label_pos);
     return infos;
