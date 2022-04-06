@@ -58,13 +58,25 @@ namespace quads
   template <typename T>
   int make_quad(T& data, int object_type_id)
   { 
+    if (object_type_id == OBJECT_TYPE_TEXT)
+    {
+      std::cout << "Making quad id of type " << object_type_id << "MODEL ID:" << data.model_id<< std::endl;
+    }
+
     quads::QuadData quad;
     quad.id = (object_type_id+1)*100000 + data.id;
-
     quad.model_id = data.model_id;
-    quad.texture_id = models::SceneModels.at(quad.model_id);
     quad.frame_id = data.frame_id;
 
+    // Some quads dont have model, just using colors
+    if(quad.model_id > -1){
+      quad.texture_id = models::SceneModels.at(quad.model_id);
+      quad.norm = {models::models.at(quad.model_id).frames.at(quad.frame_id).norm_x_start,
+                   models::models.at(quad.model_id).frames.at(quad.frame_id).norm_x_end,
+                   models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_start,
+                   models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_end};
+    }
+    quad.frame_id = data.frame_id;
     quad.object_id = data.id;
     quad.object_type_id = object_type_id;
     quad.camera_type = data.camera_type;
@@ -78,14 +90,14 @@ namespace quads
     quad.window_h = data.dims.h;
     quad.window_w = data.dims.w;
 
-    quad.norm = {models::models[quad.model_id].frames.at(quad.frame_id).norm_x_start,
-                 models::models[quad.model_id].frames.at(quad.frame_id).norm_x_end,
-                 models::models[quad.model_id].frames.at(quad.frame_id).norm_y_start,
-                 models::models[quad.model_id].frames.at(quad.frame_id).norm_y_end};
-
     quad.is_clicked = data.is_clicked;
     quad.is_deleted = false;
     quads::AllQuads.push_back(quad);
+
+    if (object_type_id == OBJECT_TYPE_TEXT)
+    {
+      std::cout << "DONE Making quad id of type " << object_type_id << std::endl;
+    }
     return quad.id;
   }
 

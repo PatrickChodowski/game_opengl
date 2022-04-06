@@ -73,3 +73,20 @@ python3 app.py
 Data file will have name format of {model_id}_{model_name}.json
 
 Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
+
+
+
+
+
+
+
+
+## Credits:
+
+
+### Fonts
+Joel Carrouche: https://www.fontspace.com/norse-font-f21080 www.joelcarrouche.com. Donate if used
+
+
+font string:
+ABCDEFGHIJKLMNOPRSTUWVXYZ0123456789!@#$%&*(){}[]^:;”’<>,./?|\-_=+

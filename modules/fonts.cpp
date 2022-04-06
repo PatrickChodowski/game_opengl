@@ -177,7 +177,6 @@ namespace fonts
   { 
     float x = ldd.x_start;
     float y = ldd.y_start;
-
     for(const char *p = ldd.text.c_str(); *p; p++) 
     { 
       fonts::TextData tdd;
