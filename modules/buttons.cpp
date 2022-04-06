@@ -58,7 +58,7 @@ namespace buttons
                                x + 15, 
                                y + 55, 
                                CAMERA_STATIC, 
-                               1.0f,
+                               50, // size of the font
                                0.0f, 
                                0.0f, 
                                0.0f);

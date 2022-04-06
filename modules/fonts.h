@@ -15,7 +15,8 @@
 namespace fonts
 {  
   extern unsigned int FONT_MODEL_ID;
-  extern std::string FONT_NAME;
+  extern int ATLAS_CHARACTER_HEIGHT;
+  extern float CH_OFFSET;
 
   // Persistent across frames for both replaceable and nonreplaceble information.
   // Stores whole text, not single character
@@ -51,61 +52,26 @@ namespace fonts
     float offset;
 
     bool is_clicked;
-    bool is_reversed = false;
-  };
 
-  // Font frame information
-  struct FontsFrameData
-  {
-    char* frame_id;
-    char  label;
-
-    int x;
-    int y;
-    int w;
-    int h;
-
-    float norm_x_start;
-    float norm_x_end;
-    float norm_y_start;
-    float norm_y_end;
-
-    JS_OBJ(label, x, y, w, h, norm_x_start, norm_x_end, norm_y_start, norm_y_end);
-  };
-
-
-  // Special version of model struct, adjusted for Font texture
-  struct FontsModelData
-  {
-    int id = FONT_MODEL_ID;
-    int w;
-    int h;
-    unsigned int opengl_texture_id;
-    std::vector<fonts::FontsFrameData> frames_list;
-
-    std::string name;
-    phmap::btree_map<int, fonts::FontsFrameData> frames;
-    JS_OBJ(id, w, h, name, frames_list);
   };
 
   // Vector of used Text Ids
-  extern std::vector<int> TextIndex;
+  extern std::vector<int> TextCharacterIndex;
 
   // Vector of used Label Ids
   extern std::vector<int> LabelIndex;
 
   // Map of single character id, TextData (single characters stored)
-  extern phmap::flat_hash_map<int, fonts::TextCharacterData> texts;
+  extern phmap::flat_hash_map<int, fonts::TextCharacterData> text_characters;
 
   // Map of Level's labels stored across frames
   extern phmap::flat_hash_map<int, fonts::LabelData> labels;
 
-  // Font's texture data 
-  extern fonts::FontsModelData FontTDD;
-
   // ID of the label for new game name input
   extern int NEW_GAME_LABEL_ID;
 
+  // Addtional mapping from character to frame_id for Font model
+  extern phmap::flat_hash_map<char*, int>  CharacterAtlas;
 
 
 
