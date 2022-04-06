@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "models.h"
 #include "timer.h"
 #include "utils.h"
 
@@ -15,43 +16,17 @@
 
 namespace anims
 {
-  struct Animation
-  {
-    int id;
-    int entity_id;
-    int texture_id;
-    int next_frame_id;
-    int current_frame_index;
-
-    std::vector<int> frame_ids;
-    std::vector<float> frame_times;
-    float next_e_time;
-    float time_length;
-    float time_elapsed;
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-
-    bool cyclical;
-    bool breakable;
-
-    JS_OBJ(id, texture_id, next_frame_id, time_length, frame_ids, 
-    frame_times, cyclical, breakable);
-
-  };
-
-  // Catalog of animation_id, Animation data - all animations in one place
-  extern phmap::flat_hash_map<int, anims::Animation> anims;
-
   // Catalog of entity_id, Animation - current animations played
-  extern phmap::flat_hash_map<int, anims::Animation> animsplayed;
+  extern phmap::flat_hash_map<int, models::ModelAnimData> animsplayed;
+
+  typedef void (*sig_ptr)(int, models::ModelAnimData&);
+  extern phmap::flat_hash_map<int, sig_ptr> AnimsHandler;
 
   // index of animations to delete
   extern std::vector<int> anims_to_stop;
 
-  // Reads in all the data
+  // Initialize anims handler
   void init();
-
-  // Reads data for selected animation
-  void read_data(std::string& name);
 
   // Clear temporary data
   void clear();
@@ -69,13 +44,25 @@ namespace anims
   bool _check_if_entity_in_anim(int entity_id);
 
   // Checks if given entity has animation and if this is the same type
-  bool _check_if_entity_in_anim_same_type(int anim_type_id, int entity_id);
+  bool _check_if_entity_in_anim_same_type(int anim_id, int entity_id);
 
   // Start animation for given entity
-  void start(int anim_type_id, int entity_id);
+  void start(int anim_id, int entity_id);
 
   // Runs the single animation from animsplayed
   void play(int entity_id);
+
+  // Adds next_anim_id to particular animation played. Will start after the current animation is finished
+  void start_delayed(int anim_id, int entity_id);
+
+
+  // Anim handlers:
+
+  // Update entity's frame
+  void update_frame(int entity_id, models::ModelAnimData &AD);
+
+  // Update entity's frame and position (z)
+  void update_frame_position(int entity_id, models::ModelAnimData &AD);
 
 }
 

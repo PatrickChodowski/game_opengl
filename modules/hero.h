@@ -41,12 +41,12 @@ namespace hero
 
     // display information
     int current_movement_state;
-    int texture_id;
+    int model_id;
     int level;
     int mobs_killed;
 
     // display item data
-    int in_hand_entity_id;
+    int in_hand_entity_id = -1;
     float hand_x, hand_y;
 
 
@@ -59,7 +59,7 @@ namespace hero
     std::string name;
     std::string type;
 
-    JS_OBJ(w, h, texture_id, level, exp, speed, hp, dmg, def, mobs_killed, equipped_items, name, type);
+    JS_OBJ(w, h, model_id, level, exp, speed, hp, dmg, def, mobs_killed, equipped_items, name, type);
   }; 
 
   extern hero::HeroData hero;
@@ -90,6 +90,9 @@ namespace hero
 
   // Returns vector of strings with hero information
   std::vector<std::string> info(int entity_id);
+
+  // Animate hero items based on hero animation
+  void animate_items(int anim_id);
 
 }
 

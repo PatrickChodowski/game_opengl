@@ -1,72 +1,115 @@
 #include <string>
 #include <vector>
 
-
-#include "../dependencies/glm/glm.hpp"
-#include "../dependencies/glm/gtc/quaternion.hpp"
 #include "../dictionary.h"
-#include "../dependencies/tiny_gltf.h"
+#include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
+#include "../dependencies/parallel_hashmap/btree.h"
 
 #ifndef MODULES_MODELS_H
 #define MODULES_MODELS_H
 
 namespace models 
 {
-  // Keeps all the converted meshes data for given models
-  struct ModelMeshData
+  // Models animation data
+  struct ModelAnimData
   {
-    int model_id;
-    int mesh_id;
-    int node_id;
-    int count_vertices;
+    bool breakable;
 
-    std::vector<float> color;
-    std::vector<glm::vec3> position;
-    std::vector<glm::vec3> norms;
-    std::vector<glm::vec2> texcoord;
+    int anim_id;
+    int frame_count;
+    int next_anim_id = ANIM_STANDING_IDLE;
+    int anim_type_id = ANIM_TYPE_FRAME; // currently default
 
-    glm::quat rotation;
-    glm::vec3 translation;
-    glm::vec3 scale;
-    glm::mat4 matrix;
+    // Provided while initializing the animation
+    int entity_id = -1;
+    int CK_ID = -1;
+    int id; // Unique animation id?
 
-    std::vector<unsigned short> indices;
-    std::string mesh_name;
-  };
+    std::vector<int> frame_id;
+    // color
+    std::vector<float> r;
+    std::vector<float> g;
+    std::vector<float> b;
+    std::vector<float> a;
+    // dimension
+    std::vector<float> w;
+    std::vector<float> h;
+    // position
+    std::vector<float> x;
+    std::vector<float> y;
+    std::vector<float> z;
 
-  // to update position and size of the visible object
-  struct GameModelMeshData
-  {
+    std::vector<float> update_times;
+    float time_length;
+    float time_elapsed; // time elapsed in miliseconds
+    float next_update_time;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
 
-  };
+    std::string label;
 
-
-  struct ModelMeshVertexData
-  {
-    int model_vertex_id;
-    int model_id;
-    int mesh_id;
-
-    float x,y,z;
-    float r,g,b,a;
-    float tx_x, tx_y;
-
-    // what to do
-    float frame_id = 0;
-    float texture_id = 0;
-    float is_clicked = 0;
-    float object_type = OBJECT_TYPE_MODEL;
-    float camera_type = CAMERA_DYNAMIC;
+    JS_OBJ(breakable, anim_id, frame_count, next_anim_id,
+    frame_id, r, g, b, a, w, h, x, y, z, update_times, time_length, 
+    label);
 
   };
 
-  extern std::vector<int> Index;
-  extern phmap::flat_hash_map<int, tinygltf::Model> models;
-  extern phmap::flat_hash_map<int, int> map_sizes;
-  extern phmap::flat_hash_map<int, int> map_type_count;
-  extern std::vector<models::ModelMeshData> meshes;
-  extern std::vector<models::ModelMeshVertexData> MeshVertices;
+  // Data for model's single frame. Frame ID is built as  animation_id*10000 + side_id*100 + frame_index
+  struct ModelFrameData
+  {
+    int frame_id;
+    int x;
+    int y;
+    int w;
+    int h;
+
+    float norm_x_start;
+    float norm_x_end;
+    float norm_y_start;
+    float norm_y_end;
+
+    int hook_x;
+    int hook_y;
+    int left_hand_x;
+    int left_hand_y;
+    int right_hand_x;
+    int right_hand_y;
+    int head_x;
+    int head_y;
+    std::string label;
+
+    bool is_solid;
+
+    JS_OBJ(frame_id, x, y, w, h, 
+           norm_x_start, norm_x_end, norm_y_start, norm_y_end,
+           hook_x, hook_y,
+           left_hand_x, left_hand_y, 
+           right_hand_x, right_hand_y, 
+           head_x, head_y, 
+           label, is_solid);
+  };
+
+  // Model data read in from the file
+  struct ModelData
+  {
+    int id;
+    int w;
+    int h;
+    unsigned int opengl_texture_id;
+    std::vector<models::ModelFrameData> frames_list;
+    std::vector<models::ModelAnimData> anim_list;
+
+    // Propagated after reading
+    phmap::btree_map<int, models::ModelFrameData> frames;
+    phmap::btree_map<int, models::ModelAnimData> anims;
+
+    std::string name;
+    JS_OBJ(id, w, h, name, frames_list, anim_list);
+  };
+  extern phmap::flat_hash_map<int, models::ModelData> models;
+
+  // List of models used in the given scene. Contains Model_id and sampler_texture_index
+  extern phmap::flat_hash_map<int, int> SceneModels;
 
   // Read all model files
   void init();
@@ -77,34 +120,35 @@ namespace models
   // Refreshes the data
   void refresh();
 
-  // Drops model by its id
-  void drop(int model_id);
+  // Drops models from OpenGL [gldeletetexture]
+  void drop();
 
-  float _convert_bytes_to_float(unsigned char* byte_arr, int size, bool to_print = false);
-
-  unsigned short _convert_bytes_to_short(unsigned char* byte_arr, int size, bool to_print = false);
-
-  void _convert_float_to_bytes(float value);
-
-  std::vector<float> _extract_floats_via_accessor(int model_id, int accessor_id);
-
-  std::vector<float> _extract_floats(int model_id, int accessor_id, std::vector<unsigned char>& subdata);
-
-  std::vector<unsigned short> _extract_shorts(int count, int element_count, int stride, std::vector<unsigned char>& subdata);
-
-  models::ModelMeshData convert_mesh_data(int model_id, int mesh_id, int node_id); 
-
-  void extract_meshes(int model_id);
-
-  void make_mesh_vertex(models::ModelMeshData& MMD);
-
-  void render();
-
+  // Log model data if needed
   void log();
 
-  void log_vertices();
+  // Remove all models data
+  void clear();
 
-  std::vector<unsigned char> _get_subdata(int model_id, int accessor_id);
+  // Loads texture to opengl
+  unsigned int _load_texture_to_opengl(unsigned int model_id, int w, int h, int n_channels);
+
+  // Activate selected texture before render
+  void _activate_texture(int model_id);
+
+  // Bind all scene models
+  void bind();
+
+  // Loads model by model id (triggered by Scene initialization, map loading, spawning etc.)
+  void load(int model_id);
+
+  // Unload model from scene models by model_id
+  void unload(int model_id);
+
+  // Populate sampler
+  void populate_sampler(int* arr);
+
+  // Prints out models data
+  void print_models_data();
 
 }
 

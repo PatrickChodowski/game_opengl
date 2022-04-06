@@ -1,39 +1,40 @@
 
 ### anims
- - different types: frame, texture, size, position, color, direction
- - each entity can have one animation per type 
- - can be looped
- - tempo parameter for speed changes
- - weapons -> idle, walk, swing, attack
- - humans -> idle, walk, swing, jump, attack etc.
- - armors -> ?
-
+- bug - hook offset seems not correct
 
 ### items
  - disperse items when dropping them (around character  in some semi randomized way)
- - save equipped items on the character(with stats and re-generation from save)
-
+ - save equipped items on the character(with stats and re-generation from save) 
 
 ### 3d models instead of spritesheets:
- - automate blender to texture pipeline -> script to setup camera perspective and image export
- - make new scripts for humanoid texture
+https://blender.stackexchange.com/questions/176603/automate-the-rotation-of-camera-around-an-object-with-python
  - photogrammetry
  - meshroom 
+ - cgtrader
  - https://www.mixamo.com/
  - https://sketchfab.com/store/3d-models?q=viking
+ - https://blendermarket.com/products/humgen3d/?ref=110
+ - deepmotion animate 3d https://www.deepmotion.com/pricing
+ - turbosquid
+ - actorcore
+ - mocap online
+ - motek entertainment
+ - motioncapyure library
+ - this playlist https://www.youtube.com/watch?v=ibAGa_v1V7Q&list=PLdcL5aF8ZcJux9f5Bvb1QlByiHWTK3ICP&index=2&ab_channel=CGDive
+ - getrad.co -> own mocap
+ 
 
-
-### 3d pipeline ideas:
- - read in blender object -> create spritesheet in blender 
- - move spritesheet to spritesheet editor and produce data -> height, weight, texture_id, frames split, number of frames, hook points
- - export data as json
- - IN GENERAL: game gets more and more data and it will get harder to manage all data files (and reproduce them easily). 
- Might need some SQL solution to store and easily reproduce jsons 
+### lighting
+ - add constant source of light/shadows and light radius
 
 ### map editor probably will be the must, as writing the maps manually with doors etc. is terrible
 
-### analyse cpp 20 and maybe replace include with imports
-
+### inspiration: pirates
+https://www.youtube.com/watch?v=Oxiz0UUgbTc
+ - sense of the open world that you can go whenever you want 
+ - fun to explore
+ - adventure role playing in the game
+ 
 ### personality traits of the leaders -> random
 - random personality traits
 - random relations with other kingdoms
@@ -50,7 +51,7 @@ define goal and go backwards in actions to create chain of actions to achieve th
 ### chunk system
 need the chunk system, only this would allow for bigger maps [160x160 is enough]
 one chunk: visible tiles: 10x8
-need to load 9 chunks (main one and all surrounding) -> 720 tiles
+need to load 9 chunks (main one and all surrounding) -> 720 tilesm
 
 Probably will still need a chunks system on top of the map -> avoid rendering anything 
 - define chunks on map creation, avoid running stuff based on the chunk player is in
@@ -58,19 +59,13 @@ Probably will still need a chunks system on top of the map -> avoid rendering an
 
 ### shaders management -> remove if elses from shaders -> one shader per draw call
 
-### animations of course not perfect- need to breakable, more logic, etc. but looks good!
-
 ### OpenGL book
 
 ### Shaders book
 
-### when zoom out, middle mouse button could move the view -> but how? :o
-
 ### menu highliting -> nice feature to have :)
 
 ### saves scrolling
-
-### fonts size options? :( :( :(:( maybe another day...
 
 ### game should be 2D topdown
 

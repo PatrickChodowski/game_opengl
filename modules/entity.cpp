@@ -5,14 +5,15 @@
 #include <string>
 #include <vector>
 
+#include "anims.h"
 #include "entity.h"
 #include "fonts.h"
 #include "hero.h"
 #include "items.h"
 #include "mobs.h"
+#include "models.h"
 #include "npcs.h"
 #include "quads.h"
-#include "textures.h"
 #include "utils.h"
 
 #include "../dependencies/parallel_hashmap/phmap.h"
@@ -40,22 +41,21 @@ namespace entity
   { 
     entity::EntityData edd;
 
-    if(entity_id == -1)
-    {
+    if(entity_id == -1){
       edd.id = utils::generate_id(entity::Index);
     } else {
-      if(entity::entities.count(entity_id) > 0)
-      {
+      if(entity::entities.count(entity_id) > 0){
         std::cout << "\033[1;31mERROR DOUBLED ENTITY_ID " << entity_id << "\033[0m"<< std::endl;
       }
       edd.id = entity_id;
     }
 
-    edd.texture_id = data.texture_id;
-    edd.frame_id = data.current_frame;
+    edd.model_id = data.model_id;
+    // edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
     edd.pos.x = data.x;
     edd.pos.y = data.y;
+    edd.pos.z = 0.5f;
     edd.dims.h = data.h;
     edd.dims.w = data.w;
     edd.prev_x = data.x;
@@ -74,18 +74,18 @@ namespace entity
     edd.is_clicked = false;
     edd.speed = data.speed;
 
-    edd.norm.x_start = textures::_get_normalized_frame_x_start(edd.texture_id, edd.frame_id);
-    edd.norm.x_end = textures::_get_normalized_frame_x_end(edd.texture_id, edd.frame_id);
-    edd.norm.y_start = textures::_get_normalized_frame_y_start(edd.texture_id, edd.frame_id);
-    edd.norm.y_end = textures::_get_normalized_frame_y_end(edd.texture_id,edd.frame_id);
-
     edd.color.r = 0.5;
     edd.color.g = 0.5;
     edd.color.b = 0.5;
     edd.color.a = 1.0;
 
+    models::load(edd.model_id);
 
     entity::entities[edd.id] = edd;
+    std::cout << "Created Entity ID: " <<  edd.id << " of type: " << edd.entity_type_id << std::endl; 
+
+    // Trigger idle animation
+    anims::start(ANIM_STANDING_IDLE, edd.id);
     return edd.id;
   }
 
@@ -98,6 +98,7 @@ namespace entity
   {
     entity::Index.clear();
     entity::entities.clear();
+    std::cout << "Clearing Entities" << std::endl;
   };
 
   void drop(int entity_id)
@@ -121,36 +122,40 @@ namespace entity
   std::vector<std::string> info(int entity_id)
   {
     // create a string per row
-    entity::EntityData edd = entity::entities[entity_id];
+    entity::EntityData edd = entity::entities.at(entity_id);
     std::vector<std::string> infos = entity::menu_entity_type_map[edd.entity_type_id](entity_id);
 
-    std::string label_id = "ID:_" + utils::str(edd.id);
-    std::string label_pos = "Pos:_" + utils::str(int(edd.pos.x)) + ',' + utils::str(int(edd.pos.y));
+    std::string label_id = "id: " + utils::str(edd.id);
+    std::string label_pos = "pos: " + utils::str(int(edd.pos.x)) + ", " + utils::str(int(edd.pos.y));
     infos.push_back(label_id);
     infos.push_back(label_pos);
     return infos;
   } 
 
-  void update_frame(int entity_id, int frame_id)
-  {
-    int texture_id = entity::entities[entity_id].texture_id;
-    entity::entities[entity_id].frame_id = frame_id;
-    entity::entities[entity_id].norm.x_start = textures::_get_normalized_frame_x_start(texture_id, frame_id);
-    entity::entities[entity_id].norm.x_end = textures::_get_normalized_frame_x_end(texture_id, frame_id);
-    entity::entities[entity_id].norm.y_start = textures::_get_normalized_frame_y_start(texture_id, frame_id);
-    entity::entities[entity_id].norm.y_end = textures::_get_normalized_frame_y_end(texture_id, frame_id);
-  }
-
 
   void update_position(int entity_id, float x, float y)
   {
-    entity::entities[entity_id].prev_x = entity::entities[entity_id].pos.x;
-    entity::entities[entity_id].prev_y = entity::entities[entity_id].pos.y;
-    entity::entities[entity_id].pos.x = x;
-    entity::entities[entity_id].pos.y = y;
-    entity::entities[entity_id].mid_x = x + (entity::entities[entity_id].dims.w/2);
-    entity::entities[entity_id].mid_y = y + (entity::entities[entity_id].dims.h/2);
+    entity::entities.at(entity_id).prev_x = entity::entities.at(entity_id).pos.x;
+    entity::entities.at(entity_id).prev_y = entity::entities.at(entity_id).pos.y;
+    entity::entities.at(entity_id).pos.x = x;
+    entity::entities.at(entity_id).pos.y = y;
+    entity::entities.at(entity_id).mid_x = x + (entity::entities.at(entity_id).dims.w/2);
+    entity::entities.at(entity_id).mid_y = y + (entity::entities.at(entity_id).dims.h/2);
   }
+
+
+  void print_entity_data()
+  {
+    for (auto const& [k, v] : entity::entities)
+    {
+      std::cout << "Entity ID: " << k 
+                << " pos: (" << v.pos.x << ',' << v.pos.y 
+                << ") model_id: " << v.model_id 
+                << " entity_type_id: " << v.entity_type_id
+                << std::endl;
+    }
+  }
+
 
   template int entity::create<hero::HeroData>(hero::HeroData, int, float, int);
   template int entity::create<items::GeneratedItemData>(items::GeneratedItemData, int, float, int);

@@ -1,6 +1,7 @@
 #include "quads.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
+#include "../dictionary.h"
 #include <string>
 #include <vector>
 
@@ -15,17 +16,17 @@ namespace entity
   struct EntityData
   {
     int id;
-    int texture_id;
     int frame_id;
     int event_id;
     int status;
     int entity_type_id;
     int menu_id;
+    int model_id;
+    int side_id = ANIM_SIDE_FRONT;
 
     quads::Position pos;
     quads::Color color;
     quads::Dims dims;
-    quads::Norm norm;
 
     float prev_x, prev_y;
     float speed;
@@ -35,6 +36,7 @@ namespace entity
     
     bool is_solid;
     bool is_clicked;
+    bool is_reversed = false;
 
     // used if given entity has collision sensors
     phmap::flat_hash_map<int, collisions::Sensor> sensors;
@@ -65,9 +67,6 @@ namespace entity
   // Clears entity table
   void clear();
 
-  // Update entity's frame
-  void update_frame(int entity_id, int frame_id);
-
   // Update entity's position
   void update_position(int entity_id, float x, float y);
 
@@ -79,6 +78,9 @@ namespace entity
 
   // Hide entity (delete from the entities table, but keep entity_id)
   void hide(int entity_id);
+
+  // Prints out entity data
+  void print_entity_data();
 
 }
 

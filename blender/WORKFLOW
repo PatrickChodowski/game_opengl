@@ -1,0 +1,19 @@
+
+
+1): warrior2 script:  import base model as fbx, check animation, check bone direction, apply materials
+2) delete allthe empties
+3) Delete root and pose
+4) Combine all meshes (select all of them in collection window and click crtl+j when cursos is in the viewport)
+5) scale model down
+
+
+6) auto rig pro -> smart -> get selected objects -> set markers
+7) remove fingers (via limb options)
+8) adjust bones
+8) Set engine to Voxelized
+9) select skin and bones and click on ARP -> skin -> Bind
+10) Match to Rig
+11) Set Pose -> Pick TPOSE
+12) Apply Pose as Rest Pose
+
+CAMERA (shift+c)

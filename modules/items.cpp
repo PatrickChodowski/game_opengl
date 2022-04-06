@@ -113,7 +113,7 @@ namespace items
     tdd.w = items::items[item_id].width_og;
     tdd.h = items::items[item_id].height_og;
     tdd.current_frame = items::items[item_id].items_frame_id;
-    tdd.texture_id = items::items[item_id].items_texture_id;
+    tdd.model_id = items::items[item_id].items_texture_id;
     tdd.type = items::items[item_id].type;
 
     // logic for items to be stored in different table? Same as alive mobs

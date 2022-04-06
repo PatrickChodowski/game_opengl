@@ -35,8 +35,9 @@ namespace menu
     int button_function_id; // reference to button type from buttons
     float x, y;
     float w, h;
+    float r, g, b, a; 
 
-    JS_OBJ(label, button_function_id, x, y, w, h);
+    JS_OBJ(label, button_function_id, x, y, w, h, r, g, b, a);
   };
 
   // Label data read from the file
@@ -56,6 +57,7 @@ namespace menu
     int menu_type_id;
     int menu_slot_id;
     int texture_id = -1;
+    int model_id = -1;
     int frame_id = -1;
     int object_type_id;
     int assigned_entity_id;
@@ -79,6 +81,7 @@ namespace menu
     std::vector<int> label_ids;
     
     bool is_clicked;
+    bool is_reversed = false;
 
     JS_OBJ(menu_type_id, r, g, b, a, x , y, w, h, texture_id, frame_id, object_type_id, 
     button_data, label_data);
@@ -93,6 +96,7 @@ namespace menu
   extern std::vector<std::string> saves;
   extern phmap::flat_hash_map<int, std::string> saves_buttons_map;
   extern std::string NewGameName;
+  extern std::string LoadGameName;
 
   // Read menu data from the file
   void read_menu_data(std::string& name);
