@@ -19,6 +19,7 @@ namespace buttons
     int label_id;
     int button_function_id;
     int texture_id = -1;
+    int model_id = -1;
     int frame_id = -1;
     int menu_id; // menu that the button belongs to
     
@@ -30,6 +31,7 @@ namespace buttons
     quads::Norm norm;
     
     bool is_clicked;
+    bool is_reversed = false;
   };
 
   typedef void (*sig_ptr)(int);
@@ -42,7 +44,7 @@ namespace buttons
   void init();
 
   // Add button. Returns button_id
-  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id);
+  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id, float r, float g, float b, float a);
 
   // Render quads
   void render();
@@ -75,12 +77,6 @@ namespace buttons
 
   // Logic of what happens after clicking on back to main menu button
   void _click_back(int placeholder);
-
-  // Start new travel object
-  void _button_travel(int button_id);
-
-
-
 
 }
 

@@ -32,33 +32,33 @@ namespace buttons
     buttons::ButtonFunctions[BUTTON_NEWGAME_NAME] = buttons::_click_newgame_name;
     buttons::ButtonFunctions[BUTTON_BACK] = buttons::_click_back;
     buttons::ButtonFunctions[BUTTON_LOADGAME_NAME] = buttons::_click_loadgame_name;
-    buttons::ButtonFunctions[BUTTON_TRAVEL] = buttons::_button_travel;
 
     std::cout << "Buttons Initialized" << std::endl;
   };
 
-  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id)
+  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id, float r, float g, float b, float a)
   {
     buttons::ButtonData bdd;
     bdd.id = utils::generate_id(buttons::Index);
     bdd.pos.x = x;
     bdd.pos.y = y;
+    bdd.pos.z = 0.9f;
     bdd.dims.w = w;
     bdd.dims.h = h;
     bdd.is_clicked = false;
-    bdd.color.r = 0.8;
-    bdd.color.g = 0.5;
-    bdd.color.b = 0.5;
-    bdd.color.a = 1.0;
+    bdd.color.r = r;
+    bdd.color.g = g;
+    bdd.color.b = b;
+    bdd.color.a = a;
     bdd.button_function_id = button_function_id;
     bdd.camera_type = CAMERA_STATIC;
     bdd.menu_id = menu_id;
 
     bdd.label_id = fonts::add(text, 
-                               x + 15, 
-                               y + 55, 
+                               x + 5, 
+                               y + 10, 
                                CAMERA_STATIC, 
-                               1.0f,
+                               40, // size of the font
                                0.0f, 
                                0.0f, 
                                0.0f);
@@ -99,6 +99,7 @@ namespace buttons
 
   void _click_load_game(int placeholder)
   {
+    menu::_list_saves();
     game::switch_scene(SCENE_ID_LOAD_GAME_MENU, false);
   };
 
@@ -116,31 +117,21 @@ namespace buttons
   {
     if(menu::_validate_name())
     {
-      std::string new_game_name = menu::NewGameName;
-      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, false);  
-      hero::create_new(new_game_name, "barbarian");
+      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);
+
     }
   }
 
   void _click_loadgame_name(int button_id)
   {
-    std::string load_game_name = menu::saves_buttons_map[button_id];
-    game::clear_scene();
-    saves::load_game(load_game_name);
-    game::load_scene(game::SCENE_ID, true);
+    menu::LoadGameName = menu::saves_buttons_map[button_id];
+    saves::SaveData SD = saves::read_save_data(menu::LoadGameName);
+    game::switch_scene(SD.scene_id, SCENE_LOAD_FROM_LOAD);  
   }
 
   void _click_back(int placeholder)
   {
     game::switch_scene(SCENE_ID_MAIN_MENU, false);
-  };
-
-  void _button_travel(int button_id)
-  {   
-    int entity_id = menu::currentmenus[buttons::buttons[button_id].menu_id].assigned_entity_id;
-    std::cout << "clicked on travel button, entity id:  " << entity_id << std::endl;
-    travel::reset_last_click();
-    travel::init_travel(entity_id);
   };
 
 }

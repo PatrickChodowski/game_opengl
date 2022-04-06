@@ -36,6 +36,7 @@ namespace debug
     pdd.id = utils::generate_id(debug::Index);
     pdd.pos.x = x;
     pdd.pos.y = y;
+    pdd.pos.z = 0.99f;
     pdd.color.r = r;
     pdd.color.g = g;
     pdd.color.b = b;

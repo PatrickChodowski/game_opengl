@@ -40,6 +40,18 @@ namespace scripts
   // Function 5: _start_animation
   void _start_animation();
 
+  // Function 6: _init_travel
+  void _init_travel();
+
+  // Function 7: _print_entity
+  void _print_entity();
+
+  // Function 8: _print_models
+  void _print_models();
+
+  // Function 9: _print_quads
+  void _print_quads();
+
 
 }
 

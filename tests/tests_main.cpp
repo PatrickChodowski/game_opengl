@@ -5,8 +5,9 @@
 #include <vector>
 #include "../dependencies/parallel_hashmap/phmap.h"
 
+#include "../modules/anims.h"
+#include "../modules/models.h"
 #include "tests_collisions.h"
-#include "tests_models.h"
 #include "tests_utils.h"
 
 typedef bool (*sig_ptr)();
@@ -19,6 +20,10 @@ std::vector<std::string> failed_tests;
 
 void init()
 {
+  // models and animations are now needed for loading entities to the scene. Entity has model assigned and loaded automatically and animation set to idle
+  anims::init();
+  models::init();
+
   // collisions
   tests["test_collisions__set_sensors_on_entity_count"] = test_collisions__set_sensors_on_entity_count;
   tests["test_collisions__set_sensors_on_entity_top"] = test_collisions__set_sensors_on_entity_top;
@@ -28,13 +33,6 @@ void init()
   tests["test_collisions__get_entity_to_map_dto_solidpass"] = test_collisions__get_entity_to_map_dto_solidpass;
   tests["test_collisions__get_entity_to_map_dto_is_near"] = test_collisions__get_entity_to_map_dto_is_near;
   // tests["test_collisions__get_entity_to_entity_dto_solidpass"] = test_collisions__get_entity_to_entity_dto_solidpass;
-
-  
-  // models
-  // tests["test_models_float_to_bytes_conversion"] = test_models_float_to_bytes_conversion;
-  tests["test_models_bytes_to_float_conversion_05"] = test_models_bytes_to_float_conversion_05;
-  tests["test_models_bytes_to_float_conversion_51"] = test_models_bytes_to_float_conversion_51;
-
 
   // utils
   tests["test_utils_generate_id_first_id_is_1"] = test_utils_generate_id_first_id_is_1;
@@ -69,6 +67,7 @@ int main()
 
   for (auto const& [k, v]:tests)
   {
+    std::cout << "   [STARTING TEST]   " << k << std::endl;
     total_tests += 1;
     bool test_result = v();
     eval(k, test_result);

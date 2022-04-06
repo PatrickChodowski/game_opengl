@@ -40,12 +40,8 @@ namespace travel
     float y;
   };
 
-  extern travel::TravelPoint last_click;
   extern phmap::flat_hash_map<int, travel::TravelData> travels;
   extern std::vector<int> travels_to_cancel;
-
-  // Method to reset last click info for starting travel from debug menu
-  void reset_last_click();
 
   // Calculates angle between 2 points
   float _get_angle_between_points(float e_x, float e_y, float p_x, float p_y);
@@ -79,8 +75,8 @@ namespace travel
   // Remove data from travels and travels_to_cancel
   void clear();
 
-  // initialize travel object without knowing the end yet, keeping in idle state
-  void init_travel(int entity_id);
+  // Initialize travel object with target
+  void init_travel_with_target(int entity_id, float target_x, float target_y);
 
 
 

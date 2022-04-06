@@ -45,6 +45,7 @@ namespace buffer
     glGenVertexArrays(1, &buffer::VAO);
     glGenBuffers(1, &buffer::VBO);
     glGenBuffers(1, &buffer::EBO);
+    
 
     // Bind buffers
     glBindVertexArray(buffer::VAO);
@@ -88,7 +89,7 @@ namespace buffer
     glEnableVertexAttribArray(7);
 
     // hmmmm
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     std::cout << "Buffer Initialized" << std::endl;
   }
 
@@ -176,43 +177,6 @@ namespace buffer
     }
   }
 
-  void _make_vertex_array_from_3d_meshes(std::vector<models::ModelMeshVertexData> &mesh_vertices, float* arr)
-  {
-    int cva = buffer::COUNT_VERTEX_ATTRIBUTES; 
-    for(int i=0; i<mesh_vertices.size(); i++)
-    {
-      int start_position = i*cva;
-      arr[(start_position)] = mesh_vertices[i].x*100;
-      arr[(start_position+1)] = mesh_vertices[i].y*100;
-      arr[(start_position+2)] = mesh_vertices[i].z;
-      arr[(start_position+3)] = mesh_vertices[i].r;
-      arr[(start_position+4)] = mesh_vertices[i].g;
-      arr[(start_position+5)] = mesh_vertices[i].b;
-      arr[(start_position+6)] = mesh_vertices[i].a;
-      arr[(start_position+7)] = mesh_vertices[i].frame_id;
-      arr[(start_position+8)] = mesh_vertices[i].tx_x;
-      arr[(start_position+9)] = mesh_vertices[i].tx_y;
-      arr[(start_position+10)] = mesh_vertices[i].texture_id;
-      arr[(start_position+11)] = mesh_vertices[i].is_clicked;
-      arr[(start_position+12)] = mesh_vertices[i].object_type;
-      arr[(start_position+13)] = mesh_vertices[i].camera_type;
-    }
-  }
-
-
-  void _make_index_array_from_3d_meshes(std::vector<models::ModelMeshData> &meshes, unsigned int* arr)
-  {
-    int offset = 0;
-    for(int m=0; m<meshes.size(); m++)
-    {
-      for(int i=0; i < meshes[m].indices.size(); i++)
-      {
-        arr[offset] = meshes[m].indices[i];
-        offset++;
-      }
-    }
-  }
-
   void _make_vertex_array_from_lines(std::vector<debug::LineData>& lines, float* arr)
   {
     int cva = buffer::COUNT_VERTEX_ATTRIBUTES; 
@@ -221,7 +185,7 @@ namespace buffer
       int start_position = t*cva*2;
       arr[(start_position)] = lines[t].x1;
       arr[(start_position+1)] = lines[t].y1;
-      arr[(start_position+2)] = 0.0f; // z
+      arr[(start_position+2)] = 0.99f; // z
       arr[(start_position+3)] = lines[t].r;
       arr[(start_position+4)] = lines[t].g;
       arr[(start_position+5)] = lines[t].b;
@@ -236,7 +200,7 @@ namespace buffer
 
       arr[(start_position+cva)] = lines[t].x2;
       arr[(start_position+(cva+1))] = lines[t].y2;
-      arr[(start_position+(cva+2))] = 0.0f; // z
+      arr[(start_position+(cva+2))] = 0.99f; // z
       arr[(start_position+(cva+3))] = lines[t].r;
       arr[(start_position+(cva+4))] = lines[t].g;
       arr[(start_position+(cva+5))] = lines[t].b;
@@ -283,41 +247,12 @@ namespace buffer
     glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertex_array);
   }
 
-  void update_models(std::vector<models::ModelMeshVertexData>& mesh_vertices, std::vector<models::ModelMeshData>& meshes)
-  {
-    int n_vertex_array = buffer::COUNT_VERTEX_ATTRIBUTES*mesh_vertices.size();
-    float vertex_array[n_vertex_array];
-
-    int n_index_array = mesh_vertices.size();
-    unsigned int index_array[n_index_array];
-
-    buffer::VBO_array_size = sizeof(float)*n_vertex_array;
-    buffer::EBO_array_size = sizeof(float)*n_index_array;
-
-    buffer::_make_vertex_array_from_3d_meshes(mesh_vertices, vertex_array);
-    buffer::_make_index_array_from_3d_meshes(meshes, index_array);
-
-    buffer::log(vertex_array, n_vertex_array, buffer::COUNT_VERTEX_ATTRIBUTES, "model_vertex_array");
-    buffer::log(index_array, n_index_array, 3, "model_index_array");
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, buffer::VBO_array_size, vertex_array);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer::EBO_array_size, index_array);
-  }
-
-
-
-
-
   void drop()
   {
     glDeleteVertexArrays(1, &buffer::VAO);
     glDeleteBuffers(1, &buffer::VBO);
     glDeleteBuffers(1, &buffer::EBO);
   }
-
 
   template <typename T>
   //void log(float* arr, int arr_size, int row_len, const char* arr_name);

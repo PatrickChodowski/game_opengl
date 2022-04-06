@@ -67,7 +67,7 @@ namespace npcs
   {
     int id;
     int entity_id;
-    int texture_id;
+    int model_id;
     int current_frame;
     int personality_id;
     int scene_id;
@@ -82,7 +82,7 @@ namespace npcs
 
     std::string name;
 
-    JS_OBJ(id, texture_id, current_frame, w, h, speed, name);
+    JS_OBJ(id, model_id, current_frame, w, h, speed, name);
   };
 
 

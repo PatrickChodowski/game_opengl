@@ -1,8 +1,6 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
-#define FONT_TEXTURE_ID 1
-
 // Mouse buttons
 #define MOUSE_BUTTON_LEFT 0
 #define MOUSE_BUTTON_RIGHT 1
@@ -79,6 +77,11 @@
 #define SCENE_ID_DUNGEON_LEVEL_1 4
 #define SCENE_ID_DUNGEON_LEVEL_2 5
 
+// Scene Loading
+#define SCENE_LOAD_FROM_NEW 0
+#define SCENE_LOAD_FROM_LOAD 1
+#define SCENE_LOAD_CHANGE_LEVEL 2
+
 // Events handlers
 #define EVENT_HANDLER_MENU 0
 #define EVENT_HANDLER_NEW_GAME_MENU 1
@@ -101,5 +104,28 @@
 #define TRAVEL_STATE_IDLE 0
 #define TRAVEL_STATE_ACTIVE 1
 #define TRAVEL_STATE_FINISHED 2
+
+// Main animation types
+#define ANIM_TYPE_FRAME 0
+#define ANIM_TYPE_COLOR 1
+#define ANIM_TYPE_POSITION 2
+#define ANIM_TYPE_SIZE 3
+#define ANIM_TYPE_FRAME_POSITION 4
+
+// Animation Side Index
+#define ANIM_SIDE_FRONT 1
+#define ANIM_SIDE_BACK 2
+#define ANIM_SIDE_RIGHT 3
+#define ANIM_SIDE_LEFT 4
+#define ANIM_SIDE_FRONT_RIGHT 5
+#define ANIM_SIDE_FRONT_LEFT 6
+#define ANIM_SIDE_BACK_RIGHT 7
+#define ANIM_SIDE_BACK_LEFT 8 
+
+// Animation index
+#define ANIM_STANDING_IDLE 1
+#define ANIM_UNARMED_WALK_FORWARD 2
+#define ANIM_STANDING_TAUNT_CHEST_THUMP 3
+
 
 #endif

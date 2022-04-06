@@ -37,10 +37,9 @@ namespace saves
     sd.w = hero::hero.w;
     sd.h = hero::hero.h;
     sd.scene_id = game::SCENE_ID;
-    sd.map_id = game::scenes[game::SCENE_ID].map_id;
     sd.name = hero::hero.name;
     sd.type = hero::hero.type;
-    sd.texture_id = hero::hero.texture_id;
+    sd.model_id = hero::hero.model_id;
     sd.level = hero::hero.level;
     sd.exp = hero::hero.exp;
     sd.speed = hero::hero.speed;
@@ -55,19 +54,24 @@ namespace saves
     saves::_write_save_json(pretty_json);
   }
 
-
-  void load_game(std::string& name)
-  { // loads hero, campaign, map and camera information
-
+  saves::SaveData read_save_data(std::string& name)
+  {    
     SaveData SD;
     std::string data_path = "./saves/"+name+".json";
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(SD);
+    return SD;
+  }
 
+
+  void load_game(std::string& name)
+  { // loads hero, campaign, map and camera information
+
+    SaveData SD = saves::read_save_data(name);
     hero::hero.h = SD.h;
     hero::hero.w = SD.w;
-    hero::hero.texture_id = SD.texture_id;
+    hero::hero.model_id = SD.model_id;
     hero::hero.name = SD.name;
     hero::hero.type = SD.type;
     hero::hero.speed = SD.speed;
@@ -80,8 +84,7 @@ namespace saves
     camera::cam.y = - (SD.y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
 
     game::SCENE_ID = SD.scene_id;
-    game::MAP_ID = SD.map_id;
-
+    game::MAP_ID = game::scenes[game::SCENE_ID].map_id;
     npcs::interactions = SD.interactions;
   }
 

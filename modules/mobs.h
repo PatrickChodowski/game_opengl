@@ -16,7 +16,7 @@ namespace mobs
   struct MobData
   {
     int id;
-    int texture_id;
+    int model_id;
     int current_frame;
     int min_dmg;
     int max_dmg;
@@ -33,7 +33,7 @@ namespace mobs
 
     std::string type;
 
-    JS_OBJ(id, type, w, h, texture_id, min_dmg, max_dmg, min_speed,
+    JS_OBJ(id, type, w, h, model_id, min_dmg, max_dmg, min_speed,
     max_speed, min_hp, max_hp, min_def, max_def, speed);
   };
 

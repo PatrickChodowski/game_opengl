@@ -3,7 +3,7 @@
   "name": "bigmap",
   "vertex_width": 160,
   "vertex_height": 160,
-  "texture_id": 3,
+  "model_id": 3,
   "doors": [{}
   ],
   "nests": [

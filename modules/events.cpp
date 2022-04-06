@@ -38,29 +38,37 @@ namespace events
     camera::cam.move_x = 0;
     camera::cam.move_y = 0;
 
+
     if(game::KEYBOARD[SDL_SCANCODE_LEFT])
     {
       camera::cam.move_x -= hero::hero.speed;
-      anims::start(2, hero::hero.entity_id);
+      entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_LEFT;
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+
+      //hero::animate_items(ANIM_MOVE_LEFT);
     } 
     else if(game::KEYBOARD[SDL_SCANCODE_RIGHT])
     {
       camera::cam.move_x += hero::hero.speed;
-      anims::start(3, hero::hero.entity_id);
+      entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_RIGHT;
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      //hero::animate_items(ANIM_MOVE_RIGHT);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_UP])
     {
       camera::cam.move_y += hero::hero.speed;
-      anims::start(0, hero::hero.entity_id);
+      entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_BACK;
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      //hero::animate_items(ANIM_MOVE_UP);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_DOWN])
     {
       camera::cam.move_y -= hero::hero.speed;
-      anims::start(1, hero::hero.entity_id);
-    } else 
-    {
-      //hero::update_frame(STAND_STILL);
-    }
+      entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_FRONT;
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      //hero::animate_items(ANIM_MOVE_DOWN);
+    } 
+
     if(camera::cam.move_x != 0 | camera::cam.move_y !=0 )
     {
 
@@ -75,7 +83,9 @@ namespace events
   }
 
   void _handle_in_game(SDL_Event event)
-  {
+  { 
+    // Prevents arrow key scan 
+    bool LOCK_CAMERA = false;
     while (SDL_PollEvent(&event))
     {
       switch (event.type)
@@ -96,12 +106,14 @@ namespace events
 
         case SDL_QUIT:
           game::RUNNING = false;
+          LOCK_CAMERA = true;
         break;
 
         case SDL_KEYDOWN: 
           switch (event.key.keysym.sym)
           { 
             case SDLK_ESCAPE:
+              LOCK_CAMERA = true;
               game::switch_scene(SCENE_ID_MAIN_MENU, false);   
             break;
             
@@ -126,8 +138,17 @@ namespace events
               game::IS_DEBUG_MODE = !game::IS_DEBUG_MODE;
             break;
 
+            case SDLK_i:
+              entity::print_entity_data();
+            break;
+
             case SDLK_l:
               game::LOG_TO_FILES = !game::LOG_TO_FILES;
+            break;
+
+            case SDLK_b:
+              anims::start(ANIM_STANDING_TAUNT_CHEST_THUMP, hero::hero.entity_id);
+              LOCK_CAMERA = true;
             break;
 
             case SDLK_e:
@@ -152,9 +173,25 @@ namespace events
             break;
           }
         break;
+
+        case SDL_KEYUP:
+          // Only when the key is released?
+          switch (event.key.keysym.sym)
+          {
+            case SDLK_LEFT:
+            case SDLK_RIGHT:
+            case SDLK_UP:
+            case SDLK_DOWN:
+              anims::start(ANIM_STANDING_IDLE, hero::hero.entity_id);
+            break;
+          }
+        break;
       }
     }
-    _scan_for_camera_move();
+
+    if(!LOCK_CAMERA){
+      events::_scan_for_camera_move();
+    }
   };
 
   void _handle_new_game(SDL_Event event)
@@ -185,8 +222,7 @@ namespace events
             case SDLK_RETURN:
               if(menu::_validate_name())
               {
-                hero::create_new(menu::NewGameName, "barbarian");
-                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, false);  
+                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);  
               }
             break;
 

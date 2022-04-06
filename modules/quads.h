@@ -21,8 +21,8 @@ namespace quads
   // Position -> x,y,z
   struct Position
   {
-    float x, y;
-    float z = 1.0f;
+    float x, y, z;
+    //float z = 1.0f;
   };
 
   // Dimensions -> w,h
@@ -73,6 +73,7 @@ namespace quads
     int texture_id;
     int frame_id;
     int object_id;
+    int model_id;
  
     // a b
     // c
@@ -99,7 +100,6 @@ namespace quads
 
     bool is_clicked;
     bool is_deleted;
-    bool is_reversed = false;
 
   };
 
@@ -112,13 +112,6 @@ namespace quads
 
   // Takes some quad information and produces vertex data struct to be added to quad;
   VertexData _fill_quad_vertex_data(quads::QuadData& q, int n);
-
-  // Takes some quad information and produces reversed vertex data struct to be added to quad;
-  VertexData _fill_quad_vertex_data_reversed(quads::QuadData& q, int n);
-
-  typedef VertexData (*sig_ptr)(quads::QuadData& q, int n);
-  // Catalog of functions to be chosen based on the quads direction
-  extern phmap::flat_hash_map<bool,sig_ptr> GetVertex;
 
   // Initialize quads
   void init();
@@ -139,6 +132,9 @@ namespace quads
 
   // Writes down the quads data to ./logs/all_quads.json on every frame
   void log();
+
+  // Prints quads data in the console, used by scripter
+  void print_quads_data();
 
 }
 

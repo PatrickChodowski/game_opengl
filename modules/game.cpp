@@ -28,8 +28,8 @@
 #include "navmesh.h"
 #include "npcs.h"
 #include "quads.h"
+#include "saves.h"
 #include "shaders.h"
-#include "textures.h"
 #include "travel.h"
 
 #include "../scripts/py.h"
@@ -57,6 +57,7 @@ namespace game
   float HERO_START_Y;
   bool LOG_TO_FILES = false;
   phmap::flat_hash_map<int, game::SceneData> scenes;
+  phmap::flat_hash_map<int, sig_ptr> HeroLoader;
 
   void read_data(std::string& name)
   {
@@ -75,34 +76,73 @@ namespace game
     {
       game::read_data(scene_list[s]);
     };
+
+    game::HeroLoader[SCENE_LOAD_FROM_NEW] = game::_load_hero_from_new_game;
+    game::HeroLoader[SCENE_LOAD_FROM_LOAD] = game::_load_hero_from_load_game;
+    game::HeroLoader[SCENE_LOAD_CHANGE_LEVEL] = game::_load_hero_from_change_level;
     std::cout << "Scenes Initialized" << std::endl;
   }
 
-  void load_scene(int scene_id, bool from_save)
+  void _load_hero_from_new_game(int scene_id)
+  {
+    game::HERO_START_X = game::scenes[scene_id].hero_start_x;
+    game::HERO_START_Y = game::scenes[scene_id].hero_start_y;
+
+    if(!game::scenes[scene_id].is_gp)
+    {
+      hero::refresh();
+    }
+    
+    if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
+    {
+      hero::create_new(menu::NewGameName, "barbarian");
+      hero::set_position(game::HERO_START_X, game::HERO_START_Y);
+      camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
+      camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
+    }
+  };
+
+  void _load_hero_from_load_game(int scene_id)
+  {
+    if(!game::scenes[scene_id].is_gp)
+    {
+      hero::refresh();
+    }
+    std::cout << "Menu Load Game Name: " << menu::LoadGameName << std::endl;
+    saves::load_game(menu::LoadGameName);
+  };
+
+  void _load_hero_from_change_level(int scene_id)
+  {
+    if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
+    {
+      hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
+      hero::set_position(game::HERO_START_X, game::HERO_START_Y);
+      camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
+      camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
+    }
+  };
+
+  void load_scene(int scene_id, int load_scene_from)
   {
     if(game::scenes.count(scene_id) > 0)
     {    
+      models::load(fonts::FONT_MODEL_ID);
       game::SCENE_ID = scene_id;
       game::EVENT_HANDLER_ID = game::scenes[scene_id].events_handler_id;
       game::MAP_ID = game::scenes[scene_id].map_id;
-      game::HERO_START_X = game::scenes[scene_id].hero_start_x;
-      game::HERO_START_Y = game::scenes[scene_id].hero_start_y;
+      game::HeroLoader[load_scene_from](scene_id);
 
-      if(!game::scenes[scene_id].is_gp)
-      {
-        hero::refresh();
-      }
-
-      // Load maps
+      // // Load maps
       maps::init_map(game::MAP_ID);
 
-      // load mobs based on the map
-      mobs::spawn_from_nest(game::MAP_ID);
+      // // load mobs based on the map
+      // mobs::spawn_from_nest(game::MAP_ID);
 
-      // Spawns npcs for the map
-      npcs::spawn_from_map(game::MAP_ID);
+      // // Spawns npcs for the map
+      // npcs::spawn_from_map(game::MAP_ID);
 
-      items::spawn(1, 200, 300);
+      //items::spawn(1, 200, 300);
 
       // Load menu slots
       for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)
@@ -117,23 +157,21 @@ namespace game
         menu::add(menu_type_id);
       }
 
-      // Set hero position and centralize camera if new game or switch level but not from save
-      if((game::HERO_START_X != -1000 & game::HERO_START_Y != -1000) & !from_save)
-      {
-        hero::set_position(game::HERO_START_X, game::HERO_START_Y);
-        camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
-        camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
-      }
-
       std::cout << "Loaded Scene: " << scene_id << std::endl;
     }
   }
   
-  void switch_scene(int scene_id, bool from_save)
+  void switch_scene(int scene_id, int load_scene_from)
   {
     game::clear_scene();
-    game::load_scene(scene_id, from_save);
+    game::load_scene(scene_id, load_scene_from);
     game::SCENE_ID = scene_id;
+
+    // have to cleared after loading the scene
+    menu::NewGameName = "";
+    menu::LoadGameName = "";
+
+    std::cout << "Finished switching scenes " << std::endl;
   }
 
   void clear_scene()
@@ -147,14 +185,12 @@ namespace game
     fonts::clear();
     menu::clear();
     mobs::clear();
+    models::clear();
     npcs::clear();
     quads::clear();
     debug::clear();
     buttons::clear();
     travel::clear();
-    hero::hero.entity_id = -1;
-
-    // saves::save()
   }
 
   void init()
@@ -162,26 +198,25 @@ namespace game
     //std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
 
     quads::clear();
-    quads::init();
+    models::init();
+    
     anims::init();
+    quads::init();
     buffer::init();
     buttons::init();
     collisions::init();
     entity::init();
     events::init();
-    fonts::init("Ignotum"); // its important to keep it before textures becuase of bindings
     items::init();
     logger::init();
     maps::init();
     menu::init();
     mobs::init();
-    //models::init();
     mouse::init();
     npcs::init();
     game::init_scenes();
     scripts::init();
     shaders::init();
-    textures::init();
 
     // Loads scene based on SCENE_ID
     game::load_scene(game::SCENE_ID, false);
@@ -190,39 +225,28 @@ namespace game
 
   void update()
   {
-    // std::cout << "hero x y:" << hero::hero.x <<  ", " << hero::hero.y << std::endl;
-    // std::cout << "entities size:" << entity::entities.size() << std::endl;
-    // std::cout << "hero entity id: " << hero::hero.entity_id << std::endl;
-    // std::cout << "entity hero x y " << entity::entities[hero::hero.entity_id].pos.x << ", " << entity::entities[hero::hero.entity_id].pos.y << std::endl;
     quads::clear();
     maps::render();
     entity::render();
     debug::render();
     menu::render();
-    //models::render();
+    models::bind();
     buttons::render();
     fonts::render();
     nav::render();
-  
+    int sampler_size = (models::SceneModels.size() + 1);
+    int sampler[sampler_size]; 
+    models::populate_sampler(sampler);
+ 
     quads::update();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
     logger::log_data();
-    textures::bind();
     buffer::update_quads(quads::AllQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    //glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
-
-    // sampler array creation
-    int sampler_size = (textures::BoundTextures.size() + 1);
-    int sampler[sampler_size]; 
-    sampler[0] = 0;
-    for (int i = 0; i < textures::BoundTextures.size(); i++)
-    {
-      sampler[(i+1)] = textures::BoundTextures[i];
-    } 
+    glClear(GL_DEPTH_BUFFER_BIT); // -> only if depth test is enabled
 
     // react to camera changes
     camera::DYNAMIC_MVP = camera::gen_dynamic_mvp(-camera::cam.x, camera::cam.y, camera::cam.zoom);
@@ -264,14 +288,14 @@ namespace game
     // buffer::update_models(models::MeshVertices, models::meshes);
     // glDrawElements(GL_TRIANGLES, models::MeshVertices.size(), GL_UNSIGNED_INT, nullptr);
 
-
+    //entity::print_entity_data();
   }
 
   void drop()
   {
     buffer::drop();
     shaders::drop();
-    textures::drop();
+    models::drop();
     scripts::drop();
   }
 
@@ -280,7 +304,6 @@ namespace game
     game::clear_scene();
     game::scenes.clear();
 
-    anims::refresh();
     hero::refresh();
     items::refresh();
     maps::refresh();
@@ -288,13 +311,11 @@ namespace game
     mobs::refresh();
     //models::refresh();
     npcs::refresh();
-
-    anims::init();
     items::init();
     maps::init();
     menu::init();
     mobs::init();
-    //models::init();
+    models::init();
     npcs::init();
     game::init_scenes();
 

@@ -29,6 +29,7 @@ namespace menu
   std::vector<std::string> saves;
   phmap::flat_hash_map<int, std::string> saves_buttons_map;
   std::string NewGameName;
+  std::string LoadGameName;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
   
 
@@ -99,6 +100,7 @@ namespace menu
       mdd.id = menu_id;
       mdd.pos.x = menu::currentmenuslots[menu_slot_id].x;
       mdd.pos.y = menu::currentmenuslots[menu_slot_id].y;
+      mdd.pos.z = 0.85f;
       mdd.menu_slot_id = menu_slot_id;
       mdd.assigned_entity_id = object_id;
       menu::currentmenuslots[menu_slot_id].free = false;
@@ -114,7 +116,7 @@ namespace menu
                                   (mdd.pos.x + 10),
                                   mdd.pos.y + 40 + (i*40),
                                   CAMERA_STATIC,
-                                  0.6f,
+                                  40,
                                   1.0f,
                                   1.0f,
                                   1.0f);
@@ -129,7 +131,12 @@ namespace menu
                                  150,
                                  currentmenus[menu_id].button_data[b].h,
                                  currentmenus[menu_id].button_data[b].button_function_id,
-                                 menu_id);
+                                 menu_id,
+                                 currentmenus[menu_id].button_data[b].r,
+                                 currentmenus[menu_id].button_data[b].g,
+                                 currentmenus[menu_id].button_data[b].b,
+                                 currentmenus[menu_id].button_data[b].a
+                                 );
         currentmenus[menu_id].button_ids.push_back(button_id);  
       }
     }
@@ -156,7 +163,11 @@ namespace menu
                                     currentmenus[menu_id].button_data[b].w,
                                     currentmenus[menu_id].button_data[b].h,
                                     currentmenus[menu_id].button_data[b].button_function_id,
-                                    menu_id);
+                                    menu_id,
+                                    currentmenus[menu_id].button_data[b].r,
+                                    currentmenus[menu_id].button_data[b].g,
+                                    currentmenus[menu_id].button_data[b].b,
+                                    currentmenus[menu_id].button_data[b].a);
         currentmenus[menu_id].button_ids.push_back(button_id);  
       } else 
       {
@@ -169,7 +180,11 @@ namespace menu
                                    currentmenus[menu_id].button_data[b].w,
                                    currentmenus[menu_id].button_data[b].h,
                                    currentmenus[menu_id].button_data[b].button_function_id,
-                                   menu_id);
+                                   menu_id,
+                                   currentmenus[menu_id].button_data[b].r,
+                                   currentmenus[menu_id].button_data[b].g,
+                                   currentmenus[menu_id].button_data[b].b,
+                                   currentmenus[menu_id].button_data[b].a);
           currentmenus[menu_id].button_ids.push_back(button_id); 
           menu::saves_buttons_map[button_id] = menu::saves[m];
         }
@@ -225,7 +240,6 @@ namespace menu
     menu::Index.clear();
     menu::currentmenus.clear();
     menu::currentmenuslots.clear();
-    menu::NewGameName = "";
     menu::saves_buttons_map.clear();
   };
 
