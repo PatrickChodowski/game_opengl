@@ -116,7 +116,7 @@ namespace menu
                                   (mdd.pos.x + 10),
                                   mdd.pos.y + 40 + (i*40),
                                   CAMERA_STATIC,
-                                  0.6f,
+                                  40,
                                   1.0f,
                                   1.0f,
                                   1.0f);

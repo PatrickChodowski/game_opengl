@@ -23,8 +23,8 @@ namespace fonts
   struct LabelData 
   {
     int id;
-    int size;
 
+    float size;
     float r, g, b;
     float x_start;
     float y_start;
@@ -71,7 +71,7 @@ namespace fonts
   extern int NEW_GAME_LABEL_ID;
 
   // Addtional mapping from character to frame_id for Font model
-  extern phmap::flat_hash_map<char*, int>  CharacterAtlas;
+  extern phmap::flat_hash_map<char, int>  CharacterAtlas;
 
 
 
@@ -85,7 +85,7 @@ namespace fonts
   unsigned int _load_font_texture_to_opengl(int w, int h, int n_channels);
 
   // Add new label to labels. Returns label_id
-  int add(std::string& text, float x_start, float y_start, float camera_type, int size, float r, float g, float b);
+  int add(std::string& text, float x_start, float y_start, float camera_type, float size, float r, float g, float b);
 
   // Render characters of selected label data
   void render_chars(fonts::LabelData ldd);

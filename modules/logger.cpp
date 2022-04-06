@@ -139,7 +139,7 @@ namespace logger
     if(game::LOG_TO_FILES)
     {
       models::log();
-      // quads::log();
+      quads::log();
       // debug::log();
     }
   };

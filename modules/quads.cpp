@@ -58,10 +58,10 @@ namespace quads
   template <typename T>
   int make_quad(T& data, int object_type_id)
   { 
-    if (object_type_id == OBJECT_TYPE_TEXT)
-    {
-      std::cout << "Making quad id of type " << object_type_id << "MODEL ID:" << data.model_id<< std::endl;
-    }
+    // if (object_type_id == OBJECT_TYPE_TEXT)
+    // {
+    //   std::cout << "Making quad id of type " << object_type_id << "MODEL ID:" << data.model_id<< std::endl;
+    // }
 
     quads::QuadData quad;
     quad.id = (object_type_id+1)*100000 + data.id;
@@ -94,10 +94,10 @@ namespace quads
     quad.is_deleted = false;
     quads::AllQuads.push_back(quad);
 
-    if (object_type_id == OBJECT_TYPE_TEXT)
-    {
-      std::cout << "DONE Making quad id of type " << object_type_id << std::endl;
-    }
+    // if (object_type_id == OBJECT_TYPE_TEXT)
+    // {
+    //   std::cout << "DONE Making quad id of type " << object_type_id << std::endl;
+    // }
     return quad.id;
   }
 

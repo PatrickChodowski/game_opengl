@@ -30,7 +30,7 @@ namespace fonts
   std::vector<int> LabelIndex;
   phmap::flat_hash_map<int, fonts::TextCharacterData> text_characters;
   phmap::flat_hash_map<int, fonts::LabelData> labels;
-  phmap::flat_hash_map<char*, int>  CharacterAtlas;
+  phmap::flat_hash_map<char, int>  CharacterAtlas;
   int ATLAS_CHARACTER_HEIGHT;
   int NEW_GAME_LABEL_ID;
   float CH_OFFSET = 0;
@@ -40,17 +40,16 @@ namespace fonts
   {
     for(int f=0; f < models::models.at(FONT_MODEL_ID).frames_list.size(); f++)
     {
-      char* text_chr = (char*)models::models.at(FONT_MODEL_ID).frames_list[f].label.c_str();
+      char text_chr = models::models.at(FONT_MODEL_ID).frames_list[f].label[0]; // IT CAN ALWAYS BE ONLY ONE CHARACTER
       int frame_id = models::models.at(FONT_MODEL_ID).frames_list[f].frame_id;
-      fonts::CharacterAtlas.insert(std::pair<char*, int>{text_chr, frame_id});
+      fonts::CharacterAtlas.insert(std::pair<char, int>{text_chr, frame_id});
     }
-    fonts::ATLAS_CHARACTER_HEIGHT = models::models.at(FONT_MODEL_ID).frames[0].h;\
-
+    fonts::ATLAS_CHARACTER_HEIGHT = models::models.at(FONT_MODEL_ID).frames[0].h;
     models::load(FONT_MODEL_ID);
     std::cout << "Fonts Initialized" << std::endl;
   }
 
-  int add(std::string& text, float x_start, float y_start, float camera_type, int size, float r, float g, float b)
+  int add(std::string& text, float x_start, float y_start, float camera_type, float size, float r, float g, float b)
   {
     fonts::LabelData ldd;
     ldd.id = utils::generate_id(fonts::LabelIndex);
@@ -73,12 +72,14 @@ namespace fonts
     float scale = ldd.size/fonts::ATLAS_CHARACTER_HEIGHT;
     models::ModelData FMD = models::models.at(FONT_MODEL_ID);
 
-    for(const char *p = ldd.text.c_str(); *p; p++) 
+    for(std::string::size_type i = 0; i < ldd.text.size(); i++) 
     { 
+      char p = ldd.text[i];
       fonts::TextCharacterData tdd;
       tdd.id = utils::generate_id(fonts::TextCharacterIndex);
       tdd.model_id = fonts::FONT_MODEL_ID;
-      tdd.frame_id = fonts::CharacterAtlas[(char*)p];
+      tdd.frame_id = 0;
+      tdd.frame_id = fonts::CharacterAtlas[p];
       tdd.pos.x = x;
       tdd.pos.y = y;
       tdd.pos.z = 0.95f;
