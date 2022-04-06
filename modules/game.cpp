@@ -198,6 +198,8 @@ namespace game
     //std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
 
     quads::clear();
+    models::init();
+    
     anims::init();
     quads::init();
     buffer::init();
@@ -210,7 +212,6 @@ namespace game
     maps::init();
     menu::init();
     mobs::init();
-    models::init();
     mouse::init();
     npcs::init();
     game::init_scenes();

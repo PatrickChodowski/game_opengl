@@ -67,11 +67,7 @@ namespace maps
     tile.color.b = 0.5f;
     tile.color.a = 1.0f;
 
-    // if frame_id is between 10 and 20, then its solid (11-19)
-    if(tile.frame_id > 10 && tile.frame_id < 20)
-    {
-      tile.is_solid = true;
-    } 
+    tile.is_solid = models::models.at(tile.model_id).frames.at(tile.frame_id).is_solid;
     return tile;
   }
 
