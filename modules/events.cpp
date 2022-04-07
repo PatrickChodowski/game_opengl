@@ -86,6 +86,13 @@ namespace events
   { 
     // Prevents arrow key scan 
     bool LOCK_CAMERA = false;
+    // check if player in locking animation
+    if(anims::_check_if_entity_in_anim(hero::hero.entity_id)){
+      if(anims::animsplayed.at(hero::hero.entity_id).locking){
+        LOCK_CAMERA = true;
+      }
+    }
+
     while (SDL_PollEvent(&event))
     {
       switch (event.type)

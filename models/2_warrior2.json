@@ -835,6 +835,7 @@
             "time_length": 900.0,
             "next_anim_id": 1,
             "breakable": true,
+            "locking": false,
             "frame_id": [
                 0,
                 1,
@@ -859,6 +860,7 @@
             "time_length": 760.0,
             "next_anim_id": -1,
             "breakable": true,
+            "locking": false,
             "frame_id": [
                 0,
                 1,
@@ -884,8 +886,9 @@
                 400.0
             ],
             "time_length": 400.0,
-            "next_anim_id": -1,
+            "next_anim_id": 1,
             "breakable": false,
+            "locking": true,
             "frame_id": [
                 0,
                 1,

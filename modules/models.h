@@ -15,6 +15,7 @@ namespace models
   struct ModelAnimData
   {
     bool breakable;
+    bool locking;
 
     int anim_id;
     int frame_count;
@@ -48,7 +49,7 @@ namespace models
 
     std::string label;
 
-    JS_OBJ(breakable, anim_id, frame_count, next_anim_id,
+    JS_OBJ(breakable, locking, anim_id, frame_count, next_anim_id,
     frame_id, r, g, b, a, w, h, x, y, z, update_times, time_length, 
     label);
 
