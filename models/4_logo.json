@@ -1,0 +1,20 @@
+{
+  "id": 4,
+  "w": 435,
+  "h": 354,
+  "name": "logo",
+  "frames_list": [
+    {"frame_id": 10100,
+      "x": 0,
+      "y": 0,
+      "w": 435,
+      "h": 354,
+      "label": "logo___main_0",
+      "norm_x_start": 0.0,
+      "norm_x_end": 1.0,
+      "norm_y_start": 0.0,
+      "norm_y_end": 1.0
+    }
+  ],
+  "anim_list": []
+}
