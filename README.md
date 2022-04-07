@@ -62,6 +62,9 @@ python3 app.py
 
 ## todo list:
 
+### Entities -> rework. Need to able to easily put a Logo inside the game. Currently a massive amount of work just to put a single entity in new place
+# lets do entity 2.0
+
 ### Animations -> make sure the looped animations are looped (checking if next anim id is the same as current one? skip first frame if so?)
 ### Zooming in -> analyse how to zoom in on specific point 
 ### Lock movement when in stationary animation
@@ -77,8 +80,33 @@ Data file will have name format of {model_id}_{model_name}.json
 Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
 
 
+### Map generation
+
+- Fired up the world machine on linux and it looks to be working!
+- lets explore world machine for next couple of weeks
 
 
+### Next up
+- sound effects
+
+
+### Entities
+
+Eventually entities will be defined in the /data/entities/
+Basic information -> id, name, model_id, start_frame_id, dims(w, h)
+
+And list of components?
+
+- NPCComponent
+- HeroComponent
+- MobComponent
+- ButtonComponent?
+- MenuComponent?
+- LabelComponent?
+- ItemComponent?
+- DoorComponent?
+- CollisionComponent?
+- MouseClickComponent?
 
 
 
@@ -92,3 +120,13 @@ Joel Carrouche: https://www.fontspace.com/norse-font-f21080 www.joelcarrouche.co
 
 font string:
 ABCDEFGHIJKLMNOPRSTUWVXYZ0123456789!@#$%&*(){}[]^:;”’<>,./?|\-_=+
+
+
+
+### logo colors:
+// background
+#191717 - rgb(25, 23, 23)
+// color
+#B3ACAC - rgb(179, 172, 172)
+// font
+Medieval Sharp
