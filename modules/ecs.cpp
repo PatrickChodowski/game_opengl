@@ -23,6 +23,7 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::ModelComponent> models;
   phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
   phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
+  phmap::flat_hash_map<unsigned int, ecs::ButtonComponent> buttons;
 
   void init()
   {
@@ -31,6 +32,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_MODEL] = ecs::_drop_model;
     ecs::drop_component[COMPONENT_COLOR] = ecs::_drop_color;
     ecs::drop_component[COMPONENT_RENDERDATA] = ecs::_drop_renderdata;
+    ecs::drop_component[COMPONENT_BUTTON] = ecs::_drop_button;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -127,6 +129,9 @@ namespace ecs
       case COMPONENT_RENDERDATA:
         ecs::_add_renderdata(entity_id, {data->camera_type, data->object_type_id});
       break;
+      case COMPONENT_BUTTON:
+        ecs::_add_button(entity_id, {data->button_label, data->button_function_id});
+      break;
     }
   };
 
@@ -144,9 +149,12 @@ namespace ecs
 
   void _add_model(int entity_id, ecs::ModelComponent model)
   {
+
     std::cout << " [ECS] Adding model component for entity " << entity_id << std::endl;
     ecs::models.insert(std::pair<int, ecs::ModelComponent>{entity_id, model});
-    models::load(model.model_id);
+    if(model.model_id > -1){
+      models::load(model.model_id);
+    }
   };
   
   void _add_color(int entity_id, ecs::ColorComponent color)
@@ -159,7 +167,13 @@ namespace ecs
   {
     std::cout << " [ECS] Adding renderdata component for entity " << entity_id << std::endl;
     ecs::renderdatas.insert(std::pair<int, ecs::RenderdataComponent>{entity_id, renderdata});
-  }
+  };
+
+  void _add_button(int entity_id, ecs::ButtonComponent button)
+  {
+    std::cout << " [ECS] Adding button component for entity " << entity_id << std::endl;
+    ecs::buttons.insert(std::pair<int, ecs::ButtonComponent>{entity_id, button});
+  };
 
   void _drop_position(int entity_id)
   {
@@ -190,6 +204,13 @@ namespace ecs
     std::cout << " [ECS] Dropping renderdata component for entity " << entity_id << std::endl;
     ecs::renderdatas.erase(entity_id);
   };
+
+  void _drop_button(int entity_id)
+  {
+    std::cout << " [ECS] Dropping button component for entity " << entity_id << std::endl;
+    ecs::buttons.erase(entity_id);
+  };
+
 
 
 }

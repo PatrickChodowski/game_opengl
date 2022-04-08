@@ -49,6 +49,9 @@ namespace ecs
     float camera_type;
     int object_type_id;
 
+    // Button
+    std::string button_label;
+    int button_function_id;
 
     // All attributes can be read from JSON
     JS_OBJ(name, components, 
@@ -56,7 +59,8 @@ namespace ecs
            w,h,
            model_id,frame_id,side_id,
            r,g,b,a,
-           camera_type, object_type_id);
+           camera_type, object_type_id,
+           button_label, button_function_id);
   };
 
 
@@ -101,6 +105,13 @@ namespace ecs
     bool visible = true;
   };
 
+  // Component 5: Button component
+  struct ButtonComponent
+  {
+    std::string button_label;
+    int button_function_id;
+  };
+
 
   // TABLES
   extern phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
@@ -109,6 +120,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::ModelComponent> models;
   extern phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
   extern phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
+  extern phmap::flat_hash_map<unsigned int, ecs::ButtonComponent> buttons;
 
 
 
@@ -147,6 +159,7 @@ namespace ecs
   void _add_model(int entity_id, ecs::ModelComponent model);
   void _add_color(int entity_id, ecs::ColorComponent color);
   void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata);
+  void _add_button(int entity_id, ecs::ButtonComponent button);
 
 
   // Component dropping methods
@@ -155,6 +168,7 @@ namespace ecs
   void _drop_model(int entity_id);
   void _drop_color(int entity_id);
   void _drop_renderdata(int entity_id);
+  void _drop_button(int entity_id);
 
 }
 
