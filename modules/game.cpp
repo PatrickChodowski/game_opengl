@@ -14,6 +14,7 @@
 #include "camera.h"
 #include "collisions.h"
 #include "debug.h"
+#include "ecs.h"
 #include "entity.h"
 #include "events.h"
 #include "fonts.h"
@@ -199,12 +200,15 @@ namespace game
 
     quads::clear();
     models::init();
-    
+
+    ecs::create_entity_from_file("logo");
+
     anims::init();
     quads::init();
     buffer::init();
     buttons::init();
     collisions::init();
+    ecs::init();
     entity::init();
     events::init();
     items::init();
