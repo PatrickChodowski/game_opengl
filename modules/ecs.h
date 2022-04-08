@@ -45,13 +45,18 @@ namespace ecs
     int model_id, frame_id, side_id;
     // Color
     float r,g,b,a;
+    // Render data
+    float camera_type;
+    int object_type_id;
+
 
     // All attributes can be read from JSON
     JS_OBJ(name, components, 
            x,y,z,
            w,h,
            model_id,frame_id,side_id,
-           r,g,b,a);
+           r,g,b,a,
+           camera_type, object_type_id);
   };
 
 
@@ -70,7 +75,7 @@ namespace ecs
     float h;
   };
 
-  // Component 2: Model data -> model_id, frame_id
+  // Component 2: Model data -> model_id, frame_id, side_id
   struct ModelComponent
   { 
     int model_id;
@@ -87,6 +92,15 @@ namespace ecs
     float a;
   };
 
+  // Component 4: Render data. Everything else needed for correct rendering
+  struct RenderdataComponent
+  {
+    float camera_type;
+    int object_type_id;
+    bool is_clicked = false;
+    bool visible = true;
+  };
+
 
   // TABLES
   extern phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
@@ -94,6 +108,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::DimensionComponent> dimensions;
   extern phmap::flat_hash_map<unsigned int, ecs::ModelComponent> models;
   extern phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
+  extern phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
 
 
 
@@ -125,6 +140,7 @@ namespace ecs
   void _add_dimension(int entity_id, ecs::DimensionComponent dimension);
   void _add_model(int entity_id, ecs::ModelComponent model);
   void _add_color(int entity_id, ecs::ColorComponent color);
+  void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata);
 
 
   // Component dropping methods
@@ -132,6 +148,7 @@ namespace ecs
   void _drop_dimension(int entity_id);
   void _drop_model(int entity_id);
   void _drop_color(int entity_id);
+  void _drop_renderdata(int entity_id);
 
 }
 
