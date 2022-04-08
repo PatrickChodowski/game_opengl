@@ -132,6 +132,12 @@ namespace ecs
   // Drop entity
   void drop(int entity_id);
 
+  // Temporarily here? Renders entity from ecs
+  void render();
+
+  // Clears entity data
+  void clear();
+
   // Definately not the priettest solution
   void add_component(int entity_id, int component_id, ecs::TempEntityData *data);
 

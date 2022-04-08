@@ -130,6 +130,9 @@ namespace quads
   template <typename T>
   int make_quad(T& data, int object_type_id);
 
+  // Makes quad out of entity data (requires Position, Dimension, Color or Model, Render components)
+  int make_entity_quad(int entity_id);
+
   // Writes down the quads data to ./logs/all_quads.json on every frame
   void log();
 
