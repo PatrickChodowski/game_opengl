@@ -106,6 +106,10 @@ And list of components?
 - DoorComponent?
 - CollisionComponent?
 - MouseClickComponent?
+- PositionComponent
+- ColorComponent
+- ModelComponent
+- DimComp
 
 
 
@@ -129,3 +133,20 @@ ABCDEFGHIJKLMNOPRSTUWVXYZ0123456789!@#$%&*(){}[]^:;”’<>,./?|\-_=+
 #B3ACAC - rgb(179, 172, 172)
 // font
 Medieval Sharp
+
+
+
+### Betatesterzy
+- Michal Klos "mogę być betatesterem" "ale potem chcę żeby gdzieś na jakimś kamieniu znalazł się mój nick 😃"
+
+
+
+### nazwy 
+Fiords of blood
+Axe and oar
+
+
+
+### Memory check
+
+https://valgrind.org/docs/manual/quick-start.html

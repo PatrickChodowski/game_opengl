@@ -128,4 +128,11 @@
 #define ANIM_STANDING_TAUNT_CHEST_THUMP 3
 
 
+// Component Index
+#define COMPONENT_POSITION 0
+#define COMPONENT_DIMENSION 1
+#define COMPONENT_MODEL 2
+#define COMPONENT_COLOR 3
+
+
 #endif
