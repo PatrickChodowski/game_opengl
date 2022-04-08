@@ -134,9 +134,14 @@ namespace game
       game::MAP_ID = game::scenes[scene_id].map_id;
       game::HeroLoader[load_scene_from](scene_id);
 
-      // // Load maps
+      // Load map
       maps::init_map(game::MAP_ID);
 
+      // Load entities
+      for(int e=0; e<game::scenes[scene_id].entities.size(); e++)
+      {
+        ecs::create_entity_from_file(game::scenes[scene_id].entities[e]);
+      }
       // // load mobs based on the map
       // mobs::spawn_from_nest(game::MAP_ID);
 
@@ -182,6 +187,7 @@ namespace game
     maps::clear();
     nav::clear();
     camera::reset();
+    ecs::clear();
     entity::clear();
     fonts::clear();
     menu::clear();
@@ -201,9 +207,7 @@ namespace game
     quads::clear();
     ecs::init();
     models::init();
-
-    int logo_entity_id = ecs::create_entity_from_file("logo");
-    ecs::drop(logo_entity_id);
+    //ecs::drop(logo_entity_id);
 
     anims::init();
     quads::init();
@@ -233,6 +237,7 @@ namespace game
     quads::clear();
     maps::render();
     entity::render();
+    ecs::render();
     debug::render();
     menu::render();
     models::bind();

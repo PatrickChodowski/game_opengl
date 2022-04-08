@@ -46,10 +46,11 @@ namespace game
     std::vector<int> menu_types;
     float hero_start_x, hero_start_y;
     std::string label;
+    std::vector<std::string> entities;
 
     bool is_gp; // is it gameplay
 
-    JS_OBJ(id, events_handler_id, map_id, hero_start_x, hero_start_y, menu_slots, menu_types, label, is_gp);
+    JS_OBJ(id, events_handler_id, map_id, hero_start_x, hero_start_y, menu_slots, menu_types, label, is_gp, entities);
   };
 
   extern int EVENT_HANDLER_ID;

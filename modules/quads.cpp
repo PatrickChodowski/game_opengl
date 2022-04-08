@@ -8,6 +8,7 @@
 
 #include "buttons.h"
 #include "debug.h"
+#include "ecs.h"
 #include "entity.h"
 #include "fonts.h"
 #include "logger.h"
@@ -55,6 +56,43 @@ namespace quads
     std::cout << "Quads Initialized" << std::endl;
   }
 
+
+  
+  int make_entity_quad(int entity_id)
+  {
+    quads::QuadData quad;
+    quad.id = entity_id;
+    quad.model_id = ecs::models.at(entity_id).model_id;
+    quad.frame_id = ecs::models.at(entity_id).frame_id;
+    if(quad.model_id > -1){
+      quad.texture_id = models::SceneModels.at(quad.model_id);
+      quad.norm = {models::models.at(quad.model_id).frames.at(quad.frame_id).norm_x_start,
+                   models::models.at(quad.model_id).frames.at(quad.frame_id).norm_x_end,
+                   models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_start,
+                   models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_end};
+    }
+    quad.object_type_id = ecs::renderdatas.at(entity_id).object_type_id;
+    quad.camera_type = ecs::renderdatas.at(entity_id).camera_type;
+    quad.color.r = ecs::colors.at(entity_id).r;
+    quad.color.g = ecs::colors.at(entity_id).g;
+    quad.color.b = ecs::colors.at(entity_id).b;
+    quad.color.a = ecs::colors.at(entity_id).a;
+    quad.pos.x = ecs::positions.at(entity_id).x;
+    quad.pos.y = ecs::positions.at(entity_id).y;
+    quad.pos.z = ecs::positions.at(entity_id).z;
+    quad.dims.w = ecs::dimensions.at(entity_id).w;
+    quad.dims.h = ecs::dimensions.at(entity_id).h;
+    quad.window_x = ecs::positions.at(entity_id).x;
+    quad.window_y = ecs::positions.at(entity_id).y;
+    quad.window_h = ecs::dimensions.at(entity_id).h;
+    quad.window_w = ecs::dimensions.at(entity_id).w;
+    quad.is_clicked = ecs::renderdatas.at(entity_id).is_clicked;
+    quad.is_deleted = false;
+    quads::AllQuads.push_back(quad);
+    return quad.id;
+  }
+
+
   template <typename T>
   int make_quad(T& data, int object_type_id)
   { 
@@ -77,7 +115,6 @@ namespace quads
                    models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_start,
                    models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_end};
     }
-    quad.frame_id = data.frame_id;
     quad.object_id = data.id;
     quad.object_type_id = object_type_id;
     quad.camera_type = data.camera_type;

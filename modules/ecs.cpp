@@ -4,6 +4,8 @@
 #include <vector>
 
 #include "ecs.h"
+#include "models.h"
+#include "quads.h"
 #include "utils.h"
 
 #include "../dependencies/parallel_hashmap/phmap.h"
@@ -89,6 +91,22 @@ namespace ecs
     
   };
 
+  void render()
+  {
+    for (auto const& [entity_id, render_data]: ecs::renderdatas)
+    {
+      quads::make_entity_quad(entity_id);
+    }
+  }
+
+  void clear()
+  {
+    for(auto const& [entity_id, entity_data]: ecs::entities)
+    {
+      ecs::drop(entity_id);
+    }
+    ecs::entities.clear();
+  }
 
   void add_component(int entity_id, int component_id, ecs::TempEntityData *data)
   { 
@@ -115,51 +133,62 @@ namespace ecs
   void _add_position(int entity_id, ecs::PositionComponent position)
   {
     std::cout << " [ECS] Adding position component for entity " << entity_id << std::endl;
+    ecs::positions.insert(std::pair<int, ecs::PositionComponent>{entity_id, position});
   };
 
   void _add_dimension(int entity_id, ecs::DimensionComponent dimension)
   {
     std::cout << " [ECS] Adding dimension component for entity " << entity_id << std::endl;
+    ecs::dimensions.insert(std::pair<int, ecs::DimensionComponent>{entity_id, dimension});
   };
 
   void _add_model(int entity_id, ecs::ModelComponent model)
   {
     std::cout << " [ECS] Adding model component for entity " << entity_id << std::endl;
+    ecs::models.insert(std::pair<int, ecs::ModelComponent>{entity_id, model});
+    models::load(model.model_id);
   };
   
   void _add_color(int entity_id, ecs::ColorComponent color)
   {
     std::cout << " [ECS] Adding color component for entity " << entity_id << std::endl;
+    ecs::colors.insert(std::pair<int, ecs::ColorComponent>{entity_id, color});
   };
 
   void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata)
   {
     std::cout << " [ECS] Adding renderdata component for entity " << entity_id << std::endl;
+    ecs::renderdatas.insert(std::pair<int, ecs::RenderdataComponent>{entity_id, renderdata});
   }
 
   void _drop_position(int entity_id)
   {
     std::cout << " [ECS] Dropping position component for entity " << entity_id << std::endl;
+    ecs::positions.erase(entity_id);
   };
 
   void _drop_dimension(int entity_id)
   {
     std::cout << " [ECS] Dropping dimension component for entity " << entity_id << std::endl;
+    ecs::dimensions.erase(entity_id);
   };
 
   void _drop_model(int entity_id)
   {
     std::cout << " [ECS] Dropping model component for entity " << entity_id << std::endl;
+    ecs::models.erase(entity_id);
   };
 
   void _drop_color(int entity_id)
   {
     std::cout << " [ECS] Dropping color component for entity " << entity_id << std::endl;
+    ecs::colors.erase(entity_id);
   };
 
   void _drop_renderdata(int entity_id)
   {
     std::cout << " [ECS] Dropping renderdata component for entity " << entity_id << std::endl;
+    ecs::renderdatas.erase(entity_id);
   };
 
 

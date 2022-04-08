@@ -7,5 +7,6 @@
   "menu_slots": [0],
   "menu_types": [1],
   "label": "Main Menu",
-  "is_gp": false
+  "is_gp": false,
+  "entities": ["logo"]
 }
