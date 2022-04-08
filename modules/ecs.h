@@ -109,6 +109,9 @@ namespace ecs
   // Wrapper around ecs::read_data and ecs::create_entity
   int create_entity_from_file(std::string file_name);
 
+  // Drop entity
+  void drop(int entity_id);
+
   // Definately not the priettest solution
   void add_component(int entity_id, int component_id, ecs::TempEntityData *data);
 
@@ -117,6 +120,9 @@ namespace ecs
   void _add_dimension(int entity_id, ecs::DimensionComponent dimension);
   void _add_model(int entity_id, ecs::ModelComponent model);
   void _add_color(int entity_id, ecs::ColorComponent color);
+
+  // Drop component of entity
+  void drop_component(int entity_id, int component_id);
 }
 
 

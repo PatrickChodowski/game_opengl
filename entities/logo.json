@@ -1,4 +1,7 @@
 {
   "name": "logo",
-  "components": [0, 1, 2]
+  "components": [0, 1, 2],
+  "x": 100,
+  "y": 100,
+  "z": 0.2
 }
