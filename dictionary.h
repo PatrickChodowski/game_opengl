@@ -65,9 +65,7 @@
 #define BUTTON_NEWGAME_NAME 4
 #define BUTTON_BACK 5
 #define BUTTON_LOADGAME_NAME 6
-#define BUTTON_TRAVEL 7
-#define BUTTON_DO_GOOD 8
-#define BUTTON_DO_BAD 9
+
 
 // Scenes
 #define SCENE_ID_MAIN_MENU 0
@@ -134,6 +132,7 @@
 #define COMPONENT_MODEL 2
 #define COMPONENT_COLOR 3
 #define COMPONENT_RENDERDATA 4
+#define COMPONENT_BUTTON 5
 
 
 #endif
