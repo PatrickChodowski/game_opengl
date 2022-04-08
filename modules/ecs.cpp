@@ -47,6 +47,7 @@ namespace ecs
     edd.entity_id = entity_id;
     edd.name = e -> name;
     edd.components = e -> components;
+    ecs::entities.insert(std::pair<int, ecs::EntityData>{edd.entity_id, edd});
     for(int c=0; c<edd.components.size(); c++)
     {
       ecs::add_component(entity_id, edd.components[c], e);
@@ -62,6 +63,28 @@ namespace ecs
     int entity_id = ecs::create_entity(&e);
     return entity_id;
   }
+
+  void drop(int entity_id)
+  {
+    std::vector<unsigned int> components = ecs::entities.at(entity_id).components;
+
+    if(ecs::entities.count(entity_id) > 0)
+    {
+      ecs::entities.erase(entity_id);
+      utils::drop_id(ecs::Index, entity_id);
+    }
+
+    for(int c=0; c<components.size(); c++)
+    {
+      ecs::drop_component(entity_id, components[c]);
+    }
+
+  };
+
+  void drop_component(int entity_id, int component_id)
+  {
+
+  };
 
   void add_component(int entity_id, int component_id, ecs::TempEntityData *data)
   { 
