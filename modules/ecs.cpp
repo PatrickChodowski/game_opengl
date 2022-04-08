@@ -108,42 +108,42 @@ namespace ecs
 
   void _add_position(int entity_id, ecs::PositionComponent position)
   {
-
+    std::cout << " [ECS] Adding position component for entity " << entity_id << std::endl;
   };
 
   void _add_dimension(int entity_id, ecs::DimensionComponent dimension)
   {
-
+    std::cout << " [ECS] Adding dimension component for entity " << entity_id << std::endl;
   };
 
   void _add_model(int entity_id, ecs::ModelComponent model)
   {
-
+    std::cout << " [ECS] Adding model component for entity " << entity_id << std::endl;
   };
   
   void _add_color(int entity_id, ecs::ColorComponent color)
   {
-
+    std::cout << " [ECS] Adding color component for entity " << entity_id << std::endl;
   };
 
   void _drop_position(int entity_id)
   {
-
+    std::cout << " [ECS] Dropping position component for entity " << entity_id << std::endl;
   };
 
   void _drop_dimension(int entity_id)
   {
-
+    std::cout << " [ECS] Dropping dimension component for entity " << entity_id << std::endl;
   };
 
   void _drop_model(int entity_id)
   {
-
+    std::cout << " [ECS] Dropping model component for entity " << entity_id << std::endl;
   };
 
   void _drop_color(int entity_id)
   {
-
+    std::cout << " [ECS] Dropping color component for entity " << entity_id << std::endl;
   };
 
 
