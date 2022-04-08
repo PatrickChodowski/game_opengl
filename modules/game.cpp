@@ -199,16 +199,17 @@ namespace game
     //std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
 
     quads::clear();
+    ecs::init();
     models::init();
 
-    ecs::create_entity_from_file("logo");
+    int logo_entity_id = ecs::create_entity_from_file("logo");
+    ecs::drop(logo_entity_id);
 
     anims::init();
     quads::init();
     buffer::init();
     buttons::init();
     collisions::init();
-    ecs::init();
     entity::init();
     events::init();
     items::init();
