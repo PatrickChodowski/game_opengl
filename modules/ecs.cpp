@@ -71,6 +71,7 @@ namespace ecs
 
   void drop(int entity_id)
   {
+    std::cout << " [ECS] Dropping entity " << entity_id << std::endl;
     std::vector<unsigned int> components = ecs::entities.at(entity_id).components;
 
     if(ecs::entities.count(entity_id) > 0)
@@ -83,7 +84,7 @@ namespace ecs
     {
       ecs::drop_component[components[c]](entity_id);
     }
-
+    
   };
 
 
@@ -98,7 +99,7 @@ namespace ecs
         ecs::_add_dimension(entity_id, {data->w, data->h});
       break;
       case COMPONENT_MODEL:
-        ecs::_add_model(entity_id, {data->model_id, data->frame_id});
+        ecs::_add_model(entity_id, {data->model_id, data->frame_id, data->side_id});
       break;
       case COMPONENT_COLOR:
         ecs::_add_color(entity_id, {data->r, data->g, data->b, data->a});

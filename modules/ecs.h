@@ -42,7 +42,7 @@ namespace ecs
     // Dimension
     float w,h;
     // Model
-    int model_id, frame_id;
+    int model_id, frame_id, side_id;
     // Color
     float r,g,b,a;
 
@@ -50,7 +50,7 @@ namespace ecs
     JS_OBJ(name, components, 
            x,y,z,
            w,h,
-           model_id,frame_id,
+           model_id,frame_id,side_id,
            r,g,b,a);
   };
 
@@ -75,6 +75,7 @@ namespace ecs
   { 
     int model_id;
     int frame_id;
+    int side_id;
   };
 
   // Component 3: Color data -> r,g,b,a
