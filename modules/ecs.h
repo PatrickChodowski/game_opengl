@@ -15,6 +15,10 @@ namespace ecs
   // Entity IDs Index
   extern std::vector<int> Index;
 
+  typedef void (*sig_ptr)(int entity_id);
+  // Drop component functor
+  extern phmap::flat_hash_map<int, sig_ptr> drop_component;
+
   // Entity Data consists of entity id and bitmap of components
   struct EntityData
   {
@@ -121,8 +125,13 @@ namespace ecs
   void _add_model(int entity_id, ecs::ModelComponent model);
   void _add_color(int entity_id, ecs::ColorComponent color);
 
-  // Drop component of entity
-  void drop_component(int entity_id, int component_id);
+
+  // Component dropping methods
+  void _drop_position(int entity_id);
+  void _drop_dimension(int entity_id);
+  void _drop_model(int entity_id);
+  void _drop_color(int entity_id);
+
 }
 
 

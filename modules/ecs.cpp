@@ -14,6 +14,7 @@ namespace ecs
 {
   std::vector<int> Index = {};
   phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
+  phmap::flat_hash_map<int, sig_ptr> drop_component;
 
   phmap::flat_hash_map<unsigned int, ecs::PositionComponent> positions;
   phmap::flat_hash_map<unsigned int, ecs::DimensionComponent> dimensions;
@@ -22,6 +23,10 @@ namespace ecs
 
   void init()
   {
+    ecs::drop_component[COMPONENT_POSITION] = ecs::_drop_position;
+    ecs::drop_component[COMPONENT_DIMENSION] = ecs::_drop_dimension;
+    ecs::drop_component[COMPONENT_MODEL] = ecs::_drop_model;
+    ecs::drop_component[COMPONENT_COLOR] = ecs::_drop_color;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -76,15 +81,11 @@ namespace ecs
 
     for(int c=0; c<components.size(); c++)
     {
-      ecs::drop_component(entity_id, components[c]);
+      ecs::drop_component[components[c]](entity_id);
     }
 
   };
 
-  void drop_component(int entity_id, int component_id)
-  {
-
-  };
 
   void add_component(int entity_id, int component_id, ecs::TempEntityData *data)
   { 
@@ -125,6 +126,25 @@ namespace ecs
 
   };
 
+  void _drop_position(int entity_id)
+  {
+
+  };
+
+  void _drop_dimension(int entity_id)
+  {
+
+  };
+
+  void _drop_model(int entity_id)
+  {
+
+  };
+
+  void _drop_color(int entity_id)
+  {
+
+  };
 
 
 }
