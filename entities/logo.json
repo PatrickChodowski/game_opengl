@@ -1,6 +1,6 @@
 {
   "name": "logo",
-  "components": [0, 1, 2],
+  "components": [0, 1, 2, 4],
   "x": 100,
   "y": 100,
   "z": 0.2,
@@ -8,5 +8,7 @@
   "h": 350,
   "model_id": 4,
   "frame_id": 10100,
-  "side_id": 0
+  "side_id": 0,
+  "camera_type": 1.0,
+  "object_type_id": 0
 }

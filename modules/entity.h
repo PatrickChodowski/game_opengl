@@ -36,7 +36,6 @@ namespace entity
     
     bool is_solid;
     bool is_clicked;
-    bool is_reversed = false;
 
     // used if given entity has collision sensors
     phmap::flat_hash_map<int, collisions::Sensor> sensors;

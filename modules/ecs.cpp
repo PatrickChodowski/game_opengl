@@ -20,6 +20,7 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::DimensionComponent> dimensions;
   phmap::flat_hash_map<unsigned int, ecs::ModelComponent> models;
   phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
+  phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
 
   void init()
   {
@@ -27,6 +28,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_DIMENSION] = ecs::_drop_dimension;
     ecs::drop_component[COMPONENT_MODEL] = ecs::_drop_model;
     ecs::drop_component[COMPONENT_COLOR] = ecs::_drop_color;
+    ecs::drop_component[COMPONENT_RENDERDATA] = ecs::_drop_renderdata;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -104,6 +106,9 @@ namespace ecs
       case COMPONENT_COLOR:
         ecs::_add_color(entity_id, {data->r, data->g, data->b, data->a});
       break;
+      case COMPONENT_RENDERDATA:
+        ecs::_add_renderdata(entity_id, {data->camera_type, data->object_type_id});
+      break;
     }
   };
 
@@ -127,6 +132,11 @@ namespace ecs
     std::cout << " [ECS] Adding color component for entity " << entity_id << std::endl;
   };
 
+  void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata)
+  {
+    std::cout << " [ECS] Adding renderdata component for entity " << entity_id << std::endl;
+  }
+
   void _drop_position(int entity_id)
   {
     std::cout << " [ECS] Dropping position component for entity " << entity_id << std::endl;
@@ -145,6 +155,11 @@ namespace ecs
   void _drop_color(int entity_id)
   {
     std::cout << " [ECS] Dropping color component for entity " << entity_id << std::endl;
+  };
+
+  void _drop_renderdata(int entity_id)
+  {
+    std::cout << " [ECS] Dropping renderdata component for entity " << entity_id << std::endl;
   };
 
 
