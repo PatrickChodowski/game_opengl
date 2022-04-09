@@ -55,7 +55,7 @@ namespace ecs
     // Label
     float text_size;
     float text_r, text_g, text_b, text_a;
-    float text_offset_x, text_offset_y;
+    float text_x, text_y, text_z;
 
     // All attributes can be read from JSON
     JS_OBJ(name, components, entity_type_id,
@@ -65,7 +65,7 @@ namespace ecs
            r,g,b,a,
            camera_type,
            button_function_id,
-           label, text_size, text_r, text_g, text_b, text_a, text_offset_x, text_offset_y);
+           label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z);
   };
 
 
@@ -124,8 +124,9 @@ namespace ecs
     float text_g = 0.0; 
     float text_b = 0.0; 
     float text_a = 1.0;
-    float text_offset_x = 0.0; 
-    float text_offset_y = 0.0f;
+    float text_x = 0.0; 
+    float text_y = 0.0;
+    float text_z = 1.0;
   };
 
 

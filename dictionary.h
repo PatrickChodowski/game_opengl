@@ -102,7 +102,8 @@
 #define ENTITY_TYPE_LIVE 1
 #define ENTITY_TYPE_BUTTON 2
 #define ENTITY_TYPE_MAP 3
-#define ENTITY_TYPE_DOOR 4
+#define ENTITY_TYPE_TEXT 4
+#define ENTITY_TYPE_DOOR 5
 
 // Component Index
 #define COMPONENT_POSITION 0

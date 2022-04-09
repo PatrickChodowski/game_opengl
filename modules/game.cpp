@@ -175,7 +175,6 @@ namespace game
     camera::reset();
     ecs::clear();
     entity::clear();
-    fonts::clear();
     mobs::clear();
     models::clear();
     npcs::clear();
