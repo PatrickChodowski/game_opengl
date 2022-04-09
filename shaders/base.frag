@@ -19,7 +19,7 @@ void main()
   int texture_index = int(out_texture_id);
 
   // entity or tile:
-  if(out_type_id == 0.0 || out_type_id == 1.0 || out_type_id == 3.0)
+  if(out_type_id == 0.0 || out_type_id == 1.0 || out_type_id == 3.0 || out_type_id == 4.0)
   {
     frag_color = texture(textures[texture_index], out_tex_coord);
     frag_color.r = (1-out_is_clicked)*frag_color.r;
