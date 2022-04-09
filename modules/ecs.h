@@ -32,6 +32,7 @@ namespace ecs
   { 
     // Entity data (Required)
     std::string name;
+    std::string label; // LabelComponent
     std::vector<unsigned int> components;
 
     // Optionals (although there is no use for entity without 
@@ -48,10 +49,12 @@ namespace ecs
     // Render data
     float camera_type;
     int object_type_id;
-
     // Button
-    std::string button_label;
     int button_function_id;
+    // Label
+    float text_size;
+    float text_r, text_g, text_b, text_a;
+    float text_offset_x, text_offset_y;
 
     // All attributes can be read from JSON
     JS_OBJ(name, components, 
@@ -60,7 +63,8 @@ namespace ecs
            model_id,frame_id,side_id,
            r,g,b,a,
            camera_type, object_type_id,
-           button_label, button_function_id);
+           button_function_id,
+           label, text_size, text_r, text_g, text_b, text_a, text_offset_x, text_offset_y);
   };
 
 
@@ -108,8 +112,20 @@ namespace ecs
   // Component 5: Button component
   struct ButtonComponent
   {
-    std::string button_label;
     int button_function_id;
+  };
+
+  // Component 6: Label component
+  struct LabelComponent
+  {
+    std::string label;
+    float text_size;
+    float text_r = 0.0;
+    float text_g = 0.0; 
+    float text_b = 0.0; 
+    float text_a = 1.0;
+    float text_offset_x = 0.0; 
+    float text_offset_y = 0.0f;
   };
 
 
@@ -121,6 +137,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
   extern phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
   extern phmap::flat_hash_map<unsigned int, ecs::ButtonComponent> buttons;
+  extern phmap::flat_hash_map<unsigned int, ecs::LabelComponent> labels;
 
 
 
@@ -160,6 +177,7 @@ namespace ecs
   void _add_color(int entity_id, ecs::ColorComponent color);
   void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata);
   void _add_button(int entity_id, ecs::ButtonComponent button);
+  void _add_label(int entity_id, ecs::LabelComponent labels);
 
 
   // Component dropping methods
@@ -169,6 +187,7 @@ namespace ecs
   void _drop_color(int entity_id);
   void _drop_renderdata(int entity_id);
   void _drop_button(int entity_id);
+  void _drop_label(int entity_id);
 
 }
 
