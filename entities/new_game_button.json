@@ -22,5 +22,7 @@
   "text_r": 0.5,
   "text_g": 0.5,
   "text_b": 0.5,
-  "text_a": 1.0
+  "text_a": 1.0,
+  "text_x": 100,
+  "text_y": 500
 }
