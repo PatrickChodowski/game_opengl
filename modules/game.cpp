@@ -29,6 +29,7 @@
 #include "npcs.h"
 #include "quads.h"
 #include "saves.h"
+#include "scenes.h"
 #include "shaders.h"
 #include "travel.h"
 
@@ -87,14 +88,12 @@ namespace game
     game::HERO_START_X = game::scenes[scene_id].hero_start_x;
     game::HERO_START_Y = game::scenes[scene_id].hero_start_y;
 
-    if(!game::scenes[scene_id].is_gp)
-    {
+    if(!game::scenes[scene_id].is_gp){
       hero::refresh();
     }
     
-    if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
-    {
-      //hero::create_new(menu::NewGameName, "barbarian");
+    if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000){
+      hero::create_new(saves::NewGameName, "barbarian");
       hero::set_position(game::HERO_START_X, game::HERO_START_Y);
       camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
       camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
@@ -107,8 +106,8 @@ namespace game
     {
       hero::refresh();
     }
-    // std::cout << "Menu Load Game Name: " << menu::LoadGameName << std::endl;
-    // saves::load_game(menu::LoadGameName);
+    std::cout << "Menu Load Game Name: " << saves::LoadGameName << std::endl;
+    saves::load_game(saves::LoadGameName);
   };
 
   void _load_hero_from_change_level(int scene_id)
@@ -140,6 +139,13 @@ namespace game
       {
         ecs::create_entity_from_file(game::scenes[scene_id].entities[e]);
       }
+
+      // Adding dynamic logic based on the scene ID
+      if(scenes::SceneLoader.count(scene_id) > 0){
+        scenes::SceneLoader.at(scene_id)();
+      }
+
+
       // // load mobs based on the map
       // mobs::spawn_from_nest(game::MAP_ID);
 
@@ -147,13 +153,6 @@ namespace game
       // npcs::spawn_from_map(game::MAP_ID);
 
       //items::spawn(1, 200, 300);
-
-      // How to add randomized stuff
-      // Back button with dynamic X,Y
-
-
-
-
 
       std::cout << "Loaded Scene: " << scene_id << std::endl;
     }
@@ -209,6 +208,7 @@ namespace game
     mouse::init();
     npcs::init();
     game::init_scenes();
+    scenes::init();
     scripts::init();
     shaders::init();
 

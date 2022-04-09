@@ -14,6 +14,10 @@
 
 namespace saves
 {
+  std::vector<std::string> saves;
+  std::string NewGameName;
+  std::string LoadGameName;
+  const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
 
   void _write_save_json(std::string& str_to_write)
   {
@@ -64,7 +68,6 @@ namespace saves
     return SD;
   }
 
-
   void load_game(std::string& name)
   { // loads hero, campaign, map and camera information
 
@@ -87,6 +90,38 @@ namespace saves
     game::MAP_ID = game::scenes[game::SCENE_ID].map_id;
     npcs::interactions = SD.interactions;
   }
+
+  void list_saves()
+  {
+    saves::saves = utils::list_json_files("saves");
+  };
+
+  bool _validate_input(std::string input)
+  {
+    bool good = false;
+    if (saves::_allowed_input.find(input) != std::string::npos){
+      good = true;
+    }
+    return good;
+  };
+
+  bool _validate_name()
+  {
+    bool good = false;
+    // check if doesnt exist in saves
+    // check if has more than 0 characters
+
+    if(saves::NewGameName.size() > 0){
+      for(int s = 0; s<saves::saves.size(); s++)
+      {
+        if(saves::NewGameName == saves[s]){
+          return good;
+        }
+      }
+      good = true;
+    }
+    return good;
+  };
 
 
 
