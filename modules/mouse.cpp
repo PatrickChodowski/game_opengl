@@ -21,7 +21,22 @@ namespace mouse
   phmap::flat_hash_map<int , sig_ptr> click = {};
   phmap::flat_hash_map<int, int> ClickPriorities;
 
-  // need to aggregate unique_object_types, object_ids and mouse_buttons
+
+  void init()
+  {
+    mouse::click[ENTITY_TYPE_LIVE] = _click_entity_type_live;
+    mouse::click[ENTITY_TYPE_MAP] = _click_entity_type_map;
+    mouse::click[ENTITY_TYPE_BUTTON] = _click_entity_type_button;
+    mouse::click[ENTITY_TYPE_GUI] = _click_entity_type_gui;
+
+    mouse::ClickPriorities[ENTITY_TYPE_BUTTON] = 6;
+    mouse::ClickPriorities[ENTITY_TYPE_GUI] = 5;
+    mouse::ClickPriorities[ENTITY_TYPE_LIVE] = 4;
+    mouse::ClickPriorities[ENTITY_TYPE_MAP] = 1;
+    std::cout << "Mouse Initialized" << std::endl;
+  }
+
+
   void _find_clicked_quads(float click_x, float click_y, int mouse_button_id)
   {
     std::vector<mouse::ClickData> clicks = {};
@@ -71,7 +86,7 @@ namespace mouse
     }
   }
 
-  void _click_entity(int object_id, int mouse_button_id)
+  void _click_entity_type_live(int object_id, int mouse_button_id)
   {
     logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
     entity::EntityData edd = entity::entities.at(object_id);
@@ -87,12 +102,18 @@ namespace mouse
     // } 
   };
 
-  void _click_map(int object_id, int mouse_button_id)
+  void _click_entity_type_map(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on MAP object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
   };
 
-  void _click_button(int object_id, int mouse_button_id)
+  void _click_entity_type_gui(int object_id, int mouse_button_id)
+  {
+    std::cout << "Clicked on GUI object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
+  };
+
+
+  void _click_entity_type_button(int object_id, int mouse_button_id)
   {
     std::cout << "Clicked on BUTTON object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
     // int logic_object_id = menu::_check_if_load_game(object_id);
@@ -101,25 +122,6 @@ namespace mouse
     // buttons::buttons[object_id].is_clicked = !buttons::buttons[object_id].is_clicked;
     // buttons::ButtonFunctions[buttons::buttons[object_id].button_function_id](object_id);
   };
-
-
-
-
-  void init()
-  {
-    // mouse::click[OBJECT_TYPE_ENTITY] = _click_entity;
-    // mouse::click[OBJECT_TYPE_MAP] = _click_map;
-    // mouse::click[OBJECT_TYPE_BUTTON] = _click_button;
-    // mouse::click[OBJECT_TYPE_MENU] = _click_menu;
-
-    mouse::ClickPriorities[ENTITY_TYPE_BUTTON] = 6;
-    mouse::ClickPriorities[ENTITY_TYPE_GUI] = 5;
-    mouse::ClickPriorities[ENTITY_TYPE_LIVE] = 4;
-    mouse::ClickPriorities[ENTITY_TYPE_MAP] = 1;
-    std::cout << "Mouse Initialized" << std::endl;
-  }
-
-
 
   void print_mouse(SDL_MouseMotionEvent e, const char* name)
   {

@@ -39,6 +39,9 @@ namespace mouse
   extern phmap::flat_hash_map<int, int> ClickPriorities;
   extern LastClickData last_click;
 
+  // Initialize Mouse logic
+  void init();
+
   // Print out click information
   void print_mouse(SDL_MouseMotionEvent e, const char* name);
 
@@ -48,11 +51,17 @@ namespace mouse
   // Find which quads are clicked on:
   void _find_clicked_quads(float click_x, float click_y, int mouse_button_id);
 
-  // Click logic for given entity
-  void _click_entity(int object_id, int mouse_button_id);
+  // Click logic for entity type live
+  void _click_entity_type_live(int object_id, int mouse_button_id);
 
-  // Initialize Mouse logic
-  void init();
+  // Click logic for entity type map
+  void _click_entity_type_map(int object_id, int mouse_button_id);
+
+  // Click logic for entity type gui
+  void _click_entity_type_gui(int object_id, int mouse_button_id);
+
+  // Click logic for entity type button
+  void _click_entity_type_button(int object_id, int mouse_button_id);
 
 }
 
