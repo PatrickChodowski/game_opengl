@@ -129,7 +129,9 @@ namespace ecs
         ecs::_add_button(entity_id, {data->button_function_id});
       break;
       case COMPONENT_LABEL:
-        ecs::_add_label(entity_id, {data->label, data->text_size, data->text_r, data->text_g, data->text_b, data->text_a, data->text_offset_x, data->text_offset_y});
+        ecs::_add_label(entity_id, {data->label, data->text_size, 
+                                    data->text_r, data->text_g, data->text_b, data->text_a, 
+                                    data->text_x, data->text_y, data->text_z});
       break;
     }
   };
