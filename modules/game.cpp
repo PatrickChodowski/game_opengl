@@ -148,6 +148,13 @@ namespace game
 
       //items::spawn(1, 200, 300);
 
+      // How to add randomized stuff
+      // Back button with dynamic X,Y
+
+
+
+
+
       std::cout << "Loaded Scene: " << scene_id << std::endl;
     }
   }
