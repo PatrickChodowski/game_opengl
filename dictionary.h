@@ -104,6 +104,7 @@
 #define ENTITY_TYPE_MAP 3
 #define ENTITY_TYPE_TEXT 4
 #define ENTITY_TYPE_DOOR 5
+#define ENTITY_TYPE_COLOR 6
 
 // Component Index
 #define COMPONENT_POSITION 0

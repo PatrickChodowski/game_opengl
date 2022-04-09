@@ -128,7 +128,7 @@ ABCDEFGHIJKLMNOPRSTUWVXYZ0123456789!@#$%&*(){}[]^:;”’<>,./?|\-_=+
 
 ### logo colors:
 // background
-#191717 - rgb(25, 23, 23)
+#191717 - rgb(25, 23, 23)  - 0.098, 0,09, 0.09
 // color
 #B3ACAC - rgb(179, 172, 172)
 // font

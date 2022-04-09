@@ -9,6 +9,7 @@
 #include "game.h"
 #include "hero.h"
 #include "items.h"
+#include "logger.h"
 #include "mouse.h"
 #include "saves.h"
 
@@ -149,7 +150,7 @@ namespace events
             break;
 
             case SDLK_l:
-              game::LOG_TO_FILES = !game::LOG_TO_FILES;
+              logger::log_data();
             break;
 
             case SDLK_b:
@@ -295,6 +296,10 @@ namespace events
           {     
             case SDLK_ESCAPE:
               game::switch_scene(SCENE_ID_MAIN_MENU, false);
+            break;
+
+            case SDLK_l:
+              logger::log_data();
             break;
 
             // case SDLK_0:
