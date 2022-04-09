@@ -34,15 +34,15 @@ namespace debug
   {
     debug::PointData pdd;
     pdd.id = utils::generate_id(debug::Index);
-    pdd.pos.x = x;
-    pdd.pos.y = y;
-    pdd.pos.z = 0.99f;
-    pdd.color.r = r;
-    pdd.color.g = g;
-    pdd.color.b = b;
-    pdd.color.a = a;
-    pdd.dims.w = 10;
-    pdd.dims.h = 10;
+    pdd.x = x;
+    pdd.y = y;
+    pdd.z = 0.99f;
+    pdd.r = r;
+    pdd.g = g;
+    pdd.b = b;
+    pdd.a = a;
+    pdd.w = 10;
+    pdd.h = 10;
     pdd.camera_type = CAMERA_DYNAMIC;
     points[pdd.id] = pdd;
   };
@@ -70,7 +70,7 @@ namespace debug
 
   void render()
   {
-    quads::add_quads(debug::points, OBJECT_TYPE_DEBUG);
+    // quads::add_quads(debug::points, OBJECT_TYPE_DEBUG);
   }
 
   void clear()

@@ -12,7 +12,7 @@
 #include "buffer.h"
 #include "buttons.h"
 #include "camera.h"
-#include "collisions.h"
+//#include "collisions.h"
 #include "debug.h"
 #include "ecs.h"
 #include "entity.h"
@@ -169,7 +169,7 @@ namespace game
   void clear_scene()
   {
     anims::clear();
-    collisions::clear();
+    //collisions::clear();
     maps::clear();
     nav::clear();
     camera::reset();
@@ -194,7 +194,7 @@ namespace game
     quads::init();
     buffer::init();
     buttons::init();
-    collisions::init();
+    //collisions::init();
     entity::init();
     events::init();
     items::init();
@@ -217,7 +217,7 @@ namespace game
     quads::clear();
     maps::render();
     entity::render();
-    ecs::render();
+    quads::render();
     debug::render();
     models::bind();
     fonts::render();

@@ -40,14 +40,14 @@ namespace hero
   void revert_position_x()
   {
     hero::hero.x = hero::hero.prev_x;
-    entity::entities.at(hero.entity_id).pos.x = entity::entities.at(hero.entity_id).prev_x;
+    entity::entities.at(hero.entity_id).x = entity::entities.at(hero.entity_id).prev_x;
     hero::_update_joints();
   }
 
   void revert_position_y()
   {
     hero::hero.y = hero::hero.prev_y;
-    entity::entities.at(hero.entity_id).pos.y = entity::entities.at(hero.entity_id).prev_y;
+    entity::entities.at(hero.entity_id).y = entity::entities.at(hero.entity_id).prev_y;
     hero::_update_joints();
   }
 

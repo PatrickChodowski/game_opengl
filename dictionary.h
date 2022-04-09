@@ -9,18 +9,6 @@
 #define CAMERA_DYNAMIC 0.0f
 #define CAMERA_STATIC 1.0f
 
-
-
-// object types
-#define OBJECT_TYPE_ENTITY 0
-#define OBJECT_TYPE_MAP 1
-#define OBJECT_TYPE_MENU 2
-#define OBJECT_TYPE_TEXT 3
-#define OBJECT_TYPE_DEBUG 4
-#define OBJECT_TYPE_BUTTON 6
-#define OBJECT_TYPE_DOOR 7
-#define OBJECT_TYPE_MODEL 8
-
 // entity collision sensors
 #define SENSOR_TOP 0
 #define SENSOR_TOP_RIGHT 1
@@ -121,6 +109,12 @@
 #define ANIM_UNARMED_WALK_FORWARD 2
 #define ANIM_STANDING_TAUNT_CHEST_THUMP 3
 
+// Entity types
+#define ENTITY_TYPE_GUI 0
+#define ENTITY_TYPE_LIVE 1
+#define ENTITY_TYPE_BUTTON 2
+#define ENTITY_TYPE_MAP 3
+#define ENTITY_TYPE_DOOR 4
 
 // Component Index
 #define COMPONENT_POSITION 0

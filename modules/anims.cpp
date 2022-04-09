@@ -157,7 +157,7 @@ namespace anims
   void update_frame_position(int entity_id, models::ModelAnimData &AD)
   {
     anims::update_frame(entity_id, AD);
-    entity::entities.at(entity_id).pos.z = AD.z[AD.CK_ID];
+    entity::entities.at(entity_id).z = AD.z[AD.CK_ID];
   }
 
 

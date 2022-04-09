@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "quads.h"
-#include "collisions.h"
+
 #include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 

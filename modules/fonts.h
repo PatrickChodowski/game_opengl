@@ -40,9 +40,9 @@ namespace fonts
     int model_id = FONT_MODEL_ID;
     int frame_id;
 
-    quads::Color color;
-    quads::Position pos;
-    quads::Dims dims;
+    float r,g,b,a;
+    float w,h;
+    float x,y,z;
 
     float camera_type;
     float char_width;

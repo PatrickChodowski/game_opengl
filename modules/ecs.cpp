@@ -60,6 +60,8 @@ namespace ecs
     edd.entity_id = entity_id;
     edd.name = e -> name;
     edd.components = e -> components;
+    edd.entity_type_id = e -> entity_type_id;
+
     ecs::entities.insert(std::pair<int, ecs::EntityData>{edd.entity_id, edd});
     for(int c=0; c<edd.components.size(); c++)
     {
@@ -95,15 +97,6 @@ namespace ecs
     
   };
 
-  // SHOULD GO TO QUADS
-  void render()
-  {
-    for (auto const& [entity_id, render_data]: ecs::renderdatas)
-    {
-      quads::make_entity_quad(entity_id);
-    }
-  }
-
   void clear()
   {
     for(auto const& [entity_id, entity_data]: ecs::entities)
@@ -130,7 +123,7 @@ namespace ecs
         ecs::_add_color(entity_id, {data->r, data->g, data->b, data->a});
       break;
       case COMPONENT_RENDERDATA:
-        ecs::_add_renderdata(entity_id, {data->camera_type, data->object_type_id});
+        ecs::_add_renderdata(entity_id, {data->camera_type});
       break;
       case COMPONENT_BUTTON:
         ecs::_add_button(entity_id, {data->button_function_id});

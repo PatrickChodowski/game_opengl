@@ -3,7 +3,7 @@
 
 #include "anims.h"
 #include "camera.h"
-#include "collisions.h"
+//#include "collisions.h"
 #include "events.h"
 #include "fonts.h"
 #include "game.h"
@@ -158,11 +158,11 @@ namespace events
             break;
 
             case SDLK_e:
-              for(int c=0; c<collisions::near_items.size(); c++)
-              {
-                items::pickup(collisions::near_items[c]);
-                items::put_in_hand(collisions::near_items[c]);
-              }
+              // for(int c=0; c<collisions::near_items.size(); c++)
+              // {
+              //   items::pickup(collisions::near_items[c]);
+              //   items::put_in_hand(collisions::near_items[c]);
+              // }
             break;
 
             case SDLK_q:

@@ -79,19 +79,19 @@ namespace fonts
       tdd.model_id = fonts::FONT_MODEL_ID;
       tdd.frame_id = 0;
       tdd.frame_id = fonts::CharacterAtlas[p];
-      tdd.pos.x = x;
-      tdd.pos.y = y;
-      tdd.pos.z = 0.95f;
-      tdd.dims.w = FMD.frames.at(tdd.frame_id).w * scale;
-      tdd.dims.h = FMD.frames.at(tdd.frame_id).h * scale;
-      tdd.color.r = ldd.r;
-      tdd.color.g = ldd.g;
-      tdd.color.b = ldd.b;
-      tdd.color.a = 1.0;
+      tdd.x = x;
+      tdd.y = y;
+      tdd.z = 0.95f;
+      tdd.w = FMD.frames.at(tdd.frame_id).w * scale;
+      tdd.h = FMD.frames.at(tdd.frame_id).h * scale;
+      tdd.r = ldd.r;
+      tdd.g = ldd.g;
+      tdd.b = ldd.b;
+      tdd.a = 1.0;
       tdd.camera_type = ldd.camera_type;
       tdd.is_clicked = false;
 
-      x += tdd.dims.w + (fonts::CH_OFFSET*scale);
+      x += tdd.w + (fonts::CH_OFFSET*scale);
       fonts::text_characters[tdd.id] = tdd;
     }
   };
@@ -106,8 +106,8 @@ namespace fonts
       fonts::render_chars(v);
     } 
 
-    //std::cout << "before quads::add_quads" << std::endl;
-    quads::add_quads(fonts::text_characters, OBJECT_TYPE_TEXT);
+    // std::cout << "before quads::add_quads" << std::endl;
+    // quads::add_quads(fonts::text_characters, OBJECT_TYPE_TEXT);
   }
 
   void clear()
