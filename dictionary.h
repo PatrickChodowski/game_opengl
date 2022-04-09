@@ -70,18 +70,6 @@
 #define EVENT_HANDLER_LOAD_GAME_MENU 2
 #define EVENT_HANDLER_IN_GAME 3
 
-// Menu Slots
-#define MENU_SLOT_FULL_SCREEN 0
-#define MENU_SLOT_RIGHT_SIDE_1 1
-#define MENU_SLOT_RIGHT_SIDE_2 2
-
-// Menu types
-#define MENU_MAIN_ID 1
-#define MENU_NEWGAME_ID 2
-#define MENU_LOADGAME_ID 3
-#define MENU_SETTINGS_ID 4
-#define MENU_ENTITY_ID 5
-
 // Travel states
 #define TRAVEL_STATE_IDLE 0
 #define TRAVEL_STATE_ACTIVE 1

@@ -31,7 +31,6 @@ namespace mouse
     int priority;
   };
 
-
   // https://gist.github.com/mkawserm/9259513
   typedef void (*sig_ptr)(int, int);
   // Catalog of functions to be chosen based on the object_type_id. Takes object_id as argument
