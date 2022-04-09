@@ -10,6 +10,10 @@
 
 namespace saves
 {
+  // List of save files
+  extern std::vector<std::string> saves;
+  extern std::string NewGameName;
+  extern std::string LoadGameName;
 
   struct SaveData
   {
@@ -51,6 +55,11 @@ namespace saves
 
   // Reads save data fom file
   saves::SaveData read_save_data(std::string& name);
+
+  // Update list of saves
+  void list_saves();
+
+
   
 
 }
