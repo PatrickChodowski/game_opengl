@@ -24,6 +24,7 @@ namespace ecs
   {
     std::string name;
     unsigned int entity_id;
+    int entity_type_id;
     std::vector<unsigned int> components;
   };
 
@@ -34,6 +35,7 @@ namespace ecs
     std::string name;
     std::string label; // LabelComponent
     std::vector<unsigned int> components;
+    int entity_type_id;
 
     // Optionals (although there is no use for entity without 
     // position, dimension or one of model/color)
@@ -47,8 +49,7 @@ namespace ecs
     // Color
     float r,g,b,a;
     // Render data
-    float camera_type;
-    int object_type_id;
+    int camera_type;
     // Button
     int button_function_id;
     // Label
@@ -57,12 +58,12 @@ namespace ecs
     float text_offset_x, text_offset_y;
 
     // All attributes can be read from JSON
-    JS_OBJ(name, components, 
+    JS_OBJ(name, components, entity_type_id,
            x,y,z,
            w,h,
            model_id,frame_id,side_id,
            r,g,b,a,
-           camera_type, object_type_id,
+           camera_type,
            button_function_id,
            label, text_size, text_r, text_g, text_b, text_a, text_offset_x, text_offset_y);
   };
@@ -103,8 +104,7 @@ namespace ecs
   // Component 4: Render data. Everything else needed for correct rendering
   struct RenderdataComponent
   {
-    float camera_type;
-    int object_type_id;
+    int camera_type;
     bool is_clicked = false;
     bool visible = true;
   };

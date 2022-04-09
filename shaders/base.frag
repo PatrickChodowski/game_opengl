@@ -19,27 +19,17 @@ void main()
   int texture_index = int(out_texture_id);
 
   // entity or tile:
-  if(out_type_id == 1.0 || out_type_id == 0.0 || out_type_id == 3.0)
+  if(out_type_id == 0.0 || out_type_id == 1.0 || out_type_id == 3.0)
   {
     frag_color = texture(textures[texture_index], out_tex_coord);
     frag_color.r = (1-out_is_clicked)*frag_color.r;
   } 
   // debug lines or menu:
-    else if (out_type_id == 4.0 || out_type_id == 2.0)
+    else if (out_type_id == 2.0)
   {
     frag_color = out_color.rgba;
   }
-  // buttons
-   else if (out_type_id == 6.0)
-  {
-    frag_color = out_color.rgba;
-    frag_color.r = (1-out_is_clicked)*frag_color.r;
-  }
-  // models and light
-  else if (out_type_id == 8.0)
-  {
-    frag_color = out_color.rgba;
-  }
+ 
 
 
 

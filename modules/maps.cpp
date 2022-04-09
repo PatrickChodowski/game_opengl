@@ -50,20 +50,20 @@ namespace maps
   maps::TileData generate_tile(float x, float y, int model_id, int frame_id)
   {
     maps::TileData tile;
-    tile.pos.x = x;
-    tile.pos.y = y;
-    tile.pos.z = 0.1f;
-    tile.dims.w = maps::default_tile_width;
-    tile.dims.h = maps::default_tile_height;
-    tile.diag = std::sqrt(std::pow((tile.dims.w/2),2) + std::pow((tile.dims.h/2),2));
+    tile.x = x;
+    tile.y = y;
+    tile.z = 0.1f;
+    tile.w = maps::default_tile_width;
+    tile.h = maps::default_tile_height;
+    tile.diag = std::sqrt(std::pow((tile.w/2),2) + std::pow((tile.h/2),2));
     tile.frame_id = frame_id;
     tile.model_id = model_id;
     tile.camera_type = CAMERA_DYNAMIC;
     tile.is_clicked = false;
-    tile.color.r = 0.5f;
-    tile.color.g = 0.5f;
-    tile.color.b = 0.5f;
-    tile.color.a = 1.0f;
+    tile.r = 0.5f;
+    tile.g = 0.5f;
+    tile.b = 0.5f;
+    tile.a = 1.0f;
 
     tile.is_solid = models::models.at(tile.model_id).frames.at(tile.frame_id).is_solid;
     return tile;
@@ -128,7 +128,7 @@ namespace maps
 
   void render()
   {
-    quads::add_quads(maps::tiles, OBJECT_TYPE_MAP);
+    //quads::add_quads(maps::tiles, OBJECT_TYPE_MAP);
   }
 
   void clear()

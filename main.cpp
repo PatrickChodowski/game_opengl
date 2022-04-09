@@ -5,7 +5,7 @@
 #include <string>
 
 #include "modules/anims.h"
-#include "modules/collisions.h"
+// #include "modules/collisions.h"
 #include "modules/events.h"
 #include "modules/game.h"
 #include "modules/hero.h"
@@ -49,7 +49,7 @@ int main()
     events::handle_events(event);
     // Mobs/NPCs movements here?
     travel::update();
-    collisions::handle_entity_collisions(hero::hero.entity_id);
+    //collisions::handle_entity_collisions(hero::hero.entity_id);
     
     anims::update();
     game::update();

@@ -1,7 +1,7 @@
 #include <vector>
 #include <string>
 #include "quads.h"
-#include "collisions.h"
+//#include "collisions.h"
 #include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
@@ -22,11 +22,15 @@ namespace maps
     float mid_y;
     float diag;
 
-    quads::Position pos;
-    quads::Color color;
-    quads::Dims dims;
+    float r,g,b,a;
+    float x,y,z;
+    float w,h;
+
+    // quads::Position pos;
+    // quads::Color color;
+    // quads::Dims dims;
     // collision boxes
-    phmap::flat_hash_map<int, collisions::AABB> abs;
+   //  phmap::flat_hash_map<int, collisions::AABB> abs;
 
     bool is_clicked;
     bool is_solid;

@@ -25,8 +25,8 @@ namespace mouse
 
   struct ClickData
   {
-    int object_id;
-    int object_type_id;
+    int entity_id;
+    int entity_type_id;
     int mouse_button_id;
     int priority;
   };

@@ -53,16 +53,16 @@ namespace entity
     edd.model_id = data.model_id;
     // edd.frame_id = data.current_frame;
     edd.entity_type_id = entity_type_id;
-    edd.pos.x = data.x;
-    edd.pos.y = data.y;
-    edd.pos.z = 0.5f;
-    edd.dims.h = data.h;
-    edd.dims.w = data.w;
+    edd.x = data.x;
+    edd.y = data.y;
+    edd.z = 0.5f;
+    edd.h = data.h;
+    edd.w = data.w;
     edd.prev_x = data.x;
     edd.prev_y = data.y;
-    edd.mid_x = edd.pos.x + (edd.dims.w/2);
-    edd.mid_y = edd.pos.y + (edd.dims.h/2);
-    edd.diag = std::sqrt(std::pow((edd.dims.w/2),2) + std::pow((edd.dims.h/2),2));
+    edd.mid_x = edd.x + (edd.w/2);
+    edd.mid_y = edd.y + (edd.h/2);
+    edd.diag = std::sqrt(std::pow((edd.w/2),2) + std::pow((edd.h/2),2));
     edd.camera_type = camera_type;
     edd.is_solid = true;
 
@@ -74,10 +74,10 @@ namespace entity
     edd.is_clicked = false;
     edd.speed = data.speed;
 
-    edd.color.r = 0.5;
-    edd.color.g = 0.5;
-    edd.color.b = 0.5;
-    edd.color.a = 1.0;
+    edd.r = 0.5;
+    edd.g = 0.5;
+    edd.b = 0.5;
+    edd.a = 1.0;
 
     models::load(edd.model_id);
 
@@ -91,7 +91,7 @@ namespace entity
 
   void render()
   {
-    quads::add_quads(entity::entities, OBJECT_TYPE_ENTITY);
+    //quads::add_quads(entity::entities, OBJECT_TYPE_ENTITY);
   };
 
   void clear()
@@ -126,7 +126,7 @@ namespace entity
     std::vector<std::string> infos = entity::menu_entity_type_map[edd.entity_type_id](entity_id);
 
     std::string label_id = "id: " + utils::str(edd.id);
-    std::string label_pos = "pos: " + utils::str(int(edd.pos.x)) + ", " + utils::str(int(edd.pos.y));
+    std::string label_pos = "pos: " + utils::str(int(edd.x)) + ", " + utils::str(int(edd.y));
     infos.push_back(label_id);
     infos.push_back(label_pos);
     return infos;
@@ -135,12 +135,12 @@ namespace entity
 
   void update_position(int entity_id, float x, float y)
   {
-    entity::entities.at(entity_id).prev_x = entity::entities.at(entity_id).pos.x;
-    entity::entities.at(entity_id).prev_y = entity::entities.at(entity_id).pos.y;
-    entity::entities.at(entity_id).pos.x = x;
-    entity::entities.at(entity_id).pos.y = y;
-    entity::entities.at(entity_id).mid_x = x + (entity::entities.at(entity_id).dims.w/2);
-    entity::entities.at(entity_id).mid_y = y + (entity::entities.at(entity_id).dims.h/2);
+    entity::entities.at(entity_id).prev_x = entity::entities.at(entity_id).x;
+    entity::entities.at(entity_id).prev_y = entity::entities.at(entity_id).y;
+    entity::entities.at(entity_id).x = x;
+    entity::entities.at(entity_id).y = y;
+    entity::entities.at(entity_id).mid_x = x + (entity::entities.at(entity_id).w/2);
+    entity::entities.at(entity_id).mid_y = y + (entity::entities.at(entity_id).h/2);
   }
 
 
@@ -148,11 +148,11 @@ namespace entity
   {
     for (auto const& [k, v] : entity::entities)
     {
-      std::cout << "Entity ID: " << k 
-                << " pos: (" << v.pos.x << ',' << v.pos.y 
-                << ") model_id: " << v.model_id 
-                << " entity_type_id: " << v.entity_type_id
-                << std::endl;
+      // std::cout << "Entity ID: " << k 
+      //           << " pos: (" << v.pos.x << ',' << v.pos.y 
+      //           << ") model_id: " << v.model_id 
+      //           << " entity_type_id: " << v.entity_type_id
+      //           << std::endl;
     }
   }
 

@@ -24,9 +24,10 @@ namespace entity
     int model_id;
     int side_id = ANIM_SIDE_FRONT;
 
-    quads::Position pos;
-    quads::Color color;
-    quads::Dims dims;
+    float x,y,z;
+    float r,g,b,a;
+    float w,h;
+
 
     float prev_x, prev_y;
     float speed;
@@ -38,9 +39,9 @@ namespace entity
     bool is_clicked;
 
     // used if given entity has collision sensors
-    phmap::flat_hash_map<int, collisions::Sensor> sensors;
-    // its not abs, its AABBs, but this is what I do to entertain myself
-    phmap::flat_hash_map<int, collisions::AABB> abs; 
+    // phmap::flat_hash_map<int, collisions::Sensor> sensors;
+    // // its not abs, its AABBs, but this is what I do to entertain myself
+    // phmap::flat_hash_map<int, collisions::AABB> abs; 
 
   };
 
