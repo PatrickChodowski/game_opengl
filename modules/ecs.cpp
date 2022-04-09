@@ -24,6 +24,7 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
   phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
   phmap::flat_hash_map<unsigned int, ecs::ButtonComponent> buttons;
+  phmap::flat_hash_map<unsigned int, ecs::LabelComponent> labels;
 
   void init()
   {
@@ -33,6 +34,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_COLOR] = ecs::_drop_color;
     ecs::drop_component[COMPONENT_RENDERDATA] = ecs::_drop_renderdata;
     ecs::drop_component[COMPONENT_BUTTON] = ecs::_drop_button;
+    ecs::drop_component[COMPONENT_LABEL] = ecs::_drop_label;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -93,6 +95,7 @@ namespace ecs
     
   };
 
+  // SHOULD GO TO QUADS
   void render()
   {
     for (auto const& [entity_id, render_data]: ecs::renderdatas)
@@ -130,7 +133,10 @@ namespace ecs
         ecs::_add_renderdata(entity_id, {data->camera_type, data->object_type_id});
       break;
       case COMPONENT_BUTTON:
-        ecs::_add_button(entity_id, {data->button_label, data->button_function_id});
+        ecs::_add_button(entity_id, {data->button_function_id});
+      break;
+      case COMPONENT_LABEL:
+        ecs::_add_label(entity_id, {data->label, data->text_size, data->text_r, data->text_g, data->text_b, data->text_a, data->text_offset_x, data->text_offset_y});
       break;
     }
   };
@@ -175,6 +181,12 @@ namespace ecs
     ecs::buttons.insert(std::pair<int, ecs::ButtonComponent>{entity_id, button});
   };
 
+  void _add_label(int entity_id, ecs::LabelComponent label)
+  {
+    std::cout << " [ECS] Adding label component for entity " << entity_id << std::endl;
+    ecs::labels.insert(std::pair<int, ecs::LabelComponent>{entity_id, label});
+  };
+
   void _drop_position(int entity_id)
   {
     std::cout << " [ECS] Dropping position component for entity " << entity_id << std::endl;
@@ -209,6 +221,12 @@ namespace ecs
   {
     std::cout << " [ECS] Dropping button component for entity " << entity_id << std::endl;
     ecs::buttons.erase(entity_id);
+  };
+
+  void _drop_label(int entity_id)
+  {
+    std::cout << " [ECS] Dropping label component for entity " << entity_id << std::endl;
+    ecs::labels.erase(entity_id);
   };
 
 
