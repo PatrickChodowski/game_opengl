@@ -85,6 +85,10 @@ Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
 - lets explore world machine for next couple of weeks
 
 
+### Rendering
+- split quads per type of render (static camera, dynamic camera, clicked, Color, Texture) -> provide multiple draw calls but different shaders to remove If Else from shader code
+
+
 ### Next up
 - sound effects
 
