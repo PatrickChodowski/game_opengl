@@ -22,7 +22,6 @@
 #include "items.h"
 #include "logger.h"
 #include "maps.h"
-#include "menu.h"
 #include "mobs.h"
 #include "models.h"
 #include "mouse.h"
@@ -96,7 +95,7 @@ namespace game
     
     if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
     {
-      hero::create_new(menu::NewGameName, "barbarian");
+      //hero::create_new(menu::NewGameName, "barbarian");
       hero::set_position(game::HERO_START_X, game::HERO_START_Y);
       camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
       camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
@@ -109,15 +108,15 @@ namespace game
     {
       hero::refresh();
     }
-    std::cout << "Menu Load Game Name: " << menu::LoadGameName << std::endl;
-    saves::load_game(menu::LoadGameName);
+    // std::cout << "Menu Load Game Name: " << menu::LoadGameName << std::endl;
+    // saves::load_game(menu::LoadGameName);
   };
 
   void _load_hero_from_change_level(int scene_id)
   {
     if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
     {
-      hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
+      //hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
       hero::set_position(game::HERO_START_X, game::HERO_START_Y);
       camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
       camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
@@ -150,19 +149,6 @@ namespace game
 
       //items::spawn(1, 200, 300);
 
-      // Load menu slots
-      for(int s=0; s<game::scenes[scene_id].menu_slots.size(); s++)
-      {
-        int slot_id = game::scenes[scene_id].menu_slots[s];
-        menu::currentmenuslots[slot_id] = menu::menuslots[slot_id];
-      }
-      // Load menus
-      for(int t=0; t<game::scenes[scene_id].menu_types.size(); t++)
-      {
-        int menu_type_id = game::scenes[scene_id].menu_types[t];
-        menu::add(menu_type_id);
-      }
-
       std::cout << "Loaded Scene: " << scene_id << std::endl;
     }
   }
@@ -174,8 +160,8 @@ namespace game
     game::SCENE_ID = scene_id;
 
     // have to cleared after loading the scene
-    menu::NewGameName = "";
-    menu::LoadGameName = "";
+    // menu::NewGameName = "";
+    // menu::LoadGameName = "";
 
     std::cout << "Finished switching scenes " << std::endl;
   }
@@ -190,24 +176,19 @@ namespace game
     ecs::clear();
     entity::clear();
     fonts::clear();
-    menu::clear();
     mobs::clear();
     models::clear();
     npcs::clear();
     quads::clear();
     debug::clear();
-    buttons::clear();
     travel::clear();
   }
 
   void init()
   {
-    //std::cout << " size of quad data: " << sizeof(quads::QuadData) << std::endl;
-
     quads::clear();
     ecs::init();
     models::init();
-    //ecs::drop(logo_entity_id);
 
     anims::init();
     quads::init();
@@ -219,7 +200,6 @@ namespace game
     items::init();
     logger::init();
     maps::init();
-    menu::init();
     mobs::init();
     mouse::init();
     npcs::init();
@@ -239,9 +219,7 @@ namespace game
     entity::render();
     ecs::render();
     debug::render();
-    menu::render();
     models::bind();
-    buttons::render();
     fonts::render();
     nav::render();
     int sampler_size = (models::SceneModels.size() + 1);
@@ -317,13 +295,10 @@ namespace game
     hero::refresh();
     items::refresh();
     maps::refresh();
-    menu::refresh();
     mobs::refresh();
-    //models::refresh();
     npcs::refresh();
     items::init();
     maps::init();
-    menu::init();
     mobs::init();
     models::init();
     npcs::init();

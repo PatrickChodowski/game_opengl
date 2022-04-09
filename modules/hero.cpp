@@ -33,7 +33,7 @@ namespace hero
     hero::hero.name = name;
     hero::hero.type = type;
 
-    hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
+    //hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
     std::cout << "    HERO  entity id: " << hero::hero.entity_id << std::endl;
   };
 

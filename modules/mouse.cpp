@@ -74,15 +74,16 @@ namespace mouse
   {
     logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
     entity::EntityData edd = entity::entities.at(object_id);
+
     // if right click
-    if(mouse_button_id == MOUSE_BUTTON_RIGHT){
-      if(!entity::entities.at(object_id).is_clicked){
-        entity::entities.at(object_id).menu_id = menu::add_to_slot(MENU_ENTITY_ID, object_id);
-      } else {
-        menu::drop(entity::entities.at(object_id).menu_id);
-      }
-      entity::entities.at(object_id).is_clicked  = !entity::entities.at(object_id).is_clicked;
-    } 
+    // if(mouse_button_id == MOUSE_BUTTON_RIGHT){
+    //   if(!entity::entities.at(object_id).is_clicked){
+    //     entity::entities.at(object_id).menu_id = menu::add_to_slot(MENU_ENTITY_ID, object_id);
+    //   } else {
+    //     menu::drop(entity::entities.at(object_id).menu_id);
+    //   }
+    //   entity::entities.at(object_id).is_clicked  = !entity::entities.at(object_id).is_clicked;
+    // } 
   };
 
   void _click_map(int object_id, int mouse_button_id)
@@ -96,22 +97,19 @@ namespace mouse
     // int logic_object_id = menu::_check_if_load_game(object_id);
     // menu::CurrentMenuButtons[object_id].is_clicked = !menu::CurrentMenuButtons[object_id].is_clicked;
     // menu::ClickButton[object_id]();
-    buttons::buttons[object_id].is_clicked = !buttons::buttons[object_id].is_clicked;
-    buttons::ButtonFunctions[buttons::buttons[object_id].button_function_id](object_id);
+    // buttons::buttons[object_id].is_clicked = !buttons::buttons[object_id].is_clicked;
+    // buttons::ButtonFunctions[buttons::buttons[object_id].button_function_id](object_id);
   };
 
-  void _click_menu(int object_id, int mouse_button_id)
-  {
-    std::cout << "Clicked on MENU object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
-  };
+
 
 
   void init()
   {
-    mouse::click[OBJECT_TYPE_ENTITY] = _click_entity;
-    mouse::click[OBJECT_TYPE_MAP] = _click_map;
-    mouse::click[OBJECT_TYPE_BUTTON] = _click_button;
-    mouse::click[OBJECT_TYPE_MENU] = _click_menu;
+    // mouse::click[OBJECT_TYPE_ENTITY] = _click_entity;
+    // mouse::click[OBJECT_TYPE_MAP] = _click_map;
+    // mouse::click[OBJECT_TYPE_BUTTON] = _click_button;
+    // mouse::click[OBJECT_TYPE_MENU] = _click_menu;
 
     mouse::ClickPriorities[OBJECT_TYPE_BUTTON] = 6;
     mouse::ClickPriorities[OBJECT_TYPE_MENU] = 5;

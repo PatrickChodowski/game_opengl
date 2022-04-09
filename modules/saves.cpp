@@ -78,7 +78,7 @@ namespace saves
     hero::hero.current_frame = 0;
     // save rest of the statistics here later
 
-    hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
+    //hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
     hero::set_position(SD.x, SD.y);
     camera::cam.x = (SD.x - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
     camera::cam.y = - (SD.y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
