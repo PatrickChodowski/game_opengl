@@ -17,6 +17,7 @@ namespace saves
   std::vector<std::string> saves;
   std::string NewGameName;
   std::string LoadGameName;
+  int NEW_GAME_NAME_BUTTON_ENTITY;
   const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
 
   void _write_save_json(std::string& str_to_write)

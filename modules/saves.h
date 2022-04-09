@@ -14,6 +14,7 @@ namespace saves
   extern std::vector<std::string> saves;
   extern std::string NewGameName;
   extern std::string LoadGameName;
+  extern int NEW_GAME_NAME_BUTTON_ENTITY;
 
   struct SaveData
   {
@@ -49,7 +50,7 @@ namespace saves
 
   // Saves game data to struct and saves it further to the file
   void save_game();
-  
+
   // Load game data from the file
   void load_game(std::string& name);
 
@@ -58,6 +59,12 @@ namespace saves
 
   // Update list of saves
   void list_saves();
+
+  // Validate new game name
+  bool _validate_name();
+
+  // Validate input to new game name
+  bool _validate_input(std::string input);
 
 
   

@@ -62,11 +62,10 @@ namespace buttons
 
   void _click_newgame_name(int placeholder)
   {
-    // if(menu::_validate_name())
-    // {
-    //   game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);
-
-    // }
+    if(saves::_validate_name())
+    {
+      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, SCENE_LOAD_FROM_NEW);
+    }
   }
 
   void _click_loadgame_name(int button_id)
