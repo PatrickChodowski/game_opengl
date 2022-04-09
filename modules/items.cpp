@@ -98,7 +98,7 @@ namespace items
       items::ItemsOnGround[entity_id] = items::GeneratedItems[entity_id]; 
       items::ItemsOnGround[entity_id].x = x;
       items::ItemsOnGround[entity_id].y = y;
-      int old_entity_id = entity::create(items::ItemsOnGround[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
+      //int old_entity_id = entity::create(items::ItemsOnGround[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
       std::cout << "Hero yeeted item " << entity_id << std::endl;
     }
   }
@@ -117,11 +117,11 @@ namespace items
     tdd.type = items::items[item_id].type;
 
     // logic for items to be stored in different table? Same as alive mobs
-    int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
-    tdd.entity_id = entity_id;
-    items::GeneratedItems[entity_id] = tdd;
-    items::ItemsOnGround[entity_id] = tdd;
-    std::cout << "Spawned Item of type: " << item_id << " entity id : " << entity_id << std::endl;
+    // int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
+    // tdd.entity_id = entity_id;
+    // items::GeneratedItems[entity_id] = tdd;
+    // items::ItemsOnGround[entity_id] = tdd;
+    // std::cout << "Spawned Item of type: " << item_id << " entity id : " << entity_id << std::endl;
   }
 
   
@@ -131,7 +131,7 @@ namespace items
     {
       items::EquippedItems[entity_id].x = hero::hero.hand_x;
       items::EquippedItems[entity_id].y = hero::hero.hand_y;
-      int old_entity_id = entity::create(items::EquippedItems[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
+      //int old_entity_id = entity::create(items::EquippedItems[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
       hero::hero.in_hand_entity_id = entity_id;
     }
   };

@@ -29,10 +29,10 @@ namespace entity
 
   void init()
   {
-    entity::menu_entity_type_map[ENTITY_TYPE_HERO] = hero::info;
-    entity::menu_entity_type_map[ENTITY_TYPE_NPC] = npcs::info;
-    entity::menu_entity_type_map[ENTITY_TYPE_MOB] = mobs::info;
-    entity::menu_entity_type_map[ENTITY_TYPE_ITEM] = items::info;
+    // entity::menu_entity_type_map[ENTITY_TYPE_HERO] = hero::info;
+    // entity::menu_entity_type_map[ENTITY_TYPE_NPC] = npcs::info;
+    // entity::menu_entity_type_map[ENTITY_TYPE_MOB] = mobs::info;
+    // entity::menu_entity_type_map[ENTITY_TYPE_ITEM] = items::info;
     std::cout << "Entity Initialized" << std::endl;
   };
 
@@ -66,10 +66,10 @@ namespace entity
     edd.camera_type = camera_type;
     edd.is_solid = true;
 
-    if(entity_type_id == ENTITY_TYPE_ITEM)
-    {
-      edd.is_solid = false;
-    }
+    // if(entity_type_id == ENTITY_TYPE_ITEM)
+    // {
+    //   edd.is_solid = false;
+    // }
 
     edd.is_clicked = false;
     edd.speed = data.speed;

@@ -9,7 +9,6 @@
 #include "game.h"
 #include "hero.h"
 #include "items.h"
-#include "menu.h"
 #include "mouse.h"
 #include "saves.h"
 
@@ -219,18 +218,18 @@ namespace events
           switch (event.key.keysym.sym)
           {
             case SDLK_BACKSPACE:
-              if(menu::NewGameName.size() > 0)
-              {
-                menu::NewGameName.pop_back();
-                fonts::labels[fonts::NEW_GAME_LABEL_ID].text = menu::NewGameName;
-              }
+              // if(menu::NewGameName.size() > 0)
+              // {
+              //   menu::NewGameName.pop_back();
+              //   fonts::labels[fonts::NEW_GAME_LABEL_ID].text = menu::NewGameName;
+              // }
             break;
 
             case SDLK_RETURN:
-              if(menu::_validate_name())
-              {
-                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);  
-              }
+              // if(menu::_validate_name())
+              // {
+              //   game::switch_scene(SCENE_ID_DUNGEON_LEVEL_2, SCENE_LOAD_FROM_NEW);  
+              // }
             break;
 
             case SDLK_ESCAPE:
@@ -241,11 +240,11 @@ namespace events
         break;
 
         case SDL_TEXTINPUT:
-          if(menu::_validate_input(event.text.text) && menu::NewGameName.size() < 8)
-          {
-            menu::NewGameName += event.text.text;
-            fonts::labels[fonts::NEW_GAME_LABEL_ID].text = menu::NewGameName;
-          }
+          // if(menu::_validate_input(event.text.text) && menu::NewGameName.size() < 8)
+          // {
+          //   menu::NewGameName += event.text.text;
+          //   fonts::labels[fonts::NEW_GAME_LABEL_ID].text = menu::NewGameName;
+          // }
         break;
       }
     }

@@ -12,51 +12,15 @@
 // In-game buttons implementations.
 namespace buttons
 {
-  // It should trigger a function when clicked
-  struct ButtonData
-  {
-    int id;
-    int label_id;
-    int button_function_id;
-    int texture_id = -1;
-    int model_id = -1;
-    int frame_id = -1;
-    int menu_id; // menu that the button belongs to
-    
-    float camera_type;
-
-    quads::Position pos;
-    quads::Color color;
-    quads::Dims dims;
-    quads::Norm norm;
-    
-    bool is_clicked;
-    bool is_reversed = false;
-  };
 
   typedef void (*sig_ptr)(int);
   // Catalog of functions to be chosen based on the button_function_id
   extern phmap::flat_hash_map <int , sig_ptr> ButtonFunctions;
-  extern std::vector<int> Index;
-  extern phmap::flat_hash_map <int, buttons::ButtonData> buttons;
 
   // Initialize Buttons logic and data
   void init();
 
-  // Add button. Returns button_id
-  int add(std::string text, float x, float y, float w, float h, int button_function_id, int menu_id, float r, float g, float b, float a);
-
-  // Render quads
-  void render();
-
-  // Drop selected button by button_id
-  void drop(int button_id);
-
-  // Clear all buttons data
-  void clear();
-
   // functions
-
   // Logic of what happens after clicking on new game
   void _click_new_game(int placeholder);
 

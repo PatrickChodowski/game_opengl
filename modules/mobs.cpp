@@ -73,8 +73,8 @@ namespace mobs
     mdd.x = x;
     mdd.y = y;
     mdd.current_frame = 0;
-    int entity_id = entity::create(mdd, ENTITY_TYPE_MOB, CAMERA_DYNAMIC);
-    mobs::SpawnedMobs[entity_id] = mdd;
+    //int entity_id = entity::create(mdd, ENTITY_TYPE_MOB, CAMERA_DYNAMIC);
+    //mobs::SpawnedMobs[entity_id] = mdd;
   }
 
   void drop(int entity_id)

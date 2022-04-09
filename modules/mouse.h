@@ -51,15 +51,6 @@ namespace mouse
   // Click logic for given entity
   void _click_entity(int object_id, int mouse_button_id);
 
-  // Click logic for given map
-  void _click_map(int object_id, int mouse_button_id);
-
-  // Click logic for buttons
-  void _click_button(int object_id, int mouse_button_id);
-
-  // Click logic for menu
-  void _click_menu(int object_id, int mouse_button_id);
-
   // Initialize Mouse logic
   void init();
 

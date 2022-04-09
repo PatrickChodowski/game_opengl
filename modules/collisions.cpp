@@ -156,10 +156,10 @@ namespace collisions
 
       if(collisions::distances[i].object_type == OBJECT_TYPE_ENTITY)
       {
-        if(entity::entities.at(collisions::distances[i].object_id).entity_type_id == ENTITY_TYPE_ITEM)
-        {
-          collisions::near_items.push_back(collisions::distances[i].object_id);
-        }
+        // if(entity::entities.at(collisions::distances[i].object_id).entity_type_id == ENTITY_TYPE_ITEM)
+        // {
+        //   collisions::near_items.push_back(collisions::distances[i].object_id);
+        // }
       }
 
 
