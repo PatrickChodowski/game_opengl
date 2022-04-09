@@ -120,13 +120,13 @@ namespace ecs
   {
     std::string label;
     float text_size;
-    float text_r = 0.0;
-    float text_g = 0.0; 
-    float text_b = 0.0; 
-    float text_a = 1.0;
-    float text_x = 0.0; 
-    float text_y = 0.0;
-    float text_z = 1.0;
+    float text_r;
+    float text_g; 
+    float text_b; 
+    float text_a;
+    float text_x; 
+    float text_y;
+    float text_z;
   };
 
 

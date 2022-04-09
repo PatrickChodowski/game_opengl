@@ -4,7 +4,7 @@
   "entity_type_id": 2,
   "x": 340,
   "y": 400,
-  "z": 0.2,
+  "z": 0.3,
   "w": 240,
   "h": 70,
   "r": 0.701,
@@ -18,11 +18,12 @@
   "object_type_id": 2,
   "button_function_id": 0,
   "label": "new game",
-  "text_size": 50,
+  "text_size": 45,
   "text_r": 0.5,
   "text_g": 0.5,
   "text_b": 0.5,
   "text_a": 1.0,
-  "text_x": 100,
-  "text_y": 500
+  "text_x": 350,
+  "text_y": 410,
+  "text_z": 1.0
 }

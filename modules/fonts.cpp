@@ -75,8 +75,8 @@ namespace fonts
       quad.g = label.text_g;
       quad.b = label.text_b;
       quad.a = label.text_a;
-      quad.x = label.text_x;
-      quad.y = label.text_y;
+      quad.x = x;
+      quad.y = y;
       quad.z = label.text_z;
       quad.w = FMD.frames.at(quad.frame_id).w * scale;
       quad.h = FMD.frames.at(quad.frame_id).h * scale;

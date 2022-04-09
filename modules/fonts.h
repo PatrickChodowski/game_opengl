@@ -28,7 +28,7 @@ namespace fonts
   // Read font model
   void init();
 
-  // Render charcters from the texts map
+  // Render charcters from the Label component
   void render();
 
   // Render characters of selected label data

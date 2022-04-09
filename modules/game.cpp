@@ -55,7 +55,6 @@ namespace game
   int MAP_ID;
   float HERO_START_X;
   float HERO_START_Y;
-  bool LOG_TO_FILES = false;
   phmap::flat_hash_map<int, game::SceneData> scenes;
   phmap::flat_hash_map<int, sig_ptr> HeroLoader;
 
@@ -227,7 +226,6 @@ namespace game
  
     quads::update();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);
-    logger::log_data();
     buffer::update_quads(quads::AllQuads);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -268,14 +266,7 @@ namespace game
     // draw debug lines here
     buffer::update_lines(debug::lines);
     glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
-
     debug::clear();
-
-    // draw models here
-    // buffer::update_models(models::MeshVertices, models::meshes);
-    // glDrawElements(GL_TRIANGLES, models::MeshVertices.size(), GL_UNSIGNED_INT, nullptr);
-
-    //entity::print_entity_data();
   }
 
   void drop()
@@ -317,7 +308,6 @@ namespace game
     game::WINDOW_WIDTH = game::Config.window_width;
     game::WINDOW_HEIGHT = game::Config.window_height;
     game::SCENE_ID = game::Config.starting_scene;
-    game::LOG_TO_FILES  = game::Config.log_to_files;
   }
 
 }

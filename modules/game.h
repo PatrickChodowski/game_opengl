@@ -21,7 +21,6 @@ namespace game
   extern int CURRENT_SHADER_ID;
   extern float WINDOW_WIDTH;
   extern float WINDOW_HEIGHT;
-  extern bool LOG_TO_FILES;
   extern const Uint8 *KEYBOARD;
   extern std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME;
 
@@ -30,9 +29,8 @@ namespace game
     float window_width;
     float window_height;
     int starting_scene;
-    bool log_to_files;
 
-    JS_OBJ(window_width, window_height, starting_scene, log_to_files);
+    JS_OBJ(window_width, window_height, starting_scene);
   };
 
   extern game::ExternalConfigData Config;
@@ -42,15 +40,12 @@ namespace game
     int id;
     int events_handler_id;
     int map_id;
-    std::vector<int> menu_slots;
-    std::vector<int> menu_types;
     float hero_start_x, hero_start_y;
     std::string label;
     std::vector<std::string> entities;
-
     bool is_gp; // is it gameplay
-
-    JS_OBJ(id, events_handler_id, map_id, hero_start_x, hero_start_y, menu_slots, menu_types, label, is_gp, entities);
+    
+    JS_OBJ(id, events_handler_id, map_id, hero_start_x, hero_start_y, label, is_gp, entities);
   };
 
   extern int EVENT_HANDLER_ID;
