@@ -1,12 +1,10 @@
-
+#include "buttons.h"
 #include "camera.h"
-#include "entity.h"
+#include "ecs.h"
 #include "game.h"
 #include "logger.h"
-#include "menu.h"
 #include "mouse.h"
 #include "quads.h"
-#include "travel.h"
 
 #include <iostream>
 #include <string>
@@ -81,7 +79,17 @@ namespace mouse
 
         mouse::last_click.world_x = camera::reverse_coord_x(click_x, camera::cam.x, camera::cam.zoom);
         mouse::last_click.world_y = camera::reverse_coord_y(click_y, camera::cam.y, camera::cam.zoom);
+
         mouse::click[clicks[c].entity_type_id](clicks[c].entity_id, clicks[c].mouse_button_id);
+
+        // Additionally check if there is click function assigned
+        if(ecs::buttons.count(clicks[c].entity_id))
+        {
+          int button_func_id = ecs::buttons.at(clicks[c].entity_id).button_function_id;
+          std::cout << " [MOUSE] Executing button function ID: " << button_func_id << std::endl; 
+          buttons::ButtonFunctions.at(button_func_id)(-1);
+        }
+
       }
     }
   }
@@ -89,8 +97,6 @@ namespace mouse
   void _click_entity_type_live(int object_id, int mouse_button_id)
   {
     logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
-    entity::EntityData edd = entity::entities.at(object_id);
-
     // if right click
     // if(mouse_button_id == MOUSE_BUTTON_RIGHT){
     //   if(!entity::entities.at(object_id).is_clicked){
@@ -111,7 +117,6 @@ namespace mouse
   {
     std::cout << "Clicked on GUI object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
   };
-
 
   void _click_entity_type_button(int object_id, int mouse_button_id)
   {
