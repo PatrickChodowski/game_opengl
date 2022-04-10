@@ -38,6 +38,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_BUTTON] = ecs::_drop_button;
     ecs::drop_component[COMPONENT_LABEL] = ecs::_drop_label;
     ecs::drop_component[COMPONENT_MOVE] = ecs::_drop_move;
+    ecs::drop_component[COMPONENT_STATS] = ecs::_drop_stat;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -87,15 +88,14 @@ namespace ecs
     std::cout << " [ECS] Dropping entity " << entity_id << std::endl;
     std::vector<unsigned int> components = ecs::entities.at(entity_id).components;
 
-    if(ecs::entities.count(entity_id) > 0)
-    {
+    if(ecs::entities.count(entity_id) > 0){
       ecs::entities.erase(entity_id);
       utils::drop_id(ecs::Index, entity_id);
     }
 
     for(int c=0; c<components.size(); c++)
     {
-      ecs::drop_component[components[c]](entity_id);
+      ecs::drop_component.at(components[c])(entity_id);
     }
     
   };
