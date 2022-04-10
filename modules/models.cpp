@@ -157,9 +157,8 @@ namespace models
     // Checks if model is already in the scene, if its not, load it
     const bool model_already_in_use = models::SceneModels.find(model_id) != models::SceneModels.end();
     if(!model_already_in_use){
-      std::cout << "Loading model ID: "<< model_id << std::endl;
       models::SceneModels.insert(std::pair<int, int>(model_id, -1));
-      std::cout << "Loaded model ID:" << model_id << " NAME: " << models::models.at(model_id).name << " to the scene" << std::endl;
+      std::cout << " [MODELS] Loaded model ID:" << model_id << " NAME: " << models::models.at(model_id).name << " to the scene" << std::endl;
     }
   };
 

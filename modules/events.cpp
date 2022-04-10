@@ -203,7 +203,7 @@ namespace events
   };
 
   void _handle_new_game(SDL_Event event)
-  {
+  { 
     while (SDL_PollEvent(&event))
     {
       switch (event.type)
@@ -246,7 +246,7 @@ namespace events
           {
             saves::NewGameName+= event.text.text;
             ecs::labels.at(saves::NEW_GAME_NAME_BUTTON_ENTITY).label = saves::NewGameName;
-          }
+          } 
         break;
       }
     }

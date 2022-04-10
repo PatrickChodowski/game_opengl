@@ -46,10 +46,8 @@ namespace scenes
 
   void load(int scene_id, int load_scene_from)
   {
-    std::cout << "TU? " << scene_id  << " load scene from " << load_scene_from << std::endl;
     if(scenes::scenes.count(scene_id) > 0)
     {    
-      std::cout << "TU2?" << std::endl;
       models::load(fonts::FONT_MODEL_ID);
       game::SCENE_ID = scene_id;
       game::EVENT_HANDLER_ID = scenes::scenes[scene_id].events_handler_id;
@@ -91,8 +89,7 @@ namespace scenes
     // have to be cleared after loading the scene
     saves::NewGameName = "";
     saves::LoadGameName = "";
-    saves::NEW_GAME_NAME_BUTTON_ENTITY = -1;
-
+    
     std::cout << " [SCENE] Finished switching scenes " << std::endl;
   }
 
