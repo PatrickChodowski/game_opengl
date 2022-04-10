@@ -87,7 +87,7 @@ namespace mouse
         {
           int button_func_id = ecs::buttons.at(clicks[c].entity_id).button_function_id;
           std::cout << " [MOUSE] Executing button function ID: " << button_func_id << std::endl; 
-          buttons::ButtonFunctions.at(button_func_id)(-1);
+          buttons::ButtonFunctions.at(button_func_id)(clicks[c].entity_id);
         }
 
       }

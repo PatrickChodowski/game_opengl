@@ -14,7 +14,11 @@ namespace saves
   extern std::vector<std::string> saves;
   extern std::string NewGameName;
   extern std::string LoadGameName;
+
   extern int NEW_GAME_NAME_BUTTON_ENTITY;
+
+  // Just for recognizing load game name
+  extern phmap::flat_hash_map<int, std::string> saves_buttons_map;
 
   struct SaveData
   {
@@ -22,25 +26,18 @@ namespace saves
     float y;
     float w;
     float h;
-  
     float exp;
     float speed;
     float hp;
     float dmg;
     float def;
-
     int scene_id;
     int model_id;
     int level;
     int mobs_killed;
-
     std::string name;
     std::string type;
-
-
     std::vector<npcs::InteractionData> interactions;
-
-
     JS_OBJ(x, y, w, h, exp, speed, hp, dmg, def, scene_id, model_id, 
     level, mobs_killed, name, type, interactions);
   };

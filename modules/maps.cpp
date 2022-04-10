@@ -59,7 +59,6 @@ namespace maps
     tile.model_id = model_id;
     tile.frame_id = frame_id;
     if(tile.model_id > -1){
-      //std::cout << models::SceneModels.at(tile.model_id) << std::endl;
       tile.texture_id = models::SceneModels.at(tile.model_id);
       tile.norm_x_start = models::models.at(tile.model_id).frames.at(tile.frame_id).norm_x_start;
       tile.norm_x_end = models::models.at(tile.model_id).frames.at(tile.frame_id).norm_x_end;

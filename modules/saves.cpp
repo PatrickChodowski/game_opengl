@@ -17,10 +17,11 @@ namespace saves
   std::vector<std::string> saves;
   std::string NewGameName;
   std::string LoadGameName;
+  phmap::flat_hash_map<int, std::string> saves_buttons_map;
 
   // Updated from scenes::_load_scene_new_game_menu. Used only for the new game name 
   int NEW_GAME_NAME_BUTTON_ENTITY;
-  const std::string _allowed_input = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ";
+  const std::string _allowed_input = "abcdefghijklmnoprstuvwxyz";
 
   void _write_save_json(std::string& str_to_write)
   {
@@ -96,6 +97,7 @@ namespace saves
 
   void list_saves()
   {
+    saves::saves_buttons_map.clear();
     saves::saves = utils::list_json_files("saves");
   };
 
