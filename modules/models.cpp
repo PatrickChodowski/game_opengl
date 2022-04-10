@@ -157,7 +157,8 @@ namespace models
     // Checks if model is already in the scene, if its not, load it
     const bool model_already_in_use = models::SceneModels.find(model_id) != models::SceneModels.end();
     if(!model_already_in_use){
-      models::SceneModels.insert(std::pair<int, int>(model_id, -1));
+      int new_sampler_index = models::SceneModels.size()+1;
+      models::SceneModels.insert(std::pair<int, int>(model_id, new_sampler_index));
       std::cout << " [MODELS] Loaded model ID:" << model_id << " NAME: " << models::models.at(model_id).name << " to the scene" << std::endl;
     }
   };
@@ -174,13 +175,10 @@ namespace models
 
   void populate_sampler(int* arr)
   {
-    int sampler_index = 0;
-    arr[sampler_index] = 0;
+    arr[0] = 0;
     for(auto const& [model_id, sampler_texture_index] : models::SceneModels) 
     {
-      sampler_index++;
-      arr[sampler_index] = models::models.at(model_id).opengl_texture_id;
-      models::SceneModels[model_id] = sampler_index;
+      arr[sampler_texture_index] = models::models.at(model_id).opengl_texture_id;
     } 
   }
 
