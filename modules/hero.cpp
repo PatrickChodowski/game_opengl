@@ -86,8 +86,8 @@ namespace hero
     e.x = x;
     e.y = y;
     e.z = 0.3;
-    e.w = 240;
-    e.h = 70;
+    e.w = 200;
+    e.h = 200;
     e.r = 0.5;
     e.g = 0.5;
     e.b = 0.5;

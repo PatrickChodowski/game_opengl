@@ -262,15 +262,18 @@ namespace ecs
 
   void update_position(int entity_id, float x, float y)
   {
-    std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << std::endl;
     if(ecs::moves.count(entity_id))
     { 
+      float new_x = ecs::positions.at(entity_id).x += x;
+      float new_y = ecs::positions.at(entity_id).y -= y;
       ecs::moves.at(entity_id).prev_x = ecs::positions.at(entity_id).x;
       ecs::moves.at(entity_id).prev_y = ecs::positions.at(entity_id).y;
-      ecs::moves.at(entity_id).mid_x = x + (ecs::dimensions.at(entity_id).w/2);
-      ecs::moves.at(entity_id).mid_y = y + (ecs::dimensions.at(entity_id).h/2);
-      ecs::positions.at(entity_id).x = x;
-      ecs::positions.at(entity_id).y = y;
+      ecs::moves.at(entity_id).mid_x = new_x + (ecs::dimensions.at(entity_id).w/2);
+      ecs::moves.at(entity_id).mid_y = new_y + (ecs::dimensions.at(entity_id).h/2);
+      ecs::positions.at(entity_id).x = new_x;
+      ecs::positions.at(entity_id).y = new_y;
+
+      std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << " new pos: (" << new_x << "," << new_y << ")"<< std::endl;
     }
   }
 
