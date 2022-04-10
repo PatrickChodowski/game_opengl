@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "fonts.h"
-#include "hero.h"
 #include "quads.h"
 #include "saves.h"
 #include "scenes.h"

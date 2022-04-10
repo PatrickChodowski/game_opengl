@@ -1,5 +1,5 @@
 
-#include "entity.h"
+
 #include "maps.h"
 #include "mobs.h"
 #include "quads.h"
@@ -82,7 +82,6 @@ namespace mobs
     if(mobs::SpawnedMobs.count(entity_id) > 0)
     {
       mobs::SpawnedMobs.erase(entity_id);
-      entity::drop(entity_id);
     }
   }
 

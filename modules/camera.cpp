@@ -1,5 +1,4 @@
 #include "camera.h"
-#include "entity.h"
 #include "maps.h"
 #include "game.h"
 #include "../dependencies/glm/mat4x4.hpp"

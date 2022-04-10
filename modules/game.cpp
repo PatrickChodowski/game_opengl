@@ -15,7 +15,6 @@
 //#include "collisions.h"
 #include "debug.h"
 #include "ecs.h"
-#include "entity.h"
 #include "events.h"
 #include "fonts.h"
 #include "hero.h"
@@ -56,45 +55,6 @@ namespace game
   int MAP_ID;
   float HERO_START_X;
   float HERO_START_Y;
-  phmap::flat_hash_map<int, sig_ptr> HeroLoader;
-
-  void _load_hero_from_new_game(int scene_id)
-  {
-    game::HERO_START_X = scenes::scenes[scene_id].hero_start_x;
-    game::HERO_START_Y = scenes::scenes[scene_id].hero_start_y;
-
-    if(!scenes::scenes[scene_id].is_gp){
-      hero::refresh();
-    }
-    
-    if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000){
-      hero::create_new(saves::NewGameName, "barbarian");
-      hero::set_position(game::HERO_START_X, game::HERO_START_Y);
-      camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
-      camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
-    }
-  };
-
-  void _load_hero_from_load_game(int scene_id)
-  {
-    if(!scenes::scenes[scene_id].is_gp)
-    {
-      hero::refresh();
-    }
-    std::cout << "Menu Load Game Name: " << saves::LoadGameName << std::endl;
-    saves::load_game(saves::LoadGameName);
-  };
-
-  void _load_hero_from_change_level(int scene_id)
-  {
-    if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
-    {
-      //hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
-      hero::set_position(game::HERO_START_X, game::HERO_START_Y);
-      camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
-      camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
-    }
-  };
 
   void clear()
   {
@@ -104,7 +64,6 @@ namespace game
     nav::clear();
     camera::reset();
     ecs::clear();
-    entity::clear();
     mobs::clear();
     models::clear();
     npcs::clear();
@@ -115,10 +74,6 @@ namespace game
 
   void init()
   {
-    game::HeroLoader[SCENE_LOAD_FROM_NEW] = game::_load_hero_from_new_game;
-    game::HeroLoader[SCENE_LOAD_FROM_LOAD] = game::_load_hero_from_load_game;
-    game::HeroLoader[SCENE_LOAD_CHANGE_LEVEL] = game::_load_hero_from_change_level;
-
     quads::clear();
     ecs::init();
     models::init();
@@ -128,8 +83,8 @@ namespace game
     buffer::init();
     buttons::init();
     //collisions::init();
-    entity::init();
     events::init();
+    hero::init();
     items::init();
     logger::init();
     maps::init();
@@ -149,7 +104,6 @@ namespace game
   {
     quads::clear();
     maps::render();
-    entity::render();
     quads::render();
     debug::render();
     models::bind();
@@ -217,7 +171,6 @@ namespace game
     game::clear();
     scenes::scenes.clear();
 
-    hero::refresh();
     items::refresh();
     maps::refresh();
     mobs::refresh();
@@ -227,10 +180,7 @@ namespace game
     mobs::init();
     models::init();
     npcs::init();
-
-    hero::create_new("test", "barbarian");
     scenes::load(game::SCENE_ID, false);
-
   };
 
   void read_config(std::string& config_path)

@@ -56,6 +56,12 @@ namespace ecs
     float text_size;
     float text_r, text_g, text_b, text_a;
     float text_x, text_y, text_z;
+    // Move
+    // Move has nothing
+
+    // Stats (for hero, for mobs etc.)
+    int level;
+    float exp, speed, hp, dmg, def;
 
     // All attributes can be read from JSON
     JS_OBJ(name, components, entity_type_id,
@@ -65,7 +71,8 @@ namespace ecs
            r,g,b,a,
            camera_type,
            button_function_id,
-           label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z);
+           label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
+           level, exp, speed, hp, dmg, def);
   };
 
 
@@ -129,6 +136,26 @@ namespace ecs
     float text_z;
   };
 
+  // Component 7: Move component
+  struct MoveComponent
+  {
+    float prev_x;
+    float prev_y;
+    float mid_x;
+    float mid_y;
+    float direction;
+  };
+
+  // Component 8: Stats component
+  struct StatsComponent
+  {
+    int level;
+    float exp;
+    float speed;
+    float hp;
+    float dmg;
+    float def;
+  };
 
   // TABLES
   extern phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
@@ -139,6 +166,9 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
   extern phmap::flat_hash_map<unsigned int, ecs::ButtonComponent> buttons;
   extern phmap::flat_hash_map<unsigned int, ecs::LabelComponent> labels;
+  extern phmap::flat_hash_map<unsigned int, ecs::MoveComponent> moves;
+  extern phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
+
 
 
 
@@ -178,8 +208,9 @@ namespace ecs
   void _add_color(int entity_id, ecs::ColorComponent color);
   void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata);
   void _add_button(int entity_id, ecs::ButtonComponent button);
-  void _add_label(int entity_id, ecs::LabelComponent labels);
-
+  void _add_label(int entity_id, ecs::LabelComponent label);
+  void _add_move(int entity_id, ecs::MoveComponent move);
+  void _add_stat(int entity_id, ecs::StatsComponent stat);
 
   // Component dropping methods
   void _drop_position(int entity_id);
@@ -189,7 +220,13 @@ namespace ecs
   void _drop_renderdata(int entity_id);
   void _drop_button(int entity_id);
   void _drop_label(int entity_id);
+  void _drop_move(int entity_id);
+  void _drop_stat(int entity_id);
 
+  // Where to put it
+
+  // Update entity position and move components
+  void update_position(int entity_id, float x, float y);
 }
 
 
