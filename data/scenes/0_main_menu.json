@@ -1,9 +1,9 @@
 {
-  "id": 0,
-  "events_handler_id": 0,
-  "map_id": -1,
-  "hero_start_x": -1000,
-  "hero_start_y": -1000,
+  "id": 1,
+  "events_handler_id": 1,
+  "map_id": 0,
+  "hero_start_x": -999,
+  "hero_start_y": -999,
   "label": "Main Menu",
   "is_gp": false,
   "entities": ["logo", "new_game_button", "load_game_button", "menu_background", "settings_button", "exit_button"]
