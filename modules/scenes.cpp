@@ -4,7 +4,9 @@
 #include <vector>
 
 #include "ecs.h"
+#include "fonts.h"
 #include "game.h"
+#include "maps.h"
 #include "saves.h"
 #include "scenes.h"
 #include "utils.h"
@@ -15,12 +17,83 @@
 
 namespace scenes
 {
-  phmap::flat_hash_map <int, sig_ptr> SceneLoader;
+  phmap::flat_hash_map<int, sig_ptr> SceneLoader;
+  phmap::flat_hash_map<int, scenes::SceneData> scenes;
+
   void init()
   {
     scenes::SceneLoader[SCENE_ID_NEW_GAME_MENU] = _load_scene_new_game_menu;
     scenes::SceneLoader[SCENE_ID_LOAD_GAME_MENU] = _load_scene_load_game_menu;
-    std::cout << "Scenes module initialized" << std::endl;
+
+    std::vector<std::string> scene_list = utils::list_json_files("data/scenes");
+    for(int s=0; s < scene_list.size(); s++)
+    {
+      scenes::read_data(scene_list[s]);
+    };
+
+    std::cout << "Scenes initialized" << std::endl;
+  }
+
+  void read_data(std::string& name)
+  {
+    scenes::SceneData SD;
+    std::string data_path = "./data/scenes/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(SD);
+    scenes::scenes.insert({SD.id, SD});
+  };
+
+  void load(int scene_id, int load_scene_from)
+  {
+    std::cout << "TU? " << scene_id  << " load scene from " << load_scene_from << std::endl;
+    if(scenes::scenes.count(scene_id) > 0)
+    {    
+      std::cout << "TU2?" << std::endl;
+      models::load(fonts::FONT_MODEL_ID);
+      game::SCENE_ID = scene_id;
+      game::EVENT_HANDLER_ID = scenes::scenes[scene_id].events_handler_id;
+      game::MAP_ID = scenes::scenes[scene_id].map_id;
+      game::HeroLoader[load_scene_from](scene_id);
+
+      // Load map
+      maps::init_map(game::MAP_ID);
+
+      // Load entities
+      for(int e=0; e<scenes::scenes[scene_id].entities.size(); e++)
+      {
+        ecs::create_entity_from_file(scenes::scenes[scene_id].entities[e]);
+      }
+
+      // Adding dynamic logic based on the scene ID
+      if(scenes::SceneLoader.count(scene_id) > 0){
+        scenes::SceneLoader.at(scene_id)();
+      }
+
+      // // load mobs based on the map
+      // mobs::spawn_from_nest(game::MAP_ID);
+
+      // // Spawns npcs for the map
+      // npcs::spawn_from_map(game::MAP_ID);
+
+      //items::spawn(1, 200, 300);
+
+      std::cout << " [SCENE] Loaded Scene: " << scene_id << std::endl;
+    }
+  }
+
+  void switch_scene(int scene_id, int load_scene_from)
+  {
+    game::clear();
+    scenes::load(scene_id, load_scene_from);
+    game::SCENE_ID = scene_id;
+
+    // have to be cleared after loading the scene
+    saves::NewGameName = "";
+    saves::LoadGameName = "";
+    saves::NEW_GAME_NAME_BUTTON_ENTITY = -1;
+
+    std::cout << " [SCENE] Finished switching scenes " << std::endl;
   }
 
   void _load_scene_new_game_menu()

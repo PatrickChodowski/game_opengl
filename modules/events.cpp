@@ -12,6 +12,7 @@
 #include "logger.h"
 #include "mouse.h"
 #include "saves.h"
+#include "scenes.h"
 
 #include "../scripts/py.h"
 
@@ -121,7 +122,7 @@ namespace events
           { 
             case SDLK_ESCAPE:
               LOCK_CAMERA = true;
-              game::switch_scene(SCENE_ID_MAIN_MENU, false);   
+              scenes::switch_scene(SCENE_ID_MAIN_MENU, false);   
             break;
             
             case SDLK_x:
@@ -229,12 +230,12 @@ namespace events
             case SDLK_RETURN:
               if(saves::_validate_name())
               {
-                game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, SCENE_LOAD_FROM_NEW);  
+                scenes::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, SCENE_LOAD_FROM_NEW);  
               }
             break;
 
             case SDLK_ESCAPE:
-              game::switch_scene(SCENE_ID_MAIN_MENU, false);  
+              scenes::switch_scene(SCENE_ID_MAIN_MENU, false);  
             break;
           }
 
@@ -269,7 +270,7 @@ namespace events
           switch (event.key.keysym.sym)
           {     
             case SDLK_ESCAPE:
-              game::switch_scene(SCENE_ID_MAIN_MENU, false);
+              scenes::switch_scene(SCENE_ID_MAIN_MENU, false);
             break;
           }
         break;
@@ -295,7 +296,7 @@ namespace events
           switch (event.key.keysym.sym)
           {     
             case SDLK_ESCAPE:
-              game::switch_scene(SCENE_ID_MAIN_MENU, false);
+              scenes::switch_scene(SCENE_ID_MAIN_MENU, false);
             break;
 
             case SDLK_l:

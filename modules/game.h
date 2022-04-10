@@ -34,45 +34,17 @@ namespace game
   };
 
   extern game::ExternalConfigData Config;
-
-  struct SceneData 
-  {
-    int id;
-    int events_handler_id;
-    int map_id;
-    float hero_start_x, hero_start_y;
-    std::string label;
-    std::vector<std::string> entities;
-    bool is_gp; // is it gameplay
-    
-    JS_OBJ(id, events_handler_id, map_id, hero_start_x, hero_start_y, label, is_gp, entities);
-  };
-
   extern int EVENT_HANDLER_ID;
   extern int MAP_ID;
   extern float HERO_START_X;
   extern float HERO_START_Y;
-  extern phmap::flat_hash_map<int, game::SceneData> scenes;
-
 
   typedef void (*sig_ptr)(int scene_id);
   // Functions map to loading a hero
   extern phmap::flat_hash_map<int, sig_ptr> HeroLoader;
 
-  // Reads scene data to struct
-  void read_data(std::string &name);
-
-  // Reads all scenes data to scenes catalog
-  void init_scenes();
-
-  // Initialize all systems for new scene
-  void load_scene(int scene_id, int load_scene_from);
-
   // Delete all data necessary for clear the scene
-  void clear_scene();
-
-  // Switches scene. Clears current scene data and initializes new one
-  void switch_scene(int scene_id, int load_scene_from);
+  void clear();
 
   // Initialize all in-game systems inside single game::init()
   void init();
