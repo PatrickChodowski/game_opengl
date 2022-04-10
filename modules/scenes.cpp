@@ -167,8 +167,11 @@ namespace scenes
       e.text_x = start_x + 10;
       e.text_y = start_y + 10;
       e.text_z = 1.0;
-      ecs::create_entity(&e);
+      int button_entity_id = ecs::create_entity(&e);
       start_y += 80;
+
+      // Used for loading the correct save file
+      saves::saves_buttons_map.insert(std::pair<int, std::string> {button_entity_id, saves::saves[s]});
     }
   }
 
