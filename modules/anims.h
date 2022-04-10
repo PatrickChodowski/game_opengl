@@ -55,14 +55,9 @@ namespace anims
   // Adds next_anim_id to particular animation played. Will start after the current animation is finished
   void start_delayed(int anim_id, int entity_id);
 
-
   // Anim handlers:
-
   // Update entity's frame
   void update_frame(int entity_id, models::ModelAnimData &AD);
-
-  // Update entity's frame and position (z)
-  void update_frame_position(int entity_id, models::ModelAnimData &AD);
 
 }
 

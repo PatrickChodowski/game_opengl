@@ -1,137 +1,111 @@
 
 #include <iostream>
+#include <string>
+#include <vector>
 
-#include "anims.h"
-#include "debug.h"
-#include "entity.h"
-#include "game.h"
+#include "camera.h"
+#include "ecs.h"
 #include "hero.h"
-#include "items.h"
+#include "game.h"
+#include "models.h"
+#include "saves.h"
+#include "scenes.h"
 
+#include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
 
-
 namespace hero
 {
+  int HERO_ENTITY_ID;
+  phmap::flat_hash_map<int, sig_ptr> HeroLoader;
 
-  hero::HeroData hero;
-
-  void _read_data(std::string char_type)
+  void init()
   {
+    hero::HeroLoader[SCENE_LOAD_FROM_NEW] = hero::_load_hero_from_new_game;
+    hero::HeroLoader[SCENE_LOAD_FROM_LOAD] = hero::_load_hero_from_load_game;
+    hero::HeroLoader[SCENE_LOAD_CHANGE_LEVEL] = hero::_load_hero_from_change_level;
+
+    std::cout << "Hero initialized" << std::endl;
+  };
+
+  hero::HeroData read_data(std::string char_type)
+  {
+    hero::HeroData HD;
     std::string file_path = "data/heros/" + char_type + ".json";
     std::string json_data = utils::read_text_file(file_path);
     JS::ParseContext context(json_data);
-    context.parseTo(hero::hero);
+    context.parseTo(HD);
+    return HD;
   }
 
-  void create_new(std::string name, std::string type)
+  void _load_hero_from_new_game(int scene_id)
   {
-    hero::_read_data(type);
-    hero::hero.current_frame = 0;
-    hero::hero.current_movement_state = ENTITY_STATE_CALM;
-    hero::hero.name = name;
-    hero::hero.type = type;
+    std::cout << " [GAME] Loading hero from new game to scene ID: " << scene_id << std::endl;
+    float hero_start_x = scenes::scenes[scene_id].hero_start_x;
+    float hero_start_y = scenes::scenes[scene_id].hero_start_y;
 
-    //hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
-    std::cout << "    HERO  entity id: " << hero::hero.entity_id << std::endl;
+    // if(!scenes::scenes[scene_id].is_gp){
+    //   hero::refresh();
+    // }
+    
+    if(hero_start_x != -1000 & hero_start_y != -1000){
+      hero::create_new(saves::NewGameName, "barbarian", hero_start_x, hero_start_y);
+      camera::cam.x = (hero_start_x - (game::WINDOW_WIDTH/2) + (ecs::dimensions.at(hero::HERO_ENTITY_ID).w/2));
+      camera::cam.y = - (hero_start_y - (game::WINDOW_HEIGHT/2) + (ecs::dimensions.at(hero::HERO_ENTITY_ID).h/2));
+    }
   };
 
-  void revert_position_x()
+  void _load_hero_from_load_game(int scene_id)
   {
-    hero::hero.x = hero::hero.prev_x;
-    entity::entities.at(hero.entity_id).x = entity::entities.at(hero.entity_id).prev_x;
-    hero::_update_joints();
-  }
-
-  void revert_position_y()
-  {
-    hero::hero.y = hero::hero.prev_y;
-    entity::entities.at(hero.entity_id).y = entity::entities.at(hero.entity_id).prev_y;
-    hero::_update_joints();
-  }
-
-  void _update_joints()
-  {
-    // temporarily just fixed point
-    hero::hero.hand_x = hero::hero.x + models::models[hero::hero.model_id].frames[entity::entities.at(hero::hero.entity_id).frame_id].right_hand_x;
-    hero::hero.hand_y = hero::hero.y + models::models[hero::hero.model_id].frames[entity::entities.at(hero::hero.entity_id).frame_id].right_hand_y;
-
-    if(game::IS_DEBUG_MODE)
-    {
-      debug::render_square(hero::hero.hand_x, hero::hero.hand_y, 10, 10, 0.9, 0.0, 0.0, 1.0);
-    }
-    if(hero::hero.in_hand_entity_id > -1)
-    {
-
-      float item_w_scale = items::items[items::EquippedItems[hero::hero.in_hand_entity_id].item_id].width_og/
-      models::models[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].w;
-
-      float item_h_scale = items::items[items::EquippedItems[hero::hero.in_hand_entity_id].item_id].height_og/
-      models::models[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].h;
-
-      // XD nice clean code
-      float hook_x = models::models[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].hook_x 
-      * item_w_scale;
-
-      float hook_y = models::models[entity::entities.at(hero::hero.in_hand_entity_id).model_id].frames[entity::entities.at(hero::hero.in_hand_entity_id).frame_id].hook_y 
-      * item_h_scale;
-
-      items::EquippedItems[hero::hero.in_hand_entity_id].x = hero::hero.hand_x - hook_x;
-      items::EquippedItems[hero::hero.in_hand_entity_id].y = hero::hero.hand_y - hook_y;
-
-      entity::update_position(hero::hero.in_hand_entity_id, 
-                              items::EquippedItems[hero::hero.in_hand_entity_id].x, 
-                              items::EquippedItems[hero::hero.in_hand_entity_id].y);
-    }
-
+    // if(!scenes::scenes[scene_id].is_gp){
+    //   hero::refresh();
+    // }
+    std::cout << " [HERO] Load hero from game name: " << saves::LoadGameName << std::endl;
+    saves::load_game(saves::LoadGameName);
   };
 
-  void set_position(float x, float y)
+  void _load_hero_from_change_level(int scene_id)
   {
-    hero::hero.prev_x = hero::hero.x;
-    hero::hero.prev_y = hero::hero.y;
-    hero::hero.x = x;
-    hero::hero.y = y;
-    std::cout << "setting hero position to (" << hero::hero.x << "," << hero::hero.y << ")" << std::endl;
-    entity::update_position(hero::hero.entity_id, x, y);
-    hero::_update_joints();
-  }
+    // if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
+    // {
+    //   //hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
+    //   hero::set_position(game::HERO_START_X, game::HERO_START_Y);
+    //   camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
+    //   camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
+    // }
+  };
 
-  // set items animations based on hero animation
-  void animate_items(int anim_id)
+  void create_new(std::string name, std::string type, float x, float y)
   {
-    if(hero::hero.in_hand_entity_id > -1)
-    {
-      anims::start(anim_id, hero::hero.in_hand_entity_id);
-    }  
-  }
+    hero::HeroData HD = hero::read_data(type);
+    ecs::TempEntityData e;
+    e.name = name;
+    e.components = {0,1,2,3,4,7,8};
+    e.entity_type_id = ENTITY_TYPE_LIVE;
+    e.x = x;
+    e.y = y;
+    e.z = 0.3;
+    e.w = 240;
+    e.h = 70;
+    e.r = 0.5;
+    e.g = 0.5;
+    e.b = 0.5;
+    e.a = 1.0;
+    e.model_id = HD.model_id;
+    e.frame_id = 10100;
+    e.side_id = ANIM_SIDE_FRONT;
+    e.camera_type = CAMERA_STATIC;
 
-  void update_position(float camera_move_x, float camera_move_y)
-  { 
-    float new_hero_x = hero::hero.x + camera_move_x;
-    float new_hero_y = hero::hero.y - camera_move_y;
-    hero::hero.prev_x = hero::hero.x;
-    hero::hero.prev_y = hero::hero.y;
-    hero::hero.x = new_hero_x;
-    hero::hero.y = new_hero_y;
-    entity::update_position(hero.entity_id, new_hero_x, new_hero_y);
-    hero::_update_joints();
-  }
+    e.level = 1;
+    e.exp = 0;
+    e.speed = HD.speed;
+    e.hp = HD.hp;
+    e.dmg = HD.dmg;
+    e.def = HD.def;
 
-  void refresh()
-  {
-    hero::HeroData new_hero;
-    hero::hero = new_hero;
-  }
-
-  std::vector<std::string> info(int entity_id)
-  {
-    std::vector<std::string> infos = {};
-    infos.push_back(hero::hero.name);
-    infos.push_back(hero::hero.type);
-    return infos;
-  }
-
-
+    hero::HERO_ENTITY_ID = ecs::create_entity(&e);
+    std::cout << " [HERO] Created new character entity ID: " << hero::HERO_ENTITY_ID << std::endl;
+  };
 }
+

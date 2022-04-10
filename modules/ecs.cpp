@@ -25,6 +25,8 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
   phmap::flat_hash_map<unsigned int, ecs::ButtonComponent> buttons;
   phmap::flat_hash_map<unsigned int, ecs::LabelComponent> labels;
+  phmap::flat_hash_map<unsigned int, ecs::MoveComponent> moves;
+  phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
 
   void init()
   {
@@ -35,6 +37,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_RENDERDATA] = ecs::_drop_renderdata;
     ecs::drop_component[COMPONENT_BUTTON] = ecs::_drop_button;
     ecs::drop_component[COMPONENT_LABEL] = ecs::_drop_label;
+    ecs::drop_component[COMPONENT_MOVE] = ecs::_drop_move;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -133,6 +136,14 @@ namespace ecs
                                     data->text_r, data->text_g, data->text_b, data->text_a, 
                                     data->text_x, data->text_y, data->text_z});
       break;
+      case COMPONENT_MOVE:
+        // No data to init or pass
+        ecs::MoveComponent move_data;
+        ecs::_add_move(entity_id, move_data);
+      break;
+      case COMPONENT_STATS:
+        ecs::_add_stat(entity_id, {data->level, data->exp, data->speed, data->hp, data->dmg, data->def});
+      break;
     }
   };
 
@@ -182,6 +193,18 @@ namespace ecs
     ecs::labels.insert(std::pair<int, ecs::LabelComponent>{entity_id, label});
   };
 
+  void _add_move(int entity_id, ecs::MoveComponent move)
+  {
+    std::cout << " [ECS] Adding move component for entity " << entity_id << std::endl;
+    ecs::moves.insert(std::pair<int, ecs::MoveComponent>{entity_id, move});
+  }
+
+  void _add_stat(int entity_id, ecs::StatsComponent stat)
+  {
+    std::cout << " [ECS] Adding stat component for entity " << entity_id << std::endl;
+    ecs::stats.insert(std::pair<int, ecs::StatsComponent>{entity_id, stat});
+  }
+
   void _drop_position(int entity_id)
   {
     std::cout << " [ECS] Dropping position component for entity " << entity_id << std::endl;
@@ -224,7 +247,32 @@ namespace ecs
     ecs::labels.erase(entity_id);
   };
 
+  void _drop_move(int entity_id)
+  {
+    std::cout << " [ECS] Dropping move component for entity " << entity_id << std::endl;
+    ecs::moves.erase(entity_id);
+  };
 
+  void _drop_stat(int entity_id)
+  {
+    std::cout << " [ECS] Dropping stat component for entity " << entity_id << std::endl;
+    ecs::stats.erase(entity_id);
+  };
+
+
+  void update_position(int entity_id, float x, float y)
+  {
+    std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << std::endl;
+    if(ecs::moves.count(entity_id))
+    { 
+      ecs::moves.at(entity_id).prev_x = ecs::positions.at(entity_id).x;
+      ecs::moves.at(entity_id).prev_y = ecs::positions.at(entity_id).y;
+      ecs::moves.at(entity_id).mid_x = x + (ecs::dimensions.at(entity_id).w/2);
+      ecs::moves.at(entity_id).mid_y = y + (ecs::dimensions.at(entity_id).h/2);
+      ecs::positions.at(entity_id).x = x;
+      ecs::positions.at(entity_id).y = y;
+    }
+  }
 
 }
 

@@ -8,7 +8,6 @@
 // #include "modules/collisions.h"
 #include "modules/events.h"
 #include "modules/game.h"
-#include "modules/hero.h"
 #include "modules/utils.h"
 #include "modules/timer.h"
 #include "modules/travel.h"

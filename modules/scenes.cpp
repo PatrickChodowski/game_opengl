@@ -6,6 +6,7 @@
 #include "ecs.h"
 #include "fonts.h"
 #include "game.h"
+#include "hero.h"
 #include "maps.h"
 #include "saves.h"
 #include "scenes.h"
@@ -52,7 +53,6 @@ namespace scenes
       game::SCENE_ID = scene_id;
       game::EVENT_HANDLER_ID = scenes::scenes[scene_id].events_handler_id;
       game::MAP_ID = scenes::scenes[scene_id].map_id;
-      game::HeroLoader[load_scene_from](scene_id);
 
       // Load map
       maps::init_map(game::MAP_ID);
@@ -67,6 +67,9 @@ namespace scenes
       if(scenes::SceneLoader.count(scene_id) > 0){
         scenes::SceneLoader.at(scene_id)();
       }
+
+      hero::HeroLoader[load_scene_from](scene_id);
+
 
       // // load mobs based on the map
       // mobs::spawn_from_nest(game::MAP_ID);

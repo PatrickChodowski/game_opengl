@@ -39,10 +39,6 @@ namespace game
   extern float HERO_START_X;
   extern float HERO_START_Y;
 
-  typedef void (*sig_ptr)(int scene_id);
-  // Functions map to loading a hero
-  extern phmap::flat_hash_map<int, sig_ptr> HeroLoader;
-
   // Delete all data necessary for clear the scene
   void clear();
 
@@ -60,16 +56,6 @@ namespace game
 
   // Reads in game config
   void read_config(std::string& config_path);
-
-  // Loads hero from new game logic
-  void _load_hero_from_new_game(int scene_id);
-
-  // Loads hero from load game logic
-  void _load_hero_from_load_game(int scene_id);
-
-  // Loads hero from change level logic
-  void _load_hero_from_change_level(int scene_id);
-
 
 }
 

@@ -39,46 +39,43 @@ namespace events
     camera::cam.move_x = 0;
     camera::cam.move_y = 0;
 
-
     if(game::KEYBOARD[SDL_SCANCODE_LEFT])
     {
-      camera::cam.move_x -= hero::hero.speed;
-      entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_LEFT;
-      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      camera::cam.move_x -= ecs::stats.at(hero::HERO_ENTITY_ID).speed;
+      ecs::models.at(hero::HERO_ENTITY_ID).side_id = ANIM_SIDE_LEFT;
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::HERO_ENTITY_ID);
 
       //hero::animate_items(ANIM_MOVE_LEFT);
     } 
     else if(game::KEYBOARD[SDL_SCANCODE_RIGHT])
     {
-      camera::cam.move_x += hero::hero.speed;
-      entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_RIGHT;
-      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      camera::cam.move_x += ecs::stats.at(hero::HERO_ENTITY_ID).speed;
+      ecs::models.at(hero::HERO_ENTITY_ID).side_id = ANIM_SIDE_RIGHT;
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::HERO_ENTITY_ID);
       //hero::animate_items(ANIM_MOVE_RIGHT);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_UP])
     {
-      camera::cam.move_y += hero::hero.speed;
-      entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_BACK;
-      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      camera::cam.move_y += ecs::stats.at(hero::HERO_ENTITY_ID).speed;
+      ecs::models.at(hero::HERO_ENTITY_ID).side_id = ANIM_SIDE_BACK;
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::HERO_ENTITY_ID);
       //hero::animate_items(ANIM_MOVE_UP);
     }
     else if(game::KEYBOARD[SDL_SCANCODE_DOWN])
     {
-      camera::cam.move_y -= hero::hero.speed;
-      entity::entities.at(hero::hero.entity_id).side_id = ANIM_SIDE_FRONT;
-      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::hero.entity_id);
+      camera::cam.move_y -= ecs::stats.at(hero::HERO_ENTITY_ID).speed;
+      ecs::models.at(hero::HERO_ENTITY_ID).side_id = ANIM_SIDE_FRONT;
+      anims::start(ANIM_UNARMED_WALK_FORWARD, hero::HERO_ENTITY_ID);
       //hero::animate_items(ANIM_MOVE_DOWN);
     } 
 
     if(camera::cam.move_x != 0 | camera::cam.move_y !=0 )
     {
-
       camera::cam.previous_x = camera::cam.x;
       camera::cam.previous_y = camera::cam.y;
       camera::cam.x += camera::cam.move_x;
       camera::cam.y += camera::cam.move_y;
-
-      hero::update_position(camera::cam.move_x, camera::cam.move_y);
+      ecs::update_position(hero::HERO_ENTITY_ID, camera::cam.move_x, camera::cam.move_y);
     }
 
   }
@@ -88,8 +85,8 @@ namespace events
     // Prevents arrow key scan 
     bool LOCK_CAMERA = false;
     // check if player in locking animation
-    if(anims::_check_if_entity_in_anim(hero::hero.entity_id)){
-      if(anims::animsplayed.at(hero::hero.entity_id).locking){
+    if(anims::_check_if_entity_in_anim(hero::HERO_ENTITY_ID)){
+      if(anims::animsplayed.at(hero::HERO_ENTITY_ID).locking){
         LOCK_CAMERA = true;
       }
     }
@@ -147,7 +144,6 @@ namespace events
             break;
 
             case SDLK_i:
-              entity::print_entity_data();
             break;
 
             case SDLK_l:
@@ -155,7 +151,7 @@ namespace events
             break;
 
             case SDLK_b:
-              anims::start(ANIM_STANDING_TAUNT_CHEST_THUMP, hero::hero.entity_id);
+              anims::start(ANIM_STANDING_TAUNT_CHEST_THUMP, hero::HERO_ENTITY_ID);
               LOCK_CAMERA = true;
             break;
 
@@ -168,11 +164,11 @@ namespace events
             break;
 
             case SDLK_q:
-              for(int e=0; e<hero::hero.equipped_items.size(); e++)
-              {
-                items::yeet(hero::hero.equipped_items[e], (hero::hero.x+(e*10)), (hero::hero.y+(e*10)));
-              }
-              hero::hero.equipped_items.clear();
+              // for(int e=0; e<hero::hero.equipped_items.size(); e++)
+              // {
+              //   items::yeet(hero::hero.equipped_items[e], (hero::hero.x+(e*10)), (hero::hero.y+(e*10)));
+              // }
+              // hero::hero.equipped_items.clear();
             break;
 
             case SDLK_0:
@@ -190,7 +186,7 @@ namespace events
             case SDLK_RIGHT:
             case SDLK_UP:
             case SDLK_DOWN:
-              anims::start(ANIM_STANDING_IDLE, hero::hero.entity_id);
+              anims::start(ANIM_STANDING_IDLE, hero::HERO_ENTITY_ID);
             break;
           }
         break;
@@ -220,16 +216,14 @@ namespace events
           switch (event.key.keysym.sym)
           {
             case SDLK_BACKSPACE:
-              if(saves::NewGameName.size() > 0)
-              {
+              if(saves::NewGameName.size() > 0){
                 saves::NewGameName.pop_back();
                 ecs::labels.at(saves::NEW_GAME_NAME_BUTTON_ENTITY).label = saves::NewGameName;
               }
             break;
 
             case SDLK_RETURN:
-              if(saves::_validate_name())
-              {
+              if(saves::_validate_name()){
                 scenes::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, SCENE_LOAD_FROM_NEW);  
               }
             break;
@@ -242,8 +236,7 @@ namespace events
         break;
 
         case SDL_TEXTINPUT:
-          if(saves::_validate_input(event.text.text) && saves::NewGameName.size() < 8)
-          {
+          if(saves::_validate_input(event.text.text) && saves::NewGameName.size() < 8){
             saves::NewGameName+= event.text.text;
             ecs::labels.at(saves::NEW_GAME_NAME_BUTTON_ENTITY).label = saves::NewGameName;
           } 

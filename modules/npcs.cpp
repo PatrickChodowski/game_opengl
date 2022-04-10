@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 
-#include "entity.h"
 #include "logger.h"
 #include "maps.h"
 #include "npcs.h"
