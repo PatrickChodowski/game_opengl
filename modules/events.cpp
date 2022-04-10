@@ -308,6 +308,6 @@ namespace events
 
   void handle_events(SDL_Event event)
   {
-    events::EventsHandler[game::EVENT_HANDLER_ID](event);
+    events::EventsHandler.at(game::EVENT_HANDLER_ID)(event);
   }
 }

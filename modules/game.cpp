@@ -109,6 +109,7 @@ namespace game
     models::bind();
     fonts::render();
     nav::render();
+
     int sampler_size = (models::SceneModels.size() + 1);
     int sampler[sampler_size]; 
     models::populate_sampler(sampler);
@@ -127,7 +128,6 @@ namespace game
 
     // independent of camera moving
     camera::STATIC_MVP = camera::gen_static_mvp();
-
   
     // Set Light properties
     float light_coords[3] = {100, 200, 300};
@@ -156,6 +156,7 @@ namespace game
     buffer::update_lines(debug::lines);
     glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
     debug::clear();
+
   }
 
   void drop()
