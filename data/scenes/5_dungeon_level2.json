@@ -1,11 +1,10 @@
 {
   "id": 5,
-  "events_handler_id": 3,
-  "map_id": 2,
+  "events_handler_id": 4,
+  "map_id": 1,
   "hero_start_x": 100,
   "hero_start_y": 100,
-  "menu_slots": [1, 2],
-  "menu_types": [],
-  "label": "Dungeon Level 2",
-  "is_gp": true
+  "label": "Dungeon Level 5",
+  "is_gp": true,
+  "entities": []
 }
