@@ -95,7 +95,7 @@ namespace hero
     e.model_id = HD.model_id;
     e.frame_id = 10100;
     e.side_id = ANIM_SIDE_FRONT;
-    e.camera_type = CAMERA_STATIC;
+    e.camera_type = CAMERA_DYNAMIC;
 
     e.level = 1;
     e.exp = 0;
