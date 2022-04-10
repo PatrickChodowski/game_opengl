@@ -28,7 +28,7 @@ void main()
     // TEXT
     frag_color = texture(textures[texture_index], out_tex_coord);
   }
-    else if (out_type_id == 6.0 || out_type_id == 2.0)
+    else if (out_type_id == 6.0 || out_type_id == 2.0 || out_type_id == 9.0)
   {
     //
     frag_color = out_color.rgba;
