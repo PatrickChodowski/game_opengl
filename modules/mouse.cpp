@@ -120,7 +120,7 @@ namespace mouse
 
   void _click_entity_type_button(int object_id, int mouse_button_id)
   {
-    std::cout << "Clicked on BUTTON object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
+    std::cout << " [MOUSE] Clicked on BUTTON object id: " << object_id << " with mouse button id: " << mouse_button_id << std::endl;
     // int logic_object_id = menu::_check_if_load_game(object_id);
     // menu::CurrentMenuButtons[object_id].is_clicked = !menu::CurrentMenuButtons[object_id].is_clicked;
     // menu::ClickButton[object_id]();
