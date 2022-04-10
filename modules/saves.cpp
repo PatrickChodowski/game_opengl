@@ -8,6 +8,7 @@
 #include "hero.h"
 #include "npcs.h"
 #include "saves.h"
+#include "scenes.h"
 #include "utils.h"
 
 #include "../dictionary.h"
@@ -88,7 +89,7 @@ namespace saves
     camera::cam.y = - (SD.y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
 
     game::SCENE_ID = SD.scene_id;
-    game::MAP_ID = game::scenes[game::SCENE_ID].map_id;
+    game::MAP_ID = scenes::scenes[game::SCENE_ID].map_id;
     npcs::interactions = SD.interactions;
   }
 

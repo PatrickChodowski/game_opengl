@@ -6,10 +6,10 @@
 #include <vector>
 
 #include "fonts.h"
-#include "game.h"
 #include "hero.h"
 #include "quads.h"
 #include "saves.h"
+#include "scenes.h"
 #include "travel.h"
 #include "utils.h"
 
@@ -33,26 +33,19 @@ namespace buttons
     std::cout << "Buttons Initialized" << std::endl;
   };
 
-  // not so nice exception for new game name button
-  // if(button_function_id == BUTTON_NEWGAME_NAME)
-  // {
-  //   fonts::NEW_GAME_LABEL_ID = bdd.label_id;
-  // }
-
   void _click_new_game(int placeholder)
   {
-    game::switch_scene(SCENE_ID_NEW_GAME_MENU, false);
+    scenes::switch_scene(SCENE_ID_NEW_GAME_MENU, false);
   };
 
   void _click_load_game(int placeholder)
   {
-    //menu::_list_saves();
-    game::switch_scene(SCENE_ID_LOAD_GAME_MENU, false);
+    scenes::switch_scene(SCENE_ID_LOAD_GAME_MENU, false);
   };
 
   void _click_settings(int placeholder)
   {
-    game::switch_scene(SCENE_ID_SETTINGS_MENU, false);
+    scenes::switch_scene(SCENE_ID_SETTINGS_MENU, false);
   };
 
   void _click_exit(int placeholder)
@@ -64,20 +57,20 @@ namespace buttons
   {
     if(saves::_validate_name())
     {
-      game::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, SCENE_LOAD_FROM_NEW);
+      scenes::switch_scene(SCENE_ID_DUNGEON_LEVEL_1, SCENE_LOAD_FROM_NEW);
     }
   }
 
   void _click_loadgame_name(int button_id)
   {
-    //menu::LoadGameName = menu::saves_buttons_map[button_id];
+    //saves::LoadGameName = menu::saves_buttons_map[button_id];
     //saves::SaveData SD = saves::read_save_data(menu::LoadGameName);
     //game::switch_scene(SD.scene_id, SCENE_LOAD_FROM_LOAD);  
   }
 
   void _click_back(int placeholder)
   {
-    game::switch_scene(SCENE_ID_MAIN_MENU, false);
+    scenes::switch_scene(SCENE_ID_MAIN_MENU, false);
   };
 
 }

@@ -56,39 +56,14 @@ namespace game
   int MAP_ID;
   float HERO_START_X;
   float HERO_START_Y;
-  phmap::flat_hash_map<int, game::SceneData> scenes;
   phmap::flat_hash_map<int, sig_ptr> HeroLoader;
-
-  void read_data(std::string& name)
-  {
-    game::SceneData SD;
-    std::string data_path = "./data/scenes/"+name+".json";
-    std::string json_data = utils::read_text_file(data_path);
-    JS::ParseContext context(json_data);
-    context.parseTo(SD);
-    game::scenes.insert({SD.id, SD});
-  };
-
-  void init_scenes()
-  {
-    std::vector<std::string> scene_list = utils::list_json_files("data/scenes");
-    for(int s=0; s < scene_list.size(); s++)
-    {
-      game::read_data(scene_list[s]);
-    };
-
-    game::HeroLoader[SCENE_LOAD_FROM_NEW] = game::_load_hero_from_new_game;
-    game::HeroLoader[SCENE_LOAD_FROM_LOAD] = game::_load_hero_from_load_game;
-    game::HeroLoader[SCENE_LOAD_CHANGE_LEVEL] = game::_load_hero_from_change_level;
-    std::cout << "Scenes Initialized" << std::endl;
-  }
 
   void _load_hero_from_new_game(int scene_id)
   {
-    game::HERO_START_X = game::scenes[scene_id].hero_start_x;
-    game::HERO_START_Y = game::scenes[scene_id].hero_start_y;
+    game::HERO_START_X = scenes::scenes[scene_id].hero_start_x;
+    game::HERO_START_Y = scenes::scenes[scene_id].hero_start_y;
 
-    if(!game::scenes[scene_id].is_gp){
+    if(!scenes::scenes[scene_id].is_gp){
       hero::refresh();
     }
     
@@ -102,7 +77,7 @@ namespace game
 
   void _load_hero_from_load_game(int scene_id)
   {
-    if(!game::scenes[scene_id].is_gp)
+    if(!scenes::scenes[scene_id].is_gp)
     {
       hero::refresh();
     }
@@ -121,57 +96,7 @@ namespace game
     }
   };
 
-  void load_scene(int scene_id, int load_scene_from)
-  {
-    if(game::scenes.count(scene_id) > 0)
-    {    
-      models::load(fonts::FONT_MODEL_ID);
-      game::SCENE_ID = scene_id;
-      game::EVENT_HANDLER_ID = game::scenes[scene_id].events_handler_id;
-      game::MAP_ID = game::scenes[scene_id].map_id;
-      game::HeroLoader[load_scene_from](scene_id);
-
-      // Load map
-      maps::init_map(game::MAP_ID);
-
-      // Load entities
-      for(int e=0; e<game::scenes[scene_id].entities.size(); e++)
-      {
-        ecs::create_entity_from_file(game::scenes[scene_id].entities[e]);
-      }
-
-      // Adding dynamic logic based on the scene ID
-      if(scenes::SceneLoader.count(scene_id) > 0){
-        scenes::SceneLoader.at(scene_id)();
-      }
-
-
-      // // load mobs based on the map
-      // mobs::spawn_from_nest(game::MAP_ID);
-
-      // // Spawns npcs for the map
-      // npcs::spawn_from_map(game::MAP_ID);
-
-      //items::spawn(1, 200, 300);
-
-      std::cout << "Loaded Scene: " << scene_id << std::endl;
-    }
-  }
-  
-  void switch_scene(int scene_id, int load_scene_from)
-  {
-    game::clear_scene();
-    game::load_scene(scene_id, load_scene_from);
-    game::SCENE_ID = scene_id;
-
-    // have to cleared after loading the scene
-    // menu::NewGameName = "";
-    // menu::LoadGameName = "";
-
-    std::cout << "Finished switching scenes " << std::endl;
-  }
-
-  void clear_scene()
+  void clear()
   {
     anims::clear();
     //collisions::clear();
@@ -190,6 +115,10 @@ namespace game
 
   void init()
   {
+    game::HeroLoader[SCENE_LOAD_FROM_NEW] = game::_load_hero_from_new_game;
+    game::HeroLoader[SCENE_LOAD_FROM_LOAD] = game::_load_hero_from_load_game;
+    game::HeroLoader[SCENE_LOAD_CHANGE_LEVEL] = game::_load_hero_from_change_level;
+
     quads::clear();
     ecs::init();
     models::init();
@@ -207,14 +136,13 @@ namespace game
     mobs::init();
     mouse::init();
     npcs::init();
-    game::init_scenes();
     scenes::init();
     scripts::init();
     shaders::init();
 
     // Loads scene based on SCENE_ID
-    game::load_scene(game::SCENE_ID, false);
-    //game::load_scene(SCENE_ID_DUNGEON_LEVEL_1, false);
+    scenes::load(game::SCENE_ID, false);
+    //scenes::load(SCENE_ID_DUNGEON_LEVEL_1, false);
   };
 
   void update()
@@ -286,8 +214,8 @@ namespace game
 
   void refresh()
   {
-    game::clear_scene();
-    game::scenes.clear();
+    game::clear();
+    scenes::scenes.clear();
 
     hero::refresh();
     items::refresh();
@@ -299,13 +227,11 @@ namespace game
     mobs::init();
     models::init();
     npcs::init();
-    game::init_scenes();
 
     hero::create_new("test", "barbarian");
-    game::load_scene(game::SCENE_ID, false);
+    scenes::load(game::SCENE_ID, false);
 
   };
-
 
   void read_config(std::string& config_path)
   {
