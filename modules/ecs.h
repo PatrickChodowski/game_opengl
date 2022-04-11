@@ -64,6 +64,11 @@ namespace ecs
     float exp, speed, hp, dmg, def;
     
     
+    // Collisions
+    bool is_solid = true;
+
+    // Sensors
+    // Nothing to add here
     
     // Additional (not stored in any container)
     bool animated = false;
@@ -79,6 +84,7 @@ namespace ecs
            button_function_id,
            label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
            level, mobs_killed, exp, speed, hp, dmg, def,
+           is_solid,
            animated);
   };
 
@@ -123,13 +129,13 @@ namespace ecs
     bool visible = true;
   };
 
-  // Component 5: Button component
+  // Component 5: Button component -> button_function_id
   struct ButtonComponent
   {
     int button_function_id;
   };
 
-  // Component 6: Label component
+  // Component 6: Label component -> label, size, r,g,b,a,x,y,z
   struct LabelComponent
   {
     std::string label;
@@ -143,7 +149,7 @@ namespace ecs
     float text_z;
   };
 
-  // Component 7: Move component
+  // Component 7: Move component -> prev_x, prev_y, mid_x, mid_y, direction
   struct MoveComponent
   {
     float prev_x;
@@ -153,7 +159,7 @@ namespace ecs
     float direction;
   };
 
-  // Component 8: Stats component
+  // Component 8: Stats component -> level, mobs_killed, exp, speed, hp, dmg, def
   struct StatsComponent
   {
     int level;
@@ -163,6 +169,25 @@ namespace ecs
     float hp;
     float dmg;
     float def;
+  };
+
+  // Component 9: Collisions component -> diag, is_solid
+  struct CollisionsComponent
+  {
+    float diag;
+    bool is_solid;
+  };
+
+  // Component 10: Sensors component (for collisions) -> sensors vectors
+  struct SensorData
+  {
+    float x;
+    float y;
+    int id;
+  };
+  struct SensorsComponent
+  {
+    std::vector<ecs::SensorData> sensors;
   };
 
   // TABLES
@@ -176,9 +201,8 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::LabelComponent> labels;
   extern phmap::flat_hash_map<unsigned int, ecs::MoveComponent> moves;
   extern phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
-
-
-
+  extern phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
+  extern phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
 
 
   // METHODS
@@ -219,6 +243,8 @@ namespace ecs
   void _add_label(int entity_id, ecs::LabelComponent label);
   void _add_move(int entity_id, ecs::MoveComponent move);
   void _add_stat(int entity_id, ecs::StatsComponent stat);
+  void _add_collision(int entity_id, ecs::CollisionsComponent collision);
+  void _add_sensor(int entity_id, ecs::SensorsComponent sensor);
 
   // Component dropping methods
   void _drop_position(int entity_id);
@@ -230,6 +256,9 @@ namespace ecs
   void _drop_label(int entity_id);
   void _drop_move(int entity_id);
   void _drop_stat(int entity_id);
+  void _drop_collision(int entity_id);
+  void _drop_sensor(int entity_id);
+
 
   // Where to put it
 
