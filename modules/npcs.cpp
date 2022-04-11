@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 
-#include "entity.h"
 #include "logger.h"
 #include "maps.h"
 #include "npcs.h"
@@ -44,11 +43,12 @@ namespace npcs
     npcs::NPCData ndd = npcs::npcs_data[npc_id];
     ndd.x = x;
     ndd.y = y;
-    int entity_id = entity::create(ndd, ENTITY_TYPE_NPC, CAMERA_DYNAMIC);
-    ndd.entity_id = entity_id;
+    // int entity_id = entity::create(ndd, ENTITY_TYPE_NPC, CAMERA_DYNAMIC);
+    // ndd.entity_id = entity_id;
 
-    npcs::npcs[entity_id] = ndd;
-    return entity_id;
+    // npcs::npcs[entity_id] = ndd;
+    // return entity_id;
+    return -1;
   }
 
   void spawn_from_map(int map_id)

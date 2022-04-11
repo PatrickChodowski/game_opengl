@@ -67,7 +67,6 @@ python3 app.py
 
 ### Animations -> make sure the looped animations are looped (checking if next anim id is the same as current one? skip first frame if so?)
 ### Zooming in -> analyse how to zoom in on specific point 
-### Lock movement when in stationary animation
 ### Active/Bind textures should have the same slot as in the sampler (it can come back later)
 ### Collision box currently has the size of the texture which is not good as its too big -> invisible walls. Use hook position of the frame?
 
@@ -84,6 +83,10 @@ Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
 
 - Fired up the world machine on linux and it looks to be working!
 - lets explore world machine for next couple of weeks
+
+
+### Rendering
+- split quads per type of render (static camera, dynamic camera, clicked, Color, Texture) -> provide multiple draw calls but different shaders to remove If Else from shader code
 
 
 ### Next up
@@ -107,6 +110,10 @@ And list of components?
 - DoorComponent?
 - CollisionComponent?
 - MouseClickComponent?
+- PositionComponent
+- ColorComponent
+- ModelComponent
+- DimComp
 
 
 
@@ -125,8 +132,25 @@ ABCDEFGHIJKLMNOPRSTUWVXYZ0123456789!@#$%&*(){}[]^:;”’<>,./?|\-_=+
 
 ### logo colors:
 // background
-#191717 - rgb(25, 23, 23)
+#191717 - rgb(25, 23, 23)  - 0.098, 0,09, 0.09
 // color
 #B3ACAC - rgb(179, 172, 172)
 // font
 Medieval Sharp
+
+
+
+### Betatesterzy
+- Michal Klos "mogę być betatesterem" "ale potem chcę żeby gdzieś na jakimś kamieniu znalazł się mój nick 😃"
+
+
+
+### nazwy 
+Fiords of blood
+Axe and oar
+
+
+
+### Memory check
+
+https://valgrind.org/docs/manual/quick-start.html

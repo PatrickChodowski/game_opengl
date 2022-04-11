@@ -1,7 +1,7 @@
 #include <vector>
 #include <string>
 #include "quads.h"
-#include "collisions.h"
+//#include "collisions.h"
 #include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
@@ -11,28 +11,6 @@
 // Persistent data. Table of tiles and all operations on this table. Loaded on new level
 namespace maps
 {
-  struct TileData
-  {
-    int id;
-    int frame_id;
-    int camera_type;
-    int model_id;
-
-    float mid_x;
-    float mid_y;
-    float diag;
-
-    quads::Position pos;
-    quads::Color color;
-    quads::Dims dims;
-    // collision boxes
-    phmap::flat_hash_map<int, collisions::AABB> abs;
-
-    bool is_clicked;
-    bool is_solid;
-
-  };
-
   // Nest for spawning mobs
   struct Nest
   {
@@ -89,10 +67,10 @@ namespace maps
   extern phmap::flat_hash_map<int, MapData> maps;
 
   //  TileID, TileData
-  extern phmap::flat_hash_map<int, maps::TileData> tiles;
+  extern phmap::flat_hash_map<int, quads::QuadData> tiles;
 
   // Generate single tile out of position, texture_id and frame_id
-  maps::TileData generate_tile(float x, float y, int model_id, int frame_id);
+  quads::QuadData generate_tile(float x, float y, int model_id, int frame_id);
 
   // Reads json data by map name and stores it inside maps::maps
   void read_map_data(std::string name);

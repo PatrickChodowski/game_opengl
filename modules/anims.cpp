@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "anims.h"
-#include "entity.h"
+#include "ecs.h"
 #include "models.h"
 #include "utils.h"
 #include "timer.h"
@@ -20,7 +20,6 @@ namespace anims
   void init()
   {
     anims::AnimsHandler[ANIM_TYPE_FRAME] = anims::update_frame;
-    anims::AnimsHandler[ANIM_TYPE_FRAME_POSITION] = anims::update_frame_position;
   }
 
 
@@ -36,15 +35,17 @@ namespace anims
 
   void start(int anim_id, int entity_id)
   {  
+
+    int model_id = ecs::models.at(entity_id).model_id;
     // Check if given entity's model has this animation id available in the first place
-    if(models::models[entity::entities[entity_id].model_id].anims.count(anim_id) > 0)
+    if(models::models.at(model_id).anims.count(anim_id) > 0)
     {
       if((!anims::_check_if_entity_in_anim(entity_id)) || 
         (anims::_check_if_entity_in_anim(entity_id) & 
                 !anims::_check_if_entity_in_anim_same_type(anim_id, entity_id) &
                 anims::animsplayed[entity_id].breakable))
       {
-        models::ModelAnimData AD  = models::models[entity::entities[entity_id].model_id].anims[anim_id];
+        models::ModelAnimData AD  = models::models.at(model_id).anims.at(anim_id);
         AD.id = anim_id;
         AD.entity_id = entity_id;
         AD.time_elapsed = 0.0f;
@@ -102,10 +103,9 @@ namespace anims
   void start_delayed(int anim_id, int entity_id)
   {
     // Check if given entity's model has this animation id available in the first place
-    if(models::models[entity::entities[entity_id].model_id].anims.count(anim_id) > 0)
+    if(models::models.at(ecs::models.at(entity_id).model_id).anims.count(anim_id) > 0)
     {
-      if(anims::_check_if_entity_in_anim(entity_id))
-      {
+      if(anims::_check_if_entity_in_anim(entity_id)){
         anims::animsplayed.at(entity_id).next_anim_id = anim_id;
       }
     }
@@ -140,26 +140,18 @@ namespace anims
 
 
   // Anim handlers:
-
   void update_frame(int entity_id, models::ModelAnimData &AD)
   {
-    int model_id = entity::entities.at(entity_id).model_id;
-    int side_id = entity::entities.at(entity_id).side_id;
+    int model_id = ecs::models.at(entity_id).model_id;
+    int side_id = ecs::models.at(entity_id).side_id;
 
     // Frame ID formula
     // Final frame_id = ANIM_ID*10000 + SIDE_ID*100 + FRAME_ID
     // frame_id = self.id*10000 + side_id*100 + img_data.frame_index
 
-    int frame_id = AD.anim_id*10000 + entity::entities.at(entity_id).side_id*100 + AD.frame_id[AD.CK_ID];
-    entity::entities.at(entity_id).frame_id = frame_id;
+    int frame_id = AD.anim_id*10000 + ecs::models.at(entity_id).side_id*100 + AD.frame_id[AD.CK_ID];
+    ecs::models.at(entity_id).frame_id = frame_id;
   }
-
-  void update_frame_position(int entity_id, models::ModelAnimData &AD)
-  {
-    anims::update_frame(entity_id, AD);
-    entity::entities.at(entity_id).pos.z = AD.z[AD.CK_ID];
-  }
-
 
 }
 

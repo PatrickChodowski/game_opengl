@@ -3,21 +3,29 @@
 #include <string>
 
 #include "camera.h"
-#include "entity.h"
 #include "game.h"
 #include "hero.h"
 #include "npcs.h"
 #include "saves.h"
+#include "scenes.h"
 #include "utils.h"
 
 #include "../dictionary.h"
 
 namespace saves
 {
+  std::vector<std::string> saves;
+  std::string NewGameName;
+  std::string LoadGameName;
+  phmap::flat_hash_map<int, std::string> saves_buttons_map;
+
+  // Updated from scenes::_load_scene_new_game_menu. Used only for the new game name 
+  int NEW_GAME_NAME_BUTTON_ENTITY;
+  const std::string _allowed_input = "abcdefghijklmnoprstuvwxyz";
 
   void _write_save_json(std::string& str_to_write)
   {
-    std::string file_path = "./saves/"+hero::hero.name+ ".json";
+    std::string file_path = "./saves/"+ecs::entities.at(hero::HERO_ENTITY_ID).name+ ".json";
     std::ofstream json_file (file_path);
     if (json_file.is_open())
     {
@@ -30,31 +38,36 @@ namespace saves
 
   void save_game()
   {
-    // uses current campaign name to save to file
-    SaveData sd;
-    sd.x = hero::hero.x;
-    sd.y = hero::hero.y;
-    sd.w = hero::hero.w;
-    sd.h = hero::hero.h;
-    sd.scene_id = game::SCENE_ID;
-    sd.name = hero::hero.name;
-    sd.type = hero::hero.type;
-    sd.model_id = hero::hero.model_id;
-    sd.level = hero::hero.level;
-    sd.exp = hero::hero.exp;
-    sd.speed = hero::hero.speed;
-    sd.hp = hero::hero.hp;
-    sd.dmg = hero::hero.dmg;
-    sd.def = hero::hero.def;
-    sd.mobs_killed = hero::hero.mobs_killed;
+    //uses current campaign name to save to file
+    saves::SaveData sd;
 
-    sd.interactions = npcs::interactions;
+    ecs::EntityData e = ecs::entities.at(hero::HERO_ENTITY_ID);
+    ecs::DimensionComponent dim = ecs::dimensions.at(hero::HERO_ENTITY_ID);
+    ecs::PositionComponent pos = ecs::positions.at(hero::HERO_ENTITY_ID);
+    ecs::StatsComponent stats = ecs::stats.at(hero::HERO_ENTITY_ID);
+
+    sd.name = e.name;
+    sd.components = e.components;
+    sd.model_id = ecs::models.at(hero::HERO_ENTITY_ID).model_id;
+    sd.scene_id = game::SCENE_ID;
+    sd.x = pos.x;
+    sd.y = pos.y;
+    sd.w = dim.w;
+    sd.h = dim.h;
+
+    sd.level = stats.level;
+    sd.mobs_killed = stats.mobs_killed;
+    sd.hp = stats.hp;
+    sd.dmg = stats.dmg;
+    sd.def = stats.def;
+    sd.speed = stats.speed;
+    sd.exp = stats.exp;
 
     std::string pretty_json = JS::serializeStruct(sd);
     saves::_write_save_json(pretty_json);
   }
 
-  saves::SaveData read_save_data(std::string& name)
+  saves::SaveData read_data(std::string& name)
   {    
     SaveData SD;
     std::string data_path = "./saves/"+name+".json";
@@ -64,29 +77,76 @@ namespace saves
     return SD;
   }
 
-
   void load_game(std::string& name)
-  { // loads hero, campaign, map and camera information
+  { 
+    SaveData SD = saves::read_data(name);
+    ecs::TempEntityData e;
+    e.name = SD.name;
+    e.components = SD.components;
+    e.entity_type_id = ENTITY_TYPE_LIVE;
+    e.x = SD.x;
+    e.y = SD.y;
+    e.z = 0.3;
+    e.w = SD.w;
+    e.h = SD.h;
+    e.r = 0.5;
+    e.g = 0.5;
+    e.b = 0.5;
+    e.a = 1.0;
+    e.model_id = SD.model_id;
+    e.frame_id = 10100;
+    e.side_id = ANIM_SIDE_FRONT;
+    e.camera_type = CAMERA_DYNAMIC;
 
-    SaveData SD = saves::read_save_data(name);
-    hero::hero.h = SD.h;
-    hero::hero.w = SD.w;
-    hero::hero.model_id = SD.model_id;
-    hero::hero.name = SD.name;
-    hero::hero.type = SD.type;
-    hero::hero.speed = SD.speed;
-    hero::hero.current_frame = 0;
-    // save rest of the statistics here later
+    e.level = SD.level;
+    e.mobs_killed = SD.mobs_killed;
+    e.exp = SD.exp;
+    e.speed = SD.speed;
+    e.hp = SD.hp;
+    e.dmg = SD.dmg;
+    e.def = SD.def;
 
-    hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
-    hero::set_position(SD.x, SD.y);
-    camera::cam.x = (SD.x - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
-    camera::cam.y = - (SD.y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
+    e.animated = true;
 
-    game::SCENE_ID = SD.scene_id;
-    game::MAP_ID = game::scenes[game::SCENE_ID].map_id;
-    npcs::interactions = SD.interactions;
-  }
+    camera::cam.x = (SD.x - (game::WINDOW_WIDTH/2) + (SD.w/2));
+    camera::cam.y = - (SD.y - (game::WINDOW_HEIGHT/2) + (SD.h/2));
+
+    hero::HERO_ENTITY_ID = ecs::create_entity(&e);
+    std::cout << " [SAVES] Loaded game from save: " << name << " Hero entity ID: " << hero::HERO_ENTITY_ID << std::endl;
+  };
+
+  void list_saves()
+  {
+    saves::saves_buttons_map.clear();
+    saves::saves = utils::list_json_files("saves");
+  };
+
+  bool _validate_input(std::string input)
+  {
+    bool good = false;
+    if (saves::_allowed_input.find(input) != std::string::npos){
+      good = true;
+    }
+    return good;
+  };
+
+  bool _validate_name()
+  {
+    bool good = false;
+    // check if doesnt exist in saves
+    // check if has more than 0 characters
+
+    if(saves::NewGameName.size() > 0){
+      for(int s = 0; s<saves::saves.size(); s++)
+      {
+        if(saves::NewGameName == saves[s]){
+          return good;
+        }
+      }
+      good = true;
+    }
+    return good;
+  };
 
 
 

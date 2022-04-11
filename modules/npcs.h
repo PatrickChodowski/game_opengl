@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 
-#include "entity.h"
 #include "quads.h"
 #include "utils.h"
 

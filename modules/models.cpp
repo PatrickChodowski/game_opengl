@@ -33,7 +33,7 @@ namespace models
 
   void init()
   {
-    std::vector<std::string> model_list = utils::list_json_files("models");
+    std::vector<std::string> model_list = utils::list_json_files("./data/models");
     std::sort(model_list.begin(), model_list.end());
 
     for(int m=0; m < model_list.size(); m++)
@@ -50,7 +50,7 @@ namespace models
   void read_data(std::string& file_name)
   {
     models::ModelData MD;
-    std::string file_path = "./models/"+file_name+".json";
+    std::string file_path = "./data/models/"+file_name+".json";
     std::cout << " [MODELS] Reading data from " << file_path << std::endl;
     std::string json_data = utils::read_text_file(file_path);
     JS::ParseContext context(json_data);
@@ -97,7 +97,7 @@ namespace models
   unsigned int _load_texture_to_opengl(unsigned int model_id, int w, int h, int n_channels)
   {
     std::string model_name = models::models.at(model_id).name;
-    std::string texture_path = std::string("models/") + std::to_string(model_id) + "_" + model_name + "___spritesheet.png";
+    std::string texture_path = std::string("./data/models/") + std::to_string(model_id) + "_" + model_name + "___spritesheet.png";
     stbi_set_flip_vertically_on_load(false);
     unsigned char *image_data = stbi_load(texture_path.c_str(), &w, &h, &n_channels, 4); 
 
@@ -157,9 +157,9 @@ namespace models
     // Checks if model is already in the scene, if its not, load it
     const bool model_already_in_use = models::SceneModels.find(model_id) != models::SceneModels.end();
     if(!model_already_in_use){
-      std::cout << "Loading model ID: "<< model_id << std::endl;
-      models::SceneModels.insert(std::pair<int, int>(model_id, -1));
-      std::cout << "Loaded model ID:" << model_id << " NAME: " << models::models.at(model_id).name << " to the scene" << std::endl;
+      int new_sampler_index = models::SceneModels.size()+1;
+      models::SceneModels.insert(std::pair<int, int>(model_id, new_sampler_index));
+      std::cout << " [MODELS] Loaded model ID:" << model_id << " NAME: " << models::models.at(model_id).name << " to the scene" << std::endl;
     }
   };
 
@@ -175,13 +175,10 @@ namespace models
 
   void populate_sampler(int* arr)
   {
-    int sampler_index = 0;
-    arr[sampler_index] = 0;
+    arr[0] = 0;
     for(auto const& [model_id, sampler_texture_index] : models::SceneModels) 
     {
-      sampler_index++;
-      arr[sampler_index] = models::models.at(model_id).opengl_texture_id;
-      models::SceneModels[model_id] = sampler_index;
+      arr[sampler_texture_index] = models::models.at(model_id).opengl_texture_id;
     } 
   }
 
