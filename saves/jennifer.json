@@ -1,19 +1,25 @@
 {
-    "x" : 192.0,
-    "y" : 82.0,
+    "name" : "jennifer",
+    "components" : [
+        0,
+        1,
+        2,
+        3,
+        4,
+        7,
+        8
+    ],
+    "model_id" : 2,
+    "scene_id" : 4,
+    "x" : 439.0,
+    "y" : 367.0,
     "w" : 200.0,
     "h" : 200.0,
-    "exp" : 0.0,
-    "speed" : 12.0,
+    "level" : 1,
+    "mobs_killed" : 0,
     "hp" : 100.0,
     "dmg" : 20.0,
     "def" : 100.0,
-    "scene_id" : 4,
-    "model_id" : 2,
-    "level" : 1,
-    "mobs_killed" : 0,
-    "name" : "jennifer",
-    "type" : "barbarian",
-    "interactions" : [
-    ]
+    "speed" : 7.0,
+    "exp" : 0.0
 }

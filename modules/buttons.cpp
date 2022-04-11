@@ -63,10 +63,8 @@ namespace buttons
   void _click_loadgame_name(int button_entity_id)
   {
     saves::LoadGameName = saves::saves_buttons_map.at(button_entity_id);
-    std::cout << " Load game name: " << saves::LoadGameName << std::endl;
-
-    //saves::SaveData SD = saves::read_save_data(saves::LoadGameName);
-    //game::switch_scene(SD.scene_id, SCENE_LOAD_FROM_LOAD);  
+    saves::SaveData SD = saves::read_data(saves::LoadGameName);
+    scenes::switch_scene(SD.scene_id, SCENE_LOAD_FROM_LOAD);  
   }
 
   void _click_back(int placeholder)

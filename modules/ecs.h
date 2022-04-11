@@ -36,7 +36,7 @@ namespace ecs
     std::string label; // LabelComponent
     std::vector<unsigned int> components;
     int entity_type_id;
-
+    
     // Optionals (although there is no use for entity without 
     // position, dimension or one of model/color)
 
@@ -60,8 +60,14 @@ namespace ecs
     // Move has nothing
 
     // Stats (for hero, for mobs etc.)
-    int level;
+    int level, mobs_killed;
     float exp, speed, hp, dmg, def;
+    
+    
+    
+    // Additional (not stored in any container)
+    bool animated = false;
+
 
     // All attributes can be read from JSON
     JS_OBJ(name, components, entity_type_id,
@@ -72,7 +78,8 @@ namespace ecs
            camera_type,
            button_function_id,
            label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
-           level, exp, speed, hp, dmg, def);
+           level, mobs_killed, exp, speed, hp, dmg, def,
+           animated);
   };
 
 
@@ -150,6 +157,7 @@ namespace ecs
   struct StatsComponent
   {
     int level;
+    int mobs_killed;
     float exp;
     float speed;
     float hp;

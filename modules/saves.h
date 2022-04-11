@@ -22,24 +22,25 @@ namespace saves
 
   struct SaveData
   {
-    float x;
-    float y;
-    float w;
-    float h;
-    float exp;
-    float speed;
-    float hp;
-    float dmg;
-    float def;
-    int scene_id;
-    int model_id;
-    int level;
-    int mobs_killed;
     std::string name;
-    std::string type;
-    std::vector<npcs::InteractionData> interactions;
-    JS_OBJ(x, y, w, h, exp, speed, hp, dmg, def, scene_id, model_id, 
-    level, mobs_killed, name, type, interactions);
+    std::vector<unsigned int> components;
+    
+    int model_id;
+    int scene_id;
+  
+    // Position
+    float x, y;
+
+    // Dimension
+    float w, h;
+
+    // Stats
+    int level, mobs_killed;
+    float hp, dmg, def, speed, exp;
+
+    //std::vector<npcs::InteractionData> interactions;
+    JS_OBJ(name, components, model_id, scene_id, x, y, w, h, 
+           level, mobs_killed, hp, dmg, def, speed, exp);
   };
 
   // Writes the save json file to saves directory
@@ -52,7 +53,7 @@ namespace saves
   void load_game(std::string& name);
 
   // Reads save data fom file
-  saves::SaveData read_save_data(std::string& name);
+  saves::SaveData read_data(std::string& name);
 
   // Update list of saves
   void list_saves();
