@@ -3,13 +3,14 @@
 # Check on which platform are we -> Darwin is mac 
 UNAME := $(shell uname)
 CXX=g++
-CXXFLAGS= -MMD -std=c++17 -I dependencies/python/include
 
 # LD Flags are added only to the linker
 ifeq ($(UNAME),Darwin)
-LDFLAGS = -lSDL2 -lGLEW -lfreetype -framework OpenGL -lpython3.8
+CXXFLAGS= -MMD -std=c++17 -I/usr/local/Cellar/python@3.8/3.8.13/Frameworks/Python.framework/Versions/3.8/Headers
+LDFLAGS = -lSDL2 -lGLEW -lfreetype -L/usr/local/Cellar/python@3.8/3.8.13/Frameworks/Python.framework/Versions/3.8/lib -lpython3.8 -framework OpenGL
 endif 
 ifeq ($(UNAME),Linux)
+CXXFLAGS= -MMD -std=c++17 -I dependencies/python/include
 LDFLAGS = -lSDL2 -lGL -lGLEW -lfreetype -lpython3.8
 endif
 
