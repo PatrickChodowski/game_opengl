@@ -46,7 +46,7 @@ namespace ecs
   ecs::TempEntityData read_data(std::string& file_name)
   {
     ecs::TempEntityData TD;
-    std::string file_path = "./entities/"+file_name+".json";
+    std::string file_path = "./data/entities/"+file_name+".json";
     std::cout << " [ECS] Reading data from " << file_path << std::endl;
     std::string json_data = utils::read_text_file(file_path);
     JS::ParseContext context(json_data);
