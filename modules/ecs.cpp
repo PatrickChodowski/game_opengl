@@ -1,4 +1,6 @@
 
+#include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -28,6 +30,9 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::LabelComponent> labels;
   phmap::flat_hash_map<unsigned int, ecs::MoveComponent> moves;
   phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
+  phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
+  phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
+
 
   void init()
   {
@@ -40,6 +45,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_LABEL] = ecs::_drop_label;
     ecs::drop_component[COMPONENT_MOVE] = ecs::_drop_move;
     ecs::drop_component[COMPONENT_STATS] = ecs::_drop_stat;
+    ecs::drop_component[COMPONENT_COLLISIONS] = ecs::_drop_collision;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -143,11 +149,20 @@ namespace ecs
       break;
       case COMPONENT_MOVE:
         // No data to init or pass
-        ecs::MoveComponent move_data;
-        ecs::_add_move(entity_id, move_data);
+        float mid_x = data->x + (data->w/2);
+        float mid_y = data->y + (data->h/2);
+        ecs::_add_move(entity_id, {data->x, data->y, mid_x, mid_y, 0.0});
       break;
       case COMPONENT_STATS:
-        ecs::_add_stat(entity_id, {data->level, data->mobs_killed, data->exp, data->speed, data->hp, data->dmg, data->def});
+        ecs::_add_stat(entity_id, {data->level, data->mobs_killed, 
+                                   data->exp, data->speed, data->hp, data->dmg, data->def});
+      break;
+      case COMPONENT_COLLISIONS:
+        float diag = std::sqrt(std::pow((data->w/2),2) + std::pow((data->h/2),2));
+        ecs::_add_stat(entity_id, {diag, data->is_solid});
+      break;
+      case COMPONENT_SENSORS:
+        ecs::_add_sensor(entity_id, {});
       break;
     }
   };
@@ -204,11 +219,24 @@ namespace ecs
     ecs::moves.insert(std::pair<int, ecs::MoveComponent>{entity_id, move});
   }
 
+  void _add_collision(int entity_id, ecs::CollisionsComponent collision)
+  {
+    std::cout << " [ECS] Adding collision component for entity " << entity_id << std::endl;
+    ecs::collisions.insert(std::pair<int, ecs::CollisionsComponent>{entity_id, collision});
+  }
+
   void _add_stat(int entity_id, ecs::StatsComponent stat)
   {
     std::cout << " [ECS] Adding stat component for entity " << entity_id << std::endl;
     ecs::stats.insert(std::pair<int, ecs::StatsComponent>{entity_id, stat});
   }
+
+  void _add_sensor(int entity_id, ecs::SensorsComponent sensor)
+  {
+    std::cout << " [ECS] Adding sensors component for entity " << entity_id << std::endl;
+    ecs::sensors.insert(std::pair<int, ecs::SensorsComponent>{entity_id, sensor});
+  }
+
 
   void _drop_position(int entity_id)
   {
@@ -263,6 +291,19 @@ namespace ecs
     std::cout << " [ECS] Dropping stat component for entity " << entity_id << std::endl;
     ecs::stats.erase(entity_id);
   };
+
+  void _drop_collision(int entity_id)
+  {
+    std::cout << " [ECS] Dropping collisions component for entity " << entity_id << std::endl;
+    ecs::collisions.erase(entity_id);
+  };
+
+  void _drop_sensor(int entity_id)
+  {
+    std::cout << " [ECS] Dropping sensors component for entity " << entity_id << std::endl;
+    ecs::sensors.erase(entity_id);
+  };
+
 
 
   void update_position(int entity_id, float x, float y)

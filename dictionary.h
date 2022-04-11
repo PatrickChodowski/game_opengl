@@ -105,6 +105,7 @@
 #define ENTITY_TYPE_TEXT 4
 #define ENTITY_TYPE_DOOR 5
 #define ENTITY_TYPE_COLOR 6
+#define ENTITY_TYPE_ITEM 7 
 
 // Component Index
 #define COMPONENT_POSITION 0
@@ -116,6 +117,8 @@
 #define COMPONENT_LABEL 6
 #define COMPONENT_MOVE 7
 #define COMPONENT_STATS 8
+#define COMPONENT_COLLISIONS 9
+#define COMPONENT_SENSORS 10
 
 
 #endif
