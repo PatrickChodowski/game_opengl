@@ -18,12 +18,16 @@ namespace debug
   
   struct PointData
   {
-    quads::Position pos;
-    quads::Color color;
-    quads::Dims dims;
-    quads::Norm norm;
+    // quads::Position pos;
+    // quads::Color color;
+    // quads::Dims dims;
+    // quads::Norm norm;
 
-    float camera_type;
+    float x,y,z;
+    float r,g,b,a;
+    float w,h;
+
+    int camera_type;
     
     // not used in this case:
     int texture_id = -1;

@@ -1,4 +1,3 @@
-
 #include <algorithm>
 #include <iostream>
 #include <math.h>
@@ -8,7 +7,7 @@
 #include "camera.h"
 #include "collisions.h"
 #include "debug.h"
-#include "entity.h"
+#include "ecs.h"
 #include "game.h"
 #include "hero.h"
 #include "maps.h"
@@ -29,21 +28,23 @@ namespace collisions
 
   collisions::DistanceToObject _get_entity_to_single_entity_distance(int entity_id, int target_entity_id)
   {
-    float dist = utils::get_distance_between_points(entity::entities.at(target_entity_id).pos.x, 
-                                                    entity::entities.at(target_entity_id).pos.y, 
-                                                    entity::entities.at(entity_id).pos.x, 
-                                                    entity::entities.at(entity_id).pos.y);
-    float dist_limit = entity::entities.at(entity_id).diag + entity::entities.at(target_entity_id).diag;
+    ecs::PositionComponent target_pos = ecs::positions.at(target_entity_id);
+    ecs::PositionComponent pos = ecs::positions.at(entity_id);
+
+    float dist = utils::get_distance_between_points(target_pos.x, 
+                                                    target_pos.y, 
+                                                    pos.x, 
+                                                    pos.y);
+    float dist_limit = ecs::collisions.at(entity_id).diag + ecs::collisions.at(target_entity_id).diag;
     collisions::DistanceToObject dto;
     dto.entity_id = entity_id;
     dto.object_id = target_entity_id;
-    dto.object_type = OBJECT_TYPE_ENTITY;
+    dto.object_type = ENTITY_TYPE_LIVE;
     dto.distance = dist;
     dto.limit = dist_limit;
-    dto.is_solid = entity::entities.at(target_entity_id).is_solid;
+    dto.is_solid =ecs::collisions.at(target_entity_id).is_solid;
     dto.is_near = false;
-    if(dist <= dist_limit)
-    {
+    if(dist <= dist_limit){
       dto.is_near = true;
     }
     return dto;
@@ -51,13 +52,11 @@ namespace collisions
 
   void _get_entity_to_entity_distances(int entity_id)
   {
-    for (auto const& [k, v]: entity::entities)
+    for (auto const& [target_entity_id, collision_data]: ecs::collisions)
     {
-      if(k != entity_id)
-      {
-        collisions::DistanceToObject dto = _get_entity_to_single_entity_distance(entity_id, k);
-        if(dto.is_near)
-        {
+      if(target_entity_id != entity_id){
+        collisions::DistanceToObject dto = _get_entity_to_single_entity_distance(entity_id, target_entity_id);
+        if(dto.is_near){
           collisions::distances.push_back(dto);
         }
       }
@@ -66,59 +65,56 @@ namespace collisions
 
   collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id)
   {
-    float dist = utils::get_distance_between_points(maps::tiles.at(tile_id).pos.x, 
-                                                    maps::tiles.at(tile_id).pos.y, 
-                                                    entity::entities.at(entity_id).pos.x, 
-                                                    entity::entities.at(entity_id).pos.y);
-    float dist_limit = entity::entities.at(entity_id).diag + maps::tiles.at(tile_id).diag;
+    // float dist = utils::get_distance_between_points(maps::tiles.at(tile_id).pos.x, 
+    //                                                 maps::tiles.at(tile_id).pos.y, 
+    //                                                 entity::entities.at(entity_id).pos.x, 
+    //                                                 entity::entities.at(entity_id).pos.y);
+    // float dist_limit = entity::entities.at(entity_id).diag + maps::tiles.at(tile_id).diag;
     collisions::DistanceToObject dto;
-    dto.entity_id = entity_id;
-    dto.object_id = tile_id;
-    dto.object_type = OBJECT_TYPE_MAP;
-    dto.distance = dist;
-    dto.limit = dist_limit;
-    dto.is_solid = maps::tiles.at(tile_id).is_solid;
-    dto.is_near = false;
-    if(dist <= dist_limit)
-    {
-      dto.is_near = true;
-    }
+    // dto.entity_id = entity_id;
+    // dto.object_id = tile_id;
+    // dto.object_type = OBJECT_TYPE_MAP;
+    // dto.distance = dist;
+    // dto.limit = dist_limit;
+    // dto.is_solid = maps::tiles.at(tile_id).is_solid;
+    // dto.is_near = false;
+    // if(dist <= dist_limit){
+    //   dto.is_near = true;
+    // }
     return dto;
   }
 
 
   void _get_entity_to_door_distances(int entity_id, int map_id)
   {
-    for(int d = 0; d < maps::maps[map_id].doors.size(); d++)
-    {
-      collisions::DistanceToObject dto = _get_entity_to_door_distance(entity_id, map_id, d);
-      if(dto.is_near)
-      {
-        collisions::door_distances.push_back(dto);
-        break;
-      }
-    }
+    // for(int d = 0; d < maps::maps[map_id].doors.size(); d++)
+    // {
+    //   collisions::DistanceToObject dto = _get_entity_to_door_distance(entity_id, map_id, d);
+    //   if(dto.is_near){
+    //     collisions::door_distances.push_back(dto);
+    //     break;
+    //   }
+    // }
   };
   
   collisions::DistanceToObject _get_entity_to_door_distance(int entity_id, int map_id, int door_index)
   {
-    float dist = utils::get_distance_between_points(maps::maps.at(map_id).doors[door_index].x,
-                                                    maps::maps.at(map_id).doors[door_index].y,
-                                                    entity::entities.at(entity_id).pos.x, 
-                                                    entity::entities.at(entity_id).pos.y);
-    float dist_limit = entity::entities.at(entity_id).diag;
+    // float dist = utils::get_distance_between_points(maps::maps.at(map_id).doors[door_index].x,
+    //                                                 maps::maps.at(map_id).doors[door_index].y,
+    //                                                 entity::entities.at(entity_id).pos.x, 
+    //                                                 entity::entities.at(entity_id).pos.y);
+    // float dist_limit = entity::entities.at(entity_id).diag;
     collisions::DistanceToObject dto;
-    dto.entity_id = entity_id;
-    dto.object_id = maps::maps[map_id].doors[door_index].door_id;
-    dto.object_type = OBJECT_TYPE_DOOR;
-    dto.distance = dist;
-    dto.limit = dist_limit;
-    dto.is_solid = false;
-    dto.is_near = false;
-    if(dist <= dist_limit)
-    {
-      dto.is_near = true;
-    }
+    // dto.entity_id = entity_id;
+    // dto.object_id = maps::maps[map_id].doors[door_index].door_id;
+    // dto.object_type = OBJECT_TYPE_DOOR;
+    // dto.distance = dist;
+    // dto.limit = dist_limit;
+    // dto.is_solid = false;
+    // dto.is_near = false;
+    // if(dist <= dist_limit){
+    //   dto.is_near = true;
+    // }
     return dto;
   }
   
@@ -126,18 +122,16 @@ namespace collisions
 
   void _get_entity_to_map_distances(int entity_id)
   {
-    std::vector<collisions::DistanceToObject> distances = {};
-    for (auto const& [k, v]: maps::tiles)
-    {
-      if (v.is_solid)
-      {
-        collisions::DistanceToObject dto = _get_entity_to_single_tile_distance(entity_id, k);
-        if(dto.is_near)
-        {
-          collisions::distances.push_back(dto);
-        }
-      }
-    }
+    // std::vector<collisions::DistanceToObject> distances = {};
+    // for (auto const& [k, v]: maps::tiles)
+    // {
+    //   if (v.is_solid){
+    //     collisions::DistanceToObject dto = _get_entity_to_single_tile_distance(entity_id, k);
+    //     if(dto.is_near){
+    //       collisions::distances.push_back(dto);
+    //     }
+    //   }
+    // }
   }
 
   void _collect_near_distances(int entity_id = 0)
@@ -153,31 +147,26 @@ namespace collisions
     struct SolidLimits limits;
     for(int i=0; i<collisions::distances.size(); i++)
     {
-
-      if(collisions::distances[i].object_type == OBJECT_TYPE_ENTITY)
-      {
-        if(entity::entities.at(collisions::distances[i].object_id).entity_type_id == ENTITY_TYPE_ITEM)
-        {
+      if(collisions::distances[i].object_type == ENTITY_TYPE_LIVE){
+        if(ecs::entities.at(collisions::distances[i].object_id).entity_type_id == ENTITY_TYPE_ITEM){
           collisions::near_items.push_back(collisions::distances[i].object_id);
         }
       }
 
+      if(collisions::distances[i].is_solid){
 
-      if(collisions::distances[i].is_solid)
-      {
         int entity_id = collisions::distances[i].entity_id;
         int object_id = collisions::distances[i].object_id;
         int object_type = collisions::distances[i].object_type;
-        float sensor_center_x = entity::entities.at(entity_id).sensors[SENSOR_CENTER].x;
-        float sensor_center_y = entity::entities.at(entity_id).sensors[SENSOR_CENTER].y;
+
+        float sensor_center_x = ecs::sensors.at(entity_id).sensors[SENSOR_CENTER].x;
+        float sensor_center_y = ecs::sensors.at(entity_id).sensors[SENSOR_CENTER].y;
 
         collisions::AABB aabb;
         // extract object type box
-        if(object_type == OBJECT_TYPE_ENTITY)
-        {
+        if(object_type == ENTITY_TYPE_LIVE){
           aabb = entity::entities.at(object_id).abs[AABB_FULL];
-        } else if (object_type == OBJECT_TYPE_MAP)
-        {
+        } else if (object_type == ENTITY_TYPE_MAP){
           aabb = maps::tiles.at(object_id).abs[AABB_FULL];
         }
 
@@ -400,14 +389,14 @@ namespace collisions
 
   void _resolve_doors()
   {
-    for(int i=0; i<collisions::door_distances.size(); i++)
-    {
-      int dest_scene_id = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].dest_scene_id;
-      game::HERO_START_X = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].player_enter_x;
-      game::HERO_START_Y = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].player_enter_y;
-      std::cout << "Switching level to " << dest_scene_id << std::endl;
-      game::switch_scene(dest_scene_id, SCENE_LOAD_CHANGE_LEVEL);
-    }
+    // for(int i=0; i<collisions::door_distances.size(); i++)
+    // {
+    //   int dest_scene_id = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].dest_scene_id;
+    //   game::HERO_START_X = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].player_enter_x;
+    //   game::HERO_START_Y = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].player_enter_y;
+    //   std::cout << "Switching level to " << dest_scene_id << std::endl;
+    //   game::switch_scene(dest_scene_id, SCENE_LOAD_CHANGE_LEVEL);
+    // }
   }
 
 

@@ -4,7 +4,8 @@
 #include <vector>
 
 #include "anims.h"
-#include "entity.h"
+
+#include "ecs.h"
 #include "maps.h"
 #include "navmesh.h"
 #include "pathfinder.h"
@@ -42,8 +43,7 @@ namespace travel
   {
     int correct_node = tp_current_node_id;
     int real_node_id = paths::get_navnode_id(x, y);
-    if(tp_current_node_id != real_node_id)
-    {
+    if(tp_current_node_id != real_node_id){
       correct_node = real_node_id;
     }
     return correct_node;
@@ -59,26 +59,26 @@ namespace travel
     // To trigger delayed travel, when we dont know the endpoint yet
     travel::TravelData tp;
     tp.state = TRAVEL_STATE_IDLE;
-    int entity_node_id = paths::get_navnode_id(entity::entities.at(entity_id).pos.x, entity::entities.at(entity_id).pos.y);
+    int entity_node_id = paths::get_navnode_id(ecs::positions.at(entity_id).x, ecs::positions.at(entity_id).y);
     tp.entity_id = entity_id;
     tp.current_node = entity_node_id;
-    tp.current_x = entity::entities.at(entity_id).pos.x;
-    tp.current_y = entity::entities.at(entity_id).pos.y;
+    tp.current_x = ecs::positions.at(entity_id).x;
+    tp.current_y = ecs::positions.at(entity_id).y;
 
     travel::travels[entity_id] = tp;
-    std::cout << "Initialized travel for " << entity_id << std::endl;
+    std::cout << " [TRAVEL] Initialized travel for " << entity_id << std::endl;
   }
 
   void init_travel_with_target(int entity_id, float target_x, float target_y)
   {
-    int entity_node_id = paths::get_navnode_id(entity::entities.at(entity_id).pos.x, entity::entities.at(entity_id).pos.y);
+    int entity_node_id = paths::get_navnode_id(ecs::positions.at(entity_id).x, ecs::positions.at(entity_id).y);
     int target_node = paths::get_navnode_id(target_x, target_y);
     travel::TravelData tp = travel::make_basic_plan(entity_node_id, target_node);
   
     tp.entity_id = entity_id;
     tp.current_node = entity_node_id;
-    tp.current_x = entity::entities.at(entity_id).pos.x;
-    tp.current_y = entity::entities.at(entity_id).pos.y;
+    tp.current_x = ecs::positions.at(entity_id).x;
+    tp.current_y = ecs::positions.at(entity_id).y;
 
     tp.target_node = paths::get_navnode_id(target_x, target_y);
     tp.target_x = target_x;
@@ -86,7 +86,7 @@ namespace travel
     tp.state = TRAVEL_STATE_ACTIVE;
 
     travel::travels[entity_id] = tp;
-    std::cout << "Initialized travel to  (" << target_x << "," << target_y <<  ") for " << entity_id << std::endl;
+    std::cout << " [TRAVEL] Initialized travel to  (" << target_x << "," << target_y <<  ") for " << entity_id << std::endl;
   }
 
   travel::TravelData make_basic_plan(int current_node_id, int target_node_id)
@@ -121,7 +121,7 @@ namespace travel
 
     // if we are not at the target yet, we move
     float dist_to_target = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
-    if(dist_to_target > entity::entities.at(tp.entity_id).speed)
+    if(dist_to_target > ecs::stats.at(tp.entity_id).speed)
     {
       // if we are not at the target node
       if(tp.current_node != tp.target_node)
@@ -145,36 +145,33 @@ namespace travel
         tp.cpoint_y = c_point.y;
         float dist = utils::get_distance_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
         float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, c_point.x, c_point.y);
-        float x1 = entity::entities.at(tp.entity_id).pos.x + (cos(angle) * entity::entities.at(tp.entity_id).speed);
-        float y1 = entity::entities.at(tp.entity_id).pos.y + (sin(angle) * entity::entities.at(tp.entity_id).speed);
+        float x1 = ecs::positions.at(tp.entity_id).x + (cos(angle) * ecs::stats.at(tp.entity_id).speed);
+        float y1 = ecs::positions.at(tp.entity_id).y + (sin(angle) * ecs::stats.at(tp.entity_id).speed);
 
         travel::_animate_by_direction(tp.entity_id, angle);
         tp.current_x = x1;
         tp.current_y = y1;
-        entity::update_position(tp.entity_id, x1, y1);
+        ecs::update_position(tp.entity_id, x1, y1);
 
         // update the current and next node information if we are almost at the gate
-        if(dist <= entity::entities.at(tp.entity_id).speed)
-        {
+        if(dist <= ecs::stats.at(tp.entity_id).speed){
           tp.current_step_index += 1;
           tp.current_node = tp.full_path[tp.current_step_index];
-          if(tp.current_node != tp.target_node)
-          {
+          if(tp.current_node != tp.target_node){
             tp.next_node = tp.full_path[(tp.current_step_index+1)];
           }
         }
 
-      } else if (tp.current_node == tp.target_node)
-      {
+      } else if (tp.current_node == tp.target_node){
         float dist = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
         float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
-        float x1 = entity::entities.at(tp.entity_id).pos.x + cos(angle) * entity::entities.at(tp.entity_id).speed;
-        float y1 = entity::entities.at(tp.entity_id).pos.y + sin(angle) * entity::entities.at(tp.entity_id).speed;
+        float x1 = ecs::positions.at(tp.entity_id).x + cos(angle) * ecs::stats.at(tp.entity_id).speed;
+        float y1 = ecs::positions.at(tp.entity_id).y + sin(angle) * ecs::stats.at(tp.entity_id).speed;
         travel::_animate_by_direction(tp.entity_id, angle);
         tp.current_x = x1;
         tp.current_y = y1;
 
-        entity::update_position(tp.entity_id, x1, y1);
+        ecs::update_position(tp.entity_id, x1, y1);
       }
       travel::travels[tp.entity_id] = tp;
     } else 

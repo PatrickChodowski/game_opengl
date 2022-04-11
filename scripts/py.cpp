@@ -11,7 +11,6 @@
 #include "../dependencies/pybind11/stl.h"
 
 #include "../modules/anims.h"
-#include "../modules/entity.h"
 #include "../modules/items.h"
 #include "../modules/mobs.h"
 #include "../modules/npcs.h"
@@ -116,7 +115,7 @@ namespace scripts
   void _print_entity()
   {
     // Function 7 -> _print_entity
-    entity::print_entity_data();
+    //entity::print_entity_data();
   }
 
 

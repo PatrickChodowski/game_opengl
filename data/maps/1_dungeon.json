@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "name": "1_dungeon",
+  "vertex_width": 20,
+  "vertex_height": 16,
+  "model_id": 3,
+  "doors": [
+    
+  ],
+  "nests": [
+  ],
+  "npcs": [
+  ]
+}

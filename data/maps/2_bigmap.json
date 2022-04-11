@@ -1,0 +1,14 @@
+{
+  "id": 2,
+  "name": "bigmap",
+  "vertex_width": 160,
+  "vertex_height": 160,
+  "model_id": 3,
+  "doors": [{}
+  ],
+  "nests": [
+    {}
+  ],
+  "npcs": [
+  ]
+}

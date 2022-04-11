@@ -1,0 +1,45 @@
+{
+  "id": 3,
+  "w": 192,
+  "h": 64,
+  "name": "dungeon",
+  "frames_list": [
+    {"frame_id": 10100,
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "label": "dungeon___light_front_0",
+      "norm_x_start": 0.0,
+      "norm_x_end": 0.3333333,
+      "norm_y_start": 0.0,
+      "norm_y_end": 1.0,
+      "is_solid": false
+    },
+    {"frame_id": 10200,
+      "x": 64,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "label": "dungeon___dark_front_0",
+      "norm_x_start": 0.3333333,
+      "norm_x_end": 0.666666667,
+      "norm_y_start": 0.0,
+      "norm_y_end": 1.0,
+      "is_solid": false
+    },
+    {"frame_id": 10300,
+      "x": 128,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "label": "dungeon___wall_front_0",
+      "norm_x_start": 0.66666667,
+      "norm_x_end": 1.0,
+      "norm_y_start": 0.0,
+      "norm_y_end": 1.0,
+      "is_solid": true
+    }
+  ],
+  "anim_list": []
+}
