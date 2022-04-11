@@ -45,10 +45,7 @@ namespace hero
     float hero_start_x = scenes::scenes[scene_id].hero_start_x;
     float hero_start_y = scenes::scenes[scene_id].hero_start_y;
 
-    // if(!scenes::scenes[scene_id].is_gp){
-    //   hero::refresh();
-    // }
-    
+  
     if(hero_start_x != -1000 & hero_start_y != -1000){
       hero::create_new(saves::NewGameName, "barbarian", hero_start_x, hero_start_y);
       camera::cam.x = (hero_start_x - (game::WINDOW_WIDTH/2) + (ecs::dimensions.at(hero::HERO_ENTITY_ID).w/2));
@@ -58,9 +55,6 @@ namespace hero
 
   void _load_hero_from_load_game(int scene_id)
   {
-    // if(!scenes::scenes[scene_id].is_gp){
-    //   hero::refresh();
-    // }
     std::cout << " [HERO] Load hero from game name: " << saves::LoadGameName << std::endl;
     saves::load_game(saves::LoadGameName);
   };
@@ -99,10 +93,12 @@ namespace hero
 
     e.level = 1;
     e.exp = 0;
+    e.mobs_killed = 0;
     e.speed = HD.speed;
     e.hp = HD.hp;
     e.dmg = HD.dmg;
     e.def = HD.def;
+    e.animated = true;
 
     hero::HERO_ENTITY_ID = ecs::create_entity(&e);
     std::cout << " [HERO] Created new character entity ID: " << hero::HERO_ENTITY_ID << std::endl;

@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "anims.h"
 #include "ecs.h"
 #include "models.h"
 #include "quads.h"
@@ -70,6 +71,10 @@ namespace ecs
     for(int c=0; c<edd.components.size(); c++)
     {
       ecs::add_component(entity_id, edd.components[c], e);
+    }
+
+    if(e->animated){
+      anims::start(ANIM_STANDING_IDLE, entity_id);
     }
 
     std::cout << " [ECS] Created entity name " << edd.name << " ID: " << entity_id << std::endl;     
@@ -142,7 +147,7 @@ namespace ecs
         ecs::_add_move(entity_id, move_data);
       break;
       case COMPONENT_STATS:
-        ecs::_add_stat(entity_id, {data->level, data->exp, data->speed, data->hp, data->dmg, data->def});
+        ecs::_add_stat(entity_id, {data->level, data->mobs_killed, data->exp, data->speed, data->hp, data->dmg, data->def});
       break;
     }
   };

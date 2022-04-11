@@ -87,7 +87,6 @@ namespace scenes
   {
     game::clear();
     scenes::load(scene_id, load_scene_from);
-    game::SCENE_ID = scene_id;
 
     // have to be cleared after loading the scene
     saves::NewGameName = "";
