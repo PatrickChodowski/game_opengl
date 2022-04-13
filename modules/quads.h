@@ -69,7 +69,6 @@ namespace quads
     float window_w, window_h;
 
     bool is_clicked;
-    bool is_deleted;
 
   };
 

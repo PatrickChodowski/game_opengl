@@ -8,6 +8,7 @@
 // camera types
 #define CAMERA_DYNAMIC 0.0f
 #define CAMERA_STATIC 1.0f
+#define CAMERA_HIDDEN 2.0f
 
 // entity collision sensors
 #define SENSOR_TOP 0

@@ -87,7 +87,6 @@ namespace fonts
       quad.window_w = quad.h;
 
       quad.is_clicked = ecs::renderdatas.at(entity_id).is_clicked;
-      quad.is_deleted = false;
       quads::AllQuads.push_back(quad);
       x += quad.w + (fonts::CH_OFFSET*scale);
     }

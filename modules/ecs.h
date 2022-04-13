@@ -125,7 +125,6 @@ namespace ecs
   {
     int camera_type;
     bool is_clicked = false;
-    bool visible = true;
   };
 
   // Component 4: Button component -> button_function_id
@@ -278,6 +277,11 @@ namespace ecs
 
   // Reverts Y position for entity to previous value
   void revert_position_y(int entity_id);
+
+  // Method hiding visible entity
+  void hide(int entity_id);
+
+
 }
 
 
