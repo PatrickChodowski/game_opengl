@@ -48,8 +48,8 @@ namespace hero
   
     if(hero_start_x != -1000 & hero_start_y != -1000){
       hero::create_new(saves::NewGameName, "barbarian", hero_start_x, hero_start_y);
-      camera::cam.x = (hero_start_x - (game::WINDOW_WIDTH/2) + (ecs::dimensions.at(hero::HERO_ENTITY_ID).w/2));
-      camera::cam.y = - (hero_start_y - (game::WINDOW_HEIGHT/2) + (ecs::dimensions.at(hero::HERO_ENTITY_ID).h/2));
+      camera::cam.x = (hero_start_x - (game::WINDOW_WIDTH/2) + (ecs::positions.at(hero::HERO_ENTITY_ID).w/2));
+      camera::cam.y = - (hero_start_y - (game::WINDOW_HEIGHT/2) + (ecs::positions.at(hero::HERO_ENTITY_ID).h/2));
     }
   };
 
@@ -75,7 +75,7 @@ namespace hero
     hero::HeroData HD = hero::read_data(type);
     ecs::TempEntityData e;
     e.name = name;
-    e.components = {0,1,2,3,4,7,8};
+    e.components = {0,1,2,3,4,6,7};
     e.entity_type_id = ENTITY_TYPE_LIVE;
     e.x = x;
     e.y = y;

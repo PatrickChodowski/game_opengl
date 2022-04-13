@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "collisions.h"
+
 #include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
@@ -41,9 +43,7 @@ namespace ecs
     // position, dimension or one of model/color)
 
     // Position
-    float x,y,z;
-    // Dimension
-    float w,h;
+    float x,y,z,w,h;
     // Model
     int model_id, frame_id, side_id;
     // Color
@@ -76,8 +76,7 @@ namespace ecs
 
     // All attributes can be read from JSON
     JS_OBJ(name, components, entity_type_id,
-           x,y,z,
-           w,h,
+           x,y,z,w,h,
            model_id,frame_id,side_id,
            r,g,b,a,
            camera_type,
@@ -89,22 +88,17 @@ namespace ecs
   };
 
 
-  // Component 0: Position data -> x, y, z
+  // Component 0: Position data -> x, y, z, w, h
   struct PositionComponent
   { 
     float x;
     float y;
     float z;
-  };
-
-  // Component 1: Dimension data -> w, h
-  struct DimensionComponent
-  { 
     float w;
     float h;
   };
 
-  // Component 2: Model data -> model_id, frame_id, side_id
+  // Component 1: Model data -> model_id, frame_id, side_id
   struct ModelComponent
   { 
     int model_id;
@@ -112,7 +106,7 @@ namespace ecs
     int side_id;
   };
 
-  // Component 3: Color data -> r,g,b,a
+  // Component 2: Color data -> r,g,b,a
   struct ColorComponent
   { 
     float r;
@@ -121,7 +115,7 @@ namespace ecs
     float a;
   };
 
-  // Component 4: Render data. Everything else needed for correct rendering
+  // Component 3: Render data. Everything else needed for correct rendering
   struct RenderdataComponent
   {
     int camera_type;
@@ -129,13 +123,13 @@ namespace ecs
     bool visible = true;
   };
 
-  // Component 5: Button component -> button_function_id
+  // Component 4: Button component -> button_function_id
   struct ButtonComponent
   {
     int button_function_id;
   };
 
-  // Component 6: Label component -> label, size, r,g,b,a,x,y,z
+  // Component 5: Label component -> label, size, r,g,b,a,x,y,z
   struct LabelComponent
   {
     std::string label;
@@ -149,7 +143,7 @@ namespace ecs
     float text_z;
   };
 
-  // Component 7: Move component -> prev_x, prev_y, mid_x, mid_y, direction
+  // Component 6: Move component -> prev_x, prev_y, mid_x, mid_y, direction
   struct MoveComponent
   {
     float prev_x;
@@ -159,7 +153,7 @@ namespace ecs
     float direction;
   };
 
-  // Component 8: Stats component -> level, mobs_killed, exp, speed, hp, dmg, def
+  // Component 7: Stats component -> level, mobs_killed, exp, speed, hp, dmg, def
   struct StatsComponent
   {
     int level;
@@ -171,29 +165,23 @@ namespace ecs
     float def;
   };
 
-  // Component 9: Collisions component -> diag, is_solid
+  // Component 8: Collisions component -> diag, AABB boxes, is_solid
   struct CollisionsComponent
   {
     float diag;
+    phmap::flat_hash_map<int, collisions::AABB> abs; 
     bool is_solid;
   };
 
-  // Component 10: Sensors component (for collisions) -> sensors vectors
-  struct SensorData
-  {
-    float x;
-    float y;
-    int id;
-  };
+  // Component 9: Sensors component (for collisions) -> sensors vectors
   struct SensorsComponent
   {
-    std::vector<ecs::SensorData> sensors;
+    phmap::flat_hash_map<int, collisions::Sensor> sensors; 
   };
 
   // TABLES
   extern phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
   extern phmap::flat_hash_map<unsigned int, ecs::PositionComponent> positions;
-  extern phmap::flat_hash_map<unsigned int, ecs::DimensionComponent> dimensions;
   extern phmap::flat_hash_map<unsigned int, ecs::ModelComponent> models;
   extern phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
   extern phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
@@ -235,7 +223,6 @@ namespace ecs
 
   // Component adding methods
   void _add_position(int entity_id, ecs::PositionComponent position);
-  void _add_dimension(int entity_id, ecs::DimensionComponent dimension);
   void _add_model(int entity_id, ecs::ModelComponent model);
   void _add_color(int entity_id, ecs::ColorComponent color);
   void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata);
@@ -248,7 +235,6 @@ namespace ecs
 
   // Component dropping methods
   void _drop_position(int entity_id);
-  void _drop_dimension(int entity_id);
   void _drop_model(int entity_id);
   void _drop_color(int entity_id);
   void _drop_renderdata(int entity_id);
@@ -264,6 +250,12 @@ namespace ecs
 
   // Update entity position and move components
   void update_position(int entity_id, float x, float y);
+
+  // Reverts X position for entity to previous value
+  void revert_position_x(int entity_id);
+
+  // Reverts Y position for entity to previous value
+  void revert_position_y(int entity_id);
 }
 
 

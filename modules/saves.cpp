@@ -42,7 +42,6 @@ namespace saves
     saves::SaveData sd;
 
     ecs::EntityData e = ecs::entities.at(hero::HERO_ENTITY_ID);
-    ecs::DimensionComponent dim = ecs::dimensions.at(hero::HERO_ENTITY_ID);
     ecs::PositionComponent pos = ecs::positions.at(hero::HERO_ENTITY_ID);
     ecs::StatsComponent stats = ecs::stats.at(hero::HERO_ENTITY_ID);
 
@@ -52,8 +51,8 @@ namespace saves
     sd.scene_id = game::SCENE_ID;
     sd.x = pos.x;
     sd.y = pos.y;
-    sd.w = dim.w;
-    sd.h = dim.h;
+    sd.w = pos.w;
+    sd.h = pos.h;
 
     sd.level = stats.level;
     sd.mobs_killed = stats.mobs_killed;
