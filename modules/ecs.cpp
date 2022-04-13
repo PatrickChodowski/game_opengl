@@ -31,6 +31,7 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
   phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
   phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
+  phmap::flat_hash_map<unsigned int, ecs::ItemComponent> items;
 
 
   void init()
@@ -45,6 +46,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_STATS] = ecs::_drop_stat;
     ecs::drop_component[COMPONENT_COLLISIONS] = ecs::_drop_collision;
     ecs::drop_component[COMPONENT_SENSORS] = ecs::_drop_sensor;
+    ecs::drop_component[COMPONENT_ITEM] = ecs::_drop_item;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -163,6 +165,10 @@ namespace ecs
       case COMPONENT_SENSORS:
         ecs::_add_sensor(entity_id, {});
       break;
+      case COMPONENT_ITEM:
+        ecs::_add_item(entity_id, {data->item_id, data->item_joint_id, 
+                                   data->item_dmg, data->item_speed, data->item_location});
+      break;
     }
   };
 
@@ -229,6 +235,13 @@ namespace ecs
     ecs::sensors.insert(std::pair<int, ecs::SensorsComponent>{entity_id, sensor});
   }
 
+  void _add_item(int entity_id, ecs::ItemComponent item)
+  {
+    std::cout << " [ECS] Adding item component for entity " << entity_id << std::endl;
+    ecs::items.insert(std::pair<int, ecs::ItemComponent>{entity_id, item});
+  }
+
+
 
   void _drop_position(int entity_id)
   {
@@ -290,6 +303,12 @@ namespace ecs
     ecs::sensors.erase(entity_id);
   };
 
+  void _drop_item(int entity_id)
+  {
+    std::cout << " [ECS] Dropping item component for entity " << entity_id << std::endl;
+    ecs::items.erase(entity_id);
+  };
+
 
 
   void update_position(int entity_id, float x, float y)
@@ -305,7 +324,7 @@ namespace ecs
       ecs::positions.at(entity_id).x = new_x;
       ecs::positions.at(entity_id).y = new_y;
 
-      std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << " new pos: (" << new_x << "," << new_y << ")"<< std::endl;
+      //std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << " new pos: (" << new_x << "," << new_y << ")"<< std::endl;
     }
   }
 

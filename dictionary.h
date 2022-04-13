@@ -118,6 +118,14 @@
 #define COMPONENT_STATS 7
 #define COMPONENT_COLLISIONS 8
 #define COMPONENT_SENSORS 9
+#define COMPONENT_ITEM 10
 
+// Joint IDS (right hand, left hand etc.)
+#define JOINT_RIGHT_HAND_ID 0
+#define JOINT_LEFT_HAND_ID 1
+
+// Item Location -> on ground/equipped
+#define ITEM_LOCATION_GROUND 0
+#define ITEM_LOCATION_EQ 1
 
 #endif
