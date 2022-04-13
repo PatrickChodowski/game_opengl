@@ -83,7 +83,6 @@ namespace maps
     tile.window_w = tile.w;
     tile.camera_type = CAMERA_DYNAMIC;
     tile.is_clicked = false;
-    tile.is_deleted = false;
 
     //tile.is_solid = models::models.at(tile.model_id).frames.at(tile.frame_id).is_solid;
     return tile;

@@ -45,7 +45,6 @@ namespace debug
     quad.h = 10;
     quad.camera_type = CAMERA_DYNAMIC;
     quad.is_clicked = false;
-    quad.is_deleted = false;
     quads::AllQuads.push_back(quad);
   };
 

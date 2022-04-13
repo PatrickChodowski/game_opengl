@@ -340,6 +340,20 @@ namespace ecs
     //hero::_update_joints();
   }
 
+  void hide(int entity_id)
+  {
+    if(ecs::renderdatas.count(entity_id)){
+      ecs::renderdatas.at(entity_id).camera_type = CAMERA_HIDDEN;
+    }
+  }
+
+  void show(int entity_id)
+  {
+    if(ecs::renderdatas.count(entity_id)){
+      ecs::renderdatas.at(entity_id).camera_type = CAMERA_DYNAMIC;
+    }
+  }
+
 
 }
 

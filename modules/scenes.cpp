@@ -180,7 +180,8 @@ namespace scenes
   void _load_scene_dungeon_level_1()
   {
     std::cout << " [SCENES] Dynamic scene logic for scene " << SCENE_ID_DUNGEON_LEVEL_1 << std::endl;
-    items::generate_item(1, 300, 300, ITEM_LOCATION_GROUND);
+    int item_entity_id = items::generate_item(1, 300, 300, ITEM_LOCATION_GROUND);
+    //ecs::hide(item_entity_id);
   };
 
 }

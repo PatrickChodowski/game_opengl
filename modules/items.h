@@ -48,8 +48,8 @@ namespace items
   // Renders in hand item
   void equip(int entity_id);
 
-  // Pickup an item
-  void pickup(int entity_id);
+  // Pickup an item, entity_id is main actor, item_entity_id is being picked
+  void pickup(int entity_id, int item_entity_id);
 
   // Drop item on the ground
   void yeet(int entity_id, float x, float y);

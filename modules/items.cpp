@@ -78,17 +78,18 @@ namespace items
     return item_entity_id;
   }
 
-  void pickup(int entity_id)
+  void pickup(int entity_id, int item_entity_id)
   {
-    // if(items::GeneratedItems.count(entity_id) > 0 & items::ItemsOnGround.count(entity_id) > 0)
-    // {
-    //   items::ItemsOnGround.erase(entity_id);
-    //   items::EquippedItems[entity_id] = items::GeneratedItems[entity_id]; 
-    //   hero::hero.equipped_items.push_back(entity_id);
-    //   entity::hide(entity_id);
-    //   std::cout << "Hero picked up item " << entity_id << std::endl;
-    // }
-  }
+    // Keep item stats but remove other components
+    // Quads render only if entity has renderdatas (also needs position, model, color)
+    if(ecs::items.count(item_entity_id)){
+      if(ecs::items.at(item_entity_id).item_location == ITEM_LOCATION_GROUND){
+        // render components -> 0,1,2,3
+        ecs::hide(item_entity_id);
+      }
+    }
+
+  };
 
   void yeet(int entity_id, float x, float y)
   {

@@ -71,7 +71,6 @@ namespace quads
     quad.window_h = pos.h;
     quad.window_w = pos.w;
     quad.is_clicked = ecs::renderdatas.at(entity_id).is_clicked;
-    quad.is_deleted = false;
     quads::AllQuads.push_back(quad);
   }
 
