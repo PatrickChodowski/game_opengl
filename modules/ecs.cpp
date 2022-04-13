@@ -22,7 +22,6 @@ namespace ecs
   phmap::flat_hash_map<int, sig_ptr> drop_component;
 
   phmap::flat_hash_map<unsigned int, ecs::PositionComponent> positions;
-  phmap::flat_hash_map<unsigned int, ecs::DimensionComponent> dimensions;
   phmap::flat_hash_map<unsigned int, ecs::ModelComponent> models;
   phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
   phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
@@ -37,7 +36,6 @@ namespace ecs
   void init()
   {
     ecs::drop_component[COMPONENT_POSITION] = ecs::_drop_position;
-    ecs::drop_component[COMPONENT_DIMENSION] = ecs::_drop_dimension;
     ecs::drop_component[COMPONENT_MODEL] = ecs::_drop_model;
     ecs::drop_component[COMPONENT_COLOR] = ecs::_drop_color;
     ecs::drop_component[COMPONENT_RENDERDATA] = ecs::_drop_renderdata;
@@ -46,6 +44,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_MOVE] = ecs::_drop_move;
     ecs::drop_component[COMPONENT_STATS] = ecs::_drop_stat;
     ecs::drop_component[COMPONENT_COLLISIONS] = ecs::_drop_collision;
+    ecs::drop_component[COMPONENT_SENSORS] = ecs::_drop_sensor;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -125,10 +124,7 @@ namespace ecs
     switch(component_id) 
     {
       case COMPONENT_POSITION:
-        ecs::_add_position(entity_id, {data->x, data->y, data->z});
-      break;
-      case COMPONENT_DIMENSION:
-        ecs::_add_dimension(entity_id, {data->w, data->h});
+        ecs::_add_position(entity_id, {data->x, data->y, data->z, data->w, data->h});
       break;
       case COMPONENT_MODEL:
         ecs::_add_model(entity_id, {data->model_id, data->frame_id, data->side_id});
@@ -147,20 +143,23 @@ namespace ecs
                                     data->text_r, data->text_g, data->text_b, data->text_a, 
                                     data->text_x, data->text_y, data->text_z});
       break;
-      case COMPONENT_MOVE:
-        // No data to init or pass
-        float mid_x = data->x + (data->w/2);
-        float mid_y = data->y + (data->h/2);
-        ecs::_add_move(entity_id, {data->x, data->y, mid_x, mid_y, 0.0});
-      break;
+      case COMPONENT_MOVE:{
+          // No data to init or pass
+          float mid_x = data->x + (data->w/2);
+          float mid_y = data->y + (data->h/2);
+          ecs::_add_move(entity_id, {data->x, data->y, mid_x, mid_y, 0.0});
+        break;
+      }
       case COMPONENT_STATS:
         ecs::_add_stat(entity_id, {data->level, data->mobs_killed, 
                                    data->exp, data->speed, data->hp, data->dmg, data->def});
       break;
-      case COMPONENT_COLLISIONS:
-        float diag = std::sqrt(std::pow((data->w/2),2) + std::pow((data->h/2),2));
-        ecs::_add_stat(entity_id, {diag, data->is_solid});
-      break;
+      case COMPONENT_COLLISIONS:{
+          float diag = std::sqrt(std::pow((data->w/2),2) + std::pow((data->h/2),2));
+          phmap::flat_hash_map<int, collisions::AABB> abs;
+          ecs::_add_collision(entity_id, {diag, abs, data->is_solid});
+        break;
+      }
       case COMPONENT_SENSORS:
         ecs::_add_sensor(entity_id, {});
       break;
@@ -173,15 +172,8 @@ namespace ecs
     ecs::positions.insert(std::pair<int, ecs::PositionComponent>{entity_id, position});
   };
 
-  void _add_dimension(int entity_id, ecs::DimensionComponent dimension)
-  {
-    std::cout << " [ECS] Adding dimension component for entity " << entity_id << std::endl;
-    ecs::dimensions.insert(std::pair<int, ecs::DimensionComponent>{entity_id, dimension});
-  };
-
   void _add_model(int entity_id, ecs::ModelComponent model)
   {
-
     std::cout << " [ECS] Adding model component for entity " << entity_id << std::endl;
     ecs::models.insert(std::pair<int, ecs::ModelComponent>{entity_id, model});
     if(model.model_id > -1){
@@ -242,12 +234,6 @@ namespace ecs
   {
     std::cout << " [ECS] Dropping position component for entity " << entity_id << std::endl;
     ecs::positions.erase(entity_id);
-  };
-
-  void _drop_dimension(int entity_id)
-  {
-    std::cout << " [ECS] Dropping dimension component for entity " << entity_id << std::endl;
-    ecs::dimensions.erase(entity_id);
   };
 
   void _drop_model(int entity_id)
@@ -314,14 +300,27 @@ namespace ecs
       float new_y = ecs::positions.at(entity_id).y -= y;
       ecs::moves.at(entity_id).prev_x = ecs::positions.at(entity_id).x;
       ecs::moves.at(entity_id).prev_y = ecs::positions.at(entity_id).y;
-      ecs::moves.at(entity_id).mid_x = new_x + (ecs::dimensions.at(entity_id).w/2);
-      ecs::moves.at(entity_id).mid_y = new_y + (ecs::dimensions.at(entity_id).h/2);
+      ecs::moves.at(entity_id).mid_x = new_x + (ecs::positions.at(entity_id).w/2);
+      ecs::moves.at(entity_id).mid_y = new_y + (ecs::positions.at(entity_id).h/2);
       ecs::positions.at(entity_id).x = new_x;
       ecs::positions.at(entity_id).y = new_y;
 
       std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << " new pos: (" << new_x << "," << new_y << ")"<< std::endl;
     }
   }
+
+  void revert_position_x(int entity_id)
+  {
+    ecs::positions.at(entity_id).x = ecs::moves.at(entity_id).prev_x;
+    //hero::_update_joints();
+  }
+
+  void revert_position_y(int entity_id)
+  {
+    ecs::positions.at(entity_id).y = ecs::moves.at(entity_id).prev_y;
+    //hero::_update_joints();
+  }
+
 
 }
 
