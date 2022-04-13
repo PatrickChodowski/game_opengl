@@ -91,13 +91,13 @@ namespace scripts
   void _spawn_item()
   {
     // Function 3 -> spawn_item
-    items::spawn(args["item_id"], args["x"], args["y"]);
+    //items::spawn(args["item_id"], args["x"], args["y"]);
   }
 
   void _drop_item()
   {
     // Function 4 -> _drop_item
-    items::drop(args["entity_id"]);
+    //items::drop(args["entity_id"]);
   }
 
   void _start_animation()

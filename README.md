@@ -95,28 +95,12 @@ Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
 
 ### Entities
 
-Eventually entities will be defined in the /data/entities/
-Basic information -> id, name, model_id, start_frame_id, dims(w, h)
-
-And list of components?
-
-- NPCComponent
-- HeroComponent
-- MobComponent
-- ButtonComponent?
-- MenuComponent?
-- LabelComponent?
-- ItemComponent?
-- DoorComponent?
-- CollisionComponent?
-- MouseClickComponent?
-- PositionComponent
-- ColorComponent
-- ModelComponent
-- DimComp
-
-
-
+ECS:
+ (to change):
+ - items (axe not terrible as a model)
+ - mobs (no model)
+ - npcs
+ - travel
 
 ## Credits:
 

@@ -69,7 +69,11 @@ namespace ecs
 
     // Sensors
     // Nothing to add here
-    
+
+    // Items
+    int item_id, item_joint_id, item_dmg, item_speed, item_location;
+
+
     // Additional (not stored in any container)
     bool animated = false;
 
@@ -84,6 +88,7 @@ namespace ecs
            label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
            level, mobs_killed, exp, speed, hp, dmg, def,
            is_solid,
+           item_id, item_joint_id, item_dmg, item_speed, item_location,
            animated);
   };
 
@@ -179,6 +184,20 @@ namespace ecs
     phmap::flat_hash_map<int, collisions::Sensor> sensors; 
   };
 
+
+  // Component 10: Item component -> item attributes if given entity is an item.
+  // Used for generated items (on ground and in hand)
+  struct ItemComponent
+  {
+    int item_id;
+    int item_joint_id;
+    int item_dmg;
+    int item_speed;
+    int item_location;
+  };
+  //ITEM_LOCATION_GROUND 0,ITEM_LOCATION_EQ 1
+
+
   // TABLES
   extern phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
   extern phmap::flat_hash_map<unsigned int, ecs::PositionComponent> positions;
@@ -191,6 +210,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
   extern phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
   extern phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
+  extern phmap::flat_hash_map<unsigned int, ecs::ItemComponent> items;
 
 
   // METHODS
@@ -232,6 +252,7 @@ namespace ecs
   void _add_stat(int entity_id, ecs::StatsComponent stat);
   void _add_collision(int entity_id, ecs::CollisionsComponent collision);
   void _add_sensor(int entity_id, ecs::SensorsComponent sensor);
+  void _add_item(int entity_id, ecs::ItemComponent item);
 
   // Component dropping methods
   void _drop_position(int entity_id);
@@ -244,6 +265,7 @@ namespace ecs
   void _drop_stat(int entity_id);
   void _drop_collision(int entity_id);
   void _drop_sensor(int entity_id);
+  void _drop_item(int entity_id);
 
 
   // Where to put it

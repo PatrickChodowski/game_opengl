@@ -2,9 +2,11 @@
 #include <string>
 #include <vector>
 
-//#include "collisions.h"
+#include "collisions.h"
+#include "ecs.h"
 #include "hero.h"
 #include "items.h"
+#include "models.h"
 #include "utils.h"
 #include "quads.h"
 
@@ -15,11 +17,7 @@
 
 namespace items
 {
-  phmap::flat_hash_map<int, ItemData> items = {};
-  phmap::flat_hash_map<int, GeneratedItemData> GeneratedItems = {};
-  phmap::flat_hash_map<int, GeneratedItemData> ItemsOnGround = {};
-  phmap::flat_hash_map<int, GeneratedItemData> EquippedItems = {};
-
+  phmap::flat_hash_map<int, items::ItemData> items = {};
   void read_data(std::string name)
   {
     ItemData ITD;
@@ -27,7 +25,8 @@ namespace items
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(ITD);
-    items::items.insert(std::pair<int, ItemData>{ITD.id, ITD}); 
+    items::items.insert(std::pair<int, ItemData>{ITD.item_id, ITD}); 
+    std::cout << " [ITEMS] Reading data for " << name << std::endl;
   };
 
   void init()
@@ -45,29 +44,38 @@ namespace items
     items::items.clear();
   }
 
-  void clear()
+  int generate_item(int item_id, float x, float y, int item_location_id)
   {
-    items::GeneratedItems.clear();
-    items::ItemsOnGround.clear();
-    items::EquippedItems.clear();
-  }
+    std::cout << " [ITEMS] Generating entity for item ID " << item_id << std::endl;
+    items::ItemData ITEM = items::items.at(item_id);
+    ecs::TempEntityData e;
+    e.name = ITEM.name;
+    e.components = {0,1,2,3,8,10};
+    e.entity_type_id = ENTITY_TYPE_ITEM;
+    e.x = x;
+    e.y = y;
+    e.z = 0.29;
+    e.w = ITEM.w;
+    e.h = ITEM.h;
+    e.r = 0.4;
+    e.g = 0.4;
+    e.b = 0.4;
+    e.a = 1.0;
+    e.model_id = ITEM.model_id;
+    e.frame_id = 10100;
+    e.side_id = ANIM_SIDE_FRONT;
+    e.camera_type = CAMERA_DYNAMIC;
+    e.item_id = ITEM.item_id;
+    e.item_joint_id = ITEM.joint_id;
 
-  void drop(int entity_id)
-  {
-    if(items::GeneratedItems.count(entity_id) > 0)
-    {
-      items::GeneratedItems.erase(entity_id);
-    }
+    // Create utils::random_from_range later
+    e.item_dmg = ITEM.max_dmg;
+    e.item_speed = ITEM.max_speed;
+    e.item_location = item_location_id;
 
-    if(items::ItemsOnGround.count(entity_id) > 0)
-    {
-      items::ItemsOnGround.erase(entity_id);
-    };
-
-    if(items::EquippedItems.count(entity_id) > 0)
-    {
-      items::EquippedItems.erase(entity_id);
-    };
+    models::load(e.model_id);
+    int item_entity_id = ecs::create_entity(&e);
+    return item_entity_id;
   }
 
   void pickup(int entity_id)
@@ -101,29 +109,7 @@ namespace items
     // }
   }
 
-  void spawn(int item_id, float x, float y)
-  {
-    items::GeneratedItemData tdd;
-
-    tdd.x = x;
-    tdd.y = y;
-    tdd.item_id = item_id;
-    tdd.w = items::items[item_id].width_og;
-    tdd.h = items::items[item_id].height_og;
-    tdd.current_frame = items::items[item_id].items_frame_id;
-    tdd.model_id = items::items[item_id].items_texture_id;
-    tdd.type = items::items[item_id].type;
-
-    // logic for items to be stored in different table? Same as alive mobs
-    // int entity_id = entity::create(tdd, ENTITY_TYPE_ITEM, CAMERA_DYNAMIC);
-    // tdd.entity_id = entity_id;
-    // items::GeneratedItems[entity_id] = tdd;
-    // items::ItemsOnGround[entity_id] = tdd;
-    // std::cout << "Spawned Item of type: " << item_id << " entity id : " << entity_id << std::endl;
-  }
-
-  
-  void put_in_hand(int entity_id)
+  void equip(int entity_id)
   {
     // if(items::GeneratedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
     // {
@@ -134,13 +120,5 @@ namespace items
     // }
   };
 
-
-
-  std::vector<std::string> info(int entity_id)
-  {
-    std::vector<std::string> infos = {};
-    infos.push_back(items::GeneratedItems[entity_id].type);
-    return infos;
-  }
 
 }
