@@ -22,8 +22,6 @@ namespace collisions
   std::vector<collisions::DistanceToObject> distances = {};
   std::vector<int> near_items = {};
 
-
-
   collisions::DistanceToObject _get_entity_to_entity_distance(int entity_id, int target_entity_id)
   {
     ecs::PositionComponent target_pos = ecs::positions.at(target_entity_id);
@@ -245,7 +243,6 @@ namespace collisions
     std::cout << "Collisions Initialized" << std::endl;
   }
 
-
   void _set_abs()
   {
     for(int i = 0; i < collisions::distances.size(); i++)
@@ -283,7 +280,6 @@ namespace collisions
     //   game::switch_scene(dest_scene_id, SCENE_LOAD_CHANGE_LEVEL);
     // }
   }
-
 
   void clear()
   {
