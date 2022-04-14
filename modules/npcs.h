@@ -62,28 +62,6 @@ namespace npcs
 // hashmap of checks of what was done for who
 // different valus based on the sentiments of two kingdoms
 
-  struct NPCData
-  {
-    int id;
-    int entity_id;
-    int model_id;
-    int current_frame;
-    int personality_id;
-    int scene_id;
-
-    float x;
-    float y;
-    float w;
-    float h;
-    float speed;
-    float sentiment = 0.5;
-
-
-    std::string name;
-
-    JS_OBJ(id, model_id, current_frame, w, h, speed, name);
-  };
-
 
   struct InteractionData
   {
@@ -95,38 +73,20 @@ namespace npcs
     JS_OBJ(event_type_id, npc_id, type, value);
   };
 
-  // Catalog of all npcs
-  extern phmap::flat_hash_map<int, NPCData> npcs_data;
-
-  // Current npcs
-  extern phmap::flat_hash_map<int, NPCData> npcs;
-
   // Table of history of interactions
   extern std::vector<InteractionData> interactions;
-
-  // Read npc data from the file
-  void read_data(std::string& name);
 
   // Read all npc data files and fill npcs_data
   void init();
 
-  // Spawn npc, adds instance to npcs map. Returns entity id
-  int spawn(int npc_id, float x, float y); 
-
-  // Spawn group of npcs assigned to the map
-  void spawn_from_map(int map_id);
-
-  // Clear temporary data (npcs)
-  void clear();
-
   // Clear catalog
   void refresh();
+
+  // Clear temp data
+  void clear();
   
   // Create interaction with the entity. impact interactions table and NPC's sentiment
   void interact(int entity_id, float value);
-
-  // Returns vector of strings with npc information
-  std::vector<std::string> info(int entity_id);
   
 }
 

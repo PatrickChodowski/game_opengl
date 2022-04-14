@@ -94,12 +94,8 @@ Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
 
 
 ### Entities
-
 ECS:
- (to change):
- - items (axe not terrible as a model)
  - mobs (no model)
- - npcs
  - travel
 
 ## Credits:
