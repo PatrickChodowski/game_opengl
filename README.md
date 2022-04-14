@@ -63,7 +63,6 @@ python3 app.py
 ## todo list:
 ### Animations -> make sure the looped animations are looped (checking if next anim id is the same as current one? skip first frame if so?)
 ### Zooming in -> analyse how to zoom in on specific point 
-### Active/Bind textures should have the same slot as in the sampler (it can come back later)
 ### Collision box currently has the size of the texture which is not good as its too big -> invisible walls. Use hook position of the frame?
 
 
