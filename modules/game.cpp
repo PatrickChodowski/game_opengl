@@ -64,9 +64,7 @@ namespace game
     nav::clear();
     camera::reset();
     ecs::clear();
-    mobs::clear();
     models::clear();
-    npcs::clear();
     quads::clear();
     debug::clear();
     travel::clear();

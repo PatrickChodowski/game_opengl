@@ -14,19 +14,33 @@
 namespace npcs
 {
   std::vector<npcs::InteractionData> interactions;
+  phmap::flat_hash_map<int, npcs::NPCData> npcs = {};
 
   void init()
   {
+    std::vector<std::string> npc_list = utils::list_json_files("./data/npcs/");
+    for(int n=0; n < npc_list.size(); n++)
+    {
+      npcs::read_data(npc_list[n]);
+    }
     std::cout << "NPCs Initialized" << std::endl;
+  };
+
+  void read_data(std::string name)
+  {
+    npcs::NPCData ND;
+    std::string data_path = "./data/npcs/"+name+".json";
+    std::string json_data = utils::read_text_file(data_path);
+    JS::ParseContext context(json_data);
+    context.parseTo(ND);
+    npcs::npcs.insert({ND.npc_id, ND});
   };
 
   void refresh()
   {
     npcs::interactions.clear();
+    npcs::npcs.clear();
   };
-
-  void clear()
-  {};
 
   void interact(int entity_id, float value)
   {

@@ -95,8 +95,8 @@ Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
 
 ### Entities
 ECS:
- - mobs (no model)
  - travel
+
 
 ## Credits:
 
