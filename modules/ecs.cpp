@@ -33,6 +33,7 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
   phmap::flat_hash_map<unsigned int, ecs::ItemComponent> items;
   phmap::flat_hash_map<unsigned int, ecs::EquipmentComponent> equipments;
+  phmap::flat_hash_map<unsigned int, ecs::NPCComponent> npcs;
 
   void init()
   {
@@ -48,6 +49,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_SENSORS] = ecs::_drop_sensor;
     ecs::drop_component[COMPONENT_ITEM] = ecs::_drop_item;
     ecs::drop_component[COMPONENT_EQUIPMENT] = ecs::_drop_equipment;
+    ecs::drop_component[COMPONENT_NPC] = ecs::_drop_npc;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -172,6 +174,9 @@ namespace ecs
       case COMPONENT_EQUIPMENT:
         ecs::_add_equipment(entity_id, {data->equipment});
       break;
+      case COMPONENT_NPC:
+        ecs::_add_npc(entity_id, {data->npc_id, data->personality_trait_id, data->sentiment});
+      break;
     }
   };
 
@@ -250,6 +255,12 @@ namespace ecs
     ecs::equipments.insert(std::pair<int, ecs::EquipmentComponent>{entity_id, equipment});
   }
 
+  void _add_npc(int entity_id, ecs::NPCComponent npc)
+  {
+    std::cout << " [ECS] Adding npc component for entity " << entity_id << std::endl;
+    ecs::npcs.insert(std::pair<int, ecs::NPCComponent>{entity_id, npc});
+  }
+
 
 
   void _drop_position(int entity_id)
@@ -322,6 +333,12 @@ namespace ecs
   {
     std::cout << " [ECS] Dropping equipment component for entity " << entity_id << std::endl;
     ecs::equipments.erase(entity_id);
+  };
+
+  void _drop_npc(int entity_id)
+  {
+    std::cout << " [ECS] Dropping npc component for entity " << entity_id << std::endl;
+    ecs::npcs.erase(entity_id);
   };
 
 

@@ -76,6 +76,11 @@ namespace ecs
     // Equipment
     std::vector<int> equipment;
 
+    // NPC
+    int npc_id;
+    int personality_trait_id;
+    float sentiment;
+
     // Additional (not stored in any container)
     bool animated = false;
 
@@ -92,6 +97,7 @@ namespace ecs
            is_solid,
            item_id, item_joint_id, item_dmg, item_speed, item_location,
            equipment,
+           npc_id, personality_trait_id, sentiment,
            animated);
   };
 
@@ -205,6 +211,14 @@ namespace ecs
     std::vector<int> equipment;
   };
 
+  // Component 12: NPC component -> npc interactions data
+  struct NPCComponent
+  {
+    int npc_id;
+    int personality_trait_id;
+    float sentiment;
+  };
+
 
 
   // TABLES
@@ -221,6 +235,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
   extern phmap::flat_hash_map<unsigned int, ecs::ItemComponent> items;
   extern phmap::flat_hash_map<unsigned int, ecs::EquipmentComponent> equipments;
+  extern phmap::flat_hash_map<unsigned int, ecs::NPCComponent> npcs;
 
 
   // METHODS
@@ -231,9 +246,8 @@ namespace ecs
   // Read entity data and return pointer to the struct with data
   ecs::TempEntityData read_data(std::string& file_name);
 
-  // Creates entity and propagates components based on the TempEntityData struct.
-  //  Usage, option 1:   ecs::TempEntityData entity; ecs::create_entity(&entity);
-  //  Usage, option 2: ecs::create_entity(&entity);
+  // Creates entity and propagates components based on the TempEntityData struct
+  // Usage: ecs::TempEntityData entity; ecs::create_entity(&entity);
   int create_entity(ecs::TempEntityData *e);
 
   // Wrapper around ecs::read_data and ecs::create_entity
@@ -264,6 +278,7 @@ namespace ecs
   void _add_sensor(int entity_id, ecs::SensorsComponent sensor);
   void _add_item(int entity_id, ecs::ItemComponent item);
   void _add_equipment(int entity_id, ecs::EquipmentComponent equipment);
+  void _add_npc(int entity_id, ecs::NPCComponent npc);
 
   // Component dropping methods
   void _drop_position(int entity_id);
@@ -278,7 +293,7 @@ namespace ecs
   void _drop_sensor(int entity_id);
   void _drop_item(int entity_id);
   void _drop_equipment(int entity_id);
-
+  void _drop_npc(int entity_id);
 
   // Where to put it
 
