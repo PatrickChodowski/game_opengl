@@ -100,6 +100,7 @@ namespace game
 
   void update()
   {
+
     quads::clear();
     maps::render();
     quads::render();

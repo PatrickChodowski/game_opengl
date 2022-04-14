@@ -1,0 +1,173 @@
+{
+  "id": 7,
+  "w": 144,
+  "h": 256,
+  "name": "skeleton",
+  "frames_list": [
+      {
+          "frame_id": 20100,
+          "x": 0,
+          "y": 0,
+          "w": 48,
+          "h": 64,
+          "label": "skeleton___unarmed_walk_forward_front_0",
+          "norm_x_start": 0.0,
+          "norm_x_end": 0.33,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.25
+      },
+      {
+          "frame_id": 20101,
+          "x": 48,
+          "y": 0,
+          "w": 48,
+          "h": 64,
+          "label": "skeleton___unarmed_walk_forward_front_1",
+          "norm_x_start": 0.33,
+          "norm_x_end": 0.667,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.25
+      },
+      {
+          "frame_id": 20102,
+          "x": 96,
+          "y": 0,
+          "w": 48,
+          "h": 64,
+          "label": "skeleton___unarmed_walk_forward_front_2",
+          "norm_x_start": 0.67,
+          "norm_x_end": 1.0,
+          "norm_y_start": 0.0,
+          "norm_y_end": 0.25
+      },
+      {
+        "frame_id": 20400,
+        "x": 0,
+        "y": 64,
+        "w": 48,
+        "h": 64,
+        "label": "skeleton___unarmed_walk_forward_left_0",
+        "norm_x_start": 0.0,
+        "norm_x_end": 0.33,
+        "norm_y_start": 0.25,
+        "norm_y_end": 0.5
+    },
+    {
+        "frame_id": 20401,
+        "x": 48,
+        "y": 64,
+        "w": 48,
+        "h": 64,
+        "label": "skeleton___unarmed_walk_forward_left_1",
+        "norm_x_start": 0.33,
+        "norm_x_end": 0.667,
+        "norm_y_start": 0.25,
+        "norm_y_end": 0.5
+    },
+    {
+        "frame_id": 20402,
+        "x": 96,
+        "y": 64,
+        "w": 48,
+        "h": 64,
+        "label": "skeleton___unarmed_walk_forward_left_2",
+        "norm_x_start": 0.67,
+        "norm_x_end": 1.0,
+        "norm_y_start": 0.25,
+        "norm_y_end": 0.5
+    },
+    {
+      "frame_id": 20300,
+      "x": 0,
+      "y": 128,
+      "w": 48,
+      "h": 64,
+      "label": "skeleton___unarmed_walk_forward_right_0",
+      "norm_x_start": 0.0,
+      "norm_x_end": 0.33,
+      "norm_y_start": 0.5,
+      "norm_y_end": 0.75
+  },
+  {
+      "frame_id": 20301,
+      "x": 48,
+      "y": 128,
+      "w": 48,
+      "h": 64,
+      "label": "skeleton___unarmed_walk_forward_right_1",
+      "norm_x_start": 0.33,
+      "norm_x_end": 0.667,
+      "norm_y_start": 0.5,
+      "norm_y_end": 0.75
+  },
+  {
+      "frame_id": 20302,
+      "x": 96,
+      "y": 128,
+      "w": 48,
+      "h": 64,
+      "label": "skeleton___unarmed_walk_forward_right_2",
+      "norm_x_start": 0.67,
+      "norm_x_end": 1.0,
+      "norm_y_start": 0.5,
+      "norm_y_end": 0.75
+  },
+  {
+    "frame_id": 20200,
+    "x": 0,
+    "y": 192,
+    "w": 48,
+    "h": 64,
+    "label": "skeleton___unarmed_walk_forward_back_0",
+    "norm_x_start": 0.0,
+    "norm_x_end": 0.33,
+    "norm_y_start": 0.75,
+    "norm_y_end": 1.0
+},
+{
+    "frame_id": 20201,
+    "x": 48,
+    "y": 192,
+    "w": 48,
+    "h": 64,
+    "label": "skeleton___unarmed_walk_forward_back_1",
+    "norm_x_start": 0.33,
+    "norm_x_end": 0.667,
+    "norm_y_start": 0.75,
+    "norm_y_end": 1.0
+},
+{
+    "frame_id": 20202,
+    "x": 96,
+    "y": 192,
+    "w": 48,
+    "h": 64,
+    "label": "skeleton___unarmed_walk_forward_back_2",
+    "norm_x_start": 0.67,
+    "norm_x_end": 1.0,
+    "norm_y_start": 0.75,
+    "norm_y_end": 1.0
+}
+     
+  ],
+  "anim_list": [
+      {
+          "anim_id": 2,
+          "label": "skeleton___unarmed_walk_forward",
+          "frame_count": 3,
+          "update_times": [
+              0.0,
+              95.0,
+              190.0,
+              285.0
+          ],
+          "time_length": 285.0,
+          "next_anim_id": -1,
+          "breakable": true,
+          "locking": false,
+          "frame_id": [
+              1,0,2
+          ]
+      }
+  ]
+}

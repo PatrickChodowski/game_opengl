@@ -9,6 +9,7 @@
 #include "hero.h"
 #include "items.h"
 #include "maps.h"
+#include "mobs.h"
 #include "saves.h"
 #include "scenes.h"
 #include "utils.h"
@@ -181,6 +182,8 @@ namespace scenes
   {
     std::cout << " [SCENES] Dynamic scene logic for scene " << SCENE_ID_DUNGEON_LEVEL_1 << std::endl;
     int item_entity_id = items::generate_item(1, 300, 300, ITEM_LOCATION_GROUND);
+    int mob_entity_id = mobs::spawn(1, 240, 300);
+    int mob_entity_id2 = mobs::spawn(2, 10, 10);
     //ecs::hide(item_entity_id);
   };
 

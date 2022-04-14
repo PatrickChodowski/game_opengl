@@ -15,7 +15,8 @@ namespace mobs
   {
     int mob_id;
     int model_id;
-
+    float w;
+    float h;
     float min_dmg;
     float max_dmg;
     float min_speed;
@@ -26,7 +27,7 @@ namespace mobs
     float max_def;
     std::string name;
 
-    JS_OBJ(mob_id, model_id, min_dmg, max_dmg, min_speed,
+    JS_OBJ(mob_id, model_id, w, h, min_dmg, max_dmg, min_speed,
     max_speed, min_hp, max_hp, min_def, max_def, name);
   };
 
@@ -45,7 +46,7 @@ namespace mobs
   void spawn_from_nest(int map_id);
 
   // Spawn single mob
-  void spawn(int mob_id, float x, float y);
+  int spawn(int mob_id, float x, float y);
 
 }
 

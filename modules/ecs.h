@@ -81,6 +81,9 @@ namespace ecs
     int personality_trait_id;
     float sentiment;
 
+    // Mob
+    int mob_id;
+
     // Additional (not stored in any container)
     bool animated = false;
 
@@ -98,6 +101,7 @@ namespace ecs
            item_id, item_joint_id, item_dmg, item_speed, item_location,
            equipment,
            npc_id, personality_trait_id, sentiment,
+           mob_id,
            animated);
   };
 
@@ -219,6 +223,12 @@ namespace ecs
     float sentiment;
   };
 
+  // Component 13: MOB component 
+  struct MobComponent
+  {
+    int mob_id;
+  };
+
 
 
   // TABLES
@@ -236,6 +246,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::ItemComponent> items;
   extern phmap::flat_hash_map<unsigned int, ecs::EquipmentComponent> equipments;
   extern phmap::flat_hash_map<unsigned int, ecs::NPCComponent> npcs;
+  extern phmap::flat_hash_map<unsigned int, ecs::MobComponent> mobs;
 
 
   // METHODS
@@ -279,6 +290,7 @@ namespace ecs
   void _add_item(int entity_id, ecs::ItemComponent item);
   void _add_equipment(int entity_id, ecs::EquipmentComponent equipment);
   void _add_npc(int entity_id, ecs::NPCComponent npc);
+  void _add_mob(int entity_id, ecs::MobComponent mob);
 
   // Component dropping methods
   void _drop_position(int entity_id);
@@ -294,6 +306,7 @@ namespace ecs
   void _drop_item(int entity_id);
   void _drop_equipment(int entity_id);
   void _drop_npc(int entity_id);
+  void _drop_mob(int entity_id);
 
   // Where to put it
 
