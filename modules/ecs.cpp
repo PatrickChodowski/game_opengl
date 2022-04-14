@@ -68,7 +68,7 @@ namespace ecs
   int create_entity(ecs::TempEntityData *e)
   {
     int entity_id = utils::generate_id(ecs::Index);
-    assert(!ecs::entities.count(entity_id) > 0 && "ERROR DOUBLED ENTITY_ID");
+    assert(!(ecs::entities.count(entity_id) > 0) && "ERROR DOUBLED ENTITY_ID");
 
     ecs::EntityData edd;
     edd.entity_id = entity_id;

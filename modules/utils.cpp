@@ -162,20 +162,12 @@ namespace utils
     return std::to_string(number);
   }
 
-  static void GlClearError()
+  void gl_check_error(std::string function_name, std::string file_name, int line)
   {
-    while(glGetError() != GL_NO_ERROR);
-  };
-
-  static bool GlLogCall(const char* function, const char* file, int line)
-  { 
-    while(GLenum error = glGetError())
-    {
-      std::cout << "[OpenGL Error] (" << error << ") " << function << " " << file << " " << line << std::endl;
-      return false;
+    while(GLenum error = glGetError()){
+      std::cout << " [OPENGL ERROR] " << error  << " Function name: " << function_name << " file name: " << file_name << " line:" << line << std::endl;
     }
-    return true;
-  };
+  }
 
 
   template std::string utils::str<int>(int);

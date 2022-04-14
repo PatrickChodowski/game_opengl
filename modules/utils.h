@@ -51,9 +51,7 @@ namespace utils
    template <typename T>
   std::string str(T number);
 
-  #define ASSERT(x) if(!(x)) raise(SIGTRAP);
-  #define GlCall(x) GlClearError();x;ASSERT(GlLogCall(#x, __FILE__, __LINE__));
-
+  void gl_check_error(std::string function_name, std::string file_name, int line);
 }
 
 #endif

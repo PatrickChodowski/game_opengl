@@ -47,11 +47,17 @@ namespace quads
     quad.model_id = ecs::models.at(entity_id).model_id;
     quad.frame_id = ecs::models.at(entity_id).frame_id;
     if(quad.model_id > -1){
-      quad.texture_id = models::SceneModels.at(quad.model_id);
+      quad.texture_id = models::ModelTextureMap.at(quad.model_id);
       quad.norm_x_start = models::models.at(quad.model_id).frames.at(quad.frame_id).norm_x_start;
       quad.norm_x_end = models::models.at(quad.model_id).frames.at(quad.frame_id).norm_x_end;
       quad.norm_y_start = models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_start;
       quad.norm_y_end = models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_end;
+    } else {
+      quad.texture_id = 0;
+      quad.norm_x_start = 0;
+      quad.norm_x_end = 0;
+      quad.norm_y_start = 0;
+      quad.norm_y_end = 0;
     }
     quad.entity_type_id = ecs::entities.at(entity_id).entity_type_id;
     quad.camera_type = ecs::renderdatas.at(entity_id).camera_type;
