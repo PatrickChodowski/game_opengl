@@ -47,7 +47,7 @@ namespace hero
 
   
     if(hero_start_x != -1000 & hero_start_y != -1000){
-      hero::create_new(saves::NewGameName, "barbarian", hero_start_x, hero_start_y);
+      hero::create_new(saves::NewGameName, "1_barbarian", hero_start_x, hero_start_y);
       camera::cam.x = (hero_start_x - (game::WINDOW_WIDTH/2) + (ecs::positions.at(hero::HERO_ENTITY_ID).w/2));
       camera::cam.y = - (hero_start_y - (game::WINDOW_HEIGHT/2) + (ecs::positions.at(hero::HERO_ENTITY_ID).h/2));
     }
