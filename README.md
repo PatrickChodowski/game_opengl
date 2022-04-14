@@ -61,22 +61,10 @@ python3 app.py
 
 
 ## todo list:
-
-### Entities -> rework. Need to able to easily put a Logo inside the game. Currently a massive amount of work just to put a single entity in new place
-# lets do entity 2.0
-
 ### Animations -> make sure the looped animations are looped (checking if next anim id is the same as current one? skip first frame if so?)
 ### Zooming in -> analyse how to zoom in on specific point 
 ### Active/Bind textures should have the same slot as in the sampler (it can come back later)
 ### Collision box currently has the size of the texture which is not good as its too big -> invisible walls. Use hook position of the frame?
-
-
-### Models
-- one more, new way of handling textures, frames and animations -> this will be renamed to models. Based on the files provided in ./models folder
-
-Data file will have name format of {model_id}_{model_name}.json
-
-Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
 
 
 ### Map generation
@@ -95,8 +83,23 @@ Spritesheet will have name format of {model_id}_{model_name}___spritesheet.png
 
 ### Entities
 ECS:
- - travel
+ - mobs, npcs: make temp models
 
+ - travel -> use Side ID for mob animation
+
+ - collisions with new objects -> items, mobs, entities, doors
+
+ AND THEN:
+ - picking up items
+ - going through the door
+ - spawning mob
+ - mob able to travel
+ - interacting with npc
+ - displaying menu
+
+AND THEEN:
+ - rewrite tests
+ - rewrite Python api
 
 ## Credits:
 
