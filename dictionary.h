@@ -8,6 +8,7 @@
 // camera types
 #define CAMERA_DYNAMIC 0.0f
 #define CAMERA_STATIC 1.0f
+#define CAMERA_HIDDEN 2.0f
 
 // entity collision sensors
 #define SENSOR_TOP 0
@@ -109,16 +110,25 @@
 
 // Component Index
 #define COMPONENT_POSITION 0
-#define COMPONENT_DIMENSION 1
-#define COMPONENT_MODEL 2
-#define COMPONENT_COLOR 3
-#define COMPONENT_RENDERDATA 4
-#define COMPONENT_BUTTON 5
-#define COMPONENT_LABEL 6
-#define COMPONENT_MOVE 7
-#define COMPONENT_STATS 8
-#define COMPONENT_COLLISIONS 9
-#define COMPONENT_SENSORS 10
+#define COMPONENT_MODEL 1
+#define COMPONENT_COLOR 2
+#define COMPONENT_RENDERDATA 3
+#define COMPONENT_BUTTON 4
+#define COMPONENT_LABEL 5
+#define COMPONENT_MOVE 6
+#define COMPONENT_STATS 7
+#define COMPONENT_COLLISIONS 8
+#define COMPONENT_SENSORS 9
+#define COMPONENT_ITEM 10
+#define COMPONENT_EQUIPMENT 11
+#define COMPONENT_NPC 12
 
+// Joint IDS (right hand, left hand etc.)
+#define JOINT_RIGHT_HAND_ID 0
+#define JOINT_LEFT_HAND_ID 1
+
+// Item Location -> on ground/equipped
+#define ITEM_LOCATION_GROUND 0
+#define ITEM_LOCATION_EQ 1
 
 #endif

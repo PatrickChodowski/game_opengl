@@ -13,12 +13,7 @@ namespace collisions
   extern int SENSOR_COUNT;
   extern int SENSOR_OFFSET;
   extern int ABS_COUNT;
-
-  typedef void (*sig_ptr)(int);
-  // Catalog of functions to be chosen based on the object_type_id
-  extern phmap::flat_hash_map<int,sig_ptr> AABBsHandler;
   extern std::vector<int> near_items;
-
 
   // AABB data for the entity
   struct AABB
@@ -61,28 +56,12 @@ namespace collisions
   };
 
   extern std::vector<collisions::DistanceToObject> distances;
-  extern std::vector<collisions::DistanceToObject> door_distances;
-
-  // Gets vector of entity distances to other entities
-  void _get_entity_to_entity_distances(int entity_id);
 
   // Gets distance from entity to single entity object
-  collisions::DistanceToObject _get_entity_to_single_entity_distance(int entity_id, int target_entity_id);
-
-  // Gets vector of entity distances to map objects
-  void _get_entity_to_map_distances(int entity_id);
-
-  // Gets distance from entity to single map object
-  collisions::DistanceToObject _get_entity_to_single_tile_distance(int entity_id, int tile_id);
-
-  // Gets vector of entity distances to door objects
-  void _get_entity_to_door_distances(int entity_id, int map_id);
-
-  // Gets distance from entity to the door object
-  collisions::DistanceToObject _get_entity_to_door_distance(int entity_id, int map_id, int door_index);
+  collisions::DistanceToObject _get_entity_to_entity_distance(int entity_id, int target_entity_id);
 
   // Find broad collisions for entity (by default its the hero, but lets leave the option)
-  void _collect_near_distances(int entity_id);
+  void get_distances(int entity_id);
 
   // Analyze solid collisions from near distances from find_entity_broad_collisions
   void _resolve_solid_collisions();
@@ -91,11 +70,8 @@ namespace collisions
   void _set_sensors(int entity_id);
 
   // Set abs on entities
-  void _set_abs_entities(int entity_id);
+  void _set_abs_entity(int entity_id);
  
-  // Set abs on tiles
-  void _set_abs_maps(int tile_id);
-
   // Sets AABBs boxes on objects flagged by near distances
   void _set_abs();
 
@@ -109,7 +85,7 @@ namespace collisions
   void clear();
 
   // Resolve doors -> go through doors if there are doors
-  void _resolve_doors();
+  // void _resolve_doors();
 
 }
 
