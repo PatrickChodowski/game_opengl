@@ -80,34 +80,33 @@ namespace items
 
   void pickup(int entity_id, int item_entity_id)
   {
-    // Keep item stats but remove other components
-    // Quads render only if entity has renderdatas (also needs position, model, color)
     if(ecs::items.count(item_entity_id)){
       if(ecs::items.at(item_entity_id).item_location == ITEM_LOCATION_GROUND){
-        // render components -> 0,1,2,3
+        ecs::equipments.at(entity_id).equipment.push_back(item_entity_id);
+        ecs::items.at(item_entity_id).item_location = ITEM_LOCATION_EQ;
         ecs::hide(item_entity_id);
+        std::cout << " [ITEMS] Entity ID: "<< entity_id << " picked up item " << item_entity_id << std::endl;
       }
     }
-
   };
 
-  void yeet(int entity_id, float x, float y)
+  void yeet(int entity_id, int item_entity_id, float x, float y)
   {
-    // if(items::GeneratedItems.count(entity_id) > 0 & items::EquippedItems.count(entity_id) > 0)
-    // {
+    int index = -1;
+    std::vector<int> eq = ecs::equipments.at(entity_id).equipment;
+    auto it = std::find(eq.begin(), eq.end(), item_entity_id);
 
-    //   if(hero::hero.in_hand_entity_id == entity_id)
-    //   {
-    //     hero::hero.in_hand_entity_id = -1;
-    //     entity::hide(entity_id);
-    //   }
-    //   items::EquippedItems.erase(entity_id);
-    //   items::ItemsOnGround[entity_id] = items::GeneratedItems[entity_id]; 
-    //   items::ItemsOnGround[entity_id].x = x;
-    //   items::ItemsOnGround[entity_id].y = y;
-    //   //int old_entity_id = entity::create(items::ItemsOnGround[entity_id], ENTITY_TYPE_ITEM, CAMERA_DYNAMIC, entity_id);
-    //   std::cout << "Hero yeeted item " << entity_id << std::endl;
-    // }
+    if (it != eq.end()){
+      index = it - eq.begin();
+    }
+
+    if(index > -1){
+      eq.erase(eq.begin() + index);
+      ecs::show(item_entity_id);
+      ecs::items.at(item_entity_id).item_location = ITEM_LOCATION_GROUND;
+      ecs::set_position(item_entity_id, x, y);
+      std::cout << " [ITEMS] Entity ID: "<< entity_id << " yeeted item " << item_entity_id << std::endl;
+    }
   }
 
   void equip(int entity_id)

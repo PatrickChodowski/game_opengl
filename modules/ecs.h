@@ -73,6 +73,8 @@ namespace ecs
     // Items
     int item_id, item_joint_id, item_dmg, item_speed, item_location;
 
+    // Equipment
+    std::vector<int> equipment;
 
     // Additional (not stored in any container)
     bool animated = false;
@@ -89,6 +91,7 @@ namespace ecs
            level, mobs_killed, exp, speed, hp, dmg, def,
            is_solid,
            item_id, item_joint_id, item_dmg, item_speed, item_location,
+           equipment,
            animated);
   };
 
@@ -196,6 +199,13 @@ namespace ecs
   };
   //ITEM_LOCATION_GROUND 0,ITEM_LOCATION_EQ 1
 
+  // Component 11: Equipment component -> List of items (entities) equipped by entity(hero)
+  struct EquipmentComponent
+  {
+    std::vector<int> equipment;
+  };
+
+
 
   // TABLES
   extern phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
@@ -210,6 +220,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
   extern phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
   extern phmap::flat_hash_map<unsigned int, ecs::ItemComponent> items;
+  extern phmap::flat_hash_map<unsigned int, ecs::EquipmentComponent> equipments;
 
 
   // METHODS
@@ -252,6 +263,7 @@ namespace ecs
   void _add_collision(int entity_id, ecs::CollisionsComponent collision);
   void _add_sensor(int entity_id, ecs::SensorsComponent sensor);
   void _add_item(int entity_id, ecs::ItemComponent item);
+  void _add_equipment(int entity_id, ecs::EquipmentComponent equipment);
 
   // Component dropping methods
   void _drop_position(int entity_id);
@@ -265,12 +277,16 @@ namespace ecs
   void _drop_collision(int entity_id);
   void _drop_sensor(int entity_id);
   void _drop_item(int entity_id);
+  void _drop_equipment(int entity_id);
 
 
   // Where to put it
 
   // Update entity position and move components
   void update_position(int entity_id, float x, float y);
+
+  // Just sets position of non moving entity, no fluff
+  void set_position(int entity_id, float x, float y);
 
   // Reverts X position for entity to previous value
   void revert_position_x(int entity_id);
@@ -280,6 +296,9 @@ namespace ecs
 
   // Method hiding visible entity
   void hide(int entity_id);
+
+  // Method showing hidden entity
+  void show(int entity_id);
 
 
 }

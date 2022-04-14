@@ -32,7 +32,7 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
   phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
   phmap::flat_hash_map<unsigned int, ecs::ItemComponent> items;
-
+  phmap::flat_hash_map<unsigned int, ecs::EquipmentComponent> equipments;
 
   void init()
   {
@@ -47,6 +47,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_COLLISIONS] = ecs::_drop_collision;
     ecs::drop_component[COMPONENT_SENSORS] = ecs::_drop_sensor;
     ecs::drop_component[COMPONENT_ITEM] = ecs::_drop_item;
+    ecs::drop_component[COMPONENT_EQUIPMENT] = ecs::_drop_equipment;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -62,7 +63,6 @@ namespace ecs
     return TD;
   }
 
-  //int create_entity(std::string name, std::vector<unsigned int> components)
   int create_entity(ecs::TempEntityData *e)
   {
     int entity_id = utils::generate_id(ecs::Index);
@@ -169,6 +169,9 @@ namespace ecs
         ecs::_add_item(entity_id, {data->item_id, data->item_joint_id, 
                                    data->item_dmg, data->item_speed, data->item_location});
       break;
+      case COMPONENT_EQUIPMENT:
+        ecs::_add_equipment(entity_id, {data->equipment});
+      break;
     }
   };
 
@@ -241,6 +244,12 @@ namespace ecs
     ecs::items.insert(std::pair<int, ecs::ItemComponent>{entity_id, item});
   }
 
+  void _add_equipment(int entity_id, ecs::EquipmentComponent equipment)
+  {
+    std::cout << " [ECS] Adding equipment component for entity " << entity_id << std::endl;
+    ecs::equipments.insert(std::pair<int, ecs::EquipmentComponent>{entity_id, equipment});
+  }
+
 
 
   void _drop_position(int entity_id)
@@ -309,6 +318,12 @@ namespace ecs
     ecs::items.erase(entity_id);
   };
 
+  void _drop_equipment(int entity_id)
+  {
+    std::cout << " [ECS] Dropping equipment component for entity " << entity_id << std::endl;
+    ecs::equipments.erase(entity_id);
+  };
+
 
 
   void update_position(int entity_id, float x, float y)
@@ -328,6 +343,16 @@ namespace ecs
     }
   }
 
+  void set_position(int entity_id, float x, float y)
+  {
+    if(ecs::positions.count(entity_id))
+    {
+      ecs::positions.at(entity_id).x = x;
+      ecs::positions.at(entity_id).y = y;
+      std::cout << " [ECS][POSITION] Setting position of entity " << entity_id << " to (" << x << "," << y << ")" << std::endl;
+    } 
+  }
+
   void revert_position_x(int entity_id)
   {
     ecs::positions.at(entity_id).x = ecs::moves.at(entity_id).prev_x;
@@ -345,14 +370,14 @@ namespace ecs
     if(ecs::renderdatas.count(entity_id)){
       ecs::renderdatas.at(entity_id).camera_type = CAMERA_HIDDEN;
     }
-  }
+  };
 
   void show(int entity_id)
   {
     if(ecs::renderdatas.count(entity_id)){
       ecs::renderdatas.at(entity_id).camera_type = CAMERA_DYNAMIC;
     }
-  }
+  };
 
 
 }

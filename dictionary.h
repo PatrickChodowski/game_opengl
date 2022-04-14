@@ -120,6 +120,7 @@
 #define COMPONENT_COLLISIONS 8
 #define COMPONENT_SENSORS 9
 #define COMPONENT_ITEM 10
+#define COMPONENT_EQUIPMENT 11
 
 // Joint IDS (right hand, left hand etc.)
 #define JOINT_RIGHT_HAND_ID 0
