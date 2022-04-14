@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "collisions.h"
+
 #include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dependencies/json_struct.h"
 #include "../dictionary.h"
@@ -41,9 +43,7 @@ namespace ecs
     // position, dimension or one of model/color)
 
     // Position
-    float x,y,z;
-    // Dimension
-    float w,h;
+    float x,y,z,w,h;
     // Model
     int model_id, frame_id, side_id;
     // Color
@@ -69,15 +69,25 @@ namespace ecs
 
     // Sensors
     // Nothing to add here
-    
+
+    // Items
+    int item_id, item_joint_id, item_dmg, item_speed, item_location;
+
+    // Equipment
+    std::vector<int> equipment;
+
+    // NPC
+    int npc_id;
+    int personality_trait_id;
+    float sentiment;
+
     // Additional (not stored in any container)
     bool animated = false;
 
 
     // All attributes can be read from JSON
     JS_OBJ(name, components, entity_type_id,
-           x,y,z,
-           w,h,
+           x,y,z,w,h,
            model_id,frame_id,side_id,
            r,g,b,a,
            camera_type,
@@ -85,26 +95,24 @@ namespace ecs
            label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
            level, mobs_killed, exp, speed, hp, dmg, def,
            is_solid,
+           item_id, item_joint_id, item_dmg, item_speed, item_location,
+           equipment,
+           npc_id, personality_trait_id, sentiment,
            animated);
   };
 
 
-  // Component 0: Position data -> x, y, z
+  // Component 0: Position data -> x, y, z, w, h
   struct PositionComponent
   { 
     float x;
     float y;
     float z;
-  };
-
-  // Component 1: Dimension data -> w, h
-  struct DimensionComponent
-  { 
     float w;
     float h;
   };
 
-  // Component 2: Model data -> model_id, frame_id, side_id
+  // Component 1: Model data -> model_id, frame_id, side_id
   struct ModelComponent
   { 
     int model_id;
@@ -112,7 +120,7 @@ namespace ecs
     int side_id;
   };
 
-  // Component 3: Color data -> r,g,b,a
+  // Component 2: Color data -> r,g,b,a
   struct ColorComponent
   { 
     float r;
@@ -121,21 +129,20 @@ namespace ecs
     float a;
   };
 
-  // Component 4: Render data. Everything else needed for correct rendering
+  // Component 3: Render data. Everything else needed for correct rendering
   struct RenderdataComponent
   {
     int camera_type;
     bool is_clicked = false;
-    bool visible = true;
   };
 
-  // Component 5: Button component -> button_function_id
+  // Component 4: Button component -> button_function_id
   struct ButtonComponent
   {
     int button_function_id;
   };
 
-  // Component 6: Label component -> label, size, r,g,b,a,x,y,z
+  // Component 5: Label component -> label, size, r,g,b,a,x,y,z
   struct LabelComponent
   {
     std::string label;
@@ -149,7 +156,7 @@ namespace ecs
     float text_z;
   };
 
-  // Component 7: Move component -> prev_x, prev_y, mid_x, mid_y, direction
+  // Component 6: Move component -> prev_x, prev_y, mid_x, mid_y, direction
   struct MoveComponent
   {
     float prev_x;
@@ -159,7 +166,7 @@ namespace ecs
     float direction;
   };
 
-  // Component 8: Stats component -> level, mobs_killed, exp, speed, hp, dmg, def
+  // Component 7: Stats component -> level, mobs_killed, exp, speed, hp, dmg, def
   struct StatsComponent
   {
     int level;
@@ -171,29 +178,52 @@ namespace ecs
     float def;
   };
 
-  // Component 9: Collisions component -> diag, is_solid
+  // Component 8: Collisions component -> diag, AABB boxes, is_solid
   struct CollisionsComponent
   {
     float diag;
+    phmap::flat_hash_map<int, collisions::AABB> abs; 
     bool is_solid;
   };
 
-  // Component 10: Sensors component (for collisions) -> sensors vectors
-  struct SensorData
-  {
-    float x;
-    float y;
-    int id;
-  };
+  // Component 9: Sensors component (for collisions) -> sensors vectors
   struct SensorsComponent
   {
-    std::vector<ecs::SensorData> sensors;
+    phmap::flat_hash_map<int, collisions::Sensor> sensors; 
   };
+
+
+  // Component 10: Item component -> item attributes if given entity is an item.
+  // Used for generated items (on ground and in hand)
+  struct ItemComponent
+  {
+    int item_id;
+    int item_joint_id;
+    int item_dmg;
+    int item_speed;
+    int item_location;
+  };
+  //ITEM_LOCATION_GROUND 0,ITEM_LOCATION_EQ 1
+
+  // Component 11: Equipment component -> List of items (entities) equipped by entity(hero)
+  struct EquipmentComponent
+  {
+    std::vector<int> equipment;
+  };
+
+  // Component 12: NPC component -> npc interactions data
+  struct NPCComponent
+  {
+    int npc_id;
+    int personality_trait_id;
+    float sentiment;
+  };
+
+
 
   // TABLES
   extern phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
   extern phmap::flat_hash_map<unsigned int, ecs::PositionComponent> positions;
-  extern phmap::flat_hash_map<unsigned int, ecs::DimensionComponent> dimensions;
   extern phmap::flat_hash_map<unsigned int, ecs::ModelComponent> models;
   extern phmap::flat_hash_map<unsigned int, ecs::ColorComponent> colors;
   extern phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
@@ -203,6 +233,9 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
   extern phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
   extern phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
+  extern phmap::flat_hash_map<unsigned int, ecs::ItemComponent> items;
+  extern phmap::flat_hash_map<unsigned int, ecs::EquipmentComponent> equipments;
+  extern phmap::flat_hash_map<unsigned int, ecs::NPCComponent> npcs;
 
 
   // METHODS
@@ -213,9 +246,8 @@ namespace ecs
   // Read entity data and return pointer to the struct with data
   ecs::TempEntityData read_data(std::string& file_name);
 
-  // Creates entity and propagates components based on the TempEntityData struct.
-  //  Usage, option 1:   ecs::TempEntityData entity; ecs::create_entity(&entity);
-  //  Usage, option 2: ecs::create_entity(&entity);
+  // Creates entity and propagates components based on the TempEntityData struct
+  // Usage: ecs::TempEntityData entity; ecs::create_entity(&entity);
   int create_entity(ecs::TempEntityData *e);
 
   // Wrapper around ecs::read_data and ecs::create_entity
@@ -235,7 +267,6 @@ namespace ecs
 
   // Component adding methods
   void _add_position(int entity_id, ecs::PositionComponent position);
-  void _add_dimension(int entity_id, ecs::DimensionComponent dimension);
   void _add_model(int entity_id, ecs::ModelComponent model);
   void _add_color(int entity_id, ecs::ColorComponent color);
   void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata);
@@ -245,10 +276,12 @@ namespace ecs
   void _add_stat(int entity_id, ecs::StatsComponent stat);
   void _add_collision(int entity_id, ecs::CollisionsComponent collision);
   void _add_sensor(int entity_id, ecs::SensorsComponent sensor);
+  void _add_item(int entity_id, ecs::ItemComponent item);
+  void _add_equipment(int entity_id, ecs::EquipmentComponent equipment);
+  void _add_npc(int entity_id, ecs::NPCComponent npc);
 
   // Component dropping methods
   void _drop_position(int entity_id);
-  void _drop_dimension(int entity_id);
   void _drop_model(int entity_id);
   void _drop_color(int entity_id);
   void _drop_renderdata(int entity_id);
@@ -258,12 +291,31 @@ namespace ecs
   void _drop_stat(int entity_id);
   void _drop_collision(int entity_id);
   void _drop_sensor(int entity_id);
-
+  void _drop_item(int entity_id);
+  void _drop_equipment(int entity_id);
+  void _drop_npc(int entity_id);
 
   // Where to put it
 
   // Update entity position and move components
   void update_position(int entity_id, float x, float y);
+
+  // Just sets position of non moving entity, no fluff
+  void set_position(int entity_id, float x, float y);
+
+  // Reverts X position for entity to previous value
+  void revert_position_x(int entity_id);
+
+  // Reverts Y position for entity to previous value
+  void revert_position_y(int entity_id);
+
+  // Method hiding visible entity
+  void hide(int entity_id);
+
+  // Method showing hidden entity
+  void show(int entity_id);
+
+
 }
 
 

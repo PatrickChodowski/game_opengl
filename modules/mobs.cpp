@@ -14,8 +14,7 @@
 
 namespace mobs
 {
-  phmap::flat_hash_map<int, MobData> mobs_data = {};
-  phmap::flat_hash_map<int, MobData> SpawnedMobs;
+  phmap::flat_hash_map<int, MobData> mobs = {};
 
   void read_data(std::string name)
   {
@@ -24,9 +23,8 @@ namespace mobs
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(MD);
-    mobs::mobs_data.insert({MD.id, MD});
+    mobs::mobs.insert({MD.mob_id, MD});
   };
-
 
   void init()
   {
@@ -40,14 +38,8 @@ namespace mobs
 
   void refresh()
   {
-    mobs::mobs_data.clear();
+    mobs::mobs.clear();
   }
-
-  void clear()
-  {
-    mobs::SpawnedMobs.clear();
-  }
-
 
   void spawn_from_nest(int map_id)
   {
@@ -66,32 +58,9 @@ namespace mobs
     }
   };
 
-
-  void spawn(int mob_type_id, float x, float y)
+  void spawn(int mob_id, float x, float y)
   {
-    mobs::MobData mdd = mobs::mobs_data[mob_type_id];
-    mdd.x = x;
-    mdd.y = y;
-    mdd.current_frame = 0;
-    //int entity_id = entity::create(mdd, ENTITY_TYPE_MOB, CAMERA_DYNAMIC);
-    //mobs::SpawnedMobs[entity_id] = mdd;
+   
   }
 
-  void drop(int entity_id)
-  {
-    if(mobs::SpawnedMobs.count(entity_id) > 0)
-    {
-      mobs::SpawnedMobs.erase(entity_id);
-    }
-  }
-
-  std::vector<std::string> info(int entity_id)
-  {
-    std::vector<std::string> infos = {};
-    infos.push_back(mobs::SpawnedMobs[entity_id].type);
-    return infos;
-  }
-
-
-  
 }

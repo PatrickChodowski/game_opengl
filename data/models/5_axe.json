@@ -1,0 +1,20 @@
+{
+  "id": 5,
+  "w": 600,
+  "h": 600,
+  "name": "axe",
+  "frames_list": [
+    {"frame_id": 10100,
+      "x": 0,
+      "y": 500,
+      "w": 100,
+      "h": 100,
+      "label": "axe___main_0",
+      "norm_x_start": 0.0,
+      "norm_x_end": 0.16,
+      "norm_y_start": 0.83,
+      "norm_y_end": 1.0
+    }
+  ],
+  "anim_list": []
+}

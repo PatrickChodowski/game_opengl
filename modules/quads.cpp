@@ -55,21 +55,22 @@ namespace quads
     }
     quad.entity_type_id = ecs::entities.at(entity_id).entity_type_id;
     quad.camera_type = ecs::renderdatas.at(entity_id).camera_type;
-    quad.r = ecs::colors.at(entity_id).r;
-    quad.g = ecs::colors.at(entity_id).g;
-    quad.b = ecs::colors.at(entity_id).b;
-    quad.a = ecs::colors.at(entity_id).a;
-    quad.x = ecs::positions.at(entity_id).x;
-    quad.y = ecs::positions.at(entity_id).y;
-    quad.z = ecs::positions.at(entity_id).z;
-    quad.w = ecs::dimensions.at(entity_id).w;
-    quad.h = ecs::dimensions.at(entity_id).h;
-    quad.window_x = ecs::positions.at(entity_id).x;
-    quad.window_y = ecs::positions.at(entity_id).y;
-    quad.window_h = ecs::dimensions.at(entity_id).h;
-    quad.window_w = ecs::dimensions.at(entity_id).w;
+    ecs::PositionComponent pos = ecs::positions.at(entity_id);
+    ecs::ColorComponent color = ecs::colors.at(entity_id);
+    quad.r = color.r;
+    quad.g = color.g;
+    quad.b = color.b;
+    quad.a = color.a;
+    quad.x = pos.x;
+    quad.y = pos.y;
+    quad.z = pos.z;
+    quad.w = pos.w;
+    quad.h = pos.h;
+    quad.window_x = pos.x;
+    quad.window_y = pos.y;
+    quad.window_h = pos.h;
+    quad.window_w = pos.w;
     quad.is_clicked = ecs::renderdatas.at(entity_id).is_clicked;
-    quad.is_deleted = false;
     quads::AllQuads.push_back(quad);
   }
 
