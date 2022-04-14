@@ -79,7 +79,7 @@ namespace scripts
   void _drop_mob()
   {
     // Function 1 -> drop mob
-    mobs::drop(args["entity_id"]);
+    //mobs::drop(args["entity_id"]);
   }
 
   void _interact_npc()
