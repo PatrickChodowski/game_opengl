@@ -62,7 +62,7 @@ namespace fonts
       quad.frame_id = fonts::CharacterAtlas[p];
 
       if(quad.model_id > -1){
-        quad.texture_id = models::SceneModels.at(quad.model_id);
+        quad.texture_id = models::ModelTextureMap.at(quad.model_id);
         quad.norm_x_start = models::models.at(quad.model_id).frames.at(quad.frame_id).norm_x_start;
         quad.norm_x_end = models::models.at(quad.model_id).frames.at(quad.frame_id).norm_x_end;
         quad.norm_y_start = models::models.at(quad.model_id).frames.at(quad.frame_id).norm_y_start;

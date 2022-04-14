@@ -103,13 +103,12 @@ namespace game
     quads::clear();
     maps::render();
     quads::render();
-    models::bind();
     fonts::render();
     nav::render();
 
     int sampler_size = (models::SceneModels.size() + 1);
-    int sampler[sampler_size]; 
-    models::populate_sampler(sampler);
+    int sampler[sampler_size];
+    models::make_sampler(sampler, sampler_size);
  
     quads::update();
     camera::scale_quads(camera::cam.x, camera::cam.y, camera::cam.zoom);

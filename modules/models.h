@@ -111,6 +111,8 @@ namespace models
 
   // List of models used in the given scene. Contains Model_id and sampler_texture_index
   extern phmap::flat_hash_map<int, int> SceneModels;
+  extern std::vector<int> SceneModelsList;
+  extern phmap::flat_hash_map<int, int> ModelTextureMap;
 
   // Read all model files
   void init();
@@ -133,20 +135,13 @@ namespace models
   // Loads texture to opengl
   unsigned int _load_texture_to_opengl(unsigned int model_id, int w, int h, int n_channels);
 
-  // Activate selected texture before render
-  void _activate_texture(int model_id);
-
-  // Bind all scene models
-  void bind();
+  void make_sampler(int* arr, int sampler_size);
 
   // Loads model by model id (triggered by Scene initialization, map loading, spawning etc.)
   void load(int model_id);
 
   // Unload model from scene models by model_id
   void unload(int model_id);
-
-  // Populate sampler
-  void populate_sampler(int* arr);
 
   // Prints out models data
   void print_models_data();
