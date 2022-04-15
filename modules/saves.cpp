@@ -105,6 +105,7 @@ namespace saves
     e.dmg = SD.dmg;
     e.def = SD.def;
 
+    e.radius = SD.radius;
     e.animated = true;
 
     camera::cam.x = (SD.x - (game::WINDOW_WIDTH/2) + (SD.w/2));

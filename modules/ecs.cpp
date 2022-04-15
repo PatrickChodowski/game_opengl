@@ -161,11 +161,10 @@ namespace ecs
                                    data->exp, data->speed, data->hp, data->dmg, data->def});
       break;
       case COMPONENT_COLLISIONS:{
-          float diag = std::sqrt(std::pow((data->w/2),2) + std::pow((data->h/2),2));
           float mid_x = data->x + (data->w/2);
           float mid_y = data->y + (data->h/2);
           phmap::flat_hash_map<int, collisions::AABB> abs;
-          ecs::_add_collision(entity_id, {diag, mid_x, mid_y, abs, data->is_solid});
+          ecs::_add_collision(entity_id, {data->radius, mid_x, mid_y, abs, data->is_solid});
         break;
       }
       case COMPONENT_SENSORS:

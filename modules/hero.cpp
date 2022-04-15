@@ -98,6 +98,8 @@ namespace hero
     e.hp = HD.hp;
     e.dmg = HD.dmg;
     e.def = HD.def;
+
+    e.radius = HD.radius;
     e.animated = true;
 
     hero::HERO_ENTITY_ID = ecs::create_entity(&e);
