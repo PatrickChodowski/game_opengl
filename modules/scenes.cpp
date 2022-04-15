@@ -103,7 +103,7 @@ namespace scenes
     std::cout << " [SCENES] Dynamic scene logic for scene " << SCENE_ID_NEW_GAME_MENU << std::endl;
     ecs::TempEntityData e;
     e.name = "new_game_name";
-    e.components = {0,1,2,3,4,5,6};
+    e.components = {0,1,2,3,4,5};
     e.entity_type_id = ENTITY_TYPE_BUTTON;
     e.x = 340;
     e.y = 400;
@@ -144,7 +144,7 @@ namespace scenes
     {
       ecs::TempEntityData e;
       e.name = "load_game_" + saves::saves[s];
-      e.components = {0,1,2,3,4,5,6};
+      e.components = {0,1,2,3,4,5};
       e.entity_type_id = ENTITY_TYPE_BUTTON;
       e.x = start_x;
       e.y = start_y;

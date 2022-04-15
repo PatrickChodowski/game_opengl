@@ -27,7 +27,7 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
   phmap::flat_hash_map<unsigned int, ecs::ButtonComponent> buttons;
   phmap::flat_hash_map<unsigned int, ecs::LabelComponent> labels;
-  phmap::flat_hash_map<unsigned int, ecs::MoveComponent> moves;
+  // phmap::flat_hash_map<unsigned int, ecs::MoveComponent> moves;
   phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
   phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
   phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
@@ -44,7 +44,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_RENDERDATA] = ecs::_drop_renderdata;
     ecs::drop_component[COMPONENT_BUTTON] = ecs::_drop_button;
     ecs::drop_component[COMPONENT_LABEL] = ecs::_drop_label;
-    ecs::drop_component[COMPONENT_MOVE] = ecs::_drop_move;
+    // ecs::drop_component[COMPONENT_MOVE] = ecs::_drop_move;
     ecs::drop_component[COMPONENT_STATS] = ecs::_drop_stat;
     ecs::drop_component[COMPONENT_COLLISIONS] = ecs::_drop_collision;
     ecs::drop_component[COMPONENT_SENSORS] = ecs::_drop_sensor;
@@ -130,7 +130,7 @@ namespace ecs
     switch(component_id) 
     {
       case COMPONENT_POSITION:
-        ecs::_add_position(entity_id, {data->x, data->y, data->z, data->w, data->h});
+        ecs::_add_position(entity_id, {data->x, data->y, data->z, data->w, data->h, data->x, data->y});
       break;
       case COMPONENT_MODEL:
         ecs::_add_model(entity_id, {data->model_id, data->frame_id, data->side_id});
@@ -149,21 +149,23 @@ namespace ecs
                                     data->text_r, data->text_g, data->text_b, data->text_a, 
                                     data->text_x, data->text_y, data->text_z});
       break;
-      case COMPONENT_MOVE:{
-          // No data to init or pass
-          float mid_x = data->x + (data->w/2);
-          float mid_y = data->y + (data->h/2);
-          ecs::_add_move(entity_id, {data->x, data->y, mid_x, mid_y, 0.0});
-        break;
-      }
+      // case COMPONENT_MOVE:{
+      //     // No data to init or pass
+      //     float mid_x = data->x + (data->w/2);
+      //     float mid_y = data->y + (data->h/2);
+      //     ecs::_add_move(entity_id, {data->x, data->y, mid_x, mid_y, 0.0});
+      //   break;
+      // }
       case COMPONENT_STATS:
         ecs::_add_stat(entity_id, {data->level, data->mobs_killed, 
                                    data->exp, data->speed, data->hp, data->dmg, data->def});
       break;
       case COMPONENT_COLLISIONS:{
           float diag = std::sqrt(std::pow((data->w/2),2) + std::pow((data->h/2),2));
+          float mid_x = data->x + (data->w/2);
+          float mid_y = data->y + (data->h/2);
           phmap::flat_hash_map<int, collisions::AABB> abs;
-          ecs::_add_collision(entity_id, {diag, abs, data->is_solid});
+          ecs::_add_collision(entity_id, {diag, mid_x, mid_y, abs, data->is_solid});
         break;
       }
       case COMPONENT_SENSORS:
@@ -224,11 +226,11 @@ namespace ecs
     ecs::labels.insert(std::pair<int, ecs::LabelComponent>{entity_id, label});
   };
 
-  void _add_move(int entity_id, ecs::MoveComponent move)
-  {
-    std::cout << " [ECS] Adding move component for entity " << entity_id << std::endl;
-    ecs::moves.insert(std::pair<int, ecs::MoveComponent>{entity_id, move});
-  }
+  // void _add_move(int entity_id, ecs::MoveComponent move)
+  // {
+  //   std::cout << " [ECS] Adding move component for entity " << entity_id << std::endl;
+  //   ecs::moves.insert(std::pair<int, ecs::MoveComponent>{entity_id, move});
+  // }
 
   void _add_collision(int entity_id, ecs::CollisionsComponent collision)
   {
@@ -310,11 +312,11 @@ namespace ecs
     ecs::labels.erase(entity_id);
   };
 
-  void _drop_move(int entity_id)
-  {
-    std::cout << " [ECS] Dropping move component for entity " << entity_id << std::endl;
-    ecs::moves.erase(entity_id);
-  };
+  // void _drop_move(int entity_id)
+  // {
+  //   std::cout << " [ECS] Dropping move component for entity " << entity_id << std::endl;
+  //   ecs::moves.erase(entity_id);
+  // };
 
   void _drop_stat(int entity_id)
   {
@@ -362,16 +364,22 @@ namespace ecs
 
   void update_position_diff(int entity_id, float x, float y)
   {
-    if(ecs::moves.count(entity_id))
+    if(ecs::positions.count(entity_id))
     { 
-      float new_x = ecs::positions.at(entity_id).x += x;
-      float new_y = ecs::positions.at(entity_id).y -= y;
-      ecs::moves.at(entity_id).prev_x = ecs::positions.at(entity_id).x;
-      ecs::moves.at(entity_id).prev_y = ecs::positions.at(entity_id).y;
-      ecs::moves.at(entity_id).mid_x = new_x + (ecs::positions.at(entity_id).w/2);
-      ecs::moves.at(entity_id).mid_y = new_y + (ecs::positions.at(entity_id).h/2);
+      ecs::PositionComponent pos = ecs::positions.at(entity_id);
+
+      float new_x = pos.x += x;
+      float new_y = pos.y -= y;
+      ecs::positions.at(entity_id).prev_x = pos.x;
+      ecs::positions.at(entity_id).prev_y = pos.y;
       ecs::positions.at(entity_id).x = new_x;
       ecs::positions.at(entity_id).y = new_y;
+
+      if(ecs::collisions.count(entity_id))
+      {
+        ecs::collisions.at(entity_id).mid_x = new_x + (pos.w/2);
+        ecs::collisions.at(entity_id).mid_y = new_y + (pos.h/2);
+      }
 
       //std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << " new pos: (" << new_x << "," << new_y << ")"<< std::endl;
     }
@@ -379,16 +387,21 @@ namespace ecs
 
   void update_position(int entity_id, float x, float y)
   {
-    if(ecs::moves.count(entity_id))
+    if(ecs::positions.count(entity_id))
     { 
+      ecs::PositionComponent pos = ecs::positions.at(entity_id);
       float new_x = x;
       float new_y = y;
-      ecs::moves.at(entity_id).prev_x = ecs::positions.at(entity_id).x;
-      ecs::moves.at(entity_id).prev_y = ecs::positions.at(entity_id).y;
-      ecs::moves.at(entity_id).mid_x = new_x + (ecs::positions.at(entity_id).w/2);
-      ecs::moves.at(entity_id).mid_y = new_y + (ecs::positions.at(entity_id).h/2);
+      ecs::positions.at(entity_id).prev_x = pos.x;
+      ecs::positions.at(entity_id).prev_y = pos.y;
       ecs::positions.at(entity_id).x = new_x;
       ecs::positions.at(entity_id).y = new_y;
+
+      if(ecs::collisions.count(entity_id))
+      {
+        ecs::collisions.at(entity_id).mid_x = new_x + (pos.w/2);
+        ecs::collisions.at(entity_id).mid_y = new_y + (pos.h/2);
+      }
 
       //std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << " new pos: (" << new_x << "," << new_y << ")"<< std::endl;
     }
@@ -400,19 +413,21 @@ namespace ecs
     {
       ecs::positions.at(entity_id).x = x;
       ecs::positions.at(entity_id).y = y;
+      ecs::positions.at(entity_id).prev_y = y;
+      ecs::positions.at(entity_id).prev_x = x;
       std::cout << " [ECS][POSITION] Setting position of entity " << entity_id << " to (" << x << "," << y << ")" << std::endl;
     } 
   }
 
   void revert_position_x(int entity_id)
   {
-    ecs::positions.at(entity_id).x = ecs::moves.at(entity_id).prev_x;
+    ecs::positions.at(entity_id).x = ecs::positions.at(entity_id).prev_x;
     //hero::_update_joints();
   }
 
   void revert_position_y(int entity_id)
   {
-    ecs::positions.at(entity_id).y = ecs::moves.at(entity_id).prev_y;
+    ecs::positions.at(entity_id).y = ecs::positions.at(entity_id).prev_y;
     //hero::_update_joints();
   }
 
