@@ -66,7 +66,7 @@ namespace mobs
     mobs::MobData MOB = mobs::mobs.at(mob_id);
     ecs::TempEntityData e;
     e.name = MOB.name;
-    e.components = {0,1,2,3,6,7,8,13};
+    e.components = {0,1,2,3,7,8,13};
     e.entity_type_id = ENTITY_TYPE_LIVE;
     e.x = x;
     e.y = y;

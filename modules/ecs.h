@@ -56,8 +56,7 @@ namespace ecs
     float text_size;
     float text_r, text_g, text_b, text_a;
     float text_x, text_y, text_z;
-    // Move
-    // Move has nothing
+
 
     // Stats (for hero, for mobs etc.)
     int level, mobs_killed;
@@ -106,7 +105,7 @@ namespace ecs
   };
 
 
-  // Component 0: Position data -> x, y, z, w, h
+  // Component 0: Position data -> x, y, z, w, h, prev_x, prev_y
   struct PositionComponent
   { 
     float x;
@@ -114,6 +113,8 @@ namespace ecs
     float z;
     float w;
     float h;
+    float prev_x;
+    float prev_y;
   };
 
   // Component 1: Model data -> model_id, frame_id, side_id
@@ -160,15 +161,15 @@ namespace ecs
     float text_z;
   };
 
-  // Component 6: Move component -> prev_x, prev_y, mid_x, mid_y, direction
-  struct MoveComponent
-  {
-    float prev_x;
-    float prev_y;
-    float mid_x;
-    float mid_y;
-    float direction;
-  };
+  // // Component 6: Move component -> prev_x, prev_y, mid_x, mid_y, direction
+  // struct MoveComponent
+  // {
+  //   float prev_x;
+  //   float prev_y;
+  //   float mid_x;
+  //   float mid_y;
+  //   float direction;
+  // };
 
   // Component 7: Stats component -> level, mobs_killed, exp, speed, hp, dmg, def
   struct StatsComponent
@@ -186,6 +187,8 @@ namespace ecs
   struct CollisionsComponent
   {
     float diag;
+    float mid_x;
+    float mid_y;
     phmap::flat_hash_map<int, collisions::AABB> abs; 
     bool is_solid;
   };
@@ -239,7 +242,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::RenderdataComponent> renderdatas;
   extern phmap::flat_hash_map<unsigned int, ecs::ButtonComponent> buttons;
   extern phmap::flat_hash_map<unsigned int, ecs::LabelComponent> labels;
-  extern phmap::flat_hash_map<unsigned int, ecs::MoveComponent> moves;
+  //extern phmap::flat_hash_map<unsigned int, ecs::MoveComponent> moves;
   extern phmap::flat_hash_map<unsigned int, ecs::StatsComponent> stats;
   extern phmap::flat_hash_map<unsigned int, ecs::CollisionsComponent> collisions;
   extern phmap::flat_hash_map<unsigned int, ecs::SensorsComponent> sensors;
@@ -283,7 +286,7 @@ namespace ecs
   void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata);
   void _add_button(int entity_id, ecs::ButtonComponent button);
   void _add_label(int entity_id, ecs::LabelComponent label);
-  void _add_move(int entity_id, ecs::MoveComponent move);
+  //void _add_move(int entity_id, ecs::MoveComponent move);
   void _add_stat(int entity_id, ecs::StatsComponent stat);
   void _add_collision(int entity_id, ecs::CollisionsComponent collision);
   void _add_sensor(int entity_id, ecs::SensorsComponent sensor);
@@ -299,7 +302,7 @@ namespace ecs
   void _drop_renderdata(int entity_id);
   void _drop_button(int entity_id);
   void _drop_label(int entity_id);
-  void _drop_move(int entity_id);
+  //void _drop_move(int entity_id);
   void _drop_stat(int entity_id);
   void _drop_collision(int entity_id);
   void _drop_sensor(int entity_id);

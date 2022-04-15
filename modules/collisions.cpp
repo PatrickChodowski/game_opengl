@@ -25,12 +25,20 @@ namespace collisions
 
   void update()
   {
-    // For each entity with sensors
-    for (auto const& [entity_id, sensors_data] : ecs::sensors)
+    for(auto const& [entity_id, sensors_data]: ecs::sensors)
     {
+      for(auto const& [collider_entity_id, collision_data]: ecs::collisions)
+      {
+        if(entity_id != collider_entity_id){
 
+          // get to mid point?
+          collisions::DistanceToObject _get_entity_to_entity_distance(int entity_id, int target_entity_id);
+
+
+
+        }
+      }
     }
-
   };
 
 
@@ -164,15 +172,14 @@ namespace collisions
   {
     ecs::sensors.at(entity_id).sensors.clear();
     ecs::PositionComponent pos = ecs::positions.at(entity_id);
+    ecs::CollisionsComponent cols = ecs::collisions.at(entity_id);
 
     for(int i=0; i < collisions::SENSOR_COUNT; i++)
     {
-      ecs::PositionComponent pos = ecs::positions.at(entity_id);
-      ecs::MoveComponent mov = ecs::moves.at(entity_id);
       collisions::Sensor s;
       switch(i) {
         case SENSOR_TOP:
-            s.x = mov.mid_x;
+            s.x = cols.mid_x;
             s.y = (pos.y - collisions::SENSOR_OFFSET);
             s.id = SENSOR_TOP;
             ecs::sensors.at(entity_id).sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP, s));
@@ -196,7 +203,7 @@ namespace collisions
             ecs::sensors.at(entity_id).sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM_RIGHT, s));
         break;
         case SENSOR_BOTTOM:
-            s.x = mov.mid_x;
+            s.x = cols.mid_x;
             s.y = (pos.y + pos.h + collisions::SENSOR_OFFSET);
             s.id = SENSOR_BOTTOM;
             ecs::sensors.at(entity_id).sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_BOTTOM, s));
@@ -209,7 +216,7 @@ namespace collisions
         break;
         case SENSOR_LEFT:
             s.x = pos.x - collisions::SENSOR_OFFSET ;
-            s.y = mov.mid_y;
+            s.y = cols.mid_y;
             s.id = SENSOR_LEFT;
             ecs::sensors.at(entity_id).sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_LEFT, s));
         break;
@@ -220,8 +227,8 @@ namespace collisions
             ecs::sensors.at(entity_id).sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_TOP_LEFT, s));
         break;
         case SENSOR_CENTER:
-            s.x = mov.mid_x;
-            s.y = mov.mid_y;
+            s.x = cols.mid_x;
+            s.y = cols.mid_y;
             s.id = SENSOR_CENTER;
             ecs::sensors.at(entity_id).sensors.insert(std::pair<int, collisions::Sensor>(SENSOR_CENTER, s));
         break;
