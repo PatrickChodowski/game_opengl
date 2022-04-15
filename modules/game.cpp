@@ -12,7 +12,7 @@
 #include "buffer.h"
 #include "buttons.h"
 #include "camera.h"
-//#include "collisions.h"
+#include "collisions.h"
 #include "debug.h"
 #include "ecs.h"
 #include "events.h"
@@ -100,7 +100,9 @@ namespace game
 
   void update()
   {
-
+    travel::update();
+    collisions::update();
+    anims::update();
     quads::clear();
     maps::render();
     quads::render();

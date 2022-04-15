@@ -75,13 +75,13 @@ namespace hero
     hero::HeroData HD = hero::read_data(type);
     ecs::TempEntityData e;
     e.name = name;
-    e.components = {0,1,2,3,6,7};
+    e.components = {0,1,2,3,6,7,8,9};
     e.entity_type_id = ENTITY_TYPE_LIVE;
     e.x = x;
     e.y = y;
     e.z = 0.3;
-    e.w = 200;
-    e.h = 200;
+    e.w = HD.w;
+    e.h = HD.h;
     e.r = 0.5;
     e.g = 0.5;
     e.b = 0.5;

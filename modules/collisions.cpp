@@ -22,6 +22,18 @@ namespace collisions
   std::vector<collisions::DistanceToObject> distances = {};
   std::vector<int> near_items = {};
 
+
+  void update()
+  {
+    // For each entity with sensors
+    for (auto const& [entity_id, sensors_data] : ecs::sensors)
+    {
+
+    }
+
+  };
+
+
   collisions::DistanceToObject _get_entity_to_entity_distance(int entity_id, int target_entity_id)
   {
     ecs::PositionComponent target_pos = ecs::positions.at(target_entity_id);
