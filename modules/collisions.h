@@ -57,6 +57,9 @@ namespace collisions
 
   extern std::vector<collisions::DistanceToObject> distances;
 
+  // Update collisions each frame
+  void update();
+
   // Gets distance from entity to single entity object
   collisions::DistanceToObject _get_entity_to_entity_distance(int entity_id, int target_entity_id);
 

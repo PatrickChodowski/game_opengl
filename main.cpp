@@ -4,13 +4,10 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-#include "modules/anims.h"
-// #include "modules/collisions.h"
 #include "modules/events.h"
 #include "modules/game.h"
 #include "modules/utils.h"
 #include "modules/timer.h"
-#include "modules/travel.h"
 
 #include "dictionary.h"
 
@@ -42,31 +39,16 @@ int main()
 
   while(game::RUNNING)
   {
-    //std::cout << "LOOP START" << std::endl;
     std::chrono::time_point<std::chrono::high_resolution_clock> game_loop_start_time = timer::get_current_hrc_time();
     SDL_Event event;
-
-    //std::cout << "BEFORE HANDLE EVENTS" << std::endl;
     events::handle_events(event);
-    //std::cout << "AFTER HANDLE EVENTS" << std::endl;
-    
-    // Mobs/NPCs movements here?
-    travel::update();
-    //collisions::handle_entity_collisions(hero::hero.entity_id);
-    //std::cout << "AFTER TRAVEL UPDATE" << std::endl;
-
-    anims::update();
     game::update();
     SDL_GL_SwapWindow(WINDOW);
-
     std::chrono::time_point<std::chrono::high_resolution_clock> game_loop_end_time = timer::get_current_hrc_time();
     float delay = timer::get_delay_ms(game_loop_start_time, game_loop_end_time);
     SDL_Delay(delay);
-
     if(delay < min_delay){min_delay = delay; std::cout << "delay:" << delay << std::endl;}
     FPS = timer::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
-
-    //std::cout << "LOOP END" << std::endl;
   }
 
   game::drop();
