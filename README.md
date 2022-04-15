@@ -82,17 +82,11 @@ python3 app.py
 
 ### Entities
 ECS:
- - mobs, npcs: make temp models
-
- - travel -> use Side ID for mob animation
-
  - collisions with new objects -> items, mobs, entities, doors
 
  AND THEN:
  - picking up items
  - going through the door
- - spawning mob
- - mob able to travel
  - interacting with npc
  - displaying menu
 

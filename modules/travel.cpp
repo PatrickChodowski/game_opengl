@@ -87,6 +87,8 @@ namespace travel
 
     travel::travels[entity_id] = tp;
     std::cout << " [TRAVEL] Initialized travel to  (" << target_x << "," << target_y <<  ") for " << entity_id << std::endl;
+    std::cout << " [TRAVEL] Current position is (" << tp.current_x << "," << tp.current_y <<  ")" << std::endl;
+    std::cout << " [TRAVEL] Target node: " << tp.target_node << " current node: " <<  tp.current_node << std::endl;
   }
 
   travel::TravelData make_basic_plan(int current_node_id, int target_node_id)
@@ -121,6 +123,7 @@ namespace travel
 
     // if we are not at the target yet, we move
     float dist_to_target = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
+    //std::cout << "Entity " << tp.entity_id << " speed:" << ecs::stats.at(tp.entity_id).speed << std::endl;
     if(dist_to_target > ecs::stats.at(tp.entity_id).speed)
     {
       // if we are not at the target node
@@ -163,6 +166,7 @@ namespace travel
         }
 
       } else if (tp.current_node == tp.target_node){
+        //std::cout << "HHERE? " << std::endl;
         float dist = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
         float angle = travel::_get_angle_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
         float x1 = ecs::positions.at(tp.entity_id).x + cos(angle) * ecs::stats.at(tp.entity_id).speed;
@@ -182,24 +186,18 @@ namespace travel
 
   void _animate_by_direction(int entity_id, float angle)
   {
-    // // Looks like very much temporary function
-    if(cos(angle) > 0)
-    {// going left
-      anims::start(2,entity_id);
-    } else if (cos(angle) < 0)
-    {// going right
-      anims::start(3,entity_id);
+    if(cos(angle) > 0){
+       ecs::models.at(entity_id).side_id = ANIM_SIDE_LEFT; // going left
+    } else if (cos(angle) < 0){
+      ecs::models.at(entity_id).side_id = ANIM_SIDE_RIGHT; // going right
     }
     
-    if(sin(angle) >0.5)
-    {
-      // going up
-      anims::start(0,entity_id);
-    } else if (sin(angle) < -0.5)
-    {// going down
-      anims::start(1,entity_id);
+    if(sin(angle) > 0.5){
+      ecs::models.at(entity_id).side_id = ANIM_SIDE_FRONT; // going up
+    } else if (sin(angle) < -0.5){
+      ecs::models.at(entity_id).side_id = ANIM_SIDE_BACK; // going down
     }
-
+     anims::start(ANIM_UNARMED_WALK_FORWARD, entity_id);
   }
 
   void update()
@@ -207,8 +205,7 @@ namespace travel
     travel::travels_to_cancel.clear();
     for (auto & [k, v] : travel::travels)
     {  
-      if(v.state == TRAVEL_STATE_ACTIVE)
-      {
+      if(v.state == TRAVEL_STATE_ACTIVE){
         travel::go(v);
       }
     }
@@ -229,6 +226,5 @@ namespace travel
   {
     travel::travels.clear();
     travel::travels_to_cancel.clear();
-
   }
 }

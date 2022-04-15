@@ -360,12 +360,29 @@ namespace ecs
 
 
 
-  void update_position(int entity_id, float x, float y)
+  void update_position_diff(int entity_id, float x, float y)
   {
     if(ecs::moves.count(entity_id))
     { 
       float new_x = ecs::positions.at(entity_id).x += x;
       float new_y = ecs::positions.at(entity_id).y -= y;
+      ecs::moves.at(entity_id).prev_x = ecs::positions.at(entity_id).x;
+      ecs::moves.at(entity_id).prev_y = ecs::positions.at(entity_id).y;
+      ecs::moves.at(entity_id).mid_x = new_x + (ecs::positions.at(entity_id).w/2);
+      ecs::moves.at(entity_id).mid_y = new_y + (ecs::positions.at(entity_id).h/2);
+      ecs::positions.at(entity_id).x = new_x;
+      ecs::positions.at(entity_id).y = new_y;
+
+      //std::cout << " [ECS][MOVE] Updating position for entity " << entity_id << " new pos: (" << new_x << "," << new_y << ")"<< std::endl;
+    }
+  }
+
+  void update_position(int entity_id, float x, float y)
+  {
+    if(ecs::moves.count(entity_id))
+    { 
+      float new_x = x;
+      float new_y = y;
       ecs::moves.at(entity_id).prev_x = ecs::positions.at(entity_id).x;
       ecs::moves.at(entity_id).prev_y = ecs::positions.at(entity_id).y;
       ecs::moves.at(entity_id).mid_x = new_x + (ecs::positions.at(entity_id).w/2);

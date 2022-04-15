@@ -75,7 +75,7 @@ namespace events
       camera::cam.previous_y = camera::cam.y;
       camera::cam.x += camera::cam.move_x;
       camera::cam.y += camera::cam.move_y;
-      ecs::update_position(hero::HERO_ENTITY_ID, camera::cam.move_x, camera::cam.move_y);
+      ecs::update_position_diff(hero::HERO_ENTITY_ID, camera::cam.move_x, camera::cam.move_y);
     }
 
   }
