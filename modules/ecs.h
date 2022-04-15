@@ -313,6 +313,9 @@ namespace ecs
   // Update entity position and move components
   void update_position(int entity_id, float x, float y);
 
+  // Update entity position and move components based on difference from current position
+  void update_position_diff(int entity_id, float x, float y);
+
   // Just sets position of non moving entity, no fluff
   void set_position(int entity_id, float x, float y);
 

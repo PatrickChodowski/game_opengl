@@ -195,7 +195,7 @@ namespace buffer
       arr[(start_position+9)] = 0; // tx_y
       arr[(start_position+10)] = 0; // texture_id
       arr[(start_position+11)] = 0; // is_clicked
-      arr[(start_position+12)] = ENTITY_TYPE_GUI;
+      arr[(start_position+12)] = ENTITY_TYPE_COLOR;
       arr[(start_position+13)] = CAMERA_DYNAMIC;
 
       arr[(start_position+cva)] = lines[t].x2;
@@ -210,7 +210,7 @@ namespace buffer
       arr[(start_position+(cva+9))] = 0; // tx_y
       arr[(start_position+(cva+10))] = 0; // texture_id
       arr[(start_position+(cva+11))] = 0; // is_clicked
-      arr[(start_position+(cva+12))] = ENTITY_TYPE_GUI;
+      arr[(start_position+(cva+12))] = ENTITY_TYPE_COLOR;
       arr[(start_position+(cva+13))] = CAMERA_DYNAMIC;
     }
   }
