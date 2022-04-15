@@ -73,6 +73,8 @@ namespace items
     e.item_speed = ITEM.max_speed;
     e.item_location = item_location_id;
 
+    e.radius = ITEM.radius;
+
     models::load(e.model_id);
     int item_entity_id = ecs::create_entity(&e);
     return item_entity_id;

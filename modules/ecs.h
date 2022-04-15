@@ -187,7 +187,7 @@ namespace ecs
   // Component 8: Collisions component -> diag, AABB boxes, is_solid
   struct CollisionsComponent
   {
-    float diag;
+    float radius;
     float mid_x;
     float mid_y;
     phmap::flat_hash_map<int, collisions::AABB> abs; 

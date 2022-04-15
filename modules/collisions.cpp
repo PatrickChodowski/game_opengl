@@ -20,62 +20,44 @@ namespace collisions
   int SENSOR_OFFSET = 1;
   int ABS_COUNT = 1;
   std::vector<collisions::DistanceToObject> distances = {};
-  std::vector<int> near_items = {};
+  phmap::flat_hash_map<int, sig_ptr> resolve;
 
 
   void update()
   {
+    collisions::clear();
     for(auto const& [entity_id, sensors_data]: ecs::sensors)
     {
       for(auto const& [collider_entity_id, collision_data]: ecs::collisions)
       {
         if(entity_id != collider_entity_id){
-
-          // get to mid point?
-          collisions::DistanceToObject _get_entity_to_entity_distance(int entity_id, int target_entity_id);
-
-
-
+          collisions::_get_entity_to_entity_distance(entity_id, collider_entity_id);
         }
       }
+    }
+
+    for(int c=0; c<collisions::distances.size(); c++)
+    {
+      int target_type = collisions::distances[c].target_entity_type_id;
+      collisions::resolve[target_type](collisions::distances[c]);
     }
   };
 
-
-  collisions::DistanceToObject _get_entity_to_entity_distance(int entity_id, int target_entity_id)
+  void _get_entity_to_entity_distance(int entity_id, int target_entity_id)
   {
-    ecs::PositionComponent target_pos = ecs::positions.at(target_entity_id);
-    ecs::PositionComponent pos = ecs::positions.at(entity_id);
     ecs::CollisionsComponent target_point = ecs::collisions.at(target_entity_id);
     ecs::CollisionsComponent point = ecs::collisions.at(entity_id);
-    float dist = utils::get_distance_between_points(target_point.mid_x,  target_point.mid_y, point.mid_x, point.mid_y);
-
-    float dist_limit = ecs::collisions.at(entity_id).diag + ecs::collisions.at(target_entity_id).diag;
-    collisions::DistanceToObject dto;
-    dto.entity_id = entity_id;
-    dto.object_id = target_entity_id;
-    dto.object_type = ENTITY_TYPE_LIVE;
-    dto.distance = dist;
-    dto.limit = dist_limit;
-    dto.is_solid = ecs::collisions.at(target_entity_id).is_solid;
-    dto.is_near = false;
-    if(dist <= dist_limit){
-      dto.is_near = true;
-    }
-    return dto;
-  }
-
-  void get_distances(int entity_id)
-  {
-    collisions::clear();
-    for (auto const& [target_entity_id, collision_data]: ecs::collisions)
-    {
-      if(target_entity_id != entity_id){
-        collisions::DistanceToObject dto = _get_entity_to_entity_distance(entity_id, target_entity_id);
-        if(dto.is_near){
-          collisions::distances.push_back(dto);
-        }
-      }
+    float distance = utils::get_distance_between_points(target_point.mid_x,  target_point.mid_y, point.mid_x, point.mid_y);
+    float distance_limit = point.radius + target_point.radius;
+    if(distance <= distance_limit){
+      collisions::DistanceToObject dto;
+      dto.entity_id = entity_id;
+      dto.target_entity_id = target_entity_id;
+      dto.target_entity_type_id = ecs::entities.at(target_entity_id).entity_type_id;
+      dto.distance = distance;
+      dto.limit = distance_limit;
+      dto.is_solid = ecs::collisions.at(target_entity_id).is_solid;
+      collisions::distances.push_back(dto);
     }
   }
 
@@ -85,17 +67,11 @@ namespace collisions
     int entity_id;
     for(int i=0; i<collisions::distances.size(); i++)
     {
-      if(collisions::distances[i].object_type == ENTITY_TYPE_LIVE){
-        if(ecs::entities.at(collisions::distances[i].object_id).entity_type_id == ENTITY_TYPE_ITEM){
-          collisions::near_items.push_back(collisions::distances[i].object_id);
-        }
-      }
-
       if(collisions::distances[i].is_solid){
 
         entity_id = collisions::distances[i].entity_id;
-        int object_id = collisions::distances[i].object_id;
-        int object_type = collisions::distances[i].object_type;
+        int object_id = collisions::distances[i].target_entity_id;
+        int object_type = collisions::distances[i].target_entity_type_id;
 
         float sensor_center_x = ecs::sensors.at(entity_id).sensors[SENSOR_CENTER].x;
         float sensor_center_y = ecs::sensors.at(entity_id).sensors[SENSOR_CENTER].y;
@@ -258,6 +234,9 @@ namespace collisions
 
   void init()
   {
+    collisions::resolve[ENTITY_TYPE_ITEM] = _resolve_items;
+    collisions::resolve[ENTITY_TYPE_DOOR] = _resolve_doors;
+    collisions::resolve[ENTITY_TYPE_LIVE] = _resolve_solid;
     std::cout << "Collisions Initialized" << std::endl;
   }
 
@@ -265,30 +244,18 @@ namespace collisions
   {
     for(int i = 0; i < collisions::distances.size(); i++)
     {
-      _set_abs_entity(collisions::distances[i].object_id);
+      _set_abs_entity(collisions::distances[i].target_entity_id);
     }
   }
 
-  void handle_entity_collisions(int entity_id)
+  void clear()
   {
-    if(entity_id > -1)
-    {
-      collisions::get_distances(entity_id);
-      if(collisions::distances.size() > 0)
-      {
-        collisions::_set_sensors(entity_id);
-        collisions::_set_abs();
-        collisions::_resolve_solid_collisions();
-      }
-      // if(collisions::door_distances.size()>0)
-      // {
-      //   collisions::_resolve_doors();
-      // }
-    }
+    collisions::distances.clear();
   }
 
-  void _resolve_doors()
+  void _resolve_doors(collisions::DistanceToObject &dto)
   {
+    std::cout << " [COLLISIONS] Resolving doors" << std::endl;
     // for(int i=0; i<collisions::door_distances.size(); i++)
     // {
     //   int dest_scene_id = maps::maps[game::MAP_ID].doors[collisions::door_distances[i].object_id].dest_scene_id;
@@ -297,14 +264,16 @@ namespace collisions
     //   std::cout << "Switching level to " << dest_scene_id << std::endl;
     //   game::switch_scene(dest_scene_id, SCENE_LOAD_CHANGE_LEVEL);
     // }
-  }
+  };
 
-  void clear()
+  void _resolve_items(collisions::DistanceToObject &dto)
   {
-    collisions::distances.clear();
-    //collisions::door_distances.clear();
-    collisions::near_items.clear();
-  }
+    std::cout << " [COLLISIONS] Resolving items" << std::endl;
+  };
 
+  void _resolve_solid(collisions::DistanceToObject &dto)
+  {
+    std::cout << " [COLLISIONS] Resolving solid" << std::endl;
+  };
 
 }

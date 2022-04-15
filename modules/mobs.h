@@ -17,6 +17,7 @@ namespace mobs
     int model_id;
     float w;
     float h;
+    float radius;
     float min_dmg;
     float max_dmg;
     float min_speed;
@@ -27,7 +28,7 @@ namespace mobs
     float max_def;
     std::string name;
 
-    JS_OBJ(mob_id, model_id, w, h, min_dmg, max_dmg, min_speed,
+    JS_OBJ(mob_id, model_id, w, h, radius, min_dmg, max_dmg, min_speed,
     max_speed, min_hp, max_hp, min_def, max_def, name);
   };
 

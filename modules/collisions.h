@@ -13,7 +13,6 @@ namespace collisions
   extern int SENSOR_COUNT;
   extern int SENSOR_OFFSET;
   extern int ABS_COUNT;
-  extern std::vector<int> near_items;
 
   // AABB data for the entity
   struct AABB
@@ -46,14 +45,19 @@ namespace collisions
   struct DistanceToObject
   {
     int entity_id;
-    int object_id; // can be map object, can be entity
-    int object_type; //map or entity
+    int target_entity_id;
+    int target_entity_type_id; // map, live, item, door
 
     float distance;
     float limit; // sum of entity diagonals
     bool is_solid;
-    bool is_near;
   };
+
+
+  typedef void (*sig_ptr)(collisions::DistanceToObject &dto);
+  // Resolve collision functor
+  extern phmap::flat_hash_map<int, sig_ptr> resolve;
+
 
   extern std::vector<collisions::DistanceToObject> distances;
 
@@ -61,7 +65,7 @@ namespace collisions
   void update();
 
   // Gets distance from entity to single entity object
-  collisions::DistanceToObject _get_entity_to_entity_distance(int entity_id, int target_entity_id);
+  void _get_entity_to_entity_distance(int entity_id, int target_entity_id);
 
   // Find broad collisions for entity (by default its the hero, but lets leave the option)
   void get_distances(int entity_id);
@@ -78,17 +82,20 @@ namespace collisions
   // Sets AABBs boxes on objects flagged by near distances
   void _set_abs();
 
-  // Calculates near distances to entities and map objects. Sets sensors, abs and resolves collisions
-  void handle_entity_collisions(int entity_id);
-
-  // Fill out AABBsHandler
+  // Fill resolve functor
   void init();
 
   // Clear distances data
   void clear();
 
   // Resolve doors -> go through doors if there are doors
-  // void _resolve_doors();
+  void _resolve_doors(collisions::DistanceToObject &dto);
+
+  // Resolve items collision
+  void _resolve_items(collisions::DistanceToObject &dto);
+
+  // Resolve solid collision
+  void _resolve_solid(collisions::DistanceToObject &dto);
 
 }
 
