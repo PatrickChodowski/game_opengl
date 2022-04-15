@@ -64,6 +64,7 @@ namespace ecs
     
     
     // Collisions
+    float radius;
     bool is_solid = true;
 
     // Sensors
@@ -96,7 +97,7 @@ namespace ecs
            button_function_id,
            label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
            level, mobs_killed, exp, speed, hp, dmg, def,
-           is_solid,
+           radius, is_solid,
            item_id, item_joint_id, item_dmg, item_speed, item_location,
            equipment,
            npc_id, personality_trait_id, sentiment,

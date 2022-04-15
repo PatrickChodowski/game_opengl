@@ -46,11 +46,10 @@ namespace collisions
   {
     ecs::PositionComponent target_pos = ecs::positions.at(target_entity_id);
     ecs::PositionComponent pos = ecs::positions.at(entity_id);
+    ecs::CollisionsComponent target_point = ecs::collisions.at(target_entity_id);
+    ecs::CollisionsComponent point = ecs::collisions.at(entity_id);
+    float dist = utils::get_distance_between_points(target_point.mid_x,  target_point.mid_y, point.mid_x, point.mid_y);
 
-    float dist = utils::get_distance_between_points(target_pos.x, 
-                                                    target_pos.y, 
-                                                    pos.x, 
-                                                    pos.y);
     float dist_limit = ecs::collisions.at(entity_id).diag + ecs::collisions.at(target_entity_id).diag;
     collisions::DistanceToObject dto;
     dto.entity_id = entity_id;
