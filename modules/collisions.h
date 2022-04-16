@@ -40,6 +40,7 @@ namespace collisions
     std::vector<float> bottom_borders = {};
   };
 
+  extern struct SolidLimits limits;
 
   // Data. stores information about distance between entity and some other object (can be entity or map etc.). Used for collision detection
   struct DistanceToObject
@@ -70,18 +71,15 @@ namespace collisions
   // Find broad collisions for entity (by default its the hero, but lets leave the option)
   void get_distances(int entity_id);
 
-  // Analyze solid collisions from near distances from find_entity_broad_collisions
-  void _resolve_solid_collisions();
+  // Adjust camera according to the solid limits
+  void _use_limits();
 
   // Sets sensors on selected entity
   void _set_sensors(int entity_id);
 
-  // Set abs on entities
+  // Set abs on entity
   void _set_abs_entity(int entity_id);
  
-  // Sets AABBs boxes on objects flagged by near distances
-  void _set_abs();
-
   // Fill resolve functor
   void init();
 

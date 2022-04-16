@@ -22,11 +22,16 @@ namespace collisions
   int ABS_COUNT = 1;
   std::vector<collisions::DistanceToObject> distances = {};
   phmap::flat_hash_map<int, sig_ptr> resolve;
-
+  struct SolidLimits limits;
 
   void update()
   {
     collisions::clear();
+    for(auto & [entity_id, sensors_data]: ecs::sensors)
+    {
+      collisions::_set_sensors(entity_id);
+    }
+
     for(auto const& [entity_id, sensors_data]: ecs::sensors)
     {
       for(auto const& [collider_entity_id, collision_data]: ecs::collisions)
@@ -42,6 +47,8 @@ namespace collisions
       int target_type = collisions::distances[c].target_entity_type_id;
       collisions::resolve[target_type](collisions::distances[c]);
     }
+
+    collisions::_use_limits();
   };
 
   void _get_entity_to_entity_distance(int entity_id, int target_entity_id)
@@ -62,85 +69,31 @@ namespace collisions
     }
   }
 
-  void _resolve_solid_collisions()
+  void _use_limits()
   {
-    struct SolidLimits limits;
-    int entity_id;
-    for(int i=0; i<collisions::distances.size(); i++)
-    {
-      if(collisions::distances[i].is_solid){
-
-        entity_id = collisions::distances[i].entity_id;
-        int object_id = collisions::distances[i].target_entity_id;
-        int object_type = collisions::distances[i].target_entity_type_id;
-
-        float sensor_center_x = ecs::sensors.at(entity_id).sensors[SENSOR_CENTER].x;
-        float sensor_center_y = ecs::sensors.at(entity_id).sensors[SENSOR_CENTER].y;
-
-        // extract AABB box
-        collisions::AABB aabb = ecs::collisions.at(object_id).abs[AABB_FULL];
-
-        // loop through entity sensors
-        for (auto const& [k, v]: ecs::sensors.at(entity_id).sensors)
-        {
-          // entity on the left
-          if((k == SENSOR_TOP_RIGHT || k == SENSOR_RIGHT || k == SENSOR_BOTTOM_RIGHT) && 
-            (v.x >=  aabb.min_x) && 
-            (v.y >=  aabb.min_y && v.y <= aabb.max_y) &&
-            (sensor_center_x < aabb.min_x)){
-            limits.right_borders.push_back(aabb.min_x);
-          }
-
-          // entity on the right
-          if((k == SENSOR_TOP_LEFT || k == SENSOR_LEFT || k == SENSOR_BOTTOM_LEFT) && 
-            (v.x <=  aabb.max_x) && 
-            (v.y >=  aabb.min_y && v.y <= aabb.max_y) &&
-            (sensor_center_x > aabb.max_x)){
-            limits.left_borders.push_back(aabb.max_x);
-          }
-
-          // entity on the top
-          if((k == SENSOR_BOTTOM_RIGHT || k == SENSOR_BOTTOM || k == SENSOR_BOTTOM_LEFT) && 
-            (v.y >=  aabb.min_y) && 
-            (v.x >=  aabb.min_x && v.x <= aabb.max_x) &&
-            (sensor_center_y < aabb.max_y)){
-            limits.bottom_borders.push_back(aabb.min_y);
-          }
-
-          // entity on the bottom
-          if((k == SENSOR_TOP_LEFT || k == SENSOR_TOP || k == SENSOR_TOP_RIGHT) && 
-            (v.y <=  aabb.max_y) && 
-            (v.x >=  aabb.min_x && v.x <= aabb.max_x) &&
-            (sensor_center_y > aabb.min_y)){
-            limits.top_borders.push_back(aabb.max_y);
-          }
-        }
-      }
-    }
-    // resolve collisions
     // entity on the left     x |_|
-    if (limits.right_borders.size() > 0){ 
-      float min_x_border = *std::min_element(limits.right_borders.begin(), limits.right_borders.end());
+    if (collisions::limits.right_borders.size() > 0){ 
+      float min_x_border = *std::min_element(collisions::limits.right_borders.begin(), collisions::limits.right_borders.end());
       camera::cam.x = camera::cam.previous_x;
-      ecs::revert_position_x(entity_id);
+      ecs::revert_position_x(hero::HERO_ENTITY_ID);
     } 
     // entity on the right   |_| x 
-    if (limits.left_borders.size() > 0){ 
-      float max_x_border = *std::max_element(limits.left_borders.begin(), limits.left_borders.end());
+    if (collisions::limits.left_borders.size() > 0){ 
+      float max_x_border = *std::max_element(collisions::limits.left_borders.begin(), collisions::limits.left_borders.end());
       camera::cam.x = camera::cam.previous_x;
-      ecs::revert_position_x(entity_id);
+      ecs::revert_position_x(hero::HERO_ENTITY_ID);
     } 
     // entity on the top 
-    if (limits.bottom_borders.size() > 0){ 
-      float min_y_border = *std::min_element(limits.bottom_borders.begin(), limits.bottom_borders.end());
+    if (collisions::limits.bottom_borders.size() > 0){ 
+      float min_y_border = *std::min_element(collisions::limits.bottom_borders.begin(), collisions::limits.bottom_borders.end());
       camera::cam.y = camera::cam.previous_y;
-      ecs::revert_position_y(entity_id);
+      ecs::revert_position_y(hero::HERO_ENTITY_ID);
     } 
     // entity on the bottom 
-    if (limits.top_borders.size() > 0){ 
-      float max_y_border = *std::min_element(limits.top_borders.begin(), limits.top_borders.end());
+    if (collisions::limits.top_borders.size() > 0){ 
+      float max_y_border = *std::min_element(collisions::limits.top_borders.begin(), collisions::limits.top_borders.end());
       camera::cam.y = camera::cam.previous_y;
-      ecs::revert_position_y(entity_id);
+      ecs::revert_position_y(hero::HERO_ENTITY_ID);
     } 
   }
 
@@ -241,17 +194,13 @@ namespace collisions
     std::cout << "Collisions Initialized" << std::endl;
   }
 
-  void _set_abs()
-  {
-    for(int i = 0; i < collisions::distances.size(); i++)
-    {
-      _set_abs_entity(collisions::distances[i].target_entity_id);
-    }
-  }
-
   void clear()
   {
     collisions::distances.clear();
+    collisions::limits.bottom_borders.clear();
+    collisions::limits.top_borders.clear();
+    collisions::limits.left_borders.clear();
+    collisions::limits.right_borders.clear();
     items::near_items.clear();
   }
 
@@ -276,7 +225,48 @@ namespace collisions
 
   void _resolve_solid(collisions::DistanceToObject &dto)
   {
-    //std::cout << " [COLLISIONS] Resolving solid" << std::endl;
-  };
+    std::cout << " [COLLISIONS] Resolving solid" << std::endl;
 
+    collisions::_set_abs_entity(dto.target_entity_id);
+    if(dto.is_solid){
+      float sensor_center_x = ecs::sensors.at(dto.entity_id).sensors[SENSOR_CENTER].x;
+      float sensor_center_y = ecs::sensors.at(dto.entity_id).sensors[SENSOR_CENTER].y;
+      collisions::AABB aabb = ecs::collisions.at(dto.target_entity_id).abs[AABB_FULL];
+
+      for (auto const& [k, v]: ecs::sensors.at(dto.entity_id).sensors)
+      {
+        // entity on the left
+        if((k == SENSOR_TOP_RIGHT || k == SENSOR_RIGHT || k == SENSOR_BOTTOM_RIGHT) && 
+          (v.x >=  aabb.min_x) && 
+          (v.y >=  aabb.min_y && v.y <= aabb.max_y) &&
+          (sensor_center_x < aabb.min_x)){
+          collisions::limits.right_borders.push_back(aabb.min_x);
+        }
+
+        // entity on the right
+        if((k == SENSOR_TOP_LEFT || k == SENSOR_LEFT || k == SENSOR_BOTTOM_LEFT) && 
+          (v.x <=  aabb.max_x) && 
+          (v.y >=  aabb.min_y && v.y <= aabb.max_y) &&
+          (sensor_center_x > aabb.max_x)){
+          collisions::limits.left_borders.push_back(aabb.max_x);
+        }
+
+        // entity on the top
+        if((k == SENSOR_BOTTOM_RIGHT || k == SENSOR_BOTTOM || k == SENSOR_BOTTOM_LEFT) && 
+          (v.y >=  aabb.min_y) && 
+          (v.x >=  aabb.min_x && v.x <= aabb.max_x) &&
+          (sensor_center_y < aabb.max_y)){
+          collisions::limits.bottom_borders.push_back(aabb.min_y);
+        }
+
+        // entity on the bottom
+        if((k == SENSOR_TOP_LEFT || k == SENSOR_TOP || k == SENSOR_TOP_RIGHT) && 
+          (v.y <=  aabb.max_y) && 
+          (v.x >=  aabb.min_x && v.x <= aabb.max_x) &&
+          (sensor_center_y > aabb.min_y)){
+          collisions::limits.top_borders.push_back(aabb.max_y);
+        }
+      }
+    }
+  }
 }
