@@ -100,10 +100,10 @@ namespace game
 
   void update()
   {
+    quads::clear();
     travel::update();
     collisions::update();
     anims::update();
-    quads::clear();
     maps::render();
     quads::render();
     fonts::render();
