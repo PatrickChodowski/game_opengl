@@ -75,7 +75,7 @@ namespace hero
     hero::HeroData HD = hero::read_data(type);
     ecs::TempEntityData e;
     e.name = name;
-    e.components = {0,1,2,3,7,8,9};
+    e.components = {0,1,2,3,7,8,9,11};
     e.entity_type_id = ENTITY_TYPE_LIVE;
     e.x = x;
     e.y = y;

@@ -70,7 +70,7 @@ namespace ecs
   int create_entity(ecs::TempEntityData *e)
   {
     int entity_id = utils::generate_id(ecs::Index);
-    assert(!ecs::entities.count(entity_id) > 0 && "ERROR DOUBLED ENTITY_ID");
+    assert(!(ecs::entities.count(entity_id) > 0) && "ERROR DOUBLED ENTITY_ID");
 
     ecs::EntityData edd;
     edd.entity_id = entity_id;
@@ -414,6 +414,13 @@ namespace ecs
       ecs::positions.at(entity_id).y = y;
       ecs::positions.at(entity_id).prev_y = y;
       ecs::positions.at(entity_id).prev_x = x;
+
+      if(ecs::collisions.count(entity_id))
+      {
+        ecs::collisions.at(entity_id).mid_x = x + (ecs::positions.at(entity_id).w/2);
+        ecs::collisions.at(entity_id).mid_y = y + (ecs::positions.at(entity_id).h/2);
+      }
+
       std::cout << " [ECS][POSITION] Setting position of entity " << entity_id << " to (" << x << "," << y << ")" << std::endl;
     } 
   }

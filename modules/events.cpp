@@ -156,19 +156,17 @@ namespace events
             break;
 
             case SDLK_e:
-              // for(int c=0; c<collisions::near_items.size(); c++)
-              // {
-              //   items::pickup(collisions::near_items[c]);
-              //   items::put_in_hand(collisions::near_items[c]);
-              // }
+              items::pickup_near_items();
             break;
 
             case SDLK_q:
-              // for(int e=0; e<hero::hero.equipped_items.size(); e++)
-              // {
-              //   items::yeet(hero::hero.equipped_items[e], (hero::hero.x+(e*10)), (hero::hero.y+(e*10)));
-              // }
-              // hero::hero.equipped_items.clear();
+              for(int e=0; e<ecs::equipments.at(hero::HERO_ENTITY_ID).equipment.size(); e++)
+              {
+                items::yeet(hero::HERO_ENTITY_ID, 
+                            ecs::equipments.at(hero::HERO_ENTITY_ID).equipment[e],
+                            ecs::positions.at(hero::HERO_ENTITY_ID).x,
+                            ecs::positions.at(hero::HERO_ENTITY_ID).y);
+              }
             break;
 
             case SDLK_0:
