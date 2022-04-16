@@ -225,10 +225,10 @@ namespace collisions
 
   void _resolve_solid(collisions::DistanceToObject &dto)
   {
-    std::cout << " [COLLISIONS] Resolving solid" << std::endl;
+    //std::cout << " [COLLISIONS] Resolving solid" << std::endl;
 
     collisions::_set_abs_entity(dto.target_entity_id);
-    if(dto.is_solid){
+    if(dto.is_solid){    
       float sensor_center_x = ecs::sensors.at(dto.entity_id).sensors[SENSOR_CENTER].x;
       float sensor_center_y = ecs::sensors.at(dto.entity_id).sensors[SENSOR_CENTER].y;
       collisions::AABB aabb = ecs::collisions.at(dto.target_entity_id).abs[AABB_FULL];
