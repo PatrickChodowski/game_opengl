@@ -163,6 +163,13 @@ namespace collisions
         break;
       }  
     }
+    if(game::IS_DEBUG_MODE){
+      for(auto const& [sensor_id, sensor_data] : ecs::sensors.at(entity_id).sensors)
+      {
+        debug::render_point(sensor_data.x, sensor_data.y, 0.6, 0.6, 0.0, 1.0);
+      }
+    }
+
   }
 
   void _set_abs_entity(int entity_id)
