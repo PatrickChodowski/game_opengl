@@ -39,11 +39,11 @@ namespace saves
     float hp, dmg, def, speed, exp;
 
     // Collisions
-    float radius;
+    float radius_x, radius_y;
 
     //std::vector<npcs::InteractionData> interactions;
     JS_OBJ(name, components, model_id, scene_id, x, y, w, h, 
-           level, mobs_killed, hp, dmg, def, speed, exp, radius);
+           level, mobs_killed, hp, dmg, def, speed, exp, radius_x, radius_y);
   };
 
   // Writes the save json file to saves directory
