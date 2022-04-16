@@ -18,6 +18,8 @@
 namespace items
 {
   phmap::flat_hash_map<int, items::ItemData> items = {};
+  std::vector<int> near_items = {};
+
   void read_data(std::string name)
   {
     ItemData ITD;
@@ -92,6 +94,14 @@ namespace items
     }
   };
 
+  void pickup_near_items()
+  {
+    for(int n=0; n<items::near_items.size(); n++)
+    {
+      items::pickup(hero::HERO_ENTITY_ID, items::near_items[n]);
+    }
+  };
+
   void yeet(int entity_id, int item_entity_id, float x, float y)
   {
     int index = -1;
@@ -103,7 +113,7 @@ namespace items
     }
 
     if(index > -1){
-      eq.erase(eq.begin() + index);
+      ecs::equipments.at(entity_id).equipment.erase(ecs::equipments.at(entity_id).equipment.begin() + index);
       ecs::show(item_entity_id);
       ecs::items.at(item_entity_id).item_location = ITEM_LOCATION_GROUND;
       ecs::set_position(item_entity_id, x, y);

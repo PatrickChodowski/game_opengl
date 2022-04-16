@@ -10,6 +10,7 @@
 #include "ecs.h"
 #include "game.h"
 #include "hero.h"
+#include "items.h"
 #include "maps.h"
 #include "utils.h"
 #include "../dictionary.h"
@@ -225,10 +226,10 @@ namespace collisions
       aabb.id = AABB_FULL;
       ecs::collisions.at(entity_id).abs.insert(std::pair<int, collisions::AABB>(AABB_FULL, aabb));
 
-      // if(game::IS_DEBUG_MODE)
-      // {
-      //   debug::render_square(entity::entities.at(entity_id).pos.x, entity::entities.at(entity_id).pos.y, entity::entities.at(entity_id).dims.w, entity::entities.at(entity_id).dims.h, 0.6, 0.6, 0.0, 1.0);
-      // }
+      if(game::IS_DEBUG_MODE){
+        ecs::PositionComponent pos = ecs::positions.at(entity_id);
+        debug::render_square(pos.x, pos.y, pos.w, pos.h, 0.6, 0.6, 0.0, 1.0);
+      }
     }
   }
 
@@ -251,6 +252,7 @@ namespace collisions
   void clear()
   {
     collisions::distances.clear();
+    items::near_items.clear();
   }
 
   void _resolve_doors(collisions::DistanceToObject &dto)
@@ -268,12 +270,13 @@ namespace collisions
 
   void _resolve_items(collisions::DistanceToObject &dto)
   {
-    std::cout << " [COLLISIONS] Resolving items" << std::endl;
+    // std::cout << " [COLLISIONS] Resolving items - Adding " << dto.target_entity_id << " to near iteams" << std::endl;
+    items::near_items.push_back(dto.target_entity_id);
   };
 
   void _resolve_solid(collisions::DistanceToObject &dto)
   {
-    std::cout << " [COLLISIONS] Resolving solid" << std::endl;
+    //std::cout << " [COLLISIONS] Resolving solid" << std::endl;
   };
 
 }

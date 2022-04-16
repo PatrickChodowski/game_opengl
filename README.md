@@ -82,10 +82,9 @@ python3 app.py
 
 ### Entities
 ECS:
- - collisions with new objects -> items, mobs, entities, doors
+ - collisions with new objects -> mobs, entities, doors
 
  AND THEN:
- - picking up items
  - going through the door
  - interacting with npc
  - displaying menu

@@ -10,11 +10,8 @@
 #define MODULES_ITEMS_H
 
 
-// Persistent data. Table of tiles and all operations on this table. 
-
 namespace items
 {
-
   // Non entity item attributes
   struct ItemData
   {
@@ -34,6 +31,9 @@ namespace items
 
   };
 
+  // Entity IDs of near items
+  extern std::vector<int> near_items;
+
   // Dictionary of all items
   extern phmap::flat_hash_map<int, ItemData> items;
 
@@ -52,8 +52,11 @@ namespace items
   // Pickup an item, entity_id is main actor, item_entity_id is being picked
   void pickup(int entity_id, int item_entity_id);
 
+  // Picks up all items near hero
+  void pickup_near_items();
+
   // Drop item on the ground
-  void yeet(int entity_id, float x, float y);
+  void yeet(int entity_id, int item_entity_id, float x, float y);
 
   // Clear all data
   void refresh();
