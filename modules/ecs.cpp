@@ -367,8 +367,8 @@ namespace ecs
     { 
       ecs::PositionComponent pos = ecs::positions.at(entity_id);
 
-      float new_x = pos.x += x;
-      float new_y = pos.y -= y;
+      float new_x = pos.x + x;
+      float new_y = pos.y - y;
       ecs::positions.at(entity_id).prev_x = pos.x;
       ecs::positions.at(entity_id).prev_y = pos.y;
       ecs::positions.at(entity_id).x = new_x;
@@ -428,12 +428,13 @@ namespace ecs
   void revert_position_x(int entity_id)
   {
     ecs::positions.at(entity_id).x = ecs::positions.at(entity_id).prev_x;
-    //hero::_update_joints();
+    //std::cout << " [ECS][POSITION] Reverting X position to " << ecs::positions.at(entity_id).prev_x << " from " << ecs::positions.at(entity_id).x << std::endl;
   }
 
   void revert_position_y(int entity_id)
   {
     ecs::positions.at(entity_id).y = ecs::positions.at(entity_id).prev_y;
+    //std::cout << " [ECS][POSITION] Reverting Y position to " << ecs::positions.at(entity_id).prev_y << " from " << ecs::positions.at(entity_id).y << std::endl;
     //hero::_update_joints();
   }
 
