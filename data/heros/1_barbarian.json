@@ -6,5 +6,6 @@
   "speed" : 7,
   "w": 200,
   "h": 200,
-  "radius": 50
+  "radius_y": 50,
+  "radius_x": 20
 }

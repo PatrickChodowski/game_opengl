@@ -64,7 +64,7 @@ namespace ecs
     
     
     // Collisions
-    float radius;
+    float radius_x, radius_y;
     bool is_solid = true;
 
     // Sensors
@@ -97,7 +97,7 @@ namespace ecs
            button_function_id,
            label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
            level, mobs_killed, exp, speed, hp, dmg, def,
-           radius, is_solid,
+           radius_x, radius_y, is_solid,
            item_id, item_joint_id, item_dmg, item_speed, item_location,
            equipment,
            npc_id, personality_trait_id, sentiment,
@@ -184,10 +184,11 @@ namespace ecs
     float def;
   };
 
-  // Component 8: Collisions component -> diag, AABB boxes, is_solid
+  // Component 8: Collisions component -> radius, mid, point, AABB boxes, is_solid
   struct CollisionsComponent
   {
-    float radius;
+    float radius_x;
+    float radius_y;
     float mid_x;
     float mid_y;
     phmap::flat_hash_map<int, collisions::AABB> abs; 

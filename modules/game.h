@@ -29,8 +29,9 @@ namespace game
     float window_width;
     float window_height;
     int starting_scene;
+    bool is_debug_mode;
 
-    JS_OBJ(window_width, window_height, starting_scene);
+    JS_OBJ(window_width, window_height, starting_scene, is_debug_mode);
   };
 
   extern game::ExternalConfigData Config;

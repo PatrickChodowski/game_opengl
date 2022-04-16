@@ -28,9 +28,10 @@ namespace hero
     float speed;
     float w;
     float h;
-    float radius;
+    float radius_x;
+    float radius_y;
 
-    JS_OBJ(model_id, hp, dmg, def, speed, w, h, radius);
+    JS_OBJ(model_id, hp, dmg, def, speed, w, h, radius_x, radius_y);
   };
   
   // Initialize hero character

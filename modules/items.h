@@ -24,10 +24,11 @@ namespace items
     int max_speed;
     float w;
     float h;
-    float radius;
+    float radius_x;
+    float radius_y;
     std::string name;
 
-    JS_OBJ(item_id, model_id, joint_id, min_dmg, max_dmg, min_speed, max_speed, w, h, radius, name);
+    JS_OBJ(item_id, model_id, joint_id, min_dmg, max_dmg, min_speed, max_speed, w, h, radius_x, radius_y, name);
 
   };
 

@@ -41,7 +41,7 @@ namespace game
 {
   bool RUNNING = true;
   bool PAUSE = false;
-  bool IS_DEBUG_MODE = false;
+  bool IS_DEBUG_MODE;
   int CURRENT_SHADER_ID = 0;
   float WINDOW_WIDTH;
   float WINDOW_HEIGHT;
@@ -191,6 +191,7 @@ namespace game
     game::WINDOW_WIDTH = game::Config.window_width;
     game::WINDOW_HEIGHT = game::Config.window_height;
     game::SCENE_ID = game::Config.starting_scene;
+    game::IS_DEBUG_MODE = game::Config.is_debug_mode;
   }
 
 }

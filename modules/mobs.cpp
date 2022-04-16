@@ -88,7 +88,8 @@ namespace mobs
     e.speed = MOB.max_speed;
     e.hp = MOB.max_hp;
     e.def = MOB.max_def;
-    e.radius = MOB.radius;
+    e.radius_x = MOB.radius_x;
+    e.radius_y = MOB.radius_y;
 
     e.animated = true;
 

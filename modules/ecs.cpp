@@ -164,7 +164,7 @@ namespace ecs
           float mid_x = data->x + (data->w/2);
           float mid_y = data->y + (data->h/2);
           phmap::flat_hash_map<int, collisions::AABB> abs;
-          ecs::_add_collision(entity_id, {data->radius, mid_x, mid_y, abs, data->is_solid});
+          ecs::_add_collision(entity_id, {data->radius_x, data->radius_y, mid_x, mid_y, abs, data->is_solid});
         break;
       }
       case COMPONENT_SENSORS:
