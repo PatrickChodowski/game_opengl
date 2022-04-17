@@ -82,7 +82,7 @@ python3 app.py
 
 ### Entities
 ECS:
- - collisions with new objects -> mobs, entities, doors
+ - collisions with doors -> load level from door
 
  AND THEN:
  - going through the door
