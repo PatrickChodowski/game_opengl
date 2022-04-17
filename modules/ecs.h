@@ -84,6 +84,11 @@ namespace ecs
     // Mob
     int mob_id;
 
+    // Door
+    int door_id, dest_scene_id;
+    float player_enter_x, player_enter_y;
+
+
     // Additional (not stored in any container)
     bool animated = false;
 
@@ -102,6 +107,7 @@ namespace ecs
            equipment,
            npc_id, personality_trait_id, sentiment,
            mob_id,
+           door_id, dest_scene_id, player_enter_x, player_enter_y,
            animated);
   };
 
@@ -234,6 +240,15 @@ namespace ecs
     int mob_id;
   };
 
+  // Component 14: Door component
+  struct DoorComponent
+  {
+    int door_id;
+    int dest_scene_id;
+    float player_enter_x;
+    float player_enter_y;
+  };
+
 
 
   // TABLES
@@ -252,6 +267,7 @@ namespace ecs
   extern phmap::flat_hash_map<unsigned int, ecs::EquipmentComponent> equipments;
   extern phmap::flat_hash_map<unsigned int, ecs::NPCComponent> npcs;
   extern phmap::flat_hash_map<unsigned int, ecs::MobComponent> mobs;
+  extern phmap::flat_hash_map<unsigned int, ecs::DoorComponent> doors;
 
 
   // METHODS
@@ -296,6 +312,7 @@ namespace ecs
   void _add_equipment(int entity_id, ecs::EquipmentComponent equipment);
   void _add_npc(int entity_id, ecs::NPCComponent npc);
   void _add_mob(int entity_id, ecs::MobComponent mob);
+  void _add_door(int entity_id, ecs::DoorComponent door);
 
   // Component dropping methods
   void _drop_position(int entity_id);
@@ -312,6 +329,7 @@ namespace ecs
   void _drop_equipment(int entity_id);
   void _drop_npc(int entity_id);
   void _drop_mob(int entity_id);
+  void _drop_door(int entity_id);
 
   // Where to put it
 
