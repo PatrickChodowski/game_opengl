@@ -27,10 +27,11 @@ namespace maps
     int dest_scene_id;
     float x;
     float y;
+    float w;
+    float h;
     float player_enter_x;
     float player_enter_y;
-
-    JS_OBJ(door_id, dest_scene_id, x, y, player_enter_x, player_enter_y);
+    JS_OBJ(door_id, dest_scene_id, x, y, w, h, player_enter_x, player_enter_y);
   };
 
   struct MapData
@@ -41,14 +42,10 @@ namespace maps
     int model_id;
     int default_player_x;
     int default_player_y;
-
-    std::vector<maps::Door> _doors;
-    phmap::flat_hash_map<int, maps::Door> doors;
+    std::vector<maps::Door> doors;
     std::vector<maps::Nest> nests;
-
     std::string name;
-
-    JS_OBJ(id, name, vertex_width, vertex_height, model_id, default_player_x, default_player_y, _doors, nests);
+    JS_OBJ(id, name, vertex_width, vertex_height, model_id, default_player_x, default_player_y, doors, nests);
   };
 
   extern float default_tile_width;
@@ -60,11 +57,17 @@ namespace maps
   //  TileID, TileData
   extern phmap::flat_hash_map<int, quads::QuadData> tiles;
 
+  // List of current map door entity IDs
+  extern std::vector<int> door_entities;
+
   // Generate single tile out of position, texture_id and frame_id
   quads::QuadData generate_tile(float x, float y, int model_id, int frame_id);
 
   // Reads json data by map name and stores it inside maps::maps
-  void read_map_data(std::string name);
+  void read_data(std::string name);
+
+  // Create door entity
+  int _create_door(maps::Door &door);
 
   // Reads list of maps from maps/data/ and for each map there performs 
   // read_map_data function. Thats reads json into maps::maps

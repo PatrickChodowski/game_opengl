@@ -1,10 +1,10 @@
 {
-  "id": 1,
-  "name": "1_dungeon",
+  "id": 2,
+  "name": "2_dungeon",
   "vertex_width": 20,
   "vertex_height": 16,
   "model_id": 3,
-  "_doors": [
+  "doors": [
     
   ],
   "nests": [

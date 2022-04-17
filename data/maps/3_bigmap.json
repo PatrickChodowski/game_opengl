@@ -1,9 +1,9 @@
 {
-  "id": 2,
-  "name": "bigmap",
+  "id": 3,
+  "name": "3_bigmap",
   "vertex_width": 160,
   "vertex_height": 160,
   "model_id": 3,
-  "_doors": [{}],
+  "doors": [{}],
   "nests": [{}]
 }
