@@ -82,7 +82,7 @@ python3 app.py
 
 ### Entities
 ECS:
- - collisions with doors -> load level from door
+ - collisions with doors -> load level from door -> Need -> ecs::save_temp() Saves whole entity to TempEntityData object
 
  AND THEN:
  - going through the door
