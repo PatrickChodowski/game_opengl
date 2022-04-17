@@ -212,8 +212,7 @@ namespace collisions
 
   void _resolve_doors(collisions::DistanceToObject &dto)
   {
-    //maps::Door = 
-    
+    std::cout << " [COLLISIONS] Resolving doors: Door entity_id: " << dto.target_entity_id << std::endl;
     //dto::game::switch_scene(dto., SCENE_LOAD_CHANGE_LEVEL);
   };
 

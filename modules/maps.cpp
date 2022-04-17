@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "ecs.h"
 #include "maps.h"
 #include "models.h"
 #include "navmesh.h"
@@ -18,6 +19,7 @@ namespace maps
 {
   phmap::flat_hash_map<int, quads::QuadData> tiles;
   phmap::flat_hash_map<int, maps::MapData> maps = {};
+  std::vector<int> door_entities = {};
   float default_tile_width = 100;
   float default_tile_height = 100;
 
@@ -28,15 +30,38 @@ namespace maps
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(MD);
-    
-    for(int f=0; f < MD._doors.size(); f++)
-    {
-      MD.doors.insert({MD._doors[f].door_id, MD._doors[f]});
-    }
-
     maps::maps.insert({MD.id, MD});
 
   };
+
+  // Create door entity
+  int _create_door(maps::Door &door)
+  {
+    ecs::TempEntityData e;
+    e.name = std::string("door_") + std::to_string(door.door_id);
+    e.components = {0,8,14};
+    e.entity_type_id = ENTITY_TYPE_DOOR;
+    e.x = door.x;
+    e.y = door.y;
+    e.w = door.w;
+    e.h = door.h;
+    //e.z
+    //e.prev_x
+    //e.prev_y
+    e.radius_x = (door.w/2);
+    e.radius_y = (door.h/2);
+    e.is_solid = false;
+
+    e.door_id = door.door_id;
+    e.dest_scene_id = door.dest_scene_id;
+    e.player_enter_x = door.player_enter_x;
+    e.player_enter_y = door.player_enter_y;
+
+    int door_entity_id = ecs::create_entity(&e);
+    std::cout << " [MAPS] Created door entity: " << door_entity_id << " name: " << e.name << std::endl;
+    return door_entity_id;
+  }
+
 
   void init()
   { 
@@ -129,9 +154,16 @@ namespace maps
 
   void init_map(int map_id)
   { 
+    maps::door_entities.clear();
     if(map_id > -1)
     {
+      std::cout << " [MAPS] Started initializing map id: " << map_id << std::endl;
       maps::load(map_id);
+      for(int d=0; d<maps::maps.at(map_id).doors.size(); d++)
+      {
+        int door_entity_id = maps::_create_door(maps::maps.at(map_id).doors[d]);
+        maps::door_entities.push_back(door_entity_id);
+      }
       nav::init(map_id);
       paths::make_path_map();
     }

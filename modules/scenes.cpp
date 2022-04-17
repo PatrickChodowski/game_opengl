@@ -52,6 +52,7 @@ namespace scenes
   {
     if(scenes::scenes.count(scene_id) > 0)
     {    
+      std::cout << " [SCENES] Started loading scene ID: " << scene_id << std::endl;
       models::load(fonts::FONT_MODEL_ID);
       game::SCENE_ID = scene_id;
       game::EVENT_HANDLER_ID = scenes::scenes[scene_id].events_handler_id;
