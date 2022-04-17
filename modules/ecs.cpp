@@ -35,6 +35,7 @@ namespace ecs
   phmap::flat_hash_map<unsigned int, ecs::EquipmentComponent> equipments;
   phmap::flat_hash_map<unsigned int, ecs::NPCComponent> npcs;
   phmap::flat_hash_map<unsigned int, ecs::MobComponent> mobs;
+  phmap::flat_hash_map<unsigned int, ecs::DoorComponent> doors;
 
   void init()
   {
@@ -52,6 +53,7 @@ namespace ecs
     ecs::drop_component[COMPONENT_EQUIPMENT] = ecs::_drop_equipment;
     ecs::drop_component[COMPONENT_NPC] = ecs::_drop_npc;
     ecs::drop_component[COMPONENT_MOB] = ecs::_drop_mob;
+    ecs::drop_component[COMPONENT_DOOR] = ecs::_drop_door;
     std::cout << "ECS initialized" << std::endl;
   }
 
@@ -183,6 +185,9 @@ namespace ecs
       case COMPONENT_MOB:
         ecs::_add_mob(entity_id, {data->mob_id});
       break;
+      case COMPONENT_DOOR:
+        ecs::_add_door(entity_id, {data->door_id, data->dest_scene_id, data->player_enter_x, data->player_enter_y});
+      break;
     }
   };
 
@@ -273,6 +278,12 @@ namespace ecs
     ecs::mobs.insert(std::pair<int, ecs::MobComponent>{entity_id, mob});
   }
 
+  void _add_door(int entity_id, ecs::DoorComponent door)
+  {
+    std::cout << " [ECS] Adding door component for entity " << entity_id << std::endl;
+    ecs::doors.insert(std::pair<int, ecs::DoorComponent>{entity_id, door});
+  }
+
 
 
   void _drop_position(int entity_id)
@@ -357,6 +368,12 @@ namespace ecs
   {
     std::cout << " [ECS] Dropping mob component for entity " << entity_id << std::endl;
     ecs::mobs.erase(entity_id);
+  };
+
+  void _drop_door(int entity_id)
+  {
+    std::cout << " [ECS] Dropping door component for entity " << entity_id << std::endl;
+    ecs::doors.erase(entity_id);
   };
 
 

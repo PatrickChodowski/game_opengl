@@ -123,6 +123,7 @@
 #define COMPONENT_EQUIPMENT 11
 #define COMPONENT_NPC 12
 #define COMPONENT_MOB 13
+#define COMPONENT_DOOR 14
 
 // Joint IDS (right hand, left hand etc.)
 #define JOINT_RIGHT_HAND_ID 0

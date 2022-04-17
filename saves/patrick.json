@@ -14,6 +14,6 @@
   "def" : 100.0,
   "speed" : 7.0,
   "exp" : 0.0,
-  "radius_x": 50,
-  "radius_y": 30
+  "radius_x": 30,
+  "radius_y": 50
 }
