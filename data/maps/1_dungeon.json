@@ -4,11 +4,9 @@
   "vertex_width": 20,
   "vertex_height": 16,
   "model_id": 3,
-  "doors": [
+  "_doors": [
     
   ],
   "nests": [
-  ],
-  "npcs": [
   ]
 }

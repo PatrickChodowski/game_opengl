@@ -28,7 +28,14 @@ namespace maps
     std::string json_data = utils::read_text_file(data_path);
     JS::ParseContext context(json_data);
     context.parseTo(MD);
+    
+    for(int f=0; f < MD._doors.size(); f++)
+    {
+      MD.doors.insert({MD._doors[f].door_id, MD._doors[f]});
+    }
+
     maps::maps.insert({MD.id, MD});
+
   };
 
   void init()

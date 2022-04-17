@@ -1,7 +1,6 @@
 #include <vector>
 #include <string>
 #include "quads.h"
-//#include "collisions.h"
 #include "../dependencies/json_struct.h"
 #include "../dependencies/parallel_hashmap/phmap.h"
 
@@ -19,16 +18,6 @@ namespace maps
     int n;
 
     JS_OBJ(x, y, n);
-  };
-
-  // Npc assigned to map information
-  struct MapNPCData
-  {
-    int id;
-    float x;
-    float y;
-
-    JS_OBJ(id, x, y);
   };
 
   // Door information
@@ -52,12 +41,14 @@ namespace maps
     int model_id;
     int default_player_x;
     int default_player_y;
-    std::vector<Door> doors;
-    std::vector<Nest> nests;
-    std::vector<MapNPCData> npcs;
+
+    std::vector<maps::Door> _doors;
+    phmap::flat_hash_map<int, maps::Door> doors;
+    std::vector<maps::Nest> nests;
+
     std::string name;
 
-    JS_OBJ(id, name, vertex_width, vertex_height, model_id, default_player_x, default_player_y, doors, nests, npcs);
+    JS_OBJ(id, name, vertex_width, vertex_height, model_id, default_player_x, default_player_y, _doors, nests);
   };
 
   extern float default_tile_width;
