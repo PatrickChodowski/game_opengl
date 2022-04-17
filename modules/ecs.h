@@ -354,7 +354,8 @@ namespace ecs
   // Method showing hidden entity
   void show(int entity_id);
 
-
+  // Saving entity to TempEntityData
+  void save_temp(int entity_id);
 }
 
 

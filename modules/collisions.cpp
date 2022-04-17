@@ -12,6 +12,7 @@
 #include "hero.h"
 #include "items.h"
 #include "maps.h"
+#include "scenes.h"
 #include "utils.h"
 #include "../dictionary.h"
 
@@ -213,7 +214,11 @@ namespace collisions
   void _resolve_doors(collisions::DistanceToObject &dto)
   {
     std::cout << " [COLLISIONS] Resolving doors: Door entity_id: " << dto.target_entity_id << std::endl;
-    //dto::game::switch_scene(dto., SCENE_LOAD_CHANGE_LEVEL);
+    ecs::DoorComponent door = ecs::doors.at(dto.target_entity_id);
+    game::HERO_START_X = door.player_enter_x;
+    game::HERO_START_Y = door.player_enter_y;
+    ecs::save_temp(hero::HERO_ENTITY_ID);
+    scenes::switch_scene(door.dest_scene_id, SCENE_LOAD_CHANGE_LEVEL);
   };
 
   void _resolve_items(collisions::DistanceToObject &dto)

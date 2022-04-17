@@ -469,6 +469,120 @@ namespace ecs
     }
   };
 
+  void save_temp(int entity_id)
+  {
+    std::cout << " [ECS] Saving entity_id " << entity_id << std::endl;
+    ecs::TempEntityData e;
+    e.entity_type_id = ecs::entities.at(entity_id).entity_type_id;
+    e.name = ecs::entities.at(entity_id).name;
+    e.components = ecs::entities.at(entity_id).components;
+
+    for(int c=0; c<e.components.size();c++)
+    {
+      int component_id = e.components[c];
+      switch(component_id)
+      {
+        case COMPONENT_POSITION:{
+          ecs::PositionComponent pos = ecs::positions.at(entity_id);
+          e.x = pos.x;
+          e.y = pos.y;
+          e.z = pos.z;
+          e.w = pos.w;
+          e.h = pos.h;
+        }
+        break;
+        case COMPONENT_MODEL:{
+          ecs::ModelComponent mod = ecs::models.at(entity_id);
+          e.model_id = mod.model_id;
+          e.frame_id = mod.frame_id;
+          e.side_id = mod.side_id;
+        }
+        break;
+        case COMPONENT_COLOR:{
+          ecs::ColorComponent col = ecs::colors.at(entity_id);
+          e.r = col.r;
+          e.g = col.g;
+          e.b = col.b;
+          e.a = col.a;
+        }
+        break;
+        case COMPONENT_RENDERDATA:
+          e.camera_type = ecs::renderdatas.at(entity_id).camera_type;
+        break;
+        case COMPONENT_BUTTON:
+          e.button_function_id = ecs::buttons.at(entity_id).button_function_id;
+        break;
+        case COMPONENT_LABEL:{
+          ecs::LabelComponent lab = ecs::labels.at(entity_id);
+          e.label = lab.label;
+          e.text_size = lab.text_size;
+          e.text_r = lab.text_r;
+          e.text_g = lab.text_g;
+          e.text_b = lab.text_b;
+          e.text_a = lab.text_a;
+          e.text_x = lab.text_x;
+          e.text_y = lab.text_y;
+          e.text_z = lab.text_z;
+        }
+        break;
+        case COMPONENT_STATS:{
+          ecs::StatsComponent stat = ecs::stats.at(entity_id);
+          e.level = stat.level;
+          e.mobs_killed = stat.mobs_killed;
+          e.exp = stat.exp;
+          e.speed = stat.speed;
+          e.hp = stat.hp;
+          e.dmg = stat.dmg;
+          e.def = stat.def;
+        }
+        break;
+        case COMPONENT_COLLISIONS:{
+            ecs::CollisionsComponent coll = ecs::collisions.at(entity_id);
+            e.radius_x = coll.radius_x;
+            e.radius_y = coll.radius_y;
+            e.is_solid = coll.is_solid;
+        }
+          break;
+        case COMPONENT_SENSORS:
+          // 
+        break;
+        case COMPONENT_ITEM:{
+          ecs::ItemComponent item = ecs::items.at(entity_id);
+          e.item_id = item.item_id;
+          e.item_joint_id = item.item_joint_id;
+          e.item_dmg = item.item_dmg;
+          e.item_speed = item.item_speed;
+          e.item_location = item.item_location;
+        }
+        break;
+        case COMPONENT_EQUIPMENT:
+          e.equipment = ecs::equipments.at(entity_id).equipment;
+        break;
+        case COMPONENT_NPC:{
+          ecs::NPCComponent npc = ecs::npcs.at(entity_id);
+          e.npc_id = npc.npc_id;
+          e.personality_trait_id = npc.npc_id;
+          e.sentiment = npc.sentiment;
+        }
+        break;
+        case COMPONENT_MOB:
+          e.mob_id = ecs::mobs.at(entity_id).mob_id;
+        break;
+        case COMPONENT_DOOR:{
+          ecs::DoorComponent door = ecs::doors.at(entity_id);
+          e.door_id = door.door_id;
+          e.dest_scene_id = door.dest_scene_id;
+          e.player_enter_x = door.player_enter_x;
+          e.player_enter_y = door.player_enter_y;
+        }
+        break;
+      }
+
+
+    }
+
+
+  }
 
 }
 
