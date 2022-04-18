@@ -588,5 +588,77 @@ namespace ecs
     ecs::saved_entities.push_back(e);
   }
 
+  void info(int entity_id)
+  {
+    std::vector<std::string> infos = {};
+    ecs::EntityData ent = ecs::entities.at(entity_id);
+    infos.push_back(ent.name + "(" + std::to_string(entity_id) + ") type: " + std::to_string(ent.entity_type_id)); 
+
+    if(ecs::positions.count(entity_id)){
+      ecs::PositionComponent pos = ecs::positions.at(entity_id);
+      infos.push_back("pos: " + utils::str(int(pos.x))+ ", " + utils::str(int(pos.y)));
+      infos.push_back("dim: " + utils::str(int(pos.w))+ ", " + utils::str(int(pos.h)));
+    }
+
+    if(ecs::stats.count(entity_id)){
+      ecs::StatsComponent stat = ecs::stats.at(entity_id);
+      infos.push_back("level: " + utils::str(stat.level));
+      infos.push_back("hp: " + utils::str(int(stat.hp)));
+      infos.push_back("dmg: " + utils::str(int(stat.dmg)));
+      infos.push_back("def: " + utils::str(int(stat.def)));
+      infos.push_back("exp: " + utils::str(int(stat.exp)));
+    }
+
+    if(ecs::items.count(entity_id)){
+      ecs::ItemComponent item = ecs::items.at(entity_id);
+      infos.push_back("item_id: " + utils::str(item.item_id));
+    }
+
+    if(ecs::mobs.count(entity_id)){
+      ecs::MobComponent mob = ecs::mobs.at(entity_id);
+      infos.push_back("mob_id: " + utils::str(mob.mob_id));
+    }
+
+    if(ecs::npcs.count(entity_id)){
+      ecs::NPCComponent npc = ecs::npcs.at(entity_id);
+      infos.push_back("npc_id: " + utils::str(npc.npc_id));
+      infos.push_back("sentiment: " + utils::str(npc.sentiment));
+    }
+
+
+    float start_y = 10;
+    for(int s=0; s<infos.size(); s++)
+    {
+      // Info menu definition
+      ecs::TempEntityData e;
+      e.name = "info_menu_" + std::to_string(entity_id);
+      e.components = {0,1,2,3,5};
+      e.entity_type_id = ENTITY_TYPE_COLOR;
+      e.x = 600;
+      e.y = 5;
+      e.z = 0.9;
+      e.w = 350;
+      e.h = 500;
+      e.r = 0.701,
+      e.g = 0.675,
+      e.b = 0.675,
+      e.a = 0.6;
+      e.model_id = -1;
+      e.frame_id = -1;
+      e.side_id = 0;
+      e.camera_type = CAMERA_STATIC;
+      e.label = infos[s];
+      e.text_size = 25;
+      e.text_r = 0.8;
+      e.text_g = 0.8;
+      e.text_b = 0.8;
+      e.text_a = 1.0;
+      e.text_x = 605;
+      e.text_y = start_y;
+      e.text_z = 0.99;
+      ecs::create_entity(&e);
+      start_y += 30;
+    }
+  }
 }
 

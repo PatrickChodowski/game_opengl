@@ -2,10 +2,10 @@
   "name": "new_game_button",
   "components": [0, 1, 2, 3, 4, 5],
   "entity_type_id": 2,
-  "x": 340,
+  "x": 320,
   "y": 400,
   "z": 0.3,
-  "w": 240,
+  "w": 300,
   "h": 70,
   "r": 0.701,
   "g": 0.675,
@@ -22,7 +22,7 @@
   "text_g": 0.5,
   "text_b": 0.5,
   "text_a": 1.0,
-  "text_x": 350,
+  "text_x": 330,
   "text_y": 410,
   "text_z": 1.0
 }

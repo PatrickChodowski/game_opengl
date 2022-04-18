@@ -125,6 +125,7 @@ namespace events
             case SDLK_x:
               //hero::attack_state = true;
               //hero::update_frame(ATTACK);
+              ecs::info(hero::HERO_ENTITY_ID);
             break; 
 
             case SDLK_r:

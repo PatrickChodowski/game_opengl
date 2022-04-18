@@ -51,7 +51,6 @@
 #define BUTTON_BACK 5
 #define BUTTON_LOADGAME_NAME 6
 
-
 // Scenes
 #define SCENE_ID_MAIN_MENU 0
 #define SCENE_ID_NEW_GAME_MENU 1

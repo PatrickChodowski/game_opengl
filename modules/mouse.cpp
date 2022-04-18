@@ -96,16 +96,13 @@ namespace mouse
 
   void _click_entity_type_live(int object_id, int mouse_button_id)
   {
-    logger::print("Clicked on ENTITY object id: " + std::to_string(object_id) + " with mouse button id: " + std::to_string(mouse_button_id));
+    std::cout << " [MOUSE] Clicked on Entity " << object_id <<  " with mouse button id: " <<  mouse_button_id;
+
     // if right click
-    // if(mouse_button_id == MOUSE_BUTTON_RIGHT){
-    //   if(!entity::entities.at(object_id).is_clicked){
-    //     entity::entities.at(object_id).menu_id = menu::add_to_slot(MENU_ENTITY_ID, object_id);
-    //   } else {
-    //     menu::drop(entity::entities.at(object_id).menu_id);
-    //   }
-    //   entity::entities.at(object_id).is_clicked  = !entity::entities.at(object_id).is_clicked;
-    // } 
+    if(mouse_button_id == MOUSE_BUTTON_RIGHT){
+      ecs::info(object_id);
+      // entity::entities.at(object_id).is_clicked  = !entity::entities.at(object_id).is_clicked;
+    } 
   };
 
   void _click_entity_type_map(int object_id, int mouse_button_id)

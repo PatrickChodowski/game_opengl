@@ -358,6 +358,9 @@ namespace ecs
 
   // Saving entity to TempEntityData
   void save_temp(int entity_id);
+  
+  // Display text menu with entity info
+  void info(int entity_id);
 }
 
 

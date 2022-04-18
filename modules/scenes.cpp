@@ -106,10 +106,10 @@ namespace scenes
     e.name = "new_game_name";
     e.components = {0,1,2,3,4,5};
     e.entity_type_id = ENTITY_TYPE_BUTTON;
-    e.x = 340;
+    e.x = 320;
     e.y = 400;
     e.z = 0.3;
-    e.w = 240;
+    e.w = 300;
     e.h = 70;
     e.r = 0.701;
     e.g = 0.675;
@@ -126,7 +126,7 @@ namespace scenes
     e.text_g = 0.5;
     e.text_b = 0.5;
     e.text_a = 1.0;
-    e.text_x = 350;
+    e.text_x = 330;
     e.text_y = 410;
     e.text_z = 1.0;
 
@@ -138,7 +138,7 @@ namespace scenes
   {
     std::cout << " [SCENES] Dynamic scene logic for scene " << SCENE_ID_LOAD_GAME_MENU << std::endl;
     saves::list_saves();
-    float start_x = 340;
+    float start_x = 320;
     float start_y = 400;
 
     for(int s=0;s<saves::saves.size();s++)
@@ -150,7 +150,7 @@ namespace scenes
       e.x = start_x;
       e.y = start_y;
       e.z = 0.3;
-      e.w = 240;
+      e.w = 300;
       e.h = 70;
       e.r = 0.701;
       e.g = 0.675;
