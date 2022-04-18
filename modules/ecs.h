@@ -111,6 +111,8 @@ namespace ecs
            animated);
   };
 
+  // Temporarily saved entity data
+  extern std::vector<ecs::TempEntityData> saved_entities;
 
   // Component 0: Position data -> x, y, z, w, h, prev_x, prev_y
   struct PositionComponent

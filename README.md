@@ -75,18 +75,11 @@ python3 app.py
 ### Rendering
 - split quads per type of render (static camera, dynamic camera, clicked, Color, Texture) -> provide multiple draw calls but different shaders to remove If Else from shader code
 
-
 ### Next up
 - sound effects
 
-
 ### Entities
 ECS:
- - collisions with doors -> load level from door -> Need -> ecs::save_temp() Saves whole entity to TempEntityData object
-
- AND THEN:
- - going through the door
- - interacting with npc
  - displaying menu
 
 AND THEEN:
