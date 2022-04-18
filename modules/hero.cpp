@@ -61,13 +61,15 @@ namespace hero
 
   void _load_hero_from_change_level(int scene_id)
   {
-    // if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
-    // {
-    //   //hero::hero.entity_id = entity::create(hero::hero, ENTITY_TYPE_HERO, CAMERA_DYNAMIC);
-    //   hero::set_position(game::HERO_START_X, game::HERO_START_Y);
-    //   camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (hero::hero.w/2));
-    //   camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (hero::hero.h/2));
-    // }
+    if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
+    {
+      hero::HERO_ENTITY_ID = ecs::create_entity(&ecs::saved_entities[0]);
+      ecs::saved_entities.clear();
+      ecs::set_position(hero::HERO_ENTITY_ID, game::HERO_START_X, game::HERO_START_Y);
+      ecs::PositionComponent pos = ecs::positions.at(hero::HERO_ENTITY_ID);
+      camera::cam.x = (game::HERO_START_X - (game::WINDOW_WIDTH/2) + (pos.w/2));
+      camera::cam.y = - (game::HERO_START_Y - (game::WINDOW_HEIGHT/2) + (pos.h/2));
+    }
   };
 
   void create_new(std::string name, std::string type, float x, float y)

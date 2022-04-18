@@ -18,6 +18,8 @@
 namespace ecs
 {
   std::vector<int> Index = {};
+
+  std::vector<ecs::TempEntityData> saved_entities;
   phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
   phmap::flat_hash_map<int, sig_ptr> drop_component;
 
@@ -471,6 +473,8 @@ namespace ecs
 
   void save_temp(int entity_id)
   {
+    ecs::saved_entities.clear();
+
     std::cout << " [ECS] Saving entity_id " << entity_id << std::endl;
     ecs::TempEntityData e;
     e.entity_type_id = ecs::entities.at(entity_id).entity_type_id;
@@ -581,7 +585,7 @@ namespace ecs
 
     }
 
-
+    ecs::saved_entities.push_back(e);
   }
 
 }
