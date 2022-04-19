@@ -25,17 +25,14 @@ namespace scripts
   // Function 0: spawn mob
   void _spawn_mob();
 
-  // Function 1: drop mob
-  void _drop_mob();
+  // Function 1: drop entity
+  void _drop_entity();
 
   // Function 2: interact_npc
   void _interact_npc();
 
   // Function 3: _spawn_item
   void _spawn_item();
-
-  // Function 4: _drop_item
-  void _drop_item();
 
   // Function 5: _start_animation
   void _start_animation();

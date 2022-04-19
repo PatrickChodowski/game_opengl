@@ -63,7 +63,6 @@ python3 app.py
 ## todo list:
 ### Animations -> make sure the looped animations are looped (checking if next anim id is the same as current one? skip first frame if so?)
 ### Zooming in -> analyse how to zoom in on specific point 
-### Collision box currently has the size of the texture which is not good as its too big -> invisible walls. Use hook position of the frame?
 
 
 ### Map generation
@@ -78,16 +77,10 @@ python3 app.py
 ### Next up
 - sound effects
 
-### Entities
- - rewrite tests
- - rewrite Python api
 
 ## Credits:
-
-
 ### Fonts
 Joel Carrouche: https://www.fontspace.com/norse-font-f21080 www.joelcarrouche.com. Donate if used
-
 
 font string:
 ABCDEFGHIJKLMNOPRSTUWVXYZ0123456789!@#$%&*(){}[]^:;”’<>,./?|\-_=+
