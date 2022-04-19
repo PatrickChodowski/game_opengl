@@ -1,99 +1,57 @@
+
+
 #include <string>
-#include "utils.h"
+#include <vector>
+
+#include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dependencies/json_struct.h"
+#include "../dictionary.h"
 
 #ifndef MODULES_HERO_H
 #define MODULES_HERO_H
 
-// Persistent data. Will contain:
-// campaign information: quests, statuses 
-// current status like position 
-// statistics 
-// etc.
-// should not have much about the quads, entities etc, its mostly data here
-// any logic here? dont think so
-
-namespace hero
+namespace hero 
 {
+  // Entity of hero character
+  extern int HERO_ENTITY_ID;
+
+  typedef void (*sig_ptr)(int scene_id);
+  // Functions map to loading a hero
+  extern phmap::flat_hash_map<int, sig_ptr> HeroLoader;
 
   struct HeroData
   {
-    // position
-    float x, y;
-    // dimensions
-    float w = 70;
-    float h = 70;
-
-
-    // statistics
-    float exp;
-    float speed;
+    int model_id;
     float hp;
     float dmg;
     float def;
+    float speed;
+    float w;
+    float h;
+    float radius_x;
+    float radius_y;
 
-    // Previous position for collisions
-    float prev_x, prev_y;
-
-    int entity_id = -1;
-    int current_frame;
-    int map_id;
-
-    // display information
-    int current_movement_state;
-    int model_id;
-    int level;
-    int mobs_killed;
-
-    // display item data
-    int in_hand_entity_id = -1;
-    float hand_x, hand_y;
-
-
-    // Equipped items (by entity id)
-    std::vector<int> equipped_items;
-
-    
-
-    // personal information
-    std::string name;
-    std::string type;
-
-    JS_OBJ(w, h, model_id, level, exp, speed, hp, dmg, def, mobs_killed, equipped_items, name, type);
-  }; 
-
-  extern hero::HeroData hero;
-
-  // Reads default data for character type 
-  void _read_data(std::string char_type);
-
-  // Revert to previous hero position x 
-  void revert_position_x();
-
-  // Revert to previous hero position y
-  void revert_position_y();
+    JS_OBJ(model_id, hp, dmg, def, speed, w, h, radius_x, radius_y);
+  };
   
-  // Sets arbitrary position of the hero
-  void set_position(float x, float y);
+  // Initialize hero character
+  void init();
 
-  // Update hero position
-  void update_position(float camera_move_x, float camera_move_y);
+  // Read data based on character type
+  hero::HeroData read_data(std::string char_type);
 
-  // Updates hero joints based on heros position and frame_id
-  void _update_joints();
+  // Loads hero from new game logic
+  void _load_hero_from_new_game(int scene_id);
 
-  // Creates new character of certain type. Will have default stats
-  void create_new(std::string name, std::string type);
+  // Loads hero from load game logic
+  void _load_hero_from_load_game(int scene_id);
 
-  // Refresh data
-  void refresh();
+  // Loads hero from change level logic
+  void _load_hero_from_change_level(int scene_id);
 
-  // Returns vector of strings with hero information
-  std::vector<std::string> info(int entity_id);
-
-  // Animate hero items based on hero animation
-  void animate_items(int anim_id);
-
+  // Create new hero with name, type, X,Y
+  void create_new(std::string name, std::string type, float x, float y);
 }
+
 
 #endif

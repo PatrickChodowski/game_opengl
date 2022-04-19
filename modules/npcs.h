@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 
-#include "entity.h"
 #include "quads.h"
 #include "utils.h"
 
@@ -65,26 +64,12 @@ namespace npcs
 
   struct NPCData
   {
-    int id;
-    int entity_id;
+    int npc_id;
     int model_id;
-    int current_frame;
-    int personality_id;
-    int scene_id;
-
-    float x;
-    float y;
-    float w;
-    float h;
-    float speed;
-    float sentiment = 0.5;
-
-
     std::string name;
 
-    JS_OBJ(id, model_id, current_frame, w, h, speed, name);
+    JS_OBJ(npc_id, model_id, name);
   };
-
 
   struct InteractionData
   {
@@ -96,38 +81,21 @@ namespace npcs
     JS_OBJ(event_type_id, npc_id, type, value);
   };
 
-  // Catalog of all npcs
-  extern phmap::flat_hash_map<int, NPCData> npcs_data;
-
-  // Current npcs
-  extern phmap::flat_hash_map<int, NPCData> npcs;
-
   // Table of history of interactions
   extern std::vector<InteractionData> interactions;
-
-  // Read npc data from the file
-  void read_data(std::string& name);
+  extern phmap::flat_hash_map<int, npcs::NPCData> npcs;
 
   // Read all npc data files and fill npcs_data
   void init();
 
-  // Spawn npc, adds instance to npcs map. Returns entity id
-  int spawn(int npc_id, float x, float y); 
-
-  // Spawn group of npcs assigned to the map
-  void spawn_from_map(int map_id);
-
-  // Clear temporary data (npcs)
-  void clear();
+  // Read single NPC data file
+  void read_data(std::string name);
 
   // Clear catalog
   void refresh();
-  
+
   // Create interaction with the entity. impact interactions table and NPC's sentiment
   void interact(int entity_id, float value);
-
-  // Returns vector of strings with npc information
-  std::vector<std::string> info(int entity_id);
   
 }
 

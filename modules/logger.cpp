@@ -136,12 +136,9 @@ namespace logger
 
   void log_data()
   {
-    if(game::LOG_TO_FILES)
-    {
-      models::log();
-      quads::log();
-      // debug::log();
-    }
+    models::log();
+    quads::log();
+    // debug::log();
   };
 
 }

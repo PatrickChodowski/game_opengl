@@ -2,5 +2,5 @@
   "window_height": 768,
   "window_width": 960,
   "starting_scene": 0,
-  "log_to_files": false
+  "is_debug_mode": true
 }

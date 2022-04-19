@@ -15,30 +15,9 @@ namespace debug
     float x2, y2;
     float r, g, b, a;
   };
-  
-  struct PointData
-  {
-    quads::Position pos;
-    quads::Color color;
-    quads::Dims dims;
-    quads::Norm norm;
-
-    float camera_type;
     
-    // not used in this case:
-    int texture_id = -1;
-    int model_id = -1;
-    int frame_id = -1;
-    int id;
-    
-    bool is_clicked;
-    bool is_reversed = false;
-  };
-  
   extern std::vector<debug::LineData> lines;
-  extern phmap::flat_hash_map<int, debug::PointData> points;
-  extern std::vector<int> Index;
-
+ 
   // Renders straight line between start and endpoint
   void render_line(float x1, float y1, float x2, float y2, float r, float g, float b, float a);
 
@@ -48,14 +27,8 @@ namespace debug
   // Well, it renders 4 lines
   void render_square(float x, float y, float w, float h, float r, float g, float b, float a);
 
-  // Renders debugquads from points
-  void render();
-
   // Remove debug data after drawing, called from buffer
   void clear();
-
-  // Log lines information to file
-  void log();
 
 }
 

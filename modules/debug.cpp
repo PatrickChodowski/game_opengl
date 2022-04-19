@@ -11,10 +11,7 @@
 
 namespace debug
 {
-
   std::vector<debug::LineData> lines = {};
-  phmap::flat_hash_map<int, debug::PointData> points = {};
-  std::vector<int> Index = {};
 
   void render_line(float x1, float y1, float x2, float y2, float r, float g, float b, float a)
   {
@@ -32,22 +29,24 @@ namespace debug
 
   void render_point(float x, float y, float r, float g, float b, float a)
   {
-    debug::PointData pdd;
-    pdd.id = utils::generate_id(debug::Index);
-    pdd.pos.x = x;
-    pdd.pos.y = y;
-    pdd.pos.z = 0.99f;
-    pdd.color.r = r;
-    pdd.color.g = g;
-    pdd.color.b = b;
-    pdd.color.a = a;
-    pdd.dims.w = 10;
-    pdd.dims.h = 10;
-    pdd.camera_type = CAMERA_DYNAMIC;
-    points[pdd.id] = pdd;
+    quads::QuadData quad;
+    quad.entity_id = -1;
+    quad.model_id = -1;
+    quad.frame_id = -1;
+    quad.entity_type_id = ENTITY_TYPE_COLOR;
+    quad.x = x;
+    quad.y = y;
+    quad.z = 0.99f;
+    quad.r = r;
+    quad.g = g;
+    quad.b = b;
+    quad.a = a;
+    quad.w = 10;
+    quad.h = 10;
+    quad.camera_type = CAMERA_DYNAMIC;
+    quad.is_clicked = false;
+    quads::AllQuads.push_back(quad);
   };
-
-
 
   void render_square(float x, float y, float w, float h, float r, float g, float b, float a)
   { 
@@ -65,52 +64,11 @@ namespace debug
 
   };
 
-
-
-
-  void render()
-  {
-    quads::add_quads(debug::points, OBJECT_TYPE_DEBUG);
-  }
-
   void clear()
   {
-    debug::Index.clear();
     lines.clear();
-    points.clear();
   };
 
-
-  void log()
-  {
-    const char* log_path = "logs/lines.json";
-    std::ofstream lines_file (log_path);
-    std::string end_str = " }, \n";
-    if (lines_file.is_open())
-    {
-      lines_file << "[ \n";
-      for(int i = 0; i < debug::lines.size(); i++)
-      {
-        if(i == (debug::lines.size() - 1))
-        {
-          end_str = " } \n";
-        }
-
-        lines_file << " { \n" <<
-                      "    \"r\": " << debug::lines[i].r                     << ",\n"
-                      "    \"g\": " << debug::lines[i].g                     << ",\n"
-                      "    \"b\": " << debug::lines[i].b                     << ",\n"
-                      "    \"a\": " << debug::lines[i].a                     << ",\n"
-                      "    \"x1\": " << debug::lines[i].x1                       << ",\n"
-                      "    \"y1\": " << debug::lines[i].y1                       << ",\n"
-                      "    \"x2\": " << debug::lines[i].x2                       << ",\n"
-                      "    \"y2\": " << debug::lines[i].y2                       << ",\n"
-                      << end_str;
-      }
-      lines_file << "] \n";
-      lines_file.close();
-    }
-  }
 
 }
 
