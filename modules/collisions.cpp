@@ -19,7 +19,7 @@
 namespace collisions
 {
   int SENSOR_COUNT = 9;
-  int SENSOR_OFFSET = 1;
+  int SENSOR_OFFSET = 0;
   int ABS_COUNT = 1;
   std::vector<collisions::DistanceToObject> distances = {};
   phmap::flat_hash_map<int, sig_ptr> resolve;
