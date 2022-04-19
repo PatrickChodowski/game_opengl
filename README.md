@@ -79,10 +79,6 @@ python3 app.py
 - sound effects
 
 ### Entities
-ECS:
- - displaying menu
-
-AND THEEN:
  - rewrite tests
  - rewrite Python api
 
