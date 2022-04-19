@@ -106,45 +106,10 @@ Medieval Sharp
 Fiords of blood
 Axe and oar
 
-
-
 ### Memory check
 
 https://valgrind.org/docs/manual/quick-start.html
 
 
-
-
-
 ### Music scenarios
-
-1) Intro - main theme. Mroczny, zimny, nieprzyjazny klimat swiata
-https://www.youtube.com/watch?v=Q2evIg-aYw8
-
-2) Przebywanie w osadzie/bezpiecznym miejscu przed wyruszeniem w trase. 
-Spokojny, "nienarzucajacy" sie motyw. 
-
-3) Podroz morska lodzia wikingow. Muzyka ktora by leciala gdy gracz jest na morzu. 
-Mozliwe ze warto by bylo miec motyw morski lekki i burzliwy - możliwe będą sztormy. 
-Inna muzyka w trakcie sztormów dodałaby dramaturgii.
-
-4) Marsz przez pustkowie, najlepiej w trakcie szalejącej wichury/zamieci.
-
-5) Muzyka w trakcie walki. Zaczynałaby sie na początku potyczki i trwała tylko do końca starcia.
-Wiedzmin mial sporo takich kawalkow i korzystali z nich w zaleznosci od sytuacji 
-("steel for humans" w trakcie walki z ludzmi, "silver for monsters" w walce z potworami)
-https://www.youtube.com/watch?v=lAGm9MTyRJ8
-
-
-inspiracje:
-https://www.youtube.com/watch?v=Qj1RS9vHcsw
-https://youtu.be/zLSKgqULxyY?t=446
-https://www.youtube.com/watch?v=zYB0BBaU5K8
-https://www.youtube.com/watch?v=cNDsx_wUVm8
-https://www.youtube.com/watch?v=Qhz67kxqnjI (glowny motyw serialu)
-
-inspiracje ale metal:
-https://www.youtube.com/watch?v=x0ktYmedDJE
-https://www.youtube.com/watch?v=Mbsc-3T6o4M
-https://www.youtube.com/watch?v=83eDWKllyWo
-https://www.youtube.com/watch?v=pjwMOzn2Y2A
+https://docs.google.com/document/d/1AhmMyDQHfmy1Cq3JuBcPSzUPpqGaNg9okGu3JyKvxtY/edit
