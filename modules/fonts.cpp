@@ -70,7 +70,7 @@ namespace fonts
       }
 
       quad.entity_type_id = ENTITY_TYPE_TEXT;
-      quad.camera_type = ecs::renderdatas.at(entity_id).camera_type;
+      quad.camera_type = label.text_camera;
       quad.r = label.text_r;
       quad.g = label.text_g;
       quad.b = label.text_b;
@@ -86,7 +86,7 @@ namespace fonts
       quad.window_h = quad.h;
       quad.window_w = quad.h;
 
-      quad.is_clicked = ecs::renderdatas.at(entity_id).is_clicked;
+      quad.is_clicked = false;
       quads::AllQuads.push_back(quad);
       x += quad.w + (fonts::CH_OFFSET*scale);
     }

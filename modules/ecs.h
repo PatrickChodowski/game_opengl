@@ -17,6 +17,9 @@ namespace ecs
   // Entity IDs Index
   extern std::vector<int> Index;
 
+  // Info entity id and entities ID of the info ;d
+  extern phmap::flat_hash_map<unsigned int, std::vector<int>> infos;
+
   typedef void (*sig_ptr)(int entity_id);
   // Drop component functor
   extern phmap::flat_hash_map<int, sig_ptr> drop_component;
@@ -53,7 +56,7 @@ namespace ecs
     // Button
     int button_function_id;
     // Label
-    float text_size;
+    float text_size, text_camera;
     float text_r, text_g, text_b, text_a;
     float text_x, text_y, text_z;
 
@@ -100,7 +103,7 @@ namespace ecs
            r,g,b,a,
            camera_type,
            button_function_id,
-           label, text_size, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
+           label, text_size, text_camera, text_r, text_g, text_b, text_a, text_x, text_y, text_z,
            level, mobs_killed, exp, speed, hp, dmg, def,
            radius_x, radius_y, is_solid,
            item_id, item_joint_id, item_dmg, item_speed, item_location,
@@ -161,6 +164,7 @@ namespace ecs
   {
     std::string label;
     float text_size;
+    float text_camera;
     float text_r;
     float text_g; 
     float text_b; 
@@ -361,6 +365,9 @@ namespace ecs
   
   // Display text menu with entity info
   void info(int entity_id);
+
+  // Clear displayed info
+  void clear_info();
 }
 
 

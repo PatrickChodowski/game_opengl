@@ -121,6 +121,7 @@ namespace scenes
     e.camera_type = CAMERA_STATIC;
     e.button_function_id = BUTTON_NEWGAME_NAME;
     e.label = "";
+    e.text_camera = CAMERA_STATIC;
     e.text_size = 45;
     e.text_r = 0.5;
     e.text_g = 0.5;
@@ -162,6 +163,7 @@ namespace scenes
       e.camera_type = CAMERA_STATIC;
       e.button_function_id = BUTTON_LOADGAME_NAME;
       e.label = saves::saves[s];
+      e.text_camera = CAMERA_STATIC;
       e.text_size = 45;
       e.text_r = 0.5;
       e.text_g = 0.5;

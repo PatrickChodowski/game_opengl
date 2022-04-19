@@ -18,6 +18,7 @@
   "button_function_id": 2,
   "label": "settings",
   "text_size": 45,
+  "text_camera": 1.0,
   "text_r": 0.5,
   "text_g": 0.5,
   "text_b": 0.5,

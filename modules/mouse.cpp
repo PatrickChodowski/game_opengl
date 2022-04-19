@@ -100,7 +100,12 @@ namespace mouse
 
     // if right click
     if(mouse_button_id == MOUSE_BUTTON_RIGHT){
-      ecs::info(object_id);
+        if(ecs::infos.count(object_id)){
+          ecs::clear_info();
+        } else {
+          ecs::clear_info();
+          ecs::info(object_id);
+        }
       // entity::entities.at(object_id).is_clicked  = !entity::entities.at(object_id).is_clicked;
     } 
   };
