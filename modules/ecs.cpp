@@ -18,7 +18,7 @@
 namespace ecs
 {
   std::vector<int> Index = {};
-
+  phmap::flat_hash_map<unsigned int, std::vector<int>> infos;
   std::vector<ecs::TempEntityData> saved_entities;
   phmap::flat_hash_map<unsigned int, ecs::EntityData> entities;
   phmap::flat_hash_map<int, sig_ptr> drop_component;
@@ -127,6 +127,7 @@ namespace ecs
       ecs::drop(entity_id);
     }
     ecs::entities.clear();
+    ecs::infos.clear();
   }
 
   void add_component(int entity_id, int component_id, ecs::TempEntityData *data)
@@ -149,7 +150,7 @@ namespace ecs
         ecs::_add_button(entity_id, {data->button_function_id});
       break;
       case COMPONENT_LABEL:
-        ecs::_add_label(entity_id, {data->label, data->text_size, 
+        ecs::_add_label(entity_id, {data->label, data->text_size, data->text_camera,
                                     data->text_r, data->text_g, data->text_b, data->text_a, 
                                     data->text_x, data->text_y, data->text_z});
       break;
@@ -520,6 +521,7 @@ namespace ecs
           ecs::LabelComponent lab = ecs::labels.at(entity_id);
           e.label = lab.label;
           e.text_size = lab.text_size;
+          e.text_camera = lab.text_camera;
           e.text_r = lab.text_r;
           e.text_g = lab.text_g;
           e.text_b = lab.text_b;
@@ -590,7 +592,10 @@ namespace ecs
 
   void info(int entity_id)
   {
+    ecs::infos.clear();
+    std::vector<int> info_entities = {};
     std::vector<std::string> infos = {};
+
     ecs::EntityData ent = ecs::entities.at(entity_id);
     infos.push_back(ent.name + "(" + std::to_string(entity_id) + ") type: " + std::to_string(ent.entity_type_id)); 
 
@@ -624,6 +629,26 @@ namespace ecs
       infos.push_back("npc_id: " + utils::str(npc.npc_id));
       infos.push_back("sentiment: " + utils::str(npc.sentiment));
     }
+    // menu background:
+
+      ecs::TempEntityData e0;
+      e0.name = "info_menu_background_" + std::to_string(entity_id);
+      e0.components = {0,1,2,3};
+      e0.entity_type_id = ENTITY_TYPE_COLOR;
+      e0.x = 600;
+      e0.y = 5;
+      e0.z = 0.9;
+      e0.w = 350;
+      e0.h = 500;
+      e0.r = 0.701,
+      e0.g = 0.675,
+      e0.b = 0.675,
+      e0.a = 0.6;
+      e0.model_id = -1;
+      e0.frame_id = -1;
+      e0.side_id = 0;
+      e0.camera_type = CAMERA_STATIC;
+      info_entities.push_back(ecs::create_entity(&e0));
 
 
     float start_y = 10;
@@ -632,22 +657,10 @@ namespace ecs
       // Info menu definition
       ecs::TempEntityData e;
       e.name = "info_menu_" + std::to_string(entity_id);
-      e.components = {0,1,2,3,5};
-      e.entity_type_id = ENTITY_TYPE_COLOR;
-      e.x = 600;
-      e.y = 5;
-      e.z = 0.9;
-      e.w = 350;
-      e.h = 500;
-      e.r = 0.701,
-      e.g = 0.675,
-      e.b = 0.675,
-      e.a = 0.6;
-      e.model_id = -1;
-      e.frame_id = -1;
-      e.side_id = 0;
-      e.camera_type = CAMERA_STATIC;
+      e.components = {5};
+      e.entity_type_id = ENTITY_TYPE_TEXT;
       e.label = infos[s];
+      e.text_camera = CAMERA_STATIC;
       e.text_size = 25;
       e.text_r = 0.8;
       e.text_g = 0.8;
@@ -656,9 +669,22 @@ namespace ecs
       e.text_x = 605;
       e.text_y = start_y;
       e.text_z = 0.99;
-      ecs::create_entity(&e);
+      info_entities.push_back(ecs::create_entity(&e));
       start_y += 30;
     }
+    ecs::infos.insert(std::pair<unsigned int, std::vector<int>>{entity_id, info_entities});
+  }
+
+  void clear_info()
+  {
+    for (auto const& [entity_id, info_ids] : ecs::infos)
+    {
+      for(int i=0; i<info_ids.size(); i++)
+      {
+        ecs::drop(info_ids[i]);
+      }
+    }
+    ecs::infos.clear();
   }
 }
 

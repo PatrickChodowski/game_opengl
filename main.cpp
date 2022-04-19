@@ -46,9 +46,9 @@ int main()
     SDL_GL_SwapWindow(WINDOW);
     std::chrono::time_point<std::chrono::high_resolution_clock> game_loop_end_time = timer::get_current_hrc_time();
     float delay = timer::get_delay_ms(game_loop_start_time, game_loop_end_time);
-    SDL_Delay(delay);
     if(delay < min_delay){min_delay = delay; std::cout << "delay:" << delay << std::endl;}
-    FPS = timer::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
+    SDL_Delay(delay);
+    //FPS = timer::get_fps_delay(game_loop_start_time, game_loop_end_time, delay);
   }
 
   game::drop();
