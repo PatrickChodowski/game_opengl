@@ -11,7 +11,7 @@
 #include "../dependencies/pybind11/stl.h"
 
 #include "../modules/anims.h"
-#include "../modules/entity.h"
+#include "../modules/ecs.h"
 #include "../modules/items.h"
 #include "../modules/mobs.h"
 #include "../modules/npcs.h"
@@ -50,10 +50,9 @@ namespace scripts
   void init()
   {
     scripts::Handler[0] = _spawn_mob;
-    scripts::Handler[1] = _drop_mob;
+    scripts::Handler[1] = _drop_entity;
     scripts::Handler[2] = _interact_npc;
     scripts::Handler[3] = _spawn_item;
-    scripts::Handler[4] = _drop_item;
     scripts::Handler[5] = _start_animation;
     scripts::Handler[6] = _init_travel;
     scripts::Handler[7] = _print_entity;
@@ -77,10 +76,10 @@ namespace scripts
     mobs::spawn(args["mob_type_id"], args["x"], args["y"]);
   };
 
-  void _drop_mob()
+  void _drop_entity()
   {
-    // Function 1 -> drop mob
-    mobs::drop(args["entity_id"]);
+    // Function 1 -> drop entity
+    ecs::drop(args["entity_id"]);
   }
 
   void _interact_npc()
@@ -92,13 +91,7 @@ namespace scripts
   void _spawn_item()
   {
     // Function 3 -> spawn_item
-    items::spawn(args["item_id"], args["x"], args["y"]);
-  }
-
-  void _drop_item()
-  {
-    // Function 4 -> _drop_item
-    items::drop(args["entity_id"]);
+    items::generate_item(args["item_id"], args["x"], args["y"], ITEM_LOCATION_GROUND);
   }
 
   void _start_animation()
@@ -116,7 +109,7 @@ namespace scripts
   void _print_entity()
   {
     // Function 7 -> _print_entity
-    entity::print_entity_data();
+    //entity::print_entity_data();
   }
 
 

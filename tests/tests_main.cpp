@@ -30,10 +30,6 @@ void init()
   tests["test_collisions__set_sensors_on_entity_bottomleft"] = test_collisions__set_sensors_on_entity_bottomleft;
   tests["test_collisions__set_sensors_on_entity_count_after_update"] = test_collisions__set_sensors_on_entity_count_after_update;
   tests["test_collisions__set_sensors_on_entity_top_after_update"] = test_collisions__set_sensors_on_entity_top_after_update;
-  tests["test_collisions__get_entity_to_map_dto_solidpass"] = test_collisions__get_entity_to_map_dto_solidpass;
-  tests["test_collisions__get_entity_to_map_dto_is_near"] = test_collisions__get_entity_to_map_dto_is_near;
-  // tests["test_collisions__get_entity_to_entity_dto_solidpass"] = test_collisions__get_entity_to_entity_dto_solidpass;
-
   // utils
   tests["test_utils_generate_id_first_id_is_1"] = test_utils_generate_id_first_id_is_1;
   tests["test_utils_drop_id_empty_index"] = test_utils_drop_id_empty_index;

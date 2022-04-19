@@ -10,34 +10,40 @@
 
 namespace saves
 {
+  // List of save files
+  extern std::vector<std::string> saves;
+  extern std::string NewGameName;
+  extern std::string LoadGameName;
+
+  extern int NEW_GAME_NAME_BUTTON_ENTITY;
+
+  // Just for recognizing load game name
+  extern phmap::flat_hash_map<int, std::string> saves_buttons_map;
 
   struct SaveData
   {
-    float x;
-    float y;
-    float w;
-    float h;
-  
-    float exp;
-    float speed;
-    float hp;
-    float dmg;
-    float def;
-
-    int scene_id;
-    int model_id;
-    int level;
-    int mobs_killed;
-
     std::string name;
-    std::string type;
+    std::vector<unsigned int> components;
+    
+    int model_id;
+    int scene_id;
+  
+    // Position
+    float x, y;
 
+    // Dimension
+    float w, h;
 
-    std::vector<npcs::InteractionData> interactions;
+    // Stats
+    int level, mobs_killed;
+    float hp, dmg, def, speed, exp;
 
+    // Collisions
+    float radius_x, radius_y;
 
-    JS_OBJ(x, y, w, h, exp, speed, hp, dmg, def, scene_id, model_id, 
-    level, mobs_killed, name, type, interactions);
+    //std::vector<npcs::InteractionData> interactions;
+    JS_OBJ(name, components, model_id, scene_id, x, y, w, h, 
+           level, mobs_killed, hp, dmg, def, speed, exp, radius_x, radius_y);
   };
 
   // Writes the save json file to saves directory
@@ -45,12 +51,23 @@ namespace saves
 
   // Saves game data to struct and saves it further to the file
   void save_game();
-  
+
   // Load game data from the file
   void load_game(std::string& name);
 
   // Reads save data fom file
-  saves::SaveData read_save_data(std::string& name);
+  saves::SaveData read_data(std::string& name);
+
+  // Update list of saves
+  void list_saves();
+
+  // Validate new game name
+  bool _validate_name();
+
+  // Validate input to new game name
+  bool _validate_input(std::string input);
+
+
   
 
 }

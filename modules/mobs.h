@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 
-
-
 #ifndef MODULES_MOBS_H
 #define MODULES_MOBS_H
 
@@ -15,30 +13,27 @@ namespace mobs
 
   struct MobData
   {
-    int id;
+    int mob_id;
     int model_id;
-    int current_frame;
-    int min_dmg;
-    int max_dmg;
-    int min_speed;
-    int max_speed;
-    int min_hp;
-    int max_hp;
-    int min_def;
-    int max_def;
+    float w;
+    float h;
+    float radius_x;
+    float radius_y;
+    float min_dmg;
+    float max_dmg;
+    float min_speed;
+    float max_speed;
+    float min_hp;
+    float max_hp;
+    float min_def;
+    float max_def;
+    std::string name;
 
-    float speed;
-    float x, y;
-    float w, h;
-
-    std::string type;
-
-    JS_OBJ(id, type, w, h, model_id, min_dmg, max_dmg, min_speed,
-    max_speed, min_hp, max_hp, min_def, max_def, speed);
+    JS_OBJ(mob_id, model_id, w, h, radius_x, radius_y, min_dmg, max_dmg, min_speed,
+    max_speed, min_hp, max_hp, min_def, max_def, name);
   };
 
-  extern phmap::flat_hash_map<int, MobData> mobs_data;
-  extern phmap::flat_hash_map<int, MobData> SpawnedMobs;
+  extern phmap::flat_hash_map<int, MobData> mobs;
 
   // Reads mobs data
   void read_data(std::string name);
@@ -49,20 +44,11 @@ namespace mobs
   // Clears all data
   void refresh();
 
-  // clears Mobs information
-  void clear();
-
   // Spawns mob entities according to the map - in the nests. Creates entities and adds to entity list
   void spawn_from_nest(int map_id);
 
   // Spawn single mob
-  void spawn(int mob_type_id, float x, float y);
-
-  // Drops a mob and corresponding entity data
-  void drop(int entity_id);
-
-  // Returns vector of strings with mob information
-  std::vector<std::string> info(int entity_id);
+  int spawn(int mob_id, float x, float y);
 
 }
 

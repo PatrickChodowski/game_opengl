@@ -3,44 +3,12 @@
 #include <vector>
 #include "../dependencies/parallel_hashmap/phmap.h"
 
-#include "collisions.h"
-
-
 #ifndef MODULES_QUAD_H
 #define MODULES_QUAD_H
 
 // Frame data. Table of quads and all operations on this table
 namespace quads
 {
-  // Color of the quad -> r,g,b,a
-  struct Color
-  {
-    float r, g, b, a;
-  };
-
-  // Position -> x,y,z
-  struct Position
-  {
-    float x, y, z;
-    //float z = 1.0f;
-  };
-
-  // Dimensions -> w,h
-  struct Dims
-  {
-    float w, h;
-  };
-
-  // Normalized position of frame in texture -> x_start, x_end, y_start, y_end
-  struct Norm
-  {
-    float x_start = 0.0f;
-    float x_end = 1.0f;
-    float y_start = 0.0f;
-    float y_end = 1.0f;
-  };
-
-
   // Struct containing only vertex specific data - locations and texture querying params
   struct VertexData
   {
@@ -69,10 +37,10 @@ namespace quads
   // All data needed by buffer and shaders to render image properly
   struct QuadData
   {
-    int id;
+    int entity_id;
     int texture_id;
     int frame_id;
-    int object_id;
+    int entity_type_id;
     int model_id;
  
     // a b
@@ -86,23 +54,23 @@ namespace quads
     // Vertex specific data
     struct VertexData v;
 
-    quads::Color color;
-    quads::Position pos;
-    quads::Dims dims;
-    quads::Norm norm;
+    float r, g, b, a;
+    float x, y, z;
+    float w, h;
+    float norm_x_start = 0.0f;
+    float norm_x_end = 1.0f;
+    float norm_y_start = 0.0f;
+    float norm_y_end = 1.0f;
 
-    float object_type_id;
-    float camera_type;
+    int camera_type;
 
     // Window dimensions and coordinates for presenting in the window
     float window_x, window_y;
     float window_w, window_h;
 
     bool is_clicked;
-    bool is_deleted;
 
   };
-
 
   extern int MAX_QUADS;
   extern std::vector<QuadData> AllQuads;
@@ -122,13 +90,11 @@ namespace quads
   // Accumulate all quad vectors from different components
   void update();
 
-  // Makes quads out of the object catalog data - entities, text, menu, debug, gui, maps etc. Adds straight to quads array
-  template <typename T>
-  void add_quads(phmap::flat_hash_map<int, T>& data, int object_type_id);
+  // Makes quad out of entity data (requires Position, Dimension, Color or Model, Render components)
+  void make_entity_quad(int entity_id);
 
-  // Makes one quad out of single struct data. Returns quad_id
-  template <typename T>
-  int make_quad(T& data, int object_type_id);
+  // Render all renderable entities
+  void render();
 
   // Writes down the quads data to ./logs/all_quads.json on every frame
   void log();

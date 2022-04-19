@@ -21,7 +21,6 @@ namespace game
   extern int CURRENT_SHADER_ID;
   extern float WINDOW_WIDTH;
   extern float WINDOW_HEIGHT;
-  extern bool LOG_TO_FILES;
   extern const Uint8 *KEYBOARD;
   extern std::chrono::time_point<std::chrono::high_resolution_clock> GAME_START_TIME;
 
@@ -30,53 +29,19 @@ namespace game
     float window_width;
     float window_height;
     int starting_scene;
-    bool log_to_files;
+    bool is_debug_mode;
 
-    JS_OBJ(window_width, window_height, starting_scene, log_to_files);
+    JS_OBJ(window_width, window_height, starting_scene, is_debug_mode);
   };
 
   extern game::ExternalConfigData Config;
-
-  struct SceneData 
-  {
-    int id;
-    int events_handler_id;
-    int map_id;
-    std::vector<int> menu_slots;
-    std::vector<int> menu_types;
-    float hero_start_x, hero_start_y;
-    std::string label;
-
-    bool is_gp; // is it gameplay
-
-    JS_OBJ(id, events_handler_id, map_id, hero_start_x, hero_start_y, menu_slots, menu_types, label, is_gp);
-  };
-
   extern int EVENT_HANDLER_ID;
   extern int MAP_ID;
   extern float HERO_START_X;
   extern float HERO_START_Y;
-  extern phmap::flat_hash_map<int, game::SceneData> scenes;
-
-
-  typedef void (*sig_ptr)(int scene_id);
-  // Functions map to loading a hero
-  extern phmap::flat_hash_map<int, sig_ptr> HeroLoader;
-
-  // Reads scene data to struct
-  void read_data(std::string &name);
-
-  // Reads all scenes data to scenes catalog
-  void init_scenes();
-
-  // Initialize all systems for new scene
-  void load_scene(int scene_id, int load_scene_from);
 
   // Delete all data necessary for clear the scene
-  void clear_scene();
-
-  // Switches scene. Clears current scene data and initializes new one
-  void switch_scene(int scene_id, int load_scene_from);
+  void clear();
 
   // Initialize all in-game systems inside single game::init()
   void init();
@@ -92,16 +57,6 @@ namespace game
 
   // Reads in game config
   void read_config(std::string& config_path);
-
-  // Loads hero from new game logic
-  void _load_hero_from_new_game(int scene_id);
-
-  // Loads hero from load game logic
-  void _load_hero_from_load_game(int scene_id);
-
-  // Loads hero from change level logic
-  void _load_hero_from_change_level(int scene_id);
-
 
 }
 

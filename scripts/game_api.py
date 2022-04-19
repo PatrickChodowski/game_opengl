@@ -6,8 +6,8 @@ funcs = {
                  "args": ["mob_type_id", "x", "y"],
                  "id": 0},
 
-  "_drop_mob": {"first": "drop", 
-                 "second": "mob",
+  "_drop_entity": {"first": "drop", 
+                 "second": "entity",
                  "args": ["entity_id"],
                  "id": 1},
 
@@ -20,11 +20,6 @@ funcs = {
                   "second": "item",
                   "args": ["item_id", "x", "y"],
                   "id": 3},
-
-  "_drop_item": {"first": "drop", 
-                 "second": "item",
-                 "args": ["entity_id"],
-                 "id": 4},
 
   "_start_animation": {"first": "start", 
                        "second": "animation",
