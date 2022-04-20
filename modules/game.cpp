@@ -30,6 +30,7 @@
 #include "saves.h"
 #include "scenes.h"
 #include "shaders.h"
+#include "sounds.h"
 #include "travel.h"
 
 #include "../scripts/py.h"
@@ -72,6 +73,7 @@ namespace game
 
   void init()
   {
+    //sounds::init();
     quads::clear();
     ecs::init();
     models::init();

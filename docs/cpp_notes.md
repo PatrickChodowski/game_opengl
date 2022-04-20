@@ -1,3 +1,8 @@
+### SDL message box
+
+SDL_ShowSimpleMessageBox(0, "Error", "wav failed to load", NULL);
+
+
 
 ### looping through the map
 

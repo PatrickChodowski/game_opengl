@@ -39,6 +39,9 @@ glxinfo | grep "OpenGL version"
 Ubuntu:
 OpenGL version string: 4.6.0 NVIDIA 470.103.01
 
+### Added packages
+libalut-dev
+
 
 ### Scripting
 Using python script (totally forgot how)
@@ -84,6 +87,9 @@ Joel Carrouche: https://www.fontspace.com/norse-font-f21080 www.joelcarrouche.co
 
 font string:
 ABCDEFGHIJKLMNOPRSTUWVXYZ0123456789!@#$%&*(){}[]^:;”’<>,./?|\-_=+
+
+### software
+https://github.com/adamstark/AudioFile/blob/master/LICENSE
 
 
 
