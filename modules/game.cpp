@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <vector>
+#include <thread> 
 
 
 #include "game.h"
@@ -73,7 +74,7 @@ namespace game
 
   void init()
   {
-    //sounds::init();
+    //std::thread t2(sounds::init);
     quads::clear();
     ecs::init();
     models::init();
