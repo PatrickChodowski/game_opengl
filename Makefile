@@ -11,7 +11,7 @@ LDFLAGS = -lSDL2 -lGLEW -lfreetype -L/usr/local/Cellar/python@3.8/3.8.13/Framewo
 endif 
 ifeq ($(UNAME),Linux)
 CXXFLAGS= -MMD -std=c++17 -I dependencies/python/include
-LDFLAGS = -lSDL2 -lGL -lGLEW -lfreetype -lpython3.8
+LDFLAGS = -lSDL2 -lGL -lGLEW -lfreetype -lopenal -lpython3.8
 endif
 
 src = $(wildcard *.cpp)\
