@@ -115,7 +115,7 @@ namespace models
   extern phmap::flat_hash_map<int, int> ModelTextureMap;
 
   // Read all model files
-  void init();
+  void init(std::string model_data_path = "./data/models");
 
   // Reads in model data
   void read_data(std::string& file_name);

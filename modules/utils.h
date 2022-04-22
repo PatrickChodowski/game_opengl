@@ -17,7 +17,7 @@ namespace utils
   bool has_ending(std::string const &full_string, std::string const &ending);
 
   // list all json files in directory that have metadata created, default path
-  std::vector<std::string> list_json_files(std::string path);
+  std::vector<std::string> list_json_files(std::string dir_path);
 
   // list all gltf files in directory that have metadata created, default path
   std::vector<std::string> list_gltf_files(std::string path);

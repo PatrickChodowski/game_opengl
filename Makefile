@@ -47,6 +47,6 @@ obj_tests = $(src_tests:.cpp=.o )
 dep_tests = $(obj:.o=.d)  # one dependency file for each source
 
 test: $(obj_tests)
-	$(CXX) -o $@ $^ $(LDFLAGS)
+	$(CXX) -o $@ $^ $(LDFLAGS) 
 
 -include $(dep_tests)   # include all dep files in the makefile
