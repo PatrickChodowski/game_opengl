@@ -7,6 +7,7 @@
 
 #include "anims.h"
 #include "ecs.h"
+#include "game.h"
 #include "models.h"
 #include "quads.h"
 #include "utils.h"
@@ -196,13 +197,17 @@ namespace ecs
 
   void _add_position(int entity_id, ecs::PositionComponent position)
   {
-    std::cout << " [ECS] Adding position component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding position component for entity " << entity_id << std::endl;
+    }
     ecs::positions.insert(std::pair<int, ecs::PositionComponent>{entity_id, position});
   };
 
   void _add_model(int entity_id, ecs::ModelComponent model)
   {
-    std::cout << " [ECS] Adding model component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding model component for entity " << entity_id << std::endl;
+    }
     ecs::models.insert(std::pair<int, ecs::ModelComponent>{entity_id, model});
     if(model.model_id > -1){
       models::load(model.model_id);
@@ -211,25 +216,33 @@ namespace ecs
   
   void _add_color(int entity_id, ecs::ColorComponent color)
   {
-    std::cout << " [ECS] Adding color component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding color component for entity " << entity_id << std::endl;
+    }
     ecs::colors.insert(std::pair<int, ecs::ColorComponent>{entity_id, color});
   };
 
   void _add_renderdata(int entity_id, ecs::RenderdataComponent renderdata)
   {
-    std::cout << " [ECS] Adding renderdata component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding renderdata component for entity " << entity_id << std::endl;
+    }
     ecs::renderdatas.insert(std::pair<int, ecs::RenderdataComponent>{entity_id, renderdata});
   };
 
   void _add_button(int entity_id, ecs::ButtonComponent button)
   {
-    std::cout << " [ECS] Adding button component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding button component for entity " << entity_id << std::endl;
+    }
     ecs::buttons.insert(std::pair<int, ecs::ButtonComponent>{entity_id, button});
   };
 
   void _add_label(int entity_id, ecs::LabelComponent label)
   {
-    std::cout << " [ECS] Adding label component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding label component for entity " << entity_id << std::endl;
+    }
     ecs::labels.insert(std::pair<int, ecs::LabelComponent>{entity_id, label});
   };
 
@@ -241,49 +254,65 @@ namespace ecs
 
   void _add_collision(int entity_id, ecs::CollisionsComponent collision)
   {
-    std::cout << " [ECS] Adding collision component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding collision component for entity " << entity_id << std::endl;
+    }
     ecs::collisions.insert(std::pair<int, ecs::CollisionsComponent>{entity_id, collision});
   }
 
   void _add_stat(int entity_id, ecs::StatsComponent stat)
   {
-    std::cout << " [ECS] Adding stat component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding stat component for entity " << entity_id << std::endl;
+    }
     ecs::stats.insert(std::pair<int, ecs::StatsComponent>{entity_id, stat});
   }
 
   void _add_sensor(int entity_id, ecs::SensorsComponent sensor)
   {
-    std::cout << " [ECS] Adding sensors component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding sensors component for entity " << entity_id << std::endl;
+    }
     ecs::sensors.insert(std::pair<int, ecs::SensorsComponent>{entity_id, sensor});
   }
 
   void _add_item(int entity_id, ecs::ItemComponent item)
   {
-    std::cout << " [ECS] Adding item component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding item component for entity " << entity_id << std::endl;
+    }
     ecs::items.insert(std::pair<int, ecs::ItemComponent>{entity_id, item});
   }
 
   void _add_equipment(int entity_id, ecs::EquipmentComponent equipment)
   {
-    std::cout << " [ECS] Adding equipment component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding equipment component for entity " << entity_id << std::endl;
+    }
     ecs::equipments.insert(std::pair<int, ecs::EquipmentComponent>{entity_id, equipment});
   }
 
   void _add_npc(int entity_id, ecs::NPCComponent npc)
   {
-    std::cout << " [ECS] Adding npc component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding npc component for entity " << entity_id << std::endl;
+    }
     ecs::npcs.insert(std::pair<int, ecs::NPCComponent>{entity_id, npc});
   }
 
   void _add_mob(int entity_id, ecs::MobComponent mob)
   {
-    std::cout << " [ECS] Adding mob component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding mob component for entity " << entity_id << std::endl;
+    }
     ecs::mobs.insert(std::pair<int, ecs::MobComponent>{entity_id, mob});
   }
 
   void _add_door(int entity_id, ecs::DoorComponent door)
   {
-    std::cout << " [ECS] Adding door component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Adding door component for entity " << entity_id << std::endl;
+    }
     ecs::doors.insert(std::pair<int, ecs::DoorComponent>{entity_id, door});
   }
 

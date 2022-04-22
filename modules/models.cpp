@@ -40,7 +40,6 @@ namespace models
     
     for(int m=0; m < model_list.size(); m++)
     {
-      std::cout << model_list[m] << std::endl;
       models::read_data(model_list[m]);
     };
     std::cout << "Models Initialized" << std::endl;
