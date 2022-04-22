@@ -320,37 +320,52 @@ namespace ecs
 
   void _drop_position(int entity_id)
   {
-    std::cout << " [ECS] Dropping position component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){
+      std::cout << " [ECS] Dropping position component for entity " << entity_id << std::endl;
+    }
     ecs::positions.erase(entity_id);
   };
 
   void _drop_model(int entity_id)
   {
-    std::cout << " [ECS] Dropping model component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping model component for entity " << entity_id << std::endl;
+    }
     ecs::models.erase(entity_id);
+    if(anims::animsplayed.count(entity_id)){
+      anims::drop(entity_id);
+    }
   };
 
   void _drop_color(int entity_id)
   {
-    std::cout << " [ECS] Dropping color component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping color component for entity " << entity_id << std::endl;
+    }
     ecs::colors.erase(entity_id);
   };
 
   void _drop_renderdata(int entity_id)
   {
-    std::cout << " [ECS] Dropping renderdata component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping renderdata component for entity " << entity_id << std::endl;
+    }
     ecs::renderdatas.erase(entity_id);
   };
 
   void _drop_button(int entity_id)
   {
-    std::cout << " [ECS] Dropping button component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping button component for entity " << entity_id << std::endl;
+    }
     ecs::buttons.erase(entity_id);
   };
 
   void _drop_label(int entity_id)
   {
-    std::cout << " [ECS] Dropping label component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+     std::cout << " [ECS] Dropping label component for entity " << entity_id << std::endl;
+    }
     ecs::labels.erase(entity_id);
   };
 
@@ -362,49 +377,65 @@ namespace ecs
 
   void _drop_stat(int entity_id)
   {
-    std::cout << " [ECS] Dropping stat component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping stat component for entity " << entity_id << std::endl;
+    }
     ecs::stats.erase(entity_id);
   };
 
   void _drop_collision(int entity_id)
   {
-    std::cout << " [ECS] Dropping collisions component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping collisions component for entity " << entity_id << std::endl;
+    }
     ecs::collisions.erase(entity_id);
   };
 
   void _drop_sensor(int entity_id)
   {
-    std::cout << " [ECS] Dropping sensors component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping sensors component for entity " << entity_id << std::endl;
+    }
     ecs::sensors.erase(entity_id);
   };
 
   void _drop_item(int entity_id)
   {
-    std::cout << " [ECS] Dropping item component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping item component for entity " << entity_id << std::endl;
+    }
     ecs::items.erase(entity_id);
   };
 
   void _drop_equipment(int entity_id)
   {
-    std::cout << " [ECS] Dropping equipment component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping equipment component for entity " << entity_id << std::endl;
+    }
     ecs::equipments.erase(entity_id);
   };
 
   void _drop_npc(int entity_id)
   {
-    std::cout << " [ECS] Dropping npc component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping npc component for entity " << entity_id << std::endl;
+    }
     ecs::npcs.erase(entity_id);
   };
 
   void _drop_mob(int entity_id)
   {
-    std::cout << " [ECS] Dropping mob component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping mob component for entity " << entity_id << std::endl;
+    }
     ecs::mobs.erase(entity_id);
   };
 
   void _drop_door(int entity_id)
   {
-    std::cout << " [ECS] Dropping door component for entity " << entity_id << std::endl;
+    if(game::IS_DEBUG_MODE){  
+      std::cout << " [ECS] Dropping door component for entity " << entity_id << std::endl;
+    }
     ecs::doors.erase(entity_id);
   };
 
