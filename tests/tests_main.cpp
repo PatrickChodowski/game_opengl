@@ -10,6 +10,8 @@
 #include "../modules/ecs.h"
 #include "../modules/models.h"
 #include "../modules/game.h"
+
+#include "tests_anims.h"
 #include "tests_collisions.h"
 #include "tests_utils.h"
 
@@ -29,7 +31,15 @@ void init()
 {
   // models and animations are now needed for loading entities to the scene. Entity has model assigned and loaded automatically and animation set to idle
   anims::init();
+  ecs::init();
   models::init("./data/models");
+
+
+  // anims
+  tests["test_anims__hero_anim_start"] = test_anims__hero_anim_start;
+  tests["test_anims__entity_anim_start"] = test_anims__entity_anim_start;
+  tests["test_anims__entity_anim_not_start"] = test_anims__entity_anim_not_start;
+  tests["test_anims__entity_anim_start_later"] = test_anims__entity_anim_start_later;
 
   // collisions
   tests["test_collisions__set_sensors_on_entity_count"] = test_collisions__set_sensors_on_entity_count;
