@@ -12,6 +12,7 @@
 #include "../modules/game.h"
 
 #include "tests_anims.h"
+#include "tests_camera.h"
 #include "tests_collisions.h"
 #include "tests_utils.h"
 
@@ -42,6 +43,10 @@ void init()
   tests["test_anims__entity_anim_play"] = test_anims__entity_anim_play;
   tests["test_anims__entity_anim_breakable"] = test_anims__entity_anim_breakable;
   tests["test_anims__entity_anim_same_type"] = test_anims__entity_anim_same_type;
+
+  // camera
+  tests["test_camera__scale_quads"] = test_camera__scale_quads;
+
 
   // collisions
   tests["test_collisions__set_sensors_on_entity_count"] = test_collisions__set_sensors_on_entity_count;

@@ -1,9 +1,10 @@
+
 #include "../dependencies/glm/mat4x4.hpp"
 #include "../dependencies/glm/ext/matrix_transform.hpp"
 #include "../dependencies/glm/gtc/matrix_transform.hpp"
 #include "../dependencies/glm/gtc/type_ptr.hpp"
 #include "../dependencies/glm/gtx/string_cast.hpp"
-
+#include "../dependencies/parallel_hashmap/phmap.h"
 
 #ifndef MODULES_CAMERA_H
 #define MODULES_CAMERA_H
@@ -31,11 +32,23 @@ namespace camera
   extern glm::mat4 STATIC_MVP;
   extern glm::mat4 DYNAMIC_MVP;
 
+  typedef void (*sig_ptr)();
+  extern phmap::flat_hash_map<int, sig_ptr> CameraHandler;
+
+  // initialize camera
+  void init();
+  
   // Re-set camera struct "cam" to default values
   void reset();
 
   // Scale quadData objects
   void scale_quads(float camera_x, float camera_y, float camera_zoom);
+
+  // Scale static camera quads
+  void _scale_quad_static();
+
+  // Scale dynamic camera quads
+  void _scale_quad_dynamic();
 
   // generate dynamic MVP transformation matrix
   glm::mat4 gen_dynamic_mvp(float camera_move_x, float camera_move_y, float camera_zoom);
