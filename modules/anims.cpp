@@ -111,25 +111,16 @@ namespace anims
     }
   }
 
-
-
   bool _check_if_entity_in_anim(int entity_id)
   {
-    bool has_anim = false;
-    if(anims::animsplayed.count(entity_id) > 0)
-    {
-      has_anim = true;
-    }
-    return has_anim;
+    return anims::animsplayed.count(entity_id);
   }
 
   bool _check_if_entity_in_anim_same_type(int anim_id, int entity_id)
   {
     bool has_anim_same_type = false;
-    if(anims::animsplayed.count(entity_id) > 0)
-    {
-      if(anims::animsplayed[entity_id].id == anim_id)
-      {
+    if(anims::animsplayed.count(entity_id)){
+      if(anims::animsplayed[entity_id].id == anim_id){
         has_anim_same_type = true;
       }
     }
