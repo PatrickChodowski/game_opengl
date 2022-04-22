@@ -1,4 +1,6 @@
 
+#include "quads.h"
+
 #include "../dependencies/glm/mat4x4.hpp"
 #include "../dependencies/glm/ext/matrix_transform.hpp"
 #include "../dependencies/glm/gtc/matrix_transform.hpp"
@@ -32,8 +34,8 @@ namespace camera
   extern glm::mat4 STATIC_MVP;
   extern glm::mat4 DYNAMIC_MVP;
 
-  typedef void (*sig_ptr)();
-  extern phmap::flat_hash_map<int, sig_ptr> CameraHandler;
+  typedef void (*sig_ptr)(quads::QuadData *q, float camera_x, float camera_y, float scale_factor);
+  extern phmap::flat_hash_map<int, sig_ptr> CameraScale;
 
   // initialize camera
   void init();
@@ -45,10 +47,13 @@ namespace camera
   void scale_quads(float camera_x, float camera_y, float camera_zoom);
 
   // Scale static camera quads
-  void _scale_quad_static();
+  void _scale_quad_static(quads::QuadData *q, float camera_x = 0.0f, float camera_y = 0.0f, float scale_factor = 1.0f);
 
   // Scale dynamic camera quads
-  void _scale_quad_dynamic();
+  void _scale_quad_dynamic(quads::QuadData *q, float camera_x, float camera_y, float scale_factor);
+
+  // Scale hidden camera quads (just a placeholder)
+  void _scale_quad_hidden(quads::QuadData *q, float camera_x = 0.0f, float camera_y = 0.0f, float scale_factor = 1.0f);
 
   // generate dynamic MVP transformation matrix
   glm::mat4 gen_dynamic_mvp(float camera_move_x, float camera_move_y, float camera_zoom);
