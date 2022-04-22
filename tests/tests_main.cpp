@@ -27,12 +27,9 @@ std::string GAME_CONFIG_PATH = "config.json";
 
 void init()
 {
-  std::cout << "??" << std::endl;
   // models and animations are now needed for loading entities to the scene. Entity has model assigned and loaded automatically and animation set to idle
   anims::init();
-  std::cout << "??2" << std::endl;
   models::init("./data/models");
-  std::cout << "??3" << std::endl;
 
   // collisions
   tests["test_collisions__set_sensors_on_entity_count"] = test_collisions__set_sensors_on_entity_count;
@@ -85,6 +82,8 @@ int main()
   GLenum err = glewInit();
   utils::check_glew(err);
 
+  // No need in tests
+  game::IS_DEBUG_MODE = false;
 
   init();
   std::cout << std::endl;
