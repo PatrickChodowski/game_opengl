@@ -99,7 +99,6 @@ namespace anims
     }
   };
 
-
   void start_delayed(int anim_id, int entity_id)
   {
     // Check if given entity's model has this animation id available in the first place
@@ -126,9 +125,6 @@ namespace anims
     }
     return has_anim_same_type;
   }
-
-
-
 
   // Anim handlers:
   void update_frame(int entity_id, models::ModelAnimData &AD)

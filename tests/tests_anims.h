@@ -189,8 +189,6 @@ bool test_anims__entity_anim_play()
     return passed;
 }
 
-
-
 bool test_anims__entity_anim_breakable()
 {
     ecs::clear();
@@ -229,4 +227,39 @@ bool test_anims__entity_anim_breakable()
     return passed;
 }
 
+bool test_anims__entity_anim_same_type()
+{
+    ecs::clear();
+    bool passed = true;  
 
+    // create animated entity
+    ecs::TempEntityData e;
+    e.components = {0,1};
+    e.entity_type_id = ENTITY_TYPE_LIVE;
+    e.x = 400;
+    e.y = 400;
+    e.z = 0.30;
+    e.w = 10;
+    e.h = 10;
+    e.model_id = 2;
+    e.frame_id = 20101;
+    e.side_id = ANIM_SIDE_FRONT;
+    e.animated = false;
+    int entity_id = ecs::create_entity(&e);
+    anims::start(ANIM_STANDING_IDLE, entity_id);
+
+    SDL_Delay(100);
+
+    anims::start(ANIM_STANDING_IDLE, entity_id);
+    anims::play(entity_id);
+
+    SDL_Delay(150);
+    anims::play(entity_id);
+    if(ecs::models.at(entity_id).frame_id != 10101){
+        std::cout << " [ERROR] Anims update failed on 1st check" << std::endl;
+        std::cout << " [ERROR] Current frame is " << ecs::models.at(entity_id).frame_id << " instead of " << 10101 << std::endl;
+        return false;
+    }
+
+    return passed;
+}
