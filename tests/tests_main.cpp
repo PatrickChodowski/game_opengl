@@ -45,7 +45,9 @@ void init()
   tests["test_anims__entity_anim_same_type"] = test_anims__entity_anim_same_type;
 
   // camera
-  tests["test_camera__scale_quads"] = test_camera__scale_quads;
+  tests["test_camera__scale_quad_static"] = test_camera__scale_quad_static;
+  tests["test_camera__scale_quad_dynamic"] = test_camera__scale_quad_dynamic;
+
 
 
   // collisions
