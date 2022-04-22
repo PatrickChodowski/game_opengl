@@ -4,7 +4,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include <vector>
-#include "../dependencies/parallel_hashmap/phmap.h"
+#include <map>
 
 #include "../modules/anims.h"
 #include "../modules/ecs.h"
@@ -16,7 +16,7 @@
 #include "tests_utils.h"
 
 typedef bool (*sig_ptr)();
-phmap::flat_hash_map<std::string, sig_ptr> tests;
+std::map<std::string, sig_ptr> tests;
 float total_tests;
 float passed;
 float failed;
@@ -41,6 +41,7 @@ void init()
   tests["test_anims__entity_anim_start_later"] = test_anims__entity_anim_start_later;
   tests["test_anims__entity_anim_play"] = test_anims__entity_anim_play;
   tests["test_anims__entity_anim_breakable"] = test_anims__entity_anim_breakable;
+  tests["test_anims__entity_anim_same_type"] = test_anims__entity_anim_same_type;
 
   // collisions
   tests["test_collisions__set_sensors_on_entity_count"] = test_collisions__set_sensors_on_entity_count;
