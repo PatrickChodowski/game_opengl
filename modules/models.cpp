@@ -33,13 +33,14 @@ namespace models
   phmap::flat_hash_map<int, int> ModelTextureMap;
 
 
-  void init()
+  void init(std::string model_data_path)
   {
-    std::vector<std::string> model_list = utils::list_json_files("./data/models");
+    std::vector<std::string> model_list = utils::list_json_files(model_data_path);
     std::sort(model_list.begin(), model_list.end());
-
+    
     for(int m=0; m < model_list.size(); m++)
     {
+      std::cout << model_list[m] << std::endl;
       models::read_data(model_list[m]);
     };
     std::cout << "Models Initialized" << std::endl;
@@ -58,7 +59,6 @@ namespace models
     JS::ParseContext context(json_data);
     context.allow_missing_members = true;
     context.parseTo(MD);
-
     // propagate MD.frames(map) from frames_list(vector)
     for(int f=0; f < MD.frames_list.size(); f++)
     {
@@ -103,7 +103,6 @@ namespace models
     std::string texture_path = std::string("./data/models/") + std::to_string(model_id) + "_" + model_name + "___spritesheet.png";
     stbi_set_flip_vertically_on_load(false);
     unsigned char *image_data = stbi_load(texture_path.c_str(), &w, &h, &n_channels, 4); 
-
     if(image_data == NULL)
     {
       std::cout << "Error while loading texture from " << texture_path << std::endl;
@@ -113,12 +112,12 @@ namespace models
     unsigned int texture_id;
     glGenTextures(1, &texture_id); 
     glBindTexture(GL_TEXTURE_2D, texture_id); 
- 
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);	
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
+  
     // Send Image data to GPU here
     glTexImage2D(GL_TEXTURE_2D, //target 
                 0, //level, 0 is base image
