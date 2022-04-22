@@ -26,7 +26,6 @@ namespace camera
     camera::CameraScale[CAMERA_HIDDEN] = _scale_quad_hidden;
   }
  
-
   void reset()
   {
     cam.previous_x = 0;
@@ -107,4 +106,5 @@ namespace camera
     float world_y = (window_y * camera_zoom) - camera_y;
     return world_y;
   }
+
 }
