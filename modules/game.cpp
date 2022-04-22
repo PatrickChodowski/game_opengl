@@ -89,6 +89,7 @@ namespace game
     quads::init();
     buffer::init();
     buttons::init();
+    camera::init();
     collisions::init();
     events::init();
     hero::init();
