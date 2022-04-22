@@ -34,12 +34,13 @@ void init()
   ecs::init();
   models::init("./data/models");
 
-
   // anims
   tests["test_anims__hero_anim_start"] = test_anims__hero_anim_start;
   tests["test_anims__entity_anim_start"] = test_anims__entity_anim_start;
   tests["test_anims__entity_anim_not_start"] = test_anims__entity_anim_not_start;
   tests["test_anims__entity_anim_start_later"] = test_anims__entity_anim_start_later;
+  tests["test_anims__entity_anim_play"] = test_anims__entity_anim_play;
+  tests["test_anims__entity_anim_breakable"] = test_anims__entity_anim_breakable;
 
   // collisions
   tests["test_collisions__set_sensors_on_entity_count"] = test_collisions__set_sensors_on_entity_count;
@@ -54,6 +55,7 @@ void init()
   tests["test_utils_re_generate_ids"] = test_utils_re_generate_ids;
   tests["test_utils_re_generate_ids2"] = test_utils_re_generate_ids2;
   tests["test_utils_re_generate_ids3"] = test_utils_re_generate_ids3;
+
 };
 
 
