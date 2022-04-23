@@ -294,9 +294,6 @@ namespace ecs
   // Drop entity
   void drop(int entity_id);
 
-  // Temporarily here? Renders entity from ecs
-  void render();
-
   // Clears entity data
   void clear();
 

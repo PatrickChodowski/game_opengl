@@ -508,12 +508,19 @@ namespace ecs
   void revert_position_x(int entity_id)
   {
     ecs::positions.at(entity_id).x = ecs::positions.at(entity_id).prev_x;
+    if(ecs::collisions.count(entity_id)){
+      ecs::collisions.at(entity_id).mid_x = ecs::positions.at(entity_id).x + (ecs::positions.at(entity_id).w/2);
+    }
     //std::cout << " [ECS][POSITION] Reverting X position to " << ecs::positions.at(entity_id).prev_x << " from " << ecs::positions.at(entity_id).x << std::endl;
   }
 
   void revert_position_y(int entity_id)
   {
     ecs::positions.at(entity_id).y = ecs::positions.at(entity_id).prev_y;
+    if(ecs::collisions.count(entity_id)){
+      ecs::collisions.at(entity_id).mid_y = ecs::positions.at(entity_id).y + (ecs::positions.at(entity_id).h/2);
+    }
+
     //std::cout << " [ECS][POSITION] Reverting Y position to " << ecs::positions.at(entity_id).prev_y << " from " << ecs::positions.at(entity_id).y << std::endl;
     //hero::_update_joints();
   }
