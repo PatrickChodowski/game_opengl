@@ -308,13 +308,10 @@ bool test_ecs__save_temp()
     ecs::PositionComponent pos = ecs::positions.at(entity_id2);
     ecs::CollisionsComponent col = ecs::collisions.at(entity_id2);
 
-    std::cout << " position: "
-
     if(pos.x == 100 & pos.y == 100 & pos.prev_x == 100 & pos.prev_y == 100 
         & col.mid_x == 150 & col.mid_y == 150 
         & col.radius_x == 30 & col.radius_y == 30
-        & pos.z == 0.3 & col.is_solid){
-        
+        & pos.z == 0.5 & col.is_solid){
         passed = true;
     }
 
