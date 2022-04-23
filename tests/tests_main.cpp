@@ -14,6 +14,7 @@
 #include "tests_anims.h"
 #include "tests_camera.h"
 #include "tests_collisions.h"
+#include "tests_ecs.h"
 #include "tests_utils.h"
 
 typedef bool (*sig_ptr)();
@@ -35,6 +36,7 @@ void init()
   ecs::init();
   models::init("./data/models");
 
+
   // anims
   tests["test_anims__hero_anim_start"] = test_anims__hero_anim_start;
   tests["test_anims__entity_anim_start"] = test_anims__entity_anim_start;
@@ -48,14 +50,25 @@ void init()
   tests["test_camera__scale_quad_static"] = test_camera__scale_quad_static;
   tests["test_camera__scale_quad_dynamic"] = test_camera__scale_quad_dynamic;
 
-
-
   // collisions
   tests["test_collisions__set_sensors_on_entity_count"] = test_collisions__set_sensors_on_entity_count;
   tests["test_collisions__set_sensors_on_entity_top"] = test_collisions__set_sensors_on_entity_top;
   tests["test_collisions__set_sensors_on_entity_bottomleft"] = test_collisions__set_sensors_on_entity_bottomleft;
   tests["test_collisions__set_sensors_on_entity_count_after_update"] = test_collisions__set_sensors_on_entity_count_after_update;
   tests["test_collisions__set_sensors_on_entity_top_after_update"] = test_collisions__set_sensors_on_entity_top_after_update;
+
+  // ecs
+  tests["test_ecs__create_entity_basic"] = test_ecs__create_entity_basic;
+  tests["test_ecs__create_entity_component"] = test_ecs__create_entity_component;
+  tests["test_ecs__drop_entity"] = test_ecs__drop_entity;
+  tests["test_ecs__set_position"] = test_ecs__set_position;
+  tests["test_ecs__update_position"] = test_ecs__update_position;
+  tests["test_ecs__update_position_diff"] = test_ecs__update_position_diff;
+  tests["test_ecs__revert_position_x"] = test_ecs__revert_position_x;
+  tests["test_ecs__revert_position_y"] = test_ecs__revert_position_y;
+  tests["test_ecs__save_temp"] = test_ecs__save_temp;
+
+
 
   // utils
   tests["test_utils_generate_id_first_id_is_1"] = test_utils_generate_id_first_id_is_1;
@@ -69,13 +82,11 @@ void init()
 
 void eval(std::string test_name, bool test_result)
 {
-  if(test_result)
-  {
+  if(test_result){
     std::cout << " - \033[1;32mTest \033[0m" << test_name << " \033[1;32m Passed! \033[0m" << std::endl;
     passed += 1;
   }
-  else
-  {
+  else{
     std::cout << " - \033[1;31mTest \033[0m" << test_name << " \033[1;31m Failed! \033[0m" << std::endl;
     failed += 1;
     failed_tests.push_back(test_name);
@@ -112,7 +123,7 @@ int main()
 
   for (auto const& [k, v]:tests)
   {
-    std::cout << "   [STARTING TEST]   " << k << std::endl;
+    //std::cout << "   [STARTING TEST]   " << k << std::endl;
     total_tests += 1;
     bool test_result = v();
     eval(k, test_result);
@@ -125,8 +136,8 @@ int main()
   std::cout << "    Passed: " << passed << " (" << passed/total_tests << ")" <<std::endl;
   std::cout << "    Failed: " << failed << " (" << failed/total_tests << ")" <<std::endl;
   std::cout << std::endl;
-  if(failed>0)
-  {
+
+  if(failed>0){
     std::cout << "    Failed test IDS: ";
     for(int f=0; f<failed_tests.size(); f++)
     {
