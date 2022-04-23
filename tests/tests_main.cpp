@@ -36,6 +36,7 @@ void init()
   ecs::init();
   models::init("./data/models");
 
+// ADD tests for: items, navmesh, pathfinding
 
   // anims
   tests["test_anims__hero_anim_start"] = test_anims__hero_anim_start;
