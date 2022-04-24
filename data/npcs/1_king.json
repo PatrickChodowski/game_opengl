@@ -1,9 +1,5 @@
 {
-  "id": 1,
+  "npc_id": 1,
   "model_id": 7,
-  "current_frame": 0,
-  "w": 70,
-  "h": 70,
-  "speed": 0,
   "name": "1_king"
 }
