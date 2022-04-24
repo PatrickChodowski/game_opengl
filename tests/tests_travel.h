@@ -1,5 +1,8 @@
 
 #include "../modules/ecs.h" 
+#include "../modules/maps.h"
+#include "../modules/navmesh.h"
+#include "../modules/navmesh.h"
 #include "../modules/travel.h"
 
 #include "../dictionary.h"
@@ -35,3 +38,17 @@ bool test_travel__get_angle()
 
     return passed;
 }
+
+bool test_travel__()
+{
+    //maps::init_map();
+
+
+
+    return true;
+}
+
+
+
+
+
