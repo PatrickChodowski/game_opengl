@@ -40,9 +40,10 @@ bool test_travel__get_angle()
 }
 
 bool test_travel__()
-{
-    //maps::init_map();
-
+{   
+    // 2_dungeon, map_id = 2
+    maps::init_map(2);
+    
 
 
     return true;

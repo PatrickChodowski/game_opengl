@@ -20,7 +20,7 @@ namespace buffer
   extern int EBO_array_size;
   extern float EBO_buffer_usage;
 
-  // Initialize opengl buffers, attributes etc.
+  // Initialize opengl buffers, attributes etc. If not initialized, nothing will render
   void init();
 
   // Method propagating vertex array from quads inside buffer::update
