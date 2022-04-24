@@ -15,6 +15,7 @@
 #include "tests_camera.h"
 #include "tests_collisions.h"
 #include "tests_ecs.h"
+#include "tests_items.h"
 #include "tests_utils.h"
 
 typedef bool (*sig_ptr)();
@@ -35,6 +36,7 @@ void init()
   anims::init();
   ecs::init();
   models::init("./data/models");
+  items::init();
 
 // ADD tests for: items, navmesh, pathfinding
 
@@ -69,6 +71,9 @@ void init()
   tests["test_ecs__revert_position_y"] = test_ecs__revert_position_y;
   tests["test_ecs__save_temp"] = test_ecs__save_temp;
 
+  // items
+  tests["test_items__pickup_item"] = test_items__pickup_item;
+  tests["test_items__yeet_item"] = test_items__yeet_item;
 
   // utils
   tests["test_utils_generate_id_first_id_is_1"] = test_utils_generate_id_first_id_is_1;
