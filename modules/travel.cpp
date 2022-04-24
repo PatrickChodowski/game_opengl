@@ -51,7 +51,7 @@ namespace travel
 
   bool _check_if_entity_already_moving(int entity_id)
   {
-    return travel::travels.count(entity_id) > 0;
+    return travel::travels.count(entity_id);
   }
 
   void init_travel(int entity_id)
