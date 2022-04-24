@@ -20,6 +20,7 @@ namespace anims
   void init()
   {
     anims::AnimsHandler[ANIM_TYPE_FRAME] = anims::update_frame;
+    std::cout << "Anims initialized" << std::endl;
   }
 
 

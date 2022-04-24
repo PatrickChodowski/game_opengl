@@ -16,6 +16,7 @@
 #include "tests_collisions.h"
 #include "tests_ecs.h"
 #include "tests_items.h"
+#include "tests_scenes.h"
 #include "tests_travel.h"
 #include "tests_utils.h"
 
@@ -40,7 +41,6 @@ void init()
   maps::init();
   collisions::init();
   items::init();
-
 
   // anims
   tests["test_anims__hero_anim_start"] = test_anims__hero_anim_start;
@@ -79,6 +79,10 @@ void init()
   // items
   tests["test_items__pickup_item"] = test_items__pickup_item;
   tests["test_items__yeet_item"] = test_items__yeet_item;
+
+  // Scenes
+  tests["test_scenes__game_init"] = test_scenes__game_init;
+  tests["test_scenes__game_clear"] = test_scenes__game_clear;
 
   // travel
   tests["test_travel__get_angle"] = test_travel__get_angle;

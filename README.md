@@ -39,10 +39,6 @@ glxinfo | grep "OpenGL version"
 Ubuntu:
 OpenGL version string: 4.6.0 NVIDIA 470.103.01
 
-### Added packages
-libalut-dev
-
-
 ### Scripting
 Using python script (totally forgot how)
 
@@ -67,18 +63,25 @@ python3 app.py
 ### Animations -> make sure the looped animations are looped (checking if next anim id is the same as current one? skip first frame if so?)
 ### Zooming in -> analyse how to zoom in on specific point 
 
+### Unit tests
+- Done: anims, camera, collisions, ecs, items, utils
+- Dependency: Travel, map, navmesh, pathfinding, door collisions tests will wait till I have new maps pipeline as there is no point now
+- Todo: models, scenes, saves. Scenes need to make sure that no data gets moved to another scene
 
 ### Map generation
-
 - Fired up the world machine on linux and it looks to be working!
 - lets explore world machine for next couple of weeks
-
 
 ### Rendering
 - split quads per type of render (static camera, dynamic camera, clicked, Color, Texture) -> provide multiple draw calls but different shaders to remove If Else from shader code
 
-### Next up
-- sound effects
+### Sounds/Music
+When I have longer soundtrack, will improve the functionality of sounds module. Things to do:
+- volume setting
+- stopping the sound
+- starting the sound
+- learn more about thread management
+
 
 
 ## Credits:
