@@ -16,6 +16,7 @@
 #include "tests_collisions.h"
 #include "tests_ecs.h"
 #include "tests_items.h"
+#include "tests_models.h"
 #include "tests_scenes.h"
 #include "tests_travel.h"
 #include "tests_utils.h"
@@ -79,6 +80,9 @@ void init()
   // items
   tests["test_items__pickup_item"] = test_items__pickup_item;
   tests["test_items__yeet_item"] = test_items__yeet_item;
+
+  // models
+  tests["test_models__load_model"] = test_models__load_model;
 
   // Scenes
   tests["test_scenes__game_init"] = test_scenes__game_init;

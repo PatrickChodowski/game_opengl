@@ -64,9 +64,8 @@ python3 app.py
 ### Zooming in -> analyse how to zoom in on specific point 
 
 ### Unit tests
-- Done: anims, camera, collisions, ecs, items, utils
+- Done: anims, camera, collisions, ecs, items, utils, scenes, models
 - Dependency: Travel, map, navmesh, pathfinding, door collisions tests will wait till I have new maps pipeline as there is no point now
-- Todo: models, scenes, saves. Scenes need to make sure that no data gets moved to another scene
 
 ### Map generation
 - Fired up the world machine on linux and it looks to be working!
