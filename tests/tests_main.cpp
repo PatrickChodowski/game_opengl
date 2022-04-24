@@ -37,6 +37,7 @@ void init()
   anims::init();
   ecs::init();
   models::init("./data/models");
+  maps::init();
   collisions::init();
   items::init();
 
@@ -81,6 +82,7 @@ void init()
 
   // travel
   tests["test_travel__get_angle"] = test_travel__get_angle;
+  tests["test_travel__"] = test_travel__;
 
   // utils
   tests["test_utils_generate_id_first_id_is_1"] = test_utils_generate_id_first_id_is_1;

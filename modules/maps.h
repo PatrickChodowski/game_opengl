@@ -76,7 +76,7 @@ namespace maps
   // Loads map tiles from map file by map id
   void load(int map_id);
 
-  // Loads selected map to game
+  // Loads selected map to game. Creates door entities, initializes navmesh for this map and makes paths map
   void init_map(int map_id);
 
   // Make map quads from maps::tiles
