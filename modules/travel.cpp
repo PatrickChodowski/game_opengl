@@ -24,6 +24,7 @@ namespace travel
   float _get_angle_between_points(float e_x, float e_y, float p_x, float p_y)
   {
     float angle = (atan2((p_y - e_y), (p_x - e_x)));
+    // degrees = angle*180/3.14
     return angle;
   }
 
