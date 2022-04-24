@@ -6,9 +6,9 @@
 #define MOUSE_BUTTON_RIGHT 1
 
 // camera types
-#define CAMERA_DYNAMIC 0.0f
-#define CAMERA_STATIC 1.0f
-#define CAMERA_HIDDEN 2.0f
+#define CAMERA_DYNAMIC 0
+#define CAMERA_STATIC 1
+#define CAMERA_HIDDEN 2
 
 // entity collision sensors
 #define SENSOR_TOP 0

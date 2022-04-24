@@ -74,9 +74,9 @@ namespace game
 
   void init()
   {
-    std::thread t1(sounds::init);
+    //std::thread t1(sounds::init);
     // t1.join(); // this will wait for the music to finish
-    t1.detach(); // this works on its own
+    //t1.detach(); // this works on its own
     // question is how to break the playing sound
     // https://stackoverflow.com/questions/7686939/c-simple-return-value-from-stdthread
 
@@ -89,6 +89,7 @@ namespace game
     quads::init();
     buffer::init();
     buttons::init();
+    camera::init();
     collisions::init();
     events::init();
     hero::init();

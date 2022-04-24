@@ -50,8 +50,7 @@ namespace scenes
 
   void load(int scene_id, int load_scene_from)
   {
-    if(scenes::scenes.count(scene_id) > 0)
-    {    
+    if(scenes::scenes.count(scene_id)){    
       std::cout << " [SCENES] Started loading scene ID: " << scene_id << std::endl;
       models::load(fonts::FONT_MODEL_ID);
       game::SCENE_ID = scene_id;
@@ -179,7 +178,6 @@ namespace scenes
       saves::saves_buttons_map.insert(std::pair<int, std::string> {button_entity_id, saves::saves[s]});
     }
   }
-
 
   void _load_scene_dungeon_level_1()
   {

@@ -27,7 +27,6 @@ namespace paths
     return nav_node_id;
   }
 
-
   int get_min_distance(std::vector<float> distances, 
                        std::vector<bool> polygon_included,
                        int polygon_count)

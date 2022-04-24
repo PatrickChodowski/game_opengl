@@ -24,6 +24,7 @@ namespace travel
   float _get_angle_between_points(float e_x, float e_y, float p_x, float p_y)
   {
     float angle = (atan2((p_y - e_y), (p_x - e_x)));
+    // degrees = angle*180/3.14
     return angle;
   }
 
@@ -51,7 +52,7 @@ namespace travel
 
   bool _check_if_entity_already_moving(int entity_id)
   {
-    return travel::travels.count(entity_id) > 0;
+    return travel::travels.count(entity_id);
   }
 
   void init_travel(int entity_id)
@@ -59,11 +60,14 @@ namespace travel
     // To trigger delayed travel, when we dont know the endpoint yet
     travel::TravelData tp;
     tp.state = TRAVEL_STATE_IDLE;
-    int entity_node_id = paths::get_navnode_id(ecs::positions.at(entity_id).x, ecs::positions.at(entity_id).y);
+
+    ecs::PositionComponent pos = ecs::positions.at(entity_id);
+
+    int entity_node_id = paths::get_navnode_id(pos.x, pos.y);
     tp.entity_id = entity_id;
     tp.current_node = entity_node_id;
-    tp.current_x = ecs::positions.at(entity_id).x;
-    tp.current_y = ecs::positions.at(entity_id).y;
+    tp.current_x = pos.x;
+    tp.current_y = pos.y;
 
     travel::travels[entity_id] = tp;
     std::cout << " [TRAVEL] Initialized travel for " << entity_id << std::endl;
@@ -71,14 +75,15 @@ namespace travel
 
   void init_travel_with_target(int entity_id, float target_x, float target_y)
   {
-    int entity_node_id = paths::get_navnode_id(ecs::positions.at(entity_id).x, ecs::positions.at(entity_id).y);
+    ecs::PositionComponent pos = ecs::positions.at(entity_id);
+    int entity_node_id = paths::get_navnode_id(pos.x, pos.y);
     int target_node = paths::get_navnode_id(target_x, target_y);
     travel::TravelData tp = travel::make_basic_plan(entity_node_id, target_node);
   
     tp.entity_id = entity_id;
     tp.current_node = entity_node_id;
-    tp.current_x = ecs::positions.at(entity_id).x;
-    tp.current_y = ecs::positions.at(entity_id).y;
+    tp.current_x = pos.x;
+    tp.current_y = pos.y;
 
     tp.target_node = paths::get_navnode_id(target_x, target_y);
     tp.target_x = target_x;
@@ -123,7 +128,7 @@ namespace travel
 
     // if we are not at the target yet, we move
     float dist_to_target = utils::get_distance_between_points(tp.current_x, tp.current_y, tp.target_x, tp.target_y);
-    //std::cout << "Entity " << tp.entity_id << " speed:" << ecs::stats.at(tp.entity_id).speed << std::endl;
+
     if(dist_to_target > ecs::stats.at(tp.entity_id).speed)
     {
       // if we are not at the target node
