@@ -25,6 +25,14 @@ namespace collisions
   phmap::flat_hash_map<int, sig_ptr> resolve;
   struct SolidLimits limits;
 
+  void init()
+  {
+    collisions::resolve[ENTITY_TYPE_ITEM] = _resolve_items;
+    collisions::resolve[ENTITY_TYPE_DOOR] = _resolve_doors;
+    collisions::resolve[ENTITY_TYPE_LIVE] = _resolve_solid;
+    std::cout << "Collisions Initialized" << std::endl;
+  }
+
   void update()
   {
     collisions::clear();
@@ -191,14 +199,6 @@ namespace collisions
         debug::render_square(pos.x, pos.y, pos.w, pos.h, 0.6, 0.6, 0.0, 1.0);
       }
     }
-  }
-
-  void init()
-  {
-    collisions::resolve[ENTITY_TYPE_ITEM] = _resolve_items;
-    collisions::resolve[ENTITY_TYPE_DOOR] = _resolve_doors;
-    collisions::resolve[ENTITY_TYPE_LIVE] = _resolve_solid;
-    std::cout << "Collisions Initialized" << std::endl;
   }
 
   void clear()

@@ -2,12 +2,15 @@
 #include <fstream>
 #include <iostream>
 #include <cmath>
+#include <ostream>
 #include <random>
 #include <set>
 #include <sstream>
 #include <string>
 #include <unordered_set>
 #include <vector>
+
+#include <filesystem>
 
 #include <dirent.h>
 #include "utils.h"
@@ -37,11 +40,17 @@ namespace utils
     }
   };
 
-  std::vector<std::string> list_json_files(std::string path)
+  std::vector<std::string> list_json_files(std::string dir_path)
   {
+    // const std::filesystem::path data_models{dir_path};
     std::vector<std::string> list_of_files = {};
+    // for(auto  dir_entry : std::filesystem::directory_iterator {data_models})
+    // {
+    //   std::cout << dir_entry.path() << std::endl;
+    // }
+
     struct dirent *entry;
-    DIR *dir = opendir(path.c_str());
+    DIR *dir = opendir(dir_path.c_str());
     while ((entry = readdir(dir)) != NULL) {
       if(has_ending (entry->d_name, ".json")){
         std::string str = entry->d_name;

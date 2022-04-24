@@ -1,5 +1,4 @@
 
-
 #include "../modules/collisions.h"
 #include "../modules/ecs.h"
 #include "../modules/hero.h"
@@ -88,7 +87,6 @@ bool test_collisions__set_sensors_on_entity_top_after_update()
 {
   bool passed = false;
 
-
   // preparation: create hero entity
   hero::create_new("testhero", "1_barbarian", 450, 370);
 
@@ -108,4 +106,125 @@ bool test_collisions__set_sensors_on_entity_top_after_update()
   return passed;
 }
 
+bool test_collisions__check_far_distance()
+{
+  ecs::clear();
+  collisions::clear();
+  bool passed = false;
 
+  hero::create_new("testhero", "1_barbarian", 300, 300);
+
+  ecs::TempEntityData e;
+  e.name = "test_entity";
+  e.components = {COMPONENT_POSITION, COMPONENT_COLLISIONS};
+  e.entity_type_id = ENTITY_TYPE_COLOR;
+
+  e.x = 100;
+  e.y = 100;
+  e.z = 0.5;
+  e.w = 100;
+  e.h = 100;
+  e.radius_x = 30;
+  e.radius_y = 30;
+  e.is_solid = true;
+
+  int entity_id = ecs::create_entity(&e);
+  collisions::_get_entity_to_entity_distance(hero::HERO_ENTITY_ID, entity_id);
+
+  if(collisions::distances.size() == 0){
+    passed = true;
+  }
+  return passed;
+}
+
+bool test_collisions__check_near_distance()
+{
+  ecs::clear();
+  collisions::clear();
+  bool passed = true;
+
+  hero::create_new("testhero", "1_barbarian", 100, 100);
+
+  ecs::TempEntityData e;
+  e.name = "test_entity";
+  e.components = {COMPONENT_POSITION, COMPONENT_COLLISIONS};
+  e.entity_type_id = ENTITY_TYPE_COLOR;
+
+  e.x = 100;
+  e.y = 100;
+  e.z = 0.5;
+  e.w = 100;
+  e.h = 100;
+  e.radius_x = 30;
+  e.radius_y = 30;
+  e.is_solid = true;
+  // entity mid: 150, 150, hero mid: 200, 200
+  // 70.7107
+
+  int entity_id = ecs::create_entity(&e);
+  collisions::_get_entity_to_entity_distance(hero::HERO_ENTITY_ID, entity_id);
+
+  if(collisions::distances.size() == 0){
+    std::cout << " [ERROR] No distance added " << std::endl;
+    return false;
+  }
+
+  collisions::DistanceToObject dto = collisions::distances[0];
+  if(!(dto.distance >= 70 & dto.distance <= 71)){
+    std::cout << " [ERROR] Wrong collision distance: " << dto.distance << std::endl;
+    return false;
+  }
+
+  if(!dto.is_solid){
+    std::cout << " [ERROR] Collision not solid " << std::endl;
+    return false;
+  }
+
+
+  return passed;
+}
+
+bool test_collisions__check_collision_item()
+{
+  ecs::clear();
+  collisions::clear();
+  bool passed = true;
+
+  hero::create_new("testhero", "1_barbarian", 100, 100);
+
+  ecs::TempEntityData e;
+  e.name = "test_entity";
+  e.components = {COMPONENT_POSITION, COMPONENT_COLLISIONS};
+  e.entity_type_id = ENTITY_TYPE_COLOR;
+
+  e.x = 100;
+  e.y = 100;
+  e.z = 0.5;
+  e.w = 100;
+  e.h = 100;
+  e.radius_x = 30;
+  e.radius_y = 30;
+  e.is_solid = true;
+  e.entity_type_id = ENTITY_TYPE_ITEM;
+  // entity mid: 150, 150, hero mid: 200, 200
+  // 70.7107
+
+  int entity_id = ecs::create_entity(&e);
+  collisions::_get_entity_to_entity_distance(hero::HERO_ENTITY_ID, entity_id);
+
+  if(collisions::distances.size() == 0){
+    std::cout << " [ERROR] No distance added " << std::endl;
+    return false;
+  }
+
+  collisions::DistanceToObject dto = collisions::distances[0];
+  int target_type = dto.target_entity_type_id;
+  collisions::resolve[target_type](dto);
+
+  if(items::near_items.size() == 0){
+    std::cout << " [ERROR] Empty near items " << std::endl;
+    return false;
+  }
+
+  return passed;
+}

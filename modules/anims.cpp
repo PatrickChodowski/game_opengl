@@ -20,6 +20,7 @@ namespace anims
   void init()
   {
     anims::AnimsHandler[ANIM_TYPE_FRAME] = anims::update_frame;
+    std::cout << "Anims initialized" << std::endl;
   }
 
 
@@ -99,7 +100,6 @@ namespace anims
     }
   };
 
-
   void start_delayed(int anim_id, int entity_id)
   {
     // Check if given entity's model has this animation id available in the first place
@@ -111,33 +111,21 @@ namespace anims
     }
   }
 
-
-
   bool _check_if_entity_in_anim(int entity_id)
   {
-    bool has_anim = false;
-    if(anims::animsplayed.count(entity_id) > 0)
-    {
-      has_anim = true;
-    }
-    return has_anim;
+    return anims::animsplayed.count(entity_id);
   }
 
   bool _check_if_entity_in_anim_same_type(int anim_id, int entity_id)
   {
     bool has_anim_same_type = false;
-    if(anims::animsplayed.count(entity_id) > 0)
-    {
-      if(anims::animsplayed[entity_id].id == anim_id)
-      {
+    if(anims::animsplayed.count(entity_id)){
+      if(anims::animsplayed[entity_id].id == anim_id){
         has_anim_same_type = true;
       }
     }
     return has_anim_same_type;
   }
-
-
-
 
   // Anim handlers:
   void update_frame(int entity_id, models::ModelAnimData &AD)

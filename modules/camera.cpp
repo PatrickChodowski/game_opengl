@@ -1,6 +1,9 @@
 #include "camera.h"
 #include "maps.h"
 #include "game.h"
+#include "quads.h"
+
+#include "../dependencies/parallel_hashmap/phmap.h"
 #include "../dependencies/glm/mat4x4.hpp"
 #include "../dependencies/glm/ext/matrix_transform.hpp"
 #include "../dependencies/glm/gtc/matrix_transform.hpp"
@@ -14,7 +17,15 @@ namespace camera
   Camera cam;
   glm::mat4 STATIC_MVP;
   glm::mat4 DYNAMIC_MVP;
+  phmap::flat_hash_map<int, sig_ptr> CameraScale;
 
+  void init()
+  {
+    camera::CameraScale[CAMERA_DYNAMIC] = _scale_quad_dynamic;
+    camera::CameraScale[CAMERA_STATIC] = _scale_quad_static;
+    camera::CameraScale[CAMERA_HIDDEN] = _scale_quad_hidden;
+  }
+ 
   void reset()
   {
     cam.previous_x = 0;
@@ -55,33 +66,32 @@ namespace camera
   {
     float scale_factor = (1.0/camera_zoom);
     camera_x = (-1.0)*camera_x;
-    //std::cout << " Scale quads quads::AllQuads.size: " << quads::AllQuads.size() << std::endl;
-
     for(int q = 0; q < quads::AllQuads.size(); q++)
     {
-      float final_camera_x = camera_x;
-      float final_camera_y = camera_y;
-      float final_scale_factor = scale_factor;
-      
-      if(quads::AllQuads[q].camera_type == CAMERA_STATIC)
-      {
-        final_camera_x = 0.0f;
-        final_camera_y = 0.0f;
-        final_scale_factor = 1.0f;
-      } 
-      quads::AllQuads[q].window_x = (quads::AllQuads[q].x + final_camera_x)*final_scale_factor;
-      quads::AllQuads[q].window_y = (quads::AllQuads[q].y + final_camera_y)*final_scale_factor;
-      quads::AllQuads[q].window_h = quads::AllQuads[q].h*final_scale_factor;
-      quads::AllQuads[q].window_w = quads::AllQuads[q].w*final_scale_factor;
-
-      // if(quads::AllQuads[q].object_type_id == OBJECT_TYPE_MENU)
-      // {
-      //   std::cout << " camera: " << final_camera_x << "," << final_camera_y << std::endl;
-      //   std::cout << " scale factor: " << final_scale_factor << std::endl;
-      //   std::cout << " world: " << quads::AllQuads[q].x << "," << quads::AllQuads[q].y << "," << quads::AllQuads[q].h << std::endl;
-      //   std::cout << " window: " << quads::AllQuads[q].window_x << "," << quads::AllQuads[q].window_y << "," << quads::AllQuads[q].window_h << std::endl;
-      // }
+      camera::CameraScale[quads::AllQuads[q].camera_type](&quads::AllQuads[q], camera_x, camera_y, scale_factor);
     }
+  };
+
+  void _scale_quad_dynamic(quads::QuadData *q, float camera_x, float camera_y, float scale_factor)
+  {
+    q->window_x = (q->x + camera_x)*scale_factor;
+    q->window_y = (q->y + camera_y)*scale_factor;
+    q->window_h = q->h*scale_factor;
+    q->window_w = q->w*scale_factor;
+  };
+
+  void _scale_quad_static(quads::QuadData *q, float camera_x, float camera_y, float scale_factor)
+  {
+    // arguments just placeholders
+    q->window_x = q->x;
+    q->window_y = q->y;
+    q->window_h = q->h;
+    q->window_w = q->w;
+  };
+
+  void _scale_quad_hidden(quads::QuadData *q, float camera_x, float camera_y, float scale_factor)
+  {
+
   }
 
   float reverse_coord_x(float window_x, float camera_x, float camera_zoom)
@@ -96,4 +106,5 @@ namespace camera
     float world_y = (window_y * camera_zoom) - camera_y;
     return world_y;
   }
+
 }
