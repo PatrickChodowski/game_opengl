@@ -36,9 +36,9 @@ void init()
   anims::init();
   ecs::init();
   models::init("./data/models");
+  collisions::init();
   items::init();
 
-// ADD tests for: items, navmesh, pathfinding
 
   // anims
   tests["test_anims__hero_anim_start"] = test_anims__hero_anim_start;
@@ -59,6 +59,9 @@ void init()
   tests["test_collisions__set_sensors_on_entity_bottomleft"] = test_collisions__set_sensors_on_entity_bottomleft;
   tests["test_collisions__set_sensors_on_entity_count_after_update"] = test_collisions__set_sensors_on_entity_count_after_update;
   tests["test_collisions__set_sensors_on_entity_top_after_update"] = test_collisions__set_sensors_on_entity_top_after_update;
+  tests["test_collisions__check_far_distance"] = test_collisions__check_far_distance;
+  tests["test_collisions__check_near_distance"] = test_collisions__check_near_distance;
+  tests["test_collisions__check_collision_item"] = test_collisions__check_collision_item;
 
   // ecs
   tests["test_ecs__create_entity_basic"] = test_ecs__create_entity_basic;
@@ -133,6 +136,7 @@ int main()
     bool test_result = v();
     eval(k, test_result);
   }
+
   std::cout << std::endl;
   std::cout << "Tests finished" << std::endl;
   std::cout << std::endl;
