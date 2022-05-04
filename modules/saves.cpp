@@ -1,3 +1,4 @@
+#include <bitset>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -5,6 +6,7 @@
 #include "camera.h"
 #include "game.h"
 #include "hero.h"
+#include "interactions.h"
 #include "npcs.h"
 #include "saves.h"
 #include "scenes.h"
@@ -62,6 +64,11 @@ namespace saves
     sd.speed = stats.speed;
     sd.exp = stats.exp;
 
+    for(int h = 0; h < interactions::history.size(); h++)
+    {
+      sd.history.push_back(interactions::history[h]);
+    }
+
     std::string pretty_json = JS::serializeStruct(sd);
     saves::_write_save_json(pretty_json);
   }
@@ -111,6 +118,12 @@ namespace saves
 
     camera::cam.x = (SD.x - (game::WINDOW_WIDTH/2) + (SD.w/2));
     camera::cam.y = - (SD.y - (game::WINDOW_HEIGHT/2) + (SD.h/2));
+
+    // interactions
+    for(int h = 0; h < SD.history.size(); h++)
+    {
+      interactions::history[h] = SD.history[h];
+    }
 
     hero::HERO_ENTITY_ID = ecs::create_entity(&e);
     std::cout << " [SAVES] Loaded game from save: " << name << " Hero entity ID: " << hero::HERO_ENTITY_ID << std::endl;
