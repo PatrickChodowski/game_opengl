@@ -15,6 +15,7 @@
 #include "tests_camera.h"
 #include "tests_collisions.h"
 #include "tests_ecs.h"
+#include "tests_interactions.h"
 #include "tests_items.h"
 #include "tests_models.h"
 #include "tests_scenes.h"
@@ -80,6 +81,11 @@ void init()
   // items
   tests["test_items__pickup_item"] = test_items__pickup_item;
   tests["test_items__yeet_item"] = test_items__yeet_item;
+
+  // interactions
+  tests["test_interactions__record_interaction"] = test_interactions__record_interaction;
+  tests["test_interactions__clear_interaction"] = test_interactions__clear_interaction;
+  tests["test_interactions__check_different"] = test_interactions__check_different;
 
   // models
   tests["test_models__load_model"] = test_models__load_model;

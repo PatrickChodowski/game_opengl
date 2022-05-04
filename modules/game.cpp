@@ -19,6 +19,7 @@
 #include "events.h"
 #include "fonts.h"
 #include "hero.h"
+#include "interactions.h"
 #include "items.h"
 #include "logger.h"
 #include "maps.h"
@@ -93,6 +94,7 @@ namespace game
     collisions::init();
     events::init();
     hero::init();
+    interactions::init();
     items::init();
     logger::init();
     maps::init();
@@ -171,9 +173,9 @@ namespace game
   void drop()
   {
     buffer::drop();
-    shaders::drop();
     models::drop();
     scripts::drop();
+    shaders::drop();
   }
 
   void refresh()
