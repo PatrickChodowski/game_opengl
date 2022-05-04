@@ -1,7 +1,9 @@
 
+#include <bitset>
 #include <string>
 #include <vector>
 
+#include "interactions.h"
 #include "npcs.h"
 
 #ifndef MODULES_SAVES_H
@@ -41,9 +43,12 @@ namespace saves
     // Collisions
     float radius_x, radius_y;
 
+    // Interactions history bitset
+    std::vector<bool> history;
+
     //std::vector<npcs::InteractionData> interactions;
     JS_OBJ(name, components, model_id, scene_id, x, y, w, h, 
-           level, mobs_killed, hp, dmg, def, speed, exp, radius_x, radius_y);
+           level, mobs_killed, hp, dmg, def, speed, exp, radius_x, radius_y, history);
   };
 
   // Writes the save json file to saves directory
