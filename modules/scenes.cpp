@@ -7,6 +7,7 @@
 #include "fonts.h"
 #include "game.h"
 #include "hero.h"
+#include "interactions.h"
 #include "items.h"
 #include "maps.h"
 #include "mobs.h"
@@ -28,6 +29,7 @@ namespace scenes
     scenes::SceneLoader[SCENE_ID_NEW_GAME_MENU] = _load_scene_new_game_menu;
     scenes::SceneLoader[SCENE_ID_LOAD_GAME_MENU] = _load_scene_load_game_menu;
     scenes::SceneLoader[SCENE_ID_DUNGEON_LEVEL_1] = _load_scene_dungeon_level_1;
+    scenes::SceneLoader[SCENE_ID_DUNGEON_LEVEL_2] = _load_scene_dungeon_level_2;
 
     std::vector<std::string> scene_list = utils::list_json_files("data/scenes");
     for(int s=0; s < scene_list.size(); s++)
@@ -185,7 +187,15 @@ namespace scenes
     int item_entity_id = items::generate_item(1, 300, 300, ITEM_LOCATION_GROUND);
     int mob_entity_id = mobs::spawn(1, 240, 300);
     int mob_entity_id2 = mobs::spawn(2, 10, 10);
+    interactions::record(HISTORY_VISIT_MAP_0);
     //ecs::hide(item_entity_id);
   };
+
+  void _load_scene_dungeon_level_2()
+  {
+    std::cout << " [SCENES] Dynamic scene logic for scene " << SCENE_ID_DUNGEON_LEVEL_2 << std::endl;
+    interactions::record(HISTORY_VISIT_MAP_1);
+  };
+
 
 }

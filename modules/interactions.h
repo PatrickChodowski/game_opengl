@@ -8,8 +8,6 @@
 #ifndef MODULES_INTERACTIONS_H
 #define MODULES_INTERACTIONS_H
 
-#define HISTORY_EVENT_0 0
-
 namespace interactions
 {
     extern std::bitset<1000> history;
