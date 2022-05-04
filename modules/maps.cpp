@@ -31,7 +31,6 @@ namespace maps
     JS::ParseContext context(json_data);
     context.parseTo(MD);
     maps::maps.insert({MD.id, MD});
-
   };
 
   // Create door entity

@@ -111,8 +111,8 @@ bool test_scenes__game_init()
     }
 
     // scenes init
-    if(scenes::SceneLoader.size() != 3){
-      std::cout << " [ERROR] scenes::SceneLoader should be size 3 instead of " << scenes::SceneLoader.size() << std::endl;
+    if(scenes::SceneLoader.size() != 4){
+      std::cout << " [ERROR] scenes::SceneLoader should be size 4 instead of " << scenes::SceneLoader.size() << std::endl;
       return false;
     }
 
@@ -222,8 +222,8 @@ bool test_scenes__game_clear()
     }
 
     // scenes init
-    if(scenes::SceneLoader.size() != 3){
-      std::cout << " [ERROR] scenes::SceneLoader should be size 3 instead of " << scenes::SceneLoader.size() << std::endl;
+    if(scenes::SceneLoader.size() != 4){
+      std::cout << " [ERROR] scenes::SceneLoader should be size 4 instead of " << scenes::SceneLoader.size() << std::endl;
       return false;
     }
 

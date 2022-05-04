@@ -61,6 +61,8 @@ namespace scenes
   // Scene ID: 4 Dungeon level 1
   void _load_scene_dungeon_level_1();
 
+  // Scene ID: 5 Dungeon level 2
+  void _load_scene_dungeon_level_2();
 
 }
 
