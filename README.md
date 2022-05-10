@@ -71,6 +71,65 @@ python3 app.py
 - Fired up the world machine on linux and it looks to be working!
 - lets explore world machine for next couple of weeks
 
+### Interactions history:
+- encounters: https://www.youtube.com/watch?v=HZft_U4Fc-U&t=1s&ab_channel=GDC
+- bitset of encounter and events flags. Encounters instead of quests
+- quest => meet someone, go somwhere, get something, go back, get reward
+(witcher: there is a wolg in the woods, you go there, there is a wolf, get the wolf heads, get it back and reward)
+
+game design questions: (narrative)
+- why is this peasant not doing anything about the wolf?
+- if I do nothing why doesnt the peasant care
+- why are woods empty if I go there first before meeting the peasant (activating the quest)
+- why does no one else in the worlds care about the wolf in the woods?
+
+- encounter -> You can know about the wolf or dont know about the wolf, but you can meet the wolf anyway
+
+encounter structure:
+- go to peasant house -> he tells you about the wolf ( you could see it before, already killed it, give the head)
+OR 
+- go to woods, meet the wolf and kill it or run away
+OR revisit the peasant saying I still havent killed it
+ignored the wolf again, came back and pesant is gone, wolf is gone, there is peasant hat in the woods
+
+-> add peasant impatience level (if gets high then he goes and tries himself)
+
+"ready myself" has to stay as an option always as we have to give player a way to pause the discussion -> defensive logic
+
+Every scene written to cope with the game, regardless of state
+Preconditions -> evry line/action gated by its preconditions
+fallback: ready myself
+
+
+2) state modelling
+- state machines of everything 
+- wolf: know about the wolf, wolf seen, wolf killed, wolf head cut off
+- peasant: met, , told of wolf, grateful
+- peasant impatient: impatient, gone, dead 
+
+each state implies previous ones
+
+How to implement state machines
+
+StateMachine
+{
+    int last step
+    enum?
+}
+
+
+State machines allow us to have emerging stories:
+peasant told me about the wolf, I did nothing, pesant got impatient, went to kill a wolf, I later found his body, killed the wolf in revenge
+
+Unexpacted benefits:
+
+
+
+
+
+
+
+
 ### Rendering
 - split quads per type of render (static camera, dynamic camera, clicked, Color, Texture) -> provide multiple draw calls but different shaders to remove If Else from shader code
 

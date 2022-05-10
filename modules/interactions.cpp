@@ -20,6 +20,15 @@ namespace interactions
         }
     }
 
+
+    int _get_state_index(interactions::StateMachine &sm)
+    {
+
+
+    }
+
+
+
     int record(int interaction_id)
     {
         interactions::history[interaction_id] = true;
