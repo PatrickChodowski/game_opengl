@@ -23,3 +23,5 @@ blender/app/
 blender/src
 blender/done
 test
+blender/gis_caches
+blender/addons
