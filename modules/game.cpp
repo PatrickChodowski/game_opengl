@@ -168,6 +168,20 @@ namespace game
     glDrawArrays(GL_LINES, 0, debug::lines.size()*2);
     debug::clear();
 
+    // wait till render finishes
+    // uint8_t* ImageBuffer = new uint8_t[1 * 1 * 4];
+    // glReadPixels(600,600,1,1,GL_STENCIL_INDEX, GL_UNSIGNED_BYTE, ImageBuffer);
+
+    // GLsync fence = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
+    // while(true){
+    //   GLint status = GL_UNSIGNALED;
+    //   glGetSynciv(fence, GL_SYNC_STATUS, sizeof(GLint), NULL, &status);
+    //   if(status==GL_SIGNALED){
+    //     break;
+    //   }
+    // }
+
+
   }
 
   void drop()
