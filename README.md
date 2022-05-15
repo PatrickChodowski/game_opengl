@@ -130,6 +130,7 @@ Unexpacted benefits:
 ### Heightmaps/terrain:
 - blender gis has broken api and cant get heightmap
 - maybe this? https://tangrams.github.io/heightmapper/#3.10417/33.10/59.74
+- https://blendermarket.com/products/nodescapes
 
 
 ### Rendering
