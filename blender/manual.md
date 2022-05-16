@@ -150,6 +150,13 @@ World environment can emit light.
 
 
 
+### Displacement maps
+Displacement mappign alows a texture input to manipulate the position of vertices on rendered geometry. Displacement maps create real bumps, creaces, ridges in the actual mesh.
+
+
+
+
+
 
 
 
