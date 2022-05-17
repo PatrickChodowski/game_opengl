@@ -133,6 +133,7 @@ def run(map_name: str = 'lake_map'):
   empties = generate_empties('Landscape')
   utils.create_camera(camera_name, RENDER_SETUPS[RENDER]['camera_w'], RENDER_SETUPS[RENDER]['camera_h'])
   for empty_d in empties:
+    print(f" Rendering {map_name} part: {empty_d['id']}")
     utils.set_camera_location(camera_name, x = empty_d['x'], y=empty_d['y'], z=RENDER_SETUPS[RENDER]['camera_z'])
     bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}/{empty_d['id']}.png"
     bpy.ops.render.render(write_still = 1)
