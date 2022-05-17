@@ -9,7 +9,7 @@ spec_utils.loader.exec_module(utils)
 
 # one tile would be 1 blender meter and 1080 pixels?
 RENDER = 'standard'
-RENDER_SETUPS = {'standard': {'tile_width': 10, 'tile_height': 10, 'camera_z': 14, 'focal_length': 50}}
+RENDER_SETUPS = {'standard': {'tile_width': 10, 'tile_height': 10, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 14, 'focal_length': 50, 'lens_type': "PERSP"}}
 
 
 
@@ -20,6 +20,12 @@ def _setup_render() -> None:
   bpy.context.scene.cycles.use_denoising = True
   bpy.context.scene.cycles.adaptive_threshold = 0.01
   bpy.context.scene.cycles.samples = 500
+
+  # camera:
+  bpy.context.object.data.lens = RENDER_SETUPS[RENDER]['focal_length']
+  bpy.context.object.data.type = RENDER_SETUPS[RENDER]['lens_type']
+
+
 
 
 def _get_landscape_bounding_box(lanscape_ob_name: str) -> List[Dict]:
@@ -116,7 +122,7 @@ def generate_empties(lanscape_ob_name: str) -> List[Dict]:
 
 
 
-def run(map_name: str):
+def run(map_name: str = 'lake_map'):
   """
     Runs this function in the blender script
   """
@@ -125,21 +131,13 @@ def run(map_name: str):
   utils.clear_cameras()
   utils.clear_empties()
   empties = generate_empties('Landscape')
-  utils.create_camera(camera_name, 1080, 1080)
+  utils.create_camera(camera_name, RENDER_SETUPS[RENDER]['camera_w'], RENDER_SETUPS[RENDER]['camera_h'])
   for empty_d in empties:
-    utils.clear_object_contrains(camera_name)
-    utils.make_camera_track_object(camera_name, empty_d['name'], offset_z = RENDER_SETUPS[RENDER]['camera_z'])
-
-
-  # bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{object_file_name}_{angle}.png"
-  # bpy.ops.render.render(write_still = 1)
+    utils.set_camera_location(camera_name, x = empty_d['x'], y=empty_d['y'], z=RENDER_SETUPS[RENDER]['camera_z'])
+    bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}/{empty_d['id']}.png"
+    bpy.ops.render.render(write_still = 1)
 
 
 
-# camera:
-# bpy.context.object.data.lens = 50
-# bpy.context.object.data.type = 'ORTHO'
-# bpy.context.object.data.ortho_scale = 7
-# bpy.context.object.data.type = 'PERSP'
 
 # https://www.reddit.com/r/blender/comments/3aie50/the_blender_guide_to_focal_lengths/
