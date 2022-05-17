@@ -183,3 +183,14 @@ https://valgrind.org/docs/manual/quick-start.html
 
 ### Music scenarios
 https://docs.google.com/document/d/1AhmMyDQHfmy1Cq3JuBcPSzUPpqGaNg9okGu3JyKvxtY/edit
+
+### Music instruments
+https://www.followthevikings.com/discover/culture/music
+
+- viking flute https://www.youtube.com/watch?v=dARVyXEqtJg&ab_channel=Herknungr
+- horn
+- Viking lur https://www.youtube.com/watch?v=wsAHiiY7Rc0&ab_channel=Vikingskog
+- viking lyre https://www.youtube.com/watch?v=sKN2bwyygN4&ab_channel=Seidrblot
+- tagelharpa https://www.youtube.com/watch?v=JA5cEzFfWy0&ab_channel=EbanisteriaMusicaleC.M.Ferrari
+- rebec https://www.youtube.com/watch?v=i7k6zAdiQSs&ab_channel=fabiennepratali
+- something similar to Irish bodhran drum https://www.youtube.com/watch?v=5EI66hBgaoY
