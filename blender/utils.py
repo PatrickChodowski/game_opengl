@@ -1,26 +1,18 @@
 
 import bpy
 import bmesh
-import numpy as np
-import math
-import json
-import importlib
-from typing import List, Optional, Tuple
 from mathutils import Vector
-import os
-
-# spec_grids = importlib.util.spec_from_file_location("grids", 
-# "/home/patrick/Documents/projects/game_opengl/blender/grids.py")
-# grids = importlib.util.module_from_spec(spec_grids)
-# spec_grids.loader.exec_module(grids)
+import math
+from typing import List, Optional, Tuple
 
 
-def create_camera(res_x: int = 960, res_y: int = 1080) -> None:
+
+def create_camera(camera_name: str = 'Camera', res_x: int = 960, res_y: int = 1080) -> None:
   """ 
   Creates new camera
   """
-  camera_data = bpy.data.cameras.new(name='Camera')
-  camera_object = bpy.data.objects.new('Camera', camera_data)
+  camera_data = bpy.data.cameras.new(name=camera_name)
+  camera_object = bpy.data.objects.new(camera_name, camera_data)
   bpy.context.scene.collection.objects.link(camera_object)
   bpy.context.scene.camera = camera_object
 
@@ -28,20 +20,26 @@ def create_camera(res_x: int = 960, res_y: int = 1080) -> None:
   bpy.context.scene.render.film_transparent = True
   bpy.context.scene.render.resolution_x = res_x
   bpy.context.scene.render.resolution_y = res_y
-  bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[0].default_value = (1, 1, 1, 1)
+
+
+  # Not working in landscapes?
+  # bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[0].default_value = (1, 1, 1, 1)
 
 
 
-def set_camera_location(x: Optional[float] = None, y: Optional[float] = None, z: Optional[float] = None) -> None:
+def set_camera_location(camera_name: str = 'Camera', 
+                        x: Optional[float] = None, 
+                        y: Optional[float] = None, 
+                        z: Optional[float] = None) -> None:
   """
   Sets camera location
   """
   if x is not None:
-    bpy.data.objects['Camera'].location.x = x
+    bpy.data.objects[camera_name].location.x = x
   if y is not None:
-    bpy.data.objects['Camera'].location.y = y
+    bpy.data.objects[camera_name].location.y = y
   if z is not None:
-    bpy.data.objects['Camera'].location.z = z
+    bpy.data.objects[camera_name].location.z = z
 
 
 def set_camera_at(object_name: str, 
@@ -136,7 +134,7 @@ def make_camera_track_empty(offset_x: Optional[float] = None,
     ttc.up_axis = 'UP_Y'
 
     kw_args = dict()
-
+    kw_args['camera_name'] = 'Camera'
     if offset_x is not None:
       kw_args["x"] = offset_x
     else:
@@ -153,6 +151,37 @@ def make_camera_track_empty(offset_x: Optional[float] = None,
       kw_args["z"] = bpy.data.objects['empty'].location.z
 
     set_camera_location(**kw_args)
+
+
+
+def make_camera_track_object(camera_name: str, 
+                             object_name: str, 
+                             offset_x: Optional[float] = None, 
+                             offset_y: Optional[float] = None, 
+                             offset_z: Optional[float] = None) -> None:
+
+  ttc = bpy.data.objects[camera_name].constraints.new(type='TRACK_TO')
+  ttc.target = bpy.data.objects[object_name]
+  ttc.track_axis = 'TRACK_NEGATIVE_Z'
+  ttc.up_axis = 'UP_Y'
+  kw_args = dict()
+  kw_args['camera_name'] = camera_name
+  if offset_x is not None:
+    kw_args["x"] = offset_x
+  else:
+    kw_args["x"] = bpy.data.objects[object_name].location.x
+
+  if offset_y is not None:
+    kw_args["y"] = offset_y
+  else:
+    kw_args["y"] = bpy.data.objects[object_name].location.y
+
+  if offset_z is not None:
+    kw_args["z"] = offset_z
+  else:
+    kw_args["z"] = bpy.data.objects[object_name].location.z
+
+  set_camera_location(**kw_args)
 
 
 
@@ -242,6 +271,43 @@ def clear_animations():
   for ob in bpy.data.objects:
     ob.animation_data_clear()
         
+
+def clear_cameras() -> None:
+  """
+    Removes all cameras from the scene
+  """
+  if bpy.context.object.mode != 'OBJECT':
+    bpy.ops.object.mode_set(mode='OBJECT')
+  bpy.ops.object.select_all(action='DESELECT')
+  for ob in bpy.data.objects:
+    if "Camera" in ob.name:
+      ob.select_set(True)
+  bpy.ops.object.delete()
+  bpy.ops.object.select_all(action='DESELECT')
+
+
+def clear_empties() -> None:
+  """
+    Remove all empties
+  """
+  bpy.ops.object.select_all(action='DESELECT')
+  for ob in bpy.data.objects:
+    if "Empty" in ob.name:
+      ob.select_set(True)
+  bpy.ops.object.delete()
+  bpy.ops.object.select_all(action='DESELECT')
+
+
+def clear_object_contrains(object_name: str) -> None:
+  """
+    Removes all constraints from the object
+  """
+  for ob in bpy.data.objects:
+    if ob.name == object_name:
+      for c in ob.constraints:
+        ob.constraints.remove(c)
+
+
 
 #### BACKUP ####
 
