@@ -10,6 +10,10 @@ spec_landscapes = importlib.util.spec_from_file_location("landscapes",
 ld = importlib.util.module_from_spec(spec_landscapes)
 spec_landscapes.loader.exec_module(ld)
 
-ld.get_landscape_bounding_box('Landscape')
+# bb = ld._get_landscape_bounding_box('Landscape')
+# mmd = ld._get_min_max_bb(bb)
+# ld._get_empty_positions(mmd)
+ld.clear_empties()
+ld.generate_empties('Landscape')
 # ld.clear_cameras()
 # ld.add_camera()
