@@ -8,9 +8,9 @@ utils = importlib.util.module_from_spec(spec_utils)
 spec_utils.loader.exec_module(utils)
 
 # one tile would be 1 blender meter and 1080 pixels?
-RENDER = 'standard'
+RENDER = 'detail'
 RENDER_SETUPS = {'standard': {'tile_width': 10, 'tile_height': 10, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 14, 'focal_length': 50, 'lens_type': "PERSP"}}
-
+RENDER_SETUPS = {'detail': {'tile_width': 5, 'tile_height': 5, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 7.5, 'focal_length': 50, 'lens_type': "PERSP"}}
 
 
 def _setup_render() -> None:
@@ -20,10 +20,12 @@ def _setup_render() -> None:
   bpy.context.scene.cycles.use_denoising = True
   bpy.context.scene.cycles.adaptive_threshold = 0.01
   bpy.context.scene.cycles.samples = 500
+  bpy.context.scene.world.cycles_visibility.glossy = False
 
-  # camera:
-  bpy.context.object.data.lens = RENDER_SETUPS[RENDER]['focal_length']
-  bpy.context.object.data.type = RENDER_SETUPS[RENDER]['lens_type']
+
+  # camera ZLE:
+  # bpy.context.object.data.lens = RENDER_SETUPS[RENDER]['focal_length']
+  # bpy.context.object.data.type = RENDER_SETUPS[RENDER]['lens_type']
 
 
 
@@ -133,9 +135,9 @@ def run(map_name: str = 'lake_map'):
   empties = generate_empties('Landscape')
   utils.create_camera(camera_name, RENDER_SETUPS[RENDER]['camera_w'], RENDER_SETUPS[RENDER]['camera_h'])
   for empty_d in empties:
-    print(f" Rendering {map_name} part: {empty_d['id']}")
+    print(f" Rendering {map_name} render: {RENDER} part: {empty_d['id']}")
     utils.set_camera_location(camera_name, x = empty_d['x'], y=empty_d['y'], z=RENDER_SETUPS[RENDER]['camera_z'])
-    bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}/{empty_d['id']}.png"
+    bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}_{RENDER}/{empty_d['id']}.png"
     bpy.ops.render.render(write_still = 1)
 
 
