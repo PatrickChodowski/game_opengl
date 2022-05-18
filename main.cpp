@@ -15,6 +15,8 @@ int FPS;
 Uint32 flags = SDL_WINDOW_OPENGL;
 std::string GAME_CONFIG_PATH = "config.json";
 
+
+
 int main()
 { 
   game::read_config(GAME_CONFIG_PATH);
