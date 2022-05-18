@@ -23,6 +23,7 @@
 #include "items.h"
 #include "logger.h"
 #include "maps.h"
+#include "maps2.h"
 #include "mobs.h"
 #include "models.h"
 #include "mouse.h"
@@ -98,6 +99,7 @@ namespace game
     items::init();
     logger::init();
     maps::init();
+    maps2::init();
     mobs::init();
     mouse::init();
     npcs::init();
