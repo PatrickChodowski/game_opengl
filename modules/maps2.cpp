@@ -17,6 +17,7 @@
 namespace maps2
 {
   phmap::flat_hash_map<int, maps2::MapData> maps = {};
+  phmap::flat_hash_map<int, quads::QuadData> tiles = {};
 
   void init()
   {
@@ -119,6 +120,11 @@ namespace maps2
 
   }
 
+
+  void clear()
+  {
+    maps2::tiles.clear();
+  }
 
 
 

@@ -27,6 +27,7 @@ namespace maps2
   struct MapData
   {
     int map_id;
+    int model_id;
     int tile_width;
     int tile_height;
     int tile_count_x;
@@ -36,13 +37,13 @@ namespace maps2
     phmap::flat_hash_map<int, std::vector<int>> tile_map;
 
     std::string name;
-    std::string path;
 
-    JS_OBJ(map_id, tile_width, tile_height, tile_count_x, tile_count_y, 
-    tiles, name, path);
+    JS_OBJ(map_id, model_id, tile_width, tile_height, tile_count_x, tile_count_y, 
+    tiles, name);
   };
 
   extern phmap::flat_hash_map<int, maps2::MapData> maps;
+  extern phmap::flat_hash_map<int, quads::QuadData> tiles;
 
   // Initialize module
   void init();
@@ -52,6 +53,9 @@ namespace maps2
 
   // Initialize map by the map id
   void init_map(int map_id);
+
+  // Clear current tiles
+  void clear();
 
 
 
