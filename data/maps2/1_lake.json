@@ -1,7 +1,7 @@
 {
   "map_id": 1,
+  "model_id": 8,
   "name": "1_lake",
-  "path": "./blender/done/lake_map_detail",
   "tile_width": 1080,
   "tile_height": 1080,
   "tile_count_x": 4,
