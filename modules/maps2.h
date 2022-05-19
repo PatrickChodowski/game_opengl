@@ -44,6 +44,8 @@ namespace maps2
 
   extern phmap::flat_hash_map<int, maps2::MapData> maps;
   extern phmap::flat_hash_map<int, quads::QuadData> tiles;
+  extern int CURRENT_TILE_ID;
+  extern int CURRENT_MAP_ID;
 
   // Initialize module
   void init();
@@ -51,12 +53,26 @@ namespace maps2
   // Read map data to struct
   void read_data(std::string name);
 
+  // Finds tile ID for given map and position
+  int _get_tile_id(int map_id, int x, int y);
+
+  // Update map tiles for render. Checks in which tile the player is and which tiles to render
+  void update(int map_id, int x, int y);
+
   // Initialize map by the map id
   void init_map(int map_id);
+
+  // Load tiles based on current map id and tile id
+  void load_tiles(int map_id, int tile_id);
+
+  // Generate single tile quad
+  quads::QuadData generate_tile(float x, float y, int model_id, int frame_id);
 
   // Clear current tiles
   void clear();
 
+  // Render tiles
+  void render();
 
 
 
