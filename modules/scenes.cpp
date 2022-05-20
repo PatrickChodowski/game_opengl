@@ -9,7 +9,7 @@
 #include "hero.h"
 #include "interactions.h"
 #include "items.h"
-#include "maps.h"
+#include "maps2.h"
 #include "mobs.h"
 #include "saves.h"
 #include "scenes.h"
@@ -59,9 +59,6 @@ namespace scenes
       game::EVENT_HANDLER_ID = scenes::scenes[scene_id].events_handler_id;
       game::MAP_ID = scenes::scenes[scene_id].map_id;
 
-      // Load map
-      maps::init_map(game::MAP_ID);
-
       // Load entities
       for(int e=0; e<scenes::scenes[scene_id].entities.size(); e++)
       {
@@ -75,6 +72,10 @@ namespace scenes
 
       hero::HeroLoader[load_scene_from](scene_id);
 
+      std::cout << "hero loaded" << std::endl;
+
+      // Load map
+      maps2::init_map(game::MAP_ID);
 
       // // load mobs based on the map
       // mobs::spawn_from_nest(game::MAP_ID);
