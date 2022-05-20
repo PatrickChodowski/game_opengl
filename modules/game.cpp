@@ -22,7 +22,6 @@
 #include "interactions.h"
 #include "items.h"
 #include "logger.h"
-#include "maps.h"
 #include "maps2.h"
 #include "mobs.h"
 #include "models.h"
@@ -64,7 +63,7 @@ namespace game
   {
     anims::clear();
     collisions::clear();
-    maps::clear();
+    maps2::clear();
     nav::clear();
     camera::reset();
     ecs::clear();
@@ -98,7 +97,6 @@ namespace game
     interactions::init();
     items::init();
     logger::init();
-    maps::init();
     maps2::init();
     mobs::init();
     mouse::init();
@@ -118,7 +116,8 @@ namespace game
     travel::update();
     collisions::update();
     anims::update();
-    maps::render();
+    maps2::update(maps2::CURRENT_MAP_ID);
+    maps2::render();
     quads::render();
     fonts::render();
     nav::render();
@@ -200,11 +199,11 @@ namespace game
     scenes::scenes.clear();
 
     items::refresh();
-    maps::refresh();
+    maps2::refresh();
     mobs::refresh();
     npcs::refresh();
     items::init();
-    maps::init();
+    maps2::init();
     mobs::init();
     models::init();
     npcs::init();

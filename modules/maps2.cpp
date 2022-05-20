@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "hero.h"
 #include "ecs.h"
 #include "maps2.h"
 #include "models.h"
@@ -20,6 +21,7 @@ namespace maps2
   phmap::flat_hash_map<int, quads::QuadData> tiles = {};
   int CURRENT_TILE_ID = -1;
   int CURRENT_MAP_ID = -1;
+  int TILE_SCALE = 1;
 
   void init()
   {
@@ -40,10 +42,12 @@ namespace maps2
     context.parseTo(MD);
 
     // Handle tile real coordinates within map
-    for(int i=0; i<MD.tiles.size(); i++)
+    for(int i=0; i<MD._tiles.size(); i++)
     {
-      MD.tiles[i].tile_x = MD.tiles[i].x*MD.tile_width;
-      MD.tiles[i].tile_y = MD.tiles[i].y*MD.tile_height;
+      MD._tiles[i].tile_x = MD._tiles[i].x*MD.tile_width;
+      MD._tiles[i].tile_y = MD._tiles[i].y*MD.tile_height;
+      MD.tiles.insert({MD._tiles[i].id, MD._tiles[i]});
+
     }
     // 0 1 2 3 
     // 4 5 6 7
@@ -52,15 +56,15 @@ namespace maps2
 
     int n = 1;
     // Create tile map (for each tile find the one that need to be rendered)
-    for(int i=0; i<MD.tiles.size(); i++)
+    for(int i=0; i<MD._tiles.size(); i++)
     {
       std::vector<int> tiles_to_render = {};
-      int id = MD.tiles[i].id;
-      int x = MD.tiles[i].x;
-      int y = MD.tiles[i].y;
+      int id = MD._tiles[i].id;
+      int x = MD._tiles[i].x;
+      int y = MD._tiles[i].y;
 
       // Main tile ID
-      tiles_to_render.push_back(MD.tiles[i].id);
+      tiles_to_render.push_back(MD._tiles[i].id);
 
       // check one to the right
       if((x+n) < MD.tile_count_x){
@@ -119,11 +123,11 @@ namespace maps2
     int tile_id = -1;
     // check in which tile the player is
 
-    for(int t=0; t < maps2::maps.at(map_id).tiles.size(); t++)
+    for(int t=0; t < maps2::maps.at(map_id)._tiles.size(); t++)
     {
-      maps2::TileData tdd = maps2::maps.at(map_id).tiles[t];
-      if((x >= tdd.tile_x) & (x <= (tdd.tile_x + maps2::maps.at(map_id).tile_width)) & 
-         (y >= tdd.tile_y) & (y <= (tdd.tile_y + maps2::maps.at(map_id).tile_height))){
+      maps2::TileData tdd = maps2::maps.at(map_id)._tiles[t];
+      if((x >= tdd.tile_x*TILE_SCALE) & (x <= (tdd.tile_x*TILE_SCALE + maps2::maps.at(map_id).tile_width*TILE_SCALE)) & 
+         (y >= tdd.tile_y*TILE_SCALE) & (y <= (tdd.tile_y*TILE_SCALE + maps2::maps.at(map_id).tile_height*TILE_SCALE))){
         tile_id = tdd.id;
         break;
       }
@@ -131,13 +135,19 @@ namespace maps2
     return tile_id;
   }
 
-  void update(int map_id, int x, int y)
+  void update(int map_id)
   {
-    int tile_id = maps2::_get_tile_id(map_id, x, y);
-    if(maps2::CURRENT_TILE_ID != tile_id){
-      maps2::load_tiles(map_id, tile_id);
-      maps2::CURRENT_TILE_ID = tile_id;
-    };
+    if(map_id > -1){
+      int hero_x = ecs::positions.at(hero::HERO_ENTITY_ID).x;
+      int hero_y = ecs::positions.at(hero::HERO_ENTITY_ID).y;
+
+      int tile_id = maps2::_get_tile_id(map_id, hero_x, hero_y);
+      if(maps2::CURRENT_TILE_ID != tile_id){
+        std::cout << " [MAPS] Updating current tile ID from " << maps2::CURRENT_TILE_ID << " to " << tile_id << std::endl;
+        maps2::load_tiles(map_id, tile_id);
+        maps2::CURRENT_TILE_ID = tile_id;
+      };
+    }
   }
 
   void load_tiles(int map_id, int tile_id)
@@ -146,38 +156,47 @@ namespace maps2
     std::vector<int> tiles_to_render = maps2::maps.at(map_id).tile_map.at(tile_id);
     for(int t=0; t < tiles_to_render.size(); t++)
     {
-      quads::QuadData tile = maps2::generate_tile();
-      maps2::tiles.insert({tile_id, tile});
+      quads::QuadData tile_quad = maps2::generate_tile(map_id, tiles_to_render[t]);
+      maps2::tiles.insert({tiles_to_render[t], tile_quad});
     }
+    std::cout << " [MAPS] Loaded tiles, size: " <<  maps2::tiles.size() << std::endl;
   };
 
-
-  quads::QuadData generate_tile(int model_id, int frame_id)
+  quads::QuadData generate_tile(int map_id, int tile_id)
   {
+    // std::cout << " [MAPS] Generating tile " << tile_id << " for map ID: " << map_id << std::endl;
+    maps2::MapData MDD = maps2::maps.at(map_id);
+    maps2::TileData TDD = maps2::maps.at(map_id).tiles.at(tile_id);
+
     // is tile an entity? :D
     quads::QuadData tile;
-    tile.model_id = model_id;
-    tile.frame_id = frame_id;
+    tile.model_id = MDD.model_id;
+    tile.frame_id = tile_id;
+
     if(tile.model_id > -1){
       tile.texture_id = models::ModelTextureMap.at(tile.model_id);
-      tile.norm_x_start = models::models.at(tile.model_id).frames.at(tile.frame_id).norm_x_start;
-      tile.norm_x_end = models::models.at(tile.model_id).frames.at(tile.frame_id).norm_x_end;
-      tile.norm_y_start = models::models.at(tile.model_id).frames.at(tile.frame_id).norm_y_start;
-      tile.norm_y_end = models::models.at(tile.model_id).frames.at(tile.frame_id).norm_y_end;
+      models::ModelFrameData MFD =  models::models.at(tile.model_id).frames.at(tile.frame_id);
+      tile.norm_x_start = MFD.norm_x_start;
+      tile.norm_x_end = MFD.norm_x_end;
+      tile.norm_y_start = MFD.norm_y_start;
+      tile.norm_y_end = MFD.norm_y_end;
     }
+
     tile.entity_type_id = ENTITY_TYPE_MAP;
     tile.camera_type = CAMERA_DYNAMIC;
     tile.r = 0.5f;
     tile.g = 0.5f;
     tile.b = 0.5f;
     tile.a = 1.0f;
-    tile.x = x;
-    tile.y = y;
+    tile.x = TDD.tile_x*TILE_SCALE;
+    tile.y = TDD.tile_y*TILE_SCALE;
+
     tile.z = 0.1f;
-    tile.w = maps::default_tile_width;
-    tile.h = maps::default_tile_height;
-    tile.window_x = x;
-    tile.window_y = y;
+    tile.w = MDD.tile_width*TILE_SCALE;
+    tile.h = MDD.tile_height*TILE_SCALE;
+
+    tile.window_x = tile.x;
+    tile.window_y = tile.y;
     tile.window_h = tile.h;
     tile.window_w = tile.w;
     tile.camera_type = CAMERA_DYNAMIC;
@@ -187,28 +206,26 @@ namespace maps2
 
   }
 
-  
-
-
   void init_map(int map_id)
   {
     if(map_id > -1)
     {
       std::cout << " [MAPS] Started initializing map id: " << map_id << std::endl;
-      // maps2::load(map_id);
+      maps2::CURRENT_MAP_ID = map_id;
+      int model_id = maps2::maps.at(map_id).model_id;
+      models::load(model_id);
+
+      // Initializing map with position 0,0?
+      maps2::update(map_id);
+
+
 
       // doors
       // navmesh
       // paths
 
-
-
-
     }
-
-
   }
-
 
   void clear()
   {
@@ -223,6 +240,12 @@ namespace maps2
     }
   }
 
-
+  void refresh()
+  {
+    maps2::tiles.clear();
+    maps2::maps.clear();
+    maps2::CURRENT_MAP_ID = -1;
+    maps2::CURRENT_TILE_ID = -1;
+  }
 
 }

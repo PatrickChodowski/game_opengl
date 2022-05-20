@@ -6,7 +6,7 @@
   "tile_height": 1080,
   "tile_count_x": 4,
   "tile_count_y": 4,
-  "tiles": [
+  "_tiles": [
             {"id": 0, "x": 0, "y": 0},
             {"id": 1, "x": 1, "y": 0},
             {"id": 2, "x": 2, "y": 0},
