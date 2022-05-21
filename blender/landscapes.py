@@ -114,7 +114,7 @@ def generate_empties(lanscape_ob_name: str) -> List[Dict]:
           empty = bpy.data.objects.new(empty_name, None)  # Create new empty object
           obj.users_collection[0].objects.link(empty)  # Link empty to the current object's collection
           empty.empty_display_type = 'PLAIN_AXES'
-          empty.empty_display_size = 2
+          empty.empty_display_size = (RENDER_SETUPS[RENDER]['tile_width']/2)
           empty.parent = obj
           #empty.location = (bb0['x'], bb0['y'], bb0['z'])
           empty.location = (empty_d['x'], empty_d['y'], 0)
@@ -134,11 +134,11 @@ def run(map_name: str = 'lake_map'):
   utils.clear_empties()
   empties = generate_empties('Landscape')
   utils.create_camera(camera_name, RENDER_SETUPS[RENDER]['camera_w'], RENDER_SETUPS[RENDER]['camera_h'])
-  for empty_d in empties:
-    print(f" Rendering {map_name} render: {RENDER} part: {empty_d['id']}")
-    utils.set_camera_location(camera_name, x = empty_d['x'], y=empty_d['y'], z=RENDER_SETUPS[RENDER]['camera_z'])
-    bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}_{RENDER}/{empty_d['id']}.png"
-    bpy.ops.render.render(write_still = 1)
+  # for empty_d in empties:
+  #   print(f" Rendering {map_name} render: {RENDER} part: {empty_d['id']}")
+  #   utils.set_camera_location(camera_name, x = empty_d['x'], y=empty_d['y'], z=RENDER_SETUPS[RENDER]['camera_z'])
+  #   bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}_{RENDER}/{empty_d['id']}.png"
+  #   bpy.ops.render.render(write_still = 1)
 
 
 

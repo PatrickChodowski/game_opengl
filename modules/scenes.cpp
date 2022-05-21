@@ -72,8 +72,6 @@ namespace scenes
 
       hero::HeroLoader[load_scene_from](scene_id);
 
-      std::cout << "hero loaded" << std::endl;
-
       // Load map
       maps2::init_map(game::MAP_ID);
 

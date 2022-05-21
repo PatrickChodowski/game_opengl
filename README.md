@@ -143,6 +143,9 @@ When I have longer soundtrack, will improve the functionality of sounds module. 
 - starting the sound
 - learn more about thread management
 
+### Multi threading
+https://stackoverflow.com/questions/7686939/c-simple-return-value-from-stdthread
+
 
 
 ## Credits:

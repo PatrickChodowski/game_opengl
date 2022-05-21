@@ -2,6 +2,8 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <thread>
+#include <future>
 
 #include <GL/glew.h> 
 
@@ -45,7 +47,6 @@ namespace utils
 
   // Calculates distance between two points
   float get_distance_between_points(float x1, float y1, float x2, float y2);
-
 
   // Convert number to string
    template <typename T>
