@@ -70,30 +70,32 @@ def _get_min_max_bb(bb: List[Dict]) -> Dict:
   # print(d)
   return d
 
-def _get_empty_positions(mmd: Dict) -> List[Dict]:
+def _get_positions(mmd: Dict) -> List[Dict]:
   ld_width = mmd['max_x'] - mmd['min_x']
   ld_height = mmd['max_y'] - mmd['min_y']
 
   tile_width = RENDER_SETUPS[RENDER]['tile_width']
   tile_height = RENDER_SETUPS[RENDER]['tile_height']
 
-  empty_width = int(ld_width/tile_width)
-  empty_height = int(ld_height/tile_height)
-  empties = list()
-  e_id = 0
-  # start in left top corner Need to put empty object in the middle of tile
-  for h in range(empty_height):
-    for w in range(empty_width):
+  pos_width = int(ld_width/tile_width)
+  pos_height = int(ld_height/tile_height)
+  poss = list()
+  pos_id = 0
+  # start in left top corner Need to put empty/plane object in the middle of tile
+  for h in range(pos_height):
+    for w in range(pos_width):
       d = dict()
-      d['id'] = e_id
+      d['id'] = pos_id
       d['x'] = mmd['min_x'] + (tile_width/2) + tile_width*w
       d['y'] = mmd['max_y'] - (tile_height/2) - tile_height*h
-      e_id += 1
-      empties.append(d)
-  # print(" Empties positons: ")
-  # print(empties)
+      pos_id += 1
+      poss.append(d)
 
-  return empties
+  return poss
+
+
+
+
 
 
 def generate_empties(lanscape_ob_name: str) -> List[Dict]:
@@ -102,7 +104,7 @@ def generate_empties(lanscape_ob_name: str) -> List[Dict]:
   """
   bb = _get_landscape_bounding_box(lanscape_ob_name)
   mmd = _get_min_max_bb(bb)
-  empties = _get_empty_positions(mmd)
+  empties = _get_positions(mmd)
 
   for ob in bpy.data.objects:
     if ob.name == lanscape_ob_name:
@@ -116,12 +118,21 @@ def generate_empties(lanscape_ob_name: str) -> List[Dict]:
           empty.empty_display_type = 'PLAIN_AXES'
           empty.empty_display_size = (RENDER_SETUPS[RENDER]['tile_width']/2)
           empty.parent = obj
-          #empty.location = (bb0['x'], bb0['y'], bb0['z'])
           empty.location = (empty_d['x'], empty_d['y'], 0)
           empty_d['name'] = empty_name
 
   return empties
 
+
+
+def generate_locations(lanscape_ob_name: str) -> List[Dict]:
+  """
+    Create location list for planes 
+  """
+  bb = _get_landscape_bounding_box(lanscape_ob_name)
+  mmd = _get_min_max_bb(bb)
+  positions = _get_positions(mmd)
+  return positions
 
 
 def run(map_name: str = 'lake_map'):
@@ -130,15 +141,23 @@ def run(map_name: str = 'lake_map'):
   """
   _setup_render()
   camera_name = 'Camera'
+  plane_name = "TRACK_PLANE"
+
   utils.clear_cameras()
   utils.clear_empties()
-  empties = generate_empties('Landscape')
+  utils.delete_object(plane_name)
+
+  locations = generate_locations('Landscape')
   utils.create_camera(camera_name, RENDER_SETUPS[RENDER]['camera_w'], RENDER_SETUPS[RENDER]['camera_h'])
-  # for empty_d in empties:
-  #   print(f" Rendering {map_name} render: {RENDER} part: {empty_d['id']}")
-  #   utils.set_camera_location(camera_name, x = empty_d['x'], y=empty_d['y'], z=RENDER_SETUPS[RENDER]['camera_z'])
-  #   bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}_{RENDER}/{empty_d['id']}.png"
-  #   bpy.ops.render.render(write_still = 1)
+  utils.create_plane(plane_name, x=0, y=0, z=0, size=RENDER_SETUPS[RENDER]['tile_width'])
+
+  for loc in locations:
+    print(f" Rendering {map_name} render: {RENDER} part: {loc['id']}")
+    utils.set_object_location(plane_name, loc['x'], loc['y'],0)
+    utils.set_object_location(camera_name, x = loc['x'], y=loc['y'], z=RENDER_SETUPS[RENDER]['camera_z'])
+    utils.set_camera_at(plane_name)
+    utils.render_png(f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}_{RENDER}/{loc['id']}.png")
+
 
 
 
