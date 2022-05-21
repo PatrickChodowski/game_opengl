@@ -230,6 +230,8 @@ namespace maps2
   void clear()
   {
     maps2::tiles.clear();
+    maps2::CURRENT_TILE_ID = -1;
+    maps2::CURRENT_MAP_ID = -1;
   }
 
   void render()

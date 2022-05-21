@@ -76,9 +76,8 @@ namespace models
     // MD.anim_list.clear();
 
     models::models.insert(std::pair<int, models::ModelData>{MD.id, MD});
-
-    // try using different thread? Can it return the variable?
     unsigned int opengl_texture_id = models::_load_texture_to_opengl(MD.id, MD.w, MD.h, 4);
+
     models::models.at(MD.id).opengl_texture_id = opengl_texture_id;
   }
 

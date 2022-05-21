@@ -26,7 +26,7 @@ namespace hero
     hero::HeroLoader[SCENE_LOAD_FROM_LOAD] = hero::_load_hero_from_load_game;
     hero::HeroLoader[SCENE_LOAD_CHANGE_LEVEL] = hero::_load_hero_from_change_level;
 
-    std::cout << "Hero initialized" << std::endl;
+    std::cout << " [HERO] initialized" << std::endl;
   };
 
   hero::HeroData read_data(std::string char_type)
@@ -41,7 +41,7 @@ namespace hero
 
   void _load_hero_from_new_game(int scene_id)
   {
-    std::cout << " [GAME] Loading hero from new game to scene ID: " << scene_id << std::endl;
+    std::cout << " [HERO] Loading hero from new game to scene ID: " << scene_id << std::endl;
     float hero_start_x = scenes::scenes[scene_id].hero_start_x;
     float hero_start_y = scenes::scenes[scene_id].hero_start_y;
 
@@ -63,6 +63,7 @@ namespace hero
   {
     if(game::HERO_START_X != -1000 & game::HERO_START_Y != -1000)
     {
+      std::cout << " [HERO] Load hero from change level" << std::endl;
       hero::HERO_ENTITY_ID = ecs::create_entity(&ecs::saved_entities[0]);
       ecs::saved_entities.clear();
       ecs::set_position(hero::HERO_ENTITY_ID, game::HERO_START_X, game::HERO_START_Y);
