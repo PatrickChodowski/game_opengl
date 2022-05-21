@@ -26,20 +26,49 @@ def create_camera(camera_name: str = 'Camera', res_x: int = 960, res_y: int = 10
   # bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[0].default_value = (1, 1, 1, 1)
 
 
+def render_png(filepath: str):
+  """
+    Renders and saves PNG file
+  """
+  #   bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}_{RENDER}/{empty_d['id']}.png"
+  bpy.context.scene.render.filepath = filepath
+  bpy.ops.render.render(write_still = 1)
 
-def set_camera_location(camera_name: str = 'Camera', 
+
+def create_plane(plane_name: str, x: float, y: float, z: float, size: float = 1.0) -> None:
+  """
+    Creates empty plane
+  """
+  bpy.ops.mesh.primitive_plane_add(
+      size=size,
+      calc_uvs=True,
+      enter_editmode=False,
+      align='WORLD',
+      location=(x,y,z),
+      rotation=(0, 0, 0),
+      scale=(0, 0, 0))
+  current_name = bpy.context.selected_objects[0].name
+  plane = bpy.data.objects[current_name]
+  plane.name = plane_name
+  plane.data.name = plane_name
+  print(f" CREATED plane named: {plane_name}")
+
+
+def set_object_location(object_name: str = 'Camera', 
                         x: Optional[float] = None, 
                         y: Optional[float] = None, 
                         z: Optional[float] = None) -> None:
   """
-  Sets camera location
+  Sets object location
   """
-  if x is not None:
-    bpy.data.objects[camera_name].location.x = x
-  if y is not None:
-    bpy.data.objects[camera_name].location.y = y
-  if z is not None:
-    bpy.data.objects[camera_name].location.z = z
+  if object_name in bpy.data.objects:
+    if x is not None:
+      bpy.data.objects[object_name].location.x = x
+    if y is not None:
+      bpy.data.objects[object_name].location.y = y
+    if z is not None:
+      bpy.data.objects[object_name].location.z = z
+    print(f" SETTING object {object_name} location to ({x},{y},{z})")
 
 
 def set_camera_at(object_name: str, 
@@ -61,7 +90,6 @@ def set_camera_at(object_name: str,
 
   if offset_z is not None:
     bpy.data.objects['Camera'].location.z += offset_z
-
 
 
 def get_object_bb(object_name: str) -> List[Vector]:
@@ -153,7 +181,6 @@ def make_camera_track_empty(offset_x: Optional[float] = None,
     set_camera_location(**kw_args)
 
 
-
 def make_camera_track_object(camera_name: str, 
                              object_name: str, 
                              offset_x: Optional[float] = None, 
@@ -182,7 +209,6 @@ def make_camera_track_object(camera_name: str,
     kw_args["z"] = bpy.data.objects[object_name].location.z
 
   set_camera_location(**kw_args)
-
 
 
 def get_name_of_selected_object() -> List[str]:
@@ -235,6 +261,7 @@ def set_camera_angle_circle(angle: int = 45, camera_axis_name: str = "y", up_axi
   elif angle == 60:
     bpy.data.objects['empty'].location.z += 0.13
 
+
 def _move_camera_by_angle(radius: float, angle: int) -> None:
       new_y = bpy.data.objects['empty'].location.y + radius*math.cos(math.radians(angle))
       new_x = bpy.data.objects['empty'].location.x + radius*math.sin(math.radians(angle))
@@ -246,17 +273,18 @@ def orbit_camera(object_file_name: str = "") -> None:
   """
   Take pictures of different camera angles of the same object
   """
-  base_camera_x = bpy.data.objects['Camera'].location.x
-  base_camera_y = bpy.data.objects['Camera'].location.y
+  camera_obj_name = 'Camera'
+  base_camera_x = bpy.data.objects[camera_obj_name].location.x
+  base_camera_y = bpy.data.objects[camera_obj_name].location.y
   # get the radius to the same height
   angles = [0, 45, 90, 135, 180]
-  radius = math.sqrt((bpy.data.objects['Camera'].location.x - bpy.data.objects['empty'].location.x)**2 + (bpy.data.objects['Camera'].location.y - bpy.data.objects['empty'].location.y)**2)
+  radius = math.sqrt((bpy.data.objects[camera_obj_name].location.x - bpy.data.objects['empty'].location.x)**2 + (bpy.data.objects[camera_obj_name].location.y - bpy.data.objects['empty'].location.y)**2)
 
   for angle in angles:
       _move_camera_by_angle(radius, angle)
       bpy.context.scene.render.filepath = f"/home/patrick/Documents/projects/game_opengl/blender/done/{object_file_name}_{angle}.png"
       bpy.ops.render.render(write_still = 1)
-      set_camera_location(x=base_camera_x, y=base_camera_y)
+      set_object_location(object_name = camera_obj_name, x=base_camera_x, y=base_camera_y)
 
   
 def get_materials() -> List[str]:
@@ -271,21 +299,6 @@ def clear_animations():
   for ob in bpy.data.objects:
     ob.animation_data_clear()
         
-
-def clear_cameras() -> None:
-  """
-    Removes all cameras from the scene
-  """
-  if bpy.context.object.mode != 'OBJECT':
-    bpy.ops.object.mode_set(mode='OBJECT')
-  bpy.ops.object.select_all(action='DESELECT')
-  for ob in bpy.data.objects:
-    if "Camera" in ob.name:
-      ob.select_set(True)
-  bpy.ops.object.delete()
-  bpy.ops.object.select_all(action='DESELECT')
-
-
 def clear_empties() -> None:
   """
     Remove all empties
@@ -306,6 +319,29 @@ def clear_object_contrains(object_name: str) -> None:
     if ob.name == object_name:
       for c in ob.constraints:
         ob.constraints.remove(c)
+
+
+def delete_object(object_name: str) -> None:
+  """
+    Deletes object by its name
+  """
+  if object_name in bpy.data.objects:
+    object_to_delete = bpy.data.objects[object_name]
+    bpy.data.objects.remove(object_to_delete, do_unlink=True)
+    print(f"DELETED {object_name}")
+
+
+
+def clear_cameras() -> None:
+  """
+    Removes all cameras from the scene
+  """
+  camera_objects = list()
+  for obj in bpy.data.objects:
+    if "camera" in obj.name.lower():
+      camera_objects.append(obj.name)    
+  for cam_obj in camera_objects:
+    delete_object(cam_obj)
 
 
 
