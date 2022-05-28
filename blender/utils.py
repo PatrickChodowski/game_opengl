@@ -3,7 +3,7 @@ import bpy
 import bmesh
 from mathutils import Vector
 import math
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Dict
 
 
 
@@ -74,9 +74,10 @@ def set_object_location(object_name: str = 'Camera',
 def set_camera_at(object_name: str, 
                   offset_x: Optional[float] = None, 
                   offset_y: Optional[float] = None, 
-                  offset_z: Optional[float] = None) -> None:
+                  offset_z: Optional[float] = None) -> Dict:
   """
   Sets camera at object by object name. Added optional offsets on each axis
+  Returns list of camera x,y,z
   """
   bpy.data.objects[object_name].select_set(state=True)
   bpy.ops.view3d.camera_to_view_selected()
@@ -90,6 +91,12 @@ def set_camera_at(object_name: str,
 
   if offset_z is not None:
     bpy.data.objects['Camera'].location.z += offset_z
+  
+  locs = dict()
+  locs['x'] = bpy.data.objects['Camera'].location.x
+  locs['y'] = bpy.data.objects['Camera'].location.y
+  locs['z'] = bpy.data.objects['Camera'].location.z
+  return locs
 
 
 def get_object_bb(object_name: str) -> List[Vector]:
@@ -342,6 +349,18 @@ def clear_cameras() -> None:
       camera_objects.append(obj.name)    
   for cam_obj in camera_objects:
     delete_object(cam_obj)
+
+
+def clear_planes() -> None:
+  """
+    Removes all planes from the scene
+  """
+  plane_objects = list()
+  for obj in bpy.data.objects:
+    if "plane" in obj.name.lower():
+      plane_objects.append(obj.name)    
+  for pl_obj in plane_objects:
+    delete_object(pl_obj)
 
 
 

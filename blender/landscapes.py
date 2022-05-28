@@ -7,20 +7,60 @@ spec_utils = importlib.util.spec_from_file_location("utils",
 utils = importlib.util.module_from_spec(spec_utils)
 spec_utils.loader.exec_module(utils)
 
+
+# how to split the render properly
+# https://gitlab.com/ChameleonScales/camera_regions
+# https://github.com/p2or/blender-renderborder
+# https://blender.stackexchange.com/questions/44504/possible-to-set-render-border-exactly
+# https://blender.stackexchange.com/questions/47274/how-to-render-parts-of-the-camera-view-and-merge-afterwards
+# https://docs.blender.org/manual/en/latest/render/cycles/baking.html
+# https://docs.blender.org/manual/en/latest/render/cycles/optimizations/index.html
+# https://blender.stackexchange.com/questions/154398/i-have-a-problem-with-baking-no-active-uv-layer-found
+# https://blenderartists.org/t/texturing-a-terrain/534273/3
+# https://portals.docsie.io/rjt-productions-ltd/workspace-gray/trueterrain-40/true-terrain-40-help-guide/deployment_qff0BS1RFmq95Ai15/?doc=/bake-textures/
+# https://www.youtube.com/watch?v=3vZ9eTcgw28&ab_channel=DamianMathew
+# Go to file>external data>pack all in .blend 
+# https://colab.research.google.com/drive/1gqIByImSZ1wKBAK2odBC_pZ4r3rmAutP
+
 # one tile would be 1 blender meter and 1080 pixels?
-RENDER = 'detail'
-RENDER_SETUPS = {'standard': {'tile_width': 10, 'tile_height': 10, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 14, 'focal_length': 50, 'lens_type': "PERSP"}}
-RENDER_SETUPS = {'detail': {'tile_width': 5, 'tile_height': 5, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 7.5, 'focal_length': 50, 'lens_type': "PERSP"}}
+RENDER = 'huge'
+RENDER_SETUPS = {'standard': {'tile_width': 10, 'tile_height': 10, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 14, 'focal_length': 50, 'lens_type': "PERSP", 'angle':False},
+                 'detail': {'tile_width': 5, 'tile_height': 5, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 2, 'focal_length': 50, 'lens_type': "PERSP", 'angle':False},
+                 'detail_ortho': {'tile_width': 5, 'tile_height': 5, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 2, 'focal_length': 50, 'lens_type': "ORTHO", 'angle':False},
+                 'huge': {'tile_width': 20, 'tile_height': 20, 'camera_w': 4096, 'camera_h': 4096, 'camera_z': 2, 'focal_length': 50, 'lens_type': "PERSP", 'angle':True},
+                 'detail_ortho_angle': {'tile_width': 5, 'tile_height': 5, 'camera_w': 1080, 'camera_h': 1080, 'camera_z': 2, 'focal_length': 50, 'lens_type': "ORTHO", 'angle':True},
+                 'small': {'tile_width': 1, 'tile_height': 1, 'camera_w': 256, 'camera_h': 256, 'camera_z': 2, 'focal_length': 50, 'lens_type': "ORTHO", 'angle':True},
+                 'small_persp': {'tile_width': 1, 'tile_height': 1, 'camera_w': 256, 'camera_h': 256, 'camera_z': 2, 'focal_length': 50, 'lens_type': "PERSP", 'angle':True}}
 
 
 def _setup_render() -> None:
   bpy.context.scene.render.engine = 'CYCLES'
   bpy.context.scene.cycles.feature_set = 'EXPERIMENTAL'
   bpy.context.scene.cycles.device = 'GPU'
-  bpy.context.scene.cycles.use_denoising = True
   bpy.context.scene.cycles.adaptive_threshold = 0.01
-  bpy.context.scene.cycles.samples = 500
+  bpy.context.scene.cycles.samples = 100
   bpy.context.scene.world.cycles_visibility.glossy = False
+  bpy.context.scene.cycles.use_preview_denoising = False
+  bpy.context.scene.cycles.max_bounces = 2
+  bpy.context.scene.cycles.diffuse_bounces = 2
+  bpy.context.scene.cycles.glossy_bounces = 2
+  bpy.context.scene.cycles.transmission_bounces = 2
+  bpy.context.scene.cycles.transparent_max_bounces = 2
+  bpy.context.scene.render.threads_mode = 'AUTO'
+  bpy.context.scene.cycles.use_auto_tile = True
+  bpy.context.scene.cycles.tile_size = 2048
+  #bpy.context.scene.render.engine = 'BLENDER_EEVEE'
+
+
+
+
+
+
+
+def _setup_camera(camera_name: str) -> None:
+   bpy.data.cameras[camera_name].ortho_scale = 6.0
+   bpy.data.cameras[camera_name].lens = 50.0
+   bpy.data.cameras[camera_name].type = RENDER_SETUPS[RENDER]['lens_type']
 
 
   # camera ZLE:
@@ -141,22 +181,32 @@ def run(map_name: str = 'lake_map'):
   """
   _setup_render()
   camera_name = 'Camera'
-  plane_name = "TRACK_PLANE"
-
+ 
   utils.clear_cameras()
   utils.clear_empties()
-  utils.delete_object(plane_name)
+  utils.clear_planes()
 
   locations = generate_locations('Landscape')
   utils.create_camera(camera_name, RENDER_SETUPS[RENDER]['camera_w'], RENDER_SETUPS[RENDER]['camera_h'])
-  utils.create_plane(plane_name, x=0, y=0, z=0, size=RENDER_SETUPS[RENDER]['tile_width'])
 
+  _setup_camera(camera_name)
+
+  #for loc in locations[0:6]:
   for loc in locations:
     print(f" Rendering {map_name} render: {RENDER} part: {loc['id']}")
-    utils.set_object_location(plane_name, loc['x'], loc['y'],0)
+    plane_name = f"TRACK_PLANE_{loc['id']}"
+    utils.create_plane(plane_name, x=0, y=0, z=0, size=RENDER_SETUPS[RENDER]['tile_width']) # it will catch a bit more than just plane
+    utils.set_object_location(plane_name, loc['x'], loc['y'], 0.406) # Landscape Z
     utils.set_object_location(camera_name, x = loc['x'], y=loc['y'], z=RENDER_SETUPS[RENDER]['camera_z'])
-    utils.set_camera_at(plane_name)
-    utils.render_png(f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}_{RENDER}/{loc['id']}.png")
+    camera_loc = utils.set_camera_at(plane_name)
+
+    if RENDER_SETUPS[RENDER]['angle']:
+      new_camera_y = loc['y'] - camera_loc['z']
+      utils.set_object_location(camera_name, x = camera_loc['x'], y=new_camera_y, z=camera_loc['z'])
+      bpy.data.objects['Camera'].rotation_euler.x = 0.785398
+
+    # utils.set_object_location(plane_name, x = -100, y=-100, z=RENDER_SETUPS[RENDER]['camera_z'])
+    # utils.render_png(f"/home/patrick/Documents/projects/game_opengl/blender/done/{map_name}_{RENDER}/{loc['id']}.png")
 
 
 

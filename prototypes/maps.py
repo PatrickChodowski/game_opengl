@@ -3,15 +3,15 @@ import os
 from PIL import Image
 
 # Setup
-TILE_WIDTH_COUNT = 4
-TILE_HEIGHT_COUNT = 4
-TILE_WIDTH = 1080
-TILE_HEIGHT = 1080
+TILE_WIDTH_COUNT = 20
+TILE_HEIGHT_COUNT = 20
+TILE_WIDTH = 256
+TILE_HEIGHT = 256
 TEXTURE_WIDTH = TILE_WIDTH*TILE_WIDTH_COUNT
 TEXTURE_HEIGHT = TILE_HEIGHT*TILE_HEIGHT_COUNT
 
-SOURCE_DIR = "/home/patrick/Documents/projects/game_opengl/blender/done/lake_map_detail"
-DESTINATION_PATH = "/home/patrick/Documents/projects/game_opengl/data/maps2/1_lake.png"
+SOURCE_DIR = "/home/patrick/Documents/projects/game_opengl/blender/done/lake_map_small_persp"
+DESTINATION_PATH = "/home/patrick/Documents/projects/game_opengl/data/models/8_lake_small_persp__spritesheet.png"
 
 # Read images
 images = list()
@@ -34,3 +34,4 @@ for im in images:
         y_offset += TILE_HEIGHT
 
 new_image.save(DESTINATION_PATH)
+
