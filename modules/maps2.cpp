@@ -21,7 +21,7 @@ namespace maps2
   phmap::flat_hash_map<int, quads::QuadData> tiles = {};
   int CURRENT_TILE_ID = -1;
   int CURRENT_MAP_ID = -1;
-  int TILE_SCALE = 1;
+  int TILE_SCALE = 2;
 
   void init()
   {
@@ -47,7 +47,6 @@ namespace maps2
       MD._tiles[i].tile_x = MD._tiles[i].x*MD.tile_width;
       MD._tiles[i].tile_y = MD._tiles[i].y*MD.tile_height;
       MD.tiles.insert({MD._tiles[i].id, MD._tiles[i]});
-
     }
     // 0 1 2 3 
     // 4 5 6 7
@@ -55,7 +54,7 @@ namespace maps2
     // 12 13 14 15
 
     const int n_dists = 1;
-    const int max_tile = MD.tiles.size() - 1;
+
     // Create tile map (for each tile find the one that need to be rendered)
     for(int i=0; i<MD._tiles.size(); i++)
     {
@@ -111,12 +110,12 @@ namespace maps2
         MD.tile_map.insert({id, tiles_to_render});
       }
 
-      std::cout << " tile ID: " << id << std::endl;
-      for(int t=0; t<tiles_to_render.size(); t++)
-      {
-        std::cout << tiles_to_render[t] << ", ";
-      }
-      std::cout << std::endl;
+      // std::cout << " tile ID: " << id << std::endl;
+      // for(int t=0; t<tiles_to_render.size(); t++)
+      // {
+      //   std::cout << tiles_to_render[t] << ", ";
+      // }
+      // std::cout << std::endl;
     }
 
     maps2::maps.insert({MD.map_id, MD});
@@ -197,8 +196,8 @@ namespace maps2
     tile.y = TDD.tile_y*TILE_SCALE;
 
     tile.z = 0.1f;
-    tile.w = MDD.tile_width*TILE_SCALE;
-    tile.h = MDD.tile_height*TILE_SCALE;
+    tile.w = (MDD.tile_width+1) *TILE_SCALE;
+    tile.h = (MDD.tile_height+1)*TILE_SCALE;
 
     tile.window_x = tile.x;
     tile.window_y = tile.y;
