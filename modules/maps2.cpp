@@ -54,7 +54,8 @@ namespace maps2
     // 8 9 10 11
     // 12 13 14 15
 
-    int n = 1;
+    const int n_dists = 1;
+    const int max_tile = MD.tiles.size() - 1;
     // Create tile map (for each tile find the one that need to be rendered)
     for(int i=0; i<MD._tiles.size(); i++)
     {
@@ -66,53 +67,56 @@ namespace maps2
       // Main tile ID
       tiles_to_render.push_back(MD._tiles[i].id);
 
-      // check one to the right
-      if((x+n) < MD.tile_count_x){
-        tiles_to_render.push_back(id + n);
+      for(int n=1; n<=n_dists; n++)
+      {
+        // check one to the right
+        if((x+n) < MD.tile_count_x){
+          tiles_to_render.push_back(id + n);
+        }
+
+        // check one to the left
+        if((x-n) >= 0){
+          tiles_to_render.push_back(id - n);
+        }
+
+        // check one down
+        if((y+n) < MD.tile_count_y){
+          tiles_to_render.push_back(id + MD.tile_count_x);
+        }
+
+        // check one up
+        if((y-n) >= 0){
+          tiles_to_render.push_back(id - MD.tile_count_x);
+        }
+
+        // check top right
+        if(((x+1) < MD.tile_count_x) & ((y-1) >= 0)){
+          tiles_to_render.push_back(id - MD.tile_count_x + n);
+        }
+
+        // check top left
+        if(((x-n) >= 0) & ((y-n) >= 0)){
+          tiles_to_render.push_back(id - MD.tile_count_x - n);
+        }
+
+        // check bottom right
+        if(((x+n) < MD.tile_count_x) & ((y+n) < MD.tile_count_y)){
+          tiles_to_render.push_back(id + MD.tile_count_x + n);
+        }
+
+        // check bottom left
+        if(((x-n) >= 0) & ((y+n) < MD.tile_count_y)){
+          tiles_to_render.push_back(id + MD.tile_count_x - n);
+        }
+        MD.tile_map.insert({id, tiles_to_render});
       }
 
-      // check one to the left
-      if((x-n) >= 0){
-        tiles_to_render.push_back(id - n);
+      std::cout << " tile ID: " << id << std::endl;
+      for(int t=0; t<tiles_to_render.size(); t++)
+      {
+        std::cout << tiles_to_render[t] << ", ";
       }
-
-      // check one down
-      if((y+n) < MD.tile_count_y){
-        tiles_to_render.push_back(id + MD.tile_count_y);
-      }
-
-      // check one up
-      if((y-n) >= 0){
-        tiles_to_render.push_back(id - MD.tile_count_y);
-      }
-
-      // check top right
-      if(((x+1) < MD.tile_count_x) & ((y-1) >= 0)){
-        tiles_to_render.push_back(id - MD.tile_count_y + n);
-      }
-
-      // check top left
-      if(((x-n) >= 0) & ((y-n) >= 0)){
-        tiles_to_render.push_back(id - MD.tile_count_y - n);
-      }
-
-      // check bottom right
-      if(((x+n) < MD.tile_count_x) & ((y+n) < MD.tile_count_y)){
-        tiles_to_render.push_back(id + MD.tile_count_y + n);
-      }
-
-      // check bottom left
-      if(((x-n) >= 0) & ((y+n) < MD.tile_count_y)){
-        tiles_to_render.push_back(id + MD.tile_count_y - n);
-      }
-      MD.tile_map.insert({id, tiles_to_render});
-
-      // std::cout << " tile ID: " << id << std::endl;
-      // for(int t=0; t<tiles_to_render.size(); t++)
-      // {
-      //   std::cout << tiles_to_render[t] << ", ";
-      // }
-      // std::cout << std::endl;
+      std::cout << std::endl;
     }
 
     maps2::maps.insert({MD.map_id, MD});
@@ -156,6 +160,7 @@ namespace maps2
     std::vector<int> tiles_to_render = maps2::maps.at(map_id).tile_map.at(tile_id);
     for(int t=0; t < tiles_to_render.size(); t++)
     {
+      std::cout << " Adding tile to render: " <<  tiles_to_render[t] << std::endl;
       quads::QuadData tile_quad = maps2::generate_tile(map_id, tiles_to_render[t]);
       maps2::tiles.insert({tiles_to_render[t], tile_quad});
     }
