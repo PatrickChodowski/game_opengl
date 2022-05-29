@@ -350,6 +350,10 @@ def clear_cameras() -> None:
   for cam_obj in camera_objects:
     delete_object(cam_obj)
 
+  orphan_cameras = [c for c in bpy.data.cameras if not c.users]
+  while orphan_cameras :
+    bpy.data.cameras.remove(orphan_cameras.pop())
+
 
 def clear_planes() -> None:
   """
