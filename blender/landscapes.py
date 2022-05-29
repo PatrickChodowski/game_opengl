@@ -17,7 +17,7 @@ RENDER_SETUPS = {'standard': {'tile_width': 10, 'tile_height': 10, 'camera_w': 1
                  'huge': {'tile_width': 20, 'tile_height': 20, 'camera_w': 4096, 'camera_h': 4096, 'camera_z': 2, 'focal_length': 50, 'lens_type': "PERSP", 'angle':True},
                  'small': {'tile_width': 1, 'tile_height': 1, 'camera_w': 256, 'camera_h': 256, 'camera_z': 2, 'focal_length': 50, 'lens_type': "ORTHO", 'angle':True},
                  'concierge': {'tile_width': 20, 'tile_height': 20, 'camera_w': 4096, 'camera_h': 3072, 'camera_z': 2, 'focal_length': 50, 'lens_type': "ORTHO", 'angle':True},
-                 'concierge_big': {'tile_width': 20, 'tile_height': 20, 'camera_w': 4096*3, 'camera_h': 3072*3, 'camera_z': 2, 'focal_length': 50, 'lens_type': "ORTHO", 'angle':True},
+                 'concierge_big': {'tile_width': 20, 'tile_height': 20, 'camera_w': 4096*2, 'camera_h': 3072*2, 'camera_z': 2, 'focal_length': 50, 'lens_type': "ORTHO", 'angle':True},
                  }
 
 
@@ -26,14 +26,15 @@ def _setup_render() -> None:
   bpy.context.scene.cycles.feature_set = 'EXPERIMENTAL'
   bpy.context.scene.cycles.device = 'GPU'
   bpy.context.scene.cycles.adaptive_threshold = 0.01
-  bpy.context.scene.cycles.samples = 200
+  bpy.context.scene.cycles.samples = 100
   bpy.context.scene.world.cycles_visibility.glossy = False
   bpy.context.scene.cycles.use_preview_denoising = True
-  bpy.context.scene.cycles.max_bounces = 4
-  bpy.context.scene.cycles.diffuse_bounces = 4
-  bpy.context.scene.cycles.glossy_bounces = 4
-  bpy.context.scene.cycles.transmission_bounces = 4
-  bpy.context.scene.cycles.transparent_max_bounces = 4
+  bpy.context.scene.cycles.max_bounces = 2
+  bpy.context.scene.cycles.diffuse_bounces = 2
+  bpy.context.scene.cycles.glossy_bounces = 2
+  bpy.context.scene.cycles.volume_bounces = 2
+  bpy.context.scene.cycles.transmission_bounces = 2
+  bpy.context.scene.cycles.transparent_max_bounces = 2
   bpy.context.scene.render.threads_mode = 'AUTO'
   bpy.context.scene.cycles.use_auto_tile = True
   bpy.context.scene.cycles.tile_size = 1024
