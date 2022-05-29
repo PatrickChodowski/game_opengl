@@ -21,7 +21,7 @@ namespace maps2
   phmap::flat_hash_map<int, quads::QuadData> tiles = {};
   int CURRENT_TILE_ID = -1;
   int CURRENT_MAP_ID = -1;
-  int TILE_SCALE = 2;
+  float TILE_SCALE = 1.5;
 
   void init()
   {

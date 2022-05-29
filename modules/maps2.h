@@ -49,7 +49,7 @@ namespace maps2
   extern phmap::flat_hash_map<int, quads::QuadData> tiles;
   extern int CURRENT_TILE_ID;
   extern int CURRENT_MAP_ID;
-  extern int TILE_SCALE;
+  extern float TILE_SCALE;
 
   // Initialize module
   void init();
