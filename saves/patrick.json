@@ -21,7 +21,7 @@
     "hp" : 100.0,
     "dmg" : 20.0,
     "def" : 100.0,
-    "speed" : 7.0,
+    "speed" : 5.0,
     "exp" : 0.0,
     "radius_x" : 0.0,
     "radius_y" : 0.0,

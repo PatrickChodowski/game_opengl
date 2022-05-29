@@ -5,8 +5,8 @@ import json
 name = "lake"
 model_id = 8
 map_id = 1
-frame_width_count = 4
-frame_height_count = 2
+frame_width_count = 8
+frame_height_count = 6
 
 # consts
 model_name = f"{model_id}_{name}"

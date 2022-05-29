@@ -12,7 +12,8 @@
 #include "dictionary.h"
 
 int FPS;
-Uint32 flags = SDL_WINDOW_OPENGL;
+// SDL_WINDOW_FULLSCREEN
+Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
 std::string GAME_CONFIG_PATH = "config.json";
 
 
