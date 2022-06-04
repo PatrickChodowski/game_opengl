@@ -23,6 +23,20 @@ namespace maps2
     JS_OBJ(id, x, y);
   };
 
+
+  struct MapObjectData
+  {
+    int start_x;
+    int start_y;
+    int end_x;
+    int end_y;
+    int width;
+    int height;
+
+    JS_OBJ(start_x, start_y, end_x, end_y, width, height);
+  };
+
+
   // Map[2] data struct for new maps system
   struct MapData
   {
@@ -34,6 +48,9 @@ namespace maps2
     int tile_count_y;
 
     std::vector<maps2::TileData> _tiles;
+    std::vector<maps2::MapObjectData> _collisions;
+    std::vector<maps2::MapObjectData> _doors;
+    std::vector<maps2::MapObjectData> _waters;
 
     phmap::flat_hash_map<int, maps2::TileData> tiles;
     phmap::flat_hash_map<int, std::vector<int>> tile_map;
@@ -42,7 +59,7 @@ namespace maps2
 
     JS_OBJ(map_id, model_id, tile_width, tile_height, 
     tile_count_x, tile_count_y, 
-    _tiles, name);
+    _tiles, _collisions, _doors, _waters, name);
   };
 
   extern phmap::flat_hash_map<int, maps2::MapData> maps;

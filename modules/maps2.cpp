@@ -156,14 +156,16 @@ namespace maps2
   void load_tiles(int map_id, int tile_id)
   { 
     maps2::tiles.clear();
-    std::vector<int> tiles_to_render = maps2::maps.at(map_id).tile_map.at(tile_id);
-    for(int t=0; t < tiles_to_render.size(); t++)
-    {
-      std::cout << " Adding tile to render: " <<  tiles_to_render[t] << std::endl;
-      quads::QuadData tile_quad = maps2::generate_tile(map_id, tiles_to_render[t]);
-      maps2::tiles.insert({tiles_to_render[t], tile_quad});
+    if(tile_id >= 0){
+      std::vector<int> tiles_to_render = maps2::maps.at(map_id).tile_map.at(tile_id);
+      for(int t=0; t < tiles_to_render.size(); t++)
+      {
+        std::cout << " Adding tile to render: " <<  tiles_to_render[t] << std::endl;
+        quads::QuadData tile_quad = maps2::generate_tile(map_id, tiles_to_render[t]);
+        maps2::tiles.insert({tiles_to_render[t], tile_quad});
+      }
+      std::cout << " [MAPS] Loaded tiles, size: " <<  maps2::tiles.size() << std::endl;
     }
-    std::cout << " [MAPS] Loaded tiles, size: " <<  maps2::tiles.size() << std::endl;
   };
 
   quads::QuadData generate_tile(int map_id, int tile_id)
